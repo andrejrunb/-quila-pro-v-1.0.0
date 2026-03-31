@@ -64,13 +64,27 @@ export const MultiStreamGrid: React.FC = () => {
   const [layout, setLayout] = useState<4 | 9 | 16>(4);
 
   useEffect(() => {
-    // Simular carregamento inicial das câmeras ativas
-    setCameras([
-      { cameraId: 'cam1', zone: 'Entrada Principal', status: 'online' },
-      { cameraId: 'cam2', zone: 'Corredor A', status: 'online' },
-      { cameraId: 'cam3', zone: 'Pátio', status: 'online' },
-      { cameraId: 'cam4', zone: 'Saída Estacionamento', status: 'offline' },
-    ]);
+    // Carregar câmeras ativas do banco de dados (IPC bridge)
+    const loadCameras = async () => {
+      try {
+        if ((window as any).electron?.ipcRenderer) {
+           const dbCameras = await (window as any).electron.ipcRenderer.invoke('get-cameras');
+           if (dbCameras && dbCameras.length > 0) {
+             setCameras(dbCameras.map((cam: any) => ({
+                 cameraId: cam.id,
+                 zone: cam.location || 'Sem Zona',
+                 status: cam.status || 'offline'
+             })));
+           } else {
+             setCameras([]);
+           }
+        }
+      } catch(e) { console.error('Error fetching cameras for grid', e); }
+    };
+    
+    loadCameras();
+    const interval = setInterval(loadCameras, 15000); // Polling status
+    return () => clearInterval(interval);
   }, []);
 
   return (

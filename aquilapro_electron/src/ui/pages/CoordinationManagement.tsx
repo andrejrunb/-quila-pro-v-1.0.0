@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { 
   Users, Shield, Plus, Trash2, Edit2, 
   CheckCircle, XCircle, Layout, BookOpen, 
-  BarChart3, Search, FileText 
+  BarChart3, Search, FileText, Calendar 
 } from 'lucide-react';
 import { BehavioralEvidenceReport } from '../components/BehavioralEvidenceReport';
 import { FileUploader } from '../components/FileUploader';
+import { TimetableBuilder } from '../components/TimetableBuilder';
 import './CoordinationManagement.css';
 
 interface Coordination {
@@ -33,7 +34,7 @@ interface CoordinationManagementProps {
 }
 
 export const CoordinationManagement: React.FC<CoordinationManagementProps> = ({ onBack }) => {
-  const [activeTab, setActiveTab] = useState<'coordinations' | 'users' | 'classes' | 'verification' | 'evidence' | 'plans'>('coordinations');
+  const [activeTab, setActiveTab] = useState<'coordinations' | 'users' | 'classes' | 'verification' | 'evidence' | 'plans' | 'timetable'>('timetable');
   const [searchTerm, setSearchTerm] = useState('');
   const [coordinations, setCoordinations] = useState<Coordination[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -175,6 +176,14 @@ export const CoordinationManagement: React.FC<CoordinationManagementProps> = ({ 
             >
               <FileText className="tab-icon icon-emerald" />
               <span className="tab-label">Planos</span>
+            </div>
+            <div 
+              className={`tab-item ${activeTab === 'timetable' ? 'tab-active-timetable' : ''}`} 
+              onClick={() => setActiveTab('timetable')}
+              aria-label="Aba da Grade Horária"
+            >
+              <Calendar className="tab-icon icon-yellow" />
+              <span className="tab-label">Grade Mestra</span>
             </div>
           </nav>
         </header>
@@ -402,6 +411,12 @@ export const CoordinationManagement: React.FC<CoordinationManagementProps> = ({ 
                 />
               </div>
             </div>
+          )}
+
+          {activeTab === 'timetable' && (
+             <div className="animate-fade-in">
+                <TimetableBuilder />
+             </div>
           )}
         </div>
 

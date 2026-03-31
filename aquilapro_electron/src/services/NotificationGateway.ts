@@ -21,9 +21,10 @@ export interface INotificationProvider {
   send(payload: NotificationPayload): Promise<boolean>;
 }
 
+import { WhatsAppWebJSProvider } from './WhatsAppWebJSProvider';
+
 /**
  * NotificationGateway — Enterprise abstraction for multi-channel alerts.
- * Centralizes routing, provider management, and persistent evidence (v1605).
  */
 export class NotificationGateway {
   private providers: Map<string, INotificationProvider> = new Map();
@@ -31,7 +32,9 @@ export class NotificationGateway {
 
   constructor() {
     this.registerProvider(new MockProvider());
+    this.registerProvider(new WhatsAppWebJSProvider());
   }
+
 
   public registerProvider(provider: INotificationProvider): void {
     this.providers.set(provider.name, provider);

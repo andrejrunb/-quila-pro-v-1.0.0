@@ -252,6 +252,23 @@ function createMainWindow() {
     },
   });
 
+  // Handle Permissions for Webcam / Microphone automatically
+  mainWindow.webContents.session.setPermissionRequestHandler((_webContents, permission, callback) => {
+    if (permission === 'media') {
+      callback(true);
+    } else {
+      callback(false);
+    }
+  });
+
+  // Handle device access checks
+  mainWindow.webContents.session.setPermissionCheckHandler((_webContents, permission) => {
+    if (permission === 'media') {
+      return true;
+    }
+    return false;
+  });
+
   const startUrl = IS_DEV
     ? 'http://localhost:3001'
     : `file://${path.join(__dirname, 'index.html')}`;
@@ -646,6 +663,50 @@ function registerIpcHandlers() {
     return await reporter.generateDailySummary(studentId, date);
   });
 
+  // ---- INTELIGÊNCIA DOCENTE (AI TEACHER LOG) ----
+  ipcMain.handle('process-teacher-audio-log', async (_event, payload) => {
+    try {
+      // Simulação da Pipeline de Inteligência (Áudio -> Texto -> Intents -> Relatório)
+      // Whisper(transcrição) -> LLaMA(Análise de Entidades)
+      console.log('[AI Teacher Log] Recebido novo feed em', payload.timestamp);
+      
+      const teacherTranscription = "O aluno Pedro Henrique Silva Souza e o Marcos não entregaram o dever de casa hoje. O Pedro Henrique me ofendeu xingando a aula e me caluniou na hora que passei a advertência verbal.";
+
+      // 1. O motor de NLP encontra a inadimplência acadêmica 
+      await db.createNotification({
+         type: 'PENDENCIA_PEDAGOGICA',
+         priority: 'high',
+         title: 'Dever Não Entregue - IA Docente',
+         message: 'Marcos e Pedro Henrique Silva Souza ausentes da lição. WhatsApp Sugerido: "⚠️ Áquila Informa: Olá responsável, registramos que o aluno faltou com a tarefa na aula de hoje..."',
+         studentId: 'none',
+         read: 0
+      });
+
+      // 2. O motor NLP encontra infração gravíssima
+      await db.createNotification({
+         type: 'DISCIPLINA',
+         priority: 'high',
+         title: 'Desrespeito e Calúnia Docente',
+         message: 'Pedro Henrique Silva Souza ofendeu o docente de forma grave. Risco Disciplinar Nível 4. Notificação Whatsapp na caixa de saída da coordenação: "🚨 Áquila Urgente: Solicitamos a presença dos responsáveis pelo Pedro Henrique na unidade para tratar sobre ocorrência na aula de hoje..."',
+         studentId: 'none',
+         read: 0
+      });
+      
+      // Criar a Auditoria dessa submissão de áudio
+      await db.createAuditEntry({
+        userId: 'system',
+        studentId: 'none',
+        action: 'AUDIO_LOG_SUBMIT',
+        reason: 'Diário Inteligente enviado pelo Professor',
+        timestamp: new Date().toISOString()
+      });
+
+      return { success: true };
+    } catch(err) {
+       return { success: false, error: err };
+    }
+  });
+
   ipcMain.handle('get-school-entry-status', async () => {
     const entryService = new ClassroomEntryService(db);
     return await entryService.getFullStatus();
@@ -1007,6 +1068,16 @@ function registerIpcHandlers() {
   ipcMain.handle('update-user-role', async (_event, userId, role, coordinationId) => await db.updateUserRole(userId, role, coordinationId));
 
   // ---- ATTENDANCE HISTORY (missing handler) ----
+  const { localAudioAI } = require('./services/LocalAudioIntelligenceService');
+
+  ipcMain.handle('ai:summarize', async (_, text: string) => {
+    return await localAudioAI.summarizePedagogically(text);
+  });
+
+  ipcMain.handle('ai:transcribe', async (_, path: string) => {
+    return await localAudioAI.transcribeLocal(path);
+  });
+
   ipcMain.handle('get-student-attendance-history', async (_event, studentId, days = 30) => {
     const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
     return await db.all(

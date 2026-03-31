@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Áquila Pro — Inteligência Artificial para Segurança Escolar</title>
-  <meta name="description" content="A plataforma de segurança escolar mais avançada do Brasil. Reconhecimento facial, alertas em tempo real e conformidade total com a LGPD.">
-  <meta name="keywords" content="segurança escolar, reconhecimento facial, IA, LGPD, Áquila Pro, controle de acesso">
+  <title>Áquila Pro — Autonomous School OS</title>
+  <meta name="description" content="A plataforma operacional escolar mais avançada do Brasil. Edge Computing, Timetable NLP e Reconhecimento Facial integrado LGPD.">
   
-  <meta property="og:title" content="Áquila Pro — Futuro da Segurança Escolar">
-  <meta property="og:description" content="Proteja sua escola com o motor de IA mais rápido e seguro do mercado.">
-  <meta property="og:image" content="assets/hero_bg.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,11 +65,17 @@
     }
     .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.05em; display: flex; align-items: center; gap: 0.5rem; }
     .logo span { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-links { display: flex; gap: 2.5rem; }
-    .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
-    .nav-links a:hover { color: white; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    
+    .desktop-links { display: flex; gap: 2.5rem; }
+    .desktop-links a { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+    .desktop-links a:hover { color: white; }
+    
     .nav-cta { padding: 0.6rem 1.2rem; background: var(--primary); color: white; border-radius: 99px; font-weight: 600; font-size: 0.85rem; text-decoration: none; box-shadow: 0 4px 15px var(--primary-glow); transition: all 0.3s; }
     .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--primary-glow); }
+
+    .nav-cta-outline { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white; box-shadow: none; }
+    .nav-cta-outline:hover { background: rgba(255,255,255,0.1); }
 
     /* --- Hero Section --- */
     #hero {
@@ -105,38 +109,42 @@
     .btn-outline { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
     .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
 
-    /* --- Visual Showcase --- */
-    .hero-visual {
-      margin-top: 5rem; width: 100%; max-width: 1100px; aspect-ratio: 16/9;
-      background: url('assets/hero_bg.png') center/cover no-repeat;
-      border-radius: 2rem; border: 1px solid var(--glass-border);
-      box-shadow: 0 30px 100px rgba(0,0,0,0.5);
-      position: relative; overflow: hidden;
-    }
-    .hero-visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--background), transparent 40%); }
-
-    /* --- Stats Section --- */
-    .stats-container { display: flex; justify-content: center; gap: 4rem; padding: 4rem 2rem; flex-wrap: wrap; }
-    .stat-item { text-align: center; }
-    .stat-val { font-size: 3rem; font-weight: 900; color: white; letter-spacing: -0.05em; margin-bottom: 0.25rem; }
-    .stat-label { font-size: 0.9rem; color: var(--text-dim); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
-
-    /* --- Features --- */
-    #features { padding: 10rem 2rem; position: relative; }
-    .section-header { text-align: center; margin-bottom: 6rem; }
+    /* --- Portals Section --- */
+    #portals { padding: 4rem 2rem 10rem; position: relative; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
     .section-header h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1.5rem; }
     .section-header p { color: var(--text-dim); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
 
+    .grid-portals {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem; max-width: 1200px; margin: 0 auto;
+    }
+    .portal-card {
+      background: var(--surface); border: 1px solid var(--glass-border); padding: 3rem;
+      border-radius: 1.5rem; transition: all 0.3s ease; text-decoration: none;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+    .portal-card:hover { transform: translateY(-5px); border-color: var(--primary); background: rgba(255, 255, 255, 0.05); }
+    
+    .portal-icon { width: 80px; height: 80px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); margin-bottom: 1.5rem; transition: all 0.3s;}
+    .portal-card:hover .portal-icon { background: var(--primary); color: white; transform: scale(1.1); box-shadow: 0 10px 20px var(--primary-glow); border-color: transparent;}
+    
+    .portal-card h3 { font-size: 1.4rem; color: white; margin-bottom: 0.5rem; }
+    .portal-card p { color: var(--text-dim); font-size: 0.95rem; }
+
+    /* --- Features / Tech Moat --- */
+    #features { padding: 10rem 2rem; position: relative; background: rgba(255,255,255,0.01); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); }
+    
     .grid-features {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 2rem; max-width: 1200px; margin: 0 auto;
     }
     .feature-card {
-      background: var(--glass); border: 1px solid var(--glass-border); padding: 3rem;
+      background: transparent; border: 1px solid var(--glass-border); padding: 3rem;
       border-radius: 2.5rem; transition: all 0.4s ease;
       -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
     }
-    .feature-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.05); border-color: var(--primary); }
+    .feature-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.02); border-color: var(--secondary); }
     .icon-box {
       width: 64px; height: 64px; background: rgba(59, 130, 246, 0.1);
       border-radius: 1.25rem; display: flex; align-items: center; justify-content: center;
@@ -145,68 +153,17 @@
     .feature-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
     .feature-card p { color: var(--text-dim); line-height: 1.7; }
 
-    /* --- Pricing --- */
-    #pricing { padding: 10rem 2rem; }
-    .pricing-wrap {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2.5rem; max-width: 1200px; margin: 0 auto;
-    }
-    .price-card {
-      background: var(--surface); border: 1px solid var(--glass-border);
-      border-radius: 3rem; padding: 4rem 3rem; position: relative;
-      display: flex; flex-direction: column; transition: all 0.4s ease;
-    }
-    .price-card.featured {
-      border-color: var(--primary);
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
-      transform: scale(1.05); z-index: 2;
-    }
-    .price-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); }
-    .price-badge {
-      position: absolute; top: 2rem; right: 3rem; padding: 0.4rem 0.8rem;
-      background: var(--primary); color: white; font-size: 0.7rem; font-weight: 800;
-      border-radius: 0.5rem; text-transform: uppercase;
-    }
-    .price-name { font-size: 1.1rem; font-weight: 700; color: var(--text-dim); margin-bottom: 1rem; }
-    .price-val { font-size: 4rem; font-weight: 900; line-height: 1; margin-bottom: 2rem; }
-    .price-val span { font-size: 1.2rem; color: var(--text-dim); font-weight: 400; }
-    
-    .price-list { list-style: none; margin-bottom: 3rem; flex-grow: 1; }
-    .price-list li { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; color: var(--text-dim); font-size: 0.95rem; }
-    .price-list i { color: var(--accent); }
-
-    .price-btn {
-      padding: 1.25rem; border-radius: 1.25rem; font-weight: 700; text-align: center;
-      text-decoration: none; transition: all 0.3s;
-    }
-    .btn-p-fill { background: var(--primary); color: white; }
-    .btn-p-fill:hover { opacity: 0.9; }
-    .btn-p-outline { border: 1px solid var(--glass-border); color: white; }
-    .btn-p-outline:hover { background: rgba(255,255,255,0.05); }
-
-    /* --- Footer --- */
-    footer {
-      padding: 8rem 2rem 4rem; border-top: 1px solid var(--glass-border);
-      text-align: center;
-    }
-    .footer-content { max-width: 1200px; margin: 0 auto; }
-    .f-logo { font-size: 2rem; font-weight: 900; margin-bottom: 2rem; opacity: 0.8; }
-    .f-links { display: flex; justify-content: center; gap: 3rem; margin-bottom: 4rem; }
-    .f-links a { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; transition: color 0.3s; }
-    .f-links a:hover { color: white; }
-    .copyright { color: var(--text-dim); font-size: 0.8rem; letter-spacing: 0.05em; }
+    /* --- UX / UI Pricing & Footer --- */
+    .hero-tag-success { background: rgba(16, 185, 129, 0.1); color: #10b981 !important; border-color: rgba(16, 185, 129, 0.2) !important; }
+    footer { padding: 6rem 2rem 4rem; text-align: center; }
+    .f-logo { font-size: 2rem; font-weight: 900; margin-bottom: 1rem; opacity: 0.8; }
+    .copyright { color: var(--text-dim); font-size: 0.8rem; letter-spacing: 0.05em; margin-top: 3rem;}
 
     @media (max-width: 900px) {
       h1 { font-size: 3.5rem; }
-      .nav-links { display: none; }
-      .price-card.featured { transform: scale(1); }
+      .desktop-links { display: none; }
+      .nav-links { gap: 1rem; }
     }
-    .hero-tag-success { background: rgba(16, 185, 129, 0.1); color: #10b981 !important; border-color: rgba(16, 185, 129, 0.2) !important; }
-    .cta-section { padding: 10rem 2rem; text-align: center; }
-    .cta-wrapper { background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 6rem 2rem; border-radius: 4rem; max-width: 1000px; margin: 0 auto; box-shadow: 0 40px 100px rgba(59, 130, 246, 0.2); }
-    .cta-title { font-size: 3rem; margin-bottom: 2rem; }
-    .cta-p { font-size: 1.25rem; margin-bottom: 3rem; opacity: 0.9; }
-    .btn-cta { background: white; color: var(--primary) !important; font-size: 1.2rem; }
   </style>
 </head>
 <body>
@@ -219,182 +176,112 @@
   <nav id="navbar">
     <a href="#" class="logo italic">🦅 ÁQUILA<span>PRO</span></a>
     <div class="nav-links">
-      <a href="#features">Tecnologia</a>
-      <a href="#compliance">LGPD</a>
-      <a href="#pricing">Planos</a>
-      <a href="#contact">Suporte</a>
+      <div class="desktop-links">
+        <a href="#portals">Acessos Internos</a>
+        <a href="#features">Tecnologias V1.0</a>
+      </div>
+      <a href="#portals" class="nav-cta nav-cta-outline">Sou Pai / Aluno</a>
+      <a href="#portals" class="nav-cta">Acessar Secretaria</a>
     </div>
-    <a href="#contact" class="nav-cta">Área do Cliente</a>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO (Tech Moat Pitch) -->
   <section id="hero">
     <div class="hero-content">
       <div class="hero-tag">
         <i data-lucide="shield-check" size="14"></i>
-        Certificação Enterprise V3 Ativa
+        School Operating System 1.0.1
       </div>
-      <h1>Inteligência que Protege o Amanhã</h1>
+      <h1>Autonomous School OS</h1>
       <p class="hero-p">
-        O ecossistema definitivo de segurança escolar com reconhecimento facial em tempo real, 
-        engajamento biometrizado e automação 100% brasileira.
+        A primeira plataforma escolar do Brasil sem latência, independente da nuvem. O Áquila Pro agrupa Reconhecimento Facial em Edge, Diário Cognitivo por Áudio e Motor Soberano de Grades V3 em um ecossistema impenetrável.
       </p>
       <div class="hero-btns">
-        <a href="#pricing" class="btn-main btn-fill">
-          Começar Agora
-          <i data-lucide="arrow-right"></i>
+        <a href="#portals" class="btn-main btn-fill">
+          Central PWA de Portais
+          <i data-lucide="layout-grid"></i>
         </a>
-        <a href="#features" class="btn-main btn-outline">Ver Demonstração</a>
-      </div>
-
-      <div class="hero-visual">
-         <!-- Hero Background Image from assets -->
-      </div>
-
-      <div class="stats-container">
-        <div class="stat-item">
-          <div class="stat-val">99.8%</div>
-          <div class="stat-label">Precisão Facial</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-val">< 0.2s</div>
-          <div class="stat-label">Latência Edge</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-val">2.5k+</div>
-          <div class="stat-label">Escolas Ativas</div>
-        </div>
+        <a href="#features" class="btn-main btn-outline">Ver Arquitetura Zero-Debt</a>
       </div>
     </div>
   </section>
 
-  <!-- FEATURES -->
+  <!-- CENTRAL PWA DE PORTAIS -->
+  <section id="portals">
+    <div class="section-header">
+      <h2>Portais do Sistema Áquila</h2>
+      <p>Acesse sua área de trabalho pelo Gateway seguro ou instale o App no celular (PWA).</p>
+    </div>
+
+    <div class="grid-portals">
+      <a href="https://parent.aquilapro.local" class="portal-card">
+        <div class="portal-icon"><i data-lucide="users"></i></div>
+        <h3>Família & Alunos</h3>
+        <p>Acesse o Boletim Analítico, Timeline Sentinela (Presenças e Ocorrências) do seu dependente.</p>
+      </a>
+
+      <a href="https://auth.aquilapro.local/cortex" class="portal-card">
+        <div class="portal-icon"><i data-lucide="mic"></i></div>
+        <h3>Córtex Docente</h3>
+        <p>Acesso Exclusivo. Utilize o Diário Inteligente em Voz (Zero-Click) e Câmera de Lousa ao vivo.</p>
+      </a>
+
+      <a href="https://auth.aquilapro.local/coordination" class="portal-card">
+        <div class="portal-icon"><i data-lucide="clipboard-check"></i></div>
+        <h3>Coordenação Pedagógica</h3>
+        <p>Revisão de Diários da NLP em Fila e Motor de Gestão Extracurricular Sem-Filas.</p>
+      </a>
+
+      <a href="https://auth.aquilapro.local/admin" class="portal-card">
+        <div class="portal-icon"><i data-lucide="layout-dashboard"></i></div>
+        <h3>Administração Executiva</h3>
+        <p>Visão de Águia (Hub de IoT, Dashboards Globais, Engine de Grades Urânia-Free e RH).</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- FEATURES TECH MOAT -->
   <section id="features">
     <div class="section-header">
-      <div class="hero-tag hero-tag-success">
-        Inovação V3
-      </div>
-      <h2>Engine de Segurança Proativa</h2>
-      <p>Desenvolvido para coordenadores que não aceitam menos que o estado da arte.</p>
+      <div class="hero-tag hero-tag-success">O Fosso Arquitetural</div>
+      <h2>Diferenciais do Áquila Edge</h2>
+      <p>Desenvolvido para operadoras educacionais que rejeitam a fragilidade dos sistemas legados.</p>
     </div>
 
     <div class="grid-features">
       <div class="feature-card">
-        <div class="icon-box"><i data-lucide="scan-face"></i></div>
-        <h3>Visão Computacional</h3>
-        <p>Motor de inferência local (Edge Computing) que identifica alunos mesmo com oclusões, óculos ou iluminação adversa.</p>
+        <div class="icon-box"><i data-lucide="cpu"></i></div>
+        <h3>Zero-Latency Edge Vision</h3>
+        <p>A IA biometrizada roda cravada no hardware da escola (C++/N-API). Não enviamos "vídeos" para AWS. Economize milhares em cloud e garanta proteção integral LGPD contra invasões de servidores na nuvem.</p>
       </div>
       <div class="feature-card">
-        <div class="icon-box"><i data-lucide="message-square"></i></div>
-        <h3>WhatsApp Omni</h3>
-        <p>Despacho inteligente de notificações para os pais com fila prioritária e confirmação de leitura em tempo real.</p>
+        <div class="icon-box"><i data-lucide="bot"></i></div>
+        <h3>Zero-Hallucination NLP</h3>
+        <p>Seu professor dita a infração disciplinar usando a voz (*O aluno bagunçou*). O Córtex Docente constrói a Notificação Limpa e submete à Gestão Pedagógica para Revisão. A IA nunca fala com os pais sem controle humano.</p>
       </div>
       <div class="feature-card">
-        <div class="icon-box"><i data-lucide="lock"></i></div>
-        <h3>Fortaleza LGPD</h3>
-        <p>Anonimização automática de terceiros no feed de vídeo e criptografia AES-256 para todos os vetores biométricos.</p>
+        <div class="icon-box"><i data-lucide="calendar-check-2"></i></div>
+        <h3>Sovereign Timetable Solver</h3>
+        <p>Fim dos despachos manuais: um Algoritmo "CSP" embarcado soluciona o quebra-cabeça caótico de cruzamento de professores, bloqueios e janelas na hora, em linguagem natural.</p>
       </div>
       <div class="feature-card">
-        <div class="icon-box"><i data-lucide="trending-up"></i></div>
-        <h3>Análise Preditiva</h3>
-        <p>O Machine Learning do Áquila identifica padrões de evasão e sugere intervenções antes que o aluno abandone o curso.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon-box"><i data-lucide="smartphone"></i></div>
-        <h3>App Full Experience</h3>
-        <p>Timeline de presença biometrizada e alerta de chegada (Drive-thru) para os pais direto no smartphone.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon-box"><i data-lucide="database"></i></div>
-        <h3>Relatórios Enterprise</h3>
-        <p>Geração de PDFs corporativos e planilhas Excel automatizadas com métricas de saúde financeira e frequência.</p>
+        <div class="icon-box"><i data-lucide="code-2"></i></div>
+        <h3>Zero-Debt UI & SQLite</h3>
+        <p>A arquitetura ignora frameworks pesados de mercado, optando por Glassmorphism e Vanilla CSS acoplados a SQLite. Fluidez de 60fps local com design *Apple-like* impecável e instalador atômico.</p>
       </div>
     </div>
-  </section>
-
-  <!-- PRICING -->
-  <section id="pricing">
-    <div class="section-header">
-      <h2>Planos Transparentes</h2>
-      <p>Escolha o nível de proteção ideal para o tamanho da sua instituição.</p>
-    </div>
-
-    <div class="pricing-wrap">
-      <div class="price-card">
-        <div class="price-name">Essencial</div>
-        <div class="price-val">R$497<span>/mês</span></div>
-        <ul class="price-list">
-          <li><i data-lucide="check-circle-2"></i> 2 Entradas de Câmeras</li>
-          <li><i data-lucide="check-circle-2"></i> Até 500 Alunos</li>
-          <li><i data-lucide="check-circle-2"></i> Alertas WhatsApp Base</li>
-          <li><i data-lucide="check-circle-2"></i> Dashboard Local</li>
-          <li><i data-lucide="check-circle-2"></i> Suporte Standard</li>
-        </ul>
-        <a href="#" class="price-btn btn-p-outline">Começar com Essencial</a>
-      </div>
-
-      <div class="price-card featured">
-        <div class="price-badge">Premium</div>
-        <div class="price-name">V3 Pro</div>
-        <div class="price-val">R$997<span>/mês</span></div>
-        <ul class="price-list">
-          <li><i data-lucide="check-circle-2"></i> 12 Entradas de Câmeras</li>
-          <li><i data-lucide="check-circle-2"></i> Alunos Ilimitados</li>
-          <li><i data-lucide="check-circle-2"></i> WhatsApp Ultra (Sem fila)</li>
-          <li><i data-lucide="check-circle-2"></i> IA Preditiva de Evasão</li>
-          <li><i data-lucide="check-circle-2"></i> Integração Catracas IoT</li>
-          <li><i data-lucide="check-circle-2"></i> App de Pais Full</li>
-          <li><i data-lucide="check-circle-2"></i> Suporte Prioritário 24/7</li>
-        </ul>
-        <a href="#" class="price-btn btn-p-fill">Obter Plano Pro</a>
-      </div>
-
-      <div class="price-card">
-        <div class="price-name">Enterprise</div>
-        <div class="price-val">Custom</div>
-        <ul class="price-list">
-          <li><i data-lucide="check-circle-2"></i> Unidades Multi-Escola</li>
-          <li><i data-lucide="check-circle-2"></i> Dashboard Master</li>
-          <li><i data-lucide="check-circle-2"></i> White-Label Completo</li>
-          <li><i data-lucide="check-circle-2"></i> On-Premise / Hybrid</li>
-          <li><i data-lucide="check-circle-2"></i> API para ERPs Externos</li>
-          <li><i data-lucide="check-circle-2"></i> Gerente de Sucesso</li>
-        </ul>
-        <a href="#" class="price-btn btn-p-outline">Falar com Consultor</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA FINAL -->
-  <section class="cta-section">
-      <div class="cta-wrapper">
-          <h2 class="cta-title">Preparado para transformar sua escola?</h2>
-          <p class="cta-p">Agende uma demonstração ao vivo com nossos especialistas em IA.</p>
-          <a href="#" class="btn-main btn-cta">
-              Solicitar Demo Grátis
-              <i data-lucide="calendar"></i>
-          </a>
-      </div>
   </section>
 
   <footer>
     <div class="footer-content">
       <div class="f-logo italic">🦅 ÁQUILA<span>PRO</span></div>
-      <div class="f-links">
-        <a href="#">Privacidade</a>
-        <a href="#">Termos de Uso</a>
-        <a href="#">Canal de Ética</a>
-        <a href="#">Documentação API</a>
-      </div>
-      <p class="copyright">© 2026 ÁQUILA PRO — TECNOLOGIA E SEGURANÇA. TODOS OS DIREITOS RESERVADOS. PROUDLY MADE IN BRASÍLIA.</p>
+      <p style="color: var(--text-dim); max-width: 500px; margin: 0 auto;">Plataforma Escolar Definitiva para Sistemas de Automação Visual, Controle Financeiro e Presença Corporativa.</p>
+      <p class="copyright">© 2026 ÁQUILA PRO SYSTEMS. TODOS OS DIREITOS RESERVADOS. BUILT WITH PURITY.</p>
     </div>
   </footer>
 
   <script>
-    // Initialize Lucide icons
     lucide.createIcons();
-
-    // Fade in effect for navbar on scroll
     window.addEventListener('scroll', () => {
       const nav = document.getElementById('navbar');
       if (window.scrollY > 50) {
@@ -406,11 +293,6 @@
       }
     });
 
-    // Reveal animations on scroll
-    const observerOptions = {
-      threshold: 0.1
-    };
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -419,9 +301,9 @@
           observer.unobserve(entry.target);
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
-    document.querySelectorAll('.feature-card, .price-card, .section-header').forEach(el => {
+    document.querySelectorAll('.feature-card, .portal-card, .section-header').forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(30px)';
       el.style.transition = 'all 0.6s cubic-bezier(0.23, 1, 0.32, 1)';

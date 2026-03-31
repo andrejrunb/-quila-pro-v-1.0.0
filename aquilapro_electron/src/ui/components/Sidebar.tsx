@@ -51,7 +51,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate, user,
     { id: 'finance', label: 'Gestão Financeira', icon: <CreditCard size={20} />, roles: ['admin', 'director', 'secretary', 'parent'] },
     { id: 'security-monitor', label: 'Monitoramento de Câmeras', icon: <Camera size={20} />, roles: ['admin', 'security', 'director', 'coordinator'] },
     { id: 'cameras', label: 'Configurar Câmeras', icon: <Settings size={20} />, roles: ['admin', 'director', 'coordinator'] },
-    { id: 'ruview', label: 'Mapeamento RuView', icon: <Radio size={20} />, roles: ['admin', 'director', 'coordinator'] },
+    { id: 'indoor-mapping', label: 'Mapeamento Indoor', icon: <Map size={20} />, roles: ['admin', 'director', 'coordinator', 'security'] },
     { id: 'settings', label: 'Configurações do Sistema', icon: <Settings size={20} />, roles: ['admin'] },
   ];
 

@@ -43,6 +43,7 @@ import { SecurityMonitor } from './ui/pages/SecurityMonitor';
 import { IoTManager } from './ui/pages/IoTManager';
 import { UnifiedCommand } from './ui/pages/UnifiedCommand';
 import TeacherDashboard from './ui/pages/TeacherDashboard';
+import { IndoorMappingDashboard } from './ui/pages/IndoorMappingDashboard';
 import { ClimateReportPanel } from './ui/components/ClimateReportPanel';
 import Sidebar from './ui/components/Sidebar';
 import TopBar from './ui/components/TopBar';
@@ -71,7 +72,7 @@ export type Page =
   | 'photo-batch' | 'help' | 'infrastructure' | 'support' | 'partners' | 'consent' | 'multi-site' 
   | 'analytics-bi' | 'event-mode' | 'sustainability' | 'cameras' | 'rooms' | 'schedule' 
   | 'photos' | 'lgpd' | 'whatsapp' | 'hardware' | 'predictive-absence' | 'audit-log' 
-  | 'diagnostics' | 'mobile' | 'finance' | 'biometric-enrollment' | 'diary' | 'visitor-management' | 'security-monitor' | 'iot-manager' | 'unified-command' | 'teacher-dashboard';
+  | 'diagnostics' | 'mobile' | 'finance' | 'biometric-enrollment' | 'diary' | 'visitor-management' | 'security-monitor' | 'iot-manager' | 'unified-command' | 'teacher-dashboard' | 'indoor-mapping';
 
 export const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('dashboard');
@@ -265,6 +266,8 @@ export const App: React.FC = () => {
               return <ReportsPage onBack={onBack} />;
             case 'alerts':
               return <AlertsPage onBack={onBack} />;
+            case 'indoor-mapping':
+              return <IndoorMappingDashboard />;
             case 'help':
               return <HelpCenter />;
             case 'mobile':

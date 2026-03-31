@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { EnvironmentalHUD } from '../components/EnvironmentalHUD';
+import { AITeacherLog } from '../components/AITeacherLog';
 import { neuroPedagogyService, StudentFocus } from '../../services/NeuroPedagogyService';
 import { useWSNotifications } from '../hooks/useWSNotifications';
 import './TeacherDashboard.css';
@@ -36,8 +37,9 @@ const MetricBar: React.FC<{ label: string; value: number; type: 'fatigue' | 'eng
 };
 
 const TeacherDashboard: React.FC = () => {
-  const [pulse, setPulse] = React.useState(neuroPedagogyService.getClassNeuroPulse('class-01'));
-  const [students, setStudents] = React.useState(neuroPedagogyService.getIndividualStudentFocus());
+  const [pulse, setPulse] = useState(neuroPedagogyService.getClassNeuroPulse('class-01'));
+  const [students, setStudents] = useState(neuroPedagogyService.getIndividualStudentFocus());
+  const [showAILog, setShowAILog] = useState(false);
   const trends = neuroPedagogyService.getHistoricalNeuroTrends();
   const recommendation = neuroPedagogyService.getRecommendation(pulse);
 
@@ -87,6 +89,8 @@ const TeacherDashboard: React.FC = () => {
 
   return (
     <div className="teacher-dashboard animate-fade-in">
+      {showAILog && <AITeacherLog onClose={() => setShowAILog(false)} />}
+      
       <header className="dashboard-header">
         <div className="title-block">
           <h1>
@@ -98,6 +102,12 @@ const TeacherDashboard: React.FC = () => {
               {isConnected ? ' STREAM AO VIVO ATIVO' : ' OFFLINE (RECONECTANDO)'}
             </span>
           </p>
+          <button 
+             onClick={() => setShowAILog(true)}
+             className="mt-4 bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-6 rounded-full transition shadow-[0_0_15px_rgba(147,51,234,0.3)] flex items-center gap-2"
+          >
+             🎤 Diário Inteligente (Voz & IA)
+          </button>
         </div>
 
         <div className="neuro-pulse-main">
