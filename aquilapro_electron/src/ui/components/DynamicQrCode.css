@@ -1,0 +1,53 @@
+.dynamic-qr-container {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.qr-box {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
+  position: relative;
+  width: var(--qr-size-dynamic, 200px);
+  height: var(--qr-size-dynamic, 200px);
+}
+
+.qr-placeholder {
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-progress-bar {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 4px;
+  background: #3b82f6;
+  width: var(--qr-progress-dynamic, 0%);
+  transition: width 1s linear;
+  border-radius: 2px;
+}
+
+.qr-info-text {
+  text-align: center;
+}
+
+.qr-token-label {
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}

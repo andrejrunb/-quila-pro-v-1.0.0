@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Áquila</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <i class="bi bi-eye"></i> Áquila
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto dashboard-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-view="dashboardView" onclick="switchView('dashboardView')">
+                                <i class="bi bi-speedometer2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-view="studentsView" onclick="switchView('studentsView')">
+                                <i class="bi bi-person"></i> Alunos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-view="classesView" onclick="switchView('classesView')">
+                                <i class="bi bi-people"></i> Turmas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-view="reportsView" onclick="switchView('reportsView')">
+                                <i class="bi bi-file-earmark-text"></i> Relatórios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-view="settingsView" onclick="switchView('settingsView')">
+                                <i class="bi bi-gear"></i> Configurações
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle"></i> Administrador
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Perfil</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-bell"></i> Notificações</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="demo.html"><i class="bi bi-box-arrow-right"></i> Sair</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        <!-- Dashboard View -->
+        <div id="dashboardView" class="dashboard-view">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2><i class="bi bi-speedometer2"></i> Dashboard</h2>
+                    <p class="text-muted">Visão geral do sistema de monitoramento escolar</p>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card dashboard-card text-center h-100">
+                        <div class="card-body">
+                            <i class="bi bi-people dashboard-icon"></i>
+                            <h1 class="dashboard-number">500</h1>
+                            <p class="card-text">Alunos Cadastrados</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card dashboard-card text-center h-100">
+                        <div class="card-body">
+                            <i class="bi bi-person-check dashboard-icon text-success"></i>
+                            <h1 class="dashboard-number text-success">452</h1>
+                            <p class="card-text">Alunos Presentes Hoje</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card dashboard-card text-center h-100">
+                        <div class="card-body">
+                            <i class="bi bi-person-x dashboard-icon text-danger"></i>
+                            <h1 class="dashboard-number text-danger">48</h1>
+                            <p class="card-text">Alunos Ausentes Hoje</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card dashboard-card text-center h-100">
+                        <div class="card-body">
+                            <i class="bi bi-exclamation-triangle dashboard-icon text-warning"></i>
+                            <h1 class="dashboard-number text-warning">15</h1>
+                            <p class="card-text">Alunos em Situação de Risco</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card dashboard-card h-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Frequência Semanal</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="attendanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card dashboard-card h-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Distribuição de Alunos por Local</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="locationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card dashboard-card h-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Engajamento dos Alunos</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="engagementChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card dashboard-card h-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Saídas de Sala por Dia</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="exitsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Alunos em Situação de Risco</h5>
+                            <button class="btn btn-sm btn-outline-primary">Ver Todos</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>Turma</th>
+                                            <th>Risco</th>
+                                            <th>Fatores</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>A042</td>
+                                            <td>Pedro Oliveira</td>
+                                            <td>8º Ano B</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 85%">85%</div>
+                                                </div>
+                                            </td>
+                                            <td>Frequência abaixo de 75%, Saídas frequentes</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" onclick="viewStudentDetails('A042')">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>A128</td>
+                                            <td>Mariana Santos</td>
+                                            <td>7º Ano A</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 78%">78%</div>
+                                                </div>
+                                            </td>
+                                            <td>Tempo fora de sala elevado</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" onclick="viewStudentDetails('A128')">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>A256</td>
+                                            <td>Lucas Ferreira</td>
+                                            <td>9º Ano C</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 72%">72%</div>
+                                                </div>
+                                            </td>
+                                            <td>Padrão de ausências às segundas-feiras</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" onclick="viewStudentDetails('A256')">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students View -->
+        <div id="studentsView" class="dashboard-view" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2><i class="bi bi-person"></i> Alunos</h2>
+                    <p class="text-muted">Gerenciamento e monitoramento de alunos</p>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Buscar Aluno</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                        <input type="text" class="form-control" id="studentSearch" placeholder="Digite o nome ou ID do aluno">
+                                        <button class="btn btn-primary" type="button" onclick="searchStudent()">Buscar</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-success" type="button">
+                                            <i class="bi bi-person-plus"></i> Novo Aluno
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="searchResults" class="mt-4">
+                                <p class="text-center text-muted">Digite o nome ou ID de um aluno para buscar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classes View -->
+        <div id="classesView" class="dashboard-view" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2><i class="bi bi-people"></i> Turmas</h2>
+                    <p class="text-muted">Gerenciamento e análise de turmas</p>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+              
+(Content truncated due to size limit. Use line ranges to read in chunks)

@@ -1,0 +1,87 @@
+.finance-pulse-widget {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 25px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.pulse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #00ff80;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff80;
+  animation: pulse-op 2s infinite;
+}
+
+@keyframes pulse-op {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 0.2; transform: scale(0.8); }
+}
+
+.pulse-main .pulse-value {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+
+.pulse-value .currency {
+  font-size: 14px;
+  margin-right: 5px;
+  opacity: 0.4;
+}
+
+.progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #00ff80;
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(0, 255, 128, 0.3);
+  width: var(--pulse-width, 0%);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-label {
+  font-size: 9px;
+  opacity: 0.3;
+  font-weight: 600;
+}
+
+.pulse-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat .label {
+  display: block;
+  font-size: 8px;
+  opacity: 0.4;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.stat .value {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}

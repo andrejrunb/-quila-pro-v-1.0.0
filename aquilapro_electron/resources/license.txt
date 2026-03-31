@@ -1,0 +1,83 @@
+CONTRATO DE LICENÇA DE USO DO SOFTWARE ÁQUILA PRO
+==================================================
+
+Versão 1.2.0  Março de 2026
+
+LEIA ATENTAMENTE ESTE CONTRATO ANTES DE INSTALAR O SOFTWARE.
+
+1. DEFINIÇÕES
+   - "Software": Áquila Pro  Sistema de Segurança e Engajamento Escolar
+   - "Licenciante": André Jr / Áquila Pro LTDA (andrejrunb@yahoo.com.br)
+   - "Licenciado": A instituição de ensino que adquiriu a licença
+
+2. CONCESSÃO DE LICENÇA
+   O Licenciante concede ao Licenciado uma licença não exclusiva,
+   intransferível e limitada para instalar e usar o Software em um
+   único servidor/computador por unidade educacional contratada.
+
+3. RESTRIÇÕES
+   O Licenciado NÃO pode:
+   a) Copiar, modificar ou distribuir o Software
+   b) Fazer engenharia reversa ou descompilar o Software
+   c) Sublicenciar, alugar ou emprestar o Software
+   d) Usar o Software em mais de uma instituição sem licença adicional
+   e) Remover marcas d'água, logotipos ou avisos de direitos autorais
+
+4. PROTEÇÃO DE DADOS PESSOAIS  LGPD (Lei nº 13.709/2018)
+   O Software processa dados pessoais sensíveis de alunos (nome,
+   imagem facial, frequência escolar). O Licenciado compromete-se a:
+   a) Obter consentimento expresso dos pais/responsáveis antes da
+      ativação do sistema de reconhecimento facial
+   b) Informar claramente sobre os fins do tratamento de dados
+   c) Garantir que os dados sejam usados exclusivamente para fins
+      educacionais e de segurança escolar
+   d) Atender solicitações de exclusão de dados (direito ao esquecimento)
+      em até 15 dias úteis
+   e) Manter registro de atividades de tratamento (ROPA)
+   f) Nomear um Encarregado de Dados (DPO) quando exigido por lei
+   g) Notificar o Licenciante e a ANPD em caso de incidente de segurança
+
+5. PRIVACIDADE E ARMAZENAMENTO
+   - Todos os dados biométricos são processados e armazenados LOCALMENTE
+     no servidor da escola  nunca em servidores externos
+   - A sincronização em nuvem é OPCIONAL e requer opt-in explícito
+   - Quando ativada, apenas dados agregados e anonimizados são enviados
+   - O Licenciante NÃO tem acesso aos dados pessoais dos alunos
+   - Backups automáticos utilizam criptografia AES-256
+
+6. SUPORTE TÉCNICO
+   O Licenciante oferece suporte conforme o plano contratado:
+   - E-mail: andrejrunb@yahoo.com.br
+   - WhatsApp: +55 (61) 99962-3099
+   - Horário: Segunda a Sexta, 8h às 18h (horário de Brasília)
+   - Portal: https://aquilapro.manus.space/suporte
+
+7. ATUALIZAÇÕES AUTOMÁTICAS
+   O Software pode receber atualizações automáticas de segurança.
+   O Licenciado pode desativar atualizações automáticas nas configurações,
+   porém isso pode expor o sistema a vulnerabilidades.
+
+8. GARANTIA LIMITADA
+   O Software é fornecido "como está". O Licenciante garante que o
+   Software funcionará substancialmente conforme descrito na documentação
+   por um período de 12 meses a partir da data de instalação.
+
+9. LIMITAÇÃO DE RESPONSABILIDADE
+   O Licenciante não será responsável por danos indiretos, incidentais
+   ou consequenciais decorrentes do uso ou impossibilidade de uso do
+   Software, incluindo perda de dados por falha de hardware.
+
+10. VIGÊNCIA E RENOVAÇÃO
+    Esta licença é válida pelo período contratado. A renovação é
+    automática salvo cancelamento com 30 dias de antecedência.
+    Em caso de inadimplência, o Software poderá ser desativado remotamente.
+
+11. FORO
+    Fica eleito o foro da comarca de Brasília-DF para dirimir quaisquer
+    questões oriundas deste contrato, com renúncia a qualquer outro,
+    por mais privilegiado que seja.
+
+Ao instalar o Software, o Licenciado declara ter lido, compreendido
+e concordado integralmente com todos os termos deste contrato.
+
+ 2026 André Jr / Áquila Pro LTDA  Todos os direitos reservados.

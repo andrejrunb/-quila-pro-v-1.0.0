@@ -1,0 +1,56 @@
+.sync-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: default;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sync-status-indicator.unregistered {
+  opacity: 0.6;
+  filter: grayscale(1);
+}
+
+.sync-status-indicator.enrolled {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-dot.idle {
+  background-color: var(--success);
+}
+
+.status-dot.syncing {
+  background-color: var(--info);
+  animation: pulse 1s infinite;
+}
+
+.status-dot.error {
+  background-color: var(--danger);
+}
+
+.status-dot.offline {
+  background-color: #64748b;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.status-label {
+  white-space: nowrap;
+}

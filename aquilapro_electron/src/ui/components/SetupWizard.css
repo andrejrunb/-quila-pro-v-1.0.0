@@ -1,0 +1,45 @@
+.setup-wizard-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.setup-step-indicator {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 3rem;
+  justify-content: center;
+}
+
+.setup-step-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s;
+}
+
+.setup-step-dot.active {
+  background: #3b82f6;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+}
+
+.setup-card {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 3rem;
+}
+.setup-progress-fill {
+  height: 100%;
+  width: var(--progress-width, 0%);
+  background: var(--step-color, #3b82f6);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.setup-icon-container {
+  color: var(--icon-color, #3b82f6);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}

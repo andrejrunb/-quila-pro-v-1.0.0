@@ -1,0 +1,191 @@
+.messenger-container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100vh;
+  background: #000;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.messenger-sidebar {
+  border-right: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  background: #050505;
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-title {
+  font-weight: 900;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.channel-header-tiny {
+  font-size: 8px;
+  font-weight: 950;
+  opacity: 0.4;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.channel-list {
+  padding: 10px;
+}
+
+.channel {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 4px;
+}
+
+.channel.active {
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font-weight: 600;
+}
+
+.messenger-chat {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 1rem 1.5rem;
+  background: rgba(15, 23, 42, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.chat-title {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.online-stats {
+  font-size: 10px;
+  font-weight: 800;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.chat-feed {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.message-bubble {
+  max-width: 60%;
+  padding: 15px 20px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.message-bubble.sent {
+  align-self: flex-end;
+  background: white;
+  color: black;
+  border-bottom-right-radius: 4px;
+}
+
+.message-bubble.received {
+  align-self: flex-start;
+  background: #111;
+  border-bottom-left-radius: 4px;
+}
+
+.sender-tag {
+  display: block;
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  opacity: 0.5;
+}
+
+.time-tag {
+  font-size: 8px;
+  opacity: 0.3;
+  margin-top: 5px;
+  display: block;
+  text-align: right;
+}
+
+.template-card {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 15px;
+  border-left: 4px solid #00ff80;
+}
+
+.template-card h4 {
+  font-size: 10px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: #00ff80;
+}
+
+.template-btn {
+  margin-top: 15px;
+  background: #00ff80;
+  color: black;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.chat-input-area {
+  padding: 20px 30px;
+  background: #080808;
+  display: flex;
+  gap: 15px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.chat-input-area input {
+  flex: 1;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 15px 25px;
+  border-radius: 100px;
+  color: white;
+  outline: none;
+}
+
+.send-btn {
+  background: white;
+  color: black;
+  font-weight: bold;
+  padding: 0 30px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+}

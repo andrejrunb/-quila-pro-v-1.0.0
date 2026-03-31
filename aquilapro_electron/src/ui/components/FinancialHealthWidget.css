@@ -1,0 +1,29 @@
+.financial-health-card {
+  padding: 16px;
+  background: rgba(16, 185, 129, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.stat-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #10b981;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  color: white;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}

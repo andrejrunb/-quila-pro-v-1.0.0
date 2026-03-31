@@ -1,0 +1,370 @@
+.licensing-container {
+  padding: 3rem;
+  max-width: 64rem;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.licensing-header {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.licensing-id-badge {
+  padding: 0.5rem 1.5rem;
+  background-color: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 9999px;
+  color: #818cf8;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.licensing-title {
+  font-size: 2.25rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.licensing-subtitle {
+  color: #94a3b8;
+  margin-top: 0.5rem;
+}
+
+.licensing-grid-top {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .licensing-grid-top {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tier-card {
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.tier-label {
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.tier-name {
+  font-size: 1.875rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.tier-status {
+  font-size: 10px;
+  color: #10b981;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tier-icon-bg {
+  position: absolute;
+  bottom: -1rem;
+  right: -1rem;
+  width: 6rem;
+  height: 6rem;
+  color: #6366f1;
+  opacity: 0.05;
+  transition: opacity 0.3s;
+}
+
+.tier-card:hover .tier-icon-bg {
+  opacity: 0.1;
+}
+
+.seats-card {
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  grid-column: span 1;
+}
+
+@media (min-width: 768px) {
+  .seats-card {
+    grid-column: span 2;
+  }
+}
+
+.seats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.seats-label {
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.seats-count {
+  font-size: 1.125rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.seats-bar-container {
+  height: 1rem;
+  background-color: #020617;
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.seats-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, #2563eb, #6366f1);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  width: var(--seats-progress, 0%);
+}
+
+.seats-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.seats-footer-label {
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.seats-footer-value {
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.billing-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .billing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.billing-main-card {
+  padding: 2.5rem;
+  background: linear-gradient(to bottom right, #0f172a, #020617);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 48px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.billing-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.billing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.billing-row-label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.billing-row-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+}
+
+.billing-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.billing-total-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.billing-total-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.btn-billing-history {
+  width: 100%;
+  padding: 1.25rem;
+  background-color: #4f46e5;
+  color: #fff;
+  border-radius: 1rem;
+  border: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.btn-billing-history:hover {
+  background-color: #6366f1;
+}
+
+.licensing-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.quota-alert-card {
+  padding: 2rem;
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 40px;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.quota-alert-icon-box {
+  padding: 1rem;
+  background-color: rgba(234, 179, 8, 0.1);
+  border-radius: 1rem;
+  color: #eab308;
+}
+
+.quota-alert-title {
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.quota-alert-text {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.upsell-card {
+  padding: 2.5rem;
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  transition: all 0.3s;
+}
+
+.upsell-card:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.upsell-icon-box {
+  width: 4rem;
+  height: 4rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s;
+}
+
+.upsell-card:hover .upsell-icon-box {
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.upsell-icon {
+  color: #475569;
+  transition: color 0.3s;
+}
+
+.upsell-card:hover .upsell-icon {
+  color: #818cf8;
+}
+
+.upsell-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.upsell-text {
+  color: #64748b;
+  font-size: 0.875rem;
+  max-width: 20rem;
+  margin: 0 auto 2rem;
+}
+
+.btn-upsell {
+  padding: 0.75rem 2rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-upsell:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,71 @@
+/* 
+   ui_glossy.css — Passo 33 do Roadmap.
+   Efeitos de vidro, glow e profundidade para Áquila Pro.
+*/
+
+:root {
+    --premium-glow: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 80%);
+}
+
+.glass-premium {
+    background: rgba(15, 23, 42, 0.7);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.eagle-card {
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.eagle-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: var(--premium-glow);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.eagle-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.1);
+}
+
+.eagle-card:hover::before {
+    opacity: 1;
+}
+
+.glossy-button {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(30, 58, 138, 0.4));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.glossy-button:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(30, 58, 138, 0.6));
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}

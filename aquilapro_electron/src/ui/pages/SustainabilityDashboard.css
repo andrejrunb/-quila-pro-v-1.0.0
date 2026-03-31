@@ -1,0 +1,143 @@
+.sustainability-container {
+  padding: 32px;
+  background: radial-gradient(circle at top right, #064e3b, #020617);
+  min-height: 100%;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+.sustainability-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+  padding-bottom: 20px;
+}
+
+.sustainability-title h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--emerald-primary);
+  letter-spacing: -0.05em;
+}
+
+.eco-mode-badge {
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--emerald-primary);
+  color: var(--emerald-primary);
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eco-mode-badge.active {
+  background: var(--emerald-primary);
+  color: #064e3b;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+.energy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.metric-card-sustain {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+  border-radius: 24px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.metric-card-sustain:hover {
+  border-color: var(--emerald-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.2);
+}
+
+.circular-gauge-container {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 16px;
+  position: relative;
+}
+
+.gauge-svg {
+  transform: rotate(-90deg);
+}
+
+.gauge-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 8;
+}
+
+.gauge-fill {
+  fill: none;
+  stroke: var(--emerald-primary);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: var(--gauge-offset, 283);
+  transition: stroke-dashoffset 0.8s ease-in-out;
+}
+
+.gauge-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: white;
+}
+
+.thermal-meter-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.thermal-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+  width: var(--thermal-width, 0%);
+  transition: width 0.5s ease;
+}
+
+.action-bar {
+  margin-top: 32px;
+  display: flex;
+  gap: 16px;
+}
+
+.btn-eco-toggle {
+  flex: 1;
+  padding: 16px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--emerald-primary);
+  color: var(--emerald-primary);
+  border-radius: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-eco-toggle:hover {
+  background: var(--emerald-primary);
+  color: #064e3b;
+}

@@ -1,0 +1,116 @@
+.social-graph-container {
+  background: rgba(30, 41, 59, 0.3);
+  border-radius: 24px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.graph-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.risk-legend {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.risk-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.risk-tag.low { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.risk-tag.medium { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+.risk-tag.high { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+.graph-canvas-mock {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 16px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.graph-link {
+  stroke: rgba(148, 163, 184, 0.2);
+  stroke-width: 1;
+  stroke-dasharray: 4;
+  animation: dash 20s linear infinite;
+}
+
+.graph-node {
+  stroke-width: 2;
+  transition: all 0.3s;
+}
+
+.node-low { fill: #10b981; stroke: rgba(16, 185, 129, 0.3); }
+.node-medium { fill: #f59e0b; stroke: rgba(245, 158, 11, 0.3); }
+.node-high { fill: #ef4444; stroke: rgba(239, 68, 68, 0.3); animation: pulseRisk 2s infinite; }
+
+.node-label {
+  fill: #64748b;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.graph-ai-insight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 1rem;
+  font-size: 11px;
+}
+
+.risk-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(30, 41, 59, 0.8);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.risk-marker {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.risk-marker.high { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+
+.risk-action-btn {
+  background: transparent;
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  color: #3b82f6;
+  font-size: 10px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.risk-action-btn:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+@keyframes pulseRisk {
+  0% { r: 10; stroke-opacity: 0.8; }
+  50% { r: 14; stroke-opacity: 0.2; }
+  100% { r: 10; stroke-opacity: 0.8; }
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -100; }
+}

@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block title %}Configurações - Áquila Pro{% endblock %}
+
+{% block content %}
+<h1>Configurações</h1>
+
+<!-- Abas de Configurações -->
+<div style="display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid #ddd;">
+    <button onclick="showTab('general')" class="tab-btn active" style="padding: 1rem; background: none; border: none; cursor: pointer; border-bottom: 3px solid #667eea; color: #667eea; font-weight: 600;">
+        Geral
+    </button>
+    <button onclick="showTab('cameras')" class="tab-btn" style="padding: 1rem; background: none; border: none; cursor: pointer; color: #666; font-weight: 600;">
+        Câmeras
+    </button>
+    <button onclick="showTab('notifications')" class="tab-btn" style="padding: 1rem; background: none; border: none; cursor: pointer; color: #666; font-weight: 600;">
+        Notificações
+    </button>
+    <button onclick="showTab('security')" class="tab-btn" style="padding: 1rem; background: none; border: none; cursor: pointer; color: #666; font-weight: 600;">
+        Segurança
+    </button>
+    <button onclick="showTab('users')" class="tab-btn" style="padding: 1rem; background: none; border: none; cursor: pointer; color: #666; font-weight: 600;">
+        Usuários
+    </button>
+</div>
+
+<!-- TAB: Geral -->
+<div id="general" class="tab-content">
+    <div class="card">
+        <h2>Configurações Gerais</h2>
+        <form method="POST" action="/settings/general">
+            <div class="form-group">
+                <label>Nome da Escola</label>
+                <input type="text" name="school_name" value="{{ settings.school_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email da Escola</label>
+                <input type="email" name="school_email" value="{{ settings.school_email }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Telefone</label>
+                <input type="tel" name="school_phone" value="{{ settings.school_phone }}">
+            </div>
+
+            <div class="form-group">
+                <label>Endereço</label>
+                <input type="text" name="school_address" value="{{ settings.school_address }}">
+            </div>
+
+            <div class="form-group">
+                <label>Horário de Início das Aulas</label>
+                <input type="time" name="start_time" value="{{ settings.start_time }}">
+            </div>
+
+            <div class="form-group">
+                <label>Horário de Término das Aulas</label>
+                <input type="time" name="end_time" value="{{ settings.end_time }}">
+            </div>
+
+            <button type="submit" class="btn">Salvar Configurações</button>
+        </form>
+    </div>
+</div>
+
+<!-- TAB: Câmeras -->
+<div id="cameras" class="tab-content" style="display: none;">
+    <div class="card">
+        <h2>Câmeras IP</h2>
+        <p style="margin-bottom: 1rem;">Adicione câmeras IP para monitoramento em tempo real.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>URL RTSP</th>
+                    <th>Localização</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for camera in cameras %}
+                <tr>
+                    <td>{{ camera.name }}</td>
+                    <td>{{ camera.url }}</td>
+                    <td>{{ camera.location }}</td>
+                    <td>
+                        {% if camera.status == 'online' %}
+                            <span class="badge badge-success">Online</span>
+                        {% else %}
+                            <span class="badge badge-danger">Offline</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="/settings/cameras/{{ camera.id }}/edit" class="btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Editar</a>
+                        <a href="/settings/cameras/{{ camera.id }}/delete" class="btn btn-danger" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Deletar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin-top: 1.5rem;">
+            <h3>Adicionar Nova Câmera</h3>
+            <form method="POST" action="/settings/cameras/add">
+                <div class="form-group">
+                    <label>Nome da Câmera</label>
+                    <input type="text" name="camera_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>URL RTSP</label>
+                    <input type="text" name="camera_url" placeholder="rtsp://usuario:senha@ip:porta/stream" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Localização</label>
+                    <select name="location_id" required>
+                        <option value="">Selecione uma localização</option>
+                        {% for location in locations %}
+                        <option value="{{ location.id }}">{{ location.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">Adicionar Câmera</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: Notificações -->
+<div id="notifications" class="tab-content" style="display: none;">
+    <div class="card">
+        <h2>Configurações de Notificações</h2>
+        <form method="POST" action="/settings/notifications">
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="email_alerts" {% if settings.email_alerts %}checked{% endif %}>
+                    Enviar alertas por email
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="sms_alerts" {% if settings.sms_alerts %}checked{% endif %}>
+                    Enviar alertas por SMS
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="whatsapp_alerts" {% if settings.whatsapp_alerts %}checked{% endif %}>
+                    Enviar alertas por WhatsApp
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Email para Alertas Críticos</label>
+                <input type="email" name="alert_email" value="{{ settings.alert_email }}">
+            </div>
+
+            <div class="form-group">
+                <label>Telefone para Alertas Críticos</label>
+                <input type="tel" name="alert_phone" value="{{ settings.alert_phone }}">
+            </div>
+
+            <div class="form-group">
+                <label>Horário de Início de Notificações</label>
+                <input type="time" name="notification_start" value="{{ settings.notification_start }}">
+            </div>
+
+            <div class="form-group">
+                <label>Horário de Término de Notificações</label>
+                <input type="time" name="notification_end" value="{{ settings.notification_end }}">
+            </div>
+
+            <button type="submit" class="btn">Salvar Configurações</button>
+        </form>
+    </div>
+</div>
+
+<!-- TAB: Segurança -->
+<div id="security" class="tab-content" style="display: none;">
+    <div class="card">
+        <h2>Configurações de Segurança</h2>
+        <form method="POST" action="/settings/security">
+            <div class="form-group">
+                <label>Nível de Confiança para Reconhecimento Facial (%)</label>
+                <input type="number" name="confidence_threshold" min="0" max="100" value="{{ settings.confidence_threshold }}" required>
+                <small>Quanto maior, mais rigoroso o reconhecimento</small>
+            </div>
+
+            <div class="form-group">
+                <label>Tempo Máximo Fora da Sala (minutos)</label>
+                <input type="number" name="max_time_outside" value="{{ settings.max_time_outside }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="detect_weapons" {% if settings.detect_weapons %}checked{% endif %}>
+                    Detectar armas e objetos perigosos
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="detect_intruders" {% if settings.detect_intruders %}checked{% endif %}>
+                    Detectar pessoas não autorizadas
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="detect_violence" {% if settings.detect_violence %}checked{% endif %}>
+                    Detectar comportamento violento
+                </label>
+            </div>
+
+            <button type="submit" class="btn">Salvar Configurações</button>
+        </form>
+    </div>
+</div>
+
+<!-- TAB: Usuários -->
+<div id="users" class="tab-content" style="display: none;">
+    <div class="card">
+        <h2>Usuários do Sistema</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Função</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        {% if user.active %}
+                            <span class="badge badge-success">Ativo</span>
+                        {% else %}
+                            <span class="badge badge-danger">Inativo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="/settings/users/{{ user.id }}/edit" class="btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Editar</a>
+                        <a href="/settings/users/{{ user.id }}/delete" class="btn btn-danger" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Deletar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin-top: 1.5rem;">
+            <a href="/settings/users/new" class="btn">+ Novo Usuário</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTab(tabName) {
+        // Ocultar todas as abas
+        const tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => tab.style.display = 'none');
+
+        // Remover classe active de todos os botões
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            btn.style.color = '#666';
+            btn.style.borderBottom = 'none';
+        });
+
+        // Mostrar aba selecionada
+        document.getElementById(tabName).style.display = 'block';
+
+        // Adicionar classe active ao botão clicado
+        event.target.style.color = '#667eea';
+        event.target.style.borderBottom = '3px solid #667eea';
+    }
+</script>
+
+{% endblock %}

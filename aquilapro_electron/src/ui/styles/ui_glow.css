@@ -1,0 +1,52 @@
+/* 
+  ui_glow.css — AG-034 
+  Sistema de Design Premium para o Áquila Pro v2.0
+*/
+
+:root {
+    --glass-bg: rgba(15, 23, 42, 0.8); /* Slate 900 semi-opaque */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --eagle-glow: 0 0 30px rgba(59, 130, 246, 0.2);
+    --card-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    --accent-blue: #3b82f6;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8; /* Slate 400 */
+}
+
+.glass-premium {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--card-shadow);
+}
+
+.eagle-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.eagle-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--eagle-glow);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.animate-glow {
+    animation: glow-pulse 3s infinite ease-in-out;
+}
+
+@keyframes glow-pulse {
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.1)); }
+    50% { filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4)); }
+}
+
+.btn-premium {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-premium:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}

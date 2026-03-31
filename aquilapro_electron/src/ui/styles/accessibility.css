@@ -1,0 +1,186 @@
+/**
+ * Step 162 + 166 — WCAG 2.1 AA: Alto Contraste e prefers-reduced-motion
+ *
+ * Injete este CSS no global índex.css ou importe direto.
+ * Cobre:
+ *   - Step 162: Modo de alto contraste (media: prefers-contrast: more)
+ *   - Step 163: Focus visible para leitores de tela (outline marcante)
+ *   - Step 166: prefers-reduced-motion → desabilita animações
+ *   - Step 167: Animação de skeleton pulse
+ *   - Step 169: Animação de tooltip
+ */
+
+/* ─── Skeleton Pulse Animation ─────────────────────────────── */
+@keyframes skeleton-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.skeleton-pulse {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.10) 50%,
+    rgba(255,255,255,0.04) 75%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: skeleton-shimmer 1.6s infinite;
+}
+
+/* ─── Tooltip Animation ─────────────────────────────────────── */
+@keyframes tooltip-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Empty State hover ─────────────────────────────────────── */
+.empty-state-icon:hover {
+  transform: scale(1.08);
+}
+
+.empty-state-action:hover {
+  background: rgba(59,130,246,0.25) !important;
+  border-color: rgba(59,130,246,0.5) !important;
+  transform: translateY(-1px);
+}
+
+/* ─── Step 163: Focus Outline visível para teclado/leitores ── */
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Remover outline apenas quando usando mouse (não teclado) */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─── Step 164: Indicador visual de tecla ativa ─────────────── */
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: #94a3b8;
+  font-weight: 600;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* ─── Step 162: Alto Contraste (WCAG 2.1 AA) ─────────────────
+   Aumenta contraste de texto, bordas e backgrounds
+   quando o sistema solicita (prefers-contrast: more)
+   ou o usuário ativa via classe .high-contrast no <html>
+*/
+@media (prefers-contrast: more) {
+  :root {
+    --bg:      #000000 !important;
+    --surface: #0a0a0a !important;
+    --border:  rgba(255,255,255,0.4) !important;
+    --text:    #ffffff !important;
+    --muted:   #cccccc !important;
+    --accent:  #5ba8ff !important;
+  }
+
+  /* Todos os textos de cor muted ficam mais claros */
+  [style*="color: #64748b"],
+  [style*="color:#64748b"],
+  .text-slate-400, .text-slate-500, .text-gray-400 {
+    color: #cccccc !important;
+  }
+
+  /* Bordas mais visíveis */
+  [style*="border: 1px solid rgba(255,255,255,0.07)"],
+  [class*="border-white/10"],
+  [class*="border-white/7"] {
+    border-color: rgba(255,255,255,0.4) !important;
+  }
+
+  /* Botões com contraste mínimo 4.5:1 */
+  button:not(:disabled) {
+    outline: 1px solid currentColor;
+  }
+}
+
+html.high-contrast {
+  --bg:      #000000 !important;
+  --surface: #0a0a0a !important;
+  --border:  rgba(255,255,255,0.4) !important;
+  --text:    #ffffff !important;
+  --muted:   #cccccc !important;
+  --accent:  #5ba8ff !important;
+}
+
+html.high-contrast [style*="color: #64748b"],
+html.high-contrast [style*="color:#64748b"],
+html.high-contrast .text-slate-400,
+html.high-contrast .text-slate-500,
+html.high-contrast .text-gray-400 {
+  color: #cccccc !important;
+}
+
+html.high-contrast [style*="border: 1px solid rgba(255,255,255,0.07)"],
+html.high-contrast [class*="border-white/10"],
+html.high-contrast [class*="border-white/7"] {
+  border-color: rgba(255,255,255,0.4) !important;
+}
+
+html.high-contrast button:not(:disabled) {
+  outline: 1px solid currentColor;
+}
+
+/* ─── Step 166: Desabilitar animações ────────────────────────
+   Respeita a preferência do sistema para pessoas com
+   fotossensibilidade ou epilepsia (WCAG 2.3.3 AAA)
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .skeleton-pulse {
+    animation: none !important;
+    background: rgba(255,255,255,0.06) !important;
+  }
+}
+
+/* ─── Utilidades de acessibilidade ─────────────────────────── */
+
+/* Visually hidden — acessível para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Conteúdo visible apenas ao navegar por teclado (skip links) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  padding: 8px 16px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 0 0 8px 0;
+  font-weight: 700;
+  z-index: 99999;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}

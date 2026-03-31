@@ -1,0 +1,76 @@
+/* Elite Shimmer Skeleton for Áquila Pro v1.2.x */
+
+.skeleton-pulse {
+  background: linear-gradient(
+    90deg,
+    rgba(30, 41, 59, 0.4) 25%,
+    rgba(51, 65, 85, 0.6) 50%,
+    rgba(30, 41, 59, 0.4) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-pulse 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--skeleton-radius, 8px);
+  width: var(--skeleton-width, 100%);
+  height: var(--skeleton-height, 16px);
+}
+
+.skeleton-pulse[data-width] { width: attr(data-width); }
+.skeleton-pulse[data-height] { height: attr(data-height); }
+.skeleton-pulse[data-radius] { border-radius: attr(data-radius); }
+
+.skeleton-flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--flex-gap, 0px);
+}
+.skeleton-flex-row[data-gap] { gap: attr(data-gap); }
+
+.skeleton-flex-col {
+  display: flex;
+  flex-direction: column;
+  flex: var(--flex-grow, 0);
+  gap: var(--flex-gap, 0px);
+}
+.skeleton-flex-col[data-gap] { gap: attr(data-gap); }
+.skeleton-flex-col[data-grow] { flex: attr(data-grow); }
+
+@keyframes shimmer-pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-text { height: 12px; margin-bottom: 8px; width: 100%; }
+.skeleton-title { height: 20px; margin-bottom: 12px; width: 60%; }
+.skeleton-avatar { height: 48px; width: 48px; border-radius: 50%; }
+.skeleton-card { height: 120px; width: 100%; border-radius: 12px; }
+
+/* Glint Highlight for Premium Components */
+.glint-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glint-effect::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  transform: rotate(35deg);
+  animation: glint-sweep 3s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes glint-sweep {
+  0% { transform: translateX(-100%) rotate(35deg); }
+  50% { transform: translateX(100%) rotate(35deg); }
+  100% { transform: translateX(100%) rotate(35deg); }
+}

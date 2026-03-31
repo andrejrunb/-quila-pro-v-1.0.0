@@ -1,0 +1,85 @@
+.agent-activity-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.feed-header {
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.agent-status-badges .badge {
+  font-size: 8px;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.feed-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.section-label {
+  font-size: 9px;
+  font-weight: 800;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.1rem;
+}
+
+.agent-chip {
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.agent-chip.active {
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.agent-chip.completed {
+  opacity: 0.7;
+}
+
+.agent-route {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.role {
+  font-size: 10px;
+  font-weight: 900;
+  color: #94a3b8;
+}
+
+.agent-chip.active .role {
+  color: #3b82f6;
+}
+
+.task-desc {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #cbd5e1;
+  margin-top: 0.25rem;
+}

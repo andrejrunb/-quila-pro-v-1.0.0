@@ -1,0 +1,104 @@
+.security-alert-card {
+  background: rgba(15, 23, 42, 0.6);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.security-alert-card:hover {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.security-alert-card--high {
+  border-left: 4px solid #ef4444;
+}
+
+.security-alert-card--medium {
+  border-left: 4px solid #f59e0b;
+}
+
+.security-alert-card[data-event-type="weapon"] { --event-color: #ef4444; --event-color-alpha: rgba(239, 68, 68, 0.2); --event-color-alpha-border: rgba(239, 68, 68, 0.4); }
+.security-alert-card[data-event-type="group"] { --event-color: #f59e0b; --event-color-alpha: rgba(245, 158, 11, 0.2); --event-color-alpha-border: rgba(245, 158, 11, 0.4); }
+.security-alert-card[data-event-type="fall"] { --event-color: #3b82f6; --event-color-alpha: rgba(59, 130, 246, 0.2); --event-color-alpha-border: rgba(59, 130, 246, 0.4); }
+.security-alert-card[data-event-type="intrusion"] { --event-color: #8b5cf6; --event-color-alpha: rgba(139, 92, 246, 0.2); --event-color-alpha-border: rgba(139, 92, 246, 0.4); }
+.security-alert-card[data-event-type="vandalism"] { --event-color: #ec4899; --event-color-alpha: rgba(236, 72, 153, 0.2); --event-color-alpha-border: rgba(236, 72, 153, 0.4); }
+
+.security-alert-card {
+  --event-color: #3b82f6; /* Fallback */
+  --event-color-alpha: rgba(59, 130, 246, 0.2);
+  --event-color-alpha-border: rgba(59, 130, 246, 0.4);
+}
+
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.alert-type-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.alert-icon-wrapper {
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+}
+
+.alert-confidence {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.alert-main {
+  display: flex;
+  gap: 12px;
+}
+
+.alert-thumbnail {
+  width: 80px;
+  height: 60px;
+  background: #000;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.alert-details {
+  flex: 1;
+}
+
+.alert-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 2px 0;
+}
+
+.alert-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.alert-time {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: #475569;
+}

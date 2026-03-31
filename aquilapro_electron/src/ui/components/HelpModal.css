@@ -1,0 +1,123 @@
+.help-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.help-modal-content {
+  width: 100%;
+  max-width: 500px;
+  background: #0e1320;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5);
+}
+
+.help-modal-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.help-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.help-modal-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-modal-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.help-modal-close {
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.help-modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.help-modal-body {
+  padding: 1.25rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.help-modal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.help-modal-row:last-child {
+  border-bottom: none;
+}
+
+.help-modal-description {
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.help-modal-keys {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.help-modal-plus {
+  color: #475569;
+  font-size: 0.7rem;
+}
+
+.help-modal-footer {
+  padding: 0.75rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.75rem;
+  color: #475569;
+  text-align: center;
+}
+
+.kbd {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: ui-monospace, monospace;
+}

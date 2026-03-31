@@ -1,0 +1,13 @@
+node_modules
+dist
+release
+build
+*.log
+tmp
+.env
+.DS_Store
+*.exe
+*.blockmap
+latest.yml
+builder-effective-config.yaml
+builder-debug.yml

@@ -1,0 +1,328 @@
+.heatmap-page {
+  min-height: 100vh;
+  background-color: #020617;
+  color: #f1f5f9;
+  padding: 2rem;
+  font-family: inherit;
+}
+
+.heatmap-container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.heatmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.heatmap-title {
+  font-size: 2.25rem;
+  font-weight: 900;
+  background: linear-gradient(to right, #60a5fa, #818cf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heatmap-subtitle {
+  color: #64748b;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.time-selector {
+  display: flex;
+  background-color: #0f172a;
+  border-radius: 1rem;
+  padding: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.time-btn {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+  color: #64748b;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.time-btn.active {
+  background-color: #2563eb;
+  color: #fff;
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat-card {
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-icon-wrapper {
+  padding: 0.75rem;
+  border-radius: 1rem;
+  width: fit-content;
+}
+
+.icon-blue { background-color: rgba(59, 130, 246, 0.1); color: #60a5fa; }
+.icon-indigo { background-color: rgba(79, 70, 229, 0.1); color: #818cf8; }
+.icon-emerald { background-color: rgba(16, 185, 129, 0.1); color: #34d399; }
+.icon-orange { background-color: rgba(249, 115, 22, 0.1); color: #fb923c; }
+
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 900;
+  margin-top: 1rem;
+}
+
+.stat-label {
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.heatmap-main-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+}
+
+.chart-section {
+  grid-column: span 12;
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  padding: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .chart-section {
+    grid-column: span 8;
+  }
+}
+
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon-mini { width: 1rem; height: 1rem; }
+.icon-mid { width: 1.5rem; height: 1.5rem; }
+.icon-blue-soft { color: #60a5fa; }
+
+.stat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.trend-up { font-size: 0.75rem; font-weight: 700; color: #22c55e; display: flex; align-items: center; gap: 0.25rem; }
+.trend-down { font-size: 0.75rem; font-weight: 700; color: #ef4444; display: flex; align-items: center; gap: 0.25rem; }
+.label-pico { font-size: 0.75rem; font-weight: 700; color: #64748b; }
+
+.bar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.heatmap-bar-group {
+  margin-bottom: 1.5rem;
+}
+
+.bar-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.zone-name {
+  font-weight: 700;
+  color: #cbd5e1;
+  transition: color 0.2s ease;
+}
+
+.heatmap-bar-group:hover .zone-name {
+  color: #fff;
+}
+
+.passage-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.bar-track {
+  height: 1rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, #2563eb, #6366f1);
+  border-radius: 9999px;
+  width: var(--bar-width, 0%);
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+  transition: all 1s ease;
+}
+
+.insight-section {
+  grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .insight-section {
+    grid-column: span 4;
+  }
+}
+
+.ai-insight-card {
+  background-color: #2563eb;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+}
+
+.ai-insight-glow {
+  position: absolute;
+  right: -2rem;
+  bottom: -2rem;
+  width: 8rem;
+  height: 8rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  filter: blur(48px);
+}
+
+.insight-content {
+  position: relative;
+  z-index: 10;
+}
+
+.insight-title {
+  font-size: 1.25rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.insight-text {
+  color: #dbeafe;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  margin-bottom: 1.5rem;
+}
+
+.insight-btn {
+  padding: 0.5rem 1.5rem;
+  background-color: #fff;
+  color: #2563eb;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  transition: background-color 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.alerts-card {
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  padding: 2rem;
+}
+
+.alerts-header {
+  font-size: 0.875rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #475569;
+  margin-bottom: 1.5rem;
+}
+
+.alert-list-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alert-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.alert-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+}
+
+.dot-yellow { background-color: #eab308; }
+.dot-green { background-color: #22c55e; }
+
+.alert-label {
+  flex: 1;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+.alert-time {
+  color: #64748b;
+}

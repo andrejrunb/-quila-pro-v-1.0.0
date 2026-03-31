@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Áquila Pro Open API",
+    "version": "1.0.0",
+    "description": "Interface de integração para catracas, sensores e dashboards externos."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Local Edge Server"
+    }
+  ],
+  "paths": {
+    "/detections/recent": {
+      "get": {
+        "summary": "Retorna as últimas detecções faciais",
+        "responses": {
+          "200": {
+            "description": "Lista de presenças em formato JSON"
+          }
+        }
+      }
+    },
+    "/alerts/trigger": {
+      "post": {
+        "summary": "Dispara um alerta manual no painel da escola",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": { "type": "string" },
+                  "zone": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+face-recognition
+opencv-python
+numpy
+pillow
+setuptools==69.5.1

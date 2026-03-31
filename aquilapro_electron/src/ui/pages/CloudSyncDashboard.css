@@ -1,0 +1,319 @@
+/*
+ * Phase 250 — CloudSyncDashboard.css
+ * Eagle Cloud Sync Monitor (Zero-Debt Standard)
+ */
+
+.cloud-sync-page {
+  min-height: 100vh;
+  background-color: #020617;
+  color: #f1f5f9;
+  padding: 3rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.sync-container-max {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.sync-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+
+.sync-title-group h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, #60a5fa, #818cf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+}
+
+.sync-title-group p {
+  color: #64748b;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+.btn-force-sync {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 1.25rem;
+  font-weight: 900;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-force-sync:hover:not(:disabled) {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.btn-force-sync:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sync-status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2rem;
+}
+
+.sync-status-card {
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 2.5rem;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* LGPD Integrity Card */
+.lgpd-status-icon-box {
+  padding: 1rem;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  border-radius: 1.25rem;
+  display: inline-flex;
+}
+
+.lgpd-active-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.lgpd-integrity-hint {
+  color: #10b981;
+  font-size: 0.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+.lgpd-rules-box {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  background-color: rgba(2, 6, 23, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1.25rem;
+}
+
+.rule-label {
+  font-size: 0.5rem;
+  color: #475569;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.rule-text {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.lgpd-checks {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.check-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.check-label { color: #64748b; }
+.check-status { color: #34d399; }
+
+/* Outbox Queue Card */
+.queue-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+}
+
+.icon-database { color: #60a5fa; }
+
+.queue-stats-main {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-group-center {
+  text-align: center;
+}
+
+.stat-value-giant {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.stat-value-bold {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.stat-label-mini {
+  font-size: 0.5rem;
+  color: #475569;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.5rem;
+}
+
+.v-divider {
+  width: 1px;
+  height: 3rem;
+  background-color: #1e293b;
+}
+
+.sync-progress-container {
+  margin-bottom: 2rem;
+}
+
+.progress-track-sync {
+  width: 100%;
+  height: 0.5rem;
+  background-color: #1e293b;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.progress-fill-sync {
+  height: 100%;
+  background-color: #3b82f6;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.integrity-check-footer {
+  margin-top: auto;
+  padding: 1.25rem;
+  background-color: #020617;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.integrity-label-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.icon-server { color: #64748b; }
+.icon-check { color: #10b981; }
+
+/* Timeline History */
+.sync-history-section {
+  margin-top: 3rem;
+  background-color: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 2rem;
+  padding: 2.5rem;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.history-title {
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #475569;
+  margin-bottom: 1.5rem;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1.25rem;
+}
+
+.history-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-cloud { color: #60a5fa; }
+
+.history-info-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.history-info-subtitle {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.history-timestamp {
+  font-size: 0.75rem;
+  color: #475569;
+  font-family: 'Fira Code', monospace;
+}
+
+.lgpd-header-spacing {
+  margin-top: 1.5rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

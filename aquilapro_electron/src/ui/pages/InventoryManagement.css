@@ -1,0 +1,124 @@
+.inventory-container {
+  padding: 32px;
+  background: radial-gradient(circle at top left, var(--industrial-slate), var(--bg-dark));
+  min-height: 100%;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--crate-border);
+  padding-bottom: 20px;
+}
+
+.inventory-title-group h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--logistic-amber);
+}
+
+.vision-overlay-active {
+  background: rgba(245, 158, 11, 0.05);
+  border: 1px solid var(--logistic-amber);
+  color: var(--logistic-amber);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.crate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.inventory-card {
+  background: var(--crate-bg);
+  border: 1px solid var(--crate-border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.inventory-card:hover {
+  border-color: var(--logistic-amber);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.3);
+}
+
+.item-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.item-name {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.item-zone {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.stock-meter-bg {
+  height: 6px;
+  background: var(--industrial-steel);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.stock-meter-fill {
+  height: 100%;
+  background: var(--logistic-amber);
+  width: var(--stock-percent, 0%);
+  transition: width 0.5s ease;
+}
+
+.stock-meter-fill.critical {
+  background: #ef4444;
+}
+
+.vision-tag {
+  font-size: 0.6rem;
+  color: var(--logistic-amber);
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.7;
+}
+
+.btn-restock {
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px;
+  background: var(--industrial-steel);
+  border: 1px solid var(--crate-border);
+  color: white;
+  border-radius: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.btn-restock:hover {
+  background: var(--logistic-amber);
+  color: var(--bg-dark);
+}

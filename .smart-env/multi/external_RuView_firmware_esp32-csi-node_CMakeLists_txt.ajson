@@ -1,0 +1,2 @@
+
+"smart_sources:external/RuView/firmware/esp32-csi-node/CMakeLists.txt": {"path":"external/RuView/firmware/esp32-csi-node/CMakeLists.txt","last_embed":{"hash":null},"embeddings":{},"last_read":{"hash":"rd0faa","at":1774579985893},"class_name":"SmartSource","last_import":{"mtime":1774491750498,"size":211,"at":1774579985894,"hash":"rd0faa"},"blocks":{"#ESP32 CSI Node Firmware (ADR-018)":[1,1],"#Requires ESP-IDF v5.2+":[2,9],"#Requires ESP-IDF v5.2+#{1}":[3,9]},"outlinks":[],"task_lines":[],"tasks":{},"codeblock_ranges":[]},

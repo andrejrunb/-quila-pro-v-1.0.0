@@ -1,0 +1,62 @@
+.app-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-gradient);
+}
+
+.main-content {
+  position: absolute;
+  left: var(--sidebar-width);
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.page-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+}
+
+/* Base styles for all pages now inside the layout */
+.page-container {
+  padding: var(--container-padding);
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Transitions between pages */
+.page-transition-enter {
+  opacity: 0;
+  transform: scale(0.98);
+}
+.page-transition-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+.page-transition-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.page-transition-exit-active {
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 300ms, transform 300ms;
+}

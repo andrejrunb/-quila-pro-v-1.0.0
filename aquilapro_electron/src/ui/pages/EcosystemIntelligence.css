@@ -1,0 +1,107 @@
+.roi-dashboard {
+  padding: 2rem;
+}
+
+.roi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.buy-license-badge {
+  padding: 0.5rem 1rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 99px;
+  color: #3b82f6;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* ROI Card */
+.roi-card {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.comparison-box {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.legacy-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.aquila-side {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-left: 3rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.label {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.05rem;
+  margin-bottom: 0.25rem;
+}
+
+.value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02rem;
+}
+
+.legacy-pill {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gray-dot {
+  width: 6px;
+  height: 6px;
+  background: #475569;
+  border-radius: 50%;
+}
+
+/* Status Footer */
+.status-mini-card {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.status {
+  font-size: 11px;
+  font-weight: 900;
+}

@@ -1,0 +1,89 @@
+.heatmap-widget-container {
+  background: rgba(15, 23, 42, 0.75);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+.heatmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.heatmap-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #020617;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.campus-base-map {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  filter: grayscale(1) brightness(0.8) contrast(1.2);
+}
+
+.heatmap-svg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+}
+
+.heat-point {
+  fill-opacity: 0.65;
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 0.2px;
+  animation: heat-beat 2s infinite ease-in-out;
+  animation-delay: var(--delay);
+  cursor: crosshair;
+  transition: all 0.2s ease;
+}
+
+.heat-point:hover {
+  fill-opacity: 1;
+  stroke-width: 0.5px;
+  transform: scale(1.5);
+  transform-origin: center;
+}
+
+@keyframes heat-beat {
+  0%, 100% { 
+    filter: blur(2px) opacity(0.5); 
+    transform: scale(0.95);
+  }
+  50% { 
+    filter: blur(3.5px) opacity(0.8); 
+    transform: scale(1.05);
+  }
+}
+
+.point-tooltip {
+  position: absolute;
+  left: var(--tp-x, 0);
+  top: var(--tp-y, 0);
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 4px;
+  pointer-events: none;
+  transform: translate(-50%, -120%);
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.heatmap-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}

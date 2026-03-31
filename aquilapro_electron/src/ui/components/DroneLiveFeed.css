@@ -1,0 +1,138 @@
+.drone-feed-container {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-header {
+  padding: 12px 20px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  z-index: 10;
+}
+
+.recording-dot {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+
+.feed-video-mock {
+  flex: 1;
+  background: #0f172a;
+  position: relative;
+  overflow: hidden;
+}
+
+.ar-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.ar-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.ar-corner.tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+.ar-corner.tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+.ar-corner.bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+.ar-corner.br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+.ar-telemetry-left {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ar-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.ar-stat .label { font-size: 8px; color: #10b981; font-weight: 800; }
+.ar-stat .value { font-size: 16px; font-weight: 900; color: white; font-family: monospace; }
+
+.ar-target-box {
+  position: absolute;
+  width: 120px;
+  height: 180px;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  top: 30%;
+  left: 60%;
+  animation: jitter 0.2s infinite;
+}
+
+.target-label {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  background: rgba(239, 68, 68, 0.8);
+  color: white;
+  font-size: 8px;
+  font-weight: 800;
+  padding: 2px 6px;
+}
+
+.feed-noise {
+  position: absolute;
+  inset: 0;
+  background: url('https://grainy-gradients.vercel.app/noise.svg');
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.feed-footer {
+  padding: 12px 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.feed-expand-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes jitter {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(1px, -1px); }
+  50% { transform: translate(-1px, 1px); }
+  75% { transform: translate(1px, 1px); }
+  100% { transform: translate(0,0); }
+}

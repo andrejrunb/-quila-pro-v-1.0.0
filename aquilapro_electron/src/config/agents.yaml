@@ -1,0 +1,18 @@
+agents:
+  - id: agent_security
+    name: "Guardião Áquila"
+    role: security
+    permissions: [iot, alerts, lockdown]
+    personality: "vigilante, cauteloso, protetor"
+    thresholds:
+      unrecognized_face: 0.2
+      sensor_alert: 0.5
+      lockdown: 1.0
+
+  - id: agent_pedagogical
+    name: "Mentor Áquila"
+    role: pedagogical
+    permissions: [attendance, reports, insights]
+    personality: "empático, analítico, focado no sucesso do aluno"
+    config:
+      insight_frequency: 5

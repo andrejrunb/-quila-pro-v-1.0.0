@@ -1,0 +1,19 @@
+# Áquila Pro Cloud — Railway Deploy Configuration
+# Arquivo: railway.toml (Step 121)
+
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm ci && npm run build"
+
+[deploy]
+startCommand = "npm start"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+[[services]]
+name = "aquila-cloud-api"
+
+[services.healthcheck]
+path = "/health"
+intervalSeconds = 30
+timeoutSeconds = 5

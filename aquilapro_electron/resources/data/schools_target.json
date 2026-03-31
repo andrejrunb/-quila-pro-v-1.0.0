@@ -1,0 +1,7 @@
+[
+  {"name": "Colégio Simbios", "city": "Goiânia", "profile": "Premium", "directors": ["Adriano", "Valéria"]},
+  {"name": "Escola Internacional de Alphaville", "city": "Goiânia", "profile": "Elite", "directors": ["Marcelo"]},
+  {"name": "Colégio Olimpo", "city": "Brasília", "profile": "Elite", "directors": ["Rodrigo"]},
+  {"name": "Escola Americana de Brasília", "city": "Brasília", "profile": "Ultra-Luxury", "directors": ["Sarah"]},
+  {"name": "Colégio Visão", "city": "Goiânia", "profile": "High-Volume", "directors": ["Ricardo"]}
+]

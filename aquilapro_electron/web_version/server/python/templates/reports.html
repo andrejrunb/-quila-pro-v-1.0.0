@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}Relatórios - Áquila Pro{% endblock %}
+
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1>Relatórios</h1>
+
+<!-- Filtros de Data -->
+<div class="card">
+    <h2>Filtros</h2>
+    <form method="GET" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div class="form-group">
+            <label>Tipo de Relatório</label>
+            <select name="report_type">
+                <option value="attendance" {% if request.args.get('report_type') == 'attendance' %}selected{% endif %}>Presença</option>
+                <option value="behavior" {% if request.args.get('report_type') == 'behavior' %}selected{% endif %}>Comportamento</option>
+                <option value="performance" {% if request.args.get('report_type') == 'performance' %}selected{% endif %}>Desempenho</option>
+                <option value="security" {% if request.args.get('report_type') == 'security' %}selected{% endif %}>Segurança</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Turma</label>
+            <select name="class_id">
+                <option value="">Todas as turmas</option>
+                {% for class in classes %}
+                <option value="{{ class.id }}" {% if request.args.get('class_id') == class.id %}selected{% endif %}>
+                    {{ class.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Data Inicial</label>
+            <input type="date" name="start_date" value="{{ request.args.get('start_date', '') }}">
+        </div>
+
+        <div class="form-group">
+            <label>Data Final</label>
+            <input type="date" name="end_date" value="{{ request.args.get('end_date', '') }}">
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: flex-end; gap: 0.5rem;">
+            <button type="submit" class="btn" style="flex: 1;">Gerar Relatório</button>
+            <a href="/reports/export?{{ request.query_string.decode() }}" class="btn btn-secondary">📥 Exportar</a>
+        </div>
+    </form>
+</div>
+
+<!-- Gráficos -->
+{% if report_data %}
+<div class="grid">
+    <div class="card">
+        <h2>Presença por Dia</h2>
+        <canvas id="attendanceChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>Distribuição de Status</h2>
+        <canvas id="statusChart"></canvas>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="card">
+        <h2>Top 10 Alunos com Mais Atrasos</h2>
+        <canvas id="lateChart"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>Top 10 Alunos com Mais Faltas</h2>
+        <canvas id="absenceChart"></canvas>
+    </div>
+</div>
+
+<!-- Tabela de Resumo -->
+<div class="card">
+    <h2>Resumo Detalhado</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Aluno</th>
+                <th>Presentes</th>
+                <th>Ausentes</th>
+                <th>Atrasos</th>
+                <th>Taxa de Presença</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student_report in report_data.students %}
+            <tr>
+                <td>{{ student_report.name }}</td>
+                <td>{{ student_report.present }}</td>
+                <td>{{ student_report.absent }}</td>
+                <td>{{ student_report.late }}</td>
+                <td>{{ student_report.attendance_rate }}%</td>
+                <td>
+                    {% if student_report.attendance_rate >= 90 %}
+                        <span class="badge badge-success">Excelente</span>
+                    {% elif student_report.attendance_rate >= 75 %}
+                        <span class="badge badge-info">Bom</span>
+                    {% elif student_report.attendance_rate >= 60 %}
+                        <span class="badge badge-warning">Atenção</span>
+                    {% else %}
+                        <span class="badge badge-danger">Crítico</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Scripts de Gráficos -->
+<script>
+    // Gráfico de Presença por Dia
+    const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+    new Chart(attendanceCtx, {
+        type: 'line',
+        data: {
+            labels: {{ report_data.dates | tojson }},
+            datasets: [{
+                label: 'Presentes',
+                data: {{ report_data.daily_present | tojson }},
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4
+            }, {
+                label: 'Ausentes',
+                data: {{ report_data.daily_absent | tojson }},
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Gráfico de Distribuição de Status
+    const statusCtx = document.getElementById('statusChart').getContext('2d');
+    new Chart(statusCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Presentes', 'Ausentes', 'Atrasos'],
+            datasets: [{
+                data: [{{ report_data.total_present }}, {{ report_data.total_absent }}, {{ report_data.total_late }}],
+                backgroundColor: ['#28a745', '#dc3545', '#ffc107']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                }
+            }
+        }
+    });
+
+    // Gráfico de Atrasos
+    const lateCtx = document.getElementById('lateChart').getContext('2d');
+    new Chart(lateCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ report_data.top_late_students_names | tojson }},
+            datasets: [{
+                label: 'Atrasos',
+                data: {{ report_data.top_late_students_counts | tojson }},
+                backgroundColor: '#ffc107'
+            }]
+        },
+        options: {
+            responsive: true,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Gráfico de Faltas
+    const absenceCtx = document.getElementById('absenceChart').getContext('2d');
+    new Chart(absenceCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ report_data.top_absent_students_names | tojson }},
+            datasets: [{
+                label: 'Faltas',
+                data: {{ report_data.top_absent_students_counts | tojson }},
+                backgroundColor: '#dc3545'
+            }]
+        },
+        options: {
+            responsive: true,
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+{% else %}
+<div class="card">
+    <p style="text-align: center; color: #666;">Selecione os filtros e clique em "Gerar Relatório"</p>
+</div>
+{% endif %}
+
+{% endblock %}

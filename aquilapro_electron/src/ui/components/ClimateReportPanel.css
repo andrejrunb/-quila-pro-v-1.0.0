@@ -1,0 +1,294 @@
+.climate-panel {
+  padding: 24px;
+  background: #0f172a;
+  min-height: 100vh;
+  color: #f8fafc;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header-title h1 {
+  font-size: 28px;
+  margin: 0;
+  background: linear-gradient(90deg, #60a5fa, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-title p {
+  margin: 4px 0 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-refresh, .btn-export {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.btn-refresh:hover, .btn-export:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #60a5fa;
+}
+
+.summary-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.summary-item {
+  background: rgba(30, 41, 59, 0.5);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.summary-item .label {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.summary-item .value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.text-success { color: #10b981; }
+
+.climate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.climate-card {
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.main-chart-card {
+  grid-column: 1 / -1;
+}
+
+.card-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 24px;
+  font-size: 18px;
+  color: #e2e8f0;
+}
+
+.icon-burn { color: #f87171; }
+.icon-blue { color: #60a5fa; }
+.icon-purple { color: #c084fc; }
+
+.heatmap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.heatmap-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.zone-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 180px;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+.intensity-bar-container {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.intensity-bar {
+  height: 100%;
+  width: var(--intensity, 0%);
+  background: linear-gradient(90deg, #f87171, #ef4444);
+  border-radius: 4px;
+}
+
+.count {
+  font-size: 12px;
+  color: #94a3b8;
+  width: 80px;
+  text-align: right;
+}
+
+.ai-suggestion-box {
+  background: rgba(168, 85, 247, 0.05);
+  border: 1px solid rgba(168, 85, 247, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  min-height: 100px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.protocol-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-action-small {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: #3b82f6;
+  color: white;
+  transition: opacity 0.2s;
+}
+
+.btn-action-small:hover {
+  opacity: 0.9;
+}
+
+.btn-action-small.secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+/* Risk Alerts */
+.risk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.risk-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border-left: 4px solid transparent;
+}
+
+.risk-item.high {
+  border-left-color: #f43f5e;
+  background: rgba(244, 63, 94, 0.05);
+}
+
+.risk-item.medium {
+  border-left-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.risk-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.student-name {
+  font-weight: 600;
+  color: #f8fafc;
+  font-size: 15px;
+}
+
+.risk-reason {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.risk-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.risk-badge.high {
+  background: #f43f5e;
+  color: white;
+}
+
+.risk-badge.medium {
+  background: #f59e0b;
+  color: white;
+}
+
+.empty-state {
+  text-align: center;
+  color: #64748b;
+  padding: 40px 0;
+  font-size: 14px;
+}
+
+.icon-red { color: #f43f5e; }
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  gap: 16px;
+  color: #94a3b8;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  color: #3b82f6;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}
+
+@media (max-width: 1024px) {
+  .climate-grid {
+    grid-template-columns: 1fr;
+  }
+}

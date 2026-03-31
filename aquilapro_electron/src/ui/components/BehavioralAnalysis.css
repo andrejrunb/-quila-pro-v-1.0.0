@@ -1,0 +1,316 @@
+/*
+ * Phase 241 — BehavioralAnalysis.css
+ * Design Soberano (Glassmorphism + Neon Accents)
+ */
+
+.behavioral-sovereignty-v3540 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.telemetry-grid-v3540 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.cobalt-analytics-card {
+  background: var(--glass-bg, rgba(20, 20, 35, 0.7));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.behavioral-card-elite {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 2rem;
+  padding: 2.5rem;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.cobalt-analytics-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.highlighted-card {
+  border-left: 4px solid var(--accent-amber, #f59e0b);
+}
+
+.card-header-minimal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.card-header-minimal h3 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+/* Risk Hex Display */
+.risk-score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.risk-hex {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #2dd4bf; /* Teal */
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.2);
+  margin-bottom: 10px;
+}
+
+.risk-hex.danger {
+  border-color: #ef4444;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  animation: pulse-danger 2s infinite;
+}
+
+.risk-value-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.risk-unit {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-left: 2px;
+}
+
+.risk-description {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+
+/* Metrics List */
+.emotions-telemetry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.metric-row-v3540 {
+  display: grid;
+  grid-template-columns: 100px 1fr 40px;
+  align-items: center;
+  gap: 12px;
+}
+
+.metric-info-v3540 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metric-label-v3540 {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.metric-track-v3540 {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.metric-fill-v3540 {
+  height: 100%;
+  border-radius: 3px;
+  width: var(--metric-width, 0%);
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.metric-fill-v3540.stress { background: #f87171; }
+.metric-fill-v3540.fatigue { background: #60a5fa; }
+.metric-fill-v3540.engagement { background: #34d399; }
+
+.metric-value-v3540 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Posture Stream */
+.pose-stream-v3540 {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.telemetry-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  font-size: 0.75rem;
+}
+
+.item-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-type {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.item-time {
+  font-size: 0.65rem;
+  opacity: 0.4;
+}
+
+.item-confidence {
+  color: #34d399;
+  font-weight: 700;
+}
+
+/* Evasion Risk List */
+.risk-profile-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.risk-profile-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-identity {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.profile-reason {
+  font-size: 0.65rem;
+  opacity: 0.5;
+}
+
+.profile-data {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-percent {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.profile-trend {
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.profile-trend.up { color: #f87171; }
+.profile-trend.down { color: #34d399; }
+
+/* Heatmap Shortcut */
+.heatmap-visualization-v3540 {
+  height: 120px;
+  background: linear-gradient(45deg, #4f46e5, #9333ea);
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.heatmap-overlay-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  animation: rotate-glow 10s linear infinite;
+}
+
+.trend-icon-overlay {
+  z-index: 2;
+  opacity: 0.5;
+  margin-bottom: 8px;
+}
+
+.view-link {
+  z-index: 2;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+@keyframes pulse-danger {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+@keyframes rotate-glow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Utilities */
+.icon-telemetry.teal { color: #2dd4bf; }
+.icon-telemetry.blue { color: #60a5fa; }
+.icon-telemetry.amber { color: #fbbf24; }
+.icon-telemetry.indigo { color: #818cf8; }
+
+.empty-state-telemetry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 0.7rem;
+  opacity: 0.4;
+  font-style: italic;
+}

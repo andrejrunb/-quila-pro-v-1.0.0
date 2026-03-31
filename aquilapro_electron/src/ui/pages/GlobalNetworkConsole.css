@@ -1,0 +1,304 @@
+.global-network-container {
+  padding: 32px;
+  background: #0a0f1d;
+  min-height: 100vh;
+  color: #cbd5e1;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Header */
+.network-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+}
+
+.version-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #3b82f6;
+  margin-bottom: 8px;
+}
+
+.version-text {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.network-title {
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: #fff;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  margin: 0;
+}
+
+.highlight-blue {
+  color: #2563eb;
+}
+
+.btn-new-project {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 16px;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.05);
+  margin-top: 16px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-new-project:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.stats-group {
+  display: flex;
+  gap: 16px;
+}
+
+.stat-box {
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  font-style: italic;
+  letter-spacing: -0.03em;
+}
+
+.stat-box--blue {
+  background: #2563eb;
+  border: none;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+}
+
+.stat-box--blue .stat-label { color: rgba(255, 255, 255, 0.8); }
+
+/* Grid */
+.units-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.unit-card {
+  position: relative;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 32px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.unit-card:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(37, 99, 235, 0.1);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.unit-icon-wrapper {
+  padding: 16px;
+  border-radius: 24px;
+}
+
+.icon--secure { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.icon--warning { background: rgba(249, 115, 22, 0.1); color: #fb923c; }
+.icon--alert { background: rgba(239, 68, 68, 0.1); color: #f87171; }
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.status--secure { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+.status--warning { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
+.status--alert { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+.unit-name {
+  font-size: 1.125rem;
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0 0 8px 0;
+  transition: color 0.3s ease;
+}
+
+.unit-card:hover .unit-name {
+  color: #60a5fa;
+}
+
+.metrics-container {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+}
+
+.metric-label-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+}
+
+.metric-value--high { color: #10b981; }
+.metric-value--med { color: #fb923c; }
+.metric-value--low { color: #f87171; }
+.metric-value--normal { color: #fff; }
+
+.btn-control {
+  margin-top: 32px;
+  width: 100%;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.unit-card:hover .btn-control {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-control:hover {
+  background: #2563eb;
+}
+
+/* Placeholder card */
+.card-add-unit {
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-add-unit:hover {
+  opacity: 1;
+  border-color: #2563eb;
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.add-unit-text {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.9);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  animation: modal-fade 0.3s ease;
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  animation: modal-slide 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-slide {
+  from { transform: scale(0.9) translateY(40px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.btn-close-modal {
+  position: absolute;
+  top: -64px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-close-modal:hover {
+  color: #fff;
+}

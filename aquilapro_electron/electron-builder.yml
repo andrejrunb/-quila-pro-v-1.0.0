@@ -1,0 +1,79 @@
+appId: com.aquilapro.system
+productName: Áquila Pro
+copyright: Copyright © 2026 Áquila Pro LTDA — CNPJ 00.000.000/0001-00
+
+# ─── Arquivos incluídos no pacote ───────────────────────────
+files:
+  - dist/main/**/*
+  - dist/renderer/**/*
+  - package.json
+  - node_modules/better-sqlite3/**/*
+  - node_modules/onnxruntime-node/**/*
+
+# ─── Diretórios de recursos ──────────────────────────────────
+directories:
+  output: dist_installer
+  buildResources: build
+
+# ─── Assets extra (fora do ASAR) ────────────────────────────
+extraResources:
+  - from: src/database/seed.sql
+    to: database/seed.sql
+  - from: build/models
+    to: models
+    filter:
+      - '**/*.onnx'
+
+# ─── ASAR (proteção do código) ───────────────────────────────
+asar: true
+asarUnpack:
+  - '**/node_modules/better-sqlite3/**'
+  - '**/node_modules/onnxruntime-node/**'
+  - '**/node_modules/@serialport/**'
+
+# ─── Windows ─────────────────────────────────────────────────
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+  publisherName: Áquila Pro LTDA
+  # Assinatura de código (EV Certificate — Step 191)
+  # Ativar quando o certificado EV for adquirido:
+  # certificateFile: build/certificate.p12
+  # certificatePassword: ${env.WIN_CSC_PASSWORD}
+  requestedExecutionLevel: asInvoker
+  artifactName: AquilaPro-Setup-${version}.exe
+
+# ─── NSIS Installer ─────────────────────────────────────────
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  allowElevation: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Áquila Pro
+  menuCategory: Áquila Pro
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderBitmap: build/installer_header.bmp
+  installerSideBitmap: build/installer_sidebar.bmp
+  license: build/license.rtf
+  language: 1046  # Portuguese (Brazil)
+  multiLanguageInstaller: false
+  deleteAppDataOnUninstall: false
+  displayLanguageSelector: false
+
+# ─── Auto Updater (electron-updater) ─────────────────────────
+publish:
+  provider: github
+  owner: aquilapro
+  repo: aquilapro-releases
+  private: false
+  releaseType: release
+
+# ─── macOS (futuro) ──────────────────────────────────────────
+# mac:
+#   category: public.app-category.education
+#   target: dmg

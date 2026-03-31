@@ -1,0 +1,236 @@
+.analytics-container {
+  padding: var(--spacing-8);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.back-dashboard {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  margin-bottom: var(--spacing-4);
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+  gap: 8px;
+}
+
+.back-dashboard:hover {
+  color: #fff;
+}
+
+.back-dashboard:hover .back-icon {
+  transform: translateX(-4px);
+}
+
+.back-icon {
+  transition: transform 0.3s ease;
+}
+
+.analytics-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-10);
+}
+
+.analytics-title {
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: #fff;
+  font-style: italic;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
+
+.analytics-subtitle {
+  color: var(--text-secondary);
+  margin-top: var(--spacing-2);
+  font-weight: 500;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--spacing-6);
+  margin-bottom: var(--spacing-10);
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stat-card {
+  padding: var(--spacing-6);
+}
+
+.stat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+
+.stat-trend-up {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--success);
+  display: flex;
+  align-items: center;
+}
+
+.stat-trend-down {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--danger);
+  display: flex;
+  align-items: center;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.stat-value {
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: #fff;
+  margin-top: 4px;
+}
+
+.stat-footer {
+  font-size: 0.625rem;
+  color: var(--text-secondary);
+  margin-top: var(--spacing-2);
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--spacing-8);
+}
+
+@media (min-width: 768px) {
+  .charts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.chart-card {
+  padding: var(--spacing-8);
+  height: 24rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.chart-title {
+  color: #fff;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--spacing-8);
+}
+
+.chart-visual {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 12rem;
+  padding: 0 var(--spacing-4);
+}
+
+.chart-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-bar {
+  width: 3rem;
+  background: rgba(124, 77, 255, 0.2);
+  border-top: 2px solid var(--secondary);
+  border-radius: 8px 8px 0 0;
+  transition: all 0.5s ease;
+  cursor: help;
+}
+
+.chart-bar:hover {
+  background: rgba(124, 77, 255, 0.4);
+}
+
+.chart-label {
+  font-size: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 900;
+}
+
+.insight-card {
+  position: relative;
+  overflow: hidden;
+  padding: var(--spacing-8);
+}
+
+.insight-title {
+  color: #fff;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--spacing-6);
+  text-decoration: underline;
+  text-decoration-color: rgba(16, 185, 129, 0.3);
+}
+
+.insight-box {
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-2xl);
+}
+
+.insight-text {
+  color: var(--success);
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.insight-metrics {
+  margin-top: var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.insight-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.insight-label {
+  color: var(--text-secondary);
+}
+
+.insight-value {
+  color: #fff;
+  font-weight: 700;
+}
+
+.insight-value-success {
+  color: var(--success);
+  font-weight: 700;
+}

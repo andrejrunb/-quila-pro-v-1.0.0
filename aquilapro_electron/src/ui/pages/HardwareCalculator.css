@@ -1,0 +1,7 @@
+.hardware-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+  width: var(--bar-width, 0%);
+  background-color: var(--bar-bg, #cbd5e1);
+}

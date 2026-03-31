@@ -1,0 +1,116 @@
+.reports-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+.reports-header {
+  padding: 30px;
+  background: rgba(15, 23, 42, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.reports-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.reports-filters {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  padding: 20px 30px;
+  background: rgba(30, 41, 59, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.filter-group label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 10px 15px;
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.kpi-card {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.kpi-value {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.attendance-table thead {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.attendance-table th {
+  color: var(--primary);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.mini-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 100px;
+  padding: 10px;
+}
+
+.chart-bar {
+  flex: 1;
+  height: var(--rate, 0%);
+  background: var(--rate-color, #4caf50);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  width: var(--rate, 0%);
+  background: var(--rate-color, #4caf50);
+  transition: width 0.3s ease;
+}
+
+.percentage-label {
+  position: absolute;
+  right: 5px;
+  top: -15px;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-muted);
+}

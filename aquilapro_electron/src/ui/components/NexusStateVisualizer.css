@@ -1,0 +1,121 @@
+.nexus-visualizer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  background: rgba(13, 148, 136, 0.02);
+  border: 1px solid rgba(13, 148, 136, 0.1);
+  border-radius: 32px;
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  position: relative;
+  overflow: hidden;
+}
+
+.nexus-mesh-canvas {
+  width: 100%;
+  height: 400px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.nexus-node-point {
+  position: absolute;
+  top: var(--node-top);
+  left: var(--node-left);
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 80px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(45, 212, 191, 0.3);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  z-index: 10;
+  transition: all 0.5s;
+}
+
+.nexus-node-name {
+  font-size: 10px;
+  font-weight: 900;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nexus-node-load {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #2dd4bf;
+}
+
+.nexus-load-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.nexus-load-fill {
+  height: 100%;
+  background: #2dd4bf;
+  transition: width 0.5s ease;
+  width: var(--node-load-width, 0%);
+}
+
+.sync-beam {
+  position: absolute;
+  top: var(--from-top);
+  left: var(--from-left);
+  height: 2px;
+  width: 100px;
+  transform: rotate(var(--beam-angle));
+  transform-origin: 0% 50%;
+  animation: beam-spark 1.5s ease-out;
+  background: linear-gradient(90deg, transparent, #2dd4bf, transparent);
+  opacity: 0.6;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: 0 0 10px #2dd4bf;
+}
+
+@keyframes beam-spark {
+  0% { transform: scaleX(0); opacity: 0; }
+  50% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(0); opacity: 0; }
+}
+
+.nexus-stats-footer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.nexus-stat-box {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.nexus-stat-label {
+  font-size: 9px;
+  font-weight: 900;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.nexus-stat-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+}

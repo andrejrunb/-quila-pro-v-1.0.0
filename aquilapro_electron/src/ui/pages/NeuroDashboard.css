@@ -1,0 +1,80 @@
+.neuro-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+
+.student-bubble {
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.student-bubble:hover {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+.bubble-glow {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0.3;
+  transition: opacity 0.5s;
+}
+
+.student-bubble:hover .bubble-glow {
+  opacity: 0.6;
+}
+
+.trend-chart path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-path 2s ease-out forwards;
+}
+
+@keyframes draw-path {
+  to { stroke-dashoffset: 0; }
+}
+
+.pulse-beat {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 0.5; }
+  100% { transform: scale(0.95); opacity: 0.9; }
+}
+
+.metric .bg-amber-500 {
+  width: var(--fatigue-width);
+}
+
+.metric .bg-emerald-400 {
+  width: var(--engagement-width);
+}
+
+.glass-alert {
+  background: rgba(15, 23, 42, 0.6);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+.metric-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  width: var(--metric-width, 0%);
+}
+
+.fatigue-fill {
+  background-color: #fbbf24;
+  width: var(--fatigue-width, 0%);
+}
+
+.engagement-fill {
+  background-color: #34d399;
+  width: var(--engagement-width, 0%);
+}

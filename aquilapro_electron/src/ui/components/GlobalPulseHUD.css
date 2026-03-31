@@ -1,0 +1,104 @@
+.global-pulse-hud {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.7);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  padding: 6px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  animation: hudSlideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hud-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-label {
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+  color: #fff;
+}
+
+.hud-value {
+  font-size: 10px;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  color: #fff;
+}
+
+.hud-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hud-icon {
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.mini-gauge {
+  width: 30px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-left: 8px;
+  overflow: hidden;
+}
+
+.mini-fill {
+  height: 100%;
+  background: #fbbf24;
+  transition: width 3s ease;
+  width: var(--cpu-load, 0%);
+}
+
+.hud-system-time {
+  margin-left: 10px;
+  font-size: 10px;
+  font-weight: 800;
+  opacity: 0.8;
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes hudSlideDown {
+  from { transform: translate(-50%, -100%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.pulse-icon {
+  animation: hudPulse 2s infinite;
+}
+
+@keyframes hudPulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Permitir interação apenas no hover se necessário futuramente */
+.global-pulse-hud:hover {
+  background: rgba(15, 23, 42, 0.9);
+  pointer-events: auto;
+}

@@ -1,0 +1,48 @@
+/*
+ * Phase 250 — HRPortal.css
+ * Gestão de Talentos & RH (Zero-Debt Standard)
+ */
+
+.hr-portal-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hr-doc-management-section {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(30, 41, 59, 1);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin: 0 1.5rem;
+}
+
+.hr-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.hr-icon-box {
+  padding: 0.75rem;
+  background: rgba(236, 72, 153, 0.1);
+  border-radius: 1rem;
+}
+
+.hr-icon-pink {
+  color: #f472b6;
+}
+
+.hr-title-group h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.hr-title-group p {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 900;
+}

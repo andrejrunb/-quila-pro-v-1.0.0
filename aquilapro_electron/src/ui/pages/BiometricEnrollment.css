@@ -1,0 +1,283 @@
+.biometric-enrollment-elite {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.intro-card-elite {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  margin: 40px auto;
+  border: 1px solid rgba(13, 148, 136, 0.1);
+}
+
+.icon-box-large {
+  width: 80px;
+  height: 80px;
+  background: rgba(13, 148, 136, 0.05);
+  color: #0d9488;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.intro-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.intro-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+.step-indicator-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.step-badge-elite {
+  background: #f1f5f9;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.intro-text-group {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.step-icon-large {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.step-label-mini {
+  font-size: 10px;
+  font-weight: bold;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.step-dot.active {
+  background: #0d9488;
+  transform: scale(1.2);
+}
+
+.btn-start-scan {
+  width: 100%;
+  background: #0d9488;
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+}
+
+.btn-start-scan:hover {
+  background: #0f766e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.4);
+}
+
+/* Camera Viewport */
+.camera-viewport-elite {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 24px;
+  overflow: hidden;
+  margin: 0 auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-guide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.face-focus-ring {
+  width: 300px;
+  height: 400px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 150px / 200px;
+  position: relative;
+}
+
+.face-focus-ring.active {
+  border-color: #0d9488;
+  border-style: solid;
+  box-shadow: 0 0 0 2000px rgba(15, 23, 42, 0.6);
+}
+
+.shutter-btn-wrapper {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.shutter-btn-elite {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background: transparent;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.shutter-btn-elite:active {
+  transform: scale(0.9);
+}
+
+.shutter-btn-inner {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 50%;
+}
+
+/* Success State */
+.success-state {
+  text-align: center;
+  padding: 60px 20px;
+  animation: slideUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.success-icon-wrapper {
+  width: 120px;
+  height: 120px;
+  background: #ecfdf5;
+  color: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
+}
+
+.capture-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.capture-label {
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+  color: #0f172a;
+}
+
+.processing-state-wrapper {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.spinning {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.btn-finish {
+  margin-top: 32px;
+  background: #0d9488;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-finish:hover {
+  background: #0f766e;
+  transform: translateY(-2px);
+}
+
+.biometric-enrollment-elite.page-container {
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.biometric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.header-left-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-main-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.sovereignty-badge {
+  background: #ecfdf5;
+  color: #0d9488;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hidden-canvas {
+  display: none;
+}

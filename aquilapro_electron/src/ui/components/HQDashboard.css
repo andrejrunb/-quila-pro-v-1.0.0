@@ -1,0 +1,111 @@
+.hq-dashboard-container {
+  padding: 2.5rem;
+  background: radial-gradient(circle at top right, rgba(30, 41, 59, 0.4), transparent);
+  min-height: 80vh;
+}
+
+.hq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 2rem;
+}
+
+.hq-global-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.global-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(30, 41, 59, 0.8);
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.global-stat-card .value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+}
+
+.global-stat-card .label {
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.units-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.unit-card {
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 24px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.unit-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(30, 41, 59, 0.8);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+.unit-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.unit-card-body {
+  margin-bottom: 1.5rem;
+}
+
+.unit-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.health-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.health-fill {
+  height: 100%;
+  background: #10b981;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  width: 100%;
+}
+
+.unit-card.status-warning .health-fill {
+  background: #f59e0b;
+  width: 75%;
+}
+
+.unit-card.status-critical .health-fill {
+  background: #ef4444;
+  width: 50%;
+}

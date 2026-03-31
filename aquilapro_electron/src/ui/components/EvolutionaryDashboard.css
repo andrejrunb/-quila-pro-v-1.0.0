@@ -1,0 +1,147 @@
+.evolutionary-container {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: white;
+}
+
+.evo-header h3 {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.evo-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+
+.timeline-grid {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.timeline-card {
+  min-width: 280px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.timeline-card.active {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.timeline-year {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #3b82f6;
+}
+
+.grade-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+}
+
+.stat-row {
+  margin-bottom: 12px;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.stat-bar-bg {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  flex: 1;
+  margin-right: 12px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  width: 140px;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.stat-bar-fill.behavior { 
+  background: #10b981; 
+  width: var(--behavior-width, 0%);
+}
+.stat-bar-fill.academic { 
+  background: #3b82f6; 
+  width: var(--academic-width, 0%);
+}
+
+/* Custom Scrollbar */
+.timeline-grid::-webkit-scrollbar {
+  height: 6px;
+}
+.timeline-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+.timeline-grid::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 10px;
+}
+
+.stat-value {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.milestones-list {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.milestone-tag {
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.evo-insight {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 12px;
+  border-left: 4px solid #3b82f6;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.insight-icon { font-size: 1.4rem; }
+.insight-text { font-size: 0.9rem; line-height: 1.5; }

@@ -1,0 +1,137 @@
+.arrival-board-container {
+  height: 100vh;
+  width: 100vw;
+  background: #020617;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.board-title {
+  font-size: 1.875rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.025em;
+  color: #fff;
+}
+
+.board-status {
+  padding: 0.5rem 1.5rem;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 99px;
+  color: #22c55e;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+/* Airport Table Styling */
+.airport-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+  flex: 1;
+}
+
+.airport-table th {
+  text-align: left;
+  padding: 1rem 2rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+.time-header-col {
+  width: 6rem;
+}
+
+.arrival-row {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.arrival-row td {
+  padding: 1.5rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.arrival-row.highlight-gate {
+  background: rgba(234, 179, 8, 0.1);
+  border-left: 8px solid #eab308;
+}
+
+.arrival-row.highlight-gate td {
+  color: #f8fafc;
+}
+
+.student-col {
+  color: #f8fafc;
+  font-size: 1.5rem;
+}
+
+.status-pill {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.status-pill.ARRIVING { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+.status-pill.AT_GATE { background: #eab308; color: #020617; }
+
+.empty-row td {
+  text-align: center;
+  padding: 5rem;
+  color: #475569;
+  font-style: italic;
+}
+
+/* Footer */
+.board-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.dist-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

@@ -1,0 +1,137 @@
+.integration-hub-container {
+  height: 100vh;
+  padding: 3rem;
+  background: #0f172a;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+}
+
+.hub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.sync-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  border-radius: 0.75rem;
+  font-weight: 800;
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+}
+
+.hub-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  min-height: 0;
+}
+
+.panel-title {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Connectors */
+.connector-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.connector-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  transition: all 0.2s;
+}
+
+.connector-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.conn-name {
+  font-weight: 800;
+  font-size: 1.125rem;
+}
+
+.conn-type {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.last-sync {
+  font-size: 0.75rem;
+  color: #475569;
+}
+
+.status-label {
+  font-size: 9px;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.connector-card.connected .status-label { color: #22c55e; background: rgba(34, 197, 94, 0.1); }
+.connector-card.warning .status-label { color: #eab308; background: rgba(234, 179, 8, 0.1); }
+.connector-card.disconnected .status-label { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+
+/* Logs */
+.logs-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.log-list {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.log-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.log-msg {
+  font-size: 0.8125rem;
+}
+
+.log-meta {
+  font-size: 0.75rem;
+  color: #475569;
+}

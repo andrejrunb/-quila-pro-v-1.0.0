@@ -1,0 +1,16 @@
+Python
+import cv2
+import time
+
+CAMERA_INDEX = 0
+LINE_X = 320
+MIN_FACE_AREA = 2500
+
+face_cascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+)
+
+cap = cv2.VideoCapture(CAMERA_INDEX)
+
+if not cap.isOpened():
+    raise RuntimeError("Não consegui abrir a câmera. Verifique

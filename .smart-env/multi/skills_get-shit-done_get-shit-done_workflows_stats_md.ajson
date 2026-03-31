@@ -1,0 +1,2 @@
+
+"smart_sources:skills/get-shit-done/get-shit-done/workflows/stats.md": {"path":"skills/get-shit-done/get-shit-done/workflows/stats.md","last_embed":{"hash":null},"embeddings":{},"last_read":{"hash":"8s1mng","at":1774580028435},"class_name":"SmartSource","last_import":{"mtime":1774319829760,"size":1626,"at":1774580028586,"hash":"8s1mng"},"blocks":{"#":[1,61]},"outlinks":[{"title":" \"$STATS\" == @file:* ","target":"\"$STATS\" == @file:*","line":16}],"task_lines":[57,58,59],"tasks":{"incomplete":{"all":[57,58,59],"top":[57,58,59]}},"codeblock_ranges":[[14,17],[25,49]]},
