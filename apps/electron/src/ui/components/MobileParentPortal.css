@@ -1,0 +1,149 @@
+:root {
+  --nexus-gold: #ffd700;
+  --nexus-obsidian: #050505;
+  --nexus-card-bg: rgba(255, 255, 255, 0.02);
+  --nexus-glow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.parent-portal-nexus {
+  background: var(--nexus-obsidian);
+  color: #fff;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Outfit', sans-serif;
+  max-width: 500px;
+  margin: 0 auto; /* Simulando mobile no Desktop */
+  border-left: 1px solid rgba(255,215,0,0.1);
+  border-right: 1px solid rgba(255,215,0,0.1);
+}
+
+.nexus-mobile-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.nexus-mobile-title {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--nexus-gold);
+  text-transform: uppercase;
+}
+
+.nexus-mobile-subtitle {
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+
+/* STUDENT PULSE CARD */
+.student-pulse-card {
+  background: var(--nexus-card-bg);
+  padding: 2rem;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  text-align: center;
+  box-shadow: var(--nexus-glow);
+}
+
+.nexus-avatar-icon {
+  font-size: 2.5rem;
+}
+
+.nexus-xp-bar {
+  background: rgba(255,255,255,0.05);
+  height: 8px;
+  border-radius: 4px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+.nexus-xp-fill {
+  background: var(--nexus-gold);
+  height: 100%;
+  width: var(--nexus-progress, 0%);
+  box-shadow: 0 0 10px var(--nexus-gold);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* SOVEREIGN VOTE SECTION */
+.mobile-section-title {
+  font-size: 1rem;
+  color: var(--nexus-gold);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vote-item-mobile {
+  background: rgba(255,255,255,0.03);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.vote-item-mobile h4 { margin-bottom: 0.5rem; }
+.vote-item-mobile p { font-size: 0.8rem; opacity: 0.7; margin-bottom: 1.5rem; }
+
+.mobile-vote-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.mobile-vote-actions button {
+  flex: 1;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,215,0,0.2);
+  background: transparent;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-parent-yes:active { background: var(--nexus-gold); color: #000; }
+
+/* SAFETY RADAR */
+.safety-radar-pulse {
+  background: rgba(0, 255, 0, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@keyframes pulse-dot {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+.status-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #00ff00; box-shadow: 0 0 10px #00ff00;
+  animation: pulse-dot 2s infinite;
+}
+
+.safety-radar-mobile {
+  margin-top: 2.5rem;
+}
+
+.radar-status-text {
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+.nexus-mobile-footer {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.footer-health-text {
+  font-size: 0.6rem;
+  opacity: 0.4;
+}
+
+.footer-progress-bar {
+  height: 2px;
+  opacity: 0.2;
+}

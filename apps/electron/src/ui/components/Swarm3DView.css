@@ -1,0 +1,189 @@
+:root {
+  --node-base-bg: rgba(15, 23, 42, 0.6);
+  --node-primary: #3b82f6;
+  --node-glow: rgba(59, 130, 246, 0.4);
+}
+
+.swarm-3d-visualizer {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  background: radial-gradient(circle at center, rgba(30, 41, 59, 0.2) 0%, transparent 70%);
+  perspective: 1000px;
+  overflow: hidden;
+  border-radius: 2rem;
+  margin: 1.5rem 0;
+}
+
+.swarm-connections-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.engine-connection {
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 1;
+  fill: none;
+}
+
+.data-pulse-beam {
+  fill: none;
+  stroke: url(#beamGradient);
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: url(#glow);
+  stroke-dasharray: 50, 150;
+  animation: data-pulse 3s infinite linear;
+}
+
+@keyframes data-pulse {
+  0% { stroke-dashoffset: 200; opacity: 0; }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.8; }
+  100% { stroke-dashoffset: -200; opacity: 0; }
+}
+
+.swarm-nodes-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.swarm-3d-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Plataforma isométrica inferior */
+.node-platform-3d {
+  width: 60px;
+  height: 15px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: rotateX(60deg);
+  box-shadow: 0 0 20px var(--node-accent, var(--node-glow));
+  transition: all 0.3s;
+}
+
+.node-floating-core {
+  position: absolute;
+  bottom: 25px;
+  width: 54px;
+  height: 54px;
+  background: var(--node-base-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--node-accent);
+  transition: all 0.5s ease;
+  animation: node-float 4s infinite ease-in-out;
+  cursor: pointer;
+  z-index: 10;
+}
+
+@keyframes node-float {
+  0%, 100% { transform: translateY(0) rotateY(0deg); }
+  50% { transform: translateY(-10px) rotateY(10deg); }
+}
+
+.node-active .node-floating-core {
+  border-color: var(--node-accent);
+  box-shadow: 0 0 30px var(--node-accent);
+}
+
+.node-primary .node-floating-core {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+  transform: scale(1.1);
+}
+
+.node-icon-glow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Hover Micro-interactions */
+.node-hover-info {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px) scale(0.9);
+  width: 140px;
+  padding: 0.75rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.swarm-3d-node:hover .node-hover-info {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.info-title {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.info-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.6rem;
+  color: #94a3b8;
+}
+
+.info-tag-vision {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  font-size: 0.5rem;
+  font-weight: 900;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+/* Glass-Premium Utility (Global Candidate) */
+.glass-premium {
+  background: rgba(15, 23, 42, 0.6) !important;
+  -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
+  backdrop-filter: blur(25px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Status Ring Round Node */
+.node-status-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+}

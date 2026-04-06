@@ -1,0 +1,237 @@
+/* EDU-SCIENCE HUB CSS (v3601) */
+.edu-science-container {
+  padding: 3rem;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba(251, 191, 36, 0.05), transparent 60%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.edu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-branding {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.icon-blob {
+  width: 56px;
+  height: 56px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
+}
+
+.edu-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-style: italic;
+}
+
+.edu-subtitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fbbf24;
+  letter-spacing: 0.2em;
+  opacity: 0.6;
+}
+
+.edu-tabs {
+  display: flex;
+  gap: 2rem;
+}
+
+.edu-tabs button {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 1rem 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.edu-tabs button.active {
+  color: white;
+  border-bottom: 2px solid #fbbf24;
+}
+
+/* ACTION PILLS (v3601) */
+.pills-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.pill-card {
+  padding: 2.5rem;
+  border-radius: 32px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.pill-card:hover { transform: translateY(-5px); z-index: 10; }
+
+.pill-card.pedagogical { border-left: 6px solid #fbbf24; }
+.pill-card.legal { border-left: 6px solid #ef4444; }
+.pill-card.administrative { border-left: 6px solid #3b82f6; }
+
+.pill-type-badge {
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.6;
+}
+
+.pill-content {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.pill-action-box {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+}
+
+.pill-action-box .label {
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fbbf24;
+}
+
+.action-text { font-weight: 600; margin-top: 0.25rem; }
+
+.pill-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priority { font-size: 10px; font-weight: 900; letter-spacing: 0.1em; }
+
+.btn-approve-pill {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-approve-pill:hover { background: #10b981; color: white; }
+
+/* PODCAST PORTAL (v3601) */
+.podcast-hero {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  align-items: center;
+  padding: 4rem;
+  border-radius: 40px;
+}
+
+.mic-aura {
+  width: 120px;
+  height: 120px;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px rgba(251, 191, 36, 0.2);
+}
+
+.podcast-item-glass {
+  background: rgba(15, 23, 42, 0.3);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.play-button {
+  width: 32px; height: 32px;
+  background: #fbbf24;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-title { font-weight: 700; font-size: 0.9rem; }
+.p-meta { font-size: 0.75rem; opacity: 0.4; }
+
+/* FIDELITY CHART (v3601) */
+.chart-bar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.bar-label { width: 120px; font-size: 0.75rem; font-weight: 900; opacity: 0.6; }
+
+.bar-track {
+  flex: 1;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  border-radius: 50px;
+}
+
+.bar-fill-92 { width: 92%; }
+.bar-fill-64 { width: 64%; }
+
+.bar-value { font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in { animation: fade-in 0.5s ease-out; }

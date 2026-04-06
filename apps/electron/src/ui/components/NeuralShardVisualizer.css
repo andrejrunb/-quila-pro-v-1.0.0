@@ -1,0 +1,148 @@
+/* NEURAL SHARD VISUALIZER (v3901) */
+
+.neural-shard-visualizer {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 2rem;
+  overflow: hidden;
+}
+
+.visualizer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.latency-badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Gráfico de Camadas */
+.shard-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.layer-node {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+
+.layer-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #334155;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.layer-index {
+  position: absolute;
+  top: -12px;
+  font-size: 8px;
+  font-weight: 900;
+  color: #475569;
+}
+
+/* Node Colors */
+.node-node-01 .layer-dot { background: #10b981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
+.node-node-02 .layer-dot { background: #3b82f6; box-shadow: 0 0 12px rgba(59, 130, 246, 0.4); }
+.node-node-03 .layer-dot { background: #f59e0b; box-shadow: 0 0 12px rgba(245, 158, 11, 0.4); }
+.node-node-hq .layer-dot { background: #ec4899; box-shadow: 0 0 12px rgba(236, 72, 153, 0.4); }
+
+.node-node-01:hover { transform: scale(1.2); background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); }
+
+/* Legenda */
+.sharding-legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-name {
+  font-size: 0.65rem;
+  font-weight: 950;
+  color: #94a3b8;
+}
+
+.legend-latency {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #10b981;
+}
+
+.mesh-status {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: #475569;
+}
+
+.mesh-activity-pulse {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  position: relative;
+}
+
+.mesh-activity-pulse::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  border-radius: inherit;
+  animation: mesh-pulse 1.5s infinite;
+}
+
+@keyframes mesh-pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}

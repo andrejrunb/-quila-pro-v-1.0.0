@@ -1,0 +1,383 @@
+/* COOL.ME.IA HEXAGONAL DESIGN SYSTEM (v4001) */
+:root {
+  --honey-amber: #ffb700;
+  --honey-glow: rgba(255, 183, 0, 0.4);
+  --obsidian-cell: rgba(10, 10, 15, 0.95);
+  --hex-edge: 1px solid rgba(255, 255, 255, 0.1);
+  --hex-gap: 1rem;
+}
+
+/* GRID HEXAGONAL DE COLMEIA (v4001) */
+.honeycomb-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hex-gap);
+  padding: 2rem;
+  justify-content: center;
+}
+
+/* CÉLULA HEXAGONAL (HexCard v4001) */
+.hex-card {
+  position: relative;
+  width: 320px;
+  height: 360px;
+  background: var(--obsidian-cell);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border: var(--hex-edge);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.hex-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle at center, var(--honey-glow), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.hex-card:hover {
+  transform: scale(1.05) translateY(-5px);
+  z-index: 10;
+  box-shadow: 0 0 30px var(--honey-glow);
+}
+
+.hex-card:hover::before {
+  opacity: 0.2;
+}
+
+/* TIPOGRAFIA COOL.ME.IA (v4001) */
+.hive-title {
+  font-family: 'Outfit', sans-serif;
+  color: var(--honey-amber);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.hive-subtitle {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  max-width: 200px;
+}
+
+/* PULSO DE REDE (Honeycomb Pulse v4001) */
+@keyframes hivePulse {
+  0% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); color: var(--honey-amber); }
+  100% { opacity: 0.3; transform: scale(1); }
+}
+
+.network-pulse-hex {
+  animation: hivePulse 3s infinite ease-in-out;
+}
+
+/* HELPER CLASSES FOR HEX COMPONENTS (v4001) */
+.hex-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.hex-icon-container {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 10px var(--honey-glow));
+  margin-bottom: 0.5rem;
+}
+
+.hex-status-badge {
+  margin-top: 1rem;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+[data-status="alert"] .hex-status-badge { color: var(--safety-red); }
+[data-status="sync"] .hex-status-badge { color: var(--honey-amber); }
+[data-status="active"] .hex-status-badge { color: #fff; opacity: 0.7; }
+
+.hive-legend {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 3rem;
+  opacity: 0.6;
+}
+
+.legend-item {
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.honeycomb-pulse-container {
+  padding: 2rem;
+  width: 100%;
+}
+
+.hive-header-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* SOCIAL ANOMALIES & FLOW PANEL (v4001) */
+.social-anomalies-panel {
+  margin-top: 3rem;
+  background: var(--obsidian-cell);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--honey-amber);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hive-panel-title {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.social-anomalies-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.social-anomalies-list li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.social-anomalies-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--honey-amber);
+}
+
+/* COOL.ME.IA COMMAND CENTER LAYOUT (v4001) */
+.coolmeia-command-center {
+  padding: 3rem;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 183, 0, 0.05), transparent 70%);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.mesh-vision-section {
+  margin-bottom: 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cockpit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4rem;
+  padding: 0 2rem;
+}
+
+.hive-badge {
+  background: var(--honey-amber);
+  color: #000;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+.metrics-swarm-grid {
+  margin-bottom: 5rem;
+}
+
+/* SCIENTIFIC PILLS (v4001) */
+.hive-pill-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  flex: 1;
+  min-width: 300px;
+}
+
+.hive-pill-card:hover {
+  background: rgba(255, 183, 0, 0.03);
+  border-color: var(--honey-amber);
+}
+
+.pill-source-ref {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  opacity: 0.4;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.pill-text {
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.pill-detail-link {
+  font-size: 0.7rem;
+  color: var(--honey-amber);
+  text-decoration: underline;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.pills-container {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.cockpit-footer {
+  margin-top: 6rem;
+  padding: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  opacity: 0.5;
+}
+
+/* COUNCIL ROOM DESIGN TOKENS (v4001) */
+.council-tabs {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid rgba(255, 183, 0, 0.1);
+  margin-bottom: 3rem;
+}
+
+.council-tabs button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  opacity: 0.4;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.council-tabs button.active {
+  opacity: 1;
+  color: var(--honey-amber);
+  border-bottom: 2px solid var(--honey-amber);
+}
+
+.proposal-hex-row {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.proposal-details {
+  flex: 1;
+}
+
+.proposal-desc {
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.ground-pill {
+  background: rgba(255, 183, 0, 0.1);
+  color: var(--honey-amber);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  margin-right: 0.5rem;
+  border: 1px solid rgba(255, 183, 0, 0.2);
+}
+
+.authoritative-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-sovereign {
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-approve {
+  background: var(--honey-amber);
+  color: #000;
+  border: none;
+}
+
+.btn-veto:hover {
+  background: rgba(213, 0, 0, 0.3);
+  border-color: #f44336;
+}
+
+.btn-activate {
+  border-color: var(--honey-amber);
+}
+
+/* ==========================================================================
+   ZEN MODE: COGNITIVE FOCUS (v4002)
+   ========================================================================== */
+.zen-mode {
+  --honey-amber: #b8860b !important;
+  --honey-glow: none !important;
+  --obsidian-cell: rgba(15, 15, 15, 0.98) !important;
+  filter: sepia(0.2) contrast(0.9) brightness(0.8);
+  transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zen-mode .pulse-border,
+.zen-mode .network-pulse-hex,
+.zen-mode .hex-card {
+  animation: none !important;
+  box-shadow: none !important;
+  border-color: rgba(184, 134, 11, 0.3) !important;
+}
+
+.zen-mode .notifications-panel,
+.zen-mode .swarm-health-panel,
+.zen-mode .hive-badge {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.zen-mode h1, .zen-mode h2, .zen-mode h3, .zen-mode .hive-title {
+  color: var(--honey-amber) !important;
+  text-shadow: none !important;
+}

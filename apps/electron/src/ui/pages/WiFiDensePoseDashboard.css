@@ -1,0 +1,230 @@
+.densepose-container {
+    padding: 2rem;
+    background: radial-gradient(circle at top right, #0a0b12 0%, #05060a 100%);
+    color: #e0e6ed;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.densepose-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px border #ffffff08 solid;
+    padding-bottom: 1.5rem;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-title h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.icon-pulse {
+    color: #4f46e5;
+    animation: pulse-ring 2s infinite;
+}
+
+.badge {
+    font-size: 0.8rem;
+    background: #4f46e522;
+    color: #6366f1;
+    padding: 0.3rem 0.8rem;
+    border-radius: 99px;
+    border: 1px solid #4f46e544;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #10b981;
+    font-size: 0.9rem;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.03);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+.densepose-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+/* Radar Styling */
+.live-radar {
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.radar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.live-tag {
+    background: #ef4444;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    animation: blink 1.5s infinite;
+}
+
+.radar-view {
+    flex: 1;
+    position: relative;
+    background: #000;
+    border-radius: 12px;
+    border: 1px solid #ffffff11;
+    overflow: hidden;
+}
+
+.radar-circles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    pointer-events: none;
+}
+
+.circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(79, 70, 229, 0.08);
+    border-radius: 50%;
+}
+
+.circle:nth-child(1) { width: 100%; height: 100%; }
+.circle:nth-child(2) { width: 66%; height: 66%; }
+.circle:nth-child(3) { width: 33%; height: 33%; }
+
+.ghost-marker {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(79, 70, 229, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    left: var(--marker-x, 0%);
+    top: var(--marker-y, 0%);
+    opacity: var(--marker-opacity, 1);
+}
+
+.marker-ping {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid #4f46e5;
+    animation: ping 1.5s infinite;
+}
+
+.ghost-marker.horizontal {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.ghost-marker.horizontal .marker-ping { border-color: #ef4444; }
+
+.tooltip {
+    position: absolute;
+    top: -30px;
+    background: #111;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ghost-marker:hover .tooltip { opacity: 1; }
+
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.zone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.zone-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid transparent;
+    transition: border 0.3s;
+}
+
+.zone-card:hover { border-color: #4f46e5; }
+
+.activity-icon { color: #10b981; animation: activity 1s infinite; }
+
+.critical-pulse {
+    border: 2px solid #ef4444 !important;
+    background: rgba(239, 68, 68, 0.1) !important;
+    animation: critical-glow 2s infinite;
+}
+
+.alert-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.alert-info strong { color: #ef4444; display: block; font-size: 0.9rem; }
+.alert-info span { font-size: 0.75rem; opacity: 0.6; }
+
+@keyframes pulse-ring { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+@keyframes ping { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
+@keyframes critical-glow { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); } 70% { box-shadow: 0 0 20px 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+@keyframes activity { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }

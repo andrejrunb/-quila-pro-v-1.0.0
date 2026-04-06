@@ -1,0 +1,246 @@
+.export-hub-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: nexusFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes nexusFadeIn {
+    from { opacity: 0; transform: scale(1.05); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.export-hub-modal {
+    width: 600px;
+    border-radius: 2rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.export-hub-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 30px;
+}
+
+.export-header {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.export-title-group {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.export-icon-main {
+    width: 48px;
+    height: 48px;
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.export-body {
+    padding: 2rem;
+    min-height: 400px;
+}
+
+/* Idle View */
+.export-hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.hero-icon-stack {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.25rem;
+    background: rgba(59, 130, 246, 0.05);
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3b82f6;
+}
+
+.icon-sub {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: 28px;
+    height: 28px;
+    background: #3b82f6;
+    color: white;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #0f172a;
+}
+
+.recent-bundles-section {
+    margin-bottom: 2rem;
+}
+
+.section-label {
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    opacity: 0.4;
+    margin-bottom: 1rem;
+}
+
+.bundles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.bundle-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bundle-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.bundle-name { font-size: 0.9rem; font-weight: 600; }
+.bundle-meta { font-size: 0.7rem; opacity: 0.5; }
+
+.btn-start-export {
+    width: 100%;
+    padding: 1.25rem;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-start-export:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+}
+
+/* Compiling View */
+.export-compiling-view {
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.c-progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin: 1.5rem 0 0.5rem;
+    overflow: hidden;
+}
+
+.c-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #10b981);
+    width: var(--compile-width, 0%);
+    transition: width 0.3s ease;
+}
+
+.neural-timeline-mini {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.mini-step {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.2);
+    transition: all 0.5s ease;
+}
+
+.mini-step.active {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+/* --- Elite Zen Mode (Cognitive Focus) --- */
+body.zen-mode .export-hub-modal {
+    box-shadow: 0 0 40px rgba(217, 119, 6, 0.1);
+}
+
+body.zen-mode .export-icon-main,
+body.zen-mode .hero-icon-stack {
+    background: rgba(217, 119, 6, 0.1);
+    color: #d97706; /* Amber-600 */
+}
+
+body.zen-mode .icon-sub,
+body.zen-mode .btn-start-export,
+body.zen-mode .c-progress-fill {
+    background: #d97706;
+}
+
+body.zen-mode .btn-start-export:hover {
+    background: #b45309;
+    box-shadow: 0 10px 20px rgba(217, 119, 6, 0.2);
+}
+
+body.zen-mode .mini-step.active {
+    background: rgba(217, 119, 6, 0.2);
+    color: #d97706;
+    box-shadow: 0 0 15px rgba(217, 119, 6, 0.3);
+}
+
+/* --- Legacy Mode Lite --- */
+body.mode-lite .export-hub-overlay {
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+body.mode-lite .export-hub-glass {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: rgba(15, 23, 42, 0.98);
+}

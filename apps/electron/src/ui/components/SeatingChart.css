@@ -1,0 +1,141 @@
+:root {
+  --seat-bg: rgba(20, 20, 30, 0.6);
+  --seat-border: rgba(255, 255, 255, 0.1);
+  --focus-glow: rgba(0, 255, 127, 0.4);
+  --fatigue-glow: rgba(147, 0, 255, 0.4);
+  --talk-glow: rgba(255, 45, 85, 0.4);
+  --focus-text: #00ff7f;
+  --fatigue-text: #bf70ff;
+  --talk-text: #ff2d55;
+}
+
+.seating-chart-container {
+  padding: 24px;
+  background: rgba(10, 10, 15, 0.4);
+  border: 1px solid var(--seat-border);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.seating-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.student-seat {
+  background: var(--seat-bg);
+  border: 1px solid var(--seat-border);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.student-seat:hover {
+  transform: translateY(-8px) scale(1.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+/* Nuvens Comportamentais (Glows) */
+.student-seat.focus {
+  box-shadow: 0 0 30px var(--focus-glow);
+  border-color: var(--focus-text);
+}
+
+.student-seat.fatigue {
+  box-shadow: 0 0 30px var(--fatigue-glow);
+  border-color: var(--fatigue-text);
+}
+
+.student-seat.talking {
+  box-shadow: 0 0 30px var(--talk-glow);
+  border-color: var(--talk-text);
+}
+
+.student-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.student-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.student-status {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-focus { color: var(--focus-text); }
+.status-fatigue { color: var(--fatigue-text); }
+.status-talking { color: var(--talk-text); }
+
+.seat-empty {
+  opacity: 0.3;
+  border: 1px dashed var(--seat-border);
+  background: transparent;
+}
+
+.seating-legend {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #fff;
+  opacity: 0.7;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.student-seat.active::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background: var(--focus-text);
+  border-radius: 50%;
+  border: 4px solid #0d0d12;
+  box-shadow: 0 0 10px var(--focus-text);
+}

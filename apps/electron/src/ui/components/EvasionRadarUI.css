@@ -1,0 +1,278 @@
+/* EVASION RADAR 4.0 PREMIUM (v3341) */
+.radar-master-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 80vh;
+  background: #020617;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.radar-bg-mesh {
+  position: absolute;
+  top: -10%; left: -10%; right: -10%; bottom: -10%;
+  opacity: 0.15;
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.radar-glass-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding: 2.5rem;
+  background: radial-gradient(circle at top right, rgba(184, 134, 11, 0.05), transparent 60%);
+  display: flex;
+  flex-direction: column;
+}
+
+.radar-header-premium {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+
+.radar-branding {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.radar-icon-glow {
+  color: #ffb700;
+  filter: drop-shadow(0 0 12px rgba(255, 183, 0, 0.4));
+}
+
+.premium-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #fff, #ffb700);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.premium-subtitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  opacity: 0.4;
+}
+
+.highlight {
+  color: #ffb700;
+  opacity: 1;
+}
+
+/* HORIZON PILLS (v3341) */
+.horizon-pills {
+  display: flex;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.5rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.pill-btn {
+  padding: 0.6rem 1.4rem;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pill-btn.active {
+  background: #ffb700;
+  color: #000;
+  box-shadow: 0 4px 15px rgba(255, 183, 0, 0.3);
+}
+
+/* HEX RADAR GRID (v3341) */
+.hex-radar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1.5rem;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.radar-hex-cell {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.03);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.radar-hex-cell:hover {
+  transform: scale(1.1) translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+.hex-initials {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hex-mini-trend {
+  position: absolute;
+  top: 15%;
+  right: 15%;
+}
+
+.hex-risk-bar {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%;
+  opacity: 0.2;
+  transition: height 1s ease;
+}
+
+/* RISK COLORS (HSL) (v3341) */
+.high .hex-risk-bar { background: hsl(0, 100%, 50%); }
+.high:hover { box-shadow: 0 0 30px hsla(0, 100%, 50%, 0.4); }
+
+.medium .hex-risk-bar { background: hsl(35, 100%, 50%); }
+.low .hex-risk-bar { background: hsl(142, 100%, 50%); }
+
+/* DETAIL OVERLAY (v3341) */
+.radar-detail-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.radar-hex-modal {
+  width: 450px;
+  max-width: 95%;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 183, 0, 0.2);
+  padding: 3rem;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.modal-hex-icon {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffb700;
+}
+
+.factor-grid {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.factor-item {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-actions {
+  margin-top: 3rem;
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+
+/* LEGEND PILLS (v3341) */
+.radar-legend-premium {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.legend-pills {
+  display: flex;
+  gap: 1rem;
+}
+
+.p-pill {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.p-high { background: hsla(0, 100%, 50%, 0.1); color: hsl(0, 100%, 70%); border: 1px solid hsla(0, 100%, 50%, 0.2); }
+.p-medium { background: hsla(35, 100%, 50%, 0.1); color: hsl(35, 100%, 70%); border: 1px solid hsla(35, 100%, 50%, 0.2); }
+.p-low { background: hsla(142, 100%, 50%, 0.1); color: hsl(142, 100%, 70%); border: 1px solid hsla(142, 100%, 50%, 0.2); }
+
+/* ANIMATIONS */
+@keyframes hexReveal {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-hex-reveal {
+  animation: hexReveal 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.radar-loading-container {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 2rem;
+   font-weight: 900;
+   letter-spacing: 0.3em;
+   color: #ffb700;
+}
+
+.honey-loader {
+   width: 48px;
+   height: 48px;
+   border: 3px solid #ffb700;
+   border-bottom-color: transparent;
+   border-radius: 50%;
+   animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(360deg); }
+}

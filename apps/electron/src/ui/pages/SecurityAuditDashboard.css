@@ -1,0 +1,103 @@
+.security-audit-container {
+  padding: 2.5rem;
+  background: #020617;
+  min-height: 100vh;
+}
+
+.audit-hero {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: rgba(239, 68, 68, 0.03);
+  border: 1px solid rgba(239, 68, 68, 0.1);
+  border-radius: 2rem;
+}
+
+.audit-icon-box {
+  padding: 1rem;
+  border-radius: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active-drill-panel {
+  padding: 2.5rem;
+  border-radius: 2rem;
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.pulse-circle {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 99px;
+  background: #ef4444;
+  box-shadow: 0 0 20px #ef4444;
+  animation: pulse 1.5s infinite;
+}
+
+.drill-metrics {
+  display: flex;
+  gap: 4rem;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.m-val { font-size: 2.5rem; font-weight: 950; color: #fff; }
+.m-label { font-size: 0.625rem; font-weight: 900; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; }
+
+.drill-launcher-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.launcher-card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.launcher-card:hover { transform: translateY(-5px); }
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  border-radius: 1.25rem;
+  margin-bottom: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.h-type { font-weight: 800; font-size: 0.875rem; color: #f8fafc; }
+.h-time { font-family: monospace; color: #94a3b8; font-size: 0.75rem; }
+.h-status { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 900; }
+.h-status.success { color: #10b981; }
+.h-status.failed { color: #f43f5e; }
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}

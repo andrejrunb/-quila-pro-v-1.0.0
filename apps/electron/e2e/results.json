@@ -1,0 +1,87 @@
+{
+  "config": {
+    "configFile": "C:\\aquila\\apps\\electron\\playwright.config.ts",
+    "rootDir": "C:/aquila/apps/electron/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/aquila/apps/electron/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "electron-v28-production",
+        "name": "electron-v28-production",
+        "testDir": "C:/aquila/apps/electron/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "open": "never"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "e2e/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "Error: Playwright Test did not expect test() to be called here.\nMost common reasons include:\n- You are calling test() in a configuration file.\n- You are calling test() in a file that is imported by the configuration file.\n- You have two different versions of @playwright/test. This usually happens\n  when one of the dependencies in your package.json depends on @playwright/test.",
+      "stack": "Error: Playwright Test did not expect test() to be called here.\nMost common reasons include:\n- You are calling test() in a configuration file.\n- You are calling test() in a file that is imported by the configuration file.\n- You have two different versions of @playwright/test. This usually happens\n  when one of the dependencies in your package.json depends on @playwright/test.\n    at TestTypeImpl._currentSuite (C:\\aquila\\apps\\electron\\node_modules\\playwright\\lib\\common\\testType.js:75:13)\n    at TestTypeImpl._createTest (C:\\aquila\\apps\\electron\\node_modules\\playwright\\lib\\common\\testType.js:88:24)\n    at C:\\aquila\\apps\\electron\\node_modules\\playwright\\lib\\transform\\transform.js:282:12\n    at Object.<anonymous> (C:\\aquila\\apps\\electron\\e2e\\smoke.spec.ts:9:5)",
+      "location": {
+        "file": "C:\\aquila\\apps\\electron\\e2e\\smoke.spec.ts",
+        "column": 5,
+        "line": 9
+      },
+      "snippet": "\u001b[90m   at \u001b[39msmoke.spec.ts:9\n\n\u001b[0m \u001b[90m  7 |\u001b[39m \u001b[90m * Verifica se o app inicia e carrega o UnifiedCommand.\u001b[39m\n \u001b[90m  8 |\u001b[39m \u001b[90m */\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  9 |\u001b[39m test(\u001b[32m'should launch app and show UnifiedCommand'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m    |\u001b[39m     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 10 |\u001b[39m     \u001b[36mconst\u001b[39m electronApp \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m electron\u001b[33m.\u001b[39mlaunch({\n \u001b[90m 11 |\u001b[39m         args\u001b[33m:\u001b[39m [path\u001b[33m.\u001b[39mjoin(__dirname\u001b[33m,\u001b[39m \u001b[32m'../dist/main.js'\u001b[39m)]\u001b[33m,\u001b[39m\n \u001b[90m 12 |\u001b[39m         env\u001b[33m:\u001b[39m { \u001b[33m...\u001b[39mprocess\u001b[33m.\u001b[39menv\u001b[33m,\u001b[39m \u001b[33mNODE_ENV\u001b[39m\u001b[33m:\u001b[39m \u001b[32m'test'\u001b[39m\u001b[33m,\u001b[39m \u001b[33mPLAYWRIGHT\u001b[39m\u001b[33m:\u001b[39m \u001b[32m'true'\u001b[39m }\u001b[33m,\u001b[39m\u001b[0m"
+    },
+    {
+      "message": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments.",
+      "stack": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments."
+    }
+  ],
+  "stats": {
+    "startTime": "2026-04-03T20:21:55.173Z",
+    "duration": 176.60100000000057,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

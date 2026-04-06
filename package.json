@@ -1,0 +1,13 @@
+{
+  "name": "aquila-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:electron": "npm run dev --workspace apps/electron",
+    "dev:web": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspaces"
+  }
+}

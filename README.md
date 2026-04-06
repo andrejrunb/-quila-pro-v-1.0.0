@@ -1,36 +1,37 @@
-# Áquila Pro - Sistema de Segurança e Engajamento Escolar v1.2.0
+# 🦅 Áquila Pro
+**A Plataforma Educacional de IA e SaaS Multi-Tenant**
 
-Bem-vindo ao ecossistema Áquila Pro. Este repositório centraliza todas as frentes de desenvolvimento da plataforma de segurança e engajamento escolar.
+Bem-vindo ao repositório principal do ecossistema Áquila. Este é o core web da nossa infraestrutura, desenhado para escalar escolas de ponta a ponta.
 
-## 📁 Estrutura do Repositório
+## 🚀 Sobre o Projeto
+O Áquila Pro Cloud é o coração da plataforma para pais, alunos e administração, sendo construído sob o T3 Stack (Next.js, Tailwind, tRPC, PostgreSQL + Drizzle).
 
-O projeto está organizado em módulos independentes e especializados:
+Nossa missão é combater a evasão, gerenciar finanças complexas (Pagamentos recorrentes e PIX) e facilitar a gestão escolar com inteligência artificial escalável. 
 
--   **[aquilapro_electron/](file:///c:/aquila/aquilapro_electron)**: Aplicação Desktop principal (V3.5 Eagle) com biometria facial, IA Oraculum e gestão financeira.
--   **[aquila-cloud/](file:///c:/aquila/aquila-cloud)**: Versão web/cloud para gestão administrativa remota e portal do aluno.
--   **[aquila-mobile/](file:///c:/aquila/aquila-mobile)**: Aplicativo móvel para pais e responsáveis (Notificações em tempo real).
--   **[site/](file:///c:/aquila/site)**: Website oficial e landing page de marketing.
--   **[docs/](file:///c:/aquila/docs)**: Documentação centralizada (Manuais, Arquitetura, LGPD e Roadmap).
-
-## 🚀 Novidades da V1.2.0 (Upgrade Eagle 3.5)
-
--   **Engine Oraculum 3.5**: IA preditiva de evasão com análise comportamental avançada.
--   **Design Eagle**: Interface moderna com Glassmorphism e alta performance visual.
--   **Pagamentos Integrados**: Pix (QR Code), PayPal e Cartão de Crédito direto no Desktop.
--   **Grade Horária Inteligente**: Importação facilitada via CSV/Excel.
-
-## 🛠️ Instalação e Build
-
-Para compilar a versão Desktop:
+## ⚙️ Como Rodar Localmente
+A estrutura de módulos (workspaces) é fluida. Para levantar a plataforma:
 
 ```bash
-cd aquilapro_electron
-npm install
-npm run build
-npm run dist
+# 1. Instalar dependências (via pnpm)
+pnpm install
+
+# 2. Iniciar o Servidor de Desenvolvimento Web
+pnpm run dev
+
+# 3. Compilação para Produção
+pnpm run build
 ```
 
-A documentação completa de instalação e configuração pode ser encontrada em `/docs`.
+## 🗺️ Mapa da Arquitetura (Dual-Core)
+O Áquila opera em dois domínios isolados:
+1. **[Este Repo] Plataforma Web (SaaS Cloud)**: Escala infinita (Multi-Tenant).
+2. **Antigravity Kernel (Edge/Desktop)**: Aplicação local autônoma que vive dentro dos colégios e comanda Visão Computacional offline. (_Agora gerenciada em um repositório isolado e dedicado_).
+
+### 📚 Documentação Essencial:
+Acesse os links diretos para detalhes fundadores do projeto:
+- 🏗️ [Arquitetura Deep Tech (ARCHITECTURE.md)](./ARCHITECTURE.md)
+- 🗄️ [Schema T3 DB (DATABASE.md)](./DATABASE.md)
+- 🛡️ [Compliance LGPD Nacional](./LGPD_COMPLIANCE_ANALYSIS.md)
 
 ---
-**Desenvolvido por André Jr - Áquila Pro LTDA**
+*Construído com excelência para revolucionar centenas de escolas em Brasília e nacionalmente.*

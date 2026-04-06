@@ -1,0 +1,107 @@
+/**
+ * AITutorHologram.css (v4002-Elite)
+ * -------------------------------
+ * Estilos para o holograma do tutor IA, sintonizados com o 'Sovereign Eagle' UX.
+ * Implementa variáveis CSS para engajamento dinâmico.
+ */
+
+.hologram-container {
+    position: relative;
+    width: 280px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+.hologram-aura {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, var(--cyan-cyber) 0%, transparent 70%);
+    filter: blur(20px);
+    opacity: 0.3;
+    animation: pulse-aura 4s infinite ease-in-out;
+}
+
+@keyframes pulse-aura {
+    0%, 100% { transform: scale(1); opacity: 0.2; }
+    50% { transform: scale(1.4); opacity: 0.5; }
+}
+
+.hologram-avatar {
+    width: 120px;
+    height: 120px;
+    background: var(--obsidian-deep);
+    border: 1px solid var(--pulse-glow, var(--cyan-cyber));
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 30px var(--pulse-glow, var(--cyan-cyber-glow));
+    z-index: 2;
+}
+
+.avatar-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    background: var(--pulse-glow, var(--cyan-cyber));
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px var(--pulse-glow, var(--cyan-cyber));
+}
+
+.hologram-status {
+    margin-top: 24px;
+    padding: 12px;
+    width: 100%;
+}
+
+.metric-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--amber-warm);
+    margin-bottom: 8px;
+    text-shadow: 0 0 5px var(--amber-glow);
+}
+
+.engagement-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.engagement-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyan-cyber), var(--amber-warm));
+    box-shadow: 0 0 10px var(--cyan-cyber);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dynamic width via CSS Variable */
+.holographic-engagement-fill {
+    width: var(--engagement-width, 0%);
+}
+
+.hologram-engagement-text {
+    margin-top: 8px;
+    text-align: right;
+    opacity: 0.8;
+}
+
+.hologram-glitch-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 255, 255, 0.05) 1px, rgba(0, 255, 255, 0.05) 2px);
+    pointer-events: none;
+    z-index: 3;
+}

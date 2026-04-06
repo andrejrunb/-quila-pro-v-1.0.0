@@ -100,14 +100,18 @@
     .hero-btns { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
     
     .btn-main {
-      padding: 1.2rem 2.5rem; border-radius: 1rem; font-size: 1.1rem; font-weight: 700;
       text-decoration: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: inline-flex; align-items: center; gap: 0.75rem;
+      cursor: pointer;
     }
     .btn-fill { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); }
     .btn-fill:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5); }
     .btn-outline { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--glass-border); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
     .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+    .flex-between { display: flex; justify-content: space-between; align-items: center; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mr-2 { margin-right: 8px; }
 
     /* --- Portals Section --- */
     #portals { padding: 4rem 2rem 10rem; position: relative; }
@@ -153,11 +157,58 @@
     .feature-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
     .feature-card p { color: var(--text-dim); line-height: 1.7; }
 
+    /* --- Pricing Section --- */
+    #pricing { padding: 8rem 2rem; position: relative; background: linear-gradient(to bottom, rgba(3, 7, 18, 1), rgba(17, 24, 39, 0.4)); }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem; max-width: 1100px; margin: 0 auto;
+    }
+    .price-card {
+      background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); padding: 3rem 2rem;
+      border-radius: 2rem; text-align: left; transition: all 0.4s; position: relative; overflow: hidden;
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); display: flex; flex-direction: column;
+    }
+    .price-card:hover { transform: translateY(-10px); border-color: rgba(99, 102, 241, 0.5); background: rgba(255, 255, 255, 0.05); }
+    .price-badge { position: absolute; top: 1rem; right: 1rem; background: var(--secondary); color: white; padding: 0.3rem 1rem; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    .price-name { font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
+    .price-val { font-size: 3rem; font-weight: 900; color: white; margin-bottom: 1.5rem; letter-spacing: -0.05em; font-family: 'Outfit'; display: flex; align-items: baseline; gap: 0.5rem; }
+    .price-val span { font-size: 1rem; color: var(--text-dim); font-weight: 500; }
+    .price-list { list-style: none; margin-bottom: 2.5rem; flex-grow: 1; }
+    .price-list li { display: flex; align-items: flex-start; gap: 0.75rem; color: var(--text-dim); margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.5; }
+    .price-list li i { color: var(--primary); flex-shrink: 0; margin-top: 0.15rem; }
+    .price-list li.warning i { color: #f59e0b; }
+    
+    /* --- Pricing Section (A La Carte Model) --- */
+    #pricing { padding: 8rem 2rem; position: relative; background: linear-gradient(to bottom, rgba(3, 7, 18, 1), rgba(17, 24, 39, 0.4)); }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem; max-width: 1200px; margin: 0 auto;
+    }
+    .price-card {
+      background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); padding: 3rem 2.5rem;
+      border-radius: 2rem; text-align: left; transition: all 0.4s; position: relative; overflow: hidden;
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); display: flex; flex-direction: column;
+    }
+    .price-card:hover { transform: translateY(-10px); border-color: rgba(99, 102, 241, 0.5); background: rgba(255, 255, 255, 0.05); }
+    .price-badge { position: absolute; top: 1rem; right: 1rem; background: var(--secondary); color: white; padding: 0.3rem 1rem; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    .price-name { font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
+    .price-val { font-size: 3rem; font-weight: 900; color: white; margin-bottom: 1.5rem; letter-spacing: -0.05em; font-family: 'Outfit'; display: flex; align-items: baseline; gap: 0.5rem; }
+    .price-val span { font-size: 1rem; color: var(--text-dim); font-weight: 500; }
+    .price-list { list-style: none; margin-bottom: 2.5rem; flex-grow: 1; }
+    .price-list li { display: flex; align-items: flex-start; gap: 0.75rem; color: var(--text-dim); margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.5; }
+    .price-list li i { color: var(--primary); flex-shrink: 0; margin-top: 0.15rem; }
+    .price-list li.warning i { color: #f59e0b; }
+    
     /* --- UX / UI Pricing & Footer --- */
     .hero-tag-success { background: rgba(16, 185, 129, 0.1); color: #10b981 !important; border-color: rgba(16, 185, 129, 0.2) !important; }
-    footer { padding: 6rem 2rem 4rem; text-align: center; }
-    .f-logo { font-size: 2rem; font-weight: 900; margin-bottom: 1rem; opacity: 0.8; }
-    .copyright { color: var(--text-dim); font-size: 0.8rem; letter-spacing: 0.05em; margin-top: 3rem;}
+    .footer-p { color: var(--text-dim); max-width: 500px; margin: 0 auto; }
+    .price-desc { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .btn-full-width { justify-content: center; width: 100%; }
+    .table-empty-state { text-align: center; padding: 3rem; opacity: 0.5; }
+    
+    .pricing-card-highlight { border-color: var(--primary) !important; }
+    .badge-success { background: #10b981 !important; }
+    .text-success-bright { color: #10b981 !important; }
 
     @media (max-width: 900px) {
       h1 { font-size: 3.5rem; }
@@ -272,10 +323,61 @@
     </div>
   </section>
 
+  <!-- PRICING / OPT-IN MODULES -->
+  <section id="pricing">
+    <div class="section-header">
+      <div class="hero-tag">A La Carte</div>
+      <h2>Planos Arquiteturais Áquila</h2>
+      <p>Modular, inteligente e escalável. Adicione hubs avançados somente se sua escola possuir infraestrutura (Opt-in).</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Start (Licença de Software)</div>
+        <div class="price-val">R$ 1.297<span>/mês</span></div>
+        <p class="price-desc">Ideal para Berçários e creches pequenas. Controle puramente digital.</p>
+        <ul class="price-list">
+          <li><i data-lucide="check-circle-2"></i> PWA App Pais (Analytics e Timeline)</li>
+          <li><i data-lucide="check-circle-2"></i> Córtex Docente (Chamada NLP sem cliques)</li>
+          <li><i data-lucide="check-circle-2"></i> Caixa de Moderação da Secretaria</li>
+          <li><i data-lucide="alert-triangle" class="warning"></i> Visão de Edge (Hardware Não Incluso)</li>
+        </ul>
+        <a href="#" class="btn-main btn-outline btn-full-width">Implantar Fase 1</a>
+      </div>
+
+      <div class="price-card pricing-card-highlight">
+        <div class="price-badge">Sovereign V1.0</div>
+        <div class="price-name">Core Security OS</div>
+        <div class="price-val">R$ 2.897<span>/mês</span></div>
+        <p class="price-desc">O cérebro completo Padrão FNDE. Inclui Gestor de Grade Urânia-free.</p>
+        <ul class="price-list">
+          <li><i data-lucide="check-circle-2"></i> Edge Vision (Até 12 Câmeras Catracas/Pátio)</li>
+          <li><i data-lucide="check-circle-2"></i> NLP Ocorrências de Voz Auditadas</li>
+          <li><i data-lucide="check-circle-2"></i> Constraint Solver (Grade Automática I.A)</li>
+          <li><i data-lucide="check-circle-2"></i> Fila de Atendimento WhatsApp Business</li>
+        </ul>
+        <a href="#" class="btn-main btn-fill btn-full-width">Tornar a Escola Autônoma</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-badge badge-success">Custom</div>
+        <div class="price-name">Hubs Módulos Add-ons</div>
+        <div class="price-val">Sob Demanda</div>
+        <p class="price-desc">(Apenas se houver infraestrutura) Cobrado por Aluno ou Setor.</p>
+        <ul class="price-list">
+          <li><i data-lucide="package-plus" class="text-success-bright"></i> <b>Hub Econômico (+R$ 997):</b> IoT de Ar-condicionado cruzado com Timetable. Exige Placas Relé.</li>
+          <li><i data-lucide="package-plus" class="text-success-bright"></i> <b>Pilar Financeiro (+R$ 1.497):</b> API de PIX Bancário, Mensalidades e Motor IA Antievasão.</li>
+          <li><i data-lucide="package-plus" class="text-success-bright"></i> <b>Multi-Franquias:</b> Dashboard Central de Rede. Valor de R$ 3,90 por aluno excedente (>2000).</li>
+        </ul>
+        <a href="#" class="btn-main btn-outline btn-full-width">Calcular Infraestrutura Mista</a>
+      </div>
+    </div>
+  </section>
+
   <footer>
-    <div class="footer-content">
+    <div class="footer-content text-center">
       <div class="f-logo italic">🦅 ÁQUILA<span>PRO</span></div>
-      <p style="color: var(--text-dim); max-width: 500px; margin: 0 auto;">Plataforma Escolar Definitiva para Sistemas de Automação Visual, Controle Financeiro e Presença Corporativa.</p>
+      <p class="footer-p">Plataforma Escolar Definitiva para Sistemas de Automação Visual, Controle Financeiro e Presença Corporativa.</p>
       <p class="copyright">© 2026 ÁQUILA PRO SYSTEMS. TODOS OS DIREITOS RESERVADOS. BUILT WITH PURITY.</p>
     </div>
   </footer>

@@ -1,0 +1,179 @@
+.ghost-canvas {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  overflow: hidden;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.ghost-subject {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  left: var(--ghost-x);
+  top: var(--ghost-y);
+  opacity: var(--ghost-opacity);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+}
+
+.ghost-aura {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulseAura 3s infinite ease-in-out;
+}
+
+.ghost-core {
+  width: 40px;
+  height: 40px;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+}
+
+.ghost-label {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.9);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  min-width: 80px;
+}
+
+.ghost-id {
+  font-size: 10px;
+  font-weight: 900;
+  color: #3b82f6;
+  letter-spacing: 1px;
+}
+
+.ghost-posture {
+  font-size: 8px;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.ghost-confidence-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-top: 4px;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  width: var(--bar-width);
+  background: #3b82f6;
+  transition: width 0.3s ease;
+}
+
+/* Postures */
+.ghost-subject.horizontal .ghost-core {
+  border-color: #ef4444;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+
+.ghost-subject.horizontal .ghost-aura {
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%);
+}
+
+/* Fall Alert */
+.fall-alert-ping {
+  position: absolute;
+  top: -60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.ping-ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ef4444;
+  border-radius: 50%;
+  animation: pingOut 2s infinite;
+}
+
+.alert-text {
+  font-size: 10px;
+  font-weight: bold;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+/* Grid & Waves */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.signal-waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 100"><path d="M0 50 Q 100 20 200 50 T 400 50 T 600 50 T 800 50" fill="none" stroke="%233b82f6" stroke-width="2"/></svg>');
+  background-repeat: repeat-x;
+  animation: moveWave 10s linear infinite;
+}
+
+.wave:nth-child(2) { animation-duration: 7s; opacity: 0.5; bottom: 10px; }
+.wave:nth-child(3) { animation-duration: 13s; opacity: 0.3; bottom: -5px; }
+
+@keyframes pulseAura {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+@keyframes pingOut {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes moveWave {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

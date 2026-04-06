@@ -1,0 +1,227 @@
+.swarm-monitor {
+  padding: 2rem;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  margin-bottom: 2rem;
+}
+
+.swarm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.swarm-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-view-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #64748b;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-view-toggle:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.btn-view-toggle.active {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  border-color: #3b82f6;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.swarm-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.swarm-header h3 {
+  font-size: 1.125rem;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.swarm-active-badge {
+  font-size: 0.625rem;
+  font-weight: 900;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  letter-spacing: 0.1em;
+}
+
+.swarm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.swarm-card {
+  position: relative;
+  padding: 1.5rem;
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.swarm-card:hover {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.swarm-card.offline {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.swarm-node-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  transition: all 0.3s;
+}
+
+.swarm-node-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.node-name {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.node-type {
+  font-size: 0.625rem;
+  font-weight: 900;
+  color: #64748b;
+  letter-spacing: 0.1em;
+}
+
+.swarm-node-status {
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.load-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.load-fill {
+  height: 100%;
+  background: #3b82f6;
+  width: var(--node-load, 0%);
+  transition: width 0.5s ease-out;
+}
+
+.load-val {
+  font-size: 0.625rem;
+  font-weight: 900;
+  color: #94a3b8;
+}
+
+/* Vision Processing Style */
+.processing-vision {
+  border-color: #3b82f6;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.processing-vision .swarm-node-icon {
+  background: #3b82f6;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  animation: pulse-node 2s infinite;
+}
+
+.vision-tag {
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 0.5rem;
+  font-weight: 950;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  letter-spacing: 0.05em;
+  animation: slide-vision-tag 0.4s ease-out;
+}
+
+@keyframes pulse-node {
+  0% { transform: scale(1); box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+  50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(59, 130, 246, 0.8); }
+  100% { transform: scale(1); box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+}
+
+@keyframes slide-vision-tag {
+  from { opacity: 0; transform: translateY(-100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.swarm-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.swarm-footer p {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.latency-info {
+  font-size: 0.625rem;
+  font-weight: 900;
+  color: #10b981;
+  letter-spacing: 0.05em;
+}

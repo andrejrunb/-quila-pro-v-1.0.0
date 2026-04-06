@@ -1,0 +1,213 @@
+.dashboard-comando-container {
+   min-height: 100vh;
+   background: #09090b;
+   color: #fff;
+   padding: 2rem;
+   font-family: 'Inter', sans-serif;
+   display: flex;
+   flex-direction: column;
+   gap: 2rem;
+}
+
+.cmd-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+   padding-bottom: 2rem;
+}
+
+.title-group {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+.text-gradient {
+   background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #6366f1 100%);
+   -webkit-background-clip: text;
+   background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+
+.cmd-controls {
+   display: flex;
+   background: rgba(255, 255, 255, 0.03);
+   padding: 0.5rem;
+   border-radius: 12px;
+   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cmd-controls button {
+   background: transparent;
+   border: none;
+   color: #71717a;
+   padding: 0.75rem 1.5rem;
+   border-radius: 8px;
+   cursor: pointer;
+   font-weight: 600;
+   transition: all 0.2s;
+}
+
+.cmd-controls button.active {
+   background: #8b5cf6;
+   color: #fff;
+   box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.swarm-topology-view {
+   flex: 1;
+}
+
+.sector-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+   gap: 1.5rem;
+}
+
+.node-card {
+   position: relative;
+   border-radius: 16px;
+   padding: 1.5rem;
+   display: flex;
+   gap: 1.5rem;
+   transition: transform 0.2s, box-shadow 0.2s;
+   border: 1px solid rgba(255, 255, 255, 0.05);
+   overflow: hidden;
+}
+
+.node-card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+   border-color: rgba(139, 92, 246, 0.3);
+}
+
+/* Status Colors */
+.status-online { border-left: 4px solid #10b981; }
+.status-busy { border-left: 4px solid #f59e0b; }
+.status-offline { border-left: 4px solid #71717a; opacity: 0.6; }
+
+.node-body {
+   display: flex;
+   flex-direction: column;
+   gap: 0.25rem;
+   flex: 1;
+}
+
+.node-name {
+   font-weight: 800;
+   font-size: 1.25rem;
+   letter-spacing: -0.02em;
+}
+
+.node-sector {
+   font-size: 0.75rem;
+   color: #71717a;
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+}
+
+.node-metrics {
+   display: flex;
+   gap: 1.5rem;
+   margin-top: 1rem;
+}
+
+.metric {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   font-size: 0.875rem;
+   color: #a1a1aa;
+}
+
+.node-model-pill {
+   margin-top: 1.5rem;
+   background: rgba(139, 92, 246, 0.1);
+   color: #a78bfa;
+   padding: 0.4rem 0.8rem;
+   border-radius: 100px;
+   font-size: 0.75rem;
+   font-weight: 700;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   width: fit-content;
+}
+
+.busy-overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(245, 158, 11, 0.1);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   -webkit-backdrop-filter: blur(2px);
+   backdrop-filter: blur(2px);
+}
+
+.throb {
+   font-size: 0.75rem;
+   font-weight: 900;
+   color: #fbbf24;
+   letter-spacing: 2px;
+   animation: throb 1.5s infinite;
+}
+
+@keyframes throb {
+   0%, 100% { opacity: 0.4; }
+   50% { opacity: 1; }
+}
+
+.cmd-footer {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 1.5rem;
+   border-radius: 16px;
+   background: rgba(255, 255, 255, 0.02);
+   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.swarm-stats {
+   display: flex;
+   gap: 2rem;
+   color: #71717a;
+   font-size: 0.875rem;
+   font-weight: 500;
+}
+
+.sync-pulse {
+   display: flex;
+   align-items: center;
+   gap: 0.75rem;
+   color: #8b5cf6;
+   font-size: 0.75rem;
+   font-weight: 800;
+   letter-spacing: 1px;
+}
+
+.pulse-dot {
+   width: 10px;
+   height: 10px;
+   background: #8b5cf6;
+   border-radius: 50%;
+   box-shadow: 0 0 10px #8b5cf6;
+   animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+   0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+   70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+}
+
+/* Glassmorphism utility */
+.glass {
+   background: rgba(255, 255, 255, 0.03);
+   -webkit-backdrop-filter: blur(12px);
+   backdrop-filter: blur(12px);
+}

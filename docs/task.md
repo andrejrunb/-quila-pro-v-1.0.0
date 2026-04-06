@@ -245,4 +245,7 @@
   - [x] Draft `implementation_plan_v3241_hr_sovereignty.md`.
   - [x] Implement `HRSovereigntyService` (Payroll & Tax logic).
   - [x] Create `HRPortal.tsx` (Staff Management & Time-Clock).
-  - [/] Upgrade AdminAgent with HRSquad for automated notifications.
+  - [x] Upgrade AdminAgent with HRSquad for automated notifications.
+- [x] Phase v3701: Evidence Cold Storage & Physical Archiving
+  - [x] Implement `EvidenceColdStorage` (v3701) with manifest signing.
+  - [x] Strengthen `MobilePairingService` with firewall integration.

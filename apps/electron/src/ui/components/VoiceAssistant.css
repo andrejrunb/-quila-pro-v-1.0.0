@@ -1,0 +1,115 @@
+.voice-assistant-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(15px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+}
+
+.voice-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
+  width: 500px;
+  text-align: center;
+  box-shadow: 0 50px 150px rgba(0,0,0,0.8);
+}
+
+.voice-waves {
+  position: relative;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+canvas {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.6;
+}
+
+.mic-pulse {
+  background: rgba(0, 255, 204, 0.1);
+  padding: 25px;
+  border-radius: 50%;
+  animation: pulse-ring 2s infinite;
+  z-index: 1;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.4); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0, 255, 204, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
+}
+
+.voice-display {
+  margin-bottom: 40px;
+}
+
+.voice-hint {
+  color: #00ffcc;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.transcript-box {
+  min-height: 80px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 12px;
+  padding: 20px;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.interim-text {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+.voice-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.voice-submit-btn {
+  background: #00ffcc;
+  color: #0b111e;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.voice-submit-btn:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.voice-cancel-btn {
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  border: none;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}

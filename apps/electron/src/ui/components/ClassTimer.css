@@ -1,0 +1,71 @@
+:root {
+  --timer-bg: rgba(20, 20, 30, 0.6);
+  --timer-accent: #00f2ff;
+  --timer-warning: #ffcc00;
+  --timer-urgent: #ff2d55;
+  --timer-border: rgba(255, 255, 255, 0.1);
+}
+
+.class-timer-container {
+  padding: 20px;
+  background: var(--timer-bg);
+  border: 1px solid var(--timer-border);
+  border-radius: 16px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.timer-clock {
+  font-size: 32px;
+  font-weight: 800;
+  font-family: monospace;
+  color: #fff;
+  text-shadow: 0 0 15px var(--timer-accent);
+}
+
+.timer-clock.warning {
+  color: var(--timer-warning);
+  text-shadow: 0 0 15px var(--timer-warning);
+}
+
+.timer-clock.urgent {
+  color: var(--timer-urgent);
+  text-shadow: 0 0 15px var(--timer-urgent);
+  animation: timer-pulse 1s ease infinite;
+}
+
+.timer-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1.5px;
+}
+
+.timer-alert {
+  padding: 8px 16px;
+  background: rgba(255, 45, 85, 0.1);
+  border: 1px solid var(--timer-urgent);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--timer-urgent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes timer-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

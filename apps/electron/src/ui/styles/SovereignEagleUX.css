@@ -1,0 +1,475 @@
+/**
+ * SOVEREIGN EAGLE UX (v3510)
+ * --------------------------
+ * Design System definitivo para o Global Command Center.
+ */
+
+:root {
+  --eagle-ultra-dark: #020617;
+  --eagle-surface: rgba(15, 23, 42, 0.8);
+  --cyan-cyber: #22d3ee;
+  --cyan-glow: rgba(34, 211, 238, 0.4);
+  --gold-integrity: #f59e0b;
+  --gold-glow: rgba(245, 158, 11, 0.3);
+  --safety-red: #ef4444;
+  --safety-glow: rgba(239, 68, 68, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+.eagle-command-center {
+  background: radial-gradient(circle at center, #0f172a 0%, var(--eagle-ultra-dark) 100%);
+  color: white;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.holographic-card {
+  background: var(--eagle-surface);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.holographic-card:hover {
+  border-color: var(--cyan-cyber);
+  box-shadow: 0 0 20px var(--cyan-glow);
+  transform: translateY(-4px) scale(1.01);
+}
+
+.unit-node {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--cyan-cyber);
+  box-shadow: 0 0 10px var(--cyan-glow);
+  animation: pulse-node 3s infinite ease-in-out;
+}
+
+@keyframes pulse-node {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 20px var(--cyan-cyber); }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.integrity-seal-gold {
+  color: var(--gold-integrity);
+  text-shadow: 0 0 8px var(--gold-glow);
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.data-stream-glow {
+  background: linear-gradient(90deg, transparent, var(--cyan-cyber), transparent);
+  height: 1px;
+  opacity: 0.3;
+  width: 100%;
+}
+
+.eagle-header-stats {
+  text-align: right;
+}
+
+/* MARKETPLACE & STORE CLASSES (v3647) */
+.logic-input-cyber {
+  background: rgba(0, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  color: var(--cyan-cyber);
+  font-family: var(--font-cyber);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.logic-input-cyber:focus {
+  border-color: var(--cyan-cyber);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+.eagle-card-hover {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.eagle-card-hover:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 255, 0.1);
+  border-color: var(--cyan-cyber);
+}
+
+.logic-button-cyber {
+  background: var(--cyan-cyber);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logic-button-cyber.outline {
+  background: transparent;
+  border: 1px solid var(--cyan-cyber);
+  color: var(--cyan-cyber);
+}
+
+.logic-button-cyber:hover {
+  filter: brightness(1.2);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+/* LAYOUT CLASSES (v3510) */
+.eagle-header {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eagle-title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--cyan-cyber);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.unit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.unit-info-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.unit-name {
+  margin: 0 0 0 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.unit-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  font-size: 0.85rem;
+}
+
+.metric-label {
+  opacity: 0.5;
+  margin: 0 0 0.2rem 0;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.metric-value {
+  font-size: 1.1rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.eagle-footer {
+  margin-top: 2.5rem;
+  font-size: 0.75rem;
+  opacity: 0.5;
+  text-align: center;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 1rem;
+}
+
+.metric-value[data-overload="true"] {
+  color: var(--safety-red) !important;
+}
+
+.marketplace-search {
+  width: 300px;
+}
+
+.plugin-icon {
+  font-size: 2rem;
+}
+
+.plugin-meta {
+  margin-left: 1rem;
+}
+
+.plugin-description {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  min-height: 3rem;
+}
+
+.store-actions {
+  margin-top: 1.5rem;
+}
+
+.store-actions button {
+  width: 100%;
+}
+
+/* HOLOGRAM & EMOTION CLASSES (v3647) */
+.hologram-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.hologram-aura {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, var(--aura-color, var(--cyan-cyber)) 0%, transparent 70%);
+  opacity: 0.3;
+  animation: aura-pulse 3s infinite ease-in-out;
+  filter: blur(40px);
+}
+
+@keyframes aura-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+}
+
+.hologram-avatar {
+  z-index: 2;
+  width: 120px;
+  height: 120px;
+  position: relative;
+}
+
+.avatar-core {
+  width: 40px;
+  height: 40px;
+  background: var(--cyan-cyber);
+  border-radius: 50%;
+  box-shadow: 0 0 30px var(--cyan-cyber);
+  margin: 40px auto;
+}
+
+.hologram-status {
+  width: 80%;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.engagement-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.engagement-fill {
+  height: 100%;
+  transition: width 0.5s ease, background 0.5s ease;
+}
+
+.holographic-engagement-fill {
+  background: var(--aura-color, var(--cyan-cyber));
+}
+
+.hologram-engagement-text {
+  margin-top: 0.5rem;
+}
+
+.metric-sync-text {
+  font-size: 0.7rem;
+}
+
+.holographic-engagement-fill {
+  background: var(--aura-color, var(--cyan-cyber));
+  width: var(--engagement-width, 0%);
+  transition: width 0.3s ease;
+}
+
+/* LOGIN & TENANT CLASSES (v3647) */
+.tenant-login-container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  max-width: 450px;
+  width: 100%;
+  padding: 3rem;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-avatar {
+  margin: 0 auto 1.5rem;
+}
+
+.login-title {
+  font-size: 1.8rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.login-footer-seal {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+/* ZEN MODE & COLOR STATES (v3801) */
+.zen-mode-container {
+  background-color: var(--deep-obsidian);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.zen-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  width: 100%;
+  opacity: 0.8;
+}
+
+.zen-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zen-tutor-wrapper {
+  transform: scale(1.2);
+  filter: brightness(0.9) contrast(1.1);
+}
+
+.zen-footer {
+  padding: 2rem;
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.zen-overlay {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 100px #000;
+  pointer-events: none;
+}
+
+/* EXECUTIVE COCKPIT CLASSES (v3901) */
+.cockpit-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+.metric-card {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 200px;
+}
+
+.action-pills-section {
+  padding: 0 2rem 2rem 2rem;
+  width: 100%;
+}
+
+.pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.pill-card {
+  padding: 1.5rem;
+  min-width: 320px;
+  max-width: 400px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--cyan-cyber);
+}
+
+.pill-card:hover {
+  background: rgba(0, 255, 255, 0.05);
+  transform: translateY(-5px);
+}
+
+.pill-card[data-impact="High"] {
+  border-left-color: var(--safety-red);
+}
+
+.pill-text {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin: 0.8rem 0;
+}
+
+.pill-detail-link {
+  font-size: 0.75rem;
+  text-decoration: underline;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.pill-detail-link:hover {
+  opacity: 1;
+}
+
+.cockpit-footer {
+  padding: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 255, 255, 0.1);
+  opacity: 0.7;
+}
+
+.dynamic-metric-value {
+  font-size: 2.5rem;
+  margin: 0.5rem 0;
+}

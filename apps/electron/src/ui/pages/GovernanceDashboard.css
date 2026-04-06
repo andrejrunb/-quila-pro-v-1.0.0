@@ -1,0 +1,267 @@
+.governance-page {
+  padding: 2rem;
+  color: #e2e8f0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top right, rgba(30, 41, 59, 0.7), transparent), #020617;
+}
+
+.governance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.governance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.gov-card {
+  background: rgba(15, 23, 42, 0.4);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.gov-card h3 {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.big-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.audit-section {
+  background: rgba(15, 23, 42, 0.4);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.audit-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.audit-table-wrapper {
+  overflow-x: auto;
+}
+
+.gov-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.gov-table th {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.gov-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  font-size: 0.9rem;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.badge.system { color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.2); }
+.badge.audit { color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
+.badge.security { color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+
+.export-btn {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.export-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* ---- SOVEREIGN INTELLIGENCE (FASE 712) ---- */
+.gov-card.highlight {
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border: 1px solid rgba(147, 51, 234, 0.3);
+  box-shadow: 0 8px 32px rgba(147, 51, 234, 0.1);
+  margin-bottom: 2rem;
+}
+
+.mediation-btn {
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+}
+
+.mediation-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(147, 51, 234, 0.5);
+}
+
+.mini-stat {
+  background: rgba(0,0,0,0.2);
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid var(--glass-border);
+}
+
+.mini-stat strong {
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.mini-stat span {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.gov-card.highlight.secondary {
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+}
+
+.mini-stat-v2 {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mini-stat-v2 strong {
+  margin-right: 4px;
+}
+
+.mediation-btn.mini {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+.gov-card.highlight.ledger {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+}
+
+.mediation-btn.secondary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mb-2 { margin-bottom: 0.5rem; }
+.mt-2 { margin-top: 0.5rem; }
+
+.text-accent { color: var(--accent); }
+.text-muted-xs {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  opacity: 0.8;
+}
+
+.font-xs { font-size: 0.65rem; }
+.font-sm { font-size: 0.8rem; }
+
+.opacity-8 { opacity: 0.8; }
+.pointer { cursor: pointer; }
+
+/* ---- SOVEREIGN SWARM (FASE 712.2.2) ---- */
+.gov-card.highlight.swarm {
+  border-color: #10b981;
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.1);
+}
+
+.text-success { color: #10b981; }
+
+/* ---- AUDIO ENGINE (FASE 713) ---- */
+.gov-card.highlight.audio {
+  border-color: #f59e0b;
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.1);
+}
+
+.text-warning { color: #f59e0b; }
+.flex-gap-8 { display: flex; align-items: center; gap: 8px; }
+.mt-2 { margin-top: 2rem; }
+
+/* ---- SQA OVERVIEW (FASE 730) ---- */
+.qa-overview-container {
+  padding: 1rem 0;
+}
+
+.qa-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.qa-action-bar {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.border-success { border-left: 3px solid #10b981; }
+.border-primary { border-left: 3px solid #3b82f6; }
+.border-warning { border-left: 3px solid #f59e0b; }
+.border-purple { border-left: 3px solid #8b5cf6; }
+
+.text-success-bold {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #10b981;
+}
+
+.text-primary-bold {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.text-warning-bold {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #f59e0b;
+}

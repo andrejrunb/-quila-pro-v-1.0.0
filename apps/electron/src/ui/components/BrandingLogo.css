@@ -1,0 +1,57 @@
+.branding-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.branding-logo-container.size-small {
+  --logo-size: 32px;
+  --logo-font-size: 28px;
+}
+
+.branding-logo-container.size-medium {
+  --logo-size: 40px;
+  --logo-font-size: 36px;
+}
+
+.branding-logo-container.size-large {
+  --logo-size: 64px;
+  --logo-font-size: 58px;
+}
+
+.branding-logo-placeholder.size-small { --logo-size: 32px; }
+.branding-logo-placeholder.size-medium { --logo-size: 40px; }
+.branding-logo-placeholder.size-large { --logo-size: 64px; }
+
+.branding-logo-placeholder {
+  width: var(--logo-size, 40px);
+  height: var(--logo-size, 40px);
+  background: var(--glass-background);
+  border-radius: 8px;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.branding-logo-img {
+  object-fit: contain;
+  width: var(--logo-size, 40px);
+  height: var(--logo-size, 40px);
+}
+
+.branding-logo-emoji {
+  font-size: var(--logo-font-size, 36px);
+  line-height: 1;
+}
+
+.branding-logo-powered {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.branding-logo-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+}

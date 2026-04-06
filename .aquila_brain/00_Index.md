@@ -9,7 +9,7 @@ Bem-vindo ao centro de conhecimento do Áquila Pro. Este vault contém a documen
 ### 🏗️ [[10_Architecture/Architecture_Overview|Arquitetura & Core]]
 - [[10_Architecture/Unified_Command_SOC|Unified Command Center (SOC)]]
 - [[10_Architecture/Architecture_Overview|Processamento em Borda (Edge)]]
-
+- [[10_Architecture/Sovereign_OS_Tech_Moat|Deep-Tech Architecture & Tech Moat (v1.0.1)]]
 
 ### ⚙️ [[20_Services/Camera_Engine|Serviços & Lógica]]
 - [[20_Services/Advanced_Vision|Visão Computacional Avançada]]
@@ -20,23 +20,22 @@ Bem-vindo ao centro de conhecimento do Áquila Pro. Este vault contém a documen
 - [[40_Hardware/Aquila_Edge_Spec|Hardware Áquila Edge (NPU)]]
 - [[30_UI_UX/Field_HUD_AR|Eagle Eye Field HUD (AR)]]
 
-
 ### 🎨 [[30_UI_UX/Accessibility_Audit|Design & Interface]]
 - [[30_UI_UX/Accessibility_Audit|Auditoria de Acessibilidade]]
 - Elite UI Design System (Glint, Glassmorphism)
 
-
 ### ⚖️ [[40_Legal_LGPD/LGPD_Compliance|Segurança & Legal]]
 - [[40_Legal_LGPD/LGPD_Compliance|Privacidade e LGPD]]
 - Criptografia Pós-Quântica (Fase 181)
-
+- [[40_Legal_LGPD/RBAC_Roles_And_Features|Manual de Perfis, Permissões e Funções (RBAC)]]
+- [[40_Legal_LGPD/RBAC_Permissions_Matrix|Matriz Visual de Permissões]]
 
 ### 🚀 [[50_Roadmap/Project_Roadmap|Estratégia & Roadmap]]
 - [[50_Roadmap/116-170_Milestones|Milestones 116-170]]
 - [[50_Roadmap/171-200_Milestones|Milestones 171-200]]
 - [[50_Roadmap/201-400_Milestones|Milestones 201-400 (Expansion)]]
 
-
 ---
 
 ### Atualização
+- 2026-03-31: Refatoração V1.0.1 (Sovereign OS Edge & Timetable Engine) Consolidada no Vault.

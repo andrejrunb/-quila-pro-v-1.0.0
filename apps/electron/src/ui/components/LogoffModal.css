@@ -1,0 +1,137 @@
+.logoff-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.logoff-container {
+    width: 650px;
+    padding: 3rem;
+    border-radius: 2.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border: 2px solid rgba(239, 68, 68, 0.3);
+    box-shadow: 0 0 50px rgba(239, 68, 68, 0.15);
+}
+
+.logoff-danger-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.logoff-danger-header h2 {
+    font-size: 1.75rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ef4444;
+}
+
+.logoff-danger-header p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.logoff-checklist {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.check-item.ok { color: #10b981; }
+.check-item.pending { color: #f59e0b; opacity: 0.8; }
+
+.logoff-warning-box {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    padding: 1.25rem;
+    border-radius: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #fbd38d;
+}
+
+.logoff-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.btn-cancel-logoff {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.btn-confirm-logoff {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+}
+
+.btn-confirm-logoff:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* Modo Lite: Exclusão de Pesos */
+body.mode-lite .logoff-overlay {
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.95);
+}
+
+body.mode-lite .logoff-container {
+    background: rgba(15, 23, 42, 1);
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+.animate-spin-slow {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

@@ -1,0 +1,293 @@
+/* FINANCIAL GLASS 1.0 (v3502) */
+.financial-glass-container {
+  padding: 3rem;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 10% 10%, rgba(16, 185, 129, 0.05), transparent 50%),
+              radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.05), transparent 50%);
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  animation: slide-up 0.6s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.financial-glass-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.branding {
+   display: flex;
+   align-items: center;
+   gap: 1.5rem;
+}
+
+.glass-icon-wrapper {
+   width: 56px;
+   height: 56px;
+   background: rgba(16, 185, 129, 0.1);
+   border: 1px solid rgba(16, 185, 129, 0.2);
+   border-radius: 18px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+.glass-title {
+   font-size: 2rem;
+   font-weight: 900;
+   letter-spacing: -0.02em;
+   background: linear-gradient(135deg, #fff, #94a3b8);
+   -webkit-background-clip: text;
+   background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+
+.glass-subtitle {
+   font-size: 0.875rem;
+   color: #64748b;
+   font-weight: 700;
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+}
+
+.balance-overview-glass {
+   display: flex;
+   align-items: center;
+   background: rgba(15, 23, 42, 0.4);
+   -webkit-backdrop-filter: blur(20px);
+   backdrop-filter: blur(20px);
+   padding: 1.5rem 2.5rem;
+   border-radius: 24px;
+   border: 1px solid rgba(255, 255, 255, 0.05);
+   gap: 3rem;
+}
+
+.balance-item {
+   display: flex;
+   flex-direction: column;
+}
+
+.balance-item .label {
+   font-size: 10px;
+   font-weight: 900;
+   color: #64748b;
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+   margin-bottom: 0.5rem;
+}
+
+.balance-item .value {
+   font-size: 1.5rem;
+   font-weight: 900;
+   font-family: 'Space Mono', monospace;
+}
+
+.balance-divider {
+   width: 1px;
+   height: 40px;
+   background: rgba(255, 255, 255, 0.1);
+}
+
+/* BILLING TABLE (v3502) */
+.glass-panel {
+   background: rgba(15, 23, 42, 0.3);
+   -webkit-backdrop-filter: blur(40px);
+   backdrop-filter: blur(40px);
+   border-radius: 32px;
+   border: 1px solid rgba(255, 255, 255, 0.05);
+   padding: 2rem;
+}
+
+.billing-table {
+   width: 100%;
+   border-collapse: collapse;
+}
+
+.billing-table th {
+   text-align: left;
+   padding: 1rem 1.5rem;
+   font-size: 10px;
+   font-weight: 900;
+   color: #475569;
+   text-transform: uppercase;
+   letter-spacing: 0.15em;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.billing-table td {
+   padding: 1.5rem;
+   font-size: 0.875rem;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+   cursor: pointer;
+}
+
+.billing-table tr:hover td {
+   background: rgba(255, 255, 255, 0.02);
+}
+
+.amount {
+   font-family: 'Space Mono', monospace;
+   font-weight: 700;
+}
+
+.status-badge {
+   padding: 0.35rem 0.75rem;
+   border-radius: 50px;
+   font-size: 10px;
+   font-weight: 900;
+   display: inline-block;
+}
+
+.status-badge.paid { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.status-badge.pending { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.status-badge.overdue { background: rgba(239, 44, 44, 0.15); color: #ef4444; }
+
+.signature-cell {
+   display: flex;
+   align-items: center;
+   gap: 0.75rem;
+}
+
+.signature-cell code {
+   background: rgba(255, 255, 255, 0.03);
+   padding: 0.25rem 0.5rem;
+   border-radius: 4px;
+   font-size: 11px;
+   color: #64748b;
+}
+
+/* ACTIONS */
+.btn-action-icon {
+   width: 32px;
+   height: 32px;
+   border-radius: 10px;
+   background: transparent;
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   color: #94a3b8;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   transition: all 0.2s;
+}
+
+.btn-action-icon:hover {
+   background: rgba(255, 255, 255, 0.05);
+   color: white;
+}
+
+/* MODAL / INVOICE (v3502) */
+.modal-overlay-glass {
+   position: fixed;
+   top: 0; left: 0; right: 0; bottom: 0;
+   background: rgba(2, 6, 23, 0.85);
+   -webkit-backdrop-filter: blur(20px);
+   backdrop-filter: blur(20px);
+   z-index: 2000;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.invoice-modal-v3502 {
+   width: 800px;
+   max-width: 90%;
+   background: #0f172a;
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   border-radius: 40px;
+   padding: 4rem;
+   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content-grid {
+   display: grid;
+   grid-template-columns: 300px 1fr;
+   gap: 4rem;
+   margin-top: 3rem;
+}
+
+.qr-container-premium {
+   background: white;
+   padding: 2rem;
+   border-radius: 32px;
+   display: inline-block;
+}
+
+.qr-img { color: #0f172a; }
+
+.pix-token {
+   font-size: 10px;
+   font-family: 'Space Mono', monospace;
+   opacity: 0.4;
+   margin-top: 1.5rem;
+   word-break: break-all;
+}
+
+.btn-copy {
+   margin-top: 2rem;
+   width: 100%;
+   padding: 1rem;
+   border-radius: 14px;
+   background: rgba(255, 255, 255, 0.05);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   color: white;
+   font-weight: 700;
+   cursor: pointer;
+}
+
+.ledger-proof-box {
+   background: rgba(255, 255, 255, 0.02);
+   border: 1px solid rgba(255, 255, 255, 0.05);
+   padding: 2rem;
+   border-radius: 20px;
+}
+
+.block-hash {
+   display: block;
+   font-size: 11px;
+   background: #020617;
+   padding: 1rem;
+   border-radius: 12px;
+   word-break: break-all;
+   margin: 1rem 0;
+   color: #64748b;
+}
+
+.verify-seal {
+   display: flex;
+   align-items: center;
+   gap: 0.75rem;
+   font-size: 10px;
+   font-weight: 900;
+   color: #3b82f6;
+}
+
+/* UTILS */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-pop-in { animation: pop-in 0.4s cubic-bezier(0, 0, 0.2, 1); }
+
+.alert-ribbon {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   background: rgba(234, 179, 8, 0.1);
+   padding: 1rem 2rem;
+   border-radius: 14px;
+   border: 1px solid rgba(234, 179, 8, 0.2);
+   color: #eab308;
+   font-size: 11px;
+   font-weight: 700;
+}

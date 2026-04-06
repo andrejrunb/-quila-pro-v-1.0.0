@@ -1,0 +1,212 @@
+:root {
+  --rpg-amber: #ffb700;
+  --rpg-obsidian: #0a0a0a;
+  --rpg-cell-bg: rgba(255, 255, 255, 0.03);
+  --rpg-accent: #ffd700;
+}
+
+.student-portal-main {
+  background: var(--rpg-obsidian);
+  color: #fff;
+  min-height: 100vh;
+  padding: 3rem;
+  font-family: 'Outfit', sans-serif;
+}
+
+.rpg-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.hub-btn-portal {
+  margin-left: auto;
+}
+
+.rpg-profile {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hex-avatar {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--rpg-amber);
+  padding: 4px;
+}
+
+.sovereign-badge {
+  background: linear-gradient(45deg, var(--rpg-amber), #ff8c00);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hive-progress-mesh {
+  background: rgba(255, 183, 0, 0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 183, 0, 0.1);
+}
+
+.xp-bar-bg {
+  background: rgba(255, 255, 255, 0.1);
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.xp-bar-fill {
+  background: var(--rpg-amber);
+  height: 100%;
+  width: var(--rpg-progress, 0%);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 15px var(--rpg-amber);
+}
+
+.portal-section {
+  margin-bottom: 5rem;
+}
+
+.rpg-title {
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--rpg-amber);
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--rpg-amber);
+  padding-left: 1rem;
+}
+
+/* VOTING MESH */
+.voting-mesh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.vote-card {
+  background: var(--rpg-cell-bg);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.vote-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.vote-actions button {
+  flex: 1;
+  padding: 0.6rem;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.btn-vote-yes:hover {
+  background: var(--rpg-amber);
+  color: #000;
+  border-color: var(--rpg-amber);
+}
+
+/* PODS GRID (NotebookLM Style) */
+.pods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.pod-hex-cell {
+  background: var(--rpg-cell-bg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border: 1px solid rgba(255, 183, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.pod-hex-cell:hover {
+  background: rgba(255, 183, 0, 0.08);
+  transform: translateY(-5px);
+}
+
+.pod-icon {
+  font-size: 2rem;
+}
+
+/* ARCADE GRID (Kahoot Style) */
+.arcade-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.quest-card {
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.quest-card:hover { transform: scale(1.05); }
+
+.q-bronze { background: linear-gradient(135deg, #4b3621, #0a0a0a); border: 2px solid #cd7f32; }
+.q-gold { background: linear-gradient(135deg, #4a3e00, #0a0a0a); border: 2px solid #ffd700; }
+
+.q-badge {
+  font-size: 0.6rem;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.achievement-card {
+  background: var(--rpg-cell-bg);
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.achievement-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.achievement-title { font-weight: bold; margin-bottom: 0.5rem; }
+.achievement-desc { font-size: 0.8rem; opacity: 0.6; }
+
+.achievement-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-top: 1rem;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.achievement-progress-fill {
+  height: 100%;
+  width: var(--rpg-progress, 0%);
+  background: var(--rpg-bg, var(--rpg-amber));
+  transition: width 0.3s ease;
+}
+
+.margin-bottom-24 {
+  margin-bottom: 24px;
+}
