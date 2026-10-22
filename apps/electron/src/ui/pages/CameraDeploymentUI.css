@@ -1,0 +1,183 @@
+.deployment-container {
+    padding: 3rem;
+    height: 100%;
+    overflow-y: auto;
+    color: #e2e8f0;
+    background: #0a0f1c; /* Deep Tactical Blue */
+}
+
+.deployment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.header-icon-glow {
+    width: 70px;
+    height: 70px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+}
+
+.audit-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.audit-btn.scanning { background: #f59e0b; }
+.audit-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+
+.deployment-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 3rem;
+}
+
+.blueprint-view {
+    height: 600px;
+    position: relative;
+    background: #020617 !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.blueprint-overlay {
+    flex: 1;
+    position: relative;
+    background-image: 
+        linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.blueprint-node {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.blueprint-node.detected.status-verified { background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; color: #10b981; }
+.blueprint-node.detected.status-misaligned { background: rgba(245, 158, 11, 0.2); border: 2px solid #f59e0b; color: #f59e0b; }
+.blueprint-node.suggestion { background: rgba(59, 130, 246, 0.2); border: 2px dashed #3b82f6; color: #3b82f6; animation: pulse 2s infinite; }
+
+.tooltip {
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.blueprint-node:hover .tooltip { opacity: 1; }
+
+.blueprint-footer {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.legend { display: flex; gap: 2rem; font-size: 0.75rem; opacity: 0.6; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 0.5rem; }
+.dot.green { background: #10b981; }
+.dot.yellow { background: #f59e0b; }
+.dot.blue { background: #3b82f6; }
+
+.suggestions-panel h3 {
+    font-size: 0.9rem;
+    opacity: 0.5;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.sug-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.sug-card { padding: 2rem !important; border-left: 4px solid #64748b; transition: all 0.3s; }
+.sug-card:hover { transform: translateX(10px); }
+
+.priority-critical { border-left-color: #ef4444; }
+.priority-high { border-left-color: #f59e0b; }
+
+.sug-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.priority-tag { font-size: 0.6rem; font-weight: 900; background: rgba(255, 255, 255, 0.05); padding: 0.25rem 0.6rem; border-radius: 4px; }
+
+.sug-card h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.sug-card p { font-size: 0.85rem; opacity: 0.5; margin-bottom: 1.5rem; line-height: 1.5; }
+
+.sug-details { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.detail label { display: block; font-size: 0.6rem; opacity: 0.3; text-transform: uppercase; margin-bottom: 0.25rem; }
+.detail span { font-size: 0.8rem; font-weight: 600; }
+
+.guide-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.guide-btn:hover { background: #3b82f6; border-color: #3b82f6; }
+
+.deployment-footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    opacity: 0.3;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}

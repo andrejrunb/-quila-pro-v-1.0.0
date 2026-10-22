@@ -10,9 +10,11 @@ import sys
 import json
 import signal
 import os
+import mmap
 import numpy as np
 from datetime import datetime
 from typing import Optional, Dict, List
+from halo_telemetry_sink import halo_sink
 
 # Garantir que erros Python não poluam o stdout (canal de IPC)
 import logging
@@ -51,6 +53,18 @@ class FaceWorker:
         self.model: str = os.environ.get('FACE_MODEL', 'hog') 
         self.throttle_mode: bool = False 
         
+        # Inicialização de Memória Compartilhada (SHM)
+        self.shm_file = None
+        self.shm_mem = None
+        shm_path = os.environ.get('AQUILA_SHM_PATH')
+        if shm_path and os.path.exists(shm_path):
+            try:
+                self.shm_file = open(shm_path, 'r+b')
+                self.shm_mem = mmap.mmap(self.shm_file.fileno(), 0)
+                logger.info(f"Shared Memory ativa via Mmap: {shm_path}")
+            except Exception as e:
+                logger.error(f"Falha ao mapear memória compartilhada {shm_path}: {e}")
+
         # Inicialização Otimizada (Item 93: NPU Optimization)
         self.onnx_engine = None
         model_path = os.environ.get('ONNX_MODEL_PATH')
@@ -118,12 +132,12 @@ class FaceWorker:
 
         elif action == 'encode_photo':
             # Gera embedding de uma foto e devolve o vetor (para treino)
-            # Payload: { photo_path }
-            return self._encode_photo(cmd['photo_path'])
+            # Payload: { photo_path } ou { shm_size }
+            return self._encode_photo(cmd)
 
         elif action == 'recognize_frame':
-            # Payload: { frame_path } — caminho para arquivo temporário de frame
-            return self._recognize_frame(cmd.get('frame_path'))
+            # Payload: { frame_path } ou { shm_size }
+            return self._recognize_frame(cmd)
 
         elif action == 'status':
             return {
@@ -146,15 +160,45 @@ class FaceWorker:
     # LÓGICA DE RECONHECIMENTO
     # ─────────────────────────────────────────────
 
-    def _encode_photo(self, photo_path: str) -> dict:
+    def _get_bgr_image_from_command(self, cmd: dict) -> Optional[np.ndarray]:
+        """Obtém imagem (BGR numpy array) a partir do comando, usando shared memory se disponível."""
+        shm_size = cmd.get('shm_size')
+        if shm_size is not None and self.shm_mem is not None:
+            try:
+                import cv2
+                self.shm_mem.seek(0)
+                data = self.shm_mem.read(shm_size)
+                np_arr = np.frombuffer(data, dtype=np.uint8)
+                return cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+            except Exception as e:
+                logger.error(f"Erro ao decodificar imagem da memória compartilhada: {e}")
+                return None
+        
+        path_key = 'photo_path' if 'photo_path' in cmd else 'frame_path'
+        img_path = cmd.get(path_key)
+        if img_path and os.path.exists(img_path):
+            try:
+                import cv2
+                return cv2.imread(img_path)
+            except Exception as e:
+                logger.error(f"Erro ao ler imagem {img_path}: {e}")
+                return None
+        return None
+
+    def _encode_photo(self, cmd: dict) -> dict:
         """Extrai embedding 128-D de uma foto e retorna como lista."""
+        photo_path = cmd.get('photo_path', '')
         if not FACE_RECOGNITION_AVAILABLE:
             # Modo simulação: vetor aleatório
             vector = np.random.rand(128).tolist()
             return {'type': 'encoding', 'photo_path': photo_path, 'vector': vector, 'simulated': True}
 
         try:
-            image = face_recognition.load_image_file(photo_path)
+            import cv2
+            bgr = self._get_bgr_image_from_command(cmd)
+            if bgr is None:
+                return {'type': 'error', 'message': 'Não foi possível carregar imagem', 'photo_path': photo_path}
+            image = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
             locations = face_recognition.face_locations(image, model=self.model)
             if not locations:
                 return {'type': 'error', 'message': 'Nenhuma face encontrada na foto', 'photo_path': photo_path}
@@ -166,11 +210,9 @@ class FaceWorker:
             logger.error(f"Erro ao codificar foto: {e}")
             return {'type': 'error', 'message': str(e)}
 
-    def _recognize_frame(self, frame_path: Optional[str]) -> dict:
+    def _recognize_frame(self, cmd: dict) -> dict:
         """Reconhece faces em um frame e retorna apenas student_id + confidence."""
-        if not frame_path:
-            return {'type': 'error', 'message': 'frame_path não fornecido'}
-
+        frame_path = cmd.get('frame_path', '')
         if not FACE_RECOGNITION_AVAILABLE:
             # Modo simulação
             if self.known_encodings:
@@ -184,20 +226,35 @@ class FaceWorker:
                 }
             return {'type': 'no_face', 'ts': datetime.utcnow().isoformat()}
 
+        span_id = halo_sink.start_span(
+            agent_id=f"python_face_worker_{os.environ.get('WORKER_ID', '0')}",
+            name="recognize_frame",
+            step_type="tool_call",
+            input_data={"frame_path": frame_path, "shm_size": cmd.get('shm_size')}
+        )
         try:
             import cv2
-            frame = cv2.imread(frame_path)
+            frame = self._get_bgr_image_from_command(cmd)
             if frame is None:
-                return {'type': 'error', 'message': f'Não foi possível ler frame: {frame_path}'}
+                err_msg = f'Não foi possível ler ou decodificar frame: {frame_path}'
+                halo_sink.end_span(span_id, error=err_msg)
+                return {'type': 'error', 'message': err_msg}
 
             # Reduzir para processamento mais rápido (Item 67: Dynamic Throttling)
+            h, w = frame.shape[:2]
             scale = 0.125 if self.throttle_mode else 0.25
-            small = cv2.resize(frame, (0, 0), fx=scale, fy=scale)
+            new_h, new_w = int(h * scale), int(w * scale)
+            if new_h > 0 and new_w > 0:
+                small = cv2.resize(frame, (new_w, new_h))
+            else:
+                small = frame
             rgb = cv2.cvtColor(small, cv2.COLOR_BGR2RGB)
 
             locations = face_recognition.face_locations(rgb, model=self.model)
             if not locations:
-                return {'type': 'no_face', 'ts': datetime.utcnow().isoformat()}
+                res = {'type': 'no_face', 'ts': datetime.utcnow().isoformat()}
+                halo_sink.end_span(span_id, output_data=res)
+                return res
 
             # ITEM 93: Tentar usar ONNX se disponível, senão dlib padrão
             if self.onnx_engine:
@@ -234,19 +291,25 @@ class FaceWorker:
 
             if detections:
                 best = max(detections, key=lambda x: x['confidence'])
-                return {
+                res = {
                     'type': 'face_detected',
                     'student_id': best['student_id'],
                     'confidence': best['confidence'],
                     'ts': datetime.utcnow().isoformat(),
                     'accelerated': self.onnx_engine is not None
                 }
+                halo_sink.end_span(span_id, output_data=res)
+                return res
             else:
-                return {'type': 'unknown_face', 'ts': datetime.utcnow().isoformat()}
+                res = {'type': 'unknown_face', 'ts': datetime.utcnow().isoformat()}
+                halo_sink.end_span(span_id, output_data=res)
+                return res
 
         except Exception as e:
-            logger.error(f"Erro ao reconhecer frame: {e}")
-            return {'type': 'error', 'message': str(e)}
+            err_msg = str(e)
+            logger.error(f"Erro ao reconhecer frame: {err_msg}")
+            halo_sink.end_span(span_id, error=err_msg)
+            return {'type': 'error', 'message': err_msg}
 
     # ─────────────────────────────────────────────
     # LOOP PRINCIPAL IPC

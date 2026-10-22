@@ -10,8 +10,8 @@ export interface BrandingData {
 export const useBranding = (planId: string = 'basic') => {
   const { invoke } = useIPC();
   const [branding, setBranding] = useState<BrandingData>({
-    logo: '🦅',
-    name: 'Áquila Pro',
+    logo: 'visao.png',
+    name: 'Colégio Visão',
     isWhiteLabel: false
   });
   const [loading, setLoading] = useState(true);

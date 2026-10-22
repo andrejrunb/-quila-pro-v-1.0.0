@@ -1,0 +1,971 @@
+/* =====================================================================
+   ÁQUILA PRO — ARENA DE BATALHAS PEDAGÓGICAS SOBERANA (PVP & BOSS RAID)
+   Design System: Cyberpunk Glassmorphism, 60fps, Neon Cyan/Amber/Purple
+   ===================================================================== */
+
+.sovereign-pvp-arena {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #080c14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  color: #f1f5f9;
+  min-height: calc(100vh - 120px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header */
+.arena-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.arena-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.arena-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.arena-back-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.arena-logo-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.65rem;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(139, 92, 246, 0.3));
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #EF4444;
+}
+
+.arena-pulse-icon {
+  animation: swordPulse 2s infinite ease-in-out;
+}
+
+@keyframes swordPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15) rotate(5deg); }
+}
+
+.arena-header h1 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.arena-subtitle {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mute-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==============================================================
+   1. LOBBY DE SELEÇÃO
+   ============================================================== */
+.arena-lobby-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+@media (max-width: 960px) {
+  .arena-lobby-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lobby-panel {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.875rem;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lobby-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #00F0FF;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.modes-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+}
+
+@media (max-width: 768px) {
+  .modes-cards-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mode-card {
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mode-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+  border-color: rgba(0, 240, 255, 0.4);
+}
+
+.mode-card.active {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.12), rgba(139, 92, 246, 0.2));
+  border-color: #00F0FF;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+}
+
+.mode-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.pvp-icon { background: rgba(59, 130, 246, 0.15); color: #60A5FA; }
+.boss-icon { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
+.tourney-icon { background: rgba(168, 85, 247, 0.15); color: #C084FC; }
+
+.mode-card h4 {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.mode-card p {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  line-height: 1.35;
+  margin: 0;
+  flex: 1;
+}
+
+.mode-reward-badge {
+  font-size: 0.625rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.4rem;
+  align-self: flex-start;
+}
+
+.mode-reward-badge.gold {
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.mode-reward-badge.purple {
+  color: #C084FC;
+  background: rgba(168, 85, 247, 0.12);
+}
+
+.filter-discipline-row,
+.xp-bet-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.discipline-chip,
+.bet-chip {
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.discipline-chip:hover,
+.bet-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.discipline-chip.active,
+.bet-chip.active {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00F0FF;
+  color: #00F0FF;
+}
+
+/* Lista de Oponentes */
+.opponents-list,
+.boss-selection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.opponent-select-card,
+.boss-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.opponent-select-card:hover,
+.boss-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(2px);
+}
+
+.opponent-select-card.active,
+.boss-card.active {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.12), rgba(139, 92, 246, 0.15));
+  border-color: #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.opponent-avatar,
+.boss-avatar {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 0.5rem;
+  background: rgba(15, 23, 42, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.opponent-info,
+.boss-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex: 1;
+}
+
+.opponent-info strong,
+.boss-info strong {
+  font-size: 0.82rem;
+  color: #f8fafc;
+}
+
+.opponent-class,
+.boss-sub {
+  font-size: 0.6875rem;
+  color: #64748b;
+}
+
+.boss-quote {
+  font-size: 0.6875rem;
+  color: #F59E0B;
+  font-style: italic;
+  margin: 0.15rem 0 0 0;
+}
+
+.boss-hp-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #EF4444;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.ai-skill-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.35rem;
+}
+
+.ai-skill-badge.facil { background: rgba(16, 185, 129, 0.15); color: #10B981; }
+.ai-skill-badge.medio { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+.ai-skill-badge.mestre { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
+
+/* Torneio LAN */
+.tourney-lobby-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.tourney-code-banner {
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 0.65rem;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.code-label {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  letter-spacing: 0.08em;
+}
+
+.code-text {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #C084FC;
+  letter-spacing: 0.15em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.code-sub {
+  font-size: 0.7rem;
+  color: #10B981;
+}
+
+.connected-students-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.connected-student-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.45rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.72rem;
+  color: #cbd5e1;
+}
+
+.rating-tag {
+  margin-left: auto;
+  font-size: 0.6rem;
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.lobby-start-bar {
+  margin-top: auto;
+  padding-top: 0.85rem;
+}
+
+.start-battle-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  background: linear-gradient(135deg, #EF4444, #F59E0B);
+  color: #020617;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  transition: all 0.2s ease;
+}
+
+.start-battle-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+/* ==============================================================
+   2. CONTAGEM REGRESSIVA (COUNTDOWN)
+   ============================================================== */
+.arena-countdown-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.countdown-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 540px;
+  gap: 1rem;
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+}
+
+.countdown-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #F59E0B;
+  letter-spacing: 0.1em;
+}
+
+.countdown-card h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.countdown-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(0, 240, 255, 0.1);
+  border: 2px dashed #00F0FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00F0FF;
+}
+
+.spin-slow {
+  animation: spinSlow 4s linear infinite;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==============================================================
+   3. COMBATE ATIVO & QUESTÕES
+   ============================================================== */
+.arena-combat-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.combat-hud {
+  display: grid;
+  grid-template-columns: 1fr 140px 1fr;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.85rem;
+  padding: 0.85rem 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .combat-hud {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+}
+
+.fighter-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.fighter-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.opponent-meta {
+  justify-content: flex-end;
+}
+
+.fighter-avatar {
+  font-size: 1.5rem;
+}
+
+.fighter-meta strong {
+  font-size: 0.85rem;
+  color: #f8fafc;
+}
+
+.fighter-streak {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #F59E0B;
+  display: block;
+}
+
+.opponent-tag {
+  color: #A78BFA;
+}
+
+.hp-bar-bg {
+  width: 100%;
+  height: 10px;
+  background: #020617;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hp-bar-fill {
+  height: 100%;
+  transition: width 0.35s ease;
+}
+
+.player-hp {
+  background: linear-gradient(90deg, #10B981, #00F0FF);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.opponent-hp {
+  background: linear-gradient(90deg, #EF4444, #F59E0B);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.fighter-score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+}
+
+.fighter-hp-text {
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.fighter-score-val {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #00F0FF;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.combat-center-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.round-badge {
+  font-size: 0.625rem;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 0.08em;
+}
+
+.timer-ring {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #020617;
+  border: 2px solid #00F0FF;
+  border-radius: 9999px;
+  padding: 0.35rem 0.75rem;
+  color: #00F0FF;
+  font-weight: 900;
+  font-size: 0.95rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.timer-danger {
+  border-color: #EF4444;
+  color: #EF4444;
+  animation: timerPulse 0.6s infinite alternate;
+}
+
+@keyframes timerPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); box-shadow: 0 0 15px rgba(239, 68, 68, 0.6); }
+}
+
+.center-tri-badge {
+  font-size: 0.625rem;
+  color: #64748b;
+}
+
+/* Card da Questão */
+.combat-question-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.85rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.combat-question-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.q-discipline-tag {
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #00F0FF;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+}
+
+.q-desc-tag {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.opponent-answered-pill {
+  margin-left: auto;
+  font-size: 0.6875rem;
+  color: #F59E0B;
+  font-weight: 700;
+  background: rgba(245, 158, 11, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+}
+
+.combat-question-text {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: #f8fafc;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Grid de Alternativas */
+.combat-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.combat-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(2, 6, 23, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.65rem;
+  padding: 0.75rem 1rem;
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.combat-option-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 240, 255, 0.4);
+  transform: translateX(3px);
+}
+
+.opt-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 0.4rem;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+.opt-text {
+  flex: 1;
+}
+
+.combat-option-btn.selected-choice {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00F0FF;
+  color: #00F0FF;
+}
+
+.combat-option-btn.correct-choice {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10B981;
+  color: #10B981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.combat-option-btn.wrong-choice {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #EF4444;
+  color: #EF4444;
+}
+
+/* Banner de Resultado da Rodada */
+.round-result-banner {
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 0.65rem;
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.round-result-banner p {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin: 0;
+  flex: 1;
+}
+
+.next-round-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: linear-gradient(135deg, #00F0FF, #3b82f6);
+  color: #020617;
+  border: none;
+  padding: 0.6rem 1.15rem;
+  border-radius: 0.55rem;
+  font-size: 0.85rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.next-round-btn:hover {
+  filter: brightness(1.15);
+}
+
+/* ==============================================================
+   4. FIM DE JOGO (GAME OVER)
+   ============================================================== */
+.arena-gameover-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 450px;
+}
+
+.gameover-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 580px;
+  gap: 1.25rem;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.trophy-spotlight {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.1);
+  border: 2px solid rgba(245, 158, 11, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameover-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.gameover-sub {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.final-score-strip {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: rgba(2, 6, 23, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.final-score-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.score-label {
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.score-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.score-hp {
+  font-size: 0.65rem;
+  color: #94a3b8;
+}
+
+.score-divider {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #475569;
+}
+
+.reward-conquest-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid #F59E0B;
+  color: #F59E0B;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.65rem;
+  text-align: left;
+}
+
+.badge-unlocked {
+  display: block;
+  font-size: 0.75rem;
+  color: #f8fafc;
+  margin-top: 0.2rem;
+}
+
+.gameover-actions {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.arena-action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 0.75rem;
+  border-radius: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.arena-action-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.arena-action-btn.primary {
+  background: linear-gradient(135deg, #00F0FF, #3b82f6);
+  border: none;
+  color: #020617;
+  font-weight: 900;
+}
+
+.arena-action-btn.primary:hover {
+  filter: brightness(1.15);
+}

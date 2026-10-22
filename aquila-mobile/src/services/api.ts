@@ -2,12 +2,13 @@ import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 
-// For web, localhost works fine. For Android emulator, use 10.0.2.2.
 const getBaseUrl = () => {
   if (__DEV__) {
-    return Platform.OS === 'android' ? 'http://10.0.2.2:3001/api/parent' : 'http://localhost:3001/api/parent';
+    return Platform.OS === 'android'
+      ? 'http://10.0.2.2:3001/api/parent'
+      : 'http://localhost:3001/api/parent';
   }
-  return 'https://api.aquilapro.com.br/api/parent'; // Produção
+  return 'https://api.aquilapro.com.br/api/parent';
 };
 
 export const api = axios.create({
@@ -21,8 +22,7 @@ api.interceptors.request.use(async (config) => {
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
-  } catch (err) {
-    // If running on web, SecureStore might throw if not configured with polyfill, fallback to localStorage if needed
+  } catch {
     if (Platform.OS === 'web') {
       const webToken = localStorage.getItem('parent_token');
       if (webToken) config.headers['Authorization'] = `Bearer ${webToken}`;
@@ -30,3 +30,27 @@ api.interceptors.request.use(async (config) => {
   }
   return config;
 });
+
+// ─── Pickup API helpers ───────────────────────────────────────
+export const PickupAPI = {
+  /** Solicita busca do aluno — sinal manual "Estou Chegando" */
+  async requestPickup(schoolId: string, studentHash: string): Promise<{ success: boolean; estimatedMinutes?: number }> {
+    const { data } = await api.post('/pickup/request', { schoolId, studentHash });
+    return data;
+  },
+
+  /** Consulta status do pickup ativo */
+  async getPickupStatus(schoolId: string, studentHash: string): Promise<{
+    status: 'none' | 'requested' | 'preparing' | 'at_gate' | 'completed';
+    updatedAt?: string;
+    estimatedMinutes?: number;
+  }> {
+    const { data } = await api.get(`/pickup/status?schoolId=${schoolId}&studentHash=${studentHash}`);
+    return data;
+  },
+
+  /** Cancela pickup ativo */
+  async cancelPickup(schoolId: string, studentHash: string): Promise<void> {
+    await api.post('/pickup/cancel', { schoolId, studentHash });
+  },
+};

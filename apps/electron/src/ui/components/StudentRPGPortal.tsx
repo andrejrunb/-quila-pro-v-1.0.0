@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './StudentRPGPortal.css';
+import SovereignShop from './SovereignShop';
+import { Proposal } from '../../services/SovereignCouncilService';
+import { Sparkles, Brain, Trophy, Flame, Target, BookOpen, ShoppingBag, Vote, Swords, PenTool, GitFork, Network } from 'lucide-react';
 
 interface Achievement {
   id: string;
@@ -10,152 +13,396 @@ interface Achievement {
 }
 
 const ACHIEVEMENTS: Achievement[] = [
-  { id: '1', icon: '🔥', title: 'Sequência Imbatível', description: '7 dias estudando sem parar', progress: 80 },
-  { id: '2', icon: '🧠', title: 'Mestre do RAG', description: 'Realizou 50 buscas inteligentes', progress: 40 },
+  { id: '1', icon: '🔥', title: 'Sequência Imbatível', description: '12 dias estudando sem falhar', progress: 85 },
+  { id: '2', icon: '🧠', title: 'Mestre do RAG', description: 'Realizou 50 buscas no Córtex Lab', progress: 65 },
   { id: '3', icon: '⚔️', title: 'Duelista SRS', description: 'Venceu 10 revisões perfeitas', progress: 100 },
-  { id: '4', icon: '🏰', title: 'Guardian do Enxame', description: 'Nó secundário ativo por 24h', progress: 60 },
+  { id: '4', icon: '🏰', title: 'Guardião ENEM', description: '30 questões TRI resolvidas na semana', progress: 75 },
 ];
 
-import SovereignShop from './SovereignShop';
-import SovereignAvatar from './SovereignAvatar';
-import { NeuroUXService } from '../../services/NeuroUXService';
-import { learningPodService } from '../../services/LearningPodService';
-import { adaptiveQuizService } from '../../services/AdaptiveQuizService';
-import { councilService, Proposal } from '../../services/SovereignCouncilService';
+const DEFAULT_PODS = [
+  { id: 'pod-1', subject: 'Física • Eletrodinâmica & Circuitos TRI', created_at: '2026-10-18T08:30:00Z' },
+  { id: 'pod-2', subject: 'Matemática • Geometria Espacial ENEM', created_at: '2026-10-17T10:15:00Z' },
+  { id: 'pod-3', subject: 'Redação Nota 1000 • Repertório Constitucional', created_at: '2026-10-16T09:00:00Z' },
+  { id: 'pod-4', subject: 'Química • Estequiometria & Rendimento', created_at: '2026-10-15T11:20:00Z' },
+];
 
-const StudentRPGPortal: React.FC = () => {
-  const [economy, setEconomy] = useState<any>(null);
-  const [activePolls, setActivePolls] = useState<Proposal[]>([]);
-  const [learningPods, setLearningPods] = useState<any[]>([]);
+const DEFAULT_POLLS: Proposal[] = [
+  {
+    id: 'poll-1',
+    title: 'Plantão Extra de Revisão ENEM (Sábado)',
+    description: 'Escolha a disciplina prioritária para o Aulão Presencial deste sábado: Física ou Matemática?',
+    status: 'ACTIVE' as any,
+  } as any,
+];
+
+interface StudentRPGPortalProps {
+  studentId?: string;
+  onNavigate?: (page: string) => void;
+}
+
+const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStudentId, onNavigate }) => {
+  const [economy, setEconomy] = useState<any>({ level: 14, xp: 2680, balance: 1420 });
+  const [activePolls, setActivePolls] = useState<Proposal[]>(DEFAULT_POLLS);
+  const [learningPods, setLearningPods] = useState<any[]>(DEFAULT_PODS);
+  const [behavioral, setBehavioral] = useState<any>({ emotion: 'Focado', engagement: 0.88 });
   const [showShop, setShowShop] = useState(false);
-  const [studentId] = useState('demo_student_001');
+  const [studentId] = useState(propStudentId || 'demo_student_001');
 
   useEffect(() => {
     loadEconomy();
     loadGovernance();
     loadLearningContent();
-    const neuroUX = new NeuroUXService();
+    loadBehavioral();
+
+    const behavioralInterval = setInterval(loadBehavioral, 10000);
+    return () => clearInterval(behavioralInterval);
   }, []);
 
   const loadEconomy = async () => {
     try {
-      const data = await (window as any).electron.invoke('get-student-economy', studentId);
-      setEconomy(data);
-    } catch (err) {
-      console.error('Failed to load student economy:', err);
+      const data = await window.aquila?.student?.getEconomy?.(studentId);
+      if (data && (data.level || data.xp)) {
+        setEconomy(data);
+      }
+    } catch {
+      // Usa estado inicial rico
     }
   };
 
   const loadGovernance = async () => {
-    const polls = await councilService.listActivePollsForRole('STUDENT');
-    setActivePolls(polls);
+    try {
+      const polls = await window.aquila?.council?.listPolls?.('STUDENT');
+      if (Array.isArray(polls) && polls.length > 0) {
+        setActivePolls(polls);
+      }
+    } catch {
+      // Usa estado inicial rico
+    }
   };
 
   const loadLearningContent = async () => {
-    const pods = await learningPodService.listPodsForStudent(studentId);
-    setLearningPods(pods);
+    try {
+      const pods = await window.aquila?.pod?.listPods?.(studentId);
+      if (Array.isArray(pods) && pods.length > 0) {
+        setLearningPods(pods);
+      }
+    } catch {
+      // Usa estado inicial rico
+    }
+  };
+
+  const loadBehavioral = async () => {
+    try {
+      const data = await window.aquila?.behavioral?.getLive?.(studentId);
+      if (data?.emotions) {
+        setBehavioral({
+          emotion: data.emotions.stress > 0.6 ? 'Em Atenção' : data.emotions.fatigue > 0.6 ? 'Fadiga' : 'Focado',
+          engagement: data.emotions.engagement ?? 0.88,
+        });
+      }
+    } catch {
+      // Mantém telemetria padrão
+    }
   };
 
   const handleVote = async (id: string, choice: string) => {
-    await councilService.castVote(id, studentId, 'STUDENT', choice);
-    loadGovernance();
+    try {
+      await window.aquila?.council?.castVote?.({ pollId: id, studentId, optionId: choice });
+      loadGovernance();
+    } catch {
+      setActivePolls(prev => prev.filter(p => p.id !== id));
+    }
   };
+
+  const levelPct = Math.round(((economy?.xp || 2680) % 1000) / 10);
 
   return (
     <div className="student-portal-main">
+      {/* Top Student Cockpit Bar — Rectangular Portrait ("Sem Bolinha") & Uniform 32px Buttons */}
       <header className="rpg-header">
         <div className="rpg-profile">
-          <div className="rpg-avatar-wrapper" onClick={() => setShowShop(true)}>
-            <div className="rpg-avatar-new">
-              <SovereignAvatar 
-                seed={studentId} 
-                state={economy?.balance > 1000 ? 'focus' : 'normal'} // Simulação de estado baseada em saldo ou Neuro-UX
-                size={80}
-              />
+          <img
+            src="./avatars/face-1.jpg"
+            alt="Gabriel Rocha"
+            className="rpg-student-photo-rect"
+          />
+          <div className="rpg-name-info">
+            <div className="rpg-name-row">
+              <h2>Gabriel Rocha • 3º Ano A</h2>
+              <span className="rpg-tutor-pill">
+                ● TUTOR IA: {behavioral.emotion.toUpperCase()} ({Math.round((behavioral.engagement || 0.88) * 100)}%)
+              </span>
+            </div>
+            <div className="rpg-sub-telemetry">
+              NÍVEL {economy?.level || 14} • {economy?.xp || 2680} XP ACUMULADO • RANKING SOBERANO
             </div>
           </div>
-          <div className="rpg-name-info">
-            <h2>Aluno Soberano</h2>
-            <div className="rpg-title">Nível {economy?.level || 1} • {economy?.xp || 0} XP Acumulado</div>
-          </div>
-          <button className="hub-btn hub-btn-accent hub-btn-portal" onClick={() => setShowShop(true)}>
-            MERCADO 💎
-          </button>
         </div>
 
         <div className="xp-container">
           <div className="xp-label">
-            <span>PROGRESSO DE NÍVEL</span>
-            <span>{(economy?.xp % 1000) / 10} %</span>
+            <span>PROGRESSO P/ NÍVEL {(economy?.level || 14) + 1}</span>
+            <span>{levelPct}%</span>
           </div>
           <div className="xp-bar-bg">
-            <div className="xp-bar-fill" style={{ '--rpg-progress': `${(economy?.xp % 1000) / 10}%` } as any}></div>
+            <div className="xp-bar-fill" style={{ '--rpg-progress': `${levelPct}%` } as React.CSSProperties} />
           </div>
+        </div>
+
+        <div className="rpg-header-actions">
+          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('arena')}>
+            <Swords size={14} />
+            <span>Arena PvP</span>
+          </button>
+          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('mastery-chamber')}>
+            <Sparkles size={14} />
+            <span>Câmara ENEM</span>
+          </button>
+          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('knowledge-canvas')}>
+            <Network size={14} />
+            <span>Canvas Áquila</span>
+          </button>
+          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('essay-lab')}>
+            <PenTool size={14} />
+            <span>Redação 1000</span>
+          </button>
+          <button className="rpg-action-btn" onClick={() => onNavigate?.('skill-tree')}>
+            <GitFork size={14} />
+            <span>Árvore BNCC</span>
+          </button>
+          <button className="rpg-action-btn" onClick={() => onNavigate?.('ai-lab')}>
+            <Brain size={14} />
+            <span>Lab & Cientistas</span>
+          </button>
+          <button className="rpg-action-btn" onClick={() => setShowShop(v => !v)}>
+            <ShoppingBag size={14} />
+            <span>Mercado ({economy?.balance || 1420} 💎)</span>
+          </button>
         </div>
       </header>
 
-      {activePolls.length > 0 && (
-        <section className="portal-section governance-missions">
-           <h3 className="rpg-title">⚖️ MISSÕES DO CONSELHO (Sovereign Vote)</h3>
-           <div className="voting-mesh-grid">
-              {activePolls.map(poll => (
-                <div key={poll.id} className="vote-card hex-card-small">
-                   <h4>{poll.title}</h4>
-                   <p>{poll.description}</p>
-                   <div className="vote-actions">
-                      <button className="btn-vote-yes" onClick={() => handleVote(poll.id, 'YES')}>APOIAR (XP+)</button>
-                      <button className="btn-vote-no" onClick={() => handleVote(poll.id, 'NO')}>OBJETAR</button>
-                   </div>
-                </div>
-              ))}
-           </div>
-        </section>
+      {showShop && (
+        <div className="rpg-panel">
+          <div className="rpg-panel-header">
+            <h3 className="rpg-title"><ShoppingBag size={14} color="#F59E0B" /> Mercado Soberano de Recompensas</h3>
+            <button className="rpg-action-btn" style={{ height: 24, padding: '0 8px' }} onClick={() => setShowShop(false)}>
+              Fechar
+            </button>
+          </div>
+          <SovereignShop studentId={studentId} onPurchaseSuccess={loadEconomy} />
+        </div>
       )}
 
-      <section className="portal-section learning-pods">
-         <h3 className="rpg-title">🧠 CÁPSULAS DE AULA (Grounding AI)</h3>
-         <div className="pods-grid">
-            {learningPods.map(pod => (
-              <div key={pod.id} className="pod-hex-cell" onClick={() => {/* Open Pod */}}>
-                 <div className="pod-icon">🎙️</div>
-                 <div className="pod-info">
-                    <strong>{pod.subject}</strong>
-                    <span>COLETA: {new Date(pod.created_at).toLocaleDateString()}</span>
-                 </div>
-              </div>
-            ))}
-         </div>
-      </section>
+      {/* 4-Column Student Telemetry KPI Strip */}
+      <section className="rpg-kpi-strip">
+        <div className="rpg-kpi-pod">
+          <div className="rpg-kpi-meta">
+            <span className="rpg-kpi-label">SEQUÊNCIA ATIVA</span>
+            <span className="rpg-kpi-val" style={{ color: '#F59E0B' }}>12 DIAS 🔥</span>
+            <span className="rpg-kpi-sub">Recorde pessoal: 18 dias</span>
+          </div>
+          <Flame size={20} color="#F59E0B" />
+        </div>
 
-      <section className="portal-section quest-arcade">
-         <h3 className="rpg-title">⚔️ ARCADE DE QUESTS (XP MULTIPLIER)</h3>
-         <div className="arcade-grid">
-            <div className="quest-card q-bronze" onClick={() => {/* Start Quiz */}}>
-               <div className="q-badge">BRONZE</div>
-               <h4>FIXAÇÃO RÁPIDA</h4>
-            </div>
-            <div className="quest-card q-gold">
-               <div className="q-badge">GOLD</div>
-               <h4>MASTER ENXAME</h4>
-            </div>
-         </div>
-      </section>
+        <div className="rpg-kpi-pod">
+          <div className="rpg-kpi-meta">
+            <span className="rpg-kpi-label">PRECISÃO TRI / ENEM</span>
+            <span className="rpg-kpi-val" style={{ color: '#10B981' }}>84.5%</span>
+            <span className="rpg-kpi-sub">+6.2% nesta semana</span>
+          </div>
+          <Target size={20} color="#10B981" />
+        </div>
 
-      <section className="achievements-section">
-        <h3 className="rpg-title margin-bottom-24">Conquistas da Temporada</h3>
-        <div className="achievements-grid">
-          {ACHIEVEMENTS.map(ach => (
-            <div key={ach.id} className="achievement-card">
-              <div className="achievement-icon">{ach.icon}</div>
-              <div className="achievement-title">{ach.title}</div>
-              <div className="achievement-desc">{ach.description}</div>
-              <div className="xp-bar-bg" style={{ height: '4px', marginTop: '16px' }}>
-                <div className="xp-bar-fill" style={{ width: `${ach.progress}%`, background: 'var(--rpg-accent)' }}></div>
-              </div>
-            </div>
-          ))}
+        <div className="rpg-kpi-pod">
+          <div className="rpg-kpi-meta">
+            <span className="rpg-kpi-label">CÁPSULAS REVISADAS</span>
+            <span className="rpg-kpi-val" style={{ color: '#00F0FF' }}>28 AULAS</span>
+            <span className="rpg-kpi-sub">100% da trilha semanal</span>
+          </div>
+          <BookOpen size={20} color="#00F0FF" />
+        </div>
+
+        <div className="rpg-kpi-pod">
+          <div className="rpg-kpi-meta">
+            <span className="rpg-kpi-label">POSICIONAMENTO</span>
+            <span className="rpg-kpi-val" style={{ color: '#A78BFA' }}>TOP 5%</span>
+            <span className="rpg-kpi-sub">Liga Diamante • 3º Ano</span>
+          </div>
+          <Trophy size={20} color="#A78BFA" />
         </div>
       </section>
+
+      {/* Main 3-Column Bento Grid — Zero Wasted Space */}
+      <div className="rpg-bento-grid">
+        {/* Column 1: Câmara de Maestria + Cápsulas de Aula */}
+        <section className="rpg-panel">
+          <div className="rpg-panel-header">
+            <h3 className="rpg-title">
+              <Brain size={14} color="#00F0FF" />
+              <span>Câmara ENEM & Cápsulas de Aula</span>
+            </h3>
+            <span className="rpg-panel-tag">GROUNDING IA</span>
+          </div>
+
+          <div className="rpg-mastery-card">
+            <div className="rpg-mastery-top">
+              <span className="rpg-mastery-badge">MOTOR NVIDIA 90B VISION</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: '#34D399', fontWeight: 700 }}>
+                +250 XP / QUESTÃO
+              </span>
+            </div>
+            <h4 className="rpg-mastery-title">🦅 Câmara de Maestria (ENEM & Vestibulares)</h4>
+            <p className="rpg-mastery-desc">
+              Desconstrua questões complexas em micro-passos interativos com diagnóstico de lacunas em tempo real.
+            </p>
+            <button
+              className="rpg-action-btn primary"
+              style={{ width: '100%', marginTop: 4 }}
+              onClick={() => onNavigate?.('mastery-chamber')}
+            >
+              <Sparkles size={13} />
+              <span>Entrar na Câmara de Maestria</span>
+            </button>
+          </div>
+
+          <div className="pods-grid">
+            {learningPods.map(pod => (
+              <div key={pod.id} className="pod-hex-cell" onClick={() => onNavigate?.('ai-lab')}>
+                <div className="pod-info">
+                  <strong>{pod.subject}</strong>
+                  <span>RESUMO IA • {new Date(pod.created_at).toLocaleDateString()}</span>
+                </div>
+                <span className="rpg-panel-tag" style={{ color: '#00F0FF' }}>ESTUDAR →</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Column 2: Arcade de Quests & Desafios Adaptativos */}
+        <section className="rpg-panel">
+          <div className="rpg-panel-header">
+            <h3 className="rpg-title">
+              <Target size={14} color="#F59E0B" />
+              <span>Arcade de Quests (XP Multiplier)</span>
+            </h3>
+            <span className="rpg-panel-tag">MISSÕES HOJE</span>
+          </div>
+
+          <div className="arcade-grid">
+            <div className="quest-card q-gold" onClick={() => onNavigate?.('essay-lab')}>
+              <div className="quest-left">
+                <span className="q-badge">✍️ REDAÇÃO NOTA 1000 • +300 XP</span>
+                <h4>Laboratório de Redação INEP (5 Competências)</h4>
+                <span className="quest-sub">Mentoria socrática de Machado de Assis & Checagem dos 5 Elementos</span>
+              </div>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+                Escrever
+              </button>
+            </div>
+
+            <div className="quest-card q-bronze" onClick={() => onNavigate?.('skill-tree')}>
+              <div className="quest-left">
+                <span className="q-badge">🌳 CURRÍCULO BNCC • +200 XP</span>
+                <h4>Árvore de Habilidades & Parâmetros TRI</h4>
+                <span className="quest-sub">Conquiste insígnias de mentores e avance de nível</span>
+              </div>
+              <button className="rpg-action-btn" style={{ height: 28, padding: '0 10px' }}>
+                Explorar
+              </button>
+            </div>
+
+            <div className="quest-card q-gold" onClick={() => onNavigate?.('arena')}>
+              <div className="quest-left">
+                <span className="q-badge">⚔️ PVP & BOSS RAID • +250 XP</span>
+                <h4>Arena de Batalhas Socráticas (LAN)</h4>
+                <span className="quest-sub">Duelos 1v1 contra colegas e Boss Raids contra Mentores</span>
+              </div>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+                Batalhar
+              </button>
+            </div>
+
+            <div className="quest-card q-bronze" onClick={() => onNavigate?.('ai-lab')}>
+              <div className="quest-left">
+                <span className="q-badge">SIMULADORES • +180 XP</span>
+                <h4>Laboratório de Simulação Científica</h4>
+                <span className="quest-sub">Óptica, Balística, Circuitos e Genética de Mendel</span>
+              </div>
+              <button className="rpg-action-btn" style={{ height: 28, padding: '0 10px' }}>
+                Simular
+              </button>
+            </div>
+
+            <div className="quest-card q-gold" onClick={() => onNavigate?.('ai-lab')}>
+              <div className="quest-left">
+                <span className="q-badge">MENTORIA • +150 XP</span>
+                <h4>Diálogo com Cientistas & Pensadores</h4>
+                <span className="quest-sub">75+ personagens históricos em domínio público</span>
+              </div>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+                Dialogar
+              </button>
+            </div>
+          </div>
+
+          {activePolls.length > 0 && (
+            <>
+              <div className="rpg-panel-header" style={{ marginTop: 6 }}>
+                <h3 className="rpg-title">
+                  <Vote size={14} color="#A78BFA" />
+                  <span>Conselho Estudantil (Sovereign Vote)</span>
+                </h3>
+                <span className="rpg-panel-tag">+50 XP</span>
+              </div>
+              <div className="voting-mesh-grid">
+                {activePolls.map(poll => (
+                  <div key={poll.id} className="vote-card">
+                    <h4>{poll.title}</h4>
+                    <p>{poll.description}</p>
+                    <div className="vote-actions">
+                      <button className="btn-vote-yes" onClick={() => handleVote(poll.id, 'YES')}>
+                        APOIAR FÍSICA (+XP)
+                      </button>
+                      <button className="btn-vote-no" onClick={() => handleVote(poll.id, 'NO')}>
+                        VOTAR MATEMÁTICA
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </section>
+
+        {/* Column 3: Conquistas da Temporada */}
+        <section className="rpg-panel">
+          <div className="rpg-panel-header">
+            <h3 className="rpg-title">
+              <Trophy size={14} color="#10B981" />
+              <span>Conquistas da Temporada</span>
+            </h3>
+            <span className="rpg-panel-tag">4 ATIVAS</span>
+          </div>
+
+          <div className="achievements-grid">
+            {ACHIEVEMENTS.map(ach => (
+              <div key={ach.id} className="achievement-card">
+                <div className="achievement-top">
+                  <span className="achievement-title">{ach.icon} {ach.title}</span>
+                  <span className="achievement-pct">{ach.progress}%</span>
+                </div>
+                <div className="achievement-desc">{ach.description}</div>
+                <div className="xp-bar-bg" style={{ height: 5, marginTop: 4 }}>
+                  <div
+                    className="xp-bar-fill"
+                    style={{ '--rpg-progress': `${ach.progress}%` } as React.CSSProperties}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

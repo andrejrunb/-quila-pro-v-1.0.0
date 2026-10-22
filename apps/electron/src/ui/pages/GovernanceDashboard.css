@@ -265,3 +265,123 @@
   font-weight: bold;
   color: #f59e0b;
 }
+
+/* ---- PHASE 500+ MATURITY & ROI STYLES ---- */
+.maturity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.roi-card {
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid #10b981;
+}
+
+.roi-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.maturity-level-display {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.level-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, #3b82f6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+}
+
+.level-info {
+  flex: 1;
+}
+
+.level-label {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.progress-bar-container {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, #3b82f6 100%);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  transition: width 1s ease-out;
+}
+
+.maturity-dimensions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.dim-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dim-progress {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.dim-progress div {
+  height: 100%;
+  background: var(--accent);
+  opacity: 0.7;
+}
+
+.grid-mini-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.animate-glow {
+  animation: glow-pulse 4s infinite alternate;
+}
+
+@keyframes glow-pulse {
+  from { box-shadow: 0 0 10px rgba(16, 185, 129, 0.1); }
+  to { box-shadow: 0 0 25px rgba(16, 185, 129, 0.2); }
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

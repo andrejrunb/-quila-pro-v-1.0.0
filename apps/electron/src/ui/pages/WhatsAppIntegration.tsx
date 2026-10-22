@@ -1,301 +1,213 @@
 import React, { useState } from 'react';
-import { MessageCircle, Settings, Send, CheckCircle, AlertCircle, Smartphone, MessageSquare, Settings2, Save, Zap, ShieldCheck } from 'lucide-react';
-import './WhatsAppIntegration.css';
+import { 
+  Search, 
+  MoreVertical, 
+  Paperclip, 
+  Smile, 
+  Send, 
+  Phone, 
+  Video, 
+  Check, 
+  CheckCheck 
+} from 'lucide-react';
 
-interface WhatsAppTemplate {
-  id: string;
-  name: string;
-  message: string;
-  variables: string[];
-  enabled: boolean;
-}
+// Dados simulados para demonstração
+const mockChats = [
+  { id: 1, name: 'João Silva (Pai)', lastMessage: 'Bom dia, o boletim já está disponível?', time: '10:30', unread: 2, avatar: 'JS' },
+  { id: 2, name: 'Maria Souza (Aluna)', lastMessage: 'Professora, não entendi a tarefa.', time: '09:15', unread: 0, avatar: 'MS' },
+  { id: 3, name: 'Carlos Oliveira (Pai)', lastMessage: 'Obrigado pela informação.', time: 'Ontem', unread: 0, avatar: 'CO' },
+  { id: 4, name: 'Ana Costa (Aluna)', lastMessage: 'Estou enviando o trabalho em anexo.', time: 'Ontem', unread: 1, avatar: 'AC' },
+];
 
-interface WhatsAppIntegrationProps {
-  onBack: () => void;
-}
+const mockMessages = [
+  { id: 1, sender: 'them', text: 'Bom dia!', time: '10:28' },
+  { id: 2, sender: 'me', text: 'Bom dia, João! Como posso ajudar?', time: '10:29' },
+  { id: 3, sender: 'them', text: 'O boletim já está disponível?', time: '10:30' },
+];
 
-export const WhatsAppIntegration: React.FC<WhatsAppIntegrationProps> = ({ onBack }) => {
-  const [templates, setTemplates] = useState<WhatsAppTemplate[]>([
-    {
-      id: '1',
-      name: 'Aluno Ausente',
-      message: 'Olá {{responsavel}}, seu filho {{aluno}} não foi detectado na aula de {{materia}} hoje.',
-      variables: ['responsavel', 'aluno', 'materia'],
-      enabled: true,
-    },
-    {
-      id: '2',
-      name: 'Chegada Atrasada',
-      message: 'Atenção {{responsavel}}: {{aluno}} chegou {{minutos}} minutos atrasado na aula de {{materia}}.',
-      variables: ['responsavel', 'aluno', 'minutos', 'materia'],
-      enabled: true,
-    },
-    {
-      id: '3',
-      name: 'Saída Não Autorizada',
-      message: 'ALERTA: {{aluno}} saiu da escola às {{hora}}. Contate a coordenação imediatamente.',
-      variables: ['aluno', 'hora'],
-      enabled: true,
-    },
-  ]);
-
-  const [isConfigured, setIsConfigured] = useState(false);
-  const [showConfig, setShowConfig] = useState(false);
-  const [configData, setConfigData] = useState({
-    apiKey: '',
-    phoneNumber: '',
-    businessAccountId: '',
-    apiUrl: '',
-    token: ''
-  });
-
-  const [testMessage, setTestMessage] = useState('');
-  const [testPhone, setTestPhone] = useState('');
-  const [testStatus, setTestStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [isSaving, setIsSaving] = useState(false);
-  const [status] = useState({ queued: 0, sentThisHour: 0, rateLimit: '∞', tier: 'Standard' });
-
-  const handleSaveConfig = () => {
-    if (!configData.apiKey || !configData.phoneNumber) {
-      alert('Preencha todos os campos');
-      return;
-    }
-    setIsConfigured(true);
-    setShowConfig(false);
-  };
-
-  const handleToggleTemplate = (id: string) => {
-    setTemplates(templates.map(t => t.id === id ? { ...t, enabled: !t.enabled } : t));
-  };
-
-  const handleSendTest = async () => {
-    if (!testPhone || !testMessage) {
-      alert('Preencha telefone e mensagem');
-      return;
-    }
-
-    setTestStatus('sending');
-    setTimeout(() => {
-      setTestStatus('success');
-      setTimeout(() => setTestStatus('idle'), 3000);
-    }, 2000);
-  };
+export default function WhatsAppIntegration() {
+  const [selectedChat, setSelectedChat] = useState(mockChats[0]);
+  const [messageInput, setMessageInput] = useState('');
 
   return (
-    <div className="whatsapp-container">
-      <header className="whatsapp-header">
-        <div className="header-top">
-          <div>
-            <button onClick={onBack} className="btn-back-link">
-              ← Voltar para o Dashboard
-            </button>
-            <div className="title-container">
-              <MessageCircle size={32} className="icon-emerald" />
-              <h1>Integração WhatsApp</h1>
+    <div className="flex h-screen w-full bg-[#0f172a] text-slate-200 p-2 sm:p-4 font-sans">
+      <div className="flex w-full h-full max-w-7xl mx-auto rounded-3xl overflow-hidden border border-slate-700/50 bg-slate-900/40 backdrop-blur-xl shadow-2xl relative">
+        
+        {/* Painel Esquerdo - Lista de Conversas */}
+        <div className="w-full sm:w-1/3 sm:min-w-[340px] sm:max-w-[400px] flex flex-col border-r border-slate-700/50 bg-slate-800/20 z-10 hidden sm:flex">
+          {/* Cabeçalho da Sidebar */}
+          <div className="flex items-center justify-between p-4 border-b border-slate-700/50 bg-slate-800/40 backdrop-blur-md">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 text-indigo-300 font-semibold shadow-[0_0_15px_rgba(99,102,241,0.2)]">
+                AP
+              </div>
+              <span className="font-medium text-slate-100">Áquila Bot</span>
             </div>
-            <p className="header-description">Configure notificações automáticas via WhatsApp (Evolution API)</p>
+            <div className="flex gap-4 text-slate-400">
+              <button className="hover:text-indigo-400 transition-colors duration-200">
+                <MoreVertical size={20} />
+              </button>
+            </div>
           </div>
-          <button onClick={() => setShowConfig(true)} className="btn-config">
-            <Settings size={20} />
-            Configurar
-          </button>
-        </div>
-      </header>
 
-      <div className={`status-banner ${isConfigured ? 'active' : 'pending'}`}>
-        {isConfigured ? (
-          <>
-            <CheckCircle size={24} className="icon-emerald" />
-            <div>
-              <p className="status-title status-active-title">Integração Ativa</p>
-              <p className="status-text">WhatsApp configurado e pronto para enviar notificações</p>
-            </div>
-          </>
-        ) : (
-          <>
-            <AlertCircle size={24} className="icon-warning" />
-            <div>
-              <p className="status-title status-pending-title">Não Configurado</p>
-              <p className="status-text">Clique em "Configurar" para ativar notificações via WhatsApp</p>
-            </div>
-          </>
-        )}
-      </div>
-
-      {isConfigured && (
-        <section className="glass-card">
-          <h2 className="card-title-small">Testar Envio Real</h2>
-          <div className="form-container">
-            <div className="form-group">
-              <label className="form-label">Número de Telefone</label>
-              <input
-                type="tel"
-                value={testPhone}
-                onChange={e => setTestPhone(e.target.value)}
-                placeholder="(11) 98765-4321"
-                className="input-field"
+          {/* Barra de Pesquisa */}
+          <div className="p-3 border-b border-slate-700/30">
+            <div className="relative group">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-400 transition-colors" size={18} />
+              <input 
+                type="text" 
+                placeholder="Pesquisar ou começar nova conversa" 
+                className="w-full bg-slate-900/50 text-slate-200 text-sm rounded-xl pl-10 pr-4 py-2.5 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 border border-slate-700/50 placeholder-slate-500 transition-all shadow-inner"
               />
             </div>
-            <div className="form-group">
-              <label className="form-label">Mensagem de Teste</label>
-              <textarea
-                value={testMessage}
-                onChange={e => setTestMessage(e.target.value)}
-                placeholder="Digite a mensagem de teste..."
-                className="input-field textarea-field"
-              />
-            </div>
-            <button
-              onClick={handleSendTest}
-              disabled={testStatus === 'sending'}
-              className={`btn-send-test ${testStatus}`}
-            >
-              <Send size={20} />
-              {testStatus === 'sending' ? 'Enviando...' : testStatus === 'success' ? 'Enviado com Sucesso!' : 'Enviar Teste'}
-            </button>
           </div>
-        </section>
-      )}
 
-      <section className="templates-container">
-        <div className="templates-title-group">
-          <h1>
-            <MessageSquare size={40} className="icon-emerald" />
-            Templates de WhatsApp
-          </h1>
-          <p className="header-subtitle">Personalize a comunicação automática com os pais</p>
-        </div>
-
-        <div className="templates-list-stack">
-          {templates.map((tpl) => (
-            <div key={tpl.id} className="template-card-premium">
-              <div className="template-card-header">
-                <div>
-                  <h3 className="template-card-title">{tpl.name}</h3>
-                  <p className="template-card-trigger">Gatilho: {tpl.id === '1' ? 'Detecção na Entrada' : 'Detecção na Saída'}</p>
+          {/* Lista de Chats */}
+          <div className="flex-1 overflow-y-auto space-y-1 p-2 custom-scrollbar">
+            {mockChats.map(chat => (
+              <div 
+                key={chat.id}
+                onClick={() => setSelectedChat(chat)}
+                className={`flex items-center gap-3 p-3 rounded-2xl cursor-pointer transition-all duration-300 ${
+                  selectedChat.id === chat.id 
+                    ? 'bg-indigo-500/20 border border-indigo-500/30 shadow-[0_4px_20px_-4px_rgba(99,102,241,0.1)]' 
+                    : 'hover:bg-slate-800/40 border border-transparent'
+                }`}
+              >
+                <div className="w-12 h-12 rounded-full bg-slate-700/50 flex-shrink-0 flex items-center justify-center text-slate-300 font-medium border border-slate-600/30">
+                  {chat.avatar}
                 </div>
-                <div className="icon-badge-emerald">
-                  <Smartphone size={20} className="icon-emerald" />
-                </div>
-              </div>
-              <div className="template-body">
-                <p>{tpl.message}</p>
-              </div>
-              <div className="template-footer">
-                <label className="template-toggle">
-                  <input
-                    type="checkbox"
-                    checked={tpl.enabled}
-                    onChange={() => handleToggleTemplate(tpl.id)}
-                    className="checkbox-custom"
-                  />
-                  <span className="toggle-label">
-                    {tpl.enabled ? 'Ativo' : 'Inativo'}
-                  </span>
-                </label>
-                <div className="tag-list">
-                  {tpl.variables.map(tag => (
-                    <span key={tag} className="tag-badge">{`{{${tag}}}`}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <button
-          onClick={() => setIsSaving(true)}
-          disabled={isSaving}
-          className="btn-save-templates"
-        >
-          {isSaving ? 'Salvando...' : <><Save size={20} /> Salvar Todos os Templates</>}
-        </button>
-      </section>
-
-      {showConfig && (
-        <div className="settings-grid">
-          <div className="settings-stack">
-            <div className="settings-card-glass">
-              <h3 className="settings-card-title-flex">
-                <Settings2 size={20} className="icon-emerald" />
-                Parâmetros da API
-              </h3>
-              <div className="form-stack">
-                <div className="form-item">
-                  <label className="label-tiny-caps">Endpoint URL</label>
-                  <input 
-                    type="text" 
-                    value={configData.apiUrl}
-                    onChange={(e) => setConfigData({...configData, apiUrl: e.target.value})}
-                    className="settings-input"
-                    placeholder="https://graph.facebook.com/v17.0/..."
-                  />
-                </div>
-                <div className="form-item">
-                  <label className="label-tiny-caps">Bearer Token</label>
-                  <input 
-                    type="password" 
-                    value={configData.token}
-                    onChange={(e) => setConfigData({...configData, token: e.target.value})}
-                    className="settings-input"
-                    placeholder="EAAW..."
-                  />
-                </div>
-              </div>
-              <p className="config-help-text">Obtenha sua chave no portal Meta for Developers.</p>
-            </div>
-
-            <div className="status-queue-card">
-              <div>
-                <h3 className="queue-card-title">
-                  Fila de Envios
-                  <span className={status.queued > 0 ? 'status-active-pill' : 'status-pending-pill'}>
-                    {status.queued || 0} Pendentes
-                  </span>
-                </h3>
-                <div className="status-metrics-stack">
-                  <div className="status-row">
-                    <span className="label-bold">Status do Serviço</span>
-                    <span className="status-value-active">
-                      <Zap size={16} fill="currentColor" /> ATIVO
+                <div className="flex-1 min-w-0">
+                  <div className="flex justify-between items-baseline mb-1">
+                    <h3 className="font-medium text-slate-100 truncate pr-2">{chat.name}</h3>
+                    <span className={`text-xs flex-shrink-0 ${chat.unread > 0 ? 'text-indigo-400 font-medium' : 'text-slate-400'}`}>
+                      {chat.time}
                     </span>
                   </div>
-                  <div className="status-row">
-                    <span className="label-bold">Enviadas na Janela (1h)</span>
-                    <span className="value-heavy">{status.sentThisHour || 0} <span className="value-dim">/ {status.rateLimit || '∞'}</span></span>
-                  </div>
-                  <div className="status-row">
-                    <span className="label-bold">Plano Atual</span>
-                    <span className="plan-badge">{status.tier || '...'}</span>
+                  <div className="flex justify-between items-center">
+                    <p className="text-sm text-slate-400 truncate pr-2">{chat.lastMessage}</p>
+                    {chat.unread > 0 && (
+                      <span className="bg-indigo-500 text-white text-[10px] font-bold h-5 min-w-[20px] px-1.5 flex items-center justify-center rounded-full flex-shrink-0 shadow-[0_0_10px_rgba(99,102,241,0.4)]">
+                        {chat.unread}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
-              <div className="lgpd-notice-box">
-                <ShieldCheck size={24} className="icon-emerald" />
-                <p className="lgpd-text">
-                  <strong>LGPD Assert:</strong> Todas as mensagens enviadas são filtradas localmente. Biometria e imagens nunca saem deste terminal. Eagle Tech garante a criptografia ponta-a-ponta via HTTPS/TLS 1.3.
+            ))}
+          </div>
+        </div>
+
+        {/* Área Principal - Chat */}
+        <div className="flex-1 flex flex-col bg-slate-900/20 relative z-0">
+          {/* Header do Chat */}
+          <div className="flex items-center justify-between p-4 border-b border-slate-700/50 bg-slate-800/40 backdrop-blur-md z-10">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-slate-700/50 flex items-center justify-center text-slate-300 font-medium border border-slate-600/30 shadow-inner">
+                {selectedChat.avatar}
+              </div>
+              <div>
+                <h2 className="font-medium text-slate-100 text-lg">{selectedChat.name}</h2>
+                <p className="text-xs text-indigo-400 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                  Online
                 </p>
               </div>
             </div>
-            
-            <div className="modal-notice">
-              <p>
-                <strong>Nota:</strong> Esta instância utiliza a Evolution API para comunicação direta. Certifique-se de que o webhook esteja apontando para o servidor Áquila Cloud.
-              </p>
-            </div>
-
-            <div className="modal-actions">
-              <button onClick={() => setShowConfig(false)} className="btn-cancel">
-                Cancelar
+            <div className="flex gap-4 text-slate-400">
+              <button className="p-2 hover:bg-slate-700/50 rounded-full hover:text-indigo-400 transition-all duration-200">
+                <Video size={20} />
               </button>
-              <button onClick={handleSaveConfig} className="btn-save">
-                Salvar Configurações
+              <button className="p-2 hover:bg-slate-700/50 rounded-full hover:text-indigo-400 transition-all duration-200">
+                <Phone size={20} />
+              </button>
+              <div className="w-px h-6 bg-slate-700/50 self-center mx-1"></div>
+              <button className="p-2 hover:bg-slate-700/50 rounded-full hover:text-slate-200 transition-all duration-200">
+                <Search size={20} />
               </button>
             </div>
           </div>
+
+          {/* Área de Mensagens */}
+          <div className="flex-1 p-4 sm:p-6 overflow-y-auto flex flex-col gap-4 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-blend-overlay opacity-90 custom-scrollbar">
+            {/* Separador de Data */}
+            <div className="flex justify-center mb-4 mt-2">
+              <span className="text-xs text-slate-300 bg-slate-800/80 px-4 py-1.5 rounded-full border border-slate-700/50 backdrop-blur-md shadow-sm">
+                Hoje
+              </span>
+            </div>
+
+            {mockMessages.map(msg => (
+              <div key={msg.id} className={`flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'} group`}>
+                <div className={`max-w-[85%] sm:max-w-[70%] rounded-2xl px-4 py-2.5 shadow-lg backdrop-blur-sm relative ${
+                  msg.sender === 'me' 
+                    ? 'bg-indigo-600/90 text-white border border-indigo-500/50 rounded-tr-sm shadow-[0_4px_15px_-3px_rgba(99,102,241,0.2)]' 
+                    : 'bg-slate-800/90 text-slate-200 border border-slate-700/50 rounded-tl-sm'
+                }`}>
+                  <p className="text-[15px] leading-relaxed">{msg.text}</p>
+                  <div className={`flex items-center justify-end gap-1.5 mt-1 ${msg.sender === 'me' ? 'text-indigo-200' : 'text-slate-400'}`}>
+                    <span className="text-[10px] opacity-80">{msg.time}</span>
+                    {msg.sender === 'me' && <CheckCheck size={14} className="text-sky-300 drop-shadow-[0_0_2px_rgba(125,211,252,0.5)]" />}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Área de Input */}
+          <div className="p-3 sm:p-4 border-t border-slate-700/50 bg-slate-800/60 backdrop-blur-xl z-10">
+            <div className="flex items-end gap-2 sm:gap-3 max-w-5xl mx-auto">
+              <button className="p-3 text-slate-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-slate-700/50 flex-shrink-0">
+                <Smile size={24} />
+              </button>
+              <button className="p-3 text-slate-400 hover:text-indigo-400 transition-colors rounded-full hover:bg-slate-700/50 flex-shrink-0 hidden sm:block">
+                <Paperclip size={24} />
+              </button>
+              
+              <div className="flex-1 bg-slate-900/60 rounded-3xl border border-slate-700/50 focus-within:border-indigo-500/50 focus-within:ring-2 focus-within:ring-indigo-500/20 transition-all flex items-center min-h-[52px] shadow-inner">
+                <textarea 
+                  value={messageInput}
+                  onChange={(e) => setMessageInput(e.target.value)}
+                  placeholder="Digite uma mensagem..." 
+                  className="w-full bg-transparent text-slate-200 px-5 py-3.5 focus:outline-none resize-none max-h-32 text-[15px]"
+                  rows={1}
+                />
+              </div>
+              
+              {messageInput.trim() ? (
+                <button 
+                  className="p-3.5 rounded-full flex-shrink-0 bg-indigo-600 text-white shadow-[0_0_15px_rgba(99,102,241,0.4)] hover:bg-indigo-500 hover:scale-105 hover:shadow-[0_0_20px_rgba(99,102,241,0.6)] transition-all duration-300 transform"
+                >
+                  <Send size={22} className="ml-0.5" />
+                </button>
+              ) : (
+                <button className="p-3.5 rounded-full flex-shrink-0 bg-slate-800 text-slate-500 border border-slate-700/50 transition-all duration-300">
+                  <Phone size={22} className="opacity-0 hidden" />
+                  <Send size={22} className="opacity-50" />
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-      )}
+
+      </div>
+      
+      {/* Estilos globais extras embutidos */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background-color: rgba(71, 85, 105, 0.5);
+          border-radius: 10px;
+        }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+          background-color: rgba(99, 102, 241, 0.5);
+        }
+      `}} />
     </div>
   );
-};
-
-export default WhatsAppIntegration;
+}

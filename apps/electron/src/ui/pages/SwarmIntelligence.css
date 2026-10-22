@@ -1,0 +1,235 @@
+.swarm-container {
+    padding: 2.5rem;
+    height: 100%;
+    overflow-y: auto;
+    color: white;
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+}
+
+.swarm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.swarm-icon-pulse {
+    color: #3b82f6;
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+    animation: swarm-pulse 2s infinite ease-in-out;
+}
+
+@keyframes swarm-pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8)); }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+.swarm-health-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    text-align: right;
+}
+
+.swarm-health-badge .label {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    text-transform: uppercase;
+}
+
+.swarm-health-badge .value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #10b981;
+}
+
+.swarm-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+}
+
+.agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.agent-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.agent-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.agent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.agent-info strong {
+    display: block;
+    font-size: 1.1rem;
+}
+
+.agent-info span {
+    font-size: 0.7rem;
+    opacity: 0.4;
+    letter-spacing: 0.05em;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-dot.active { background: #10b981; box-shadow: 0 0 10px #10b981; }
+.status-dot.idle { background: #6b7280; }
+.status-dot.warning { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; }
+
+.agent-metrics-mini {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.agent-metrics-mini .metric {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+.agent-plan-box {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    padding: 0.75rem;
+    border-radius: 10px;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.agent-log {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1rem;
+}
+
+.log-entry {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.log-entry .time { opacity: 0.3; }
+.log-entry .msg { opacity: 0.7; line-height: 1.4; }
+
+.swarm-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 1.5rem;
+}
+
+.glass-panel h3 {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0.8;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.task-item {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-info strong { display: block; font-size: 0.85rem; }
+.task-info span { font-size: 0.7rem; opacity: 0.4; }
+
+.reflection-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.reflection-item {
+    position: relative;
+    padding-left: 1rem;
+    border-left: 2px solid #3b82f6;
+}
+
+.r-tag {
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: #3b82f6;
+    text-transform: uppercase;
+}
+
+.reflection-item p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0.5rem 0;
+    opacity: 0.8;
+}
+
+.r-time {
+    font-size: 0.7rem;
+    opacity: 0.3;
+}
+
+.swarm-footer {
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    opacity: 0.4;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.spin {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

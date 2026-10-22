@@ -6,6 +6,12 @@ Bem-vindo ao repositório principal do ecossistema Áquila. Este é o core web d
 ## 🚀 Sobre o Projeto
 O Áquila Pro Cloud é o coração da plataforma para pais, alunos e administração, sendo construído sob o T3 Stack (Next.js, Tailwind, tRPC, PostgreSQL + Drizzle).
 
+## 🦅 Agentic Operations
+Este repositório é gerenciado através do **Google Antigravity**, uma IDE *agent-first*. Utilizamos uma rede de agentes autônomos para planejamento, codificação e governança técnica do Áquila Pro, seguindo:
+- **Sovereign Code Governance**: Regras de arquitetura local e NPU.
+- **Agentic Governance**: Políticas de transparência e monitoramento de enxames.
+- **Skills por Domínio**: Localizadas em `.agent/skills/`.
+
 Nossa missão é combater a evasão, gerenciar finanças complexas (Pagamentos recorrentes e PIX) e facilitar a gestão escolar com inteligência artificial escalável. 
 
 ## ⚙️ Como Rodar Localmente

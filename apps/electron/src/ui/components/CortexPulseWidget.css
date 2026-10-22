@@ -1,0 +1,121 @@
+.cortex-pulse-container {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px;
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    position: relative;
+}
+
+.pulse-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pulse-label {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.pulse-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 100px;
+}
+
+.pulse-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    gap: 12px;
+    position: relative;
+}
+
+.scanning-line {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+    animation: scan 2s linear infinite;
+    position: absolute;
+    top: 50%;
+}
+
+@keyframes scan {
+    0% { transform: translateY(-30px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(30px); opacity: 0; }
+}
+
+.pulse-item {
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid #3b82f6;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.pulse-item.severity-CRITICAL {
+    background: rgba(239, 68, 68, 0.05);
+    border-left-color: #ef4444;
+}
+
+.pulse-item.severity-WARNING {
+    border-left-color: #f59e0b;
+}
+
+.pulse-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.pulse-category {
+    font-size: 9px;
+    font-weight: 900;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.pulse-time {
+    font-size: 9px;
+    color: #334155;
+    margin-left: auto;
+    font-family: monospace;
+}
+
+.pulse-content {
+    font-size: 11px;
+    color: #cbd5e1;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+@keyframes pulse-entry {
+    from { transform: translateX(-10px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-pulse-entry {
+    animation: pulse-entry 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.pulse-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-left-width: 4px;
+}

@@ -64,6 +64,15 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.metric-box.clickable {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.metric-box.clickable:hover {
+  background: rgba(30, 41, 59, 0.6);
+}
+
 .metric-label {
   font-size: 0.65rem;
   color: #94a3b8;
@@ -140,4 +149,63 @@
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.health-logs-container {
+  padding: 0 1rem 1rem 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.7rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logs-header {
+  padding: 0.5rem 0;
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.logs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.log-item {
+  padding: 0.4rem;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 2px solid #64748b;
+}
+
+.log-item.info { border-left-color: #22d3ee; }
+.log-item.error { border-left-color: #f87171; background: rgba(248, 113, 113, 0.05); }
+
+.log-source {
+  font-weight: 700;
+  margin-right: 0.4rem;
+  color: #94a3b8;
+}
+
+.log-msg {
+  color: #e2e8f0;
+}
+
+.no-logs {
+  color: #64748b;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

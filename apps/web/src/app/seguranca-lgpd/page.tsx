@@ -1,6 +1,6 @@
 "use client";
 
-import { Shield, Lock, EyeOff, Server, HardDrive, FileCheck, CheckCircle2, ArrowRight } from "lucide-react";
+import { Shield, Lock, EyeOff, Server, HardDrive, FileCheck, CheckCircle2, ArrowRight, Cpu } from "lucide-react";
 
 export default function SegurancaLGPD() {
   const principles = [

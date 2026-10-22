@@ -21,15 +21,22 @@ export const DashboardComando: React.FC = () => {
   const [viewMode, setViewMode] = useState<'SECTOR' | 'HARDWARE'>('SECTOR');
   const [nodes, setNodes] = useState<Node[]>([]);
 
-  // Simulação de Dados do Enxame (Em prod, vem via IPC 'swarm:get-topology')
   useEffect(() => {
-    const mockNodes: Node[] = [
-      { id: '1', name: 'PC-FIN-01', sector: 'FINANCEIRO', role: 'FINANCIAL', status: 'ONLINE', cpuLoad: 12, ramUsage: 45, model: 'llama3:8b' },
-      { id: '2', name: 'PC-RH-01', sector: 'RECURSOS HUMANOS', role: 'ADMIN', status: 'BUSY', cpuLoad: 88, ramUsage: 72, model: 'llama3:8b' },
-      { id: '3', name: 'PC-SALA7-01', sector: 'SALA 07B', role: 'PEDAGOGY', status: 'ONLINE', cpuLoad: 5, ramUsage: 12, model: 'llama3:3b' },
-      { id: '4', name: 'PC-SUP-01', sector: 'SUPORTE TÉCNICO', role: 'SECURITY', status: 'ONLINE', cpuLoad: 25, ramUsage: 40, model: 'llama3:8b' },
-    ];
-    setNodes(mockNodes);
+    const fetchTopology = async () => {
+      try {
+        if (window.aquila) {
+          const swarmNodes = await window.aquila.invoke('swarm:get-topology');
+          setNodes(Array.isArray(swarmNodes) ? swarmNodes : []);
+        }
+      } catch (err) {
+        console.error('Falha ao obter topologia do enxame', err);
+        setNodes([]);
+      }
+    };
+    
+    fetchTopology();
+    const interval = setInterval(fetchTopology, 30000); // 30s poll para topologia
+    return () => clearInterval(interval);
   }, []);
 
   const renderNodeCard = (node: Node) => (

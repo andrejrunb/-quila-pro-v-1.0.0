@@ -1,0 +1,236 @@
+.governance-container {
+  padding: 2.5rem;
+  color: white;
+  background: radial-gradient(circle at top left, rgba(63, 81, 181, 0.05), transparent 40%);
+  min-height: 100vh;
+}
+
+.gov-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.gov-title h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(to right, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gov-title p {
+  color: #64748b;
+  margin: 0.25rem 0 0 0;
+}
+
+.icon-glow {
+  color: #6366f1;
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+  margin-right: 1.5rem;
+}
+
+.gov-stats-top {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px border rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-card .label {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.stat-card .value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.heal-button {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.heal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+}
+
+.heal-button.animating svg {
+  animation: spin 1s linear infinite;
+}
+
+.gov-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.mesh-health-panel, .drift-monitor, .audit-ledger {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 20px;
+}
+
+h3 {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.health-chart-placeholder {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.bar-grid {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 140px;
+  gap: 1rem;
+}
+
+.bar-wrapper {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.02);
+  height: 100%;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar {
+  background: linear-gradient(to top, #6366f1, #a855f7);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-radius: 8px;
+  transition: height 1s ease-out;
+}
+
+.chart-label {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.drift-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.drift-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.item-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.id { font-weight: 600; font-family: monospace; }
+
+.status-pill {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+.status-pill.evolving { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+.status-pill.drift_detected { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+.progress-bg {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #6366f1;
+}
+
+.health-val { font-size: 0.8rem; color: #64748b; }
+
+.gov-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.gov-table th {
+  text-align: left;
+  padding: 1rem;
+  color: #64748b;
+  font-weight: 500;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gov-table td {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  font-size: 0.9rem;
+}
+
+.angle-chips {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chip {
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+}
+
+.tag-success {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

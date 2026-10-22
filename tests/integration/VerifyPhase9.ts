@@ -1,13 +1,14 @@
-import { legalEvidenceService } from './apps/electron/src/services/LegalEvidenceService';
-import { swarmComparativeService } from './apps/electron/src/services/SwarmComparativeService';
-import { actionPillGenerator } from './apps/electron/src/services/ActionPillGenerator';
-import { consolidatedPulseService } from './apps/electron/src/services/ConsolidatedPulseService';
-import { Database } from './apps/electron/src/database/Database';
+import { legalEvidenceService } from '../../apps/electron/src/main/services/LegalEvidenceService';
+import { swarmComparativeService } from '../../apps/electron/src/main/services/SwarmComparativeService';
+import { actionPillGenerator } from '../../apps/electron/src/main/services/ActionPillGenerator';
+import { consolidatedPulseService } from '../../apps/electron/src/main/services/ConsolidatedPulseService';
+import { Database } from '../../apps/electron/src/database/Database';
 
 async function verifyPhase9() {
   console.log('--- Iniciando Verificação FASE 9: Córtex Áquila ---');
   
   const db = Database.getInstance();
+  await db.initialize();
   
   // 1. Verificar Tabelas
   const tables = await db.all(`SELECT name FROM sqlite_master WHERE type='table' AND name IN ('legal_articles_vault', 'student_evidence_dossier', 'ai_insights_review')`);

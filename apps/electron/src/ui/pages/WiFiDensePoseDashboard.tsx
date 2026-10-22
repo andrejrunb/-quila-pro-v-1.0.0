@@ -34,7 +34,7 @@ const WiFiDensePoseDashboard: React.FC = () => {
             <header className="densepose-header">
                 <div className="header-title">
                     <Wifi className="icon-pulse" />
-                    <h1>Monitoramento Passivo <span className="badge">v3441</span></h1>
+                    <h1>Mapa de Presença Digital <span className="badge">v1.3.4</span></h1>
                 </div>
                 <div className="status-indicator">
                     <Zap size={16} />
@@ -45,7 +45,7 @@ const WiFiDensePoseDashboard: React.FC = () => {
             <main className="densepose-grid">
                 <section className="live-radar glass">
                     <div className="radar-header">
-                        <h2>Radar de Assinaturas CSI</h2>
+                        <h2>Mapa de Movimentação em Tempo Real</h2>
                         <span className="live-tag">LIVE</span>
                     </div>
                     <div className="radar-view">
@@ -71,15 +71,15 @@ const WiFiDensePoseDashboard: React.FC = () => {
                         ))}
                     </div>
                     <div className="radar-legend">
-                        <div className="legend-item"><div className="dot moving"></div> Moving</div>
-                        <div className="legend-item"><div className="dot standing"></div> Standing</div>
-                        <div className="legend-item"><div className="dot horizontal"></div> Fall/Horizontal</div>
+                        <div className="legend-item"><div className="dot moving"></div> Em Movimento</div>
+                        <div className="legend-item"><div className="dot standing"></div> Parado</div>
+                        <div className="legend-item"><div className="dot horizontal"></div> Possível Queda</div>
                     </div>
                 </section>
 
                 <div className="side-panel">
                     <section className="active-zones glass">
-                        <h3>Zonas com Presença</h3>
+                        <h3>Áreas com Alunos/Pessoas</h3>
                         <div className="zone-list">
                             {ghosts.length === 0 ? (
                                 <p className="empty-msg">Nenhuma presença detectada nas áreas cegas.</p>
@@ -96,7 +96,7 @@ const WiFiDensePoseDashboard: React.FC = () => {
                     </section>
 
                     <section className="passive-alerts glass">
-                        <h3>Alertas Recentes</h3>
+                        <h3>Avisos Importantes</h3>
                         <div className="alert-list">
                             {alerts.map(alert => (
                                 <div key={alert.id} className="alert-card critical-pulse">

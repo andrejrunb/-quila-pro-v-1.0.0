@@ -381,3 +381,211 @@
   color: var(--honey-amber) !important;
   text-shadow: none !important;
 }
+
+/* PHASE 600: EXECUTIVE ROI & PULSE */
+.roi-details {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.roi-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+
+.roi-stat strong {
+  color: var(--honey-amber);
+}
+
+.operational-pulse-panel {
+  margin-top: 2rem;
+  background: var(--obsidian-cell);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pulse-item {
+  margin-top: 1rem;
+}
+
+.pulse-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.pulse-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pulse-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  transition: width 0.5s ease;
+}
+
+.pulse-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+/* MATURITY LEVEL 6: SOVEREIGN EVOLUTION CENTER */
+.evolution-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 5rem;
+  align-items: center;
+}
+
+.evolution-main-stat {
+  background: rgba(124, 58, 237, 0.05);
+  padding: 3rem;
+  border-radius: 20px;
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  text-align: left;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #a78bfa;
+  margin-bottom: 1rem;
+}
+
+.stat-value {
+  font-size: 4rem;
+  font-weight: 900;
+  font-family: 'Outfit', sans-serif;
+  color: #fff;
+  text-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+}
+
+.stat-desc {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.evolution-metrics-hex {
+  display: flex;
+  gap: 2rem;
+}
+
+.evolution-timeline {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 3rem;
+  border-radius: 12px;
+}
+
+.panel-section-title {
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 1.5rem;
+}
+
+.timeline-date {
+  font-size: 0.7rem;
+  opacity: 0.4;
+  min-width: 150px;
+}
+
+.evolution-pill {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pill-tag {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  font-weight: bold;
+}
+
+.evolution-summary {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* MATURITY LEVEL 5: ADAPTIVE GOVERNANCE INDICATORS */
+.impact-indicator {
+  margin: 1.5rem 0;
+  padding: 1.2rem;
+  background: rgba(255, 183, 0, 0.05);
+  border-left: 3px solid var(--honey-amber);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.impact-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+.impact-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+}
+
+.impact-value.positive {
+  color: #4ade80;
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
+}
+
+.impact-value.negative {
+  color: #f87171;
+  text-shadow: 0 0 10px rgba(248, 113, 113, 0.3);
+}
+
+.impact-meta {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.btn-ai-suggest {
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  border: none !important;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+}
+
+.btn-ai-suggest:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.6);
+}
+

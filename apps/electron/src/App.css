@@ -4,32 +4,70 @@
   height: 100vh;
   overflow: hidden;
   background: var(--bg-gradient);
+  --sidebar-current-width: 180px;
+  box-sizing: border-box;
 }
 
+.app-layout.sidebar-collapsed {
+  --sidebar-current-width: 60px;
+}
+
+/* [AGENTE-3 FIX-1] position:absolute → permite scroll correto em todos os tamanhos de tela */
 .main-content {
   position: absolute;
-  left: var(--sidebar-width);
+  left: var(--sidebar-current-width);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   right: 0;
   top: 0;
   bottom: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-sizing: border-box;
+  /* Previne colapso de flex item em grid contexts */
+  min-width: 0;
 }
 
+/* [AGENTE-3 FIX-2] page-content: min-height garante que páginas curtas não distorcem layout */
 .page-content {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   padding-bottom: 40px;
+  box-sizing: border-box;
+  /* Scrollbar customizada para o tema escuro */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.3) transparent;
 }
 
-/* Base styles for all pages now inside the layout */
+.page-content::-webkit-scrollbar {
+  width: 6px;
+}
+.page-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.page-content::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+}
+.page-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+/* [AGENTE-3 FIX-3] page-container: min-width:0 evita quebra de grids auto-fill */
 .page-container {
   padding: var(--container-padding);
   max-width: 1600px;
   margin: 0 auto;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* [AGENTE-3 FIX-4] Contenção global para grids dentro de páginas — evita overflow horizontal */
+.page-container > * {
+  min-width: 0;
 }
 
 .animate-fade-in {
@@ -59,4 +97,24 @@
   opacity: 0;
   transform: scale(1.02);
   transition: opacity 300ms, transform 300ms;
+}
+
+/* [AGENTE-3 FIX-5] Garantir que modais (z-index 9999+) não fiquem atrás da sidebar */
+/* Sidebar já tem z-index: 1000 — modais devem usar 1100+ */
+.modal-overlay,
+.lgpd-modal-overlay,
+.help-modal-overlay,
+.nps-modal-overlay {
+  z-index: 1100 !important;
+}
+
+
+
+/* [AGENTE-3 FIX-5] Garantir que modais (z-index 9999+) não fiquem atrás da sidebar */
+/* Sidebar já tem z-index: 1000 — modais devem usar 1100+ */
+.modal-overlay,
+.lgpd-modal-overlay,
+.help-modal-overlay,
+.nps-modal-overlay {
+  z-index: 1100 !important;
 }

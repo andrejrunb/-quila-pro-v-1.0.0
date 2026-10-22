@@ -1,0 +1,177 @@
+.neural-lib-container {
+    padding: 3rem;
+    height: 100%;
+    overflow-y: auto;
+    color: white;
+    background: #020617; /* Deepest indigo */
+    position: relative;
+}
+
+.neural-stars {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.05;
+    z-index: 0;
+}
+
+.neural-lib-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.lib-icon-glow {
+    width: 70px;
+    height: 70px;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+}
+
+.neural-search {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem !important;
+    width: 450px;
+}
+
+.neural-search input {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.neural-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 350px 1fr 300px;
+    gap: 2.5rem;
+}
+
+.graph-viz {
+    height: 250px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.node {
+    position: absolute;
+    padding: 0.5rem 1rem;
+    background: rgba(99, 102, 241, 0.2);
+    border: 1px solid #6366f1;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+.node.central { background: #6366f1; color: white; padding: 0.75rem 1.5rem; font-size: 0.8rem; }
+.node.s1 { transform: translate(-80px, -60px); }
+.node.s2 { transform: translate(80px, -60px); }
+.node.s3 { transform: translate(0, 80px); }
+
+.connection {
+    position: absolute;
+    height: 2px;
+    background: rgba(99, 102, 241, 0.2);
+    z-index: 1;
+}
+
+.results-area { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.knowledge-card { padding: 2.5rem !important; transition: all 0.3s; }
+.knowledge-card:hover { transform: scale(1.01); border-color: #6366f1; }
+
+.cat-tag {
+    font-size: 0.6rem;
+    font-weight: 800;
+    background: rgba(99, 102, 241, 0.1);
+    color: #818cf8;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.knowledge-card h2 { font-size: 1.5rem; margin: 1rem 0; }
+.knowledge-card p { font-size: 0.95rem; opacity: 0.6; line-height: 1.6; margin-bottom: 2rem; }
+
+.k-footer { display: flex; justify-content: space-between; align-items: center; }
+.conn-count { font-size: 0.7rem; opacity: 0.4; display: flex; align-items: center; gap: 0.5rem; }
+
+.read-btn {
+    background: white;
+    color: black;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.read-btn:hover { background: #818cf8; color: white; }
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    margin-bottom: 1rem;
+}
+
+.st-data label { display: block; font-size: 0.65rem; opacity: 0.4; text-transform: uppercase; }
+.st-data strong { font-size: 1rem; }
+
+.lib-status {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    opacity: 0.5;
+}
+
+.status-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
+
+.neural-lib-footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    opacity: 0.3;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 1.5rem;
+}

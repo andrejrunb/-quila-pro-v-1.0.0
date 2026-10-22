@@ -9,9 +9,18 @@ interface SystemHealth {
   uptime: string;
 }
 
+interface HealthLog {
+  timestamp: string;
+  source: string;
+  level: string;
+  message: string;
+}
+
 export function SysHealth() {
   const [health, setHealth] = useState<SystemHealth | null>(null);
+  const [logs, setLogs] = useState<HealthLog[]>([]);
   const [visible, setVisible] = useState(false);
+  const [showLogs, setShowLogs] = useState(false);
   const cpuRef = useRef<HTMLDivElement>(null);
   const ramRef = useRef<HTMLDivElement>(null);
 
@@ -24,6 +33,9 @@ export function SysHealth() {
         totalMemory: data?.totalMemory || 16,
         uptime: data?.uptime || '0d 12h'
       });
+      
+      const healthLogs = await (window as any).electronAPI?.invoke('system:get-health-logs');
+      setLogs(healthLogs || []);
     } catch {
       setHealth({ cpu: 8, memory: 5.1, totalMemory: 16, uptime: '1d 04h' });
     }
@@ -109,16 +121,34 @@ export function SysHealth() {
           <div className="metric-value text-warning font-sm">0 Pending</div>
         </div>
 
-        <div className="metric-box">
+        <div className="metric-box clickable" onClick={() => setShowLogs(!showLogs)}>
           <div className="metric-label">
             <RefreshCw size={12} /> <span>Uptime</span>
           </div>
           <div className="metric-value font-xs">{health?.uptime || 'N/A'}</div>
         </div>
       </div>
+
+      {showLogs && (
+        <div className="health-logs-container animate-fade-in">
+          <div className="logs-header">Logs de Inicialização</div>
+          <div className="logs-list">
+            {logs.length === 0 ? (
+              <div className="no-logs">Nenhum log detectado.</div>
+            ) : (
+              logs.map((log, i) => (
+                <div key={i} className={`log-item ${log.level}`}>
+                  <span className="log-source">[{log.source}]</span>
+                  <span className="log-msg">{log.message}</span>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      )}
       
       <div className="status-text-mini">
-        Engine: Soberana | Vision: Active | v1.0
+        Engine: Soberana | Vision: Active | {logs.some(l => l.level === 'error') ? '⚠️ Errors Detected' : '✅ System OK'}
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import '../styles/CoolmeiaUX.css';
 
 export const CouncilRoom: React.FC = () => {
   const [proposals, setProposals] = useState<Proposal[]>([]);
-  const [activeTab, setActiveTab] = useState<'pending' | 'active' | 'closed'>('pending');
+  const [activeTab, setActiveTab] = useState<'pending' | 'active' | 'closed' | 'impact'>('pending');
   const [userRole, setUserRole] = useState<SovereignRole>('DIRECTOR'); // Simulação de Login
 
   useEffect(() => {
@@ -20,23 +20,30 @@ export const CouncilRoom: React.FC = () => {
   }, [activeTab]);
 
   const loadProposals = async () => {
-    // Carrega propostas para revisão (Direção vê tudo)
-    // Para simplificação, listamos as do DB
-    const all = await (window as any).api.db.all(`SELECT * FROM proposals_votecasting`);
+    // Carrega propostas com dados de impacto via JOIN
+    const sql = `
+      SELECT p.*, l.final_impact_score, l.initial_risk_score, l.target_data_json as impact_targets
+      FROM proposals_votecasting p
+      LEFT JOIN governance_impact_links l ON p.id = l.proposal_id
+      ORDER BY p.createdAt DESC
+    `;
+    const all = await (window as any).api.db.all(sql);
+    
     setProposals(all.map((p: any) => ({
       ...p,
       scientific_grounds: JSON.parse(p.scientific_grounds || '[]'),
-      target_roles: JSON.parse(p.target_roles || '[]')
+      target_roles: JSON.parse(p.target_roles || '[]'),
+      impact_targets: p.impact_targets ? JSON.parse(p.impact_targets) : []
     })));
   };
 
   const handleWhitelist = async (id: string) => {
-    await councilService.whitelistByDirector(id, 'admin_01');
+    await (window as any).api.councilService.whitelistByDirector(id, 'admin_01');
     loadProposals();
   };
 
   const handleActivate = async (id: string) => {
-    await councilService.activatePoll(id, userRole);
+    await (window as any).api.councilService.activatePoll(id, userRole);
     loadProposals();
   };
 
@@ -44,8 +51,8 @@ export const CouncilRoom: React.FC = () => {
     <div className="council-room-container coolmeia-command-center">
       <header className="cockpit-header">
         <div className="brand-group">
-           <h2 className="hive-title">SALA DO CONSELHO (v4001)</h2>
-           <p className="hive-subtitle">GOVERNANÇA SOBERANA & VOTAÇÃO</p>
+           <h2 className="hive-title">SALA DO CONSELHO (v5001)</h2>
+           <p className="hive-subtitle">GOVERNANÇA SOBERANA & VOTAÇÃO ADAPTATIVA</p>
         </div>
         <div className="hive-badge-group">
            <button className="btn-sovereign btn-ai-suggest" onClick={async () => {
@@ -65,24 +72,43 @@ export const CouncilRoom: React.FC = () => {
          <button className={activeTab === 'active' ? 'active' : ''} onClick={() => setActiveTab('active')}>
            EM VOTAÇÃO ({proposals.filter(p => p.status === 'active').length})
          </button>
+         <button className={activeTab === 'impact' ? 'active' : ''} onClick={() => setActiveTab('impact')}>
+           IMPACTO IA ({proposals.filter(p => p.final_impact_score !== null).length})
+         </button>
       </nav>
 
       <div className="council-grid">
          {proposals
-           .filter(p => (activeTab === 'pending' ? p.status !== 'active' : p.status === 'active'))
-           .map(proposal => (
+           .filter(p => {
+             if (activeTab === 'pending') return p.status === 'draft' || p.status === 'whitelisted';
+             if (activeTab === 'active') return p.status === 'active';
+             if (activeTab === 'impact') return p.final_impact_score !== null;
+             return false;
+           })
+           .map((proposal: any) => (
              <div key={proposal.id} className="proposal-hex-row">
                 <HexCellCard 
                    title={proposal.title} 
                    subtitle={`${proposal.author_type.toUpperCase()} | ${proposal.status.toUpperCase()}`}
-                   status={proposal.status === 'whitelisted' ? 'sync' : 'alert'}
+                   status={proposal.status === 'whitelisted' || proposal.status === 'closed' ? 'sync' : 'alert'}
                    icon={proposal.author_type === 'ai' ? '🧠' : '👤'}
                 />
                 
                 <div className="proposal-details">
                    <p className="proposal-desc">{proposal.description}</p>
+                   
+                   {proposal.final_impact_score !== null && (
+                     <div className="impact-indicator">
+                        <span className="impact-label">EFICÁCIA DA DECISÃO:</span>
+                        <span className={`impact-value ${proposal.final_impact_score > 0 ? 'positive' : 'negative'}`}>
+                           {proposal.final_impact_score > 0 ? '↑' : '↓'} {(proposal.final_impact_score * 100).toFixed(1)}%
+                        </span>
+                        <span className="impact-meta">Alvos: {proposal.impact_targets?.length || 0} alunos</span>
+                     </div>
+                   )}
+
                    <div className="scientific-grounds-list">
-                      {proposal.scientific_grounds.map((g, i) => (
+                      {proposal.scientific_grounds.map((g: string, i: number) => (
                         <span key={i} className="ground-pill">{g}</span>
                       ))}
                    </div>
@@ -100,7 +126,9 @@ export const CouncilRoom: React.FC = () => {
                         </button>
                       )}
                       
-                      <button className="btn-sovereign btn-veto">VETAR</button>
+                      {proposal.status !== 'closed' && (
+                        <button className="btn-sovereign btn-veto">VETAR</button>
+                      )}
                    </div>
                 </div>
              </div>
@@ -109,8 +137,9 @@ export const CouncilRoom: React.FC = () => {
       </div>
 
       <footer className="cockpit-footer">
-          <p>AUDITORIA SOBERANA: {new Date().toLocaleDateString()} | STATUS: {userRole} LOGIN ACTIVE</p>
+          <p>AUDITORIA SOBERANA: {new Date().toLocaleDateString()} | STATUS: {userRole} LOGIN ACTIVE | MATURITY: LVL 5</p>
       </footer>
     </div>
   );
 };
+

@@ -1,0 +1,159 @@
+.merit-finance-container {
+    padding: 32px;
+    background: rgba(10, 15, 25, 0.7);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    max-width: 1000px;
+    margin: 20px auto;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.merit-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.merit-header p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+}
+
+.grant-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.grant-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.grant-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.balance-value {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #00ff88;
+    margin: 16px 0;
+}
+
+.scholarship-value {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #ffcc00;
+    margin: 16px 0;
+}
+
+.scholarship-value span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.redeem-btn {
+    background: #00ff88;
+    color: #0a0f19;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.redeem-btn:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0, 255, 136, 0.1);
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+.progress-section {
+    margin-top: 48px;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+}
+
+.progress-bar-container {
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    margin: 16px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff88, #00ccff);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+}
+
+.progress-hint {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.history-section {
+    margin-top: 48px;
+}
+
+.history-table {
+    margin-top: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.history-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 100px 100px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.history-row.header {
+    background: rgba(255, 255, 255, 0.05);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.history-row .positive {
+    color: #00ff88;
+    font-weight: 700;
+}
+
+.hash {
+    font-family: monospace;
+    color: rgba(255, 255, 255, 0.3);
+}

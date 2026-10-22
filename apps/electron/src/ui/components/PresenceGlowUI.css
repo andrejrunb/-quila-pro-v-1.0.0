@@ -1,0 +1,96 @@
+.presence-glow-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 2000;
+    transition: all 0.5s ease;
+}
+
+.glow-border {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 4px solid transparent;
+    transition: all 1s ease;
+}
+
+.present .glow-border {
+    border-color: rgba(16, 185, 129, 0.1);
+    box-shadow: inset 0 0 50px rgba(16, 185, 129, 0.05);
+}
+
+.absent .glow-border {
+    border-color: rgba(239, 68, 68, 0.2);
+    box-shadow: inset 0 0 100px rgba(239, 68, 68, 0.1);
+}
+
+.presence-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: slide-in-presence 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slide-in-presence {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.present-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.avatar-mini {
+    width: 24px;
+    height: 24px;
+    background: rgba(16, 185, 129, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #10b981;
+}
+
+.identity-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.identity-info strong { font-size: 0.75rem; color: white; }
+.identity-info span { font-size: 0.6rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.absent-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #f87171;
+}
+
+.absent-content span { font-size: 0.75rem; font-weight: 700; }
+
+.privacy-blur-layer {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    backdrop-filter: blur(40px);
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+    animation: fade-in-blur 0.3s forwards;
+}
+
+@keyframes fade-in-blur {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.glass-panel {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}

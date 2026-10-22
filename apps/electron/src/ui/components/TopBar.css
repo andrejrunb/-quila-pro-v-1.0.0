@@ -2,15 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--gap-md) var(--gap-lg);
-  background: rgba(15, 23, 42, 0.4);
+  padding: 2px 10px;
+  background: rgba(15, 23, 42, 0.9);
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   border-bottom: 1px solid var(--glass-border);
   position: sticky;
   top: 0;
   z-index: 50;
-  height: 80px;
+  height: 36px;
 }
 
 .topbar-left {
@@ -19,7 +19,7 @@
 }
 
 .topbar-title {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 800;
   color: #fff;
   letter-spacing: -0.02em;

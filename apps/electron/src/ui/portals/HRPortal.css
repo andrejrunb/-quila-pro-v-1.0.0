@@ -6,7 +6,84 @@
 .hr-portal-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 10px;
+}
+
+.hr-command-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.hr-cmd-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hr-cmd-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(236, 72, 153, 0.16);
+  color: #EC4899;
+  border: 1px solid rgba(236, 72, 153, 0.35);
+}
+
+.hr-cmd-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #F8FAFC;
+  margin: 0;
+}
+
+.hr-cmd-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.hr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #141B2D;
+  color: #E2E8F0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.hr-btn:hover {
+  border-color: #EC4899;
+  color: #FFFFFF;
+  background: rgba(236, 72, 153, 0.14);
+}
+
+.hr-btn.primary {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.25), rgba(124, 58, 237, 0.22));
+  border-color: rgba(236, 72, 153, 0.5);
+  color: #FFFFFF;
+  box-shadow: 0 0 14px -4px rgba(236, 72, 153, 0.4);
 }
 
 .hr-doc-management-section {
@@ -46,3 +123,66 @@
   text-transform: uppercase;
   font-weight: 900;
 }
+
+/* KPI Bar de RH — people-school-analytics */
+.hr-kpi-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 1024px) {
+  .hr-kpi-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.hr-kpi-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  transition: border-color 0.2s ease;
+}
+
+.hr-kpi-card:hover { border-color: rgba(236, 72, 153, 0.3); }
+
+.hr-kpi-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hr-kpi-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.hr-kpi-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.hr-kpi-value {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.hr-kpi-note {
+  font-size: 9px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+

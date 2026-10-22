@@ -18,6 +18,7 @@ import ColdStorageUI from '../components/ColdStorageUI';
 import BrandingLogo from '../components/BrandingLogo';
 import ClusterOverview from '../components/ClusterOverview';
 import AriaVoiceAssistant from '../components/AriaVoiceAssistant';
+import CortexPulseWidget from '../components/CortexPulseWidget';
 import './GlobalEcosystem.css';
 
 /**
@@ -98,6 +99,11 @@ export const GlobalEcosystem: React.FC = () => {
         {/* Inter-Agent Activity Feed (v1636) */}
         <div className="sidebar-agent-feed">
            <AgentActivityFeed />
+        </div>
+
+        {/* Evolution Pulse Telemetry (v402) */}
+        <div className="sidebar-cortex-widget p-4">
+           <CortexPulseWidget />
         </div>
 
         {/* Financial Pulse Telemetry (v2641) */}

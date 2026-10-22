@@ -1,0 +1,914 @@
+/* =====================================================================
+   ÁQUILA PRO — ESTÚDIO DE SLIDES & AULAS INTERATIVAS (SLIDE STUDIO)
+   Design System: 16:9 Canvas, Neon Accents, Fullscreen Presentation & Print Handout
+   ===================================================================== */
+
+.slide-studio-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #080c14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  color: #f1f5f9;
+  min-height: calc(100vh - 120px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Modo Apresentação em Tela Cheia */
+.slide-studio-shell.fullscreen-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  border-radius: 0;
+  border: none;
+  padding: 0;
+  background: #020617;
+}
+
+/* Header */
+.slide-studio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.logo-icon-orb {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.65rem;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(139, 92, 246, 0.3));
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pill-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.studio-pill {
+  font-size: 0.625rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.35rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.studio-pill.cyan { background: rgba(0, 240, 255, 0.12); color: #00F0FF; border: 1px solid rgba(0, 240, 255, 0.3); }
+.studio-pill.amber { background: rgba(245, 158, 11, 0.12); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3); }
+.studio-pill.purple { background: rgba(168, 85, 247, 0.12); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3); }
+
+.slide-studio-header h1 {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.slide-studio-header p {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin: 0.15rem 0 0 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 0.55rem 0.95rem;
+  border-radius: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #00F0FF, #3b82f6);
+  border: none;
+  color: #020617;
+  font-weight: 900;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+}
+
+.action-btn.primary:hover {
+  filter: brightness(1.15);
+}
+
+/* Seletor de Decks da Aula */
+.deck-selector-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(15, 23, 42, 0.65);
+  border-radius: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow-x: auto;
+}
+
+.strip-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.deck-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.deck-chip:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.deck-chip.active {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00F0FF;
+}
+
+.chip-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #00F0FF;
+  background: rgba(0, 240, 255, 0.1);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.3rem;
+}
+
+.chip-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+/* Grid de Trabalho */
+.slide-workspace-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.fullscreen-mode .slide-workspace-grid {
+  grid-template-columns: 1fr;
+  gap: 0;
+  height: 100vh;
+}
+
+/* Sidebar de Miniaturas */
+.slides-thumbnails-sidebar {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.85rem;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: calc(100vh - 240px);
+}
+
+.sidebar-header {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.45rem;
+}
+
+.thumbnails-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.thumbnail-card {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.thumbnail-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(2px);
+}
+
+.thumbnail-card.active {
+  background: rgba(0, 240, 255, 0.12);
+  border-color: #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.thumb-index {
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+  width: 18px;
+}
+
+.thumb-preview {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 0.15rem;
+}
+
+.thumb-type {
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: 0.05em;
+}
+
+.thumb-preview strong {
+  font-size: 0.72rem;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Palco de Projeção 16:9 */
+.slide-stage-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: relative;
+}
+
+.fullscreen-mode .slide-stage-container {
+  height: 100vh;
+  gap: 0;
+}
+
+.virtual-laser-pointer {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #FF0055;
+  box-shadow: 0 0 16px #FF0055, 0 0 30px #FF0055;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.slide-canvas {
+  aspect-ratio: 16 / 9;
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.85rem;
+  padding: 2.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.fullscreen-mode .slide-canvas {
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: auto;
+  border-radius: 0;
+  border: none;
+  padding: 3rem 5rem;
+}
+
+/* Top bar do Slide */
+.slide-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.65rem;
+}
+
+.slide-category-tag {
+  color: #38bdf8;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.slide-counter-badge {
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+/* Conteúdo Principal do Slide */
+.slide-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
+/* Layout Capa */
+.slide-cover-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.85rem;
+}
+
+.cover-icon-orb {
+  font-size: 3rem;
+  width: 80px;
+  height: 80px;
+  border-radius: 1rem;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #f8fafc;
+  line-height: 1.15;
+  margin: 0;
+  background: linear-gradient(135deg, #f8fafc 40%, #00F0FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cover-subtitle {
+  font-size: 1.25rem;
+  color: #94a3b8;
+  font-weight: 600;
+  margin: 0;
+  max-width: 720px;
+}
+
+.cover-footer-text {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+}
+
+.cover-mentor-box {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 0.65rem;
+  padding: 0.65rem 1.25rem;
+  margin-top: 0.85rem;
+  max-width: 650px;
+}
+
+.mentor-name {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #F59E0B;
+  display: block;
+}
+
+.mentor-quote {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  font-style: italic;
+  margin: 0.25rem 0 0 0;
+}
+
+/* Layout Padrão (Teoria / Gancho / Fórmula) */
+.slide-standard-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  text-align: left;
+}
+
+.slide-heading {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.slide-subheading {
+  font-size: 1rem;
+  color: #38bdf8;
+  margin: 0;
+  font-weight: 700;
+}
+
+.slide-lead-p {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.slide-formula-banner {
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 0.65rem;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.formula-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #00F0FF;
+  letter-spacing: 0.08em;
+}
+
+.formula-text {
+  font-size: 1.35rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: #f8fafc;
+}
+
+.slide-bullets-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.slide-bullets-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+
+.bullet-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00F0FF;
+  margin-top: 0.45rem;
+  flex-shrink: 0;
+}
+
+.slide-footer-mentor {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.slide-footer-mentor .mentor-avatar {
+  font-size: 1.4rem;
+}
+
+.mentor-dialogue {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.mentor-dialogue strong {
+  color: #F59E0B;
+  margin-right: 0.35rem;
+}
+
+/* Layout Questão TRI */
+.slide-question-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  text-align: left;
+}
+
+.q-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.q-type-badge {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid #A855F7;
+  color: #C084FC;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+}
+
+.q-problem-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.q-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.q-option-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.q-option-card.correct-highlight {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: #10B981;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.q-letter {
+  width: 26px;
+  height: 26px;
+  border-radius: 0.35rem;
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #00F0FF;
+  flex-shrink: 0;
+}
+
+.q-text {
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  flex: 1;
+}
+
+.q-resolution-box {
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid #10B981;
+  border-radius: 0.65rem;
+  padding: 0.85rem 1rem;
+}
+
+.res-header {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #10B981;
+  margin-bottom: 0.35rem;
+}
+
+.q-resolution-box p {
+  font-size: 0.82rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Layout Exit Ticket */
+.slide-exit-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+}
+
+.exit-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.exit-banner h2 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.exit-banner span {
+  font-size: 0.85rem;
+  color: #F59E0B;
+}
+
+.exit-intro {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+.exit-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.exit-prompt-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 0.65rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.prompt-num {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #F59E0B;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.exit-prompt-card p {
+  font-size: 0.88rem;
+  color: #f1f5f9;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Barra de Controles do HUD do Slide */
+.slide-hud-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.75rem;
+  gap: 1rem;
+}
+
+.hud-left,
+.hud-center,
+.hud-right {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hud-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hud-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.hud-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.hud-tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hud-tool-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.hud-tool-btn.active {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00F0FF;
+  color: #00F0FF;
+}
+
+.laser-dot-icon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FF0055;
+  box-shadow: 0 0 8px #FF0055;
+}
+
+.hud-timer-widget {
+  display: flex;
+  align-items: center;
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.timer-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+}
+
+.timer-reset-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  color: #64748b;
+  padding: 0.45rem 0.55rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fullscreen-btn {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: rgba(0, 240, 255, 0.3);
+  color: #00F0FF;
+}
+
+/* Painel de Notas Pedagógicas Privadas */
+.teacher-notes-panel {
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 0.65rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.notes-header {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #F59E0B;
+  margin-bottom: 0.25rem;
+}
+
+.teacher-notes-panel p {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ==============================================================
+   FORMATAÇÃO DE IMPRESSÃO (HANDOUT PDF)
+   ============================================================== */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .slide-studio-shell,
+  .slide-studio-shell * {
+    visibility: visible;
+  }
+
+  .slide-studio-shell {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #fff !important;
+    color: #000 !important;
+    padding: 0;
+    border: none;
+  }
+
+  .slide-studio-header,
+  .deck-selector-strip,
+  .slides-thumbnails-sidebar,
+  .slide-hud-controls {
+    display: none !important;
+  }
+
+  .slide-canvas {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    background: #fff !important;
+    color: #000 !important;
+    page-break-after: always;
+  }
+
+  .cover-title,
+  .slide-heading,
+  .q-problem-text {
+    color: #000 !important;
+    -webkit-text-fill-color: initial !important;
+  }
+
+  .q-option-card {
+    background: #f8fafc !important;
+    border: 1px solid #ddd !important;
+    color: #000 !important;
+  }
+}

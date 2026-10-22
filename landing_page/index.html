@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áquila Pro | Sovereign School OS</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif']
+                    },
+                    colors: {
+                        slate: { 800: '#1e293b', 900: '#0f172a', 950: '#030712' },
+                        aquila: { primary: '#3b82f6', secondary: '#8b5cf6', glow: '#60a5fa' },
+                        success: '#10b981',
+                        warning: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #030712; color: #f8fafc; overflow-x: hidden; }
+        
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-panel:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(17, 24, 39, 0.8);
+            transform: translateY(-5px);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blob {
+            position: absolute; filter: blur(100px); z-index: -1; opacity: 0.15;
+            border-radius: 50%; animation: float 15s infinite alternate;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-30px) scale(1.1); }
+        }
+        
+        /* Oculta scrollbar mas permite scroll */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+</head>
+<body class="antialiased relative min-h-screen font-sans">
+
+    <!-- Background Blobs -->
+    <div class="blob bg-blue-600 w-[500px] h-[500px] -top-32 -right-32"></div>
+    <div class="blob bg-purple-600 w-[400px] h-[400px] -bottom-32 -left-32" style="animation-delay: -5s;"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel border-b-0 border-white/5 py-4 px-8 flex justify-between items-center bg-slate-950/50">
+        <div class="flex items-center gap-2">
+            <span class="text-2xl font-black italic tracking-tighter font-display">🦅 ÁQUILA<span class="text-gradient">PRO</span></span>
+        </div>
+        <div class="hidden md:flex gap-8 items-center">
+            <a href="#portals" class="text-sm font-semibold text-slate-400 hover:text-white transition">Portais</a>
+            <a href="#features" class="text-sm font-semibold text-slate-400 hover:text-white transition">Motor Tecnológico</a>
+            <a href="#pricing" class="text-sm font-semibold text-slate-400 hover:text-white transition">Planos</a>
+        </div>
+        <div>
+            <a href="#pricing" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-105 transition-transform text-sm font-bold shadow-[0_0_20px_rgba(59,130,246,0.3)]">Acessar Sistema</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="pt-36 pb-20 px-4 max-w-6xl mx-auto flex flex-col items-center text-center relative z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-8 uppercase tracking-widest shadow-inner">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            School Operating System V3.0
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight font-display text-white">
+            A Escola Governível por <br/>
+            <span class="text-gradient">Inteligência Soberana.</span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-slate-400 max-w-3xl mb-12 font-light">
+            A primeira plataforma escolar do Brasil sem latência, independente da nuvem. O Áquila Pro agrupa <b>Reconhecimento Facial Edge</b>, Diário de Voz (NLP) e Motor <b>Antievasão Escolar</b> em um ecossistema impenetrável.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#pricing" class="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 font-bold transition shadow-[0_10px_30px_rgba(79,70,229,0.4)] hover:scale-105 transform flex items-center justify-center gap-2">
+                Implantar na Minha Escola <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+            <a href="#features" class="px-8 py-4 rounded-xl glass-panel hover:bg-white/5 font-semibold transition flex items-center justify-center">
+                Ver Arquitetura Zero-Debt
+            </a>
+        </div>
+    </main>
+
+    <!-- CENTRAL PWA DE PORTAIS -->
+    <section id="portals" class="py-24 max-w-6xl mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-black mb-4 font-display">Portais de Acesso</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">Acesse sua área de trabalho pelo Gateway seguro ou instale o App no celular de forma nativa (PWA).</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="glass-panel p-8 rounded-3xl text-center flex flex-col items-center">
+                <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 border border-blue-500/20 text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition">
+                    <i data-lucide="users" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 font-display">Família & Alunos</h3>
+                <p class="text-slate-400 text-sm">Acesse o Boletim Analítico e a Timeline Sentinela (Presenças/Ocorrências) direto do WhatsApp.</p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl text-center flex flex-col items-center">
+                <div class="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 border border-purple-500/20 text-purple-400">
+                    <i data-lucide="mic" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 font-display">Córtex Docente</h3>
+                <p class="text-slate-400 text-sm">Diário Inteligente em Voz (Zero-Click), Correção OMR Automática pela Webcam e Câmera de Lousa.</p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl text-center flex flex-col items-center">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 border border-emerald-500/20 text-emerald-400">
+                    <i data-lucide="clipboard-check" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 font-display">Coordenação</h3>
+                <p class="text-slate-400 text-sm">Previsão Preditiva de Evasão Escolar (Alertas Vivos) e Gestão Extracurricular automatizada.</p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl text-center flex flex-col items-center">
+                <div class="w-16 h-16 rounded-2xl bg-amber-500/10 flex items-center justify-center mb-6 border border-amber-500/20 text-amber-400">
+                    <i data-lucide="layout-dashboard" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 font-display">Administração</h3>
+                <p class="text-slate-400 text-sm">Visão de Águia: Hub de Catracas IoT, Dashboards Financeiros e Engine Automática de Grade Escolar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECNOLOGIA & DIFERENCIAIS -->
+    <section id="features" class="py-24 relative overflow-hidden bg-white/5 border-y border-white/5">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 text-emerald-400 text-sm font-bold uppercase tracking-widest mb-4">
+                    O Fosso Arquitetural
+                </div>
+                <h2 class="text-4xl font-black mb-6 font-display">Blindagem Militar, Experiência Apple.</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Desenvolvido para operadoras educacionais que rejeitam a fragilidade, latência e lentidão dos sistemas web legados do mercado.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-panel p-8 rounded-3xl flex gap-6 items-start">
+                    <div class="p-4 bg-blue-900/30 rounded-2xl text-blue-400 border border-blue-500/20 shrink-0">
+                        <i data-lucide="eye" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 font-display">Zero-Latency Edge Vision</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">A IA biométrica (Catracas) roda cravada no hardware da escola (Python/ArcFace). Não enviamos "vídeos" para o Google. Economize com infraestrutura e garanta Proteção 100% LGPD.</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 rounded-3xl flex gap-6 items-start">
+                    <div class="p-4 bg-purple-900/30 rounded-2xl text-purple-400 border border-purple-500/20 shrink-0">
+                        <i data-lucide="bot" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 font-display">Zero-Hallucination NLP</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">O professor dita a ocorrência (<em>"Aluno bagunçou a aula"</em>). A IA transcreve, cria a notificação formal e submete ao Coordenador. Nenhuma IA responde aos pais sem auditoria humana.</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 rounded-3xl flex gap-6 items-start">
+                    <div class="p-4 bg-emerald-900/30 rounded-2xl text-emerald-400 border border-emerald-500/20 shrink-0">
+                        <i data-lucide="calendar-days" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 font-display">Sovereign Timetable Solver</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Chega de quebrar a cabeça alocando horários. Um Algoritmo CSP de Inteligência Artificial soluciona a grade de professores, bloqueios e janelas na hora.</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 rounded-3xl flex gap-6 items-start">
+                    <div class="p-4 bg-amber-900/30 rounded-2xl text-amber-400 border border-amber-500/20 shrink-0">
+                        <i data-lucide="database" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 font-display">Zero-Debt SQLite & Merkle</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Banco de dados Local Criptografado (AES-256). Tudo auditado via Árvore de Merkle, provando juridicamente que uma nota nunca foi alterada indevidamente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="py-24 max-w-6xl mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-black mb-4 font-display">Módulos A La Carte</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">Adicione Hubs avançados de IA e IoT apenas se sua escola tiver a infraestrutura adequada.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Start -->
+            <div class="glass-panel p-10 rounded-[2rem] flex flex-col relative">
+                <h3 class="text-2xl font-bold text-white mb-2 font-display">Start (Software)</h3>
+                <div class="flex items-baseline gap-2 mb-4">
+                    <span class="text-4xl font-black font-display text-white">R$ 1.297</span>
+                    <span class="text-slate-500 text-sm">/mês</span>
+                </div>
+                <p class="text-slate-400 text-sm mb-8">Ideal para escolas menores, gestão puramente digital.</p>
+                
+                <ul class="space-y-4 mb-10 flex-grow">
+                    <li class="flex gap-3 items-start text-sm text-slate-300">
+                        <i data-lucide="check" class="w-5 h-5 text-blue-400 shrink-0"></i> PWA App Pais (Timeline/Notas)
+                    </li>
+                    <li class="flex gap-3 items-start text-sm text-slate-300">
+                        <i data-lucide="check" class="w-5 h-5 text-blue-400 shrink-0"></i> Córtex Docente (Chamada NLP)
+                    </li>
+                    <li class="flex gap-3 items-start text-sm text-slate-300">
+                        <i data-lucide="check" class="w-5 h-5 text-blue-400 shrink-0"></i> Moderação da Secretaria
+                    </li>
+                    <li class="flex gap-3 items-start text-sm text-slate-500">
+                        <i data-lucide="alert-circle" class="w-5 h-5 text-slate-600 shrink-0"></i> <em>Sem Visão de Edge (Câmeras)</em>
+                    </li>
+                </ul>
+                <button class="w-full py-4 rounded-xl border border-white/20 font-bold hover:bg-white/10 transition">Implantar Fase 1</button>
+            </div>
+
+            <!-- Sovereign Core -->
+            <div class="glass-panel p-10 rounded-[2rem] flex flex-col relative border-blue-500/50 transform lg:-translate-y-4 shadow-[0_0_40px_rgba(59,130,246,0.15)] bg-blue-900/10">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                    Sovereign V1.0
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2 font-display">Core Security OS</h3>
+                <div class="flex items-baseline gap-2 mb-4">
+                    <span class="text-4xl font-black font-display text-white">R$ 2.897</span>
+                    <span class="text-slate-400 text-sm">/mês</span>
+                </div>
+                <p class="text-slate-300 text-sm mb-8">O cérebro de segurança completo. Recomendado para o Padrão FNDE.</p>
+                
+                <ul class="space-y-4 mb-10 flex-grow">
+                    <li class="flex gap-3 items-start text-sm text-slate-200">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0"></i> <b>Edge Vision</b> (Até 12 Catracas Faciais)
+                    </li>
+                    <li class="flex gap-3 items-start text-sm text-slate-200">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0"></i> Motor de Evasão (Predictive Risk)
+                    </li>
+                    <li class="flex gap-3 items-start text-sm text-slate-200">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0"></i> Gerador de Grades I.A (Timetable Solver)
+                    </li>
+                    <li class="flex gap-3 items-start text-sm text-slate-200">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0"></i> Automação Completa de WhatsApp Bot
+                    </li>
+                </ul>
+                <button class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold hover:scale-[1.02] transition shadow-lg">Autonomizar a Escola</button>
+            </div>
+
+            <!-- Custom Hubs -->
+            <div class="glass-panel p-10 rounded-[2rem] flex flex-col relative">
+                <h3 class="text-2xl font-bold text-white mb-2 font-display">Add-ons (Hubs)</h3>
+                <div class="flex items-baseline gap-2 mb-4">
+                    <span class="text-4xl font-black font-display text-white">Custom</span>
+                </div>
+                <p class="text-slate-400 text-sm mb-8">Módulos avançados sob medida cobrados por volume de alunos/infra.</p>
+                
+                <ul class="space-y-4 mb-10 flex-grow">
+                    <li class="flex gap-3 items-start text-sm text-slate-300">
+                        <i data-lucide="plus" class="w-5 h-5 text-emerald-400 shrink-0"></i> <b>Hub IoT (Ar Condicionado):</b> +R$ 997. Cruzamento de Placas Relé com a Grade.
+                    </li>
+                    <li class="flex gap-3 items-start text-sm text-slate-300">
+                        <i data-lucide="plus" class="w-5 h-5 text-emerald-400 shrink-0"></i> <b>Pilar Financeiro:</b> +R$ 1.497. API PIX, Conciliação e Notas Fiscais.
+                    </li>
+                    <li class="flex gap-3 items-start text-sm text-slate-300">
+                        <i data-lucide="plus" class="w-5 h-5 text-emerald-400 shrink-0"></i> <b>Multi-Franquias:</b> Dashboard de Rede (R$ 3,90/aluno excedente).
+                    </li>
+                </ul>
+                <button class="w-full py-4 rounded-xl border border-white/20 font-bold hover:bg-white/10 transition">Falar com Consultor</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black/50 border-t border-white/5 py-12 mt-20 relative z-10">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="text-xl font-black italic tracking-tighter font-display mb-4 text-slate-500">🦅 ÁQUILA<span class="text-slate-600">PRO</span></div>
+            <p class="text-sm text-slate-600 mb-6 max-w-lg mx-auto">Plataforma Escolar Definitiva para Sistemas de Automação Visual, Controle Financeiro e Presença Corporativa.</p>
+            <p class="text-xs text-slate-700 font-bold tracking-widest">© 2026 ÁQUILA PRO ECOSYSTEM. BUILT WITH PURITY AND SOVEREIGN AI.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

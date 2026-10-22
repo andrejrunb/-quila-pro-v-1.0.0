@@ -1,5 +1,7 @@
-import { Database } from '../database/Database';
-import { logger } from '../main/logger';
+/**
+ * LICENSE SERVICE (v4001 - Safe Proxy)
+ * ------------------------------------
+ */
 
 export interface LicenseInfo {
   id: string;
@@ -13,90 +15,37 @@ export interface LicenseInfo {
   expiresAt?: string;
 }
 
-class LicenseService {
-  private currentLicense: LicenseInfo | null = null;
-  private db: Database;
+export class LicenseServiceProxy {
+  private static instance: LicenseServiceProxy;
 
-  constructor() {
-    this.db = Database.getInstance();
-  }
+  private constructor() {}
 
-  /**
-   * Inicializa o serviço carregando a licença ativa do banco.
-   */
-  async initialize(): Promise<void> {
-    try {
-      const license = await this.db.get(`
-        SELECT * FROM licenses 
-        WHERE status = 'active' 
-        ORDER BY expiresAt DESC LIMIT 1
-      `);
-
-      if (license) {
-        let flags = {};
-        try {
-          flags = typeof license.feature_flags === 'string' 
-            ? JSON.parse(license.feature_flags) 
-            : license.feature_flags || {};
-        } catch (e) {
-          logger.error(`[LicenseService] Erro ao parsear feature_flags: ${e}`);
-        }
-
-        this.currentLicense = {
-          ...license,
-          feature_flags: flags
-        };
-        
-        logger.info(`[LicenseService] Licença ativa detectada: ${this.currentLicense?.type.toUpperCase()} para ${this.currentLicense?.clientName}`);
-      } else {
-        logger.warn('[LicenseService] Nenhuma licença ativa encontrada. Operando em modo restrito (Default).');
-        this.currentLicense = this.getDefaultLicense();
-      }
-    } catch (error) {
-      logger.error(`[LicenseService] Erro na inicialização: ${error}`);
-      this.currentLicense = this.getDefaultLicense();
+  public static getInstance(): LicenseServiceProxy {
+    if (!LicenseServiceProxy.instance) {
+      LicenseServiceProxy.instance = new LicenseServiceProxy();
     }
+    return LicenseServiceProxy.instance;
   }
 
-  /**
-   * Verifica se a licença atual permite acesso a um recurso específico.
-   */
-  hasFeature(featureName: string): boolean {
-    if (!this.currentLicense) return false;
-    
-    // Enterprise sempre tem tudo habilitado
-    if (this.currentLicense.type === 'enterprise') return true;
-
-    // Verificar flags específicas
-    return !!this.currentLicense.feature_flags[featureName];
+  private async invoke(method: string, ...args: any[]): Promise<any> {
+    if (typeof window !== 'undefined' && window.aquila) {
+      return window.aquila.invoke(`license:${method}`, ...args);
+    }
+    throw new Error(`[LicenseProxy] IPC não disponível para ${method}`);
   }
 
-  /**
-   * Retorna os limites de hardware da licença.
-   */
-  getLimits() {
-    return {
-      maxStudents: this.currentLicense?.maxStudents || 50,
-      maxCameras: this.currentLicense?.maxCameras || 4
-    };
+  public async getActiveLicense(): Promise<LicenseInfo | null> {
+    return this.invoke('get');
   }
 
-  getCurrentLicense(): LicenseInfo | null {
-    return this.currentLicense;
+  public async checkLimit(type: 'student' | 'camera'): Promise<boolean> {
+    return this.invoke('check-limit', type);
   }
 
-  private getDefaultLicense(): LicenseInfo {
-    return {
-      id: 'default',
-      key: 'TRIAL',
-      type: 'standard',
-      maxStudents: 50,
-      maxCameras: 4,
-      clientName: 'Período de Testes',
-      feature_flags: {},
-      status: 'active'
-    };
+  public async activateLicense(key: string): Promise<boolean> {
+    return this.invoke('activate', key);
   }
 }
 
-export const licenseService = new LicenseService();
+export const licenseService = LicenseServiceProxy.getInstance();
+export default licenseService;

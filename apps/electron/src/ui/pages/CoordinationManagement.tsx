@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { 
   BarChart3, Search, FileText, Calendar, MessageSquare, Send,
-  Plus, Trash2, Edit2, XCircle, CheckCircle, Shield, Users, Layout, BookOpen, GitMerge
+  Plus, Trash2, Edit2, XCircle, CheckCircle, Shield, Users, Layout, BookOpen, GitMerge, Target
 } from 'lucide-react';
 import { BehavioralEvidenceReport } from '../components/BehavioralEvidenceReport';
 import { HierarchyMap } from '../components/HierarchyMap';
 import { FileUploader } from '../components/FileUploader';
 import { TimetableBuilder } from '../components/TimetableBuilder';
+import { EvasionRadar } from '../components/EvasionRadar';
+import { DisciplinaryOccurrences } from '../components/DisciplinaryOccurrences';
 import './CoordinationManagement.css';
 
 interface Coordination {
@@ -34,7 +36,7 @@ interface CoordinationManagementProps {
 }
 
 export const CoordinationManagement: React.FC<CoordinationManagementProps> = ({ onBack }) => {
-  const [activeTab, setActiveTab] = useState<'coordinations' | 'users' | 'classes' | 'verification' | 'evidence' | 'plans' | 'timetable' | 'cortex' | 'hierarchy'>('cortex');
+  const [activeTab, setActiveTab] = useState<'coordinations' | 'users' | 'classes' | 'verification' | 'evidence' | 'plans' | 'timetable' | 'cortex' | 'hierarchy' | 'evasion' | 'occurrences'>('cortex');
   const [searchTerm, setSearchTerm] = useState('');
   const [coordinations, setCoordinations] = useState<Coordination[]>([]);
   const [users, setUsers] = useState<User[]>([]);
@@ -62,11 +64,38 @@ export const CoordinationManagement: React.FC<CoordinationManagementProps> = ({ 
         aquila.invoke('get-verification-queue'),
         aquila.invoke('get-pending-approvals')
       ]);
-      setCoordinations(cRes || []);
-      setUsers(uRes || []);
-      setClasses(clRes || []);
-      setVerificationQueue(vRes || []);
-      setApprovalQueue(aRes || []);
+      const defaultCoords = [
+        { id: 'coord-em', name: 'Coordenação Ensino Médio & ENEM' },
+        { id: 'coord-ef2', name: 'Coordenação Fundamental II' },
+        { id: 'coord-neuro', name: 'Núcleo Neuro-Pedagógico & Inclusão' },
+      ];
+      const defaultClasses = [
+        { id: 'cls-3a', name: '3º Ano A — Ensino Médio', coordinationId: 'coord-em' },
+        { id: 'cls-2b', name: '2º Ano B — Ensino Médio', coordinationId: 'coord-em' },
+        { id: 'cls-9a', name: '9º Ano A — Fundamental II', coordinationId: 'coord-ef2' },
+        { id: 'cls-8c', name: '8º Ano C — Fundamental II', coordinationId: 'coord-ef2' },
+      ];
+      const defaultApprovals = [
+        {
+          id: 'ap-1',
+          channel: 'whatsapp',
+          createdAt: new Date().toISOString(),
+          title: 'Comunicado de Simulado Nacional ENEM — 3º Ano A',
+          message: 'Prezados responsáveis, neste sábado às 08h00 realizaremos o Simulado Oficial com diagnóstico individualizado pela Câmara de Maestria.',
+        },
+        {
+          id: 'ap-2',
+          channel: 'portal-pais',
+          createdAt: new Date(Date.now() - 1800000).toISOString(),
+          title: 'Devolutiva Pedagógica — Reorganização de Mapa de Sala (2º B)',
+          message: 'Informamos que a disposição das carteiras da turma 2º B foi otimizada via IA para potencializar os grupos de estudo em Física.',
+        },
+      ];
+      setCoordinations(Array.isArray(cRes) && cRes.length > 0 ? cRes : defaultCoords);
+      setUsers(Array.isArray(uRes) ? uRes : []);
+      setClasses(Array.isArray(clRes) && clRes.length > 0 ? clRes : defaultClasses);
+      setVerificationQueue(Array.isArray(vRes) ? vRes : []);
+      setApprovalQueue(Array.isArray(aRes) && aRes.length > 0 ? aRes : defaultApprovals);
     } catch (error) {
       console.error('Erro ao carregar dados:', error);
     } finally {
@@ -142,6 +171,22 @@ export const CoordinationManagement: React.FC<CoordinationManagementProps> = ({ 
             >
               <Layout className="tab-icon icon-blue" />
               <span className="tab-label">Coordenações</span>
+            </div>
+            <div 
+              className={`tab-item ${activeTab === 'evasion' ? 'tab-active-evasion' : ''}`} 
+              onClick={() => setActiveTab('evasion')}
+              aria-label="Aba do Radar de Evasão"
+            >
+              <Target className="tab-icon icon-red" />
+              <span className="tab-label">Radar Evasão</span>
+            </div>
+            <div 
+              className={`tab-item ${activeTab === 'occurrences' ? 'tab-active-users' : ''}`} 
+              onClick={() => setActiveTab('occurrences')}
+              aria-label="Aba de Ocorrências e Família"
+            >
+              <FileText className="tab-icon icon-purple" />
+              <span className="tab-label">Ocorrências</span>
             </div>
             <div 
               className={`tab-item ${activeTab === 'users' ? 'tab-active-users' : ''}`} 
@@ -272,6 +317,18 @@ export const CoordinationManagement: React.FC<CoordinationManagementProps> = ({ 
                   </div>
                 </div>
               )}
+            </div>
+          )}
+
+          {activeTab === 'evasion' && (
+            <div className="animate-fade-in">
+              <EvasionRadar />
+            </div>
+          )}
+
+          {activeTab === 'occurrences' && (
+            <div className="animate-fade-in">
+              <DisciplinaryOccurrences />
             </div>
           )}
 

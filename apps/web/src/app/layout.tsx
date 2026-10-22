@@ -17,12 +17,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "Áquila Pro — Sovereign School OS",
   description: "O sistema operacional escolar definitivo para segurança, presença automática e comunicação familiar. Arquitetura Ghost-Vision com privacidade local nativa.",
   keywords: ["Escola", "Seguranca Escolar", "SaaS B2B", "Education OS", "Ghost-Vision", "Biometria Local"],
   authors: [{ name: "Áquila Labs" }],
-  viewport: "width=device-width, initial-scale=1",
 };
 
 export default function RootLayout({
@@ -31,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br" className={`${inter.variable} antialiased`}>
+    <html lang="pt-BR" suppressHydrationWarning className={`${inter.variable} antialiased`}>
       <body className="bg-black text-white min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-grow">{children}</main>

@@ -1,55 +1,27 @@
-# Áquila Pro — Guia de Desenvolvimento
+# ✨ Áquila Pro: Sovereign Core Constitution
 
-Este arquivo centraliza padrões e comandos essenciais para o desenvolvimento do projeto.
+Este documento define os princípios fundamentais e padrões operacionais para o desenvolvimento do Áquila Pro. Todos os Agentes de IA (incluindo Antigravity/Claude Code) devem ler e respeitar estas diretrizes.
 
-## Comandos de Build & Execução
+## 🏛️ Princípios de Soberania
+1. **Sovereign-First**: O dado deve permanecer local. Nenhuma API externa ou serviço de nuvem deve ser usado sem um fallback offline local.
+2. **Zero-Bypass Architecture**: Nenhuma funcionalidade deve ignorar as camadas de segurança, governança ou auditoria de performance.
+3. **Hardware Alignment**: O código deve ser otimizado para o hardware Áquila Edge (NPU 26 TOPS, Octa-Core ARM).
 
-### aquilapro_electron (Frontend / Desktop)
+## 🛠️ Comandos de Referência
+- **Dev Electron**: `npm run dev:electron` (Cwd: raiz)
+- **Dev Web**: `npm run dev:web`
+- **Build**: `npm run build`
+- **Testes**: `npm run test --workspace apps/web` | `npm run test --workspace apps/electron`
 
-- `npm run dev` — Inicia o ambiente de desenvolvimento Electron com Hot Reload.
-- `npm run build` — Gera o build de produção do React.
-- `npm run package` — Empacota a aplicação Windows (.exe).
-- `npx tsc --noEmit` — Verificação de tipos TypeScript.
+## 🎨 Guia de Estilo (Elite UI)
+- **CSS**: Apenas Vanilla CSS (Modern CSS). Evitar Tailwind a menos que solicitado.
+- **Visual**: Glassmorphism, Premium Glow, Eagle Cards.
+- **Framework**: Next.js 15+ (App Router) e Electron 30+.
 
-### aquila-cloud (Backend / Cloud)
+## 🔒 Regras de Segurança e Performance
+- **Database**: SQLite deve rodar SEMPRE em modo **WAL** com `synchronous = NORMAL`.
+- **Encryption**: Dados PII de alunos (Nomes, Biometria) devem ser criptografados via `SecurityService`.
+- **Memory**: O processo principal não deve exceder 500MB de Heap sem monitoramento.
 
-- `npm run dev` — Inicia servidor com nodemon + ts-node.
-- `npm run build` — Compila TypeScript para JS.
-- `npm start` — Executa o servidor compilado.
-- `npx tsc --noEmit` — Verificação de tipos.
-
-## Testes
-
-- `npm test` — Executa suite de testes Jest.
-- `npx cypress open` — Executa testes E2E (se configurado).
-
-## Estilo de Código & Regras
-
-- **Linguagem:** TypeScript (obrigatório).
-- **Semântica:** Use componentes funcionais e Hooks no React.
-- **Estilização:** CSS Vanilla ou CSS Modules. Evite Tailwind a menos que solicitado.
-- **Segurança (LGPD):** Jamais envie dados sensíveis (fotos, CPF, biometria) via logs ou APIs de terceiros não criptografadas.
-- **Nomenclatura:** PascalCase para componentes, camelCase para funções/variáveis, SCREAMING_SNAKE_CASE para constantes.
-
-## Estrutura do Projeto
-
-- `src/ui/` — Componentes React.
-- `src/services/` — Lógica de negócio e integrações.
-- `src/database/` — Camada de persistência (SQLite/Drizzle).
-- `resources/` — Assets estáticos e scripts de instalador.
-
-## Skills Adotadas (Agentic)
-
-- **Superpowers (obra):** Conjunto de ferramentas avançadas para automação e análise.
-- **UI-UX Pro Max (nextlevelbuilder):** Referência para design de elite, animações fluidas e Glassmorphism.
-- **n8n-mcp (czlonkowski):** Integração com workflows n8n via MCP.
-- **Get Shit Done (gsd-build):** Metodologia e scripts para execução rápida de tarefas.
-- **Awesome Claude Code (hesreallyhim):** Melhores práticas e prompts para codificação assistida.
-- **Obsidian Skills (kepano):** Fluxos de trabalho e organização de conhecimento para agentes.
-- **Localização:** `skills/` na raiz do projeto.
-
-## Integração WhatsApp (Evolution API)
-
-- Webhook configurado em `aquila-cloud` em `/whatsapp/webhook`.
-- Respostas via Gemini 2.0 Flash Geradas com contexto de sistema filtrado por LGPD.
-- Comando `nota: <texto>` ou `/nota <texto>` via WhatsApp para salvar notas rápidas na nuvem.
+---
+*Status: Operacional (v1.0.0-Constitutional)*

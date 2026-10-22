@@ -7,13 +7,14 @@ import os
 def detect_hardware():
     """
     Detecta hardware compatível com aceleração de IA (NPU/GPU).
-    Usa chamadas de sistema para identificar drivers NVIDIA ou Intel NPU.
+    Usa chamadas de sistema para identificar drivers NVIDIA, Intel NPU ou DirectML.
     """
     import subprocess
     
     hardware_status = {
         "npu_detected": False,
         "gpu_detected": False,
+        "dml_available": False,
         "gpu_count": 0,
         "brand": "Generic CPU",
         "acceleration_capability": 1.0,
@@ -22,7 +23,7 @@ def detect_hardware():
     }
     
     try:
-        # Check for NVIDIA GPU via nvidia-smi
+        # 1. Check for NVIDIA GPU via nvidia-smi
         try:
             smi_output = subprocess.check_output(
                 ["nvidia-smi", "--query-gpu=memory.total,memory.free", "--format=csv,noheader,nounits"],
@@ -47,22 +48,38 @@ def detect_hardware():
                 hardware_status["vram_free_mb"] = free_vram
                 hardware_status["acceleration_capability"] = 12.5 + (len(lines) * 2.5)
         except (subprocess.CalledProcessError, FileNotFoundError):
-            # No NVIDIA GPU or nvidia-smi not found
             pass
         
-        # Check for Intel NPU (Meteor Lake path)
+        # 2. Check for Intel NPU (Meteor Lake path)
         if os.path.exists("C:\\Windows\\System32\\drivers\\IntelNPU.sys"):
             hardware_status["npu_detected"] = True
-            if not hardware_status["gpu_detected"]:
+            if hardware_status["brand"] == "Generic CPU":
                 hardware_status["brand"] = "Intel AI Boost NPU"
             else:
                 hardware_status["brand"] += " + Intel NPU"
             hardware_status["acceleration_capability"] += 8.5
             
+        # 3. Check for DirectML (Windows standard for NPU 26 TOPS)
+        try:
+            import onnxruntime as ort
+            providers = ort.get_available_providers()
+            if "DmlExecutionProvider" in providers:
+                hardware_status["dml_available"] = True
+                if hardware_status["brand"] == "Generic CPU":
+                    hardware_status["brand"] = "Windows DirectML (NPU/GPU)"
+                else:
+                    hardware_status["brand"] += " [DML Active]"
+                
+                # Cap capability to the target 26 TOPS if all active
+                hardware_status["acceleration_capability"] = min(26.0, hardware_status["acceleration_capability"] + 10.0)
+        except ImportError:
+            pass
+            
     except Exception as e:
         print(f"DEBUG: Detection failed: {str(e)}")
         
     return hardware_status
+
 
 def apply_turbo_quant(model_name, target_bit):
     print(f"DEBUG: Starting TurboQuant for {model_name} at {target_bit}bit...")

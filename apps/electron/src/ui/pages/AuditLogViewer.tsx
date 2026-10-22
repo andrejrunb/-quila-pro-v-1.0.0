@@ -13,7 +13,7 @@ interface AuditLogViewerProps {
   onBack: () => void;
 }
 
-export const AuditLogViewer: React.FC<AuditLogViewerProps> = ({ onBack }) => {
+const AuditLogViewer: React.FC<AuditLogViewerProps> = ({ onBack }) => {
   const [logs, setLogs] = useState<AuditLog[]>([]);
   const [loading, setLoading] = useState(true);
 

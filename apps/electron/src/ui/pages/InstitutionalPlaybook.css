@@ -1,0 +1,197 @@
+.playbook-container {
+    padding: 2.5rem;
+    height: 100%;
+    overflow-y: auto;
+    color: white;
+    background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.05), transparent 400px);
+}
+
+.playbook-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header-content h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.header-content p {
+    opacity: 0.6;
+    margin-top: 0.25rem;
+}
+
+.icon-gold {
+    color: #f59e0b;
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3));
+}
+
+.download-guide-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.download-guide-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.playbook-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.playbook-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2rem;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: var(--primary-glow, #60a5fa);
+}
+
+.roi-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.roi-item {
+    text-align: center;
+}
+
+.roi-item .label {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.5;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.roi-item .value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #10b981;
+}
+
+.roi-item p {
+    font-size: 0.7rem;
+    opacity: 0.4;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+.milestone-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.milestone-list li {
+    display: flex;
+    gap: 1.25rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.milestone-list li:last-child {
+    border: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.milestone-list li.completed {
+    color: #10b981;
+}
+
+.milestone-list li.active {
+    color: #f59e0b;
+}
+
+.milestone-list li strong {
+    display: block;
+    font-size: 1rem;
+    color: white;
+}
+
+.milestone-list li span {
+    font-size: 0.85rem;
+    opacity: 0.5;
+}
+
+.executive-summary {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2.5rem;
+}
+
+.executive-summary h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.executive-summary p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.8;
+    max-width: 800px;
+}
+
+.playbook-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.primary-action {
+    background: var(--primary-glow, #3b82f6);
+    color: white;
+    border: none;
+    padding: 0.85rem 1.75rem;
+    border-radius: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+.secondary-action {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.85rem 1.75rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}

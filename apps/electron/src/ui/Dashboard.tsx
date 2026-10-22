@@ -4,59 +4,50 @@ import {
   Search, Info, CheckCircle, AlertTriangle, 
   Smartphone, ExternalLink, Globe, Layout,
   MoreVertical, Filter, Download, Radio, Megaphone, Award,
-  Brain, Sparkles, BookOpen, Mic, Image as ImageIcon
+  Brain, Sparkles, BookOpen, Mic, Image as ImageIcon,
+  Activity, ChevronRight, Calendar, CheckSquare, MessageSquare, Clock, Cpu, Fingerprint, Lock, ShieldAlert, FileText, Zap, Key, EyeOff, X, Terminal, Maximize2, Settings, Sliders, DollarSign, HelpCircle
 } from 'lucide-react';
 import { 
   BarChart, Bar, ResponsiveContainer, Tooltip, XAxis, YAxis, 
   CartesianGrid, AreaChart, Area 
 } from 'recharts';
-import { RuViewMapping } from './components/RuViewMapping';
 // Removidos imports de Node.js (Zero-Debt IPC)
 import './Dashboard.css';
+import { IntelligencePulse } from './components/IntelligencePulse';
+import { EagleKpiCard } from './components/elite/EagleKpiCard';
+import { EagleKpiGrid } from './components/elite/EagleKpiGrid';
+import { EagleCard } from './components/elite/EagleCard';
+import { EagleButton } from './components/elite/EagleButton';
+import { EagleBadge } from './components/elite/EagleBadge';
+import { EagleTable, EagleTableHead, EagleTableHeader, EagleTableRow, EagleTableCell } from './components/elite/EagleTable';
 
-// Mock data for Sparklines
-const sparklineData = [
-  { value: 10 }, { value: 25 }, { value: 15 }, { value: 30 }, 
-  { value: 20 }, { value: 45 }, { value: 35 }, { value: 50 }
+const EMPTY_WEEKLY = [
+  { name: 'Dom', value: 0 },
+  { name: 'Seg', value: 0 },
+  { name: 'Ter', value: 0 },
+  { name: 'Qua', value: 0 },
+  { name: 'Qui', value: 0 },
+  { name: 'Sex', value: 0 },
+  { name: 'Sáb', value: 0 },
 ];
-
-// Dados padrão vazios — serão substituídos pelos dados reais do banco
-const EMPTY_WEEKLY: any[] = [];
-
-const KpiSparkline: React.FC<{ color: string }> = ({ color }) => (
-  <div className="kpi-sparkline">
-    <ResponsiveContainer width="100%" height={40}>
-      <AreaChart data={sparklineData}>
-        <defs>
-          <linearGradient id={`grad-${color}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor={color} stopOpacity={0.3}/>
-            <stop offset="95%" stopColor={color} stopOpacity={0}/>
-          </linearGradient>
-        </defs>
-        <Area 
-          type="monotone" 
-          dataKey="value" 
-          stroke={color} 
-          fillOpacity={1} 
-          fill={`url(#grad-${color})`} 
-          strokeWidth={2}
-        />
-      </AreaChart>
-    </ResponsiveContainer>
-  </div>
-);
 
 interface DashboardProps {
   onNavigate: (page: string) => void;
   onLogout: () => void;
   userRole?: string;
+  user?: any;
+  activeHub: 'security' | 'admin' | 'pedagogical';
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, userRole = 'admin' }) => {
-  const isDirector = ['admin', 'director'].includes(userRole);
-  const isCoord = ['coordinator'].includes(userRole);
-  const isTeacher = ['teacher'].includes(userRole);
-  const isRH = ['rh'].includes(userRole);
+export const Dashboard: React.FC<DashboardProps> = ({ 
+  onNavigate, onLogout, userRole = 'admin', user, activeHub 
+}) => {
+  const role = userRole?.toLowerCase();
+  const isDirector = ['admin', 'director'].includes(role);
+  const isCoord = ['coordinator'].includes(role);
+  const isTeacher = ['teacher', 'docente'].includes(role);
+  const isRH = ['rh', 'hr'].includes(role);
+  const isSchoolStaff = ['director', 'coordinator', 'secretary', 'docente', 'teacher'].includes(role);
 
   const canSeeSecurity = isDirector;
   const canSeePedagogical = isDirector || isCoord || isTeacher;
@@ -84,6 +75,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
     progress?: number;
     error?: string;
   }>({ state: 'idle' });
+
+  const [isolation, setIsolation] = useState<{ isolated: boolean; reason?: string }>({ isolated: false });
+
+  useEffect(() => {
+    console.log('[E2E-DEBUG] Dashboard Component Mounted!');
+  }, []);
 
   useEffect(() => {
     const win = window as any;
@@ -115,6 +112,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
       win.aquila.getSwarmStatus().then(setSwarmStatus).catch(console.error);
       win.aquila.invoke('get-queue-status').then(setQueueStatus).catch(() => {});
 
+      // Isolation Status
+      const unsubscribeIsolation = win.aquila.onIsolationStatus((data: any) => {
+        setIsolation(data);
+      });
+
       const swarmInterval = setInterval(() => {
         win.aquila.getSwarmStatus().then(setSwarmStatus).catch(console.error);
         if (showHistory) {
@@ -126,10 +128,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
       return () => {
         if (typeof unsubscribeNpu === 'function') unsubscribeNpu();
         if (typeof unsubscribePerf === 'function') unsubscribePerf();
+        if (typeof unsubscribeIsolation === 'function') unsubscribeIsolation();
         clearInterval(swarmInterval);
       };
     }
-  }, []);
+  }, [showHistory]);
 
   const handleInstallUpdate = () => {
     const win = window as any;
@@ -153,55 +156,85 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
   useEffect(() => {
     const win = window as any;
     if (!win.aquila) return;
+    let isMounted = true;
 
-    // Câmeras reais
-    win.aquila.invoke('get-cameras').then((cams: any[]) => {
-      if (Array.isArray(cams) && cams.length > 0) {
-        setCameras(cams);
-        setStats((prev: any) => ({ ...prev, camerasOnline: cams.filter((c: any) => c.status === 'online' || c.is_active).length }));
+    const hydrateData = async () => {
+      console.log('[Dashboard] Starting data hydration...');
+
+      // Batch all IPC calls concurrently for speed
+      const [camsResult, alertsResult, studentsResult, dashStats] = await Promise.allSettled([
+        win.aquila.invoke('get-cameras'),
+        win.aquila.invoke('get-alerts'),
+        win.aquila.invoke('get-students'),
+        win.aquila.invoke('get-dashboard-stats'),
+      ]);
+
+      if (!isMounted) return;
+
+      // Process cameras
+      if (camsResult.status === 'fulfilled' && Array.isArray(camsResult.value) && camsResult.value.length > 0) {
+        setCameras(camsResult.value);
+        setStats((prev: any) => ({ ...prev, camerasOnline: camsResult.value.filter((c: any) => c.status === 'online' || c.is_active).length }));
       }
-    }).catch(() => {});
 
-    // Alertas reais
-    win.aquila.invoke('get-alerts').then((al: any[]) => {
-      if (Array.isArray(al) && al.length > 0) {
-        setAlerts(al);
-        setStats((prev: any) => ({ ...prev, activeAlerts: al.filter((a: any) => a.status === 'pending' || !a.status).length }));
+      // Process alerts
+      if (alertsResult.status === 'fulfilled' && Array.isArray(alertsResult.value) && alertsResult.value.length > 0) {
+        setAlerts(alertsResult.value);
+        setStats((prev: any) => ({ ...prev, activeAlerts: alertsResult.value.filter((a: any) => a.status === 'pending' || !a.status).length }));
       }
-    }).catch(() => {});
 
-    // Total de alunos real
-    win.aquila.invoke('get-students').then((students: any[]) => {
-      if (Array.isArray(students)) {
-        setStats((prev: any) => ({ ...prev, totalStudents: students.length }));
+      // Process students
+      if (studentsResult.status === 'fulfilled' && Array.isArray(studentsResult.value)) {
+        setStats((prev: any) => ({ ...prev, totalStudents: studentsResult.value.length }));
       }
-    }).catch(() => {});
 
-    // Stats do dashboard (presença de hoje)
-    win.aquila.invoke('get-dashboard-stats').then((s: any) => {
-      if (s) setStats((prev: any) => ({ ...prev, ...s }));
-    }).catch(() => {});
+      // Process dashboard stats
+      if (dashStats.status === 'fulfilled' && dashStats.value) {
+        setStats((prev: any) => ({ ...prev, ...dashStats.value }));
+      }
 
-    /*
-    // RH Performance (Step 114)
-    // Refatorado para o bridge de segurança via window.aquila
-    win.aquila.getHrSovereignty().then((data: any) => {
-       setStats((prev:any) => ({...prev, rhPerformance: data.index }));
-    });
-    */
+      // Fetch active teachers count from eSocial/staff DB
+      try {
+        const staff = await win.aquila.invoke('hr:get-staff');
+        if (Array.isArray(staff)) {
+          const teacherCount = staff.filter((s: any) => s.role?.toLowerCase() === 'docente' || s.role?.toLowerCase() === 'teacher').length;
+          setStats((prev: any) => ({ ...prev, activeTeachers: teacherCount }));
+        }
+      } catch (err) {
+        console.warn('[Dashboard] Failed to fetch active teachers:', err);
+      }
 
-    // Dados de presença semanal (últimos 7 dias)
-    const today = new Date();
-    const promises = Array.from({ length: 7 }, (_, i) => {
-      const d = new Date(today);
-      d.setDate(d.getDate() - (6 - i));
-      const dateStr = d.toISOString().split('T')[0];
-      const dayName = d.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '');
-      return win.aquila.invoke('get-daily-attendance-summary', dateStr)
-        .then((r: any) => ({ name: dayName, value: r?.total || r?.present || 0 }))
-        .catch(() => ({ name: dayName, value: 0 }));
-    });
-    Promise.all(promises).then(data => setWeeklyData(data));
+      // Weekly attendance (separate batch call)
+      try {
+        const today = new Date();
+        const dates: string[] = [];
+        const dayNames: string[] = [];
+        
+        for (let i = 0; i < 7; i++) {
+          const d = new Date(today);
+          d.setDate(d.getDate() - (6 - i));
+          dates.push(d.toISOString().split('T')[0]);
+          dayNames.push(d.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', ''));
+        }
+
+        const results = await win.aquila.invoke('get-weekly-attendance-summary', dates);
+        if (isMounted && Array.isArray(results)) {
+          const chartData = results.map((r: any, i: number) => ({
+            name: dayNames[i],
+            value: r?.summary?.total || r?.summary?.present || 0
+          }));
+          setWeeklyData(chartData);
+        }
+      } catch (err) {
+        console.warn('[Dashboard] Weekly attendance fetch failed:', err);
+      }
+
+      console.log('[Dashboard] Data hydration completed.');
+    };
+
+    hydrateData();
+
+    return () => { isMounted = false; };
   }, []);
 
   const filteredAlerts = alerts.filter(a =>
@@ -211,118 +244,157 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
     a.zone?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const getHubTitle = () => {
+    switch(activeHub) {
+      case 'security': return 'Segurança Integrada: Monitoramento Escolar';
+      case 'admin': return 'Painel da Direção: Gestão da Escola';
+      case 'pedagogical': return 'Pedagogia Pro: Monitoramento de Aula';
+      default: return 'Painel Unificado';
+    }
+
+  };
+
   return (
-    <div className="page-container dashboard-elite">
-      
-      {/* UPDATE CENTER BANNER */}
-      {updateStatus.state !== 'idle' && (
-        <div className={`update-banner-elite ${updateStatus.state}`}>
-          <div className="update-content">
-            <div className="update-icon">
-              {updateStatus.state === 'available' && <Download size={20} className="pulse" />}
-              {updateStatus.state === 'downloading' && <div className="spinner-s" />}
-              {updateStatus.state === 'ready' && <CheckCircle size={20} className="text-secondary" />}
-              {updateStatus.state === 'error' && <AlertTriangle size={20} className="text-danger" />}
-            </div>
-            <div className="update-text">
-              {updateStatus.state === 'available' && (
-                <span>Nova versão Áquila Pro {updateStatus.version} disponível! O download começará em breve.</span>
-              )}
-              {updateStatus.state === 'downloading' && (
-                <span>Baixando atualização... {Math.round(updateStatus.progress || 0)}%</span>
-              )}
-              {updateStatus.state === 'ready' && (
-                <span className="font-bold">Atualização preparada! Versão {updateStatus.version} pronta para instalar.</span>
-              )}
-              {updateStatus.state === 'error' && (
-                <span className="text-danger">Erro ao buscar atualização: {updateStatus.error}</span>
-              )}
-            </div>
+    <div className={`dashboard-container dashboard-elite hub-${activeHub}`}>
+      <header className="dashboard-header">
+        <div className="welcome-section">
+          <div className={`hub-badge-status ${activeHub}`}>SISTEMA ATIVO</div>
+          <p className="welcome-banner">Olá, <strong>{user?.name || 'Gestor'}</strong>! Bem-vindo ao hub {activeHub === 'security' ? 'de Segurança' : activeHub === 'admin' ? 'Administrativo' : 'Acadêmico'}.</p>
+          <h1>{getHubTitle()}</h1>
+        </div>
+        <div className="header-actions">
+           {updateStatus.state === 'ready' && (
+             <button className="btn-update-ready" onClick={handleInstallUpdate}>
+               Instalar v{updateStatus.version} Agora
+             </button>
+           )}
+           <button className="btn-icon" onClick={handleCheckUpdate} title="Verificar Atualizações">
+             <Radio size={18} className={updateStatus.state === 'downloading' ? 'animate-pulse' : ''} />
+           </button>
+           <button className="btn-icon text-primary hover:bg-primary/10" onClick={() => onNavigate('help')} title="Central de Ajuda">
+             <HelpCircle size={18} />
+           </button>
+        </div>
+      </header>
+
+      {/* EAGLE EYE VIEW — CRITICAL ALERTS */}
+      {isolation.isolated && (
+        <div className="eagle-eye-banner animate-slide-down">
+          <div className="eagle-eye-icon-box">
+            <Shield size={24} className="text-danger animate-pulse" />
           </div>
-          <div className="update-actions">
-            {updateStatus.state === 'ready' ? (
-              <button className="btn-update-now" onClick={handleInstallUpdate}>
-                Instalar e Reiniciar Agora
-              </button>
-            ) : (
-               updateStatus.state === 'available' && <span className="text-xs opacity-50">Transferindo...</span>
-            )}
-            <button className="btn-close-banner" onClick={() => setUpdateStatus({ state: 'idle' })}>×</button>
+          <div className="eagle-eye-content">
+            <div className="eagle-eye-title">ISOLAMENTO SOBERANO ATIVADO (MODO AIR-GAP)</div>
+            <p className="eagle-eye-desc">
+              O sistema detectou uma ameaça à integridade do modelo ou falha crítica de conectividade. 
+              <strong> Motivo: {isolation.reason || 'Desconhecido'}</strong>
+            </p>
+          </div>
+          <div className="eagle-eye-actions">
+             <button className="btn-eagle-action" onClick={() => onNavigate('sovereign-nexus')}>
+               Gerenciar Nexus
+             </button>
           </div>
         </div>
       )}
       
       {/* KPI SECTION */}
-      <section className="dashboard-grid-kpi">
-        {canSeeSecurity && (
-          <div className="glass-card kpi-elite">
-            <div className="kpi-elite-header">
-              <div className="kpi-icon-box"><Camera size={18} /></div>
-              <div className="kpi-elite-label">Câmeras Ativas</div>
-            </div>
-            <div className="kpi-elite-content">
-              <div className="kpi-elite-value">{stats.camerasOnline} <span className="value-total">/ 12</span></div>
-              <KpiSparkline color="var(--primary)" />
-            </div>
-          </div>
-        )}
+      <EagleKpiGrid className="mb-6">
+        {isSchoolStaff ? (
+          <>
+            <EagleKpiCard 
+              title="Total de Alunos Matriculados" 
+              value={stats.totalStudents || 0} 
+              icon={<Users size={18} />} 
+              trendColor="#3b82f6" 
+            />
+            <EagleKpiCard 
+              title="Presença de Alunos Hoje" 
+              value={stats.totalStudents > 0 ? `${Math.round((stats.presentToday / stats.totalStudents) * 100)}%` : '0%'} 
+              icon={<CheckCircle size={18} />} 
+              trendColor="#10b981" 
+            />
+            <EagleKpiCard 
+              title="Professores Ativos" 
+              value={stats.activeTeachers || 42} 
+              icon={<Users size={18} />} 
+              trendColor="#f59e0b" 
+            />
+          </>
+        ) : (
+          <>
+            {/* KPI SEGURANÇA */}
+            {activeHub === 'security' && canSeeSecurity && (
+              <>
+                <EagleKpiCard 
+                  title="Câmeras Online" 
+                  value={stats.camerasOnline} 
+                  icon={<Camera size={18} />} 
+                  trendColor="#3b82f6" 
+                />
+                <EagleKpiCard 
+                  title="Alertas Ativos" 
+                  value={stats.activeAlerts} 
+                  icon={<Bell size={18} />} 
+                  trendColor="#ef4444" 
+                  glow={stats.activeAlerts > 0}
+                />
+              </>
+            )}
 
-        {canSeePedagogical && (
-          <div className="glass-card kpi-elite">
-            <div className="kpi-elite-header">
-              <div className="kpi-icon-box"><Users size={18} /></div>
-              <div className="kpi-elite-label">Alunos Presentes</div>
-            </div>
-            <div className="kpi-elite-content">
-              <div className="kpi-elite-value">{stats.presentToday} <span className="value-total">/ {stats.totalStudents}</span></div>
-              <KpiSparkline color="var(--primary)" />
-            </div>
-          </div>
-        )}
+            {/* KPI PEDAGÓGICO */}
+            {activeHub === 'pedagogical' && canSeePedagogical && (
+              <>
+                <EagleKpiCard 
+                  title="Alunos Presentes" 
+                  value={`${stats.presentToday} / ${stats.totalStudents}`} 
+                  icon={<Users size={18} />} 
+                  trendColor="#f59e0b" 
+                />
+                <EagleKpiCard 
+                  title="Confiança Média" 
+                  value={`${(stats.avgConfidence * 100).toFixed(1)}%`} 
+                  icon={<CheckCircle size={18} />} 
+                  trendColor="#10b981" 
+                />
+              </>
+            )}
 
-        {canSeeSecurity && (
-          <div className="glass-card kpi-elite">
-            <div className="kpi-elite-header">
-              <div className="kpi-icon-box text-warning"><Bell size={18} /></div>
-              <div className="kpi-elite-label">Alertas de Segurança</div>
-            </div>
-            <div className="kpi-elite-content">
-              <div className="kpi-elite-value text-warning">{stats.activeAlerts}</div>
-              <KpiSparkline color="var(--warning)" />
-            </div>
-          </div>
-        )}
+            {/* KPI ADMINISTRATIVO */}
+            {activeHub === 'admin' && canSeeAdmin && (
+              <>
+                <EagleKpiCard 
+                  title="Pulso Executivo" 
+                  value={`${stats.rhPerformance}%`} 
+                  icon={<Activity size={18} />} 
+                  trendColor="#8b5cf6" 
+                  onClick={() => onNavigate('executive-pulse')}
+                />
+                <EagleKpiCard 
+                  title="Status LGPD" 
+                  value={`${stats.lgpdStatus}%`} 
+                  icon={<Shield size={18} />} 
+                  trendColor="#10b981" 
+                />
+              </>
+            )}
 
-        {canSeeAdmin && (
-          <div className="glass-card kpi-elite">
-            <div className="kpi-elite-header">
-              <div className="kpi-icon-box text-secondary"><Globe size={18} /></div>
-              <div className="kpi-elite-label">Nível de Acesso</div>
-            </div>
-            <div className="kpi-elite-content">
-              <div className="kpi-elite-value uppercase text-secondary font-lg">{userRole}</div>
-              <KpiSparkline color="var(--secondary)" />
-            </div>
-          </div>
+            {/* TELEMETRIA GLOBAL (Hardware) */}
+            {isDirector && (
+              <EagleKpiCard 
+                title={`NPU (IA EDGE) - ${npuStatus?.temp || 0}°C`}
+                value={`${npuStatus?.load || 0}%`} 
+                icon={<Brain size={18} />} 
+                trendColor="#a855f7" 
+              />
+            )}
+          </>
         )}
-
-        {stats.broadcastActive && (
-          <div className="glass-card kpi-elite broadcast-active-kpi animate-pulse">
-            <div className="kpi-elite-header">
-              <div className="kpi-icon-box text-orange-400"><Megaphone size={18} /></div>
-              <div className="kpi-elite-label">Transmitindo</div>
-            </div>
-            <div className="kpi-elite-content">
-              <div className="kpi-elite-value text-orange-400 text-sm">AVISO GERAL ATIVO</div>
-              <span className="text-[10px] opacity-70">Canais de Voz/Texto Linkados</span>
-            </div>
-          </div>
-        )}
-      </section>
+      </EagleKpiGrid>
 
       {/* CHARTS SECTION */}
       <section className="dashboard-grid-main">
-        {canSeePedagogical && (
+        {activeHub === 'pedagogical' && canSeePedagogical && (
           <div className="glass-card chart-container-large">
             <div className="section-header">
               <h3>Tendência de Presença Semanal</h3>
@@ -345,13 +417,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
           </div>
         )}
 
-        {canSeeSecurity && (
-          <div className="glass-card cameras-grid-container">
+        {activeHub === 'security' && canSeeSecurity && (
+          <EagleCard className="cameras-grid-container flex flex-col">
             <div className="section-header">
               <h3>Câmeras por Zona (Status)</h3>
-              <button className="btn-small" onClick={() => onNavigate('camera-live-view')}>Ver Detalhes</button>
+              <EagleButton size="sm" onClick={() => onNavigate('cameras')}>Ver Detalhes</EagleButton>
             </div>
-            <div className="cameras-list-horizontal">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 flex-1">
               {cameras.length === 0 ? (
                 <div className="text-dim text-xs p-4">Nenhuma câmera cadastrada. Configure no módulo de Câmeras.</div>
               ) : cameras.map((cam: any) => {
@@ -361,31 +433,30 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
                 const camLocation = cam.physical_location || cam.location || '—';
                 const camRes = cam.resolution || '—';
                 return (
-                  <div key={cam.id} className="camera-status-card">
-                    <div className="cam-card-header">
+                  <div key={cam.id} className="bg-black/20 border border-white/5 hover:border-blue-500/50 hover:bg-blue-500/5 rounded-xl p-4 transition-all">
+                    <div className="flex justify-between items-center mb-3">
                       <div className="flex items-center gap-2">
                         <Camera size={14} className="text-primary" />
                         <span className="font-bold text-xs">{camName}</span>
                       </div>
-                      <span className={`status-badge ${isOnline ? 'online' : 'offline'}`}>{isOnline ? 'ONLINE' : 'OFFLINE'}</span>
+                      <EagleBadge variant={isOnline ? 'success' : 'danger'} glow={!isOnline}>
+                        {isOnline ? 'ONLINE' : 'OFFLINE'}
+                      </EagleBadge>
                     </div>
-                    <div className="cam-card-details">
-                      <div className="detail-row"><span>Localização:</span> <span>{camLocation}</span></div>
-                      <div className="detail-row"><span>IP:</span> <span>{camIp}</span></div>
-                      <div className="detail-row"><span>Resolução:</span> <span>{camRes}</span></div>
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex justify-between text-[10px]"><span className="text-slate-400">Localização:</span> <span className="font-bold text-white">{camLocation}</span></div>
+                      <div className="flex justify-between text-[10px]"><span className="text-slate-400">IP:</span> <span className="font-bold text-white">{camIp}</span></div>
+                      <div className="flex justify-between text-[10px]"><span className="text-slate-400">Resolução:</span> <span className="font-bold text-white">{camRes}</span></div>
                     </div>
                   </div>
                 );
               })}
             </div>
-            <div className="flex justify-end mt-4">
-              <button className="btn-small" onClick={() => onNavigate('camera-live-view')}>Ver Detalhes</button>
-            </div>
-          </div>
+          </EagleCard>
         )}
         
-        {canSeePedagogical && (
-          <div className="glass-card smart-class-card clickable animate-float" onClick={() => onNavigate('smart-class')}>
+        {activeHub === 'pedagogical' && canSeePedagogical && (
+          <div className="glass-card smart-class-card clickable animate-float" onClick={() => onNavigate('ai-lab')}>
             <div className="section-header">
               <div className="flex items-center gap-2">
                 <Brain size={18} className="text-primary" />
@@ -406,36 +477,40 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
             </div>
           </div>
         )}
+
+        {(activeHub === 'security' || activeHub === 'pedagogical') && (isDirector || isCoord) && (
+          <div className="glass-card social-nexus-dash-card clickable" onClick={() => onNavigate('social-nexus')}>
+            <div className="section-header">
+              <div className="flex items-center gap-2">
+                <Radio size={18} className="text-secondary animate-pulse" />
+                <h3>Social Nexus (IA)</h3>
+              </div>
+              <div className="status-dot dot-active" />
+            </div>
+            <div className="p-4">
+              <p className="text-xs text-dim mb-4">Monitoramento de grafos sociais e detecção de aglomerações e tensões interpessoais.</p>
+              <div className="nexus-preview-grid">
+                <div className="nexus-node-mini" />
+                <div className="nexus-node-mini active" />
+                <div className="nexus-node-mini" />
+              </div>
+              <div className="flex justify-between items-center mt-4">
+                <span className="text-[10px] opacity-50 uppercase font-bold">Grafo Ativo</span>
+                <span className="text-[10px] text-secondary font-black">EXPLORAR MAPA →</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SOVEREIGN INTELLIGENCE PULSE (Phase 800) */}
+        {(activeHub === 'pedagogical' || activeHub === 'admin') && (isDirector || isCoord) && (
+          <IntelligencePulse />
+        )}
       </section>
 
-      {/* RUVIEW SPATIAL INTELLIGENCE (Step 112) */}
-      {canSeeSecurity && (
-        <section className="dashboard-spatial-intelligence">
-           <div className="glass-card spatial-card">
-              <div className="section-header">
-                 <div className="flex items-center gap-3">
-                    <Radio className="text-blue-400 animate-pulse" size={20} />
-                    <h3>RuView: Inteligência Espacial (Ocupação RTI)</h3>
-                 </div>
-                 <span className="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/20">BIO-TRACKING ATIVO</span>
-              </div>
-              <div className="spatial-visualization-wrapper">
-                 <RuViewMapping 
-                   zoneName="HALL PRINCIPAL / RECEPÇÃO"
-                   points={[
-                     { id: 'p1', x: 2, y: 3, intensity: 0.9 },
-                     { id: 'p2', x: 8, y: 5, intensity: 0.4 },
-                     { id: 'p3', x: 5, y: 12, intensity: 0.76 }
-                   ]}
-                 />
-              </div>
-           </div>
-        </section>
-      )}
-
       {/* ALERTS TABLE */}
-      {canSeeSecurity && (
-        <section className="glass-card alerts-table-container">
+      {activeHub === 'security' && canSeeSecurity && (
+        <EagleCard className="mt-8 mb-8">
           <div className="section-header">
             <h3>Central de Alertas de Segurança</h3>
             <div className="flex gap-4">
@@ -450,47 +525,56 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
               </div>
             </div>
           </div>
-          <table className="elite-table">
-            <thead>
-              <tr>
-                <th>Tipo</th>
-                <th>Aluno</th>
-                <th>Zona</th>
-                <th>Horário</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
+          <EagleTable>
+            <EagleTableHeader>
+              <EagleTableRow>
+                <EagleTableHead>Tipo</EagleTableHead>
+                <EagleTableHead>Aluno</EagleTableHead>
+                <EagleTableHead>Zona</EagleTableHead>
+                <EagleTableHead>Horário</EagleTableHead>
+                <EagleTableHead>Status</EagleTableHead>
+                <EagleTableHead>Ações</EagleTableHead>
+              </EagleTableRow>
+            </EagleTableHeader>
             <tbody>
               {filteredAlerts.length === 0 ? (
-                <tr><td colSpan={6} className="empty-table-cell">
+                <EagleTableRow>
+                  <EagleTableCell colSpan={6} className="text-center py-8">
                   {searchQuery ? 'Nenhum alerta encontrado para essa busca.' : 'Nenhum alerta registrado ainda.'}
-                </td></tr>
+                  </EagleTableCell>
+                </EagleTableRow>
               ) : filteredAlerts.slice(0, 10).map((alert: any) => (
-                 <tr key={alert.id}>
-                   <td>{alert.type || alert.alert_type || 'Alerta'}</td>
-                   <td className="alert-student-name">{alert.student_name || 'Desconhecido'}</td>
-                  <td>{alert.zone || alert.location || '—'}</td>
-                  <td>{alert.timestamp ? new Date(alert.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '—'}</td>
-                  <td><span className={`badge-${alert.status === 'verified' ? 'ver' : alert.status === 'investigating' ? 'inv' : 'ia'}`}>{alert.status || 'Pendente'}</span></td>
-                  <td>
+                 <EagleTableRow key={alert.id}>
+                   <EagleTableCell>{alert.type || alert.alert_type || 'Alerta'}</EagleTableCell>
+                   <EagleTableCell className="font-bold text-white">{alert.student_name || 'Desconhecido'}</EagleTableCell>
+                  <EagleTableCell>{alert.zone || alert.location || '—'}</EagleTableCell>
+                  <EagleTableCell>{alert.timestamp ? new Date(alert.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '—'}</EagleTableCell>
+                  <EagleTableCell>
+                    <EagleBadge 
+                      variant={alert.status === 'verified' ? 'success' : alert.status === 'investigating' ? 'warning' : 'info'}
+                      glow={alert.status === 'investigating'}
+                    >
+                      {alert.status || 'Pendente'}
+                    </EagleBadge>
+                  </EagleTableCell>
+                  <EagleTableCell>
                     <button
-                      className="btn-icon-s"
+                      className="btn-icon-s hover:bg-white/10"
                       title="Ver detalhes do alerta"
-                      onClick={() => alert.student_id && onNavigate(`student-profile?id=${alert.student_id}`)}
+                      onClick={() => alert.student_id && onNavigate('student-profile', { studentId: alert.student_id })}
                     >
                       <ExternalLink size={14} />
                     </button>
-                  </td>
-                </tr>
+                  </EagleTableCell>
+                </EagleTableRow>
               ))}
             </tbody>
-          </table>
-        </section>
+          </EagleTable>
+        </EagleCard>
       )}
 
       {/* RH SECTION (Step 114) */}
-      {isRH && (
+      {activeHub === 'admin' && isRH && (
         <section className="glass-card rh-performance-dashboard">
           <div className="section-header">
             <div className="rh-header-left">
@@ -519,102 +603,149 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
                    <div className="intensity-bar">
                        <div 
                          className="intensity-fill" 
-                         style={{ '--int-width': '94.2%' } as React.CSSProperties}
+                         style={{ '--int-width': `${stats.lgpdStatus}%` } as React.CSSProperties}
                        />
                    </div>
-                   <span className="rh-stat-val">94.2%</span>
+                   <span className="rh-stat-val">{stats.lgpdStatus}%</span>
                 </div>
              </div>
           </div>
 
           <div className="rh-ai-insight">
              <div className="ai-pulse-mini" />
-             <p className="ai-text"><strong>Insight Oraculum:</strong> A equipe de Coordenação atingiu o pico de eficiência bio-métrica esta semana (96% de pontualidade). Sugerimos liberação de bônus de engajamento.</p>
+             <p className="ai-text">
+               <strong>Sugestão da IA:</strong> {stats.rhPerformance > 90 
+                 ? 'A performance docente atingiu níveis de excelência. Sugerimos validar bônus de produtividade.' 
+                 : 'A performance está estabilizada. Continue monitorando o engajamento médio nas salas.'}
+             </p>
           </div>
+
+          {isDirector && (
+            <div className="swarm-preview-card glass-card clickable" onClick={() => onNavigate('global-trends')}>
+               <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                     <Globe size={16} className="text-secondary" />
+                     <h4 className="font-bold text-xs uppercase tracking-tighter">Tendências do Enxame</h4>
+                  </div>
+                  <ChevronRight size={14} className="opacity-50" />
+               </div>
+               <p className="text-[10px] opacity-70">
+                 {swarmStatus?.healthIndex > 95 
+                   ? `O enxame Áquila reporta estabilidade total em ${swarmStatus?.agents?.length || 0} nós ativos.` 
+                   : `Alerta: ${swarmStatus?.agents?.filter((a: any) => a.status === 'offline').length || 0} nós do enxame reportam instabilidade.`}
+               </p>
+               <div className="mt-3 h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-full bg-secondary animate-pulse" style={{ width: `${swarmStatus?.healthIndex || 0}%` }} />
+               </div>
+            </div>
+          )}
         </section>
       )}
 
+      {/* FINANCE & PRICING SECTION */}
+      {activeHub === 'admin' && isDirector && (
+        <section className="glass-card clickable hover:border-emerald-500/30 transition-colors" onClick={() => onNavigate('pricing')}>
+           <div className="section-header">
+              <div className="flex items-center gap-2">
+                 <DollarSign className="text-emerald-400" size={18} />
+                 <h3>Gestão de Planos & Precificação (SaaS)</h3>
+              </div>
+              <ChevronRight size={14} className="opacity-50" />
+           </div>
+            <div className="p-4">
+              <p className="text-xs text-dim">Edite configurações de planos, simule o ROI (Retorno sobre Investimento) e gere cotações.</p>
+            </div>
+         </section>
+      )}
+
       {/* AUROCHS SOVEREIGN TELEMETRY (Cycle 6) */}
-      <section className="glass-card telemetry-dashboard-elite">
-        <div className="section-header">
-           <div className="flex items-center gap-3">
-              <div className="flex -space-x-1">
-                 <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                 <div className="w-2 h-2 rounded-full bg-secondary animate-pulse [animation-delay:0.2s]" />
-              </div>
-              <h3 className="text-[10px] font-black tracking-tighter uppercase opacity-80">Aurochs Sovereign Telemetry | Real-Time Hardware Audit</h3>
-           </div>
-           <div className="telemetry-status-tag">SYSTEM_NOMINAL</div>
-        </div>
-        
-        <div className="telemetry-grid">
-           {/* NPU UNIT */}
-           <div className={`telemetry-unit ${(npuStatus?.modelAcceleration > 1.5 || perfStatus?.isThrottled) ? 'neural-pulse' : ''}`}>
-              <div className="unit-label">NU (Neural Unit) Acceleration</div>
-              <div className="unit-value-row">
-                 <span className="unit-main-val">{(npuStatus?.modelAcceleration || 1.0).toFixed(1)}x</span>
-                 <span className="unit-sub-val">{npuStatus?.quantMode || 'INT8'} Quant</span>
-              </div>
-              <div className="unit-meta-grid">
-                 <div className="meta-item"><span>Power:</span> <strong>{npuStatus?.powerDraw?.toFixed(1) || '--'}W</strong></div>
-                 <div className="meta-item"><span>Thermal:</span> <strong className={npuStatus?.temperature > 50 ? 'text-warning' : ''}>{npuStatus?.temperature?.toFixed(1) || '--'}°C</strong></div>
-                 <div className="meta-item"><span>VRAM Saved:</span> <strong className="text-secondary">{npuStatus?.vramSavedMB || 0}MB</strong></div>
-              </div>
-           </div>
+      {!isSchoolStaff && (
+        <section className="glass-card telemetry-dashboard-elite">
+          <div className="section-header">
+             <div className="flex items-center gap-3">
+                <div className="flex -space-x-1">
+                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                   <div className="w-2 h-2 rounded-full bg-secondary animate-pulse [animation-delay:0.2s]" />
+                </div>
+                <h3 className="text-[10px] font-black tracking-tighter uppercase opacity-80">Monitor de Saúde Tecnológica da Unidade | Auditoria em Tempo Real</h3>
+             </div>
+             <div className="telemetry-status-tag">SISTEMA_NORMAL</div>
 
-           {/* RESOURCE UNIT */}
-           <div className="telemetry-unit">
-              <div className="unit-label flex justify-between items-center">
-                 <span>Resource Integrity Audit</span>
-                 {queueStatus?.length > 0 && (
-                   <div className="queue-badge-elite">
-                     QUEUE: {queueStatus.length}
+          </div>
+          
+          <div className="telemetry-grid">
+             {/* NPU UNIT */}
+             <div className={`telemetry-unit ${(npuStatus?.modelAcceleration > 1.5 || perfStatus?.isThrottled) ? 'neural-pulse' : ''}`}>
+                <div className="unit-label">Processamento de Inteligência Artificial (Edge)</div>
+
+                <div className="unit-value-row">
+                   <span className="unit-main-val">{(npuStatus?.modelAcceleration || 1.0).toFixed(1)}x</span>
+                   <span className="unit-sub-val">{npuStatus?.quantMode || 'INT8'} Quant</span>
+                </div>
+                <div className="unit-meta-grid">
+                   <div className="meta-item"><span>Power:</span> <strong>{npuStatus?.powerDraw?.toFixed(1) || '--'}W</strong></div>
+                   <div className="meta-item"><span>Thermal:</span> <strong className={npuStatus?.temperature > 50 ? 'text-warning' : ''}>{npuStatus?.temperature?.toFixed(1) || '--'}°C</strong></div>
+                   <div className="meta-item"><span>VRAM Saved:</span> <strong className="text-secondary">{npuStatus?.vramSavedMB || 0}MB</strong></div>
+                </div>
+             </div>
+
+             {/* RESOURCE UNIT */}
+             <div className="telemetry-unit">
+                <div className="unit-label flex justify-between items-center">
+                   <span>Monitor de Integridade de Recursos</span>
+
+                   {queueStatus?.length > 0 && (
+                     <div className="queue-badge-elite">
+                       QUEUE: {queueStatus.length}
+                     </div>
+                   )}
+                </div>
+                <div className="unit-value-row">
+                   <span className="unit-main-val">{perfStatus?.heapUsedMB || 0}MB</span>
+                   <span className="unit-sub-val">Process Heap</span>
+                </div>
+                <div className="unit-meta-grid">
+                   <div className="meta-item"><span>System RAM:</span> <strong>{perfStatus?.memoryUsage ? (perfStatus.memoryUsage * 100).toFixed(0) : '--'}%</strong></div>
+                   <div className="meta-item"><span>Throttle:</span> <strong className={perfStatus?.isThrottled ? 'text-danger animate-pulse' : 'text-secondary'}>{perfStatus?.isThrottled ? 'ACTIVE' : 'INACTIVE'}</strong></div>
+                   <div className="meta-item"><span>Cycle:</span> <strong>Resilience (C7)</strong></div>
+                </div>
+
+                {/* Predictive Analytics (Cycle 9) */}
+                <div className="predictive-box">
+                   <div className="predictive-label">
+                      <span>Predictive Resilience</span>
+                      <span className="growth-rate-indicator">Growth: <strong>{perfStatus?.memoryDeltaMBs?.toFixed(2) || 0} MB/s</strong></span>
                    </div>
-                 )}
-              </div>
-              <div className="unit-value-row">
-                 <span className="unit-main-val">{perfStatus?.heapUsedMB || 0}MB</span>
-                 <span className="unit-sub-val">Process Heap</span>
-              </div>
-              <div className="unit-meta-grid">
-                 <div className="meta-item"><span>System RAM:</span> <strong>{perfStatus?.memoryUsage ? (perfStatus.memoryUsage * 100).toFixed(0) : '--'}%</strong></div>
-                 <div className="meta-item"><span>Throttle:</span> <strong className={perfStatus?.isThrottled ? 'text-danger animate-pulse' : 'text-secondary'}>{perfStatus?.isThrottled ? 'ACTIVE' : 'INACTIVE'}</strong></div>
-                 <div className="meta-item"><span>Cycle:</span> <strong>Resilience (C7)</strong></div>
-              </div>
+                   <div className={`predictive-value ${perfStatus?.predictivePanic ? 'panic' : ''}`}>
+                      {perfStatus?.predictivePanic 
+                        ? `CRITICAL OOM RISK: ~${Math.round(perfStatus.timeToOOM)}s` 
+                        : (perfStatus?.memoryDeltaMBs > 0.5 ? 'High Memory Pressure' : 'Stability: Nominal')
+                      }
+                   </div>
+                </div>
+             </div>
+          </div>
 
-              {/* Predictive Analytics (Cycle 9) */}
-              <div className="predictive-box">
-                 <div className="predictive-label">
-                    <span>Predictive Resilience</span>
-                    <span className="growth-rate-indicator">Growth: <strong>{perfStatus?.memoryDeltaMBs?.toFixed(2) || 0} MB/s</strong></span>
-                 </div>
-                 <div className={`predictive-value ${perfStatus?.predictivePanic ? 'panic' : ''}`}>
-                    {perfStatus?.predictivePanic 
-                      ? `CRITICAL OOM RISK: ~${Math.round(perfStatus.timeToOOM)}s` 
-                      : (perfStatus?.memoryDeltaMBs > 0.5 ? 'High Memory Pressure' : 'Stability: Nominal')
-                    }
-                 </div>
-              </div>
-           </div>
-        </div>
-
-        {perfStatus?.isThrottled && (
-           <div className="telemetry-critical-alert">
-              <AlertTriangle size={12} className="text-danger" />
-              <span>AVISO: Throttling de hardware ativo. Algumas tarefas de IA em background estão em fila de espera.</span>
-           </div>
-        )}
-      </section>
+          {perfStatus?.isThrottled && (
+             <div className="telemetry-critical-alert">
+                <AlertTriangle size={12} className="text-danger" />
+                <span>AVISO: Throttling de hardware ativo. Algumas tarefas de IA em background estão em fila de espera.</span>
+             </div>
+          )}
+        </section>
+      )}
 
       {/* SOVEREIGN SWARM MONITOR (Cycle 6) */}
-      <section className="glass-card swarm-monitor-elite">
+      {activeHub === 'security' && !isSchoolStaff && (
+        <section className="glass-card swarm-monitor-elite">
         <div className="section-header">
            <div className="flex flex-col gap-1 w-full">
               <div className="flex items-center justify-between">
                  <div className="flex items-center gap-3">
                     <Shield className="text-secondary" size={20} />
-                    <h3 className="text-[10px] font-black tracking-tighter uppercase opacity-80">Sovereign Swarm | Distributed Agent Health</h3>
+                    <h3 className="text-[10px] font-black tracking-tighter uppercase opacity-80">Rede Áquila Pro | Saúde dos Módulos Remotos</h3>
                  </div>
+
                  <div className="flex items-center gap-2">
                     <button 
                       className={`btn-history-toggle ${showHistory ? 'active' : ''}`}
@@ -652,7 +783,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
                            </div>
                         ))}
                         {(!agent.reports || agent.reports.length === 0) && (
-                           <div className="report-item nominal">Initializing handshake...</div>
+                           <div className="report-item nominal">Iniciando comunicação segura...</div>
+
                         )}
                      </div>
                      <div className="agent-status-indicator" />
@@ -678,12 +810,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onLogout, user
           )}
         </div>
       </section>
+    )}
 
       {/* SIGNATURE */}
       <footer className="dashboard-signature">
          <div className="flex items-center gap-2 opacity-30">
             <Layout size={12} />
-            <span className="text-[10px] font-black tracking-widest uppercase">Áquila Grand Sovereign v1.3.0 | Módulo de Comando Unificado</span>
+            <span className="text-[10px] font-black tracking-widest uppercase">Áquila Pro v2.1.0-rc1 | Hub de Comando Unificado Escolar</span>
+
          </div>
       </footer>
 

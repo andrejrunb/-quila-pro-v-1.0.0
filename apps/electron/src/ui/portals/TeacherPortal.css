@@ -1,0 +1,448 @@
+/* TeacherPortal.css — Stitch Sovereign Pedagogical Cockpit (PROF) */
+
+.tp-cockpit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 6px;
+  min-height: 100%;
+  color: var(--stitch-text-primary, #F8FAFC);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Top Command Bar — Uniform Button Heights & Clean Spacing */
+.tp-command-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.tp-command-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tp-command-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60A5FA;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.tp-command-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #F8FAFC;
+  margin: 0;
+}
+
+.tp-command-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tp-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #141B2D;
+  color: #E2E8F0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.tp-action-btn:hover {
+  border-color: #3B82F6;
+  color: #FFFFFF;
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.tp-action-btn.primary {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.18), rgba(59, 130, 246, 0.25));
+  border-color: rgba(0, 240, 255, 0.45);
+  color: #F8FAFC;
+  box-shadow: 0 0 12px -4px rgba(0, 240, 255, 0.4);
+}
+
+.tp-action-btn.primary:hover {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.28), rgba(59, 130, 246, 0.35));
+  border-color: #00F0FF;
+}
+
+/* 4-Column Telemetry KPI Strip */
+.tp-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.tp-kpi-pod {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  transition: border-color 0.15s ease;
+}
+
+.tp-kpi-pod:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.tp-kpi-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tp-kpi-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748B;
+}
+
+.tp-kpi-value {
+  font-family: var(--font-mono, monospace);
+  font-size: 20px;
+  font-weight: 800;
+  color: #F8FAFC;
+  line-height: 1.1;
+}
+
+.tp-kpi-sub {
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+.tp-kpi-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Main 2-Column Bento Grid */
+.tp-main-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 1100px) {
+  .tp-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .tp-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tp-panel {
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tp-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tp-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #E2E8F0;
+  margin: 0;
+}
+
+.tp-panel-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #64748B;
+}
+
+/* Schedule List — High Density */
+.tp-schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tp-schedule-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #141B2D;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.tp-schedule-row:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.tp-schedule-row.current {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.14), rgba(20, 27, 45, 0.95));
+  border-color: rgba(0, 240, 255, 0.45);
+  box-shadow: 0 0 15px -5px rgba(0, 240, 255, 0.25);
+}
+
+.tp-slot-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.tp-slot-time {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #94A3B8;
+  min-width: 98px;
+}
+
+.tp-schedule-row.current .tp-slot-time {
+  color: #00F0FF;
+}
+
+.tp-slot-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tp-slot-subject {
+  font-size: 13px;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+.tp-slot-room {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #94A3B8;
+}
+
+.tp-slot-live-pill {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(16, 185, 129, 0.18);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.tp-slot-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.tp-mini-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 26px;
+  padding: 0 9px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #CBD5E1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.tp-mini-btn:hover {
+  border-color: #00F0FF;
+  color: #FFFFFF;
+  background: rgba(0, 240, 255, 0.12);
+}
+
+.tp-mini-btn.accent {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.45);
+  color: #93C5FD;
+}
+
+.tp-mini-btn.accent:hover {
+  background: #2563EB;
+  color: #FFFFFF;
+}
+
+/* Right Column Stack */
+.tp-right-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Student Attention Roster — Rectangular Portraits ("Sem Bolinha") */
+.tp-student-attention-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.tp-student-card {
+  display: flex;
+  align-items: stretch;
+  background: #141B2D;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 54px;
+}
+
+.tp-student-card:hover {
+  border-color: #00F0FF;
+  transform: translateY(-1px);
+}
+
+.tp-student-photo {
+  width: 48px;
+  height: 56px;
+  object-fit: cover;
+  object-position: center 20%;
+  flex-shrink: 0;
+  display: block;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tp-student-meta {
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.tp-student-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #F8FAFC;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tp-student-class {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #94A3B8;
+}
+
+.tp-student-alert {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  font-weight: 700;
+  color: #F59E0B;
+}
+
+/* Tasks & Events Compact Split */
+.tp-compact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tp-compact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  background: #141B2D;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.tp-compact-item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.tp-priority-indicator {
+  width: 4px;
+  height: 22px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.tp-compact-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #E2E8F0;
+}
+
+.tp-compact-sub {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #64748B;
+}

@@ -1,212 +1,513 @@
+/* StudentRPGPortal.css — Stitch Sovereign Student Cockpit (ALUNOS) */
+
 :root {
-  --rpg-amber: #ffb700;
-  --rpg-obsidian: #0a0a0a;
-  --rpg-cell-bg: rgba(255, 255, 255, 0.03);
-  --rpg-accent: #ffd700;
+  --rpg-amber: #F59E0B;
+  --rpg-obsidian: #080B11;
+  --rpg-cell-bg: #141B2D;
+  --rpg-accent: #00F0FF;
 }
 
 .student-portal-main {
-  background: var(--rpg-obsidian);
-  color: #fff;
-  min-height: 100vh;
-  padding: 3rem;
-  font-family: 'Outfit', sans-serif;
-}
-
-.rpg-header {
+  background: transparent;
+  color: var(--stitch-text-primary, #F8FAFC);
+  min-height: 100%;
+  padding: 6px;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 4rem;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
 }
 
-.hub-btn-portal {
-  margin-left: auto;
+/* Top Student Header — Rectangular Portrait ("Sem Bolinha") & Uniform Buttons */
+.rpg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  flex-wrap: wrap;
 }
 
 .rpg-profile {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 12px;
+  min-width: 0;
 }
 
-.hex-avatar {
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-  background: var(--rpg-amber);
-  padding: 4px;
+.rpg-student-photo-rect {
+  width: 48px;
+  height: 54px;
+  border-radius: 6px;
+  object-fit: cover;
+  object-position: center 20%;
+  border: 1px solid rgba(139, 92, 246, 0.55);
+  flex-shrink: 0;
+  display: block;
 }
 
-.sovereign-badge {
-  background: linear-gradient(45deg, var(--rpg-amber), #ff8c00);
-  border: none;
-  padding: 0.8rem 1.5rem;
+.rpg-name-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rpg-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rpg-name-info h2 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #F8FAFC;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.rpg-tutor-pill {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
   border-radius: 4px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  background: rgba(0, 240, 255, 0.14);
+  color: #00F0FF;
+  border: 1px solid rgba(0, 240, 255, 0.35);
 }
 
-.hive-progress-mesh {
-  background: rgba(255, 183, 0, 0.05);
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 183, 0, 0.1);
+.rpg-sub-telemetry {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: #A78BFA;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Inline XP Progress Block */
+.xp-container {
+  flex: 1;
+  max-width: 280px;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.xp-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: #94A3B8;
 }
 
 .xp-bar-bg {
-  background: rgba(255, 255, 255, 0.1);
-  height: 12px;
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  height: 7px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
 .xp-bar-fill {
-  background: var(--rpg-amber);
+  background: linear-gradient(90deg, #8B5CF6, #00F0FF);
   height: 100%;
-  width: var(--rpg-progress, 0%);
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 15px var(--rpg-amber);
+  width: var(--rpg-progress, 65%);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
 }
 
-.portal-section {
-  margin-bottom: 5rem;
+.rpg-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.rpg-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #141B2D;
+  color: #E2E8F0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.rpg-action-btn:hover {
+  border-color: #8B5CF6;
+  color: #FFFFFF;
+  background: rgba(139, 92, 246, 0.18);
+}
+
+.rpg-action-btn.primary {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.35), rgba(0, 240, 255, 0.2));
+  border-color: rgba(168, 85, 247, 0.55);
+  color: #FFFFFF;
+  box-shadow: 0 0 14px -4px rgba(139, 92, 246, 0.45);
+}
+
+/* 4-Column Student Telemetry KPI Strip */
+.rpg-kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 1024px) {
+  .rpg-kpi-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.rpg-kpi-pod {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+}
+
+.rpg-kpi-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rpg-kpi-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748B;
+}
+
+.rpg-kpi-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 19px;
+  font-weight: 800;
+  color: #F8FAFC;
+}
+
+.rpg-kpi-sub {
+  font-size: 10px;
+  color: #94A3B8;
+}
+
+/* 3-Column Bento Grid */
+.rpg-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 1150px) {
+  .rpg-bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rpg-panel {
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rpg-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .rpg-title {
-  font-size: 1.2rem;
-  letter-spacing: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--rpg-amber);
-  margin-bottom: 2rem;
-  border-left: 4px solid var(--rpg-amber);
-  padding-left: 1rem;
+  color: #E2E8F0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* VOTING MESH */
+.rpg-panel-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #A78BFA;
+}
+
+/* Mastery Chamber Highlight Pod */
+.rpg-mastery-card {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(0, 240, 255, 0.1));
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rpg-mastery-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rpg-mastery-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #7C3AED;
+  color: #FFFFFF;
+}
+
+.rpg-mastery-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #F8FAFC;
+  margin: 0;
+}
+
+.rpg-mastery-desc {
+  font-size: 11px;
+  color: #CBD5E1;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Learning Pods List */
+.pods-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pod-hex-cell {
+  background: #141B2D;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pod-hex-cell:hover {
+  border-color: #00F0FF;
+  background: rgba(0, 240, 255, 0.08);
+}
+
+.pod-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pod-info strong {
+  font-size: 12px;
+  color: #F8FAFC;
+}
+
+.pod-info span {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #64748B;
+}
+
+/* Quest Arcade List */
+.arcade-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quest-card {
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #141B2D;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quest-card:hover {
+  border-color: #F59E0B;
+  transform: translateY(-1px);
+}
+
+.quest-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.q-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.q-bronze .q-badge {
+  background: rgba(245, 158, 11, 0.18);
+  color: #F59E0B;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.q-gold .q-badge {
+  background: rgba(0, 240, 255, 0.16);
+  color: #00F0FF;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+}
+
+.quest-card h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin: 0;
+}
+
+.quest-sub {
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+/* Achievements Grid */
+.achievements-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.achievement-card {
+  background: #141B2D;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.achievement-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.achievement-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+.achievement-pct {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: #00F0FF;
+}
+
+.achievement-desc {
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+/* Voting Mesh */
 .voting-mesh-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .vote-card {
-  background: var(--rpg-cell-bg);
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
+  background: #141B2D;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vote-card h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin: 0;
+}
+
+.vote-card p {
+  font-size: 11px;
+  color: #94A3B8;
+  margin: 0;
 }
 
 .vote-actions {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 6px;
 }
 
 .vote-actions button {
   flex: 1;
-  padding: 0.6rem;
-  background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 26px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.04);
+  color: #E2E8F0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   cursor: pointer;
 }
 
 .btn-vote-yes:hover {
-  background: var(--rpg-amber);
-  color: #000;
-  border-color: var(--rpg-amber);
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  border-color: #10B981;
 }
 
-/* PODS GRID (NotebookLM Style) */
-.pods-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.pod-hex-cell {
-  background: var(--rpg-cell-bg);
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  border: 1px solid rgba(255, 183, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.pod-hex-cell:hover {
-  background: rgba(255, 183, 0, 0.08);
-  transform: translateY(-5px);
-}
-
-.pod-icon {
-  font-size: 2rem;
-}
-
-/* ARCADE GRID (Kahoot Style) */
-.arcade-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 2rem;
-}
-
-.quest-card {
-  padding: 2rem;
-  border-radius: 12px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.quest-card:hover { transform: scale(1.05); }
-
-.q-bronze { background: linear-gradient(135deg, #4b3621, #0a0a0a); border: 2px solid #cd7f32; }
-.q-gold { background: linear-gradient(135deg, #4a3e00, #0a0a0a); border: 2px solid #ffd700; }
-
-.q-badge {
-  font-size: 0.6rem;
-  font-weight: bold;
-  padding: 0.2rem 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  display: inline-block;
-  margin-bottom: 1rem;
-}
-
-.achievements-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 2rem;
-}
-
-.achievement-card {
-  background: var(--rpg-cell-bg);
-  padding: 1.5rem;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.achievement-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-.achievement-title { font-weight: bold; margin-bottom: 0.5rem; }
-.achievement-desc { font-size: 0.8rem; opacity: 0.6; }
-
-.achievement-progress-bar {
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  margin-top: 1rem;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.achievement-progress-fill {
-  height: 100%;
-  width: var(--rpg-progress, 0%);
-  background: var(--rpg-bg, var(--rpg-amber));
-  transition: width 0.3s ease;
-}
-
-.margin-bottom-24 {
-  margin-bottom: 24px;
+.btn-vote-no:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+  border-color: #EF4444;
 }

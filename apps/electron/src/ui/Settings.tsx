@@ -24,6 +24,9 @@ interface AppSettings {
   retentionEvents: number;
   retentionLogs: number;
   retentionImages: number;
+  google_api_key: string;
+  openai_api_key: string;
+  assigned_room_id?: string;
 }
 
 export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
@@ -46,7 +49,12 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
     retentionEvents: 90,
     retentionLogs: 30,
     retentionImages: 30,
+    google_api_key: '',
+    openai_api_key: '',
+    assigned_room_id: '',
   });
+
+  const [rooms, setRooms] = useState<any[]>([]);
 
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
   const [editingSecrets, setEditingSecrets] = useState(false);
@@ -58,6 +66,60 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
     endpoint: ''
   });
   const [enrollStatus, setEnrollStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [lgpdTermContent, setLgpdTermContent] = useState<string | null>(null);
+  const [showLgpdModal, setShowLgpdModal] = useState<boolean>(false);
+
+  const handleBrowsePython = async () => {
+    try {
+      const res = await (window as any).aquila?.invoke('dialog:openFile', {
+        title: 'Selecione o Executável Python',
+        filters: [{ name: 'Executável Python', extensions: ['exe', 'bat', 'cmd', '*'] }]
+      });
+      if (res && !res.canceled && res.filePaths?.[0]) {
+        handleInputChange('pythonPath', res.filePaths[0]);
+        (window as any).showToast?.('Caminho do Python atualizado!', 'success');
+      }
+    } catch (e) {
+      console.error('Failed to select Python executable', e);
+    }
+  };
+
+  const handleOpenDatabaseFolder = async () => {
+    try {
+      const dbPath = settings.databasePath;
+      if (dbPath) {
+        const folder = dbPath.substring(0, Math.max(dbPath.lastIndexOf('/'), dbPath.lastIndexOf('\\')));
+        await (window as any).aquila?.invoke('shell:openPath', folder);
+        (window as any).showToast?.('Abrindo pasta do banco de dados...', 'info');
+      }
+    } catch (e) {
+      console.error('Failed to open database folder', e);
+    }
+  };
+
+  const handleBrowseBackup = async () => {
+    try {
+      const res = await (window as any).aquila?.invoke('dialog:openDirectory', {
+        title: 'Selecione a Pasta de Backup'
+      });
+      if (res && !res.canceled && res.filePaths?.[0]) {
+        handleInputChange('backupPath', res.filePaths[0]);
+        (window as any).showToast?.('Pasta de backup atualizada!', 'success');
+      }
+    } catch (e) {
+      console.error('Failed to select backup directory', e);
+    }
+  };
+
+  const handleViewLgpdTerm = async () => {
+    try {
+      const r = await (window as any).aquila?.invoke('lgpd:get-term');
+      setLgpdTermContent(r?.data?.text || 'Termo de Consentimento Soberano da Escola Áquila Pro.');
+      setShowLgpdModal(true);
+    } catch (e) {
+      (window as any).showToast?.('Não foi possível carregar o termo de consentimento.', 'error');
+    }
+  };
 
   const handleInputChange = (field: keyof AppSettings, value: any) => {
     setSettings(prev => ({
@@ -89,9 +151,31 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
     }
   };
 
+  const loadSettings = async () => {
+    try {
+      const savedSettings = await (window as any).aquila.invoke('settings:get');
+      if (savedSettings) {
+        setSettings(prev => ({ ...prev, ...savedSettings }));
+      }
+    } catch (err) {
+      console.error('Failed to load settings:', err);
+    }
+  };
+
   useEffect(() => {
+    loadSettings();
     loadLGPDSettings();
     loadCloudStatus();
+
+    const fetchRoomsList = async () => {
+      try {
+        const roomsList = await (window as any).aquila.invoke('get-rooms');
+        setRooms(roomsList || []);
+      } catch (err) {
+        console.error('Failed to fetch rooms in settings:', err);
+      }
+    };
+    fetchRoomsList();
   }, []);
 
   const handleSave = async () => {
@@ -115,10 +199,10 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
   const handleManualPurge = async () => {
     if (!window.confirm('Deseja realmente apagar todos os dados expirados conforme a política de retenção?')) return;
     try {
-      const result = await (window as any).aquila.invoke('lgpd:run-purge');
-      alert(`Limpeza concluída!`);
+      await (window as any).aquila.invoke('lgpd:run-purge');
+      (window as any).showToast?.('Limpeza de dados expirados concluída com sucesso!', 'success');
     } catch (err) {
-      alert('Falha ao executar limpeza');
+      (window as any).showToast?.('Falha ao executar limpeza de dados', 'error');
     }
   };
 
@@ -129,14 +213,15 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
       const result = await (window as any).aquila.invoke('sync:enroll', adminToken);
       if (result.success) {
         setEnrollStatus('success');
+        (window as any).showToast?.('Matrícula de nó soberano concluída com sucesso!', 'success');
         await loadCloudStatus();
       } else {
         setEnrollStatus('error');
-        alert(result.message || 'Falha na matrícula');
+        (window as any).showToast?.(result.message || 'Falha na matrícula', 'error');
       }
     } catch (err) {
       setEnrollStatus('error');
-      alert('Erro de rede ao matricular');
+      (window as any).showToast?.('Erro de rede ao matricular nó', 'error');
     }
   };
 
@@ -144,12 +229,12 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
     try {
       const result = await (window as any).aquila.invoke('sync:test-connection');
       if (result.success) {
-        alert('Conexão com a nuvem Áquila OK!');
+        (window as any).showToast?.('Conexão com a nuvem Áquila OK!', 'success');
       } else {
-        alert('Falha na conexão: ' + result.message);
+        (window as any).showToast?.('Falha na conexão: ' + result.message, 'error');
       }
     } catch (err) {
-      alert('Erro ao testar conexão');
+      (window as any).showToast?.('Erro ao testar conexão', 'error');
     }
   };
 
@@ -182,6 +267,22 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
             disabled
           />
         </div>
+        <div className="settings-row">
+          <label htmlFor="assigned_room_id">Sala deste Computador</label>
+          <select
+            id="assigned_room_id"
+            value={settings.assigned_room_id || ''}
+            onChange={(e) => handleInputChange('assigned_room_id', e.target.value)}
+            title="Selecione a sala de aula associada a este computador"
+          >
+            <option value="">Não Associado (Nenhum)</option>
+            {rooms.map((room: any) => (
+              <option key={room.id} value={room.id}>
+                {room.name} {room.location ? `(${room.location})` : ''}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="settings-group">
@@ -198,7 +299,7 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
               aria-label="Caminho do Python"
               title="Caminho para o executável Python do sistema"
             />
-            <button className="browse-btn">Procurar...</button>
+            <button className="browse-btn" onClick={handleBrowsePython}>Procurar...</button>
           </div>
         </div>
         <div className="settings-row">
@@ -214,7 +315,7 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
               placeholder="C:\...\aquila.db"
               title="Caminho do arquivo de banco de Dados (Somente Leitura)"
             />
-            <button className="browse-btn">Abrir Pasta</button>
+            <button className="browse-btn" onClick={handleOpenDatabaseFolder}>Abrir Pasta</button>
           </div>
         </div>
         <div className="settings-row">
@@ -229,7 +330,7 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
               placeholder="C:\...\backups"
               title="Pasta onde os backups locais serão armazenados"
             />
-            <button className="browse-btn">Procurar...</button>
+            <button className="browse-btn" onClick={handleBrowseBackup}>Procurar...</button>
           </div>
         </div>
       </div>
@@ -557,7 +658,7 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
           </div>
         </div>
 
-        <button className="compliance-btn" onClick={() => (window as any).aquila.invoke('lgpd:get-term').then((r: any) => alert(r.data.text))}>
+        <button className="compliance-btn" onClick={handleViewLgpdTerm}>
           <Eye size={16} />
           Ver Termo de Consentimento Atual
         </button>
@@ -569,6 +670,53 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
           Limpar Dados Expirados Agora
         </button>
         <p className="settings-hint">Remove permanentemente dados que ultrapassaram o período de retenção configurado.</p>
+      </div>
+    </div>
+  );
+
+  const renderAISettings = () => (
+    <div className="settings-tab-content">
+      <h2>Inteligência Artificial</h2>
+      <p className="settings-hint">Configure as chaves das APIs de IA para habilitar o Córtex Student Lab e o assistente pedagógico avançado.</p>
+
+      <div className="settings-group">
+        <div className="provider-header">
+           <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d473530c2731a4cd0247d.svg" alt="Gemini" width="24" height="24" />
+           <h3>Google AI Studio (Gemini)</h3>
+        </div>
+        <div className="info-box">
+          <AlertCircle size={18} />
+          <p>Recomendado para Vision e busca em tempo real (Grounding). Obtenha sua chave em <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">AI Studio</a>.</p>
+        </div>
+        <div className="settings-row">
+          <label htmlFor="google_api_key">Gemini API Key</label>
+          <input
+            id="google_api_key"
+            type="password"
+            value={settings.google_api_key}
+            onChange={(e) => handleInputChange('google_api_key', e.target.value)}
+            placeholder="AIza..."
+            title="Chave de API do Google AI Studio"
+          />
+        </div>
+      </div>
+
+      <div className="settings-group">
+        <div className="provider-header">
+           <img src="https://openai.com/favicon.ico" alt="OpenAI" width="24" height="24" />
+           <h3>OpenAI (GPT-4)</h3>
+        </div>
+        <div className="settings-row">
+          <label htmlFor="openai_api_key">OpenAI API Key</label>
+          <input
+            id="openai_api_key"
+            type="password"
+            value={settings.openai_api_key}
+            onChange={(e) => handleInputChange('openai_api_key', e.target.value)}
+            placeholder="sk-..."
+            title="Chave de API da OpenAI"
+          />
+        </div>
       </div>
     </div>
   );
@@ -620,6 +768,13 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
           <Cloud size={18} />
           Nuvem
         </button>
+        <button
+          className={`tab ${activeTab === 'ai' ? 'active' : ''}`}
+          onClick={() => setActiveTab('ai')}
+        >
+          <Eye size={18} />
+          IA
+        </button>
       </div>
 
       {/* Content */}
@@ -629,7 +784,48 @@ export const Settings: React.FC<SettingsProps> = ({ onBack }) => {
         {activeTab === 'notifications' && renderNotificationSettings()}
         {activeTab === 'security' && renderSecuritySettings()}
         {activeTab === 'cloud' && renderCloudSettings()}
+        {activeTab === 'ai' && renderAISettings()}
       </div>
+
+      {showLgpdModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#0f172a] border border-cyan-500/30 rounded-2xl max-w-2xl w-full p-6 text-white shadow-2xl flex flex-col max-h-[85vh]">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+              <h3 className="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                <Eye size={20} /> Termo de Consentimento Soberano (LGPD)
+              </h3>
+              <button 
+                onClick={() => setShowLgpdModal(false)}
+                className="text-zinc-400 hover:text-white p-1 rounded-lg"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto text-zinc-300 text-sm leading-relaxed p-4 bg-black/40 rounded-xl border border-white/5 whitespace-pre-wrap font-sans">
+              {lgpdTermContent}
+            </div>
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10 mt-4">
+              <button
+                className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm transition"
+                onClick={() => {
+                  if (lgpdTermContent) {
+                    navigator.clipboard.writeText(lgpdTermContent);
+                    (window as any).showToast?.('Termo copiado para a área de transferência!', 'success');
+                  }
+                }}
+              >
+                Copiar Texto
+              </button>
+              <button
+                className="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-sm font-semibold transition"
+                onClick={() => setShowLgpdModal(false)}
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <div className="settings-footer">

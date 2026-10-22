@@ -1,0 +1,89 @@
+@layer base {
+  :root {
+    /* Elite Palette - Vibrant Sovereign */
+    --elite-blue-glow: 0 162 255;
+    --elite-cyan-glow: 0 255 242;
+    --elite-purple-glow: 147 51 234;
+    
+    /* Glassmorphism Tokens */
+    --glass-background: rgba(10, 15, 25, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-blur: 12px;
+    
+    /* Neon Accents */
+    --neon-primary: #00a2ff;
+    --neon-secondary: #00fff2;
+    --neon-danger: #ff0055;
+  }
+
+  .dark {
+    --glass-background: rgba(0, 0, 0, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.15);
+  }
+}
+
+@layer components {
+  /* Eagle Card - The Signature Glass Container */
+  .eagle-glass-card {
+    background: var(--glass-background);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .eagle-glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+    transition: 0.5s;
+    pointer-events: none;
+  }
+
+  .eagle-glass-card:hover::before {
+    left: 100%;
+  }
+
+  .eagle-glass-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(var(--elite-blue-glow), 0.4);
+    box-shadow: 0 12px 40px 0 rgba(var(--elite-blue-glow), 0.15);
+  }
+
+  /* Elite Glow Text */
+  .text-glow-blue {
+    text-shadow: 0 0 10px rgba(var(--elite-blue-glow), 0.5);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(var(--elite-cyan-glow), 0.5);
+  }
+
+  /* Neon Glow Button base */
+  .btn-elite-glow {
+    position: relative;
+    background: rgba(var(--elite-blue-glow), 0.1);
+    border: 1px solid rgba(var(--elite-blue-glow), 0.3);
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-elite-glow:hover {
+    background: rgba(var(--elite-blue-glow), 0.2);
+    box-shadow: 0 0 20px rgba(var(--elite-blue-glow), 0.4);
+    border-color: rgba(var(--elite-blue-glow), 0.6);
+  }
+}

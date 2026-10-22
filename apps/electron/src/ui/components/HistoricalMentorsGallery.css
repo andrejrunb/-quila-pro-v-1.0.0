@@ -1,0 +1,514 @@
+/* =====================================================================
+   ÁQUILA PRO — GALERIA & DIÁLOGO COM MENTORES HISTÓRICOS (75+ CIENTISTAS)
+   Design System: Glassmorphism Soberano, Ciano/Âmbar/Roxo, 60fps
+   ===================================================================== */
+
+.mentors-gallery-shell {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1rem;
+  height: 100%;
+  max-height: calc(100vh - 120px);
+  background: #090d16;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1rem;
+  color: #f1f5f9;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .mentors-gallery-shell {
+    grid-template-columns: 1fr;
+    max-height: none;
+  }
+}
+
+/* Coluna Lateral de Cientistas */
+.mentors-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.875rem;
+  padding: 0.75rem;
+  overflow: hidden;
+}
+
+.mentors-search-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.65rem;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.6rem 0.45rem 2rem;
+  color: #f1f5f9;
+  font-size: 0.75rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.areas-filter-strip {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.area-filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  padding: 0.25rem 0.55rem;
+  border-radius: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.area-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.area-filter-btn.active {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00F0FF;
+  color: #00F0FF;
+}
+
+.mentors-count-badge {
+  font-size: 0.5625rem;
+  font-weight: 900;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.4rem;
+  text-transform: uppercase;
+}
+
+.mentors-list-scroll {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mentors-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mentor-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.65rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mentor-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(2px);
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.mentor-card.active {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.12), rgba(139, 92, 246, 0.15));
+  border-color: #00F0FF;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+.mentor-avatar {
+  font-size: 1.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 0.5rem;
+  background: rgba(15, 23, 42, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mentor-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 0.1rem;
+}
+
+.mentor-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.mentor-name-row strong {
+  font-size: 0.8rem;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mentor-epoch {
+  font-size: 0.6rem;
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+}
+
+.mentor-area-label {
+  font-size: 0.65rem;
+  color: #38bdf8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mentor-country {
+  font-size: 0.6rem;
+  color: #94a3b8;
+}
+
+/* Painel de Diálogo */
+.mentor-dialog-panel {
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.875rem;
+  overflow: hidden;
+}
+
+.active-mentor-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(2, 6, 23, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.banner-avatar {
+  font-size: 2.2rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 0.65rem;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(139, 92, 246, 0.3));
+  border: 1px solid #00F0FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.banner-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.banner-title-row h2 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.banner-area-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #00F0FF;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.4rem;
+}
+
+.banner-country-pill {
+  font-size: 0.65rem;
+  color: #94a3b8;
+}
+
+.banner-work {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  margin: 0.15rem 0 0 0;
+  line-height: 1.35;
+}
+
+.voice-synth-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #00F0FF;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.voice-synth-btn:hover {
+  background: rgba(0, 240, 255, 0.25);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+.famous-quote-bar {
+  background: rgba(245, 158, 11, 0.08);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+  padding: 0.45rem 1rem;
+  font-size: 0.75rem;
+  color: #F59E0B;
+  font-style: italic;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.quote-mark {
+  font-size: 1.1rem;
+  font-weight: 900;
+  line-height: 0;
+}
+
+/* Mensagens de Chat */
+.chat-messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.dialog-bubble {
+  max-width: 85%;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  line-height: 1.5;
+  font-size: 0.82rem;
+  position: relative;
+}
+
+.dialog-bubble.mentor-msg {
+  align-self: flex-start;
+  background: rgba(2, 6, 23, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  color: #e2e8f0;
+}
+
+.dialog-bubble.student-msg {
+  align-self: flex-end;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.3));
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: #f8fafc;
+}
+
+.bubble-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.6875rem;
+  color: #38bdf8;
+}
+
+.bubble-time {
+  font-size: 0.6rem;
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.inline-voice-btn {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #00F0FF;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.35rem;
+  transition: all 0.2s ease;
+}
+
+.inline-voice-btn:hover {
+  background: rgba(0, 240, 255, 0.15);
+}
+
+.typing-bubble {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00F0FF;
+  margin-right: 3px;
+  animation: typingPulse 1.2s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingPulse {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Barra de Chips de Desafios */
+.suggested-prompts-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  background: rgba(2, 6, 23, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  overflow-x: auto;
+}
+
+.prompts-label {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #F59E0B;
+  white-space: nowrap;
+}
+
+.prompt-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.prompt-chip:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: #00F0FF;
+  color: #00F0FF;
+}
+
+/* Barra de Input */
+.dialog-input-bar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #020617;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dialog-input {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.65rem;
+  padding: 0.6rem 0.85rem;
+  color: #f8fafc;
+  font-size: 0.82rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.dialog-input:focus {
+  border-color: #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+}
+
+.dialog-send-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: linear-gradient(135deg, #00F0FF, #3b82f6);
+  color: #020617;
+  border: none;
+  padding: 0.6rem 1.15rem;
+  border-radius: 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dialog-send-btn:hover:not(:disabled) {
+  filter: brightness(1.15);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.dialog-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

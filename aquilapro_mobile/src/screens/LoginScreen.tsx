@@ -8,12 +8,14 @@ const LoginScreen = ({ navigation }: any) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (role: 'parent' | 'guard') => {
+  const handleLogin = (role: 'parent' | 'guard' | 'teacher') => {
     // Simulating login for demo purposes
     if (role === 'parent') {
       navigation.navigate('ParentDashboard');
-    } else {
+    } else if (role === 'guard') {
       navigation.navigate('GuardDashboard');
+    } else {
+      navigation.navigate('TeacherDashboard');
     }
   };
 
@@ -22,7 +24,7 @@ const LoginScreen = ({ navigation }: any) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View className="login-header" style={styles.header}>
+      <View style={styles.header}>
         <View style={styles.logoContainer}>
           <Shield color={theme.colors.primary} size={48} />
         </View>
@@ -66,6 +68,13 @@ const LoginScreen = ({ navigation }: any) => {
           onPress={() => handleLogin('parent')}
         >
           <Text style={styles.buttonText}>Acesso Pais</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={[styles.loginButton, styles.teacherButton]} 
+          onPress={() => handleLogin('teacher')}
+        >
+          <Text style={styles.buttonText}>Acesso Professor</Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
@@ -154,6 +163,9 @@ const styles = StyleSheet.create({
   },
   parentButton: {
     backgroundColor: theme.colors.primary,
+  },
+  teacherButton: {
+    backgroundColor: '#8b5cf6',
   },
   guardButton: {
     backgroundColor: 'transparent',

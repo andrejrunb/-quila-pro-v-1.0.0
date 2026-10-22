@@ -139,3 +139,311 @@
   border: 4px solid #0d0d12;
   box-shadow: 0 0 10px var(--focus-text);
 }
+
+/* AI Suggestions & Animations */
+.student-seat.has-ai-suggestion {
+  border-color: #6e45e2;
+  box-shadow: 0 0 20px rgba(110, 69, 226, 0.4);
+}
+
+.student-seat.ai-pulse {
+  animation: ai-recommendation-pulse 2s infinite ease-in-out;
+}
+
+@keyframes ai-recommendation-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(110, 69, 226, 0.6); }
+  70% { box-shadow: 0 0 25px 15px rgba(110, 69, 226, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(110, 69, 226, 0); }
+}
+
+.ai-intelligence-btn.analyzing {
+  opacity: 0.8;
+  pointer-events: none;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.ai-intelligence-btn.analyzing .spin-animation {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* AI Intelligence Controls */
+.seating-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+  gap: 16px;
+}
+/* Fase 2200: Merit Boost Styles */
+.merit-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  animation: merit-burst-fade 1.5s ease-out forwards;
+}
+
+.merit-value {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffcc00;
+  font-weight: 800;
+  font-size: 1.4rem;
+  text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+  animation: merit-float 2s ease-out forwards;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@keyframes merit-burst-fade {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+  30% { opacity: 1; box-shadow: 0 0 50px 30px rgba(255, 215, 0, 0.6); }
+  100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; box-shadow: 0 0 100px 50px rgba(255, 215, 0, 0); }
+}
+
+@keyframes merit-float {
+  0% { transform: translate(-50%, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(-50%, -100px); opacity: 0; }
+}
+
+.student-seat.merit-glow {
+  border-color: #ffcc00 !important;
+  box-shadow: 0 0 25px rgba(255, 204, 0, 0.5), inset 0 0 15px rgba(255, 204, 0, 0.3) !important;
+}
+
+.student-seat.scientific-pulse {
+  animation: scientific-ripple 2s infinite ease-in-out;
+  background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+}
+
+@keyframes scientific-ripple {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4); }
+  70% { box-shadow: 0 0 30px 10px rgba(0, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
+}
+
+.ai-intelligence-btn {
+  background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(110, 69, 226, 0.3);
+}
+
+.ai-intelligence-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(110, 69, 226, 0.5);
+  filter: brightness(1.1);
+}
+
+/* Recommendation Modal/Panel */
+.recommendations-panel {
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  animation: slideUp 0.4s ease-out;
+}
+
+.recommendations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.recommendations-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recommendation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recommendation-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid var(--seat-border);
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.recommendation-item.priority-high {
+  border-left-color: #ff2d55;
+  background: rgba(255, 45, 85, 0.05);
+}
+
+.recommendation-item.priority-medium {
+  border-left-color: #ff9f0a;
+}
+
+.recommendation-info {
+  flex: 1;
+}
+
+.recommendation-student {
+  font-weight: 700;
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.recommendation-reason {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+.apply-recommendation-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 16px;
+  transition: all 0.2s ease;
+}
+
+.apply-recommendation-btn:hover {
+  background: var(--focus-text);
+  color: #000;
+  border-color: var(--focus-text);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.frustration-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #ff2d55;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+  box-shadow: 0 2px 5px rgba(255, 45, 85, 0.5);
+  z-index: 2;
+}
+
+.pin-badge {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffcc00;
+  color: #000;
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-weight: 900;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
+  z-index: 2;
+}
+
+.student-seat.pinned {
+  border-color: #ffcc00;
+}
+
+.observation-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #ff9f0a;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+  box-shadow: 0 2px 5px rgba(255, 159, 10, 0.5);
+  z-index: 2;
+}
+
+/* Rule Selector in Modal */
+.modal-rule-selector {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-rule-selector h4 {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.rule-options {
+  display: flex;
+  gap: 12px;
+}
+
+.rule-opt {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rule-opt:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.rule-opt.active {
+  background: #ffcc00;
+  color: #000;
+  border-color: #ffcc00;
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+}
+
+.rule-hint {
+  font-size: 11px;
+  color: #ffcc00;
+  margin-top: 8px;
+  opacity: 0.8;
+  font-style: italic;
+}

@@ -20,3 +20,4 @@ export interface DeviceConfig {
   port: number;
   brand: 'controlid' | 'intelbras' | 'generic';
 }
+

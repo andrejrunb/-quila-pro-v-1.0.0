@@ -1,0 +1,109 @@
+.ethics-container {
+    padding: 3rem;
+    height: 100%;
+    overflow-y: auto;
+    color: #e2e8f0;
+    background: #0f172a; /* Slate 900 */
+}
+
+.ethics-header {
+    margin-bottom: 4rem;
+}
+
+.ethics-icon-bg {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+.ethics-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 3rem;
+}
+
+.audit-radar h3, .ethics-pillars h3 {
+    font-size: 0.9rem;
+    opacity: 0.5;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.audit-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.audit-card {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    transition: all 0.3s;
+}
+
+.audit-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.1); }
+
+.status-optimal { border-left: 4px solid #10b981; }
+.status-warning { border-left: 4px solid #f59e0b; }
+.status-critical { border-left: 4px solid #ef4444; }
+
+.a-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.status-optimal .a-header { color: #10b981; }
+.status-warning .a-header { color: #f59e0b; }
+
+.progress-wrap {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.progress-bar {
+    height: 100%;
+    background: currentColor;
+    border-radius: 10px;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.audit-card p { font-size: 0.85rem; opacity: 0.6; line-height: 1.6; }
+
+.ethics-pillars { display: flex; flex-direction: column; gap: 2rem; }
+
+.pillar-stat { padding: 2rem !important; }
+.pillar-stat h3 { opacity: 1 !important; text-transform: none !important; letter-spacing: 0 !important; margin-bottom: 0.5rem !important; }
+.pillar-stat p { font-size: 0.8rem; opacity: 0.5; line-height: 1.5; }
+
+.global-status { text-align: center; }
+
+.ethics-footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    opacity: 0.3;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+}

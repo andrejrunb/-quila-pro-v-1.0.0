@@ -1,9 +1,14 @@
 import { initTRPC } from '@trpc/server';
 import { z } from 'zod';
+import { studentRouter } from './routers/student';
+import { attendanceRouter } from './routers/attendance';
+import { financeRouter } from './routers/finance';
+import { automationRouter } from './routers/automation';
 
-// Contexto compartilhado (será injetado pelo Electron ou Server)
+import type { createDb } from '@aquila/db';
+
 export interface TRPCContext {
-  db?: any;
+  db?: ReturnType<typeof createDb>;
   services?: {
     student?: any;
     camera?: any;
@@ -20,32 +25,18 @@ export const appRouter = router({
     return { status: 'ok', uptime: process.uptime(), timestamp: new Date().toISOString() };
   }),
 
-  // ---- ESTUDANTES ----
-  getStudents: publicProcedure
-    .input(z.object({ limit: z.number().min(1).max(100).nullish(), cursor: z.string().nullish() }))
-    .query(async ({ ctx }) => {
-      if (!ctx.db) return [];
-      return await ctx.db.getStudents();
-    }),
+  // Modular Routers
+  student: studentRouter,
+  attendance: attendanceRouter,
+  finance: financeRouter,
+  automation: automationRouter,
 
-  createStudent: publicProcedure
-    .input(z.object({
-      name: z.string().min(3),
-      registrationNumber: z.string().optional(),
-      classId: z.string().default('default'),
-      status: z.enum(['active', 'inactive']).default('active')
-    }))
-    .mutation(async ({ input, ctx }) => {
-      if (!ctx.services?.student) throw new Error('Serviço de estudantes não disponível');
-      return await ctx.services.student.importStudentsBulk([input]);
-    }),
-
-  // ---- GOVERNANÇA LGPD ----
+  // Governance & Audit
   getAuditLogs: publicProcedure
     .input(z.object({ limit: z.number().default(50) }))
     .query(async ({ input, ctx }) => {
       if (!ctx.db) return [];
-      return await ctx.db.getAuditLogs(input.limit);
+      const { auditLogs } = require("@aquila/db"); return await ctx.db.select().from(auditLogs).limit(input.limit);
     }),
 });
 

@@ -11,10 +11,15 @@ interface LicenseInfo {
 
 interface PlanLimits {
   maxCameraStreams: number;
-  maxStudents: number;
-  faceRetentionDays: number;
-  whatsappLimitPerHour: number;
+  maxStudentFaces: number;
+  whatsappQueueEnabled: boolean;
+  whatsappRatePerHour: number;
   heatmapEnabled: boolean;
+  multiUnitEnabled: boolean;
+  hrEnabled: boolean;
+  secretaryEnabled: boolean;
+  messengerEnabled: boolean;
+  gamificationEnabled: boolean;
 }
 
 export const LicensePage: React.FC = () => {

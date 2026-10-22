@@ -1,0 +1,224 @@
+.predictive-container {
+    padding: 2.5rem;
+    height: 100%;
+    overflow-y: auto;
+    color: white;
+    background: radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+}
+
+.predictive-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.predictive-logo-glow {
+    color: #a855f7;
+    filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
+}
+
+.simulation-controls {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.control-item span { font-size: 0.8rem; opacity: 0.6; }
+.control-item .val-tag { font-weight: 800; color: #a855f7; min-width: 40px; }
+
+input[type=range] {
+    accent-color: #a855f7;
+    width: 200px;
+}
+
+.predictive-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 2rem;
+}
+
+.twin-future-preview {
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+}
+
+.time-travel-overlay {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 10;
+}
+
+.year-tag {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.status-indicator {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: #a855f7;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.future-map-sim {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.heatmap-zone {
+    width: 300px;
+    height: 180px;
+    background: rgba(168, 85, 247, 0.1);
+    border: 2px solid rgba(168, 85, 247, 0.3);
+    border-radius: 20px;
+    transform: rotateX(45deg) rotateZ(-20deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s;
+}
+
+.heatmap-zone.warning { background: rgba(245, 158, 11, 0.2); border-color: #f59e0b; }
+.heatmap-zone.critical { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; }
+
+.h-label {
+    transform: rotateZ(20deg) rotateX(-45deg);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.timeline-scroller {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.75rem;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.time-node {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.time-node.active {
+    background: #a855f7;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+}
+
+.projection-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 1.5rem;
+}
+
+.projection-stats h3 {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.5;
+    margin-bottom: 1.25rem;
+}
+
+.p-data .big-num {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #a855f7;
+}
+
+.p-data .sub-tag {
+    font-size: 0.75rem;
+    opacity: 0.4;
+    margin-top: 0.5rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.risk-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.risk-item {
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    padding: 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.no-risk {
+    font-size: 0.75rem;
+    opacity: 0.3;
+    text-align: center;
+    padding: 1rem;
+}
+
+.predictive-footer {
+    margin-top: 4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    opacity: 0.3;
+}

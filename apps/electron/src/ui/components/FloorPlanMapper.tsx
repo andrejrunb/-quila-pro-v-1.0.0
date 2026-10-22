@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Image as KonvaImage, Line, Circle, Text } from 'react-konva';
 import useImage from 'use-image';
+import { animate } from 'animejs';
+import { useAnime } from '../hooks/useAnime';
 import './FloorPlanMapper.css';
 
 export interface Point {
@@ -38,6 +40,21 @@ export const FloorPlanMapper: React.FC<FloorPlanMapperProps> = ({
     const [currentPoints, setCurrentPoints] = useState<Point[]>([]);
     const [stageSize, setStageSize] = useState({ width: 800, height: 600 });
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Animação de Pulsação para Zonas Ativas (Subtle & Professional)
+    useEffect(() => {
+        const activeZones = zones.filter(z => z.active);
+        if (activeZones.length > 0) {
+            anime({
+                targets: '.konva-active-zone', // Usaremos nome de classe se possível ou refs
+                opacity: [0.4, 0.7],
+                duration: 1500,
+                direction: 'alternate',
+                loop: true,
+                easing: 'easeInOutQuad'
+            });
+        }
+    }, [zones]);
 
     // Responsividade do Canvas
     useEffect(() => {

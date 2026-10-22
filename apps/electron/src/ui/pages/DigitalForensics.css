@@ -1,0 +1,234 @@
+.forensics-container {
+  padding: 2.5rem;
+  color: white;
+  background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.05), transparent 40%);
+  min-height: 100vh;
+}
+
+.forensics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.forensics-title h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.forensics-title p {
+  color: #94a3b8;
+  margin: 0.25rem 0 0 0;
+}
+
+.icon-blue {
+  color: #3b82f6;
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
+  margin-right: 1.5rem;
+}
+
+.forensics-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-btn, .export-all-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.search-btn:hover, .export-all-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #3b82f6;
+}
+
+.forensics-main {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  height: calc(100vh - 250px);
+}
+
+.evidence-list-panel, .evidence-detail-panel {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.evidence-scroll {
+  overflow-y: auto;
+  height: calc(100% - 60px);
+  padding-right: 0.5rem;
+}
+
+.evidence-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.evidence-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.evidence-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  padding: 1.25rem;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.evidence-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.evidence-card.active {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.id { font-weight: 700; color: #3b82f6; }
+.time { color: #64748b; }
+
+.type {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.status {
+  font-size: 0.7rem;
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detail-content {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.detail-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.download-report {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.detail-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.detail-group.full { grid-column: span 2; }
+
+.val { font-size: 1.1rem; font-weight: 600; }
+
+.code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  word-break: break-all;
+}
+
+.code.signature {
+  font-size: 0.75rem;
+  color: #6366f1;
+}
+
+.integrity-status {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  padding: 1.5rem;
+  border-radius: 16px;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.integrity-status.success { color: #22c55e; }
+
+.integrity-status strong { display: block; margin-bottom: 0.25rem; }
+.integrity-status p { margin: 0; font-size: 0.9rem; color: #4ade80; }
+
+.forensic-meta h3 {
+  font-size: 1rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+}
+
+.forensic-meta pre {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+
+.empty-state {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  gap: 1.5rem;
+}

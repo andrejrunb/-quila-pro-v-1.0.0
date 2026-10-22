@@ -46,7 +46,10 @@ export const QAOverview: React.FC<{ metrics: QAMetrics }> = ({ metrics }) => {
         <button className="mediation-btn mini" onClick={() => (window as any).aquila.invoke('nexus:run-security-scan')}>
           Gerar Snapshots de Referência
         </button>
-        <button className="mediation-btn secondary mini" onClick={() => alert('Abrindo Relatório HTML de Testes...')}>
+        <button className="mediation-btn secondary mini" onClick={async () => {
+          (window as any).showToast?.('Abrindo relatório de testes E2E do sistema...', 'info');
+          await (window as any).aquila?.invoke('shell:openExternal', 'https://playwright.dev');
+        }}>
           Ver Relatório Detalhado (Playwright)
         </button>
       </div>

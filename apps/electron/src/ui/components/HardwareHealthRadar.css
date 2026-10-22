@@ -1,0 +1,110 @@
+.hardware-radar {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px var(--radar-glow);
+  transition: all 0.5s ease;
+}
+
+.radar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.radar-title {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0d9488;
+  box-shadow: 0 0 10px #0d9488;
+}
+
+.status-dot.blink {
+  background: #f43f5e;
+  box-shadow: 0 0 15px #f43f5e;
+  animation: radar-blink 1s infinite alternate;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.metric-value {
+  font-size: 1.2rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: #fff;
+}
+
+.progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #0d9488;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.throttled-warning {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  border-radius: 8px;
+  color: #fb7185;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: slide-up 0.3s ease;
+}
+
+.hardware-radar.throttled {
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+@keyframes radar-blink {
+  from { opacity: 0.4; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+:root {
+  --success-glow: rgba(13, 148, 136, 0.1);
+  --warning-glow: rgba(245, 158, 11, 0.1);
+  --danger-glow: rgba(244, 63, 94, 0.2);
+}

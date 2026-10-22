@@ -16,13 +16,24 @@ const BehavioralAnalysis: React.FC<BehavioralAnalysisProps> = ({ studentId }) =>
 
   useEffect(() => {
     const telemetryInterval = setInterval(async () => {
-      const data = await (window as any).api.invoke('behavioral:get-live');
-      if (data) setAnalysis(data);
+      try {
+        const data = await window.aquila.behavioral.getLive(studentId);
+        if (data) setAnalysis(data);
+        
+        const events = await window.aquila.behavioral.getPoseEvents(studentId);
+        if (events) setPoseEvents(events);
+      } catch (err) {
+        console.error('[Behavioral] Live telemetry failed:', err);
+      }
     }, 5000);
 
     const loadProfiles = async () => {
-      const profiles = await (window as any).api.invoke('behavioral:get-evasion-profiles');
-      if (profiles) setHighRiskStudents(profiles);
+      try {
+        const profiles = await window.aquila.behavioral.getEvasionProfiles();
+        if (profiles) setHighRiskStudents(profiles);
+      } catch (err) {
+        console.error('[Behavioral] Profile loading failed:', err);
+      }
     };
 
     loadProfiles();
@@ -63,7 +74,7 @@ const BehavioralAnalysis: React.FC<BehavioralAnalysisProps> = ({ studentId }) =>
             {poseEvents.map(event => (
               <div key={event.id} className={`telemetry-item-row ${event.confidence > 0.9 ? 'alert' : ''}`}>
                 <div className="item-meta">
-                  <span className="item-type">{event.type.replace('_', ' ')}</span>
+                  <span className="item-type">{event.type ? event.type.replace('_', ' ') : 'Alerta'}</span>
                   <span className="item-time">{new Date(event.timestamp).toLocaleTimeString()}</span>
                 </div>
                 <div className="intensity-bar">

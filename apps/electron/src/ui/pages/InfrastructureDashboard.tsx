@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Camera, Server, Activity, Thermometer, Shield, AlertTriangle, RefreshCw, Plus, Trash2, Zap } from 'lucide-react';
 import { SwarmMonitor } from '../components/SwarmMonitor';
 import { AIServerSetup } from '../components/AIServerSetup';
+import { SystemBrain } from '../components/SystemBrain';
+import StrategyInsightCard from '../components/StrategyInsightCard';
+import { eliteAnimate } from '../hooks/useAnime';
 
 /**
  * InfrastructureDashboard.tsx — Passo 52 do Roadmap.
@@ -76,8 +79,26 @@ export const InfrastructureDashboard: React.FC<{ onBack?: () => void }> = ({ onB
                 <AIServerSetup onBack={() => setView('main')} />
             ) : (
                 <>
+                    {/* Meta-Evolução do Sistema */}
+                    <div className="mb-10">
+                        <SystemBrain />
+                    </div>
+
                     {/* Swarm Monitor - Soberania V */}
                     <SwarmMonitor />
+
+                    {/* Insights de Estratégia e ROI (Stanford Playbook) */}
+                    <div className="mb-10">
+                        <StrategyInsightCard 
+                            stage="IA Agêntica Integrada"
+                            efficiencyGains={[
+                                { process: 'Resposta a Incidentes', gain: 71, hoursSaved: 42 },
+                                { process: 'Mapeamento de Frequência', gain: 85, hoursSaved: 15 },
+                                { process: 'Auditoria LGPD', gain: 90, hoursSaved: 10 }
+                            ]}
+                            recommendation="Stanford sugere que o próximo estágio (Plataforma Transformacional) exige a automação completa de fluxos administrativo-pedagógicos via Agentes Antigravity."
+                        />
+                    </div>
 
                     {/* Hardware Status */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">

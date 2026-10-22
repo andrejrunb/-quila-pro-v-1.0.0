@@ -3,6 +3,29 @@
 @tailwind utilities;
 
 :root {
+  /* Select & Option High-Contrast Dark System Override */
+  color-scheme: dark;
+}
+
+select, select option {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+select option {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  padding: 8px 12px !important;
+}
+
+select option:hover,
+select option:focus,
+select option:checked {
+  background-color: #1e293b !important;
+  color: #38bdf8 !important;
+}
+
+:root {
   /* Eagle Dark Elite Design System */
   --primary: #3b82f6; /* Vibrant Blue */
   --primary-hover: #2563eb;
@@ -36,26 +59,26 @@
   /* Sidebar width */
   --sidebar-width: 240px;
   
-  /* Layout & Spacing */
-  --gap-xs: 4px;
-  --gap-sm: 8px;
-  --gap-md: 16px;
-  --gap-lg: 24px;
-  --gap-xl: 32px;
-  --container-padding: 32px;
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
+  /* Layout & Spacing - High Density Mode */
+  --gap-xs: 2px;
+  --gap-sm: 4px;
+  --gap-md: 10px;
+  --gap-lg: 16px;
+  --gap-xl: 20px;
+  --container-padding: 16px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-full: 9999px;
   
-  /* Professional Typography Scale */
-  --fs-h1: 2rem;
-  --fs-h2: 1.5rem;
-  --fs-h3: 1.25rem;
-  --fs-body: 0.9375rem;
-  --fs-small: 0.8125rem;
-  --fs-xs: 0.75rem;
+  /* Professional Typography Scale - High Density */
+  --fs-h1: 1.5rem;
+  --fs-h2: 1.25rem;
+  --fs-h3: 1.1rem;
+  --fs-body: 0.85rem;
+  --fs-small: 0.75rem;
+  --fs-xs: 0.65rem;
   
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -74,6 +97,23 @@
   --logistic-rust: #92400e;
   --crate-bg: rgba(15, 23, 42, 0.9);
   --crate-border: rgba(245, 158, 11, 0.2);
+
+  /* Stitch Design System — Sovereign Executive Cockpit */
+  --stitch-bg: #080B11;
+  --stitch-surface: rgba(14, 19, 31, 0.85);
+  --stitch-surface-solid: #0E131F;
+  --stitch-elevated: #141B2D;
+  --stitch-glass-hover: rgba(30, 41, 59, 0.55);
+  --stitch-border: rgba(255, 255, 255, 0.08);
+  --stitch-border-strong: rgba(255, 255, 255, 0.14);
+  --stitch-cyan: #00F0FF;
+  --stitch-emerald: #10B981;
+  --stitch-amber: #F59E0B;
+  --stitch-danger: #EF4444;
+  --stitch-text-primary: #F8FAFC;
+  --stitch-text-secondary: #94A3B8;
+  --stitch-text-muted: #64748B;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 }
 
 * {
@@ -91,6 +131,7 @@ body {
   background-attachment: fixed;
   color: var(--text-primary);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.25;
   overflow: hidden; /* Main window doesn't scroll, pages do */
   -webkit-font-smoothing: antialiased;
 }

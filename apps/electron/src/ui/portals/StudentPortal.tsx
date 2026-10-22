@@ -1,21 +1,47 @@
 import React from 'react';
 import { PortalLayout } from '../layouts/PortalLayout';
-import { RankingBoard } from '../pages/RankingBoard';
-import { gamificationEngine } from '../../services/GamificationEngine';
-import { StudentRPGPortal } from '../components/StudentRPGPortal';
+import StudentRPGPortal from '../components/StudentRPGPortal';
+import { StudentAILab } from '../pages/StudentAILab';
+import { StudentMasteryChamber } from '../pages/StudentMasteryChamber';
+import { SovereignPvPArena } from '../components/SovereignPvPArena';
+import { BNCCSkillTree } from '../components/BNCCSkillTree';
+import { EssayLab1000 } from '../components/EssayLab1000';
 
 interface StudentPortalProps {
   currentPage: string;
   onNavigate: (page: string) => void;
+  studentId?: string;
 }
 
-export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNavigate }) => {
-  const achievements = gamificationEngine.getAvailableAchievements();
-  const health = gamificationEngine.getProjectHealth();
+export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNavigate, studentId }) => {
+  const renderStudentPage = () => {
+    switch (currentPage) {
+      case 'mastery-chamber':
+        return <StudentMasteryChamber studentId={studentId} onBack={() => onNavigate('student-portal')} />;
+      case 'knowledge-canvas':
+      case 'albus-canvas':
+        return <StudentMasteryChamber studentId={studentId} initialMode="canvas" onBack={() => onNavigate('student-portal')} />;
+      case 'ai-lab':
+        return <StudentAILab studentId={studentId} onBack={() => onNavigate('student-portal')} />;
+      case 'arena':
+      case 'pvp-arena':
+        return <SovereignPvPArena studentId={studentId} onBack={() => onNavigate('student-portal')} />;
+      case 'skill-tree':
+      case 'bncc-skills':
+        return <BNCCSkillTree studentId={studentId} onBack={() => onNavigate('student-portal')} />;
+      case 'essay-lab':
+      case 'redacao':
+        return <EssayLab1000 studentId={studentId} onBack={() => onNavigate('student-portal')} />;
+      case 'student-portal':
+      case 'dashboard':
+      default:
+        return <StudentRPGPortal studentId={studentId} onNavigate={onNavigate} />;
+    }
+  };
 
   return (
-    <PortalLayout portalName="Portal do Aluno (Jornada Épica)" themeColor="#8b5cf6">
-      <StudentRPGPortal />
+    <PortalLayout portalName="Portal do Aluno (Jornada Épica)" themeColor="#8B5CF6" onNavigate={onNavigate}>
+      {renderStudentPage()}
     </PortalLayout>
   );
 };

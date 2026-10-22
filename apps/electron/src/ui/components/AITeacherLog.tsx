@@ -61,7 +61,9 @@ export const AITeacherLog: React.FC<{ onClose?: () => void }> = ({ onClose }) =>
     try {
       if (window.aquila) {
         const response = await window.aquila.processTeacherAudioLog({
-           timestamp: new Date().toISOString()
+           timestamp: new Date().toISOString(),
+           classId: "class-01",
+           text: "O aluno demonstrou dificuldade em interpretar o enunciado hoje."
         });
         
         if (response.success) {

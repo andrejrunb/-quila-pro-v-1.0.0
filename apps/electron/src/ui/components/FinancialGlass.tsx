@@ -127,7 +127,7 @@ const FinancialGlass: React.FC = () => {
                     </div>
                   </div>
                   <p>ID: {selectedBill.id.substring(0, 8)}</p>
-                  <button className="receipt-btn">Imprimir Comprovante</button>
+                  <button className="receipt-btn" onClick={() => window.print()}>Imprimir Comprovante</button>
                 </div>
               )}
             </div>

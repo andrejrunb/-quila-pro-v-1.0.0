@@ -1,0 +1,472 @@
+/* ClassroomDashboard.css — Design Premium Glassmorphism */
+
+.classroom-tv-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: var(--gap-md);
+  gap: var(--gap-md);
+  background: radial-gradient(circle at top left, #0f172a 0%, #020617 100%);
+  overflow: hidden;
+  color: var(--text-primary);
+}
+
+/* Header Premium */
+.classroom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--gap-md) var(--gap-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  height: 90px;
+}
+
+.header-branding {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.totem-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--success);
+}
+
+.icon-pulse {
+  animation: pulse-glow 2s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--success)); }
+  100% { transform: scale(1.15); filter: drop-shadow(0 0 8px var(--success)); }
+}
+
+.class-selector-wrapper {
+  margin-top: 4px;
+}
+
+.class-dropdown-select {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.class-dropdown-select:hover {
+  border-color: var(--primary);
+  background: rgba(15, 23, 42, 0.95);
+}
+
+/* Clock Display */
+.realtime-clock-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.clock-numeric {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.clock-date {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.btn-refresh-totem {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-refresh-totem:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: rotate(30deg);
+}
+
+.spin-anim {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* Grid Layout */
+.classroom-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: var(--gap-lg);
+  flex: 1;
+  min-height: 0; /* Permite scroll nos painéis filhos */
+}
+
+/* Painéis Glassmorphism */
+.classroom-panel-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
+  min-height: 0;
+  transition: var(--transition);
+}
+
+.classroom-panel-card:hover {
+  border-color: rgba(59, 130, 246, 0.15);
+  box-shadow: 0 12px 50px 0 rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+.panel-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  padding: var(--gap-md) var(--gap-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.panel-card-header h2 {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.panel-card-content {
+  flex: 1;
+  padding: var(--gap-lg);
+  overflow-y: auto;
+}
+
+/* Timeline das Aulas */
+.schedule-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.schedule-time-row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--gap-md);
+  padding: var(--gap-md);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.01);
+  transition: var(--transition);
+}
+
+.schedule-time-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.schedule-time-row.active-lesson {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.08);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.1) inset;
+}
+
+.time-badge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  min-width: 75px;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.time-badge .start-t {
+  color: #fff;
+}
+
+.time-badge .separator {
+  width: 10px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 2px 0;
+}
+
+.time-badge .end-t {
+  color: var(--text-secondary);
+}
+
+.lesson-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  gap: var(--gap-xs);
+}
+
+.lesson-subject-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+
+.lesson-subject {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.now-badge {
+  background: var(--success);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  letter-spacing: 1px;
+  animation: pulse-alpha 1.5s infinite alternate;
+}
+
+@keyframes pulse-alpha {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.lesson-teacher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+/* Lista de Tarefas */
+.classroom-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.classroom-task-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  padding: var(--gap-md);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(30, 41, 59, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.classroom-task-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--warning);
+}
+
+.classroom-task-item.task-urgent::before {
+  background: var(--danger);
+}
+
+.task-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-subject-tag {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.task-due-date {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+.task-title-display {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.task-description-display {
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Eventos da Escola */
+.classroom-events-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.classroom-event-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  padding: var(--gap-md);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(30, 41, 59, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.classroom-event-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+}
+
+.event-meta-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-type-badge {
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.badge-anual { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+.badge-bimestral { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+.badge-esportes { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
+.badge-eventos { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+.badge-geral { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.badge-default { background: rgba(255, 255, 255, 0.1); color: #ccc; }
+
+.event-date-display {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+.event-title-display {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.event-description-display {
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Empty States */
+.empty-classroom-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--gap-xl);
+  text-align: center;
+  gap: var(--gap-md);
+  color: var(--text-dim);
+}
+
+.empty-classroom-state p {
+  font-size: var(--fs-body);
+}
+
+/* Marquee Footer */
+.classroom-marquee-footer {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: var(--gap-sm) var(--gap-lg);
+  overflow: hidden;
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 80px;
+  white-space: nowrap;
+  animation: marquee-anim 25s linear infinite;
+}
+
+.marquee-content span {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+@keyframes marquee-anim {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Scrollbar Personalizado */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

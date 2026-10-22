@@ -13,6 +13,7 @@ interface Schedule {
   startTime: string;
   endTime: string;
   dayOfWeek: number;
+  teacherId?: string;
 }
 
 interface Suggestion {
@@ -25,6 +26,8 @@ interface ScheduleGridProps {
   classId: string;
   rooms: any[];
   schedules: Schedule[];
+  teachers?: any[];
+  readOnly?: boolean;
   onSave: (schedule: Schedule) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
 }
@@ -43,7 +46,9 @@ const TIME_SLOTS = [
 export const ScheduleGrid: React.FC<ScheduleGridProps> = ({ 
   classId, 
   rooms, 
-  schedules, 
+  schedules,
+  teachers = [],
+  readOnly = false,
   onSave, 
   onDelete 
 }) => {
@@ -55,7 +60,7 @@ export const ScheduleGrid: React.FC<ScheduleGridProps> = ({
   const aquila = (window as any).aquila;
 
   useEffect(() => {
-    setLocalSchedules(schedules.filter(s => s.classId === classId));
+    setLocalSchedules(classId ? schedules.filter(s => s.classId === classId) : schedules);
   }, [schedules, classId]);
 
   const fetchOptimizations = async () => {
@@ -92,7 +97,8 @@ export const ScheduleGrid: React.FC<ScheduleGridProps> = ({
         subject: field === 'subject' ? value : '',
         startTime: start,
         endTime: end,
-        dayOfWeek: day
+        dayOfWeek: day,
+        teacherId: field === 'teacherId' ? value : ''
       };
       if (field === 'roomId') newEntry.roomId = value;
       setLocalSchedules(prev => [...prev, newEntry]);
@@ -149,29 +155,31 @@ export const ScheduleGrid: React.FC<ScheduleGridProps> = ({
         <h3 className="section-title">
           <FileSpreadsheet className="icon-blue" size={20} /> Grade Horária Inteligente V3.6
         </h3>
-        <div className="grid-actions">
-          <button 
-            onClick={() => fileInputRef.current?.click()}
-            className="btn-outline-action"
-            title="Importar CSV"
-          >
-            <FileSpreadsheet size={16} /> Importar
-          </button>
-          <button 
-            onClick={handleDownloadTemplate}
-            className="btn-outline-action"
-            title="Baixar Template"
-          >
-            <Download size={16} /> Template
-          </button>
-          <button 
-            onClick={fetchOptimizations}
-            className="btn-outline-action btn-alert-action"
-            title="Otimização Oraculum (AI)"
-          >
-            <Zap size={16} /> IA
-          </button>
-        </div>
+        {!readOnly && (
+          <div className="grid-actions">
+            <button 
+              onClick={() => fileInputRef.current?.click()}
+              className="btn-outline-action"
+              title="Importar CSV"
+            >
+              <FileSpreadsheet size={16} /> Importar
+            </button>
+            <button 
+              onClick={handleDownloadTemplate}
+              className="btn-outline-action"
+              title="Baixar Template"
+            >
+              <Download size={16} /> Template
+            </button>
+            <button 
+              onClick={fetchOptimizations}
+              className="btn-outline-action btn-alert-action"
+              title="Otimização Oraculum (AI)"
+            >
+              <Zap size={16} /> IA
+            </button>
+          </div>
+        )}
         <input 
           type="file" 
           ref={fileInputRef} 
@@ -224,29 +232,59 @@ export const ScheduleGrid: React.FC<ScheduleGridProps> = ({
                       className={isSuggested ? 'cell-suggested' : ''}
                     >
                       <div className="cell-content">
-                        <input 
-                          type="text"
-                          className="subject-input"
-                          placeholder="Matéria..."
-                          value={data?.subject || ''}
-                          title="Nome da Matéria"
-                          aria-label="Nome da Matéria"
-                          onChange={(e) => handleCellChange(dayIdx, timeSlot, 'subject', e.target.value)}
-                        />
-                        <select 
-                          className="room-select-mini"
-                          value={data?.roomId || ''}
-                          title="Selecionar Sala"
-                          aria-label="Selecionar Sala"
-                          onChange={(e) => handleCellChange(dayIdx, timeSlot, 'roomId', e.target.value)}
-                        >
-                          <option value="">Sala...</option>
-                          {rooms.map(r => (
-                            <option key={r.id} value={r.id}>{r.name}</option>
-                          ))}
-                        </select>
+                        {readOnly ? (
+                          <div className="text-sm font-bold opacity-80 text-center">
+                            <div>{data?.subject || '-'}</div>
+                            {data?.roomId && (
+                              <div className="text-xs text-blue-400 mt-1">
+                                {rooms.find(r => r.id === data.roomId)?.name || ''}
+                              </div>
+                            )}
+                            {data?.teacherId && (
+                              <div className="text-xs text-purple-400">
+                                {teachers.find(t => t.id === data.teacherId)?.name || ''}
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <>
+                            <input 
+                              type="text"
+                              className="subject-input"
+                              placeholder="Matéria..."
+                              value={data?.subject || ''}
+                              title="Nome da Matéria"
+                              aria-label="Nome da Matéria"
+                              onChange={(e) => handleCellChange(dayIdx, timeSlot, 'subject', e.target.value)}
+                            />
+                            <select 
+                              className="room-select-mini"
+                              value={data?.roomId || ''}
+                              title="Selecionar Sala"
+                              aria-label="Selecionar Sala"
+                              onChange={(e) => handleCellChange(dayIdx, timeSlot, 'roomId', e.target.value)}
+                            >
+                              <option value="">Sala...</option>
+                              {rooms.map(r => (
+                                <option key={r.id} value={r.id}>{r.name}</option>
+                              ))}
+                            </select>
+                            <select 
+                              className="room-select-mini mt-1"
+                              value={data?.teacherId || ''}
+                              title="Selecionar Professor"
+                              aria-label="Selecionar Professor"
+                              onChange={(e) => handleCellChange(dayIdx, timeSlot, 'teacherId', e.target.value)}
+                            >
+                              <option value="">Prof Titular...</option>
+                              {teachers.map(t => (
+                                <option key={t.id} value={t.id}>{t.name}</option>
+                              ))}
+                            </select>
+                          </>
+                        )}
                       </div>
-                      {data && (
+                      {data && !readOnly && (
                         <button 
                           onClick={() => onDelete(data.id)}
                           title="Remover Aula"

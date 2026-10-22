@@ -1,9 +1,5 @@
 .teacher-dashboard {
-  padding: 3rem;
-  background-color: #020617;
-  min-height: 100vh;
-  color: #f1f5f9;
-  font-family: 'Inter', sans-serif;
+  /* Layout handled by .page-root .max-container */
 }
 
 .dashboard-header {
@@ -48,6 +44,17 @@
 .status-offline {
   color: #ef4444;
   text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.pedagogy-control {
+  margin-left: 2rem;
+  margin-right: auto;
+}
+
+.divider-v {
+  width: 1px;
+  height: 2rem;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .neuro-pulse-main {
@@ -307,13 +314,54 @@
   overflow: hidden;
 }
 
+.view-toggle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.tab-switcher {
+  display: flex;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.tab-switcher button {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+}
+
+.tab-switcher button.active {
+  background: var(--gold-integrity, #f59e0b);
+  color: #020617;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.tab-switcher button:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+
 .section-label {
   font-size: 0.75rem;
   font-weight: 900;
-  color: #475569;
+  color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  margin-bottom: 2rem;
 }
 
 .neuro-bubbles-grid {
@@ -543,3 +591,107 @@
 @keyframes draw-path {
   to { stroke-dashoffset: 0; }
 }
+
+/* Identification Modal Styles */
+.discipline-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.discipline-modal-card {
+  max-width: 480px;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 2rem;
+  padding: 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 40px rgba(52, 211, 153, 0.1);
+  color: #f8fafc;
+}
+
+.discipline-modal-card h2 {
+  font-size: 1.75rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+}
+
+.discipline-modal-card p {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.discipline-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.discipline-form-group label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.discipline-input {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.875rem 1rem;
+  color: #f8fafc;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.discipline-input:focus {
+  border-color: #34d399;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.2);
+}
+
+.discipline-btn-submit {
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+  color: #020617;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: none;
+  font-weight: 900;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.discipline-btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(52, 211, 153, 0.3);
+}
+
+.discipline-btn-submit:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: #64748b;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+

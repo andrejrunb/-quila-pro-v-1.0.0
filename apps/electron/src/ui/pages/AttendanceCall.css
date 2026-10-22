@@ -1,0 +1,553 @@
+.attendance-call-container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #f4f4f5;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+.page-header h1 span {
+  background: linear-gradient(135deg, #10b981, #14b8a6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin-left: 0.5rem;
+}
+
+.page-header .subtitle {
+  font-size: 0.85rem;
+  color: #a1a1aa;
+  margin: 0.2rem 0 0 0;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #059669, #0f766e);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25);
+  filter: brightness(1.1);
+}
+
+.controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border-radius: 16px;
+  background: rgba(24, 24, 27, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+@media (min-width: 768px) {
+  .controls-panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(9, 9, 11, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+}
+
+.select-wrapper .icon {
+  color: #71717a;
+  margin-right: 0.5rem;
+}
+
+.select-wrapper select {
+  background: transparent;
+  color: #e4e4e7;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  min-width: 160px;
+}
+
+.bulk-actions button {
+  background: rgba(255, 255, 255, 0.05);
+  color: #d4d4d8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bulk-actions button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* ── TABELA DE CHAMADA (NOVA INTERFACE) ── */
+.student-table-container {
+  background: rgba(24, 24, 27, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+}
+
+.attendance-table-view {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+.attendance-table-view th {
+  background: rgba(15, 23, 42, 0.6);
+  padding: 0.5rem 1rem;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.attendance-table-view td {
+  padding: 0.35rem 1rem;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: var(--transition);
+}
+
+.table-row-student {
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.table-row-student:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Status: Presente */
+.table-row-student.present {
+  background: rgba(16, 185, 129, 0.02);
+}
+
+.table-row-student.present:hover {
+  background: rgba(16, 185, 129, 0.05);
+}
+
+/* Status: Ausente */
+.table-row-student.absent {
+  background: rgba(239, 68, 68, 0.01);
+}
+
+.table-row-student.absent:hover {
+  background: rgba(239, 68, 68, 0.03);
+}
+
+/* Colunas */
+.col-num {
+  width: 80px;
+  text-align: center;
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.col-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.col-status {
+  width: 250px;
+  text-align: center;
+}
+
+/* Checkbox Customizado */
+.custom-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  background: rgba(9, 9, 11, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  min-width: 140px;
+  justify-content: flex-start;
+}
+
+.checkbox-indicator {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 900;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-lbl-text {
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+
+/* Estilo Presente do Checkbox */
+.custom-checkbox-wrapper.present {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.05);
+  color: #34d399;
+}
+
+.custom-checkbox-wrapper.present .checkbox-indicator {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+/* Estilo Ausente do Checkbox */
+.custom-checkbox-wrapper.absent {
+  border-color: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.03);
+  color: #f87171;
+}
+
+.custom-checkbox-wrapper.absent .checkbox-indicator {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+}
+
+
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e4e4e7;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* ── Botões de Ação Avançada ── */
+.btn-face-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(139, 92, 246, 0.25));
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  color: #00F0FF;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+.btn-face-call:hover {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.35), rgba(139, 92, 246, 0.35));
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-print-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f1f5f9;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-print-call:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Tag de Reconhecimento Facial */
+.face-confidence-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+}
+
+/* Alerta LDB Art. 12 */
+.ldb-alert-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+}
+
+/* Modal de Auto-Chamada Facial */
+.face-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.face-modal-card {
+  background: #090d16;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 600px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 240, 255, 0.25);
+  animation: faceModalIn 0.25s ease;
+}
+
+@keyframes faceModalIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.face-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.face-modal-header h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.face-camera-wrapper {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: #000;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.face-camera-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scanning-reticle {
+  position: absolute;
+  inset: 15%;
+  border: 2px dashed rgba(0, 240, 255, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+  pointer-events: none;
+  animation: pulseReticle 2s infinite ease-in-out;
+}
+
+@keyframes pulseReticle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.face-scan-results-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.75rem;
+}
+
+/* ── Toast de Feedback Soberano ── */
+.attendance-toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.attendance-toast {
+  pointer-events: auto;
+  min-width: 300px;
+  max-width: 460px;
+  padding: 0.85rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+}
+
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.attendance-toast.success {
+  background: rgba(6, 78, 59, 0.95);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #ecfdf5;
+}
+
+.attendance-toast.warning {
+  background: rgba(120, 53, 15, 0.95);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: #fffbeb;
+}
+
+.attendance-toast.info {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #f0f9ff;
+}
+
+/* ── Métricas Rápidas de Frequência ── */
+.attendance-metrics-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.metric-chip {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.6rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-chip .chip-label {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.metric-chip .chip-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-top: 0.15rem;
+}
+
+/* ── Folha Oficial Oculta em Tela (Só Aparece no Print) ── */
+.print-attendance-sheet {
+  display: none;
+}
+
+/* ── Impressão Oficial da Ata de Frequência (LDB) ── */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  .print-attendance-sheet, .print-attendance-sheet * {
+    visibility: visible !important;
+  }
+
+  .print-attendance-sheet {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: #fff !important;
+    color: #000 !important;
+    font-family: Arial, sans-serif !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+}

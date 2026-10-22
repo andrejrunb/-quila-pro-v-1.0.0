@@ -1,0 +1,96 @@
+.adaptive-container {
+    padding: 2.5rem;
+    height: 100%;
+    overflow-y: auto;
+    color: white;
+    background: #0f172a;
+}
+
+.adaptive-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.room-selector {
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 40px !important;
+    font-size: 0.85rem;
+}
+
+.adaptive-grid {
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    gap: 2rem;
+}
+
+.tuning-status h3, .modes-area h3 {
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-bottom: 2rem;
+}
+
+.tuning-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.t-info label { display: block; font-size: 0.65rem; opacity: 0.5; text-transform: uppercase; margin-bottom: 0.25rem; }
+.t-info strong { display: block; font-size: 1rem; }
+.t-info span { font-size: 0.75rem; opacity: 0.4; }
+
+.modes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.mode-btn {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: white;
+    padding: 2rem;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.mode-btn.active {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: #6366f1;
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+}
+
+.mode-btn strong { font-size: 1.1rem; }
+.mode-btn span { font-size: 0.75rem; opacity: 0.5; line-height: 1.4; }
+
+.adaptive-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    opacity: 0.3;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 2rem;
+}

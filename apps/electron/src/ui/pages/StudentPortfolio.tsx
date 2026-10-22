@@ -3,10 +3,22 @@ import {
   ArrowLeft, User, Calendar, BookOpen, 
   Activity, Zap, Moon, TrendingUp, 
   Download, FileText, Share2, Award, 
-  Fingerprint, XCircle
+  Fingerprint, XCircle, Sparkles, Brain
 } from 'lucide-react';
+import { 
+  LineChart, Line, XAxis, YAxis, CartesianGrid, 
+  Tooltip, ResponsiveContainer, AreaChart, Area 
+} from 'recharts';
 import { PortfolioEvent, PedagogicalInsight } from '../../services/AiTypes';
+import { BNCCSkillTree } from '../components/BNCCSkillTree';
 import './StudentPortfolio.css';
+
+interface LongitudinalMetric {
+  year: number;
+  avgGrade: number;
+  avgBehavior: number;
+  attendance: number;
+}
 
 interface StudentPortfolioProps {
   studentId: string;
@@ -14,30 +26,45 @@ interface StudentPortfolioProps {
   onBack: () => void;
 }
 
+type PortfolioTab = 'skill-tree' | 'telemetry' | 'timeline' | 'insights';
+
 /**
- * StudentPortfolio (v1626 / v3600 AI)
- * Registro de Desempenho Comportamental e BiomÃ©trico.
+ * StudentPortfolio (v1626 / v3600 AI / v4000 Longitudinal / v5000 BNCC Skill Tree)
+ * Registro de Desempenho Comportamental, Biométrico e Árvore Curricular Soberana.
  */
 export const StudentPortfolio: React.FC<StudentPortfolioProps> = ({ studentId, studentName, onBack }) => {
+  const [activeTab, setActiveTab] = useState<PortfolioTab>('skill-tree');
   const [events, setEvents] = useState<PortfolioEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [biometricStatus, setBiometricStatus] = useState<'verified' | 'pending'>('pending');
   const [insights, setInsights] = useState<PedagogicalInsight[]>([]);
+  const [longitudinalData, setLongitudinalData] = useState<LongitudinalMetric[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
 
   const loadData = async () => {
     try {
-      const portfolio = await window.aquila.getStudentPortfolio(studentId);
-      if (portfolio) {
-        setEvents(portfolio.events || []);
+      if (window.aquila?.getStudentPortfolio) {
+        const portfolio = await window.aquila.getStudentPortfolio(studentId);
+        if (Array.isArray(portfolio)) {
+          setLongitudinalData(portfolio);
+        } else if (portfolio && (portfolio as any).events) {
+          setEvents((portfolio as any).events || []);
+        }
       }
       
-      const pedagogicalInsights = await window.aquila.getPedagogicalInsights(studentId);
-      setInsights(pedagogicalInsights || []);
+      if (window.aquila?.getPedagogicalInsights) {
+        const pedagogicalInsights = await window.aquila.getPedagogicalInsights(studentId);
+        setInsights(pedagogicalInsights || []);
+      }
       
+      if ((window as any).aquila?.invoke) {
+        const history = await (window as any).aquila.invoke('portfolio:get-longitudinal-history', studentId);
+        if (history) setLongitudinalData(history);
+      }
+
       setBiometricStatus('verified'); 
     } catch (err) {
-      console.error('Failed to load portfolio via IPC:', err);
+      console.warn('Fallback para dados locais do portfólio:', err);
     } finally {
       setLoading(false);
     }
@@ -50,9 +77,11 @@ export const StudentPortfolio: React.FC<StudentPortfolioProps> = ({ studentId, s
   const handleAnalyze = async () => {
     setAnalyzing(true);
     try {
-      await window.aquila.analyzePedagogicalStudent(studentId);
-      const updated = await window.aquila.getPedagogicalInsights(studentId);
-      setInsights(updated || []);
+      if (window.aquila?.analyzePedagogicalStudent) {
+        await window.aquila.analyzePedagogicalStudent(studentId);
+        const updated = await window.aquila.getPedagogicalInsights(studentId);
+        setInsights(updated || []);
+      }
     } catch (err) {
       console.error('Analysis failed:', err);
     } finally {
@@ -74,7 +103,7 @@ export const StudentPortfolio: React.FC<StudentPortfolioProps> = ({ studentId, s
     <div className="dashboard-loading">
       <div className="spinner"></div>
       <p className="loading-text">
-        Sincronizando Dados Biométricos...
+        Sincronizando Dados Pedagógicos & Biométricos...
       </p>
     </div>
   );
@@ -91,7 +120,7 @@ export const StudentPortfolio: React.FC<StudentPortfolioProps> = ({ studentId, s
           </div>
           <div>
             <h1 className="student-name">{studentName}</h1>
-            <p className="portfolio-subtitle">Registro de Desempenho Comportamental // v1626</p>
+            <p className="portfolio-subtitle">Portfólio Pedagógico Soberano // BNCC & Telemetria Longitudinal</p>
           </div>
         </div>
         <div className="portfolio-actions">
@@ -100,51 +129,129 @@ export const StudentPortfolio: React.FC<StudentPortfolioProps> = ({ studentId, s
         </div>
       </header>
 
-      <div className="portfolio-grid">
-        {/* Sidebar Stats */}
-        <section className="stats-overview">
-          <div className="stat-card">
-            <div className="stat-label">Eventos Totais</div>
-            <div className="stat-value">{events.length}</div>
-            <Activity size={24} color="#0d9488" />
-          </div>
-          
-          <div className="stat-card">
-            <div className="stat-label">Inquietude (Restless)</div>
-            <div className="stat-value">
-              {events.filter(e => e.type === 'restlessness').length}
-            </div>
-            <Zap size={24} color="#fb923c" />
-          </div>
+      {/* Navegação por Abas do Portfólio */}
+      <nav className="portfolio-tabs-bar">
+        <button
+          className={`portfolio-nav-tab ${activeTab === 'skill-tree' ? 'active' : ''}`}
+          onClick={() => setActiveTab('skill-tree')}
+        >
+          <Sparkles size={14} />
+          <span>🌳 Árvore de Habilidades Curriculares BNCC</span>
+        </button>
+        <button
+          className={`portfolio-nav-tab ${activeTab === 'telemetry' ? 'active' : ''}`}
+          onClick={() => setActiveTab('telemetry')}
+        >
+          <TrendingUp size={14} />
+          <span>📊 Trajetória Longitudinal & Biometria</span>
+        </button>
+        <button
+          className={`portfolio-nav-tab ${activeTab === 'timeline' ? 'active' : ''}`}
+          onClick={() => setActiveTab('timeline')}
+        >
+          <Activity size={14} />
+          <span>📝 Linha do Tempo ({events.length})</span>
+        </button>
+        <button
+          className={`portfolio-nav-tab ${activeTab === 'insights' ? 'active' : ''}`}
+          onClick={() => setActiveTab('insights')}
+        >
+          <Zap size={14} />
+          <span>💡 Insights NPU ({insights.length})</span>
+        </button>
+      </nav>
 
-          <div className="biometrics-widget">
-             <div className="pulse-ring">
+      {/* Conteúdo Dinâmico por Aba */}
+      {activeTab === 'skill-tree' && (
+        <section className="portfolio-skill-tree-section">
+          <BNCCSkillTree
+            studentId={studentId}
+            studentName={studentName}
+          />
+        </section>
+      )}
+
+      {activeTab === 'telemetry' && (
+        <div className="portfolio-grid">
+          {/* Sidebar Stats */}
+          <section className="stats-overview">
+            <div className="stat-card">
+              <div className="stat-label">Eventos Totais</div>
+              <div className="stat-value">{events.length}</div>
+              <Activity size={24} color="#0d9488" />
+            </div>
+            
+            <div className="stat-card">
+              <div className="stat-label">Inquietude (Restless)</div>
+              <div className="stat-value">
+                {events.filter(e => e.type === 'restlessness').length}
+              </div>
+              <Zap size={24} color="#fb923c" />
+            </div>
+
+            <div className="biometrics-widget">
+              <div className="pulse-ring">
                 <Fingerprint size={24} />
-             </div>
-             <div className="biometrics-info">
+              </div>
+              <div className="biometrics-info">
                 <span className="biometrics-label">Biometria Vascular</span>
                 <span className="biometrics-status">
                   {biometricStatus === 'verified' ? 'IDENTIDADE VERIFICADA' : 'AGUARDANDO SCAN'}
                 </span>
-             </div>
-          </div>
+              </div>
+            </div>
 
-          <div className="stat-card">
-            <div className="stat-label">Engagement Score</div>
-            <div className="stat-value">EXCELENTE</div>
-            <Award size={24} color="#10b981" />
-          </div>
-        </section>
+            <div className="stat-card">
+              <div className="stat-label">Engagement Score</div>
+              <div className="stat-value">EXCELENTE</div>
+              <Award size={24} color="#10b981" />
+            </div>
+          </section>
 
-        {/* Central Timeline */}
+          {/* Central Longitudinal Chart */}
+          <section className="timeline-section glass-card" style={{ gridColumn: 'span 2' }}>
+            <header className="section-header">
+              <h3 className="section-title">Trajetória Longitudinal Multi-ano</h3>
+              <span className="badge">Evolução do Rendimento</span>
+            </header>
+
+            <div className="longitudinal-chart-container">
+              {longitudinalData.length > 0 ? (
+                <ResponsiveContainer width="100%" height={260}>
+                  <AreaChart data={longitudinalData}>
+                    <defs>
+                      <linearGradient id="colorGrade" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#0d9488" stopOpacity={0.4}/>
+                        <stop offset="95%" stopColor="#0d9488" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                    <XAxis dataKey="year" stroke="#94a3b8" fontSize={11} />
+                    <YAxis stroke="#94a3b8" fontSize={11} domain={[0, 10]} />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(255,255,255,0.1)' }}
+                      itemStyle={{ color: '#fff' }}
+                    />
+                    <Area type="monotone" dataKey="avgGrade" stroke="#0d9488" strokeWidth={2} fillOpacity={1} fill="url(#colorGrade)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="empty-state">Sem dados históricos suficientes para análise longitudinal.</div>
+              )}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {activeTab === 'timeline' && (
         <section className="timeline-section glass-card">
           <header className="section-header">
-            <h3 className="section-title">Linha do Tempo Pedagógica</h3>
+            <h3 className="section-title">Linha do Tempo Pedagógica & Comportamental</h3>
           </header>
 
           <div className="behavior-timeline">
             {events.length === 0 ? (
-              <div className="empty-state">Nenhum evento comportamental registrado.</div>
+              <div className="empty-state">Nenhum evento comportamental registrado hoje.</div>
             ) : (
               events.map(event => (
                 <div key={event.id} className={`timeline-event ${event.severity || 'normal'}`}>
@@ -163,22 +270,24 @@ export const StudentPortfolio: React.FC<StudentPortfolioProps> = ({ studentId, s
             )}
           </div>
         </section>
+      )}
 
+      {activeTab === 'insights' && (
         <section className="pedagogical-notes glass-card">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="section-title !mb-0">Insights IA Generativa</h3>
+            <h3 className="section-title !mb-0">Insights IA Generativa & NPU 26 TOPS</h3>
             <button 
               className={`btn-npu-analyze ${analyzing ? 'analyzing' : ''}`}
               onClick={handleAnalyze}
               disabled={analyzing}
             >
-              <Zap size={12} /> {analyzing ? 'PROCESSING...' : 'ANALYZE WITH NPU'}
+              <Zap size={12} /> {analyzing ? 'PROCESSANDO...' : 'ANÁLISE DE LACUNAS COGNITIVAS'}
             </button>
           </div>
 
           <div className="insights-list">
             {insights.length === 0 ? (
-              <div className="empty-insight-state">No generative insights yet. Click analysis to initiate.</div>
+              <div className="empty-insight-state">Nenhum insight generativo gerado ainda. Clique no botão acima para iniciar.</div>
             ) : (
               insights.map((insight, idx) => (
                 <div key={idx} className={`pedagogical-tip insight-trend-${insight.trend}`}>
@@ -191,10 +300,10 @@ export const StudentPortfolio: React.FC<StudentPortfolioProps> = ({ studentId, s
                       <span className={`trend-badge ${insight.trend}`}>{insight.trend.toUpperCase()}</span>
                     </header>
                     <p className="tip-text">
-                      <strong>Observation:</strong> {insight.observation}
+                      <strong>Observação:</strong> {insight.observation}
                     </p>
                     <p className="recommendation-text">
-                      <strong>AI Recommendation:</strong> {insight.recommendation}
+                      <strong>Recomendação Pedagógica IA:</strong> {insight.recommendation}
                     </p>
                   </div>
                 </div>
@@ -202,7 +311,7 @@ export const StudentPortfolio: React.FC<StudentPortfolioProps> = ({ studentId, s
             )}
           </div>
         </section>
-      </div>
+      )}
     </div>
   );
 };

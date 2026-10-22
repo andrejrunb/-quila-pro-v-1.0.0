@@ -1,4 +1,4 @@
-import { communicationHubService } from '../services/CommunicationHubService';
+import { communicationHubService } from '../main/services/CommunicationHubService';
 
 /**
  * ResourceMonitor (v1.0.1)
@@ -56,3 +56,4 @@ export class ResourceMonitor {
 }
 
 export const resourceMonitor = new ResourceMonitor();
+

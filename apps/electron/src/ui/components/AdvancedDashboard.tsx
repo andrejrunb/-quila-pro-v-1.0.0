@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { AlertCircle, TrendingUp, Users, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { AlertCircle, TrendingUp, Users, Clock, CheckCircle, XCircle, ShieldAlert } from 'lucide-react';
 import './AdvancedDashboard.css';
 
 interface DashboardMetrics {
@@ -11,6 +11,9 @@ interface DashboardMetrics {
   averageAttendance: number;
   criticalAlerts: number;
   systemUptime: number;
+  npuTemp: number;
+  npuHealth: number;
+  npuLoad: number;
 }
 
 interface AttendanceData {
@@ -28,45 +31,79 @@ interface AlertData {
 
 export const AdvancedDashboard: React.FC = () => {
   const [metrics, setMetrics] = useState<DashboardMetrics>({
-    totalStudents: 250,
-    presentToday: 235,
-    absentToday: 10,
-    lateToday: 5,
-    averageAttendance: 94,
-    criticalAlerts: 3,
-    systemUptime: 99.8,
+    totalStudents: 0,
+    presentToday: 0,
+    absentToday: 0,
+    lateToday: 0,
+    averageAttendance: 0,
+    criticalAlerts: 0,
+    systemUptime: 0,
+    npuTemp: 0,
+    npuHealth: 0,
+    npuLoad: 0,
   });
 
-  const [attendanceData] = useState<AttendanceData[]>([
-    { date: 'Seg', present: 240, absent: 8, late: 2 },
-    { date: 'Ter', present: 242, absent: 6, late: 2 },
-    { date: 'Qua', present: 235, absent: 10, late: 5 },
-    { date: 'Qui', present: 238, absent: 9, late: 3 },
-    { date: 'Sex', present: 245, absent: 4, late: 1 },
-  ]);
+  const [attendanceData, setAttendanceData] = useState<AttendanceData[]>([]);
+  const [alertData, setAlertData] = useState<AlertData[]>([]);
+  const [recentAlerts, setRecentAlerts] = useState<any[]>([]);
 
-  const [alertData] = useState<AlertData[]>([
-    { type: 'Ausência', count: 15, color: '#ef4444' },
-    { type: 'Atraso', count: 8, color: '#f97316' },
-    { type: 'Câmera Offline', count: 2, color: '#8b5cf6' },
-    { type: 'Não Identificado', count: 5, color: '#06b6d4' },
-  ]);
+  const fetchDashboardData = async () => {
+    try {
+      const stats = await (window as any).aquila.ipcRenderer.invoke('system:get-dashboard-stats');
+      const hardware = await (window as any).aquila.ipcRenderer.invoke('system:get-hardware-telemetry');
+      
+      if (stats) {
+        setMetrics({
+          ...stats,
+          npuTemp: hardware?.temperature || 0,
+          npuHealth: hardware?.healthScore || 0,
+          npuLoad: (hardware?.load_factor || 0) * 100
+        });
+      }
 
-  const recentAlerts = [
-    { id: 1, type: 'Ausência', student: 'João Silva', room: 'Sala 101', time: '08:45', severity: 'high' },
-    { id: 2, type: 'Atraso', student: 'Maria Santos', room: 'Sala 102', time: '09:15', severity: 'medium' },
-    { id: 3, type: 'Câmera Offline', student: '-', room: 'Sala 105', time: '10:30', severity: 'high' },
-    { id: 4, type: 'Não Identificado', student: 'Desconhecido', room: 'Corredor', time: '11:00', severity: 'medium' },
-  ];
+      const weekly = await (window as any).aquila.ipcRenderer.invoke('system:get-weekly-attendance');
+      if (weekly) setAttendanceData(weekly);
+
+      const alerts = await (window as any).aquila.ipcRenderer.invoke('system:get-recent-alerts');
+      if (alerts) {
+        setRecentAlerts(alerts);
+        
+        // Calcular alertData para o PieChart
+        const distribution = alerts.reduce((acc: any, curr: any) => {
+          acc[curr.type] = (acc[curr.type] || 0) + 1;
+          return acc;
+        }, {});
+        
+        const colors = ['#ef4444', '#f97316', '#8b5cf6', '#06b6d4'];
+        setAlertData(Object.keys(distribution).map((type, i) => ({
+          type,
+          count: distribution[type],
+          color: colors[i % colors.length]
+        })));
+      }
+    } catch (err) {
+      console.error('Failed to fetch dashboard data:', err);
+    }
+  };
+
+  const handleDismiss = async (studentId: string, riskType: string) => {
+    if (!studentId) return;
+    const reason = window.prompt("Justificativa para o descarte do alerta:");
+    if (reason === null) return; // Cancelado
+
+    try {
+      const result = await (window as any).aquila.ipcRenderer.invoke('pedagogical:dismiss-risk', studentId, riskType, reason);
+      if (result.success) {
+        fetchDashboardData();
+      }
+    } catch (err) {
+      console.error('Erro ao descartar risco:', err);
+    }
+  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setMetrics(prev => ({
-        ...prev,
-        presentToday: Math.floor(Math.random() * (245 - 230) + 230),
-        systemUptime: 99.5 + Math.random() * 0.3,
-      }));
-    }, 5000);
+    fetchDashboardData();
+    const interval = setInterval(fetchDashboardData, 10000); // Refresh every 10s
     return () => clearInterval(interval);
   }, []);
 
@@ -108,11 +145,11 @@ export const AdvancedDashboard: React.FC = () => {
 
         <div className="metric-card alerts">
           <div className="metric-info">
-            <p>Alertas Críticos</p>
-            <div className="metric-value">{metrics.criticalAlerts}</div>
-            <div className="metric-sub">Uptime: {metrics.systemUptime.toFixed(1)}%</div>
+            <p>Estado do Sistema</p>
+            <div className="metric-value">{metrics.npuHealth}%</div>
+            <div className="metric-sub">NPU: {metrics.npuTemp}°C | Load: {metrics.npuLoad.toFixed(1)}%</div>
           </div>
-          <AlertCircle size={48} className="metric-icon" />
+          <ShieldAlert size={48} className="metric-icon" />
         </div>
       </div>
 
@@ -182,9 +219,18 @@ export const AdvancedDashboard: React.FC = () => {
                   {alert.student} • {alert.room} • {alert.time}
                 </div>
               </div>
-              <span className="severity-badge">
-                {alert.severity === 'high' ? 'Crítico' : 'Aviso'}
-              </span>
+              <div className="alert-actions">
+                <span className="severity-badge">
+                  {alert.severity === 'high' ? 'Crítico' : 'Aviso'}
+                </span>
+                <button 
+                  className="dismiss-btn" 
+                  onClick={() => handleDismiss(alert.studentId, alert.riskType)}
+                  title="Descartar Alerta"
+                >
+                  Descartar
+                </button>
+              </div>
             </div>
           ))}
         </div>

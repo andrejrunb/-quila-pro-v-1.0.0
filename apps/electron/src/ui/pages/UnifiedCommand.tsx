@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Activity, ShieldCheck, Zap, Wrench, ChevronRight, 
   Settings, Globe, AlertTriangle, Users, MapPin, 
-  BarChart3, LifeBuoy, Clock, Camera, Radio, Database
+  BarChart3, LifeBuoy, Clock, Camera, Radio, Database, CheckCircle2
 } from 'lucide-react';
 import { useEnergyMonitor } from '../../hooks/useEnergyMonitor';
 import { EnvironmentalHUD } from '../components/EnvironmentalHUD';
@@ -13,22 +13,24 @@ import { IncidentTimeline } from '../components/IncidentTimeline';
 import { HelpCenter } from '../components/HelpCenter';
 import './UnifiedCommand.css';
 
+import { ArrowLeft } from 'lucide-react';
+
 /**
- * UNIFIED COMMAND (v3650) - The Sovereign Pentagram
+ * CENTRAL DE MONITORAMENTO (v1.3.4)
  * -----------------------------------------------
- * The central cognitive hub and headquarters for the "Grand Sovereign" campus.
- * 100% Zero-Debt Architecture with high-fidelity Ref-based style injection.
+ * Hub central de gestão operacional e segurança do campus.
+ * Focado em visualização de presença e integridade de acessos.
  */
-export const UnifiedCommand: React.FC<{ userRole?: string }> = ({ userRole = 'admin' }) => {
+export const UnifiedCommand: React.FC<{ userRole?: string; onBack?: () => void }> = ({ userRole = 'admin', onBack }) => {
   const energy = useEnergyMonitor();
-  const [activeTab, setActiveTab] = useState<'sovereignty' | 'presence' | 'fidelity' | 'energy'>(
-    userRole === 'coordinator' ? 'presence' : 'sovereignty'
+  const [activeTab, setActiveTab] = useState<'network' | 'presence' | 'fidelity' | 'energy'>(
+    userRole === 'coordinator' ? 'presence' : 'network'
   );
-  const [isMaintenance, setIsMaintenance] = useState(false);
+  // Padrão: Modo Manutenção (solicitado pelo usuário)
+  const [isMaintenance, setIsMaintenance] = useState(true);
   const energyRef = useRef<HTMLDivElement>(null);
 
   const isDirector = ['admin', 'director'].includes(userRole);
-  const isCoord = ['coordinator'].includes(userRole);
 
   useEffect(() => {
     if (energyRef.current) {
@@ -40,35 +42,78 @@ export const UnifiedCommand: React.FC<{ userRole?: string }> = ({ userRole = 'ad
   const handleToggleMaintenance = () => setIsMaintenance(!isMaintenance);
 
   return (
-    <div className="unified-command-container bg-black min-h-screen text-white selection:bg-blue-500 selection:text-white">
+    <div className="unified-command-container bg-black min-h-screen text-white selection:bg-blue-500 selection:text-white relative">
       {/* Background Sovereignty Overlay */}
       <div className="fixed inset-0 pointer-events-none opacity-10">
          <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-blue-600 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
          <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-purple-600 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
       </div>
 
+      {/* Painel de Manutenção (Modo de Atualização) */}
+      {isMaintenance && (
+        <div className="absolute inset-0 z-50 bg-[#050b14]/95 backdrop-blur-xl flex flex-col items-center justify-center p-12 text-center animate-fade-in">
+           <div className="relative mb-12">
+              <div className="w-32 h-32 border-4 border-blue-500/20 rounded-full animate-ping absolute inset-0" />
+              <div className="w-32 h-32 border-4 border-t-blue-500 rounded-full animate-spin relative flex items-center justify-center bg-blue-500/10">
+                 <ShieldCheck size={48} className="text-blue-500" />
+              </div>
+           </div>
+           <h2 className="text-4xl font-black italic uppercase tracking-tighter mb-4">Gestão de Segurança <span className="text-blue-500">Sincronizando</span></h2>
+           <p className="text-gray-400 max-w-md text-lg leading-relaxed mb-8">
+             O módulo de controle Áquila Pro está sendo otimizado para a sua escola. 
+             <br/><span className="text-blue-400 font-bold">Acesso restrito durante a atualização do sistema.</span>
+           </p>
+           <div className="flex gap-4">
+              <div className="bg-white/5 px-6 py-3 rounded-2xl border border-white/10 flex items-center gap-2">
+                 <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                 <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Servidores Online</span>
+              </div>
+              <div className="bg-white/5 px-6 py-3 rounded-2xl border border-white/10 flex items-center gap-2">
+                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                 <span className="text-[10px] font-black uppercase tracking-widest text-blue-500">Registros Ativos</span>
+              </div>
+           </div>
+           
+           <button 
+             onClick={handleToggleMaintenance}
+             className="mt-12 text-[10px] font-black uppercase tracking-[0.3em] text-gray-600 hover:text-white transition-colors"
+           >
+             ACESSAR COMO DIREÇÃO
+           </button>
+        </div>
+      )}
+
       <div className="relative z-10 flex h-screen overflow-hidden">
         
-        {/* Left Sidebar - Governance Hub */}
+        {/* Lateral de Navegação - Hub de Gestão */}
         <aside className="w-80 border-r border-white/5 bg-[#050b14]/80 backdrop-blur-3xl flex flex-col p-6 animate-in slide-in-from-left-4 duration-500">
+           {onBack && (
+               <button 
+                  onClick={onBack}
+                  className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-white transition-colors mb-6 group"
+               >
+                  <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+                  Voltar ao Painel
+               </button>
+            )}
            <div className="flex items-center gap-3 mb-10">
               <div className="w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
                  <ShieldCheck size={24} />
               </div>
               <div>
-                 <h1 className="text-xl font-black italic tracking-tighter uppercase leading-none">quila <span className="text-blue-500">Pro</span></h1>
-                 <div className="text-[9px] font-black text-gray-500 uppercase tracking-[0.34em] mt-1">Estado Soberano</div>
+                 <h1 className="text-xl font-black italic tracking-tighter uppercase leading-none">Áquila <span className="text-blue-500">Pro</span></h1>
+                 <div className="text-[9px] font-black text-gray-500 uppercase tracking-[0.34em] mt-1">Gestão Escolar Digital</div>
               </div>
            </div>
 
            <nav className="flex-1 space-y-1">
               {isDirector && (
                 <NavButton 
-                  active={activeTab === 'sovereignty'} 
-                  onClick={() => setActiveTab('sovereignty')}
+                  active={activeTab === 'network'} 
+                  onClick={() => setActiveTab('network')}
                   icon={Globe} 
-                  label="Soberania" 
-                  detail="Rede Mesh"
+                  label="Rede Escolar" 
+                  detail="Status de Conexão"
                 />
               )}
               <NavButton 
@@ -76,22 +121,22 @@ export const UnifiedCommand: React.FC<{ userRole?: string }> = ({ userRole = 'ad
                 onClick={() => setActiveTab('presence')}
                 icon={Activity} 
                 label="Presença" 
-                detail="Fluxo em Tempo Real"
+                detail="Fluxo de Alunos"
               />
               <NavButton 
                 active={activeTab === 'fidelity'} 
                 onClick={() => setActiveTab('fidelity')}
                 icon={Users} 
-                label="Fidelidade" 
-                detail="Confiabilidade"
+                label="Monitor de Acesso" 
+                detail="Integridade Biométrica"
               />
               {isDirector && (
                 <NavButton 
                   active={activeTab === 'energy'} 
                   onClick={() => setActiveTab('energy')}
                   icon={Zap} 
-                  label="Recursos" 
-                  detail="Rede Elétrica"
+                  label="Servidores" 
+                  detail="Recursos de IA"
                 />
               )}
            </nav>
@@ -99,14 +144,14 @@ export const UnifiedCommand: React.FC<{ userRole?: string }> = ({ userRole = 'ad
            <div className="mt-auto pt-6 border-t border-white/5">
               <div className="governance-panel glass-panel mb-4">
                   <h3 className="section-title text-[10px] font-black uppercase text-gray-500 mb-4 flex items-center gap-2">
-                    <Zap size={10} /> Carga da Rede
-                 </h3>
+                    <Zap size={10} /> Carga do Sistema
+                  </h3>
                  <div className="progress-bar-small h-1 bg-white/5 rounded-full overflow-hidden mb-2">
                     <div ref={energyRef} className="h-full bg-blue-500 transition-all duration-1000" />
                  </div>
                  <div className="flex justify-between text-[9px] font-mono text-gray-500">
                     <span>{Math.round(energy.currentConsumption * 1000)}W</span>
-                    <span>AUTO-ECO</span>
+                    <span>OTIMIZADO</span>
                  </div>
               </div>
 
@@ -116,7 +161,7 @@ export const UnifiedCommand: React.FC<{ userRole?: string }> = ({ userRole = 'ad
                   isMaintenance ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/10' : 'bg-white/5 text-gray-500 hover:bg-white/10'
                 }`}
               >
-                <Wrench size={12} /> {isMaintenance ? 'Manutenção Ativa' : 'Entrar em Manutenção'}
+                <Wrench size={12} /> {isMaintenance ? 'Manutenção Ativa' : 'Ativar Manutenção'}
               </button>
            </div>
         </aside>
@@ -126,25 +171,25 @@ export const UnifiedCommand: React.FC<{ userRole?: string }> = ({ userRole = 'ad
            
            {/* Top Stats Banner */}
            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <StatCard label="Presença Global" value="94.8%" trend="+2.4%" icon={CheckCircleV2} color="green" />
-              <StatCard label="Fidelidade Nexus" value="100%" trend="Estável" icon={ShieldCheck} color="blue" />
-              <StatCard label="Status Térmico" value="34°C" trend="Eco" icon={Activity} color="purple" />
-              <StatCard label="Ledger Soberano" value="V-Sync" trend="Ativo" icon={Database} color="blue" />
+              <StatCard label="Presença Geral" value="94.8%" trend="+2.4%" icon={CheckCircle2} color="green" />
+              <StatCard label="Segurança Ativa" value="100%" trend="Estável" icon={ShieldCheck} color="blue" />
+              <StatCard label="Carga de IA" value="34°C" trend="Eco" icon={Activity} color="purple" />
+              <StatCard label="Sincronização" value="Ativa" trend="v1.3.4" icon={Database} color="blue" />
            </div>
 
            {/* Tab Content */}
-           {activeTab === 'sovereignty' && (
+           {activeTab === 'network' && (
               <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 min-w-0">
                     <div className="lg:col-span-2 glass-panel p-8 rounded-[40px] border border-white/5 bg-[#050b14]/40 min-w-0">
                        <h2 className="text-3xl font-black italic uppercase tracking-tighter mb-8 flex items-center gap-4">
-                          <Globe size={32} className="text-blue-500" /> Rede Nexus <span className="text-sm font-black text-gray-600 bg-white/5 px-3 py-1 rounded-full uppercase italic tracking-widest ml-4">Protocolo Gossip Sync</span>
+                          <Globe size={32} className="text-blue-500" /> Rede Escolar <span className="text-sm font-black text-gray-600 bg-white/5 px-3 py-1 rounded-full uppercase italic tracking-widest ml-4">Conectividade Ativa</span>
                        </h2>
                        <NexusStateVisualizer />
                     </div>
                     <div className="glass-panel p-8 rounded-[40px] border border-white/5 bg-[#050b14]/40 h-fit min-w-0">
                        <h3 className="text-xl font-black italic uppercase tracking-tighter mb-6 flex items-center gap-3">
-                          <Activity size={20} className="text-purple-400" /> Fluxo de Anomalias em Tempo Real
+                          <Activity size={20} className="text-purple-400" /> Anomalias Detectadas
                        </h3>
                        <IncidentTimeline incidents={[]} />
                     </div>
@@ -156,7 +201,7 @@ export const UnifiedCommand: React.FC<{ userRole?: string }> = ({ userRole = 'ad
               <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
                  <div className="glass-panel p-8 rounded-[40px] border border-white/5 bg-[#050b14]/40 h-[70vh]">
                     <h2 className="text-3xl font-black italic uppercase tracking-tighter mb-8 flex items-center gap-4">
-                       <Activity size={32} className="text-purple-400" /> Fidelidade de Fluxo Pedagógico
+                       <Activity size={32} className="text-purple-400" /> Fluxo de Presença por Unidade
                     </h2>
                     <AttendanceDensityMap />
                  </div>
@@ -167,14 +212,14 @@ export const UnifiedCommand: React.FC<{ userRole?: string }> = ({ userRole = 'ad
               <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
                  <div className="glass-panel p-8 rounded-[40px] border border-white/5 bg-[#050b14]/40">
                     <h2 className="text-3xl font-black italic uppercase tracking-tighter mb-8 flex items-center gap-4">
-                       <Users size={32} className="text-emerald-400" /> Integridade de Presença & Confiança
+                       <Users size={32} className="text-emerald-400" /> Auditoria de Confiança Biométrica
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                        <EnvironmentalHUD roomId="central-core" />
                        <div className="flex flex-col items-center justify-center p-12 bg-white/5 rounded-[32px] border border-white/5">
                           <ShieldCheck size={64} className="text-emerald-500 mb-6 animate-pulse" />
                           <h3 className="text-xl font-bold italic tracking-tight text-white mb-2">Validação Soberana Ativa</h3>
-                          <p className="text-gray-500 text-center max-w-xs text-sm">Verificações de vivacidade multimodal passando com 99,8% de confiança global.</p>
+                          <p className="text-gray-500 text-center max-w-xs text-sm">Verificações de vivacidade multimodal passando com 99,8% de confiança global (LGPD Compliance).</p>
                        </div>
                     </div>
                  </div>
@@ -223,4 +268,4 @@ const StatCard: React.FC<{ label: string, value: string, trend: string, icon: an
   </div>
 );
 
-const CheckCircleV2: React.FC<{ size: number }> = ({ size }) => <ShieldCheck size={size || 24} />;
+const CheckCircleV2: React.FC<{ size: number }> = ({ size }) => <CheckCircle2 size={size || 24} />;

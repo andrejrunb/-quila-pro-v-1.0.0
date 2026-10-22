@@ -130,7 +130,7 @@ export const AttendanceDensityMap: React.FC = () => {
           {discrepancies.map(d => (
             <div key={d.id} className="discrepancy-item">
               <AlertCircle size={12} />
-              <span>Aluno {d.studentId.replace('std_', '#')} fora da zona esperada ({d.expectedRoom})</span>
+              <span>Aluno {d.studentId ? d.studentId.replace('std_', '#') : 'Desconhecido'} fora da zona esperada ({d.expectedRoom})</span>
             </div>
           ))}
         </div>

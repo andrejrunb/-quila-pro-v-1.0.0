@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Shield, ArrowRight, Mail, MapPin, Phone, Globe, ExternalLink, Facebook } from "lucide-react";
+import { Shield, ArrowRight, Mail, MapPin, Phone, Globe, ExternalLink } from "lucide-react";
 // Usando ícones genéricos seguros para evitar erros de exportação na versão atual do lucide-react
 
 export default function Footer() {

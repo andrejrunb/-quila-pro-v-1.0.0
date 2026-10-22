@@ -123,18 +123,20 @@
   margin-bottom: 2.5rem;
 }
 
-.progress-track {
+.progress-bar-bg {
   width: 100%;
   height: 0.75rem;
   background-color: #020617;
   border-radius: 1rem;
   overflow: hidden;
+  margin-bottom: 1rem;
 }
 
-.progress-fill {
+.progress-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, #2563eb, #60a5fa);
-  transition: width 0.5s ease-out;
+  width: var(--test-progress, 0%);
+  transition: width 0.3s ease-out;
 }
 
 .results-card {

@@ -1,0 +1,160 @@
+.printable-answer-sheet {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  margin: 0 auto;
+  background: white;
+  color: black;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+.sheet-header {
+  border-bottom: 2px solid #000;
+  padding-bottom: 10mm;
+  margin-bottom: 10mm;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 15mm;
+  margin-bottom: 8mm;
+}
+
+.school-logo-placeholder {
+  width: 30mm;
+  height: 30mm;
+  border: 1px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.school-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.assessment-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 2mm 0 0 0;
+  color: #333;
+}
+
+.student-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5mm;
+}
+
+.field-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 3mm;
+}
+
+.field-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.field-line {
+  border-bottom: 1px solid #000;
+  height: 0.9rem;
+  flex-grow: 1;
+}
+
+.field-meta {
+  display: flex;
+  gap: 10mm;
+}
+
+.sheet-body {
+  padding: 0 5mm;
+}
+
+.instructions {
+  background: #f5f5f5;
+  padding: 4mm;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  margin-bottom: 10mm;
+  border: 1px solid #ddd;
+}
+
+.bubbles-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10mm 20mm;
+}
+
+.question-row {
+  display: flex;
+  align-items: center;
+  gap: 5mm;
+  padding: 2mm 0;
+  border-bottom: 0.5px solid #eee;
+}
+
+.question-number {
+  font-weight: 800;
+  font-size: 1rem;
+  width: 8mm;
+}
+
+.options-row {
+  display: flex;
+  gap: 5mm;
+}
+
+.option-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1mm;
+}
+
+.bubble-circle {
+  width: 8mm;
+  height: 8mm;
+  border: 1.5px solid #000;
+  border-radius: 50%;
+}
+
+.option-letter {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.sheet-footer {
+  margin-top: 20mm;
+  padding-top: 5mm;
+  border-top: 1px solid #eee;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #666;
+}
+
+@media print {
+  body {
+    background: none;
+    margin: 0;
+    padding: 0;
+  }
+  .printable-answer-sheet {
+    margin: 0;
+    box-shadow: none;
+    width: 100%;
+    padding: 10mm;
+  }
+  .no-print {
+    display: none;
+  }
+}

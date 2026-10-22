@@ -31,29 +31,44 @@ export const BoardScanner: React.FC = () => {
     }
   };
 
-  const startScan = () => {
+  const startScan = async () => {
     setIsScanning(true);
-    setLogs(prev => [...prev, 'Iniciando captura de fóton...', 'Calibrando rede neural local...']);
+    setLogs(prev => [...prev, 'Enviando imagem ao Córtex Central...', 'Executando OCR e Extração LLaVA...']);
+    
+    // Animação de progresso cosmética enquanto o processo real acontece
     let p = 0;
     const interval = setInterval(() => {
-      p += 5;
+      p = Math.min(p + 15, 90);
       setProgress(p);
-      
-      if (p === 30) setLogs(prev => [...prev, 'Detectando limites da lousa (Hough Transform)...']);
-      if (p === 60) setLogs(prev => [...prev, 'Executando OCR Vision-Ensemble...']);
-      if (p === 90) setLogs(prev => [...prev, 'Estruturando Flashcards SM-2...']);
+    }, 500);
 
-      if (p >= 100) {
-        clearInterval(interval);
-        setIsScanning(false);
+    try {
+      const win = window as any;
+      const base64Image = image?.split(',')[1] || '';
+      
+      const res = await win.aquila.invoke('pedagogy:process-whiteboard', {
+        classId: 'turma-atual',
+        base64Image
+      });
+
+      clearInterval(interval);
+      setProgress(100);
+      setIsScanning(false);
+      
+      if (res.success) {
         setLogs(prev => [...prev, 'EXTRAÇÃO CONCLUÍDA COM SUCESSO.']);
+        // Converter a resposta da IA em cards visuais. Se não for um JSON de flashcards, exibiremos o texto livre em um único card.
         setResults([
-          { id: '1', type: 'flashcard', content: 'Pergunta: O que é Soberania Digital? Resposta: O controle sobre dados e infra.', approved: false },
-          { id: '2', type: 'task', content: 'Ler capítulo 4 sobre algoritmos de consenso.', approved: false },
-          { id: '3', type: 'flashcard', content: 'Pergunta: Como funciona o RAG? Resposta: Recuperação aumentada por geração.', approved: false },
+          { id: '1', type: 'task', content: res.content, approved: true }
         ]);
+      } else {
+        setLogs(prev => [...prev, 'FALHA NA EXTRAÇÃO: ' + res.message]);
       }
-    }, 150);
+    } catch (err: any) {
+      clearInterval(interval);
+      setIsScanning(false);
+      setLogs(prev => [...prev, 'ERRO DO SERVIDOR: ' + err.message]);
+    }
   };
 
   const toggleApprove = (id: string) => {
@@ -114,6 +129,11 @@ export const BoardScanner: React.FC = () => {
       </div>
 
         <div className="progress-container">
+          {image && !isScanning && results.length === 0 && (
+             <button onClick={startScan} className="bg-blue-500 text-white font-bold py-2 px-4 rounded-xl w-full hover:bg-blue-600 shadow-glow mb-4">
+                Iniciar Extração de Lousa
+             </button>
+          )}
           <div className="progress-bar">
             <div 
               className="progress-fill" 
@@ -143,7 +163,7 @@ export const BoardScanner: React.FC = () => {
           </div>
 
           <div className="results-actions">
-            <button className="btn-approve-all" onClick={() => alert('Conteúdo enviado para o SRS dos alunos.')}>
+            <button className="btn-approve-all" onClick={() => (window as any).showToast?.('Conteúdo enviado para o SRS dos alunos com sucesso!', 'success')}>
               <CheckCircle size={16} /> CONFIRMAR E ENVIAR
             </button>
             <button 
@@ -155,8 +175,8 @@ export const BoardScanner: React.FC = () => {
                   metadata: { id: Date.now() },
                   sources: ['IA Vision Board Extraction']
                 };
-                const path = await (window as any).electron.ipcRenderer.invoke('ai:export-notebook', data);
-                alert('Exportado para: ' + path);
+                const path = await ((window as any).aquila?.invoke('ai:export-notebook', data) || (window as any).electron?.ipcRenderer?.invoke('ai:export-notebook', data));
+                (window as any).showToast?.('Material exportado para: ' + (path || 'NotebookLM'), 'success');
               }}
             >
               <FileUp size={16} /> EXPORTAR NOTEBOOKLM

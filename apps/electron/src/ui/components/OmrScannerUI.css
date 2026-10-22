@@ -1,0 +1,1106 @@
+/* ==========================================================================
+   Áquila Pro — Central OMR & Banco de Itens TRI Soberano (Estilos)
+   ========================================================================== */
+
+.omr-sovereign-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  color: #f1f5f9;
+}
+
+/* ── Main Toolbar ── */
+.omr-main-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.omr-icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.toolbar-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.toolbar-subtitle {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin: 2px 0 0;
+}
+
+/* ── Tabs Navigation ── */
+.omr-tabs-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.omr-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.omr-tab-btn:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.omr-tab-btn.active {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+}
+
+/* ── Filter Bar ── */
+.omr-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 12px 18px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.aquila-select {
+  flex: 1;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #f1f5f9;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.aquila-select:focus {
+  border-color: #06b6d4;
+}
+
+/* ── Container Principal do Scanner ── */
+.omr-scanner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-height: 540px;
+}
+
+.omr-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  flex: 1;
+  min-height: 500px;
+}
+
+@media (max-width: 1024px) {
+  .omr-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Seção da Câmera ── */
+.omr-camera-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: #020617;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  min-height: 460px;
+}
+
+.omr-idle-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 32px;
+  text-align: center;
+}
+
+.idle-content h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 6px;
+}
+
+.idle-content p {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  max-width: 380px;
+  margin: 0 auto;
+  line-height: 1.45;
+}
+
+.omr-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.omr-action-btn.primary {
+  background: linear-gradient(135deg, #06b6d4, #0284c7);
+  color: white;
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+}
+
+.omr-action-btn.primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.omr-action-btn.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.omr-action-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+.omr-video-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.omr-camera-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.omr-guide-box {
+  width: 70%;
+  height: 82%;
+  border: 2px dashed rgba(6, 182, 212, 0.4);
+  border-radius: 14px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.omr-guide-box.scanning {
+  border-color: #10b981;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+}
+
+.omr-guide-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: #06b6d4;
+  border-style: solid;
+}
+
+.omr-guide-corner.tl { top: -2px; left: -2px; border-width: 4px 0 0 4px; border-radius: 12px 0 0 0; }
+.omr-guide-corner.tr { top: -2px; right: -2px; border-width: 4px 4px 0 0; border-radius: 0 12px 0 0; }
+.omr-guide-corner.bl { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; border-radius: 0 0 0 12px; }
+.omr-guide-corner.br { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; border-radius: 0 0 12px 0; }
+
+.omr-controls {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+
+.omr-error-banner {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 20;
+}
+
+/* ── Painel de Resultados OMR & TRI ── */
+.omr-results-panel {
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px;
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.report-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 40px;
+  text-align: center;
+  color: #64748b;
+}
+
+.report-hero-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.student-profile-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 10px;
+}
+
+.student-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.student-meta {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.processed-time {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-family: monospace;
+}
+
+/* ── Grid de Scores TRI ── */
+.tri-scores-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.tri-score-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.tri-score-card.enem {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.tri-score-card.enem .score-number {
+  color: #fbbf24;
+}
+
+.tri-score-card.grade {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.tri-score-card.grade .score-number {
+  color: #34d399;
+}
+
+.tri-score-card.coherence {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.tri-score-card.coherence .score-number {
+  color: #a78bfa;
+}
+
+.score-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+.score-number-row {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  margin: 4px 0 2px;
+}
+
+.score-number {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-family: monospace;
+  line-height: 1;
+}
+
+.score-unit {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.score-sub {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+}
+
+.tri-diagnostic-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  border-radius: 8px;
+}
+
+.tri-diagnostic-box p {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #cbd5e1;
+}
+
+/* ── Sincronia de Nota ── */
+.sync-action-strip {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.btn-sync-gradebook {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.btn-sync-gradebook.synced {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10b981;
+  color: #34d399;
+}
+
+.btn-sync-gradebook:hover {
+  filter: brightness(1.1);
+}
+
+.btn-next-scan {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-next-scan:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* ── Análise de Questões ── */
+.questions-analysis-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.3px;
+  margin: 4px 0;
+}
+
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.q-result-card {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.q-result-card.correct {
+  border-color: rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.q-result-card.incorrect {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.q-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.q-num {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.q-skill-badge {
+  font-size: 0.65rem;
+  color: #64748b;
+  font-family: monospace;
+}
+
+.q-answers-row {
+  display: flex;
+  gap: 4px;
+}
+
+.ans-tag {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px 2px;
+  border-radius: 4px;
+}
+
+.ans-tag small {
+  font-size: 0.6rem;
+  color: #64748b;
+}
+
+.ans-tag strong {
+  font-size: 0.9rem;
+}
+
+.ans-tag.expected {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ans-tag.detected.ok {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.ans-tag.detected.err {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+/* ── Criador de Simulados ── */
+.tri-exam-creator-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.75);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.creator-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 4px;
+}
+
+.creator-header p {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.creator-config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.config-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.config-card label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+}
+
+.aquila-input {
+  padding: 9px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #f1f5f9;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.aquila-input:focus {
+  border-color: #06b6d4;
+}
+
+.creator-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-generate-exam {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #06b6d4, #0284c7);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+}
+
+.btn-generate-exam:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.exam-preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+}
+
+.preview-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.preview-hero h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #38bdf8;
+  margin: 0 0 2px;
+}
+
+.preview-hero p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.btn-save-exam {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 9px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.preview-questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.preview-q-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.preview-q-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.q-badge-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.difficulty-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.difficulty-pill.facil { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+.difficulty-pill.medio { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.difficulty-pill.dificil { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+.skill-pill {
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(6, 182, 212, 0.15);
+  color: #38bdf8;
+  font-family: monospace;
+}
+
+.tri-param-pill {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  font-family: monospace;
+}
+
+.preview-q-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+.preview-options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.preview-opt-item {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.preview-opt-item.correct-opt {
+  background: rgba(16, 185, 129, 0.15);
+  border-left: 3px solid #10b981;
+  color: #a7f3d0;
+}
+
+.socratic-note {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+/* ── Aba de Impressão de Gabarito ── */
+.omr-print-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.75);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.print-controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-print-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: white;
+  border: none;
+  border-radius: 9px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+}
+
+/* ── Folha de Respostas OMR (Fidelidade Gráfica) ── */
+.printable-omr-sheet {
+  position: relative;
+  max-width: 780px;
+  margin: 0 auto;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 36px 40px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Marcadores Fiduciais nos 4 cantos */
+.fiducial-marker {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #000000;
+}
+
+.fiducial-marker.top-left { top: 14px; left: 14px; }
+.fiducial-marker.top-right { top: 14px; right: 14px; }
+.fiducial-marker.bottom-left { bottom: 14px; left: 14px; }
+.fiducial-marker.bottom-right { bottom: 14px; right: 14px; }
+
+.sheet-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #000;
+  padding-bottom: 12px;
+}
+
+.school-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.school-symbol {
+  width: 44px;
+  height: 44px;
+  background: #0f172a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  border-radius: 6px;
+}
+
+.school-brand h2 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  margin: 0;
+  color: #000;
+}
+
+.school-brand p {
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 2px 0 0;
+  color: #475569;
+}
+
+.mock-qr-code {
+  width: 52px;
+  height: 52px;
+  border: 2px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem;
+  font-weight: 800;
+  text-align: center;
+  color: #000;
+}
+
+.sheet-meta-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.meta-box {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.meta-lbl {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #000;
+  white-space: nowrap;
+}
+
+.meta-line {
+  flex: 1;
+  border-bottom: 1px solid #000;
+  height: 14px;
+}
+
+.meta-row-duo {
+  display: flex;
+  gap: 16px;
+}
+
+.sheet-instructions {
+  font-size: 0.72rem;
+  line-height: 1.35;
+  background: #f1f5f9;
+  padding: 8px 12px;
+  border-left: 3px solid #000;
+  margin-bottom: 18px;
+  color: #334155;
+}
+
+/* ── Grid de Bolhas OMR ── */
+.sheet-bubble-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 36px;
+  row-gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.bubble-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 0;
+}
+
+.q-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-family: monospace;
+  width: 26px;
+  color: #000;
+}
+
+.bubble-options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bubble-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.bubble-circle {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid #000;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.bubble-letter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #000;
+}
+
+.sheet-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748b;
+  border-top: 1px solid #cbd5e1;
+  padding-top: 10px;
+}
+
+/* ── Caderno de Avaliação Impresso (Oculto em Tela) ── */
+.printable-exam-booklet {
+  display: none;
+}
+
+.btn-print-exam-booklet {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f1f5f9;
+  border-radius: 9px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-print-exam-booklet:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+/* ── Regras de Impressão ── */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .omr-print-section, .omr-print-section *,
+  .printable-exam-booklet, .printable-exam-booklet * {
+    visibility: visible !important;
+  }
+
+  .print-controls-header, .creator-actions, .preview-hero, .btn-print-exam-booklet, .btn-save-exam {
+    display: none !important;
+  }
+
+  .printable-exam-booklet {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: #fff !important;
+    color: #000 !important;
+    font-family: Arial, sans-serif !important;
+  }
+
+  .printable-omr-sheet {
+    page-break-after: always;
+    break-after: page;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 2rem 0 !important;
+    padding: 24px 30px !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border: 1px solid #ccc !important;
+  }
+}

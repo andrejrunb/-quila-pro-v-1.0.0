@@ -141,7 +141,7 @@ export const SwarmExecutiveCockpit: React.FC = () => {
             </button>
           </header>
 
-          <div className="pills-list overflow-y-auto max-h-[500px] pr-2">
+          <div className="pills-list overflow-y-auto max-h-[400px] pr-2">
             {pills.length === 0 ? (
               <div className="text-slate-600 italic text-center py-20">Nenhum insight pendente de revisão.</div>
             ) : (
@@ -167,6 +167,33 @@ export const SwarmExecutiveCockpit: React.FC = () => {
                 </div>
               ))
             )}
+          </div>
+
+          {/* [Phase 7001] Federated Learning Pulse */}
+          <div className="federation-status">
+            <h3 className="text-[10px] font-black uppercase text-purple-400 mb-4 tracking-tighter flex items-center gap-2">
+              <Activity size={12} /> Swarm Intelligence Consensus
+            </h3>
+            <div className="neural-pulse-indicator">
+              <div className="flex-1">
+                <div className="text-xs font-bold text-slate-300 mb-1">Knowledge Shards Synchronized</div>
+                <div className="text-lg font-black text-purple-glow">1,402 Units</div>
+              </div>
+              <div className="text-right">
+                <div className="text-[10px] font-bold text-slate-500 uppercase">Global Confidence</div>
+                <div className="text-sm font-bold text-emerald-400">94.8%</div>
+              </div>
+            </div>
+            <div className="mt-4 space-y-2">
+               <div className="shard-entry">
+                  <span className="text-[10px] text-slate-400">Último Shard Recebido</span>
+                  <span className="text-[10px] font-mono text-purple-300">#AQ-FED-882</span>
+               </div>
+               <div className="shard-entry">
+                  <span className="text-[10px] text-slate-400">Ganho de Precisão (Rede)</span>
+                  <span className="text-[10px] font-mono text-emerald-400">+2.15%</span>
+               </div>
+            </div>
           </div>
         </section>
 

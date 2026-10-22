@@ -27,12 +27,20 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ onSelect, onClose })
       setIsGenerating(true);
 
       // Busca Alunos
-      const students = await aquila.invoke('get-students');
-      const filtered = students.filter((s: any) => 
-        s.name.toLowerCase().includes(query.toLowerCase()) || 
-        s.id.includes(query)
-      ).slice(0, 3);
-      setResults(filtered);
+      try {
+        const students = await aquila.invoke('get-students');
+        if (Array.isArray(students)) {
+          const filtered = students.filter((s: any) => 
+            s && s.name && (s.name.toLowerCase().includes(query.toLowerCase()) || (s.id && s.id.includes(query)))
+          ).slice(0, 5);
+          setResults(filtered);
+        } else {
+          setResults([]);
+        }
+      } catch (e) {
+        console.error('Error fetching students for search:', e);
+        setResults([]);
+      }
 
       // Busca RAG (Soberana)
       try {

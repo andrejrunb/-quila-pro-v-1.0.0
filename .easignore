@@ -1,0 +1,41 @@
+# Ignore all node_modules recursively
+**/node_modules/
+node_modules/
+
+# Ignore Python virtual environments and caches
+venv/
+venv311/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore other projects and folders not needed for the mobile app
+apps/
+aquila-cloud/
+aquila-mobile/
+aquila-wiki/
+aquilapro_electron/
+external/
+temp_repos/
+.git/
+.aquila_brain/
+.obsidian/
+.smart-env/
+tmp/
+
+# Ignore build outputs and packages
+dist/
+build/
+release/
+web-build/
+*.onnx
+*.dat
+*.bin
+*.pt
+*.pkl
+*.exe
+*.asar
+*.zip
+*.tar.gz
+*.tgz

@@ -1,0 +1,381 @@
+/* AdminPortal.css — Stitch Sovereign Executive Cockpit (DIREÇÃO) */
+
+.ap-cockpit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 6px;
+  min-height: 100%;
+  color: var(--stitch-text-primary, #F8FAFC);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Executive Command Bar — Uniform 32px Buttons */
+.ap-command-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.ap-cmd-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ap-cmd-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0, 240, 255, 0.14);
+  color: #00F0FF;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+}
+
+.ap-cmd-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #F8FAFC;
+  margin: 0;
+}
+
+.ap-cmd-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #141B2D;
+  color: #E2E8F0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.ap-btn:hover {
+  border-color: #00F0FF;
+  color: #FFFFFF;
+  background: rgba(0, 240, 255, 0.12);
+}
+
+.ap-btn.primary {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(59, 130, 246, 0.25));
+  border-color: rgba(0, 240, 255, 0.5);
+  color: #FFFFFF;
+  box-shadow: 0 0 14px -4px rgba(0, 240, 255, 0.4);
+}
+
+/* 4-Column Telemetry KPI Strip */
+.ap-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.ap-kpi-pod {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  transition: border-color 0.15s ease;
+}
+
+.ap-kpi-pod:hover {
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.ap-kpi-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ap-kpi-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748B;
+}
+
+.ap-kpi-value {
+  font-family: var(--font-mono, monospace);
+  font-size: 20px;
+  font-weight: 800;
+  color: #F8FAFC;
+  line-height: 1.1;
+}
+
+.ap-kpi-delta {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.ap-kpi-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Main 2-Column Bento Grid */
+.ap-bento-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 1100px) {
+  .ap-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ap-bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ap-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ap-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ap-panel {
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ap-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ap-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #E2E8F0;
+  margin: 0;
+}
+
+.ap-panel-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #00F0FF;
+}
+
+.ap-chart-box {
+  height: 135px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.ap-bar-col {
+  flex: 1;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+.ap-bar-fill {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, #00F0FF 0%, rgba(59, 130, 246, 0.5) 100%);
+  transition: height 0.3s ease;
+}
+
+.ap-bar-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  color: #64748B;
+  margin-top: 4px;
+}
+
+/* 5-Portal Sovereign Matrix inside Executive Cockpit */
+.ap-portals-matrix {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+@media (max-width: 900px) {
+  .ap-portals-matrix {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ap-portal-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 10px;
+  background: #141B2D;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.ap-portal-tile:hover {
+  border-color: #00F0FF;
+  transform: translateY(-1px);
+  background: rgba(20, 27, 45, 0.95);
+}
+
+.ap-portal-tile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ap-portal-tile-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.ap-portal-tile-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+.ap-portal-tile-desc {
+  font-size: 10px;
+  color: #94A3B8;
+  line-height: 1.25;
+}
+
+/* Right Column: Live Institutional Feed with Rectangular Portraits ("Sem Bolinha") */
+.ap-feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ap-feed-row {
+  display: flex;
+  align-items: stretch;
+  background: #141B2D;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+  min-height: 54px;
+}
+
+.ap-feed-row:hover {
+  border-color: rgba(0, 240, 255, 0.35);
+}
+
+.ap-feed-photo {
+  width: 48px;
+  height: 56px;
+  object-fit: cover;
+  object-position: center 20%;
+  flex-shrink: 0;
+  display: block;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ap-feed-content {
+  flex: 1;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ap-feed-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ap-feed-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #F8FAFC;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ap-feed-sub {
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+.ap-feed-time {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #64748B;
+  white-space: nowrap;
+}

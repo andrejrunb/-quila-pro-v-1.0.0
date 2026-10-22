@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { theme } from '../theme/theme';
-import { Trophy, Star, Zap, Target, Award, Rocket } from 'lucide-react-native';
+import { Trophy, Star, Zap, Target, Award, Rocket, Users } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -64,7 +64,7 @@ const StudentDashboard = () => {
         <View style={styles.missionHeader}>
           <Award color="#8b5cf6" size={24} />
           <Text style={styles.missionTitle}>Missão do Dia</Text>
-        </div>
+        </View>
         <Text style={styles.missionDesc}>
           Mantenha o foco absoluto na aula de Física para liberar a medalha "Mestre do Vácuo".
         </Text>

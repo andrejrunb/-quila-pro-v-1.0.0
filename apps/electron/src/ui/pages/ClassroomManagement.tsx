@@ -28,6 +28,7 @@ interface Schedule {
   startTime: string;
   endTime: string;
   dayOfWeek: number;
+  teacherId?: string;
 }
 
 export const ClassroomManagement: React.FC<{ onBack: () => void }> = ({ onBack }) => {
@@ -36,6 +37,7 @@ export const ClassroomManagement: React.FC<{ onBack: () => void }> = ({ onBack }
   const [classes, setClasses] = useState<ClassObj[]>([]);
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [cameras, setCameras] = useState<any[]>([]);
+  const [teachers, setTeachers] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedClassId, setSelectedClassId] = useState<string>('');
 
@@ -54,16 +56,18 @@ export const ClassroomManagement: React.FC<{ onBack: () => void }> = ({ onBack }
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const [r, c, s, cams] = await Promise.all([
+      const [r, c, s, cams, users] = await Promise.all([
         aquila.invoke('get-rooms'),
         aquila.invoke('get-classes'),
         aquila.invoke('get-schedules'),
-        aquila.invoke('get-cameras')
+        aquila.invoke('get-cameras'),
+        aquila.invoke('get-users')
       ]);
       setRooms(r || []);
       setClasses(c || []);
       setSchedules(s || []);
       setCameras(cams || []);
+      setTeachers((users || []).filter((u: any) => u.role === 'teacher' || u.role === 'professor'));
     } catch (err) {
       console.error('Erro ao carregar dados:', err);
     } finally {
@@ -175,6 +179,8 @@ export const ClassroomManagement: React.FC<{ onBack: () => void }> = ({ onBack }
                 classId={selectedClassId}
                 rooms={rooms}
                 schedules={schedules}
+                teachers={teachers}
+                readOnly={false}
                 onSave={handleSaveSchedule}
                 onDelete={handleDeleteSchedule}
               />

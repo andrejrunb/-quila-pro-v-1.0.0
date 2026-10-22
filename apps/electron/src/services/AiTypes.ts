@@ -76,17 +76,20 @@ export interface NexusNode {
   hardwareProfile?: 'low' | 'medium' | 'high'; // Capabilidade de I.A local (v3465)
   isCloudCreditNode?: boolean;
   endpoint?: string;
+  peerId?: string; // Libp2p Peer ID (v1.6+)
 }
 
 export interface SyncPacket {
   id: string;
   sourceNode: string;
   targetNode: string;
-  payloadType: 'identity' | 'telemetry' | 'schedule' | 'session_sync' | 'parity_request' | 'parity_response' | 'admin_command';
+  tenantId?: string; // ID da Instituição para Isolamento P2P (v1.3)
+  payloadType: 'identity' | 'telemetry' | 'schedule' | 'session_sync' | 'parity_request' | 'parity_response' | 'admin_command' | 'evolution_pulse' | 'CORTEX_PULSE' | 'RESOURCE_ANNOUNCEMENT' | 'RESOURCE_DISCOVERY_REQUEST' | 'RESOURCE_DISCOVERY_RESPONSE' | 'SWARM_SEARCH_REQUEST' | 'SWARM_SEARCH_RESPONSE' | 'CONSENSUS_PROPOSAL' | 'CONSENSUS_VOTE' | 'RAG_QUERY' | 'RAG_RESPONSE' | 'REPUTATION_VOUCH' | 'BRIDGE_HELP_REQUEST' | 'HELP_RESPONSE' | 'GLOBAL_INSIGHT_PULSE' | 'REPAIR_REQUEST' | 'REPAIR_RESPONSE' | 'backup_shard' | 'cloud_shard_sync' | 'inference_request' | 'inference_result' | 'capability_announcement';
   timestamp: number;
-  payload?: any; // Dados extras da sessão ou telemetria
-  signature?: string; // HMAC-SHA256 (v3504)
-  publicKey?: string; // Identificador da chave autorizada (v3504)
+  payload?: any; 
+  securityLevel?: string;
+  signature?: string; 
+  publicKey?: string; 
 }
 
 export const NEXUS_CLUSTER_CONFIG: NexusNode[] = [
@@ -242,3 +245,4 @@ export interface TransportFleet {
   };
   status: 'en_route' | 'delayed' | 'finished' | 'stopped' | 'boarding' | 'maintenance';
 }
+

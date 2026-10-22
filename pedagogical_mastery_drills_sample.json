@@ -1,0 +1,447 @@
+[
+  {
+    "question_id": "enem_2010-1_q_1",
+    "exam": "enem_2010-1",
+    "year": 2010,
+    "subject": "Ciências Humanas",
+    "original_question": "Antes, eram apenas as grandes cidades que se apresentavam como o império da técnica, objeto de modificações, suspensões, acréscimos, cada vez mais sofisticadas e carregadas de artifício. Esse mundo artificial inclui, hoje, o mundo rural.\n\nSANTOS, M. A Natureza do Espaço. São Paulo: Hucitec, 1996.\n\nConsiderando a transformação mencionada no texto, uma consequência socioespacial que caracteriza o atual mundo rural brasileiro é",
+    "alternatives": {
+      "A": "a redução do processo de concentração de terras.",
+      "B": "o aumento do aproveitamento de solos menos férteis.",
+      "C": "a ampliação do isolamento do espaço rural.",
+      "D": "a estagnação da fronteira agrícola do país.",
+      "E": "a diminuição do nível de emprego formal."
+    },
+    "correct_answer": "b",
+    "diagnostic": {
+      "prerequisite_math": "Divisão simples e conversão de unidades (multiplicação/divisão por 3,6)",
+      "prerequisite_concept": "Diferença entre posição, deslocamento e velocidade; taxa de variação temporal"
+    },
+    "mastery_progressive_levels": [
+      {
+        "level": 1,
+        "title": "Nível 1 - Isolamento do Músculo Matemático (Treino de Maestria)",
+        "description": "Treinamento repetitivo da operação matemática pura sem distração teórica.",
+        "exercises": [
+          {
+            "drill": "Divida 120 por 2",
+            "ans": "60"
+          },
+          {
+            "drill": "Converta 72 km/h para m/s (divida por 3,6)",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Converta 10 m/s para km/h (multiplique por 3,6)",
+            "ans": "36 km/h"
+          },
+          {
+            "drill": "Calcule: 20 * 5",
+            "ans": "100 m"
+          },
+          {
+            "drill": "Calcule Δs quando s_final = 150m e s_inicial = 30m",
+            "ans": "120 m"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Nível 2 - Notação Algébrica e Variáveis",
+        "description": "Treinamento da manipulação das letras e incógnitas da fórmula.",
+        "exercises": [
+          {
+            "drill": "Na fórmula v = Δs / Δt, calcule v para Δs = 400m e Δt = 20s",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Isole o tempo Δt na equação v = Δs / Δt",
+            "ans": "Δt = Δs / v"
+          },
+          {
+            "drill": "Quanto tempo leva para percorrer 100m a 25 m/s?",
+            "ans": "4 s"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Nível 3 - Ponte e Aplicação Guiada",
+        "description": "Problema contextualizado dócil para consolidar a autoconfianca antes do vestibular.",
+        "exercises": [
+          {
+            "drill": "Um carro viaja 150 km em 2 horas. Qual a velocidade média em km/h?",
+            "ans": "75 km/h"
+          },
+          {
+            "drill": "Um atleta corre 100m em 10s. Qual a sua velocidade em km/h?",
+            "ans": "36 km/h (10 m/s * 3,6)"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Nível 4 - Desafio Oficial de Vestibular",
+        "description": "A questão original do ENEM/Vestibular.",
+        "statement": "Antes, eram apenas as grandes cidades que se apresentavam como o império da técnica, objeto de modificações, suspensões, acréscimos, cada vez mais sofisticadas e carregadas de artifício. Esse mundo artificial inclui, hoje, o mundo rural.\n\nSANTOS, M. A Natureza do Espaço. São Paulo: Hucitec, 1996.\n\nConsiderando a transformação mencionada no texto, uma consequência socioespacial que caracteriza o atual mundo rural brasileiro é",
+        "target_answer": "b"
+      }
+    ]
+  },
+  {
+    "question_id": "enem_2010-1_q_3",
+    "exam": "enem_2010-1",
+    "year": 2010,
+    "subject": "Ciências Humanas",
+    "original_question": "A maioria das pessoas daqui era do campo. Vila Maria é hoje exportadora de trabalhadores. Empresários de Primavera do Leste, Estado de Mato Grosso, procuram o bairro de Vila Maria para conseguir mão de obra. É gente indo distante daqui 300, 400 quilômetros para ir trabalhar, para ganhar sete conto por dia. (Carlito, 43 anos, maranhense, entrevistado em 22/03/98).\n\nRibeiro, H. S. O migrante e a cidade: dilemas e conflitos. Araraquara: Wunderlich, 2001(adaptado).\n\nO texto retrata um fenômeno vivenciado pela agricultura brasileira nas últimas décadas do século XX, consequência",
+    "alternatives": {
+      "A": "dos impactos sociais da modernização da agricultura.",
+      "B": "da recomposição dos salários do trabalhador rural.",
+      "C": "da exigência de qualificação do trabalhador rural.",
+      "D": "da diminuição da importância da agricultura.",
+      "E": "dos processos de desvalorização de áreas rurais."
+    },
+    "correct_answer": "a",
+    "diagnostic": {
+      "prerequisite_math": "Divisão simples e conversão de unidades (multiplicação/divisão por 3,6)",
+      "prerequisite_concept": "Diferença entre posição, deslocamento e velocidade; taxa de variação temporal"
+    },
+    "mastery_progressive_levels": [
+      {
+        "level": 1,
+        "title": "Nível 1 - Isolamento do Músculo Matemático (Treino de Maestria)",
+        "description": "Treinamento repetitivo da operação matemática pura sem distração teórica.",
+        "exercises": [
+          {
+            "drill": "Divida 120 por 2",
+            "ans": "60"
+          },
+          {
+            "drill": "Converta 72 km/h para m/s (divida por 3,6)",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Converta 10 m/s para km/h (multiplique por 3,6)",
+            "ans": "36 km/h"
+          },
+          {
+            "drill": "Calcule: 20 * 5",
+            "ans": "100 m"
+          },
+          {
+            "drill": "Calcule Δs quando s_final = 150m e s_inicial = 30m",
+            "ans": "120 m"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Nível 2 - Notação Algébrica e Variáveis",
+        "description": "Treinamento da manipulação das letras e incógnitas da fórmula.",
+        "exercises": [
+          {
+            "drill": "Na fórmula v = Δs / Δt, calcule v para Δs = 400m e Δt = 20s",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Isole o tempo Δt na equação v = Δs / Δt",
+            "ans": "Δt = Δs / v"
+          },
+          {
+            "drill": "Quanto tempo leva para percorrer 100m a 25 m/s?",
+            "ans": "4 s"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Nível 3 - Ponte e Aplicação Guiada",
+        "description": "Problema contextualizado dócil para consolidar a autoconfianca antes do vestibular.",
+        "exercises": [
+          {
+            "drill": "Um carro viaja 150 km em 2 horas. Qual a velocidade média em km/h?",
+            "ans": "75 km/h"
+          },
+          {
+            "drill": "Um atleta corre 100m em 10s. Qual a sua velocidade em km/h?",
+            "ans": "36 km/h (10 m/s * 3,6)"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Nível 4 - Desafio Oficial de Vestibular",
+        "description": "A questão original do ENEM/Vestibular.",
+        "statement": "A maioria das pessoas daqui era do campo. Vila Maria é hoje exportadora de trabalhadores. Empresários de Primavera do Leste, Estado de Mato Grosso, procuram o bairro de Vila Maria para conseguir mão de obra. É gente indo distante daqui 300, 400 quilômetros para ir trabalhar, para ganhar sete conto por dia. (Carlito, 43 anos, maranhense, entrevistado em 22/03/98).\n\nRibeiro, H. S. O migrante e a cidade: dilemas e conflitos. Araraquara: Wunderlich, 2001(adaptado).\n\nO texto retrata um fenômeno vivenciado pela agricultura brasileira nas últimas décadas do século XX, consequência",
+        "target_answer": "a"
+      }
+    ]
+  },
+  {
+    "question_id": "enem_2010-1_q_4",
+    "exam": "enem_2010-1",
+    "year": 2010,
+    "subject": "Ciências Humanas",
+    "original_question": "Os lixões são o pior tipo de disposição final dos resíduos sólidos de uma cidade, representando um grave problema ambiental e de saúde pública. Nesses locais, o lixo é jogado diretamente no solo e a céu aberto, sem nenhuma norma de controle, o que causa, entre outros problemas, a contaminação do solo e das águas pelo chorume (líquido escuro com alta carga poluidora, proveniente da decomposição da matéria orgânica presente no lixo).\n\nRICARDO, B.; CANPANILLI, M. Almanaque Brasil Socioambiental 2008.\nSão Paulo, Instituto Socioambiental, 2007.\n\nConsidere um município que deposita os resíduos sólidos produzidos por sua população em um lixão. Esse procedimento é considerado um problema de saúde pública porque os lixões",
+    "alternatives": {
+      "A": "causam problemas respiratórios, devido ao mau cheiro que provém da decomposição.",
+      "B": "são locais propícios a proliferação de vetores de doenças, além de contaminarem o solo e as águas.",
+      "C": "provocam o fenômeno da chuva ácida, devido aos gases oriundos da decomposição da matéria orgânica.",
+      "D": "são instalados próximos ao centro das cidades, afetando toda a população que circula diariamente na área.",
+      "E": "são responsáveis pelo desaparecimento das nascentes na região onde são instalados, o que leva à escassez de água."
+    },
+    "correct_answer": "b",
+    "diagnostic": {
+      "prerequisite_math": "Divisão simples e conversão de unidades (multiplicação/divisão por 3,6)",
+      "prerequisite_concept": "Diferença entre posição, deslocamento e velocidade; taxa de variação temporal"
+    },
+    "mastery_progressive_levels": [
+      {
+        "level": 1,
+        "title": "Nível 1 - Isolamento do Músculo Matemático (Treino de Maestria)",
+        "description": "Treinamento repetitivo da operação matemática pura sem distração teórica.",
+        "exercises": [
+          {
+            "drill": "Divida 120 por 2",
+            "ans": "60"
+          },
+          {
+            "drill": "Converta 72 km/h para m/s (divida por 3,6)",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Converta 10 m/s para km/h (multiplique por 3,6)",
+            "ans": "36 km/h"
+          },
+          {
+            "drill": "Calcule: 20 * 5",
+            "ans": "100 m"
+          },
+          {
+            "drill": "Calcule Δs quando s_final = 150m e s_inicial = 30m",
+            "ans": "120 m"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Nível 2 - Notação Algébrica e Variáveis",
+        "description": "Treinamento da manipulação das letras e incógnitas da fórmula.",
+        "exercises": [
+          {
+            "drill": "Na fórmula v = Δs / Δt, calcule v para Δs = 400m e Δt = 20s",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Isole o tempo Δt na equação v = Δs / Δt",
+            "ans": "Δt = Δs / v"
+          },
+          {
+            "drill": "Quanto tempo leva para percorrer 100m a 25 m/s?",
+            "ans": "4 s"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Nível 3 - Ponte e Aplicação Guiada",
+        "description": "Problema contextualizado dócil para consolidar a autoconfianca antes do vestibular.",
+        "exercises": [
+          {
+            "drill": "Um carro viaja 150 km em 2 horas. Qual a velocidade média em km/h?",
+            "ans": "75 km/h"
+          },
+          {
+            "drill": "Um atleta corre 100m em 10s. Qual a sua velocidade em km/h?",
+            "ans": "36 km/h (10 m/s * 3,6)"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Nível 4 - Desafio Oficial de Vestibular",
+        "description": "A questão original do ENEM/Vestibular.",
+        "statement": "Os lixões são o pior tipo de disposição final dos resíduos sólidos de uma cidade, representando um grave problema ambiental e de saúde pública. Nesses locais, o lixo é jogado diretamente no solo e a céu aberto, sem nenhuma norma de controle, o que causa, entre outros problemas, a contaminação do solo e das águas pelo chorume (líquido escuro com alta carga poluidora, proveniente da decomposição da matéria orgânica presente no lixo).\n\nRICARDO, B.; CANPANILLI, M. Almanaque Brasil Socioambiental 2008.\nSão Paulo, Instituto Socioambiental, 2007.\n\nConsidere um município que deposita os resíduos sólidos produzidos por sua população em um lixão. Esse procedimento é considerado um problema de saúde pública porque os lixões",
+        "target_answer": "b"
+      }
+    ]
+  },
+  {
+    "question_id": "enem_2010-1_q_5",
+    "exam": "enem_2010-1",
+    "year": 2010,
+    "subject": "Geografia",
+    "original_question": "Muitos processos erosivos se concentram nas encostas, principalmente aqueles motivados pela água e pelo vento. No entanto, os reflexos também são sentidos nas áreas de baixada, onde geralmente há ocupação urbana. Um exemplo desses reflexos na vida cotidiana de muitas cidades brasileiras é",
+    "alternatives": {
+      "A": "a maior ocorrência de enchentes, já que os rios assoreados comportam menos água em seus leitos.",
+      "B": "a contaminação da população pelos sedimentos trazidos pelo rio e carregados de matéria orgânica.",
+      "C": "o desgaste do solo nas áreas urbanas, causado pela redução do escoamento superficial pluvial na encosta.",
+      "D": "a maior facilidade de captação de água potável para o abastecimento público, já que é maior o efeito do escoamento sobre a infiltração.",
+      "E": "o aumento da incidência de doenças como a amebíase na população urbana, em decorrência do escoamento de água poluída do topo das encostas."
+    },
+    "correct_answer": "a",
+    "diagnostic": {
+      "prerequisite_math": "Divisão simples e conversão de unidades (multiplicação/divisão por 3,6)",
+      "prerequisite_concept": "Diferença entre posição, deslocamento e velocidade; taxa de variação temporal"
+    },
+    "mastery_progressive_levels": [
+      {
+        "level": 1,
+        "title": "Nível 1 - Isolamento do Músculo Matemático (Treino de Maestria)",
+        "description": "Treinamento repetitivo da operação matemática pura sem distração teórica.",
+        "exercises": [
+          {
+            "drill": "Divida 120 por 2",
+            "ans": "60"
+          },
+          {
+            "drill": "Converta 72 km/h para m/s (divida por 3,6)",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Converta 10 m/s para km/h (multiplique por 3,6)",
+            "ans": "36 km/h"
+          },
+          {
+            "drill": "Calcule: 20 * 5",
+            "ans": "100 m"
+          },
+          {
+            "drill": "Calcule Δs quando s_final = 150m e s_inicial = 30m",
+            "ans": "120 m"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Nível 2 - Notação Algébrica e Variáveis",
+        "description": "Treinamento da manipulação das letras e incógnitas da fórmula.",
+        "exercises": [
+          {
+            "drill": "Na fórmula v = Δs / Δt, calcule v para Δs = 400m e Δt = 20s",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Isole o tempo Δt na equação v = Δs / Δt",
+            "ans": "Δt = Δs / v"
+          },
+          {
+            "drill": "Quanto tempo leva para percorrer 100m a 25 m/s?",
+            "ans": "4 s"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Nível 3 - Ponte e Aplicação Guiada",
+        "description": "Problema contextualizado dócil para consolidar a autoconfianca antes do vestibular.",
+        "exercises": [
+          {
+            "drill": "Um carro viaja 150 km em 2 horas. Qual a velocidade média em km/h?",
+            "ans": "75 km/h"
+          },
+          {
+            "drill": "Um atleta corre 100m em 10s. Qual a sua velocidade em km/h?",
+            "ans": "36 km/h (10 m/s * 3,6)"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Nível 4 - Desafio Oficial de Vestibular",
+        "description": "A questão original do ENEM/Vestibular.",
+        "statement": "Muitos processos erosivos se concentram nas encostas, principalmente aqueles motivados pela água e pelo vento. No entanto, os reflexos também são sentidos nas áreas de baixada, onde geralmente há ocupação urbana. Um exemplo desses reflexos na vida cotidiana de muitas cidades brasileiras é",
+        "target_answer": "a"
+      }
+    ]
+  },
+  {
+    "question_id": "enem_2010-1_q_6",
+    "exam": "enem_2010-1",
+    "year": 2010,
+    "subject": "Geografia",
+    "original_question": "O esquema representa um processo de erosão em encosta. Que prática realizada por um agricultor pode resultar em aceleração desse processo?",
+    "alternatives": {
+      "A": "Plantio direto.",
+      "B": "Associação de culturas.",
+      "C": "Implantação de curvas de nível.",
+      "D": "Aração do solo, do topo ao vale.",
+      "E": "Terraceamento na propriedade."
+    },
+    "correct_answer": "d",
+    "diagnostic": {
+      "prerequisite_math": "Divisão simples e conversão de unidades (multiplicação/divisão por 3,6)",
+      "prerequisite_concept": "Diferença entre posição, deslocamento e velocidade; taxa de variação temporal"
+    },
+    "mastery_progressive_levels": [
+      {
+        "level": 1,
+        "title": "Nível 1 - Isolamento do Músculo Matemático (Treino de Maestria)",
+        "description": "Treinamento repetitivo da operação matemática pura sem distração teórica.",
+        "exercises": [
+          {
+            "drill": "Divida 120 por 2",
+            "ans": "60"
+          },
+          {
+            "drill": "Converta 72 km/h para m/s (divida por 3,6)",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Converta 10 m/s para km/h (multiplique por 3,6)",
+            "ans": "36 km/h"
+          },
+          {
+            "drill": "Calcule: 20 * 5",
+            "ans": "100 m"
+          },
+          {
+            "drill": "Calcule Δs quando s_final = 150m e s_inicial = 30m",
+            "ans": "120 m"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Nível 2 - Notação Algébrica e Variáveis",
+        "description": "Treinamento da manipulação das letras e incógnitas da fórmula.",
+        "exercises": [
+          {
+            "drill": "Na fórmula v = Δs / Δt, calcule v para Δs = 400m e Δt = 20s",
+            "ans": "20 m/s"
+          },
+          {
+            "drill": "Isole o tempo Δt na equação v = Δs / Δt",
+            "ans": "Δt = Δs / v"
+          },
+          {
+            "drill": "Quanto tempo leva para percorrer 100m a 25 m/s?",
+            "ans": "4 s"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "title": "Nível 3 - Ponte e Aplicação Guiada",
+        "description": "Problema contextualizado dócil para consolidar a autoconfianca antes do vestibular.",
+        "exercises": [
+          {
+            "drill": "Um carro viaja 150 km em 2 horas. Qual a velocidade média em km/h?",
+            "ans": "75 km/h"
+          },
+          {
+            "drill": "Um atleta corre 100m em 10s. Qual a sua velocidade em km/h?",
+            "ans": "36 km/h (10 m/s * 3,6)"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "title": "Nível 4 - Desafio Oficial de Vestibular",
+        "description": "A questão original do ENEM/Vestibular.",
+        "statement": "O esquema representa um processo de erosão em encosta. Que prática realizada por um agricultor pode resultar em aceleração desse processo?",
+        "target_answer": "d"
+      }
+    ]
+  }
+]

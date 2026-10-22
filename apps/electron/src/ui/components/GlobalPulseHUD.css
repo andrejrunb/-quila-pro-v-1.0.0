@@ -1,6 +1,6 @@
 .global-pulse-hud {
   position: fixed;
-  top: 10px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
@@ -15,7 +15,7 @@
   gap: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.02);
   pointer-events: none;
-  animation: hudSlideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: hudSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hud-section {
@@ -82,8 +82,8 @@
   align-items: center;
 }
 
-@keyframes hudSlideDown {
-  from { transform: translate(-50%, -100%); opacity: 0; }
+@keyframes hudSlideUp {
+  from { transform: translate(-50%, 100%); opacity: 0; }
   to { transform: translate(-50%, 0); opacity: 1; }
 }
 

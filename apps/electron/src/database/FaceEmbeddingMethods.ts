@@ -2,7 +2,7 @@
  * Métodos para gerenciar embeddings de faces no banco de dados
  * Adicionar estes métodos à classe Database
  */
-import { securityService } from '../services/SecurityService';
+import { securityService } from '../main/services/SecurityService';
 
 export const FaceEmbeddingMethods = {
   /**

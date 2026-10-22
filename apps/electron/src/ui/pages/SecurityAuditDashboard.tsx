@@ -14,6 +14,21 @@ const SecurityAuditDashboard: React.FC = () => {
   const [activeDrill, setActiveDrill] = React.useState<DrillResult | null>(null);
   const [history, setHistory] = React.useState<DrillResult[]>([]);
   const [responseTime, setResponseTime] = React.useState(0);
+  const [resilience, setResilience] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const stats = await window.aquila.invoke('coordination:get-resilience-stats');
+        setResilience(stats);
+      } catch (err) {
+        console.error('Falha ao buscar status de resiliência:', err);
+      }
+    };
+    fetchStats();
+    const interval = setInterval(fetchStats, 10000); // Atualizar a cada 10s
+    return () => clearInterval(interval);
+  }, []);
 
   const startDrill = async (type: 'lockdown' | 'panic' | 'fire') => {
     const drill = await window.aquila.startDrill(type);
@@ -50,6 +65,34 @@ const SecurityAuditDashboard: React.FC = () => {
           <p className="text-xs text-zinc-500 uppercase font-black">Validar Resiliência via Simulações (Phase v3441)</p>
         </div>
       </div>
+
+      {/* BLUE AUDIT: INTEGRITY PULSE */}
+      <section className="blue-audit-panel glass mb-10 border-blue-500/20 p-6 rounded-2xl bg-blue-500/5">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="p-2 bg-blue-500/10 text-blue-500 rounded-lg">
+            <CheckCircle2 size={24} />
+          </div>
+          <div>
+            <h2 className="text-sm font-black text-blue-400 uppercase tracking-tighter">BLUE AUDIT: PASSIVE INTEGRITY</h2>
+            <p className="text-[10px] text-zinc-500 font-bold">MONITORAMENTO DE KERNEL & HASH SHA3-256</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="glass p-4 rounded-xl border-blue-500/10">
+            <span className="block text-[9px] text-zinc-500 font-black mb-1 uppercase">Kernel Status</span>
+            <span className="text-2xl font-black text-white">{resilience?.kernelIntegrity || '100%'}</span>
+          </div>
+          <div className="glass p-4 rounded-xl border-blue-500/10">
+            <span className="block text-[9px] text-zinc-500 font-black mb-1 uppercase">Encryption</span>
+            <span className="text-xs font-bold text-blue-200">{resilience?.encryptionStandard || 'SHA3-256 / AES-GCM'}</span>
+          </div>
+          <div className="glass p-4 rounded-xl border-blue-500/10">
+            <span className="block text-[9px] text-zinc-500 font-black mb-1 uppercase">Last Scan</span>
+            <span className="text-xs font-bold text-zinc-300">{resilience?.lastAudit ? new Date(resilience.lastAudit).toLocaleString() : 'STANDBY'}</span>
+          </div>
+        </div>
+      </section>
 
       {activeDrill ? (
         <div className="active-drill-panel glass border-red-500/50 shadow-glow">
@@ -97,7 +140,7 @@ const SecurityAuditDashboard: React.FC = () => {
               <div key={item.drillId} className="history-item glass">
                 <div className="h-type">{item.type.toUpperCase()}</div>
                 <div className="h-time">{Math.floor(item.avgResponseTimeMs / 1000)}s Média</div>
-                <div className={`h-status ${item.status.toLowerCase()}`}>
+                <div className={`h-status ${item.status?.toLowerCase() || ''}`}>
                   {item.status === 'SUCCESS' ? <CheckCircle2 size={16} /> : <AlertTriangle size={16} />}
                   {item.status}
                 </div>

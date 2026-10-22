@@ -6,22 +6,40 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run"
   },
   "dependencies": {
+    "animejs": "^4.3.0-beta.2",
+    "apexcharts": "^5.10.6",
+    "aws-sdk": "1.18.0",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "0.45.3",
+    "electron": "28.3.3",
     "lucide-react": "^1.7.0",
-    "next": "16.2.1",
+    "next": "^16.3.8",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-apexcharts": "^2.1.0",
+    "react-dom": "19.2.4",
+    "sharp": "0.35.5",
+    "tailwind-merge": "^3.5.0",
+    "uuid": "14.0.2",
+    "vite": "8.3.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
+    "jsdom": "^29.0.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.4"
   }
 }

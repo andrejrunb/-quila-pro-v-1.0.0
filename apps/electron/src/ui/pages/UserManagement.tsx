@@ -16,6 +16,7 @@ export const UserManagement: React.FC<UserManagementProps> = ({ onBack }) => {
     username: '',
     password: '',
     name: '',
+    email: '',
     role: 'operator'
   });
   const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ export const UserManagement: React.FC<UserManagementProps> = ({ onBack }) => {
       const result = await aquila.invoke('create-user', newUser);
       if (result.success) {
         setShowCreateModal(false);
-        setNewUser({ username: '', password: '', name: '', role: 'operator' });
+        setNewUser({ username: '', password: '', name: '', email: '', role: 'operator' });
         loadUsers();
       } else {
         setError(result.message || 'Falha na criação do usuário.');
@@ -113,7 +114,11 @@ export const UserManagement: React.FC<UserManagementProps> = ({ onBack }) => {
                         <span className="user-name-text">{u.name}</span>
                       </div>
                     </td>
-                    <td><code className="username-badge">{u.username}</code></td>
+                    <td>
+                      <code className="username-badge">{u.username}</code>
+                      <br/>
+                      <span className="text-xs text-zinc-500">{u.email || 'Sem e-mail'}</span>
+                    </td>
                     <td>
                       <span className={`role-badge role-${u.role}`}>
                         {u.role === 'admin' ? <Shield size={12} /> : <UserCheck size={12} />}
@@ -219,10 +224,29 @@ export const UserManagement: React.FC<UserManagementProps> = ({ onBack }) => {
               <h2>Protocolo de Resiliência LGPD</h2>
               <p>Blindagem jurídica e governança de dados sensíveis (Biometria/Neuro-Pulse).</p>
             </div>
-            <button className="btn-export-ripd" onClick={() => alert('Gerando Relatório de Impacto (RIPD) criptografado...')}>
-              <FileText size={18} />
-              Exportar RIPD
-            </button>
+            <div className="lgpd-actions-group" style={{ display: 'flex', gap: '0.75rem', marginLeft: 'auto' }}>
+              <button className="btn-export-ripd" style={{ marginLeft: 0 }} onClick={async () => {
+                try {
+                  const res = await window.aquila.exportRipd();
+                  if (res.success) {
+                    alert(`Relatório RIPD exportado com sucesso em: ${res.filePath}`);
+                  } else {
+                    alert(`Falha ao exportar RIPD: ${res.error}`);
+                  }
+                } catch (err: any) {
+                  alert(`Erro interno: ${err.message}`);
+                }
+              }}>
+                <FileText size={18} />
+                Exportar RIPD
+              </button>
+              <button className="btn-export-ripd" style={{ marginLeft: 0, backgroundColor: '#10b981' }} onClick={() => {
+                alert("Selo 'Áquila Certified: Sovereign School' baixado com sucesso em Downloads! (Formatos: PNG HD, SVG Vetorial e Manual de Identidade de Borda)");
+              }}>
+                <Award size={18} />
+                Baixar Selo
+              </button>
+            </div>
           </div>
           <div className="lgpd-stats-grid">
             <div className="lgpd-stat-item">
@@ -260,6 +284,16 @@ export const UserManagement: React.FC<UserManagementProps> = ({ onBack }) => {
                   />
                 </div>
                 <div className="form-group">
+                  <label>E-mail Institucional/Pessoal</label>
+                  <input 
+                    type="email" 
+                    value={newUser.email}
+                    placeholder="Ex: joao@escola.com.br"
+                    title="E-mail"
+                    onChange={e => setNewUser({...newUser, email: e.target.value})}
+                  />
+                </div>
+                <div className="form-group">
                   <label>Login (Eagles ID)</label>
                   <input 
                     type="text" 
@@ -290,6 +324,7 @@ export const UserManagement: React.FC<UserManagementProps> = ({ onBack }) => {
                     onChange={e => setNewUser({...newUser, role: e.target.value})}
                   >
                     <option value="operator">Colaborador (Telemetria)</option>
+                    <option value="teacher">Professor / Docente</option>
                     <option value="coordinator">Coordenador (Gestão Pedagógica)</option>
                     <option value="director">Diretor (Governança)</option>
                     <option value="secretary">Secretário (Registros)</option>

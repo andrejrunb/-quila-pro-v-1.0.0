@@ -10,6 +10,7 @@ export interface AgentTask {
   description: string;
   status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'FAILED';
   payload?: any;
+  metadata?: any;
 }
 
 export interface AgentCapability {
@@ -80,3 +81,4 @@ export const AGENT_DEFINITIONS: Record<AgentRole, AgentCapability> = {
     primaryTasks: ['Academic engagement monitoring', 'Sentiment analysis of student feedback', 'Automated portfolio synthesis']
   }
 };
+

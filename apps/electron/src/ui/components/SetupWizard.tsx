@@ -19,53 +19,53 @@ interface SetupWizardProps {
   onComplete: () => void;
 }
 
-const STEPS = [
+  const STEPS = [
   {
     id: 'welcome',
-    title: 'Welcome to Áquila Pro',
-    desc: 'Configure your campus in less than 3 minutes with total security.',
+    title: 'Bem-vindo ao Áquila Pro',
+    desc: 'Configure seu campus em menos de 3 minutos com total segurança soberana.',
     icon: <Shield size={48} />,
     color: '#3b82f6',
   },
   {
     id: 'school',
-    title: 'Campus Identity',
-    desc: 'Provide institutional data to personalize the system.',
+    title: 'Identidade do Campus',
+    desc: 'Forneça os dados institucionais para personalizar o sistema.',
     icon: <Globe size={48} />,
     color: '#8b5cf6',
   },
   {
     id: 'admin',
-    title: 'Administrator Account',
-    desc: 'Create access credentials for the primary manager.',
+    title: 'Conta do Administrador',
+    desc: 'Crie as credenciais de acesso para o gestor principal do sistema.',
     icon: <Smartphone size={48} />,
     color: '#06b6d4',
   },
   {
     id: 'camera',
-    title: 'Primary Node (Camera)',
-    desc: 'Connect your IP camera (Tapo, Hikvision, etc.) or skip this step.',
+    title: 'Nó Primário (Câmera)',
+    desc: 'Conecte sua câmera IP (Tapo, Hikvision etc.) ou pule esta etapa.',
     icon: <Camera size={48} />,
     color: '#f97316',
   },
   {
     id: 'whatsapp',
-    title: 'Alert Gateway',
-    desc: 'Enter the number that will send sovereign notifications.',
+    title: 'Gateway de Alertas',
+    desc: 'Informe o número que enviará notificações soberanas via WhatsApp.',
     icon: <Smartphone size={48} />,
     color: '#22c55e',
   },
   {
     id: 'optimization',
-    title: 'Hardware Acceleration',
-    desc: 'Optimizing local AI engine for your hardware NPU/GPU.',
+    title: 'Aceleração de Hardware',
+    desc: 'Otimizando o motor de IA local para o seu hardware NPU/GPU.',
     icon: <Zap size={48} />,
     color: '#f59e0b',
   },
   {
     id: 'success',
-    title: 'Deployment Ready',
-    desc: 'Your School OS is now finalized and fully sovereign.',
+    title: 'Pronto para Deploy',
+    desc: 'Seu School OS foi finalizado e está totalmente soberano.',
     icon: <CheckCircle size={48} />,
     color: '#10b981',
   }
@@ -94,11 +94,11 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
   const validate = (): boolean => {
     const errs: Record<string, string> = {};
     if (step === 1) {
-      if (!data.schoolName.trim()) errs.schoolName = 'Required';
+      if (!data.schoolName.trim()) errs.schoolName = 'Nome da instituição é obrigatório';
     }
     if (step === 2) {
-      if (!data.adminEmail.trim()) errs.adminEmail = 'Email required';
-      if (data.adminPassword.length < 8) errs.adminPassword = 'Minimum 8 characters';
+      if (!data.adminEmail.trim()) errs.adminEmail = 'Usuário ou e-mail é obrigatório';
+      if (data.adminPassword.length < 8) errs.adminPassword = 'Mínimo de 8 caracteres';
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -152,11 +152,14 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
         });
 
         if (data.adminEmail && data.adminPassword) {
-          await api.invoke('create-admin-user', {
+          const adminResult = await api.invoke('create-admin-user', {
             email: data.adminEmail,
             password: data.adminPassword,
             role: 'admin',
-          }).catch(() => {});
+          });
+          if (!adminResult?.success) {
+            throw new Error(adminResult?.error || 'Falha ao criar administrador');
+          }
         }
 
         if (data.rtspUrl) {
@@ -177,7 +180,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
       onComplete();
     } catch (err) {
       console.error('Setup error:', err);
-      setErrors({ global: 'Error saving. Please try again.' });
+      setErrors({ global: 'Erro ao salvar. Por favor, tente novamente.' });
     } finally {
       setIsSaving(false);
     }
@@ -196,7 +199,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
         </div>
 
         <div className="setup-step-count">
-          Step {step + 1} of {STEPS.length}
+          Passo {step + 1} de {STEPS.length}
         </div>
 
         <div className="setup-wizard-content">
@@ -210,20 +213,20 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           {current.id === 'school' && (
             <div className="setup-form-group">
               <div className="setup-input-group">
-                <label htmlFor="schoolName">Institution Name *</label>
+                <label htmlFor="schoolName">Nome da Instituição *</label>
                 <input
                   id="schoolName"
                   type="text"
                   value={data.schoolName}
                   onChange={set('schoolName')}
-                  placeholder="Ex: Aquila Academy"
+                  placeholder="Ex: Colégio Aquila"
                   className={`setup-text-input ${errors.schoolName ? 'input-error' : ''}`}
                   autoFocus
                 />
                 {errors.schoolName && <span className="setup-error">{errors.schoolName}</span>}
               </div>
               <div className="setup-input-group">
-                <label htmlFor="cnpj">Institutional ID (Optional)</label>
+                <label htmlFor="cnpj">CNPJ da Instituição (Opcional)</label>
                 <input
                   id="cnpj"
                   type="text"
@@ -240,26 +243,29 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           {current.id === 'admin' && (
             <div className="setup-form-group">
               <div className="setup-input-group">
-                <label htmlFor="adminEmail">Administrator Email *</label>
+                <label htmlFor="adminEmail">Usuário ou E-mail do Administrador *</label>
                 <input
                   id="adminEmail"
-                  type="email"
+                  type="text"
                   value={data.adminEmail}
                   onChange={set('adminEmail')}
                   className="setup-text-input"
-                  placeholder="admin@school.com"
+                  placeholder="admin ou admin@escola.com"
+                  autoFocus
                 />
+                {errors.adminEmail && <span className="setup-error">{errors.adminEmail}</span>}
               </div>
               <div className="setup-input-group">
-                <label htmlFor="adminPassword">Administrator Password *</label>
+                <label htmlFor="adminPassword">Senha do Administrador *</label>
                 <input
                   id="adminPassword"
                   type="password"
                   value={data.adminPassword}
                   onChange={set('adminPassword')}
                   className="setup-text-input"
-                  placeholder="********"
+                  placeholder="Mínimo 8 caracteres"
                 />
+                {errors.adminPassword && <span className="setup-error">{errors.adminPassword}</span>}
               </div>
             </div>
           )}
@@ -267,14 +273,14 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           {current.id === 'camera' && (
             <div className="setup-form-group">
               <div className="setup-input-group">
-                <label htmlFor="rtspUrl">RTSP Camera URL (Optional)</label>
+                <label htmlFor="rtspUrl">URL da Câmera RTSP (Opcional)</label>
                 <input
                   id="rtspUrl"
                   type="text"
                   value={data.rtspUrl}
                   onChange={set('rtspUrl')}
                   className="setup-text-input"
-                  placeholder="rtsp://admin:pass@192.168.1.100:554/live"
+                  placeholder="rtsp://admin:senha@192.168.1.100:554/live"
                 />
               </div>
             </div>
@@ -283,7 +289,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           {current.id === 'whatsapp' && (
             <div className="setup-form-group">
               <div className="setup-input-group">
-                <label htmlFor="whatsapp">WhatsApp Alert Number</label>
+                <label htmlFor="whatsapp">Número WhatsApp para Alertas</label>
                 <input
                   id="whatsapp"
                   type="text"
@@ -301,38 +307,46 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               {optStatus === 'running' && (
                 <div className="opt-running">
                   <Zap className="animate-pulse text-amber-500" size={32} />
-                  <p>Analyzing hardware profile...</p>
+                  <p>Analisando perfil de hardware...</p>
                 </div>
               )}
               {optStatus === 'done' && (
                 <div className="opt-done animate-fade-in">
                   <Check className="text-green-500" size={32} />
-                  <p>Optimization Complete: {optData?.quantization || 'INT8'} applied.</p>
+                  <p>Otimização Concluída: {optData?.quantization || 'INT8'} aplicado.</p>
                 </div>
               )}
             </div>
           )}
 
           <div className="setup-actions">
-            {step > 0 && step < STEPS.length - 1 && (
-              <button
-                type="button"
-                onClick={() => setStep(s => s - 1)}
-                className="setup-back-btn"
-              >
-                <ChevronLeft size={18} className="mr-2" /> Back
-              </button>
-            )}
+            <div className="flex gap-3">
+              {step > 0 && step < STEPS.length - 1 && (
+                <button
+                  type="button"
+                  onClick={() => setStep(s => s - 1)}
+                  className="setup-back-btn"
+                  title="Passo Anterior"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+              )}
 
-            {canSkip && (
-              <button type="button" onClick={handleSkip} className="setup-skip-btn">
-                Skip
-              </button>
-            )}
+              {canSkip && (
+                <button 
+                  type="button" 
+                  onClick={handleSkip} 
+                  className="setup-skip-btn"
+                >
+                  Pular
+                </button>
+              )}
+            </div>
 
             {isSaving ? (
               <button type="button" className="setup-next-btn" disabled>
-                Saving...
+                <Sparkles className="animate-spin mr-2" size={18} />
+                Salvando...
               </button>
             ) : (
               <button
@@ -340,8 +354,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                 onClick={handleNext}
                 className="setup-next-btn"
               >
-                {isLast ? 'Enter System' : 'Next'}
-                <ChevronRight size={18} className="ml-2" />
+                {isLast ? 'Entrar no Sistema' : 'Próxima Etapa'}
+                <ArrowRight size={18} className="ml-2" />
               </button>
             )}
           </div>
@@ -351,14 +365,14 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
               <div
                 key={s.id}
                 className={`setup-step-dot ${i === step ? 'active' : ''} ${i < step ? 'done' : ''}`}
-                style={{ '--dot-bg': i === step ? current.color : undefined } as React.CSSProperties}
+                style={{ '--dot-bg': s.color } as React.CSSProperties}
               />
             ))}
           </div>
         </div>
 
         <div className="setup-bg-icon">
-          <Zap size={200} />
+          <Shield size={320} strokeWidth={0.5} />
         </div>
       </div>
     </div>

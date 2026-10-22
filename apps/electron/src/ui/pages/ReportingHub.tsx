@@ -4,6 +4,8 @@ import {
   AlertTriangle, TrendingUp, Smartphone, Clock, 
   ChevronDown, Search, Layout, ArrowLeft, Send, X, BarChart3, PieChart
 } from 'lucide-react';
+import AcademicReportCard from '../components/AcademicReportCard';
+import type { ReportCardStudent } from '../components/AcademicReportCard';
 import './ReportingHub.css';
 
 interface Period {
@@ -55,7 +57,7 @@ export const ReportingHub: React.FC<ReportingHubProps> = ({ onBack, userRole, us
   const [students, setStudents] = useState<StudentReportRow[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [showBoletimModal, setShowBoletimModal] = useState<string | null>(null);
+  const [showBoletimModal, setShowBoletimModal] = useState<ReportCardStudent | null>(null);
 
   useEffect(() => {
     loadInitialData();
@@ -76,13 +78,9 @@ export const ReportingHub: React.FC<ReportingHubProps> = ({ onBack, userRole, us
         setSelectedPeriod(active.id);
       }
       
-      // Mock data for integrated behavior tracking
-      setStudents([
-        { id: '1', name: 'Lucas Bertuzzi', classId: 'A', className: '1º Ano A', frequency: 98, lates: 2, loiteringEvents: 1, cellphoneEvents: 0, behaviorScore: 95 },
-        { id: '2', name: 'Ana Oliveira', classId: 'A', className: '1º Ano A', frequency: 85, lates: 5, loiteringEvents: 12, cellphoneEvents: 3, behaviorScore: 72 },
-        { id: '3', name: 'Rafael Souza', classId: 'B', className: '2º Ano B', frequency: 99, lates: 0, loiteringEvents: 0, cellphoneEvents: 1, behaviorScore: 98 },
-        { id: '4', name: 'Juliana Lima', classId: 'B', className: '2º Ano B', frequency: 70, lates: 15, loiteringEvents: 25, cellphoneEvents: 8, behaviorScore: 45 },
-      ]);
+      // Fetch real student metrics from database
+      const metrics = await aquila.getBehavioralMetrics();
+      setStudents(metrics || []);
     } catch (error) {
        console.error(error);
     } finally {
@@ -237,7 +235,12 @@ export const ReportingHub: React.FC<ReportingHubProps> = ({ onBack, userRole, us
                 </td>
                 <td className="text-right">
                   <button 
-                      onClick={() => setShowBoletimModal(student.id)}
+                      onClick={() => setShowBoletimModal({
+                        id: student.id,
+                        name: student.name,
+                        className: student.className,
+                        period: periods.find(p => p.id === selectedPeriod)?.name,
+                      })}
                       className="header-btn px-4 py-1.5 text-[10px]"
                   >
                     BOLETIM AI
@@ -250,66 +253,10 @@ export const ReportingHub: React.FC<ReportingHubProps> = ({ onBack, userRole, us
       </div>
 
       {showBoletimModal && (
-          <div className="boletim-modal animate-fade-in">
-              <div className="boletim-content">
-                  <div className="evidence-header bg-secondary">
-                      <h3 className="font-black uppercase text-xs tracking-widest text-white">Consolidado Comportamental Áquila AI</h3>
-                      <button onClick={() => setShowBoletimModal(null)} title="Fechar Boletim" className="btn-icon bg-black/20"><X size={18} /></button>
-                  </div>
-
-                  <div className="p-10">
-                      <div className="flex items-start gap-6 mb-8">
-                           <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                              <User size={32} className="text-secondary" />
-                           </div>
-                           <div>
-                              <h3 className="text-2xl font-black italic text-white tracking-tighter">BOLETIM PERIÓDICO</h3>
-                              <p className="text-dim font-bold uppercase tracking-widest text-[10px] mt-1">Estudante: {students.find(s => s.id === showBoletimModal)?.name}</p>
-                              <p className="text-[10px] text-secondary font-mono mt-1">Processamento Neural: {periods.find(p => p.id === selectedPeriod)?.name}</p>
-                           </div>
-                      </div>
-
-                      <div className="boletim-grid-stats">
-                          <div className="boletim-stat-card">
-                              <Clock size={16} className="text-secondary mx-auto mb-2" />
-                              <div className="text-[9px] uppercase text-dim font-black">Freq.</div>
-                              <div className="text-lg font-black text-white">98.5%</div>
-                          </div>
-                          <div className="boletim-stat-card">
-                              <AlertTriangle size={16} className="text-danger mx-auto mb-2" />
-                              <div className="text-[9px] uppercase text-dim font-black">Atrasos</div>
-                              <div className="text-lg font-black text-white">02</div>
-                          </div>
-                           <div className="boletim-stat-card">
-                              <Smartphone size={16} className="text-secondary mx-auto mb-2" />
-                              <div className="text-[9px] uppercase text-dim font-black">Cel.</div>
-                              <div className="text-lg font-black text-white">Nulo</div>
-                          </div>
-                           <div className="boletim-stat-card">
-                              <TrendingUp size={16} className="text-success mx-auto mb-2" />
-                              <div className="text-[9px] uppercase text-dim font-black">Index</div>
-                              <div className="text-lg font-black text-white">ALTO</div>
-                          </div>
-                      </div>
-
-                      <div className="bg-white/5 rounded-2xl p-6 border border-white/5">
-                           <div className="text-[9px] font-black text-secondary uppercase tracking-widest mb-3 italic">Síntese de Inteligência Áquila</div>
-                           <p className="text-dim leading-relaxed italic text-xs">
-                              "O aluno demonstra excelente assiduidade. Não houve detecção de uso de dispositivos móveis em sala via visão computacional. Observou-se um leve aumento de tempo em zonas de transição (corredores) nas terças-feiras. Recomendamos reforço positivo."
-                           </p>
-                      </div>
-
-                      <div className="flex gap-4 mt-8">
-                           <button className="header-btn flex-1 p-3">
-                              <Download size={16} /> Baixar PDF
-                           </button>
-                           <button className="header-btn flex-1 bg-secondary text-white border-0 p-3">
-                              <Send size={16} /> Enviar aos Pais (WhatsApp)
-                           </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
+        <AcademicReportCard
+          student={showBoletimModal}
+          onClose={() => setShowBoletimModal(null)}
+        />
       )}
     </div>
   );

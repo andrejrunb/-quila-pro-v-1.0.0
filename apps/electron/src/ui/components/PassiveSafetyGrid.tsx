@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/PassiveSafetyGrid.css';
+import './PassiveSafetyGrid.css';
 
 /**
  * PASSIVE SAFETY GRID (v4002)

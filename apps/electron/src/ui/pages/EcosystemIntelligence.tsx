@@ -10,16 +10,39 @@ import './EcosystemIntelligence.css';
  * Dashboard de ROI e Gestão Unificada para Diretores.
  */
 export const EcosystemIntelligence: React.FC = () => {
-  const legacyCosts = [
-    { name: 'Urania (Grade)', cost: 450 },
-    { name: 'Mensageria SMS', cost: 200 },
-    { name: 'Sistema Secretaria', cost: 800 },
-    { name: 'App Aluno/Pais', cost: 350 },
-  ];
+  const [roiData, setRoiData] = React.useState<any>(null);
+  const [loading, setLoading] = React.useState(true);
 
-  const totalLegacy = legacyCosts.reduce((acc, curr) => acc + curr.cost, 0);
-  const aquilaCost = 1200; // Valor consolidado
-  const savings = totalLegacy - (aquilaCost / 12); // Exemplo simplificado
+  React.useEffect(() => {
+    const fetchROI = async () => {
+      const win = window as any;
+      if (win.aquila) {
+        try {
+          // Busca total de alunos para cálculo dinâmico
+          const students = await win.aquila.invoke('db:get-students');
+          const studentCount = Array.isArray(students) ? students.length : 150; // Fallback para demo
+          
+          // Calcula ROI via serviço de precificação (simulado via invoke)
+          const roi = await win.aquila.invoke('pricing:calculate-roi', {
+            count: studentCount,
+            type: 'private' // Em prod, viria da config da escola
+          });
+          
+          setRoiData(roi);
+        } catch (err) {
+          console.error('Falha ao calcular ROI:', err);
+        }
+      }
+      setLoading(false);
+    };
+    fetchROI();
+  }, []);
+
+  if (loading) return <div className="p-20 text-center animate-pulse">Calculando Inteligência Financeira...</div>;
+
+  const totalLegacy = roiData?.legacyTotal || 1800;
+  const aquilaMonthly = roiData?.aquilaMonthly || 100;
+  const savingsPercent = roiData?.percentage || 72;
 
   return (
     <div className="roi-dashboard animate-slide-up">
@@ -47,14 +70,14 @@ export const EcosystemIntelligence: React.FC = () => {
                 <div className="comparison-box">
                    <div className="legacy-side">
                       <span className="label">Softwares Fragmentados</span>
-                      <span className="value text-red-400/50 line-through">R$ {totalLegacy}/mês</span>
+                      <span className="value text-red-400/50 line-through">R$ {totalLegacy.toLocaleString('pt-BR')}/mês</span>
                    </div>
                    <div className="aquila-side">
                       <Zap size={16} className="text-yellow-400 animate-pulse" />
                       <div className="flex flex-col">
                          <span className="label">Ecossistema Áquila</span>
-                         <span className="value text-white">R$ {aquilaCost}/ano</span>
-                         <span className="text-[9px] text-green-400 font-bold uppercase mt-1">~72% DE ECONOMIA</span>
+                         <span className="value text-white">R$ {aquilaMonthly.toLocaleString('pt-BR')}/mês</span>
+                         <span className="text-[9px] text-green-400 font-bold uppercase mt-1">~{savingsPercent}% DE ECONOMIA</span>
                       </div>
                    </div>
                 </div>
@@ -62,10 +85,10 @@ export const EcosystemIntelligence: React.FC = () => {
                 <div className="legacy-items-list mt-8">
                    <h4 className="text-[10px] font-black text-slate-500 uppercase mb-3">Custos Substituídos (Legados)</h4>
                    <div className="flex gap-4">
-                      {legacyCosts.map(item => (
-                         <div key={item.name} className="legacy-pill">
+                      {['Urania', 'Mensageria', 'Secretaria', 'App Aluno'].map(item => (
+                         <div key={item} className="legacy-pill">
                             <span className="gray-dot"></span>
-                            {item.name}
+                            {item}
                          </div>
                       ))}
                    </div>

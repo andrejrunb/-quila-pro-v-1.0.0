@@ -8,6 +8,7 @@ import { theme } from './src/theme/theme';
 import LoginScreen from './src/screens/LoginScreen';
 import ParentDashboard from './src/screens/ParentDashboard';
 import GuardDashboard from './src/screens/GuardDashboard';
+import TeacherDashboard from './src/screens/TeacherDashboard';
 
 const Stack = createStackNavigator();
 
@@ -44,6 +45,11 @@ export default function App() {
           name="GuardDashboard" 
           component={GuardDashboard} 
           options={{ title: 'Monitoramento Tático' }} 
+        />
+        <Stack.Screen 
+          name="TeacherDashboard" 
+          component={TeacherDashboard} 
+          options={{ title: 'Diário de Classe' }} 
         />
       </Stack.Navigator>
     </NavigationContainer>

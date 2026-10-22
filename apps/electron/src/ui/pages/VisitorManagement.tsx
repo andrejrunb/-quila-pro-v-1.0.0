@@ -37,20 +37,17 @@ export const VisitorManagement: React.FC<{ onBack: () => void }> = ({ onBack }) 
   useEffect(() => {
     if (window.aquila) {
       window.aquila.getRecentVisitors().then((v: any[]) => {
-        if (Array.isArray(v) && v.length > 0) setVisitors(v);
-      }).catch(() => {
-        seedMockVisitors();
+        if (Array.isArray(v) && v.length > 0) {
+          setVisitors(v);
+        } else {
+          setVisitors([]); // Garante vazio quando backend não traz arrays úteis
+        }
+      }).catch((e: any) => {
+        console.error('Falha ao buscar visitantes residentes', e);
+        setVisitors([]); 
       });
-    } else {
-      seedMockVisitors();
     }
   }, []);
-
-  const seedMockVisitors = () => {
-    setVisitors([
-      { id: '1', name: 'Marcos Oliveira', cpf: '123.456.789-00', reason: 'Manutenção TI', checkIn: '09:15', status: 'active' },
-    ]);
-  };
 
   useEffect(() => {
     if (totemStep === 'webcam') {
@@ -103,14 +100,13 @@ export const VisitorManagement: React.FC<{ onBack: () => void }> = ({ onBack }) 
             setIsVerifying(false);
           })
           .catch(() => {
-            setBackgroundRisk({ allowed: true, riskLevel: 'CLEARED' });
+            // Se falhou a checagem, bloqueia entrada e alerta
+            setBackgroundRisk({ allowed: false, riskLevel: 'VERIFICATION_FAILED', remarks: 'Falha ao checar antecedentes com a central.' });
             setIsVerifying(false);
           });
       } else {
-        setTimeout(() => {
-          setBackgroundRisk({ allowed: true, riskLevel: 'CLEARED' });
-          setIsVerifying(false);
-        }, 1500);
+        setBackgroundRisk({ allowed: false, riskLevel: 'SYSTEM_OFFLINE', remarks: 'Sistema desconectado do Edge Hub.' });
+        setIsVerifying(false);
       }
     }
   };
@@ -169,8 +165,8 @@ export const VisitorManagement: React.FC<{ onBack: () => void }> = ({ onBack }) 
             <div className="totem-icon-container">
               <UserPlus className="w-12 h-12 text-blue-400" />
             </div>
-            <h1 className="totem-title">Bem-vindo à Áquila School</h1>
-            <p className="totem-subtitle">Por favor, identifique-se para liberar seu acesso.</p>
+            <h1 className="totem-title">Bem-vindo à nossa Escola</h1>
+            <p className="totem-subtitle">Por favor, identifique-se para liberar sua entrada.</p>
             
             <div className="totem-actions-grid">
               <button
@@ -180,11 +176,11 @@ export const VisitorManagement: React.FC<{ onBack: () => void }> = ({ onBack }) 
                 aria-label="Iniciar novo cadastro de visitante"
               >
                 <Camera className="w-10 h-10 mb-4" />
-                <span className="text-xl font-semibold">Novo Visitante</span>
+                <span className="text-xl font-semibold">Iniciar Acesso</span>
               </button>
               <button className="btn-totem-secondary" title="Visitante já Cadastrado" aria-label="Identificar visitante já cadastrado no sistema">
                 <UserCheck className="w-10 h-10 mb-4 text-green-400" />
-                <span className="text-xl font-semibold">Já tenho Cadastro</span>
+                <span className="text-xl font-semibold">Identificação Rápida</span>
               </button>
             </div>
 
@@ -206,7 +202,7 @@ export const VisitorManagement: React.FC<{ onBack: () => void }> = ({ onBack }) 
               <button onClick={handleCancelTotem} className="btn-panel-back" title="Voltar" aria-label="Voltar para a tela anterior">
                 <ArrowLeft className="w-5 h-5" />
               </button>
-              <h2 className="text-2xl font-bold">Dados da Visita</h2>
+               <h2 className="text-2xl font-bold">Dados do Visitante</h2>
             </div>
             <form onSubmit={handleFormSubmit} className="space-y-5">
               <div className="totem-form-group">
@@ -242,14 +238,14 @@ export const VisitorManagement: React.FC<{ onBack: () => void }> = ({ onBack }) 
                   className="totem-select"
                   onChange={e => setFormData({ ...formData, reason: e.target.value })}
                 >
-                  <option>Reunião Pedagógica</option>
-                  <option>Manutenção</option>
-                  <option>Entregas</option>
-                  <option>Visita a Aluno</option>
-                  <option>Outros</option>
+                   <option>Reunião com Direção</option>
+                   <option>Manutenção / Serviços</option>
+                   <option>Entregas / Delivery</option>
+                   <option>Falar com Aluno</option>
+                   <option>Outros</option>
                 </select>
               </div>
-              <button type="submit" className="btn-sumbit-totem" title="Próximo" aria-label="Avançar para a captura de foto">
+               <button type="submit" className="btn-sumbit-totem" title="Próximo" aria-label="Avançar para a captura de foto">
                 <Camera className="w-5 h-5" /> Próximo: Tirar Foto
               </button>
               <button type="button" onClick={handleCancelTotem} className="w-full text-slate-400 py-2 hover:text-slate-300" title="Cancelar" aria-label="Cancelar cadastro">
@@ -321,11 +317,11 @@ export const VisitorManagement: React.FC<{ onBack: () => void }> = ({ onBack }) 
                 <ShieldAlert className="w-12 h-12 mx-auto status-check-error" />
               )}
             </div>
-            <h2 className="text-2xl font-bold mb-2">Verificando Credenciais</h2>
+            <h2 className="text-2xl font-bold mb-2">Autorizando entrada...</h2>
             <p className="totem-subtitle mb-8">
               {isVerifying 
-                ? 'Consultando bases de segurança e antecedentes criminais...' 
-                : 'Verificação de segurança concluída com sucesso.'}
+                ? 'Validando informações de segurança...' 
+                : 'Identificação concluída. Tudo certo!'}
             </p>
 
             {isVerifying ? (
@@ -526,7 +522,7 @@ export const VisitorManagement: React.FC<{ onBack: () => void }> = ({ onBack }) 
             </div>
             <div className="stats-item-footer">
               <div className="stats-footer-text">
-                TODOS OS ACESSOS SÃO MONITORADOS POR IA
+                ACESSO MONITORADO PARA SUA SEGURANÇA
               </div>
             </div>
           </div>

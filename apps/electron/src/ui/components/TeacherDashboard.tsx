@@ -1,16 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SeatingChart from './SeatingChart';
 import ScannerPro from './ScannerPro';
 import ClassTimer from './ClassTimer';
 import LogoffModal from './LogoffModal';
 import EvasionRadarUI from './EvasionRadarUI';
 import FinancialGlass from './FinancialGlass';
+import PedagogicalLibrary from './PedagogicalLibrary';
+import ParentalAdvisorUI from './ParentalAdvisorUI';
 import './TeacherDashboard.css';
 
 const TeacherDashboard: React.FC = () => {
   const [showLogoff, setShowLogoff] = useState(false);
   const [showRadar, setShowRadar] = useState(false);
   const [showFinance, setShowFinance] = useState(false);
+  const [showPedagogical, setShowPedagogical] = useState(false);
+  const [showParentBridge, setShowParentBridge] = useState(false);
+  const [stats, setStats] = useState({ activeStudents: 0, fatigueAlert: '0%', tasksDone: 0, xpGained: 0 });
+
+  useEffect(() => {
+    loadStats();
+    const interval = setInterval(loadStats, 30000); // Atualiza a cada 30s
+    return () => clearInterval(interval);
+  }, []);
+
+  const loadStats = async () => {
+    try {
+      const data = await window.aquila.invoke('get-dashboard-stats');
+      if (data) {
+        setStats({
+          activeStudents: data.activeStudents || 0,
+          fatigueAlert: data.fatigueAlert || '0%',
+          tasksDone: data.tasksDone || 0,
+          xpGained: data.xpGained || 0
+        });
+      }
+    } catch (err) {
+      console.error('Failed to load dashboard stats:', err);
+    }
+  };
 
   const handleEndClass = () => {
     setShowLogoff(true);
@@ -37,19 +64,19 @@ const TeacherDashboard: React.FC = () => {
             <div className="td-card-title">Resumo da Sala</div>
             <div className="td-stat-grid">
               <div className="td-stat-box">
-                <div className="td-stat-val">24</div>
+                <div className="td-stat-val">{stats.activeStudents}</div>
                 <div className="td-stat-label">Alunos On</div>
               </div>
               <div className="td-stat-box">
-                <div className="td-stat-val">8%</div>
+                <div className="td-stat-val">{stats.fatigueAlert}</div>
                 <div className="td-stat-label">Alerta Fadiga</div>
               </div>
               <div className="td-stat-box">
-                <div className="td-stat-val">12</div>
+                <div className="td-stat-val">{stats.tasksDone}</div>
                 <div className="td-stat-label">Tasks Done</div>
               </div>
               <div className="td-stat-box">
-                <div className="td-stat-val">+150</div>
+                <div className="td-stat-val">+{stats.xpGained}</div>
                 <div className="td-stat-label">XP Ganhos</div>
               </div>
             </div>
@@ -61,6 +88,8 @@ const TeacherDashboard: React.FC = () => {
               <button className="td-action-btn">🔊 Chamada Digital (Bluetooth)</button>
               <button className="td-action-btn" onClick={() => setShowRadar(true)}>📡 Radar de Evasão (AI)</button>
               <button className="td-action-btn" onClick={() => setShowFinance(true)}>💰 Financial Glass (PIX)</button>
+              <button className="td-action-btn" onClick={() => setShowPedagogical(true)}>📚 Inteligência Pedagógica (Librarian)</button>
+              <button className="td-action-btn" onClick={() => setShowParentBridge(true)}>🌉 Parent Insight Bridge (Advisor)</button>
             </div>
           </div>
         </div>
@@ -109,6 +138,25 @@ const TeacherDashboard: React.FC = () => {
           </div>
         </div>
       )}
+
+      {showPedagogical && (
+        <div className="td-modal-overlay" onClick={() => setShowPedagogical(false)}>
+          <div className="td-modal-content" onClick={e => e.stopPropagation()}>
+            <PedagogicalLibrary />
+            <button className="td-modal-close" onClick={() => setShowPedagogical(false)}>×</button>
+          </div>
+        </div>
+      )}
+
+      {showParentBridge && (
+        <div className="td-modal-overlay" onClick={() => setShowParentBridge(false)}>
+          <div className="td-modal-content" onClick={e => e.stopPropagation()}>
+            <ParentalAdvisorUI />
+            <button className="td-modal-close" onClick={() => setShowParentBridge(false)}>×</button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

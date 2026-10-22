@@ -1,5 +1,5 @@
-import { SovereignSwarm } from './services/SovereignSwarm';
-import { nexusSyncService } from './services/NexusSyncService';
+import { SovereignSwarm } from './main/services/SovereignSwarm';
+import { nexusSyncService } from './main/services/NexusSyncService';
 
 async function runFailoverTest() {
   console.log('--- TESTE DE ESTRESSE DE FAILOVER (v3472) ---');

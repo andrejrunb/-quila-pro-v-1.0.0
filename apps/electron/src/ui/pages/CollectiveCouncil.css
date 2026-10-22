@@ -1,0 +1,275 @@
+.council-container {
+  padding: 2.5rem;
+  color: white;
+  background: radial-gradient(circle at center, rgba(234, 179, 8, 0.03), transparent 60%);
+  min-height: 100vh;
+}
+
+.council-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.council-title h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(to right, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.council-title p {
+  color: #64748b;
+  margin: 0.5rem 0 0 0;
+  letter-spacing: 1px;
+}
+
+.icon-gold {
+  color: #eab308;
+  filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.4));
+  margin-right: 1.5rem;
+}
+
+.swarm-health {
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+  color: #eab308;
+  padding: 0.6rem 1.25rem;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.council-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 2rem;
+}
+
+.pulse-panel, .voting-panel, .federation-panel {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 32px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.federation-panel {
+  grid-column: span 2;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  color: #94a3b8;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+}
+
+/* Swarm Pulse Styles */
+.pulse-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pulse-item {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1.25rem;
+  border-radius: 16px;
+  border-left: 4px solid #64748b;
+  animation: slideIn 0.3s ease-out;
+}
+
+.pulse-item.high { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.05); }
+.pulse-item.medium { border-left-color: #eab308; }
+
+.pulse-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.agent-name {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.pulse-time {
+  font-size: 0.7rem;
+  color: #475569;
+}
+
+.pulse-thought {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+/* Voting Panel Styles */
+.polls-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.poll-card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.poll-info h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.poll-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.poll-trend {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.poll-trend.positive { color: #22c55e; background: rgba(34, 197, 94, 0.1); }
+
+.vote-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.governance-ledger-preview {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1.25rem;
+  border-radius: 16px;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.ledger-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+}
+
+.entry-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #22c55e;
+}
+
+/* Federation Panel Styles */
+.mesh-visualizer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem 0;
+}
+
+.mesh-node {
+  width: 120px;
+  height: 120px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  position: relative;
+}
+
+.mesh-node.active {
+  border-color: #eab308;
+  color: white;
+}
+
+.node-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(234, 179, 8, 0.1);
+  animation: pulseNode 3s infinite;
+}
+
+.mesh-connection {
+  width: 100px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mesh-connection.active {
+  background: linear-gradient(to right, #eab308, rgba(255, 255, 255, 0.05));
+}
+
+.swarm-conflicts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-top: 1rem;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseNode {
+  0% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 0.3; }
+}

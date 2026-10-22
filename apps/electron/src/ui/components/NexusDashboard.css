@@ -1,0 +1,207 @@
+.nexus-container {
+  padding: 2rem;
+  background: radial-gradient(circle at top right, #111b27, #050505);
+  min-height: 100vh;
+  color: #fff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.nexus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1.5rem;
+}
+
+.nexus-title-group h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #0096ff, #00ffcc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nexus-title-group p {
+  margin: 0.5rem 0 0 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nexus-status-badge {
+  background: rgba(0, 255, 204, 0.1);
+  border: 1px solid #00ffcc;
+  color: #00ffcc;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+}
+
+.nexus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.nexus-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nexus-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 150, 255, 0.3);
+}
+
+.card-header {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Topology styles */
+.node-map {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.node-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.node-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.node-item .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.node-item .dot.online { background: #00ffcc; box-shadow: 0 0 8px #00ffcc; }
+.node-item .dot.offline { background: #ff4d4d; }
+
+.node-name { flex: 1; }
+.node-load { color: #0096ff; font-weight: 600; }
+
+/* ROI styles */
+.roi-value {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.roi-label {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
+}
+
+.roi-chart-mock {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 100px;
+  margin-top: 2rem;
+}
+
+.roi-chart-mock .bar {
+  flex: 1;
+  background: rgba(0, 150, 255, 0.2);
+  border-radius: 4px;
+}
+
+.roi-chart-mock .bar.highlight {
+  background: linear-gradient(transparent, #0096ff);
+  box-shadow: 0 -5px 15px rgba(0, 150, 255, 0.4);
+}
+
+/* Pulse Feed styles */
+.feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feed-item {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1rem;
+  border-left: 2px solid #0096ff;
+  border-radius: 0 8px 8px 0;
+}
+
+.feed-item .tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #0096ff;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.feed-item .tag.security { color: #ffcc00; }
+.feed-item .tag.roi { color: #00ffcc; }
+
+.feed-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Self-Healing styles */
+.integrity-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.status-row .healthy { color: #00ffcc; font-weight: 600; }
+
+.repair-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+}
+
+.repair-btn:hover {
+  background: #fff;
+  color: #000;
+}

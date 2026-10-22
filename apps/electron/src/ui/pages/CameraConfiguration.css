@@ -1,3 +1,42 @@
+.camera-config-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.camera-config-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  padding: 24px;
+  border-radius: 16px;
+}
+
+.camera-config-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.camera-config-header p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.controls-bar {
+  display: flex;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.01);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+}
+
 /* Header Stats & Icons */
 .header-icon-box {
   background: var(--accent-blue);

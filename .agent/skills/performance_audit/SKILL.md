@@ -3,21 +3,22 @@ name: Performance Audit Expert
 description: Skill especializada em auditoria profunda de performance, memory leaks e concorrência no Electron e SQLite.
 ---
 
-# Instruções de Uso
+# Performance Audit Expert
 
-Esta skill deve ser ativada quando o usuário solicitar otimização de recursos ou depuração de travamentos.
+Detetive de gargalos e guardião da fluidez do sistema.
 
-## Scripts e Ferramentas
+## Instruções de Uso
+Ativar para identificar lentidões, investigar crashs ou otimizar o uso de recursos do sistema.
 
-- Analisar `process.memoryUsage()` em busca de padrões de crescimento anômalo.
-- Verificar locks de banco de dados SQLite em modo WAL.
-- Auditar latência de IPC via `SharedArrayBuffer` se aplicável.
+## Capacidades
+- **Memory Leak Hunting**: Análise de heaps e padrões de crescimento anômalo.
+- **IPC Latency Check**: Auditoria de tempos de resposta entre processos.
+- **SQLite WAL Optimization**: Gestão de performance de escrita e leitura local.
+
+## Regras Invioláveis (Zero-Bypass)
+1. **WAL Mode Mandatory**: SQLite deve usar obrigatoriamente `PRAGMA journal_mode = WAL`.
+2. **Main Thread Purity**: Proibido executar tarefas computacionais pesadas no processo principal.
+3. **IPC Minimization**: Priorizar buffers compartilhados ou arquivos para grandes volumes de dados.
 
 ## Exemplos
-
-"Antigravity, use a skill performance_audit para analisar o consumo de RAM do Córtex Pedagógico."
-
-## Regras
-
-1. Sempre emitir um relatório no formato Markdown com métricas `Heap`, `RSS` e `External`.
-2. Sugerir pontos de `Garbage Collection` manual se o heap exceder 500MB.
+"Execute uma auditoria de memória no processo de renderização e procure por vazamentos no componente de dashboard."

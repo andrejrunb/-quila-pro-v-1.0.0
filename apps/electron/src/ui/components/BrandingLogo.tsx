@@ -11,8 +11,8 @@ interface BrandingLogoProps {
 export const BrandingLogo: React.FC<BrandingLogoProps> = ({ className = '', size = 40, planId = 'basic' }) => {
   const { branding, loading } = useBranding(planId);
 
-  // Lógica para detectar se o logo é um emoji ou URL (v3441)
-  const isEmoji = branding?.logo ? (branding.logo.length < 10 && !branding.logo.includes('/')) : true;
+  // Lógica para detectar se o logo é um emoji ou URL/filename (v3441)
+  const isEmoji = branding?.logo ? (branding.logo.length < 10 && !branding.logo.includes('/') && !branding.logo.includes('.')) : true;
 
   const sizeClass = size <= 32 ? 'size-small' : size >= 64 ? 'size-large' : 'size-medium';
 

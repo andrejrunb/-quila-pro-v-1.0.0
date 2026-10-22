@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mic, Play, FileText, Loader2, Sparkles, AudioLines, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Mic, Play, FileText, Loader2, Sparkles, AudioLines, CheckCircle } from 'lucide-react';
 import './EduPodcast.css';
 
 export interface PodcastSegment {
@@ -7,7 +7,7 @@ export interface PodcastSegment {
   text: string;
 }
 
-export const EduPodcast: React.FC = () => {
+export const EduPodcast: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -33,6 +33,11 @@ export const EduPodcast: React.FC = () => {
     <div className="edu-podcast-container">
       <header className="page-header">
         <div className="header-wrapper">
+          {onBack && (
+            <button onClick={onBack} className="p-2 hover:bg-white/10 rounded-full transition-all mr-2">
+              <ArrowLeft size={24} className="text-white" />
+            </button>
+          )}
           <div className="header-icon">
             <Mic size={24} />
           </div>

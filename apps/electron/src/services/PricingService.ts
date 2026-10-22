@@ -1,77 +1,36 @@
 /**
- * PricingService - Phase 401: SaaS Dynamic Tiering
- * Governa as capacidades do Sistema Operacional baseado no licenciamento.
+ * PricingService (Safe Proxy)
  */
+export class PricingServiceProxy {
+  private static instance: PricingServiceProxy;
+  public static getInstance(): PricingServiceProxy {
+    if (!PricingServiceProxy.instance) PricingServiceProxy.instance = new PricingServiceProxy();
+    return PricingServiceProxy.instance;
+  }
+  private async invoke(method: string, ...args: any[]): Promise<any> {
+    if (typeof window !== 'undefined' && (window as any).aquila) return (window as any).aquila.invoke(':' + method, ...args);
+    return null;
+  }
+  // Generic placeholders for methods used in UI
+  // [SQA-PRC-402] Calculates a quote for custom units/regions (Client-side simulation)
+  public calculateQuote(type: string, region: string, count: number, planId: string): number {
+    let basePrice = 1500; 
+    if (planId === 'basic') basePrice = 0;
+    if (planId === 'premium') basePrice = 3500;
 
-export enum SaaSPlan {
-  STARTER = 'STARTER',       // Cloud-reliant, base features
-  ANTIGRAVITY = 'ANTIGRAVITY', // Hybrid, advanced NLP/Workflows
-  SOVEREIGN = 'SOVEREIGN'    // Full Edge AI, 26 TOPS NPU, Offline Resilience
-}
+    const sectorMultiplier = type === 'public' ? 0.6 : 1.0;
+    const perStudentFee = type === 'public' ? 0.80 : 2.50;
+    const regionMultiplier = region === 'capital' ? 1.15 : 0.95;
 
-export interface TierConfig {
-  plan: SaaSPlan;
-  features: {
-    npuAcceleration: boolean;
-    localBiometrics: boolean;
-    offlineSync: boolean;
-    advancedVision: boolean;
-  };
-}
-
-class PricingService {
-  private static instance: PricingService;
-  private currentPlan: SaaSPlan = SaaSPlan.SOVEREIGN; // Default for current dev state
-
-  private constructor() {}
-
-  public static getInstance(): PricingService {
-    if (!PricingService.instance) {
-      PricingService.instance = new PricingService();
-    }
-    return PricingService.instance;
+    return ((basePrice * sectorMultiplier) + (count * perStudentFee)) * regionMultiplier;
   }
 
-  public getTierConfig(): TierConfig {
-    switch (this.currentPlan) {
-      case SaaSPlan.SOVEREIGN:
-        return {
-          plan: SaaSPlan.SOVEREIGN,
-          features: {
-            npuAcceleration: true,
-            localBiometrics: true,
-            offlineSync: true,
-            advancedVision: true,
-          }
-        };
-      case SaaSPlan.ANTIGRAVITY:
-        return {
-          plan: SaaSPlan.ANTIGRAVITY,
-          features: {
-            npuAcceleration: false,
-            localBiometrics: true,
-            offlineSync: true,
-            advancedVision: false,
-          }
-        };
-      default:
-        return {
-          plan: SaaSPlan.STARTER,
-          features: {
-            npuAcceleration: false,
-            localBiometrics: false,
-            offlineSync: false,
-            advancedVision: false,
-          }
-        };
-    }
+  public async getOfficialQuote(type: string, region: string, count: number, planId: string): Promise<any> {
+    return this.invoke('pricing:calculate-quote', { type, region, count, planId });
   }
 
-  public setPlan(plan: SaaSPlan) {
-    console.log(`[Pricing] Plan updated to ${plan}`);
-    this.currentPlan = plan;
-    // Skill: lgpd_guard - Ensure RBAC matrix is updated on plan change
-  }
+  public async getStatus(): Promise<any> { return this.invoke('getStatus'); }
+  public async getData(): Promise<any> { return this.invoke('getData'); }
 }
-
-export default PricingService.getInstance();
+export const pricingService = PricingServiceProxy.getInstance();
+export default pricingService;

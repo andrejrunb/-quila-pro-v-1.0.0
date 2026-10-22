@@ -1,0 +1,140 @@
+.distributed-mesh-monitor {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.dmm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.dmm-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #f472b6, #fb7185);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dmm-mesh-viz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  position: relative;
+  margin-bottom: 20px;
+  background: radial-gradient(circle, rgba(244, 114, 182, 0.05) 0%, transparent 70%);
+}
+
+.dmm-node {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.8);
+  border: 2px solid #f472b6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 15px rgba(244, 114, 182, 0.3);
+  transition: all 0.3s ease;
+}
+
+.dmm-node.master {
+  border-color: #38bdf8;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.dmm-node-label {
+  position: absolute;
+  top: 60px;
+  font-size: 0.65rem;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.dmm-link {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, #f472b6, #38bdf8);
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.dmm-task-particle {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  box-shadow: 0 0 10px #fff;
+  animation: task-flow 2s linear infinite;
+}
+
+@keyframes task-flow {
+  0% { transform: scale(1); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: scale(0.5); opacity: 0; }
+}
+
+.dmm-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dmm-task-item {
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dmm-task-type {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.dmm-task-status {
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.status-pending { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+.status-processing { color: #38bdf8; background: rgba(56, 189, 248, 0.1); }
+.status-completed { color: #10b981; background: rgba(16, 185, 129, 0.1); }
+
+.dmm-node-stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.dmm-npu-bar {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.dmm-npu-fill {
+  height: 100%;
+  background: #f472b6;
+}

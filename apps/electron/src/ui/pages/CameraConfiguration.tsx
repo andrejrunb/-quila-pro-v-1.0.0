@@ -147,8 +147,6 @@ export const CameraConfiguration: React.FC = () => {
       if (result.success) {
         await loadCameras();
       }
-    } catch (err: any) {
-      setTestResult({ success: false, message: err.message });
     } finally {
       setTestingCamera(null);
     }
@@ -160,38 +158,38 @@ export const CameraConfiguration: React.FC = () => {
         <div className="flex items-center gap-4">
             <div className="header-icon-box">📹</div>
             <div>
-                <h1>Configuração de Câmeras</h1>
-                <p>Ecosystem Security & Vision Hub v1.3.0</p>
+                <h1>Configuração de Vídeo & Visão</h1>
+                <p>Ecosystem Security • Hub de Inteligência v1.5.0</p>
             </div>
         </div>
         <div className="header-stats">
-            <span className="stat-pill">{cameras.length} Câmeras</span>
-            <span className="stat-pill online">{cameras.filter(c => c.status === 'online').length} On</span>
+            <span className="stat-pill">{cameras.length} Dispositivos</span>
+            <span className="stat-pill online">{cameras.filter(c => c.status === 'online').length} Ativos</span>
         </div>
       </header>
 
       <section className="controls-bar">
-        <div className="flex gap-2">
+        <div className="flex gap-3">
             <button
                 onClick={handleAddCamera}
                 className="btn-primary"
-                title="Adicionar Manualmente"
+                title="Adicionar Câmera Manualmente"
             >
                 <Plus className="w-5 h-5" />
-                Nova Câmera
+                ADICIONAR MANUAL
             </button>
             <button
                 onClick={handleAutoScan}
                 disabled={isScanning}
                 className="btn-discover"
-                title="Buscar câmeras na rede local"
+                title="Buscar câmeras na rede local (Varredura Ativa)"
             >
                 {isScanning ? (
                     <div className="loader-mini" />
                 ) : (
                     <Play className="w-5 h-5" />
                 )}
-                Buscar na Rede
+                BUSCA AUTOMÁTICA (ONVIF)
             </button>
         </div>
       </section>
@@ -200,8 +198,8 @@ export const CameraConfiguration: React.FC = () => {
           <div className="scanning-overlay">
               <div className="scanning-content">
                   <div className="radar-pulse" />
-                  <h3>Escaneando Rede...</h3>
-                  <p>Buscando dispositivos ONVIF e fluxos RTSP ativos</p>
+                  <h3>Varredura de Rede em Curso...</h3>
+                  <p>Interrogando protocolos ONVIF e fluxos RTSP na sub-rede</p>
               </div>
           </div>
       )}
@@ -209,22 +207,22 @@ export const CameraConfiguration: React.FC = () => {
       {discoveredCameras.length > 0 && (
           <div className="modal-overlay">
               <div className="modal-content discovered-modal animate-zoom-in">
-                  <h2>Câmeras Encontradas ({discoveredCameras.length})</h2>
+                  <h2>Dispositivos Detectados ({discoveredCameras.length})</h2>
                   <div className="discovered-list">
                       {discoveredCameras.map((cam, i) => (
                           <div key={i} className="discovered-item">
                               <div className="discovered-info">
-                                  <strong>{cam.name || 'Câmera IP'}</strong>
-                                  <span>{cam.ip}</span>
-                                  <code>{cam.rtspUrl}</code>
+                                  <strong>{cam.name || 'Câmera IP Genérica'}</strong>
+                                  <span>Endereço IP: {cam.ip}</span>
+                                  <code>Fluxo: {cam.rtspUrl}</code>
                               </div>
                               <button onClick={() => handleAddDiscovered(cam)} className="btn-add-discovered">
-                                  Configurar
+                                  CONFIGURAR
                               </button>
                           </div>
                       ))}
                   </div>
-                  <button onClick={() => setDiscoveredCameras([])} className="btn-close-modal">Fechar</button>
+                  <button onClick={() => setDiscoveredCameras([])} className="btn-close-modal">FECHAR</button>
               </div>
           </div>
       )}
@@ -234,24 +232,23 @@ export const CameraConfiguration: React.FC = () => {
           <div key={camera.id} className="camera-card">
             <div className="camera-preview-box">
               <div className="preview-placeholder">
-                <div className="preview-emoji">📹</div>
-                <p className="text-sm">{camera.name}</p>
+                <div className="preview-emoji">📸</div>
+                <p className="text-[10px] font-bold uppercase tracking-wider opacity-60">Visualização Protegida</p>
               </div>
               <div className={`status-badge ${camera.status === 'online' ? 'status-online' : 'status-offline'}`}>
                 {camera.status === 'online' ? <Wifi className="w-3 h-3" /> : <WifiOff className="w-3 h-3" />}
-                {camera.status === 'online' ? 'Online' : 'Offline'}
+                {camera.status === 'online' ? 'SINAL OK' : 'SEM SINAL'}
               </div>
             </div>
 
             <div className="camera-card-content">
-              <h3>{camera.name}</h3>
+              <h3>{camera.name || 'Câmera sem Nome'}</h3>
 
               <div className="camera-info-list">
-                <p><span className="info-label">Sala:</span> {camera.room}</p>
-                <p><span className="info-label">URL:</span> <code className="code-url" title={camera.rtspUrl}>{camera.rtspUrl.substring(0, 30)}...</code></p>
-                <p><span className="info-label">Resolução:</span> {camera.resolution}</p>
-                <p><span className="info-label">FPS:</span> {camera.fps}</p>
-                <p><span className="info-label">Visto:</span> {new Date(camera.lastSeen).toLocaleTimeString('pt-BR')}</p>
+                <p><span className="info-label">LOCALIZAÇÃO:</span> {camera.room || 'Não Definida'}</p>
+                <p><span className="info-label">PROTOCOLO:</span> <code className="code-url" title={camera.rtspUrl}>{camera.rtspUrl.substring(0, 25)}...</code></p>
+                <p><span className="info-label">QUALIDADE:</span> {camera.resolution} @ {camera.fps} FPS</p>
+                <p><span className="info-label">ÚLTIMO PING:</span> {new Date(camera.lastSeen).toLocaleTimeString('pt-BR')}</p>
               </div>
 
               {testResult && testingCamera === camera.id && (
@@ -266,24 +263,24 @@ export const CameraConfiguration: React.FC = () => {
                   onClick={() => handleTestCamera(camera.id, camera.rtspUrl)}
                   disabled={testingCamera === camera.id}
                   className="btn-test"
-                  title="Testar Conexão da Câmera"
+                  title="Testar Conectividade"
                 >
                   {testingCamera === camera.id ? (
                     <>
                       <div className="w-4 h-4 border-2 border-slate-400 border-t-slate-300 rounded-full animate-spin" />
-                      Testando...
+                      TESTANDO...
                     </>
                   ) : (
                     <>
                       <Play className="w-4 h-4" />
-                      Testar
+                      TESTAR
                     </>
                   )}
                 </button>
 
                 <button
                   onClick={() => handleEditCamera(camera)}
-                  title="Editar Câmera"
+                  title="Editar Parâmetros"
                   className="action-icon-only btn-icon-blue"
                 >
                   <Edit2 className="w-4 h-4" />
@@ -291,7 +288,7 @@ export const CameraConfiguration: React.FC = () => {
 
                 <button
                   onClick={() => handleDeleteCamera(camera.id)}
-                  title="Excluir Câmera"
+                  title="Remover Dispositivo"
                   className="action-icon-only btn-icon-red"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -305,37 +302,33 @@ export const CameraConfiguration: React.FC = () => {
       {showForm && (
         <div className="modal-overlay">
           <div className="modal-content animate-zoom-in">
-            <h2>{editingCamera ? 'Editar Câmera' : 'Adicionar Câmera'}</h2>
+            <h2>{editingCamera ? 'Editar Parâmetros' : 'Cadastrar Nova Unidade'}</h2>
 
             <div className="form-body">
               <div className="form-group">
-                <label className="form-label">Nome da Câmera</label>
+                <label className="form-label">Identificação da Unidade</label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={e => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="ex: Câmera Sala 101"
+                  placeholder="Ex: Câmera Portaria Norte"
                   className="form-input"
-                  title="Nome da Câmera"
-                  aria-label="Nome da Câmera"
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">URL RTSP</label>
+                <label className="form-label">Endereço de Fluxo (RTSP)</label>
                 <input
                   type="text"
                   value={formData.rtspUrl}
                   onChange={e => setFormData({ ...formData, rtspUrl: e.target.value })}
-                  placeholder="rtsp://192.168.1.100:554/stream"
+                  placeholder="rtsp://usuario:senha@ip:porta/stream"
                   className="form-input"
-                  title="URL RTSP"
-                  aria-label="URL RTSP"
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label">Sala</label>
+                <label className="form-label">Ambiente / Localização</label>
                 <select
                   aria-label="Selecionar Sala"
                   title="Selecionar Sala"
@@ -343,7 +336,7 @@ export const CameraConfiguration: React.FC = () => {
                   onChange={e => setFormData({ ...formData, room: e.target.value })}
                   className="form-select"
                 >
-                  <option value="">Selecione uma sala</option>
+                  <option value="">Selecione o local de instalação</option>
                   {rooms.map(room => (
                     <option key={room} value={room}>
                       {room}
@@ -357,16 +350,14 @@ export const CameraConfiguration: React.FC = () => {
               <button
                 onClick={() => setShowForm(false)}
                 className="btn-cancel"
-                title="Cancelar Alterações"
               >
-                Cancelar
+                CANCELAR
               </button>
               <button
                 onClick={handleSaveCamera}
                 className="btn-save"
-                title="Salvar Configurações"
               >
-                Salvar
+                {editingCamera ? 'ATUALIZAR' : 'CADASTRAR'}
               </button>
             </div>
           </div>

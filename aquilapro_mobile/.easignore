@@ -1,0 +1,20 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore Expo and native folders
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+ios/
+android/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore build logs and typescript info
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+*.tsbuildinfo

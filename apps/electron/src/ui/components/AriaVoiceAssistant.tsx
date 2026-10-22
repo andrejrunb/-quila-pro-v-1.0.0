@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, Command, X, Search, Sparkles, ChevronRight } from 'lucide-react';
-import { OmnissearchService, SearchResult } from '../../services/OmnissearchService';
-import { Database } from '../../database/Database';
 import './AriaVoiceAssistant.css';
 
-/**
- * ARIA Voice Assistant (v3801)
- * Interface flutuante de I.A. Multimodal.
- * Permite controle do School OS via voz e comandos rápidos.
- */
+export interface SearchResult {
+  type: 'student' | 'finance' | 'event' | 'nexus' | 'pedagogic' | 'governance';
+  title: string;
+  subtitle: string;
+  relevance: number;
+  metadata: any;
+}
+
 const AriaVoiceAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isListening, setIsListening] = useState(false);
@@ -16,7 +17,6 @@ const AriaVoiceAssistant: React.FC = () => {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   
-  const searchService = useRef(new OmnissearchService(Database.getInstance()));
   const recognition = useRef<any>(null);
 
   useEffect(() => {
@@ -63,7 +63,9 @@ const AriaVoiceAssistant: React.FC = () => {
   const handleCommand = async (text: string) => {
     setIsProcessing(true);
     try {
-      const response = await searchService.current.processVoiceCommand(text);
+      const { ipcRenderer } = (window as any).require('electron');
+      const response = await ipcRenderer.invoke('omnissearch:voice-command', text);
+      
       if (response.action === 'SEARCH_RESULTS') {
         setResults(response.data);
       } else if (response.action === 'NAVIGATE') {

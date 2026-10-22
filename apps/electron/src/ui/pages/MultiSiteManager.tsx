@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Globe, 
   MapPin, 
@@ -9,167 +9,375 @@ import {
   Shield, 
   Database,
   RefreshCw,
-  ExternalLink
+  ExternalLink,
+  CheckCircle2,
+  X,
+  Wifi,
+  Radio,
+  Server
 } from 'lucide-react';
+import './MultiSiteManager.css';
 
 interface Unit {
   id: string;
   name: string;
   address: string;
+  inepCode: string;
   status: 'online' | 'offline' | 'syncing';
   lastSync: string;
   studentCount: number;
+  cameraCount: number;
+  ipEndpoint: string;
 }
 
 interface MultiSiteManagerProps {
   onBack: () => void;
+  onSelectUnit?: (unitId: string) => void;
 }
 
-export const MultiSiteManager: React.FC<MultiSiteManagerProps> = ({ onBack }) => {
+export const MultiSiteManager: React.FC<MultiSiteManagerProps> = ({ onBack, onSelectUnit }) => {
   const [units, setUnits] = useState<Unit[]>([
-    { id: '1', name: 'Unidade Central - Matriz', address: 'Av. Paulista, 1000', status: 'online', lastSync: 'Houve 5 min atrás', studentCount: 1250 },
-    { id: '2', name: 'Unidade Sul - Kids', address: 'Rua das Flores, 450', status: 'syncing', lastSync: 'Sincronizando...', studentCount: 450 },
-    { id: '3', name: 'Unidade Norte - High School', address: 'Av. Brasil, 2200', status: 'offline', lastSync: 'Ontem às 18:00', studentCount: 890 },
+    { 
+      id: 'unit-matriz', 
+      name: 'Colégio Visão — Matriz Asa Sul', 
+      address: 'SGAS 915 Lote 68, Brasília - DF', 
+      inepCode: '53001892',
+      status: 'online', 
+      lastSync: 'Agora (Sincronizado)', 
+      studentCount: 1250,
+      cameraCount: 32,
+      ipEndpoint: '10.0.1.1 (Edge Central)'
+    },
+    { 
+      id: 'unit-kids', 
+      name: 'Colégio Visão — Unidade Kids Asa Norte', 
+      address: 'SGAN 706 Bloco C, Brasília - DF', 
+      inepCode: '53002410',
+      status: 'online', 
+      lastSync: 'Há 4 min', 
+      studentCount: 450,
+      cameraCount: 16,
+      ipEndpoint: '10.0.2.1 (Edge Gateway)'
+    },
+    { 
+      id: 'unit-highschool', 
+      name: 'Colégio Visão — Unidade Águas Claras High', 
+      address: 'Rua das Figueiras Lote 12, Águas Claras - DF', 
+      inepCode: '53003980',
+      status: 'online', 
+      lastSync: 'Há 12 min', 
+      studentCount: 890,
+      cameraCount: 24,
+      ipEndpoint: '10.0.3.1 (Edge Gateway)'
+    },
   ]);
 
+  const [activeUnitId, setActiveUnitId] = useState<string>('unit-matriz');
   const [isSyncingAll, setIsSyncingAll] = useState(false);
+  const [syncFeedback, setSyncFeedback] = useState<string | null>(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+
+  // Form states for new unit
+  const [newUnitName, setNewUnitName] = useState('');
+  const [newUnitAddress, setNewUnitAddress] = useState('');
+  const [newUnitInep, setNewUnitInep] = useState('');
+  const [newUnitEndpoint, setNewUnitEndpoint] = useState('');
+
+  const totalStudents = units.reduce((acc, u) => acc + u.studentCount, 0);
+  const onlineUnitsCount = units.filter(u => u.status === 'online').length;
 
   const handleSyncAll = () => {
     setIsSyncingAll(true);
+    setSyncFeedback('Disparando sincronização criptográfica Mesh (WireGuard P2P)...');
+
     setTimeout(() => {
+      setUnits(prev => prev.map(u => ({ ...u, lastSync: 'Agora (Auditado)', status: 'online' })));
       setIsSyncingAll(false);
-      alert('Sincronização multi-unidade concluída!');
-    }, 2000);
+      setSyncFeedback('Rede 100% sincronizada. 3 nós consolidados no Córtex.');
+      setTimeout(() => setSyncFeedback(null), 4000);
+    }, 1800);
+  };
+
+  const handleSwitchUnit = (unitId: string) => {
+    setActiveUnitId(unitId);
+    if (onSelectUnit) onSelectUnit(unitId);
+  };
+
+  const handleCreateUnit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newUnitName.trim()) return;
+
+    const newUnit: Unit = {
+      id: `unit-${Date.now()}`,
+      name: newUnitName.trim(),
+      address: newUnitAddress.trim() || 'Endereço em cadastramento',
+      inepCode: newUnitInep.trim() || '53009999',
+      status: 'online',
+      lastSync: 'Criada agora',
+      studentCount: 0,
+      cameraCount: 4,
+      ipEndpoint: newUnitEndpoint.trim() || '10.0.4.1 (Edge)'
+    };
+
+    setUnits(prev => [...prev, newUnit]);
+    setShowAddModal(false);
+    setNewUnitName('');
+    setNewUnitAddress('');
+    setNewUnitInep('');
+    setNewUnitEndpoint('');
   };
 
   return (
-    <div className="p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <header className="flex justify-between items-center mb-8">
-        <div className="flex items-center gap-4">
-          <button 
-            onClick={onBack}
-            className="p-2 hover:bg-white/10 rounded-full transition-colors text-slate-400"
-            title="Voltar"
-          >
-            <ArrowLeft size={20} />
+    <div className="ms-cockpit">
+      {/* HEADER */}
+      <header className="ms-header">
+        <div className="ms-title-group">
+          <button onClick={onBack} className="ms-back-btn" title="Voltar aos Portais">
+            <ArrowLeft size={16} />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-white tracking-tight">Gestão Multi-Unidade (Tenant)</h1>
-            <p className="text-slate-400 text-sm italic">Painel administrativo central Áquila V3</p>
+            <h1 className="ms-title">Gestão Multi-Unidade da Rede (Tenant Central)</h1>
+            <p className="ms-subtitle">
+              Sincronização federada P2P • Colégio Visão • Córtex Central v2.1
+            </p>
           </div>
         </div>
-        <div className="flex gap-3">
-            <button 
-                onClick={handleSyncAll}
-                className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-medium transition-all"
-            >
-                <RefreshCw size={18} className={isSyncingAll ? 'animate-spin' : ''} />
-                Sincronizar Redes
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">
-                <Plus size={18} />
-                Nova Unidade
-            </button>
+
+        <div className="ms-actions">
+          <button 
+            onClick={handleSyncAll}
+            disabled={isSyncingAll}
+            className="ms-cmd-btn secondary"
+          >
+            <RefreshCw size={14} className={isSyncingAll ? 'animate-spin' : ''} />
+            {isSyncingAll ? 'Sincronizando...' : 'Sincronizar Rede'}
+          </button>
+          <button 
+            onClick={() => setShowAddModal(true)}
+            className="ms-cmd-btn primary"
+          >
+            <Plus size={14} /> Nova Unidade
+          </button>
         </div>
       </header>
 
-      {/* Global Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-gradient-to-br from-indigo-500/10 to-indigo-500/5 border border-indigo-500/20 p-6 rounded-3xl">
-          <div className="flex items-center gap-3 text-indigo-400 mb-2">
-            <Globe size={18} />
-            <span className="text-xs font-bold uppercase tracking-wider">Status da Rede</span>
+      {/* FEEDBACK BANNER */}
+      {syncFeedback && (
+        <div style={{
+          background: 'rgba(16, 185, 129, 0.12)',
+          border: '1px solid rgba(16, 185, 129, 0.3)',
+          borderRadius: 12,
+          padding: '10px 16px',
+          marginBottom: 20,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          color: '#10b981',
+          fontSize: 13,
+          fontWeight: 600
+        }}>
+          <CheckCircle2 size={16} />
+          <span>{syncFeedback}</span>
+        </div>
+      )}
+
+      {/* 4-COLUMN KPI STRIP */}
+      <div className="ms-kpi-strip">
+        <div className="ms-kpi-card indigo">
+          <div className="ms-kpi-header">
+            <span className="ms-kpi-label">Alunos da Rede</span>
+            <BarChart size={16} color="#6366f1" />
           </div>
-          <div className="text-3xl font-bold text-white">Consolidado</div>
-          <div className="text-emerald-400 text-xs mt-1 flex items-center gap-1">
-             <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" /> 
-             Todos os nós operacionais
-          </div>
+          <div className="ms-kpi-val">{totalStudents.toLocaleString('pt-BR')}</div>
+          <div className="ms-kpi-sub">Total consolidado nas 3 unidades</div>
         </div>
 
-        <div className="bg-slate-900/50 border border-white/5 p-6 rounded-3xl">
-          <div className="flex items-center gap-3 text-slate-400 mb-2">
-            <Database size={18} />
-            <span className="text-xs font-bold uppercase tracking-wider">Sincronismo Cloud</span>
+        <div className="ms-kpi-card emerald">
+          <div className="ms-kpi-header">
+            <span className="ms-kpi-label">Unidades Ativas</span>
+            <Globe size={16} color="#10b981" />
           </div>
-          <div className="text-3xl font-bold text-white">98.4%</div>
-          <div className="text-slate-500 text-xs mt-1">Acuidade de dados distribuídos</div>
+          <div className="ms-kpi-val">{onlineUnitsCount} / {units.length}</div>
+          <div className="ms-kpi-sub">100% dos nós online via WireGuard</div>
         </div>
 
-        <div className="bg-slate-900/50 border border-white/5 p-6 rounded-3xl">
-          <div className="flex items-center gap-3 text-slate-400 mb-2">
-            <BarChart size={18} />
-            <span className="text-xs font-bold uppercase tracking-wider">Total de Alunos</span>
+        <div className="ms-kpi-card cyan">
+          <div className="ms-kpi-header">
+            <span className="ms-kpi-label">Latência Mesh</span>
+            <Wifi size={16} color="#00f0ff" />
           </div>
-          <div className="text-3xl font-bold text-white">2.590</div>
-          <div className="text-slate-500 text-xs mt-1">Impacto total da rede Áquila</div>
+          <div className="ms-kpi-val">12 ms</div>
+          <div className="ms-kpi-sub">Túnel local criptografado P2P</div>
+        </div>
+
+        <div className="ms-kpi-card amber">
+          <div className="ms-kpi-header">
+            <span className="ms-kpi-label">Soberania LGPD</span>
+            <Shield size={16} color="#f59e0b" />
+          </div>
+          <div className="ms-kpi-val">Nível 10</div>
+          <div className="ms-kpi-sub">Zero tráfego biométrico cross-site</div>
+        </div>
+      </div>
+
+      {/* UNITS LIST */}
+      <div className="ms-units-grid">
+        {units.map(unit => {
+          const isActive = unit.id === activeUnitId;
+          return (
+            <div 
+              key={unit.id} 
+              className="ms-unit-card"
+              style={{
+                borderColor: isActive ? 'rgba(99, 102, 241, 0.5)' : undefined,
+                background: isActive ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(10, 16, 32, 0.95) 100%)' : undefined
+              }}
+            >
+              <div className="ms-unit-header">
+                <div className="ms-unit-title-group">
+                  <div className="ms-unit-icon">
+                    <MapPin size={22} />
+                  </div>
+                  <div>
+                    <h3 className="ms-unit-name">{unit.name}</h3>
+                    <p className="ms-unit-addr">{unit.address}</p>
+                    <span style={{ fontSize: 10, color: '#64748b', fontFamily: 'monospace' }}>
+                      INEP: {unit.inepCode} • IP: {unit.ipEndpoint}
+                    </span>
+                  </div>
+                </div>
+                <span className={`ms-status-badge ${unit.status}`}>
+                  {unit.status}
+                </span>
+              </div>
+
+              <div className="ms-unit-metrics">
+                <div className="ms-metric-item">
+                  <span className="ms-metric-label">Matrículas</span>
+                  <span className="ms-metric-val">{unit.studentCount}</span>
+                </div>
+                <div className="ms-metric-item">
+                  <span className="ms-metric-label">Câmeras NPU</span>
+                  <span className="ms-metric-val">{unit.cameraCount}</span>
+                </div>
+                <div className="ms-metric-item">
+                  <span className="ms-metric-label">Último Sync</span>
+                  <span className="ms-metric-val" style={{ fontSize: 12 }}>{unit.lastSync}</span>
+                </div>
+              </div>
+
+              <div className="ms-unit-actions">
+                <button 
+                  className="ms-unit-btn secondary"
+                  onClick={() => alert(`Configurações de rede da ${unit.name}: Gateway ${unit.ipEndpoint}`)}
+                >
+                  <Settings size={14} /> Conectividade
+                </button>
+                <button 
+                  className={`ms-unit-btn ${isActive ? 'secondary' : 'primary'}`}
+                  onClick={() => handleSwitchUnit(unit.id)}
+                >
+                  <ExternalLink size={14} />
+                  {isActive ? 'Unidade Selecionada' : 'Alternar Visão'}
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* NOTICE LGPD */}
+      <div className="ms-notice-card">
+        <Shield size={22} className="ms-notice-icon" />
+        <div>
+          <h4 className="ms-notice-title">Isolamento Soberano de Biometrias por Unidade (LGPD Art. 11)</h4>
+          <p className="ms-notice-desc">
+            A rede Áquila Pro replica exclusivamente metadados contábeis, calendários e telemetria gerencial. 
+            Os embeddings faciais e dados biométricos dos alunos permanecem estritamente restritos ao hardware local 
+            de cada unidade escolar (NPU Edge), impedindo qualquer consolidação centralizada não autorizada.
+          </p>
         </div>
       </div>
 
-      {/* Units List */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {units.map(unit => (
-          <div key={unit.id} className="bg-slate-900/50 border border-white/5 rounded-3xl p-6 hover:border-indigo-500/30 transition-all group">
-            <div className="flex justify-between items-start mb-6">
-              <div className="flex gap-4">
-                <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400">
-                  <MapPin size={24} />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors uppercase italic">{unit.name}</h3>
-                  <p className="text-slate-400 text-sm">{unit.address}</p>
-                </div>
-              </div>
-              <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
-                unit.status === 'online' ? 'bg-emerald-500/10 text-emerald-400' :
-                unit.status === 'syncing' ? 'bg-amber-500/10 text-amber-400 animate-pulse' :
-                'bg-slate-800 text-slate-500'
-              }`}>
-                {unit.status}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 py-4 border-y border-white/5">
-              <div>
-                <div className="text-[10px] text-slate-500 uppercase font-bold mb-1">Último Sync</div>
-                <div className="text-sm font-medium text-slate-200">{unit.lastSync}</div>
-              </div>
-              <div>
-                <div className="text-[10px] text-slate-500 uppercase font-bold mb-1">Alunos</div>
-                <div className="text-sm font-medium text-slate-200">{unit.studentCount}</div>
-              </div>
-              <div>
-                <div className="text-[10px] text-slate-500 uppercase font-bold mb-1">Nível</div>
-                <div className="text-sm font-medium text-slate-200">Elite V3</div>
-              </div>
-            </div>
-
-            <div className="flex gap-3 mt-6">
-              <button className="flex-1 py-2 bg-white/5 hover:bg-white/10 text-white rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2">
-                <Settings size={14} /> Configuração
-              </button>
-              <button className="flex-1 py-2 bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2">
-                <ExternalLink size={14} /> Acessar Unidade
+      {/* MODAL NOVA UNIDADE */}
+      {showAddModal && (
+        <div className="ms-modal-backdrop" onClick={() => setShowAddModal(false)}>
+          <div className="ms-modal-content" onClick={e => e.stopPropagation()}>
+            <div className="ms-modal-header">
+              <h3 className="ms-modal-title">Cadastrar Nova Unidade Escolar</h3>
+              <button 
+                onClick={() => setShowAddModal(false)}
+                style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer' }}
+              >
+                <X size={18} />
               </button>
             </div>
+
+            <form onSubmit={handleCreateUnit}>
+              <div className="ms-form-group">
+                <label className="ms-form-label">Nome da Unidade</label>
+                <input 
+                  type="text" 
+                  className="ms-form-input" 
+                  placeholder="Ex: Colégio Visão — Unidade Sudoeste"
+                  value={newUnitName}
+                  onChange={e => setNewUnitName(e.target.value)}
+                  required 
+                />
+              </div>
+
+              <div className="ms-form-group">
+                <label className="ms-form-label">Endereço Completo</label>
+                <input 
+                  type="text" 
+                  className="ms-form-input" 
+                  placeholder="Ex: CCSW 05 Lote 02, Brasília - DF"
+                  value={newUnitAddress}
+                  onChange={e => setNewUnitAddress(e.target.value)}
+                />
+              </div>
+
+              <div className="ms-form-group">
+                <label className="ms-form-label">Código INEP (MEC)</label>
+                <input 
+                  type="text" 
+                  className="ms-form-input" 
+                  placeholder="Ex: 53004812"
+                  value={newUnitInep}
+                  onChange={e => setNewUnitInep(e.target.value)}
+                />
+              </div>
+
+              <div className="ms-form-group">
+                <label className="ms-form-label">IP / Endpoint WireGuard</label>
+                <input 
+                  type="text" 
+                  className="ms-form-input" 
+                  placeholder="Ex: 10.0.4.1:51820"
+                  value={newUnitEndpoint}
+                  onChange={e => setNewUnitEndpoint(e.target.value)}
+                />
+              </div>
+
+              <div className="ms-modal-footer">
+                <button 
+                  type="button" 
+                  className="ms-cmd-btn secondary"
+                  onClick={() => setShowAddModal(false)}
+                >
+                  Cancelar
+                </button>
+                <button 
+                  type="submit" 
+                  className="ms-cmd-btn primary"
+                >
+                  Salvar Unidade
+                </button>
+              </div>
+            </form>
           </div>
-        ))}
-
-        {/* Multi-Unit Alert */}
-        <div className="lg:col-span-2 bg-amber-500/5 border border-amber-500/20 p-6 rounded-3xl flex items-start gap-4 mt-4">
-            <div className="p-2 bg-amber-500/10 text-amber-500 rounded-lg">
-                <Shield size={24} />
-            </div>
-            <div>
-                <h4 className="text-amber-500 font-bold mb-1">Segurança de Dados Compartilhados</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">
-                    A gestão multi-site compartilha apenas metadados agregados para dashboards de rede. 
-                    Dados biométricos individuais permanecem **exclusivos** de cada unidade local, 
-                    garantindo 100% de conformidade com a LGPD e soberania de dados.
-                </p>
-            </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

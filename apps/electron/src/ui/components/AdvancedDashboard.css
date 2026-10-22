@@ -153,6 +153,12 @@
   opacity: 0.8;
 }
 
+.alert-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .severity-badge {
   font-size: 0.625rem;
   font-weight: 800;
@@ -160,6 +166,34 @@
   padding: 0.25rem 0.625rem;
   border-radius: 99px;
   background: rgba(255, 255, 255, 0.1);
+}
+
+.dismiss-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.alert-item.high .dismiss-btn:hover {
+  background: rgba(220, 38, 38, 0.3);
+  border-color: #ef4444;
+}
+
+.alert-item.medium .dismiss-btn:hover {
+  background: rgba(245, 158, 11, 0.3);
+  border-color: #f59e0b;
 }
 
 /* Recharts Overrides */

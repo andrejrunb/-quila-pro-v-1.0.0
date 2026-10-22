@@ -60,6 +60,13 @@ interface NotificationData {
 // API EXPOSTA AO RENDERER
 // ============================================================================
 
+const inferenceAPI = {
+  dispatch: (task: any) => ipcRenderer.invoke('inference:dispatch', task),
+  getTasks: () => ipcRenderer.invoke('inference:get-tasks'),
+  getNodes: () => ipcRenderer.invoke('inference:get-nodes'),
+  getState: () => ipcRenderer.invoke('mesh:get-inference-state')
+};
+
 const aquilaAPI = {
   // ---- SISTEMA ----
   getAppVersion: () => ipcRenderer.invoke('get-app-version'),
@@ -98,6 +105,7 @@ const aquilaAPI = {
   createStudent: (student: StudentData) => ipcRenderer.invoke('create-student', student),
   updateStudent: (student: StudentData) => ipcRenderer.invoke('update-student', student),
   deleteStudent: (studentId: string) => ipcRenderer.invoke('delete-student', studentId),
+  inference: inferenceAPI,
   uploadStudentPhoto: (studentId: string, photoPath: string) => ipcRenderer.invoke('upload-student-photo', studentId, photoPath),
   trainFaceRecognition: (studentId: string) => ipcRenderer.invoke('train-face-recognition', studentId),
   trainAllFaces: () => ipcRenderer.invoke('train-all-faces'),
@@ -170,6 +178,7 @@ const aquilaAPI = {
 
   // ---- PREDICTIVE ANALYSIS (AG-022) ----
   analyzeDropoutRisk: (data: any) => ipcRenderer.invoke('predictive:analyze-risk', data),
+  getStudentRiskHistory: (studentId: string) => ipcRenderer.invoke('predictive:get-risk-history', studentId),
 
   // ---- AI ANALYSIS (Purga IPC) ----
   getAiEvents: (limit?: number) => ipcRenderer.invoke('ai:get-events', limit),
@@ -198,10 +207,33 @@ const aquilaAPI = {
   // ---- SECURITY AUDIT (Zero-Debt) ----
   startSecurityDrill: (type: string) => ipcRenderer.invoke('security:start-drill', type),
   registerSecurityResponse: (userId: string, time: number) => ipcRenderer.invoke('security:register-response', { userId, time }),
+
+  // ---- CÓRTEX EVOLUTION (LEVEL 13) ----
+  getCortexState: () => ipcRenderer.invoke('cortex:get-orchestration-state'),
+  getEvolutionMetrics: () => ipcRenderer.invoke('cortex:get-evolution-metrics'),
+  triggerRecovery: (studentId: string, planId: string) => ipcRenderer.invoke('cortex:trigger-recovery', { studentId, planId }),
+  onCortexPulse: (callback: (insight: any) => void) => {
+    const subscription = (_event: any, data: any) => callback(data);
+    ipcRenderer.on('cortex:pulse', subscription);
+    return () => ipcRenderer.removeListener('cortex:pulse', subscription);
+  },
+
+  // ---- OUTCOME INTELLIGENCE (LEVEL 9) ----
+  outcome: {
+    completeTask: (studentId: string, taskId: string) => ipcRenderer.invoke('outcome:complete-task', { studentId, taskId }),
+    recordInteraction: (studentId: string) => ipcRenderer.invoke('outcome:record-interaction', { studentId }),
+    getProjection: () => ipcRenderer.invoke('outcome:get-projection'),
+    getAureusReport: () => ipcRenderer.invoke('outcome:get-aureus-report')
+  },
   finalizeSecurityDrill: () => ipcRenderer.invoke('security:finalize-drill'),
+  semanticSearch: (query: string, cameraId?: string, zone?: string) => ipcRenderer.invoke('security:semantic-search', { query, cameraId, zone }),
+  getNetworkGuardStatus: () => ipcRenderer.invoke('security:get-network-guard-status'),
+  startNetworkGuard: () => ipcRenderer.invoke('security:start-network-guard'),
+  stopNetworkGuard: () => ipcRenderer.invoke('security:stop-network-guard'),
 
   // ---- LGPD (Zero-Debt) ----
   getLgpdRecords: () => ipcRenderer.invoke('lgpd:get-records'),
+  exportRipd: () => ipcRenderer.invoke('lgpd:export-ripd'),
 
   // ---- BEHAVIORAL (Zero-Debt) ----
   getBehavioralMetrics: () => ipcRenderer.invoke('behavioral:get-metrics'),
@@ -217,6 +249,16 @@ const aquilaAPI = {
     const handler = (_event: any, data: any) => callback(data);
     ipcRenderer.on('energy:updated', handler);
     return () => ipcRenderer.removeListener('energy:updated', handler);
+  },
+
+  // ---- OMR SOBERANO (Passos 141-146) ----
+  omr: {
+    createTemplate: (data: any) => ipcRenderer.invoke('omr:create-template', data),
+    getTemplate: (id: string) => ipcRenderer.invoke('omr:get-template', id),
+    listTemplates: (classId?: string) => ipcRenderer.invoke('omr:list-templates', classId),
+    correctExam: (data: { templateId: string; imageBase64: string; studentId?: string; studentName?: string }) => ipcRenderer.invoke('omr:correct-exam', data),
+    getCorrections: (templateId: string) => ipcRenderer.invoke('omr:get-corrections', templateId),
+    saveGrade: (data: { studentId: string; classId: string; value: number; type?: string; weight?: number }) => ipcRenderer.invoke('academic:save-student-grade', data),
   },
 
   // ---- TEACHER (Zero-Debt) ----
@@ -235,7 +277,17 @@ const aquilaAPI = {
   processTeacherAudioLog: (data: any) => ipcRenderer.invoke('process-teacher-audio-log', data),
 
   // ---- VISITOR / PARENT / CLASSROOM / PORTFOLIO (Zero-Debt) ----
-  getParentNotifications: () => ipcRenderer.invoke('parent:get-notifications'),
+  parent: {
+    getNotifications: () => ipcRenderer.invoke('parent:get-notifications'),
+    getBehavioralInsight: (studentId: string) => ipcRenderer.invoke('parent:get-behavioral-insight', studentId),
+    setRestrictions: (studentId: string, restrictions: any) => ipcRenderer.invoke('parent:set-restrictions', { studentId, restrictions }),
+    updateLocation: (parentId: string, name: string, studentIds: string[], coords: { lat: number; lon: number }) => 
+      ipcRenderer.invoke('parent:update-location', { parentId, name, studentIds, coords }),
+  },
+  affiliate: {
+    getProducts: () => ipcRenderer.invoke('affiliate:get-products'),
+    getStats: () => ipcRenderer.invoke('affiliate:get-stats'),
+  },
   getClassroomState: (id: string) => ipcRenderer.invoke('classroom:get-state', id),
   getPortfolioEvents: (studentId: string) => ipcRenderer.invoke('portfolio:get-events', studentId),
   getPedagogicalInsights: (studentId: string) => ipcRenderer.invoke('insight:get-insights', studentId),
@@ -248,11 +300,108 @@ const aquilaAPI = {
   getRecentVisitors: () => ipcRenderer.invoke('visitor:get-recent'),
   registerVisitor: (data: any) => ipcRenderer.invoke('visitor:register', data),
   searchDocs: (query: string) => ipcRenderer.invoke('rag:search-docs', query),
+  
+  // ---- PEDAGOGICAL (Sovereign Librarian) ----
+  pedagogical: {
+    uploadFile: (filePath: string, classId?: string, options?: string[]) => ipcRenderer.invoke('pedagogical:upload-file', { filePath, classId, options }),
+    getMaterials: (studentId?: string) => ipcRenderer.invoke('pedagogical:get-materials', studentId),
+    dismissRisk: (studentId: string, riskType: string, reason: string) => ipcRenderer.invoke('pedagogical:dismiss-risk', studentId, riskType, reason),
+    completeTask: (studentId: string, taskId: string) => ipcRenderer.invoke('pedagogical:complete-task', { studentId, taskId }),
+    browseLibrary: (filters: any) => ipcRenderer.invoke('pedagogical:browse-library', filters),
+    toggleFavorite: (resourceId: string) => ipcRenderer.invoke('pedagogical:toggle-favorite', resourceId),
+    getCollections: () => ipcRenderer.invoke('pedagogical:get-collections'),
+    createCollection: (name: string, description?: string) => ipcRenderer.invoke('pedagogical:create-collection', { name, description }),
+    assignToCollection: (resourceId: string, collectionId: string) => ipcRenderer.invoke('pedagogical:assign-collection', { resourceId, collectionId }),
+    searchSemantic: (query: string, limit?: number) => ipcRenderer.invoke('pedagogical:search-semantic', { query, limit }),
+    getKnowledgeMap: () => ipcRenderer.invoke('pedagogical:get-knowledge-map'),
+    generateExecutiveDigest: (resourceIds: string[]) => ipcRenderer.invoke('pedagogical:generate-executive-digest', { resourceIds }),
+    querySwarm: (query: string) => ipcRenderer.invoke('pedagogical:query-swarm', { query }),
+    getSwarmCache: () => ipcRenderer.invoke('pedagogical:get-swarm-cache'),
+    vouchForResource: (resourceId: string, comment: string) => ipcRenderer.invoke('pedagogical:vouch-for-resource', { resourceId, comment }),
+    getEvasionRadar: () => ipcRenderer.invoke('pedagogical:getEvasionRadar'),
+    getRiskStats: () => ipcRenderer.invoke('pedagogical:getRiskStats'),
+  },
+
+  executive: {
+    getROI: () => ipcRenderer.invoke('executive:get-roi'),
+    getPulse: () => ipcRenderer.invoke('executive:get-pulse'),
+    getHistory: (type: string) => ipcRenderer.invoke('executive:get-history', { type }),
+    logMetric: (metric: any) => ipcRenderer.invoke('executive:log-metric', metric),
+    getBudgetReport: () => ipcRenderer.invoke('budget:get-report'),
+    getAIInsights: () => ipcRenderer.invoke('executive:get-ai-insights')
+  },
+
+  council: {
+    listPolls: (role: string) => ipcRenderer.invoke('council:list-polls', { role }),
+    castVote: (data: any) => ipcRenderer.invoke('council:cast-vote', data)
+  },
+
+  student: {
+    getStudent: (id: string) => ipcRenderer.invoke('get-student', id),
+    getEconomy: (studentId: string) => ipcRenderer.invoke('get-student-economy', studentId),
+    getEvents: (studentId: string, date?: string) => ipcRenderer.invoke('get-student-events', studentId, date),
+    getPortfolio: (studentId: string) => ipcRenderer.invoke('get-student-portfolio', studentId),
+    getLifecycle: (studentId: string) => ipcRenderer.invoke('lifecycle:get-history', studentId),
+  },
+
+  pod: {
+    listPods: (studentId: string) => ipcRenderer.invoke('pod:list-pods-for-student', studentId),
+    getAudio: (podId: string) => ipcRenderer.invoke('pod:getAudioOverview', podId),
+  },
+
+  // ---- GRADING (Vision-Based v1.5.0) ----
+  grading: {
+    getAssessments: (classId?: string) => ipcRenderer.invoke('grading:get-assessments', classId),
+    createAssessment: (assessment: any) => ipcRenderer.invoke('grading:create-assessment', assessment),
+    scanSheet: (imageBase64: string, assessmentId: string) => ipcRenderer.invoke('grading:scan-sheet', { imageBase64, assessmentId }),
+    saveAutoGrade: (data: any) => ipcRenderer.invoke('grading:save-auto-grade', data),
+  },
+
+  // ---- MAPEAMENTO DE SALA (Phase 708) ----
+  seating: {
+    getLayout: (classId: string) => ipcRenderer.invoke('seating:get-layout', classId),
+    getRecommendations: (classId: string) => ipcRenderer.invoke('seating:get-recommendations', classId),
+    saveLayout: (classId: string, data: any) => ipcRenderer.invoke('seating:save-layout', classId, data),
+    getRules: (classId: string) => ipcRenderer.invoke('seating:get-rules', classId),
+    saveRule: (classId: string, rule: any) => ipcRenderer.invoke('seating:save-rule', { classId, rule }),
+    deleteRule: (classId: string, ruleId: string) => ipcRenderer.invoke('seating:delete-rule', { classId, ruleId }),
+    validatePresence: (classId: string, roomId: string) => ipcRenderer.invoke('seating:validate-presence', classId, roomId),
+    registerBehavioralOccurrence: (data: { studentIds: string[], occurrenceType: string, description: string }) => ipcRenderer.invoke('seating:register-behavioral-occurrence', data),
+  },
+
+  behavioral: {
+    getLive: (studentId?: string) => ipcRenderer.invoke('behavioral:get-live', studentId),
+    getEvasionProfiles: () => ipcRenderer.invoke('behavioral:get-evasion-profiles'),
+    getEmotionalTelemetry: (studentId: string) => ipcRenderer.invoke('behavioral:get-emotional-telemetry', studentId),
+    getBehavioralInsight: (studentId: string) => ipcRenderer.invoke('behavioral:get-insight', studentId),
+    getPoseEvents: (studentId?: string) => ipcRenderer.invoke('behavioral:get-pose-events', studentId),
+  },
+
+  pedagogy: {
+    getBancas: () => ipcRenderer.invoke('pedagogy:get-bancas'),
+    getClassTarget: (classId: string) => ipcRenderer.invoke('pedagogy:get-class-target', classId),
+    getStudentTarget: (studentId: string) => ipcRenderer.invoke('pedagogy:get-student-target', studentId),
+    setTarget: (classId: string, bancaId: string, year: number) => ipcRenderer.invoke('pedagogy:set-target', classId, bancaId, year),
+    getResources: (bancaId: string) => ipcRenderer.invoke('pedagogy:get-resources', bancaId)
+  },
+
+  ecosystem: {
+    getState: () => ipcRenderer.invoke('ecosystem:get-state'),
+    updateState: (state: any) => ipcRenderer.invoke('ecosystem:update-state', state),
+    toggleModule: (moduleId: string) => ipcRenderer.invoke('ecosystem:toggle-module', moduleId),
+    setAIProvider: (provider: 'cloud' | 'local') => ipcRenderer.invoke('ecosystem:set-ai-provider', provider),
+    onStatusChanged: (callback: (state: any) => void) => {
+      const handler = (_event: any, state: any) => callback(state);
+      ipcRenderer.on('ecosystem:status-changed', handler);
+      return () => ipcRenderer.removeListener('ecosystem:status-changed', handler);
+    }
+  },
+
   on: (channel: string, callback: (...args: any[]) => void) => {
     const ALLOWED_LISTEN_CHANNELS = [
       'sync:peers-updated', 'sync:global-started', 'sync:global-finished',
       'update-available', 'update-download-progress', 'update-downloaded', 'update-error',
-      'robotics:telemetry', 'nexus-pulse', 'rag:index-status'
+      'robotics:telemetry', 'nexus-pulse', 'rag:index-status', 'ecosystem:status-changed'
     ];
     if (ALLOWED_LISTEN_CHANNELS.includes(channel)) {
       const subscription = (_event: any, ...args: any[]) => callback(...args);
@@ -261,6 +410,19 @@ const aquilaAPI = {
     }
     console.warn(`Blocked attempt to listen on restricted channel: ${channel}`);
     return () => {};
+  },
+
+  removeAllListeners: (channel: string) => {
+    const ALLOWED_CHANNELS = [
+      'sync:peers-updated', 'sync:global-started', 'sync:global-finished',
+      'update-available', 'update-download-progress', 'update-downloaded', 'update-error',
+      'robotics:telemetry', 'nexus-pulse', 'rag:index-status', 'ecosystem:status-changed',
+      'npu:status-update', 'perf:resource-status', 'analytics:heatmap-update',
+      'camera-frame', 'new-alert', 'new-notification', 'processing-status', 'student-detected', 'face-detected'
+    ];
+    if (ALLOWED_CHANNELS.includes(channel)) {
+      ipcRenderer.removeAllListeners(channel);
+    }
   },
 
 
@@ -305,7 +467,7 @@ const aquilaAPI = {
   setBackupSchedule: (schedule: any) => ipcRenderer.invoke('set-backup-schedule', schedule),
   
   // ---- AUTENTICAÇÃO ----
-  login: (username: string, password: string) => ipcRenderer.invoke('login', username, password),
+  login: (username: string, password: string) => ipcRenderer.invoke('login', { username, password }),
   logout: () => ipcRenderer.invoke('logout'),
   getCurrentUser: () => ipcRenderer.invoke('get-current-user'),
   changePassword: (oldPassword: string, newPassword: string) => ipcRenderer.invoke('change-password', oldPassword, newPassword),
@@ -485,19 +647,23 @@ const aquilaAPI = {
       'get-student', 'create-student', 'update-student', 'delete-student',
       'upload-student-photo', 'train-face-recognition', 'get-classes', 'upsert-class',
       'delete-class', 'get-rooms', 'upsert-room', 'delete-room', 'get-schedules',
-      'upsert-schedule', 'delete-schedule', 'calculate-attendance', 'get-attendance-report',
+      'upsert-schedule', 'delete-schedule', 'clear-schedules', 'calculate-attendance', 'get-attendance-report',
       'get-daily-attendance-summary', 'get-recent-events', 'get-alerts', 'mark-alert-read',
       'send-briefing-notification', 'reports:generate-attendance', 'reports:generate-behavior',
       'get-bimestral-report', 'backup-now', 'login', 'logout', 'get-current-user',
       'get-system-metrics', 'get-stream-stats', 'lgpd:get-term', 'lgpd:run-purge',
       'sync:get-status', 'sync:enroll', 'sync:test-connection', 'get-license-info',
-      'get-plan-limits', 'activate-license', 'get-users', 'create-user', 'get-student-events',
+      'get-plan-limits', 'activate-license', 'get-users', 'create-user', 'delete-user', 'get-student-events',
+      'audit:get-stats', 'audit:get-evidences', 'geofence:get-arriving', 'identity:get-stats', 'identity:get-mesh-health', 'support:get-summary',
+      'mesh:get-swarm-status', 'executive:get-pulse', 'executive:get-roi', 'executive:get-budget-report',
+      'cortex:get-orchestration-state', 'cortex:get-evolution-metrics', 'cortex:trigger-recovery',
+      'outcome:complete-task', 'outcome:record-interaction', 'outcome:get-projection',
       'get-smart-narrative', 'get-social-context-for-student', 'get-student-trajectory',
       'get-school-settings', 'update-school-branding', 'get-student-rankings',
       'calculate-reprobation-risk', 'get-behavioral-stats', 'get-social-context-summary',
-      'whatsapp:get-status', 'whatsapp:update-config', 'whatsapp:test-connection',
+      'whatsapp:get-status', 'whatsapp:update-config', 'whatsapp:test-connection', 'send-whatsapp',
       'save-whatsapp-templates', 'auth:login', 'auth:logout', 'auth:validate',
-      'dialog:openDirectory', 'dialog:openFile', 'scan-photo-folder', 'parse-import-spreadsheet',
+      'dialog:openDirectory', 'dialog:openFile', 'shell:openPath', 'shell:openExternal', 'omr:create-template', 'omr:get-template', 'omr:list-templates', 'omr:correct-exam', 'omr:get-corrections', 'academic:save-student-grade', 'scan-photo-folder', 'parse-import-spreadsheet',
       'get-whatsapp-templates', 'theme:get-config', 'theme:update',
       'get-schedule-optimizations', 'get-unread-alerts', 'mark-all-alerts-read',
       'get-coordinations', 'upsert-coordination', 'delete-coordination',
@@ -512,22 +678,112 @@ const aquilaAPI = {
       'reprocess-biometrics', 'face:add-multi-angle', 'get-stream-stats',
       'start-recognition', 'stop-recognition', 'get-recognition-status',
       'run-performance-benchmark', 'analytics:get-engagement', 'analytics:get-heatmap',
-      'treat-incident',
+      'treat-incident', 'lifecycle:get-metrics', 'lifecycle:get-trends', 'lifecycle:predict-risk', 'lifecycle:get-risky-students', 'lifecycle:dismiss-risk',
+      'finance:get-intervention-roi', 'finance:get-billing-history',
+      'pedagogical:get-longitudinal-insight',
+      'council:createProposal', 'council:whitelistByDirector', 'council:activatePoll', 'council:castVote',
+      'council:getProposal', 'council:listActivePollsForRole', 'council:generateAiProposal',
+      'pod:generatePod', 'pod:getAudioOverview', 'pod:listPodsForStudent',
+      'quiz:generateQuest', 'quiz:submitResults',
+      'budget:getTransparencyReport', 'budget:logOperationalInvestment',
+      'nexus:getNodes', 'nexus:isMeshAlive', 'nexus:setMeshStatus',
       'get-audit-logs-v1605', 'mobile:register-device', 'mobile:auth-challenge',
       'mobile:authorize-exit', 'mobile:survey-point', 'mobile:poi-tag',
-      'get-evasion-risk-profiles', 'nexus:perform-dream-cycle', 'nexus:get-sentinel-status', 'nexus:start-deep-reasoning', 'nexus:get-architect-status', 'nexus:get-swarm-status', 'nexus:trigger-agent-diagnostic', 'nexus:generate-podcast', 'nexus:get-audio-status', 'nexus:get-ledger-status', 'nexus:add-ledger-entry', 'nexus:grant-xp', 'nexus:get-achievements', 'nexus:get-project-health', 'nexus:run-compliance-check', 'nexus:get-policy-status', 'nexus:check-updates', 'nexus:get-system-sanity',
-      'ai:get-events', 'ai:simulate-event', 'attendance:get-telemetry', 'reid:get-sessions', 'presence:get-discrepancies', 'iot:get-status', 'iot:trigger', 'biometric:get-status', 'biometric:scan',
-      'security:start-drill', 'security:register-response', 'security:finalize-drill', 'lgpd:get-records', 'behavioral:get-metrics', 'hr:get-sovereignty', 'attendance:log',
+      'get-evasion-risk-profiles', 'nexus:perform-dream-cycle', 'nexus:get-sentinel-status', 'nexus:start-deep-reasoning', 'nexus:get-architect-status', 'nexus:get-swarm-status', 'nexus:trigger-agent-diagnostic', 'nexus:generate-podcast', 'nexus:get-audio-status', 'nexus:get-ledger-status', 'nexus:add-ledger-entry', 'nexus:grant-xp', 'nexus:get-achievements', 'nexus:get-project-health', 'nexus:run-compliance-check', 'nexus:get-policy-status', 'nexus:check-updates', 'nexus:get-system-sanity', 'edu:generate-podcast', 'pedagogy:process-material', 'pedagogical:get-materials',
+      'ai:chat', 'ai:get-events', 'ai:simulate-event', 'attendance:get-telemetry', 'reid:get-sessions', 'presence:get-discrepancies', 'iot:get-status', 'iot:trigger', 'biometric:get-status', 'biometric:scan',
+      'settings:get', 'settings:save', 'auth:create-user', 'discover-cameras',
+      'get-reid-sessions', 'get-sync-status', 'lgpd:get-retention', 'lgpd:set-retention',
+      'logout-session', 'reports:attendance', 'search-rag', 'students:add',
+      'students:train', 'get-billing-registry', 'get-payment-history', 'get-subscription',
+      'reports:export-excel', 'reports:export-pdf', 'get-ai-synthesis',
+      'adapt-messenger-content', 'swarm:get-installed-models', 'swarm:deploy-model',
+      'export-cold-storage', 'get-action-pills', 'get-attendance-telemetry',
+      'security:start-drill', 'security:register-response', 'security:finalize-drill', 'security:semantic-search', 'security:get-network-guard-status', 'security:start-network-guard', 'security:stop-network-guard', 'lgpd:get-records', 'lgpd:check-consent', 'lgpd:record-consent', 'lgpd:export-ripd', 'behavioral:get-metrics', 'hr:get-sovereignty', 'attendance:log', 'parent:update-location', 'affiliate:get-products', 'affiliate:get-stats',
       'energy:get-metrics', 'energy:get-thermal', 'energy:set-eco-mode',
       'neuro:get-pulse', 'neuro:get-trends', 'neuro:get-students', 'neuro:get-recommendation',
       'env:get-room-data', 'env:force-ventilation', 'cognitive:get-alerts', 'process-teacher-audio-log',
+      'pedagogical:get-current-class', 'pedagogical:process-audio-report', 'pedagogical:get-recent-reports',
+      'schedule:validate', 'schedule:get-optimization', 'schedule:generate-auto', 'schedule:get-teacher-daily',
       'get-student-portfolio', 'get-pedagogical-insights', 'inventory:get-stock', 'nexus:get-state', 'print-badge',
       'visitor:get-recent', 'visitor:register',
       'robotics:get-units', 'robotics:send-command', 'pricing:get-plans', 'pricing:calculate-quote',
+      'pricing:calculate-roi', 'pricing:get-config', 'pricing:update-plan', 'integration:sync-students', 'integration:sync-schedules',
+      'db:get-students',
+      'attendance-audit:getAuditStats',
+      'attendance-audit:getHistory',
+      'attendance-audit:getSeatingDiscrepancies',
+      'attendance-audit:runBatchAudit',
+      'attendance-audit:get-history', 'attendance-audit:get-stats', 'attendance-audit:get-validation-status', 'attendance-audit:generate-audit', 'attendance-audit:remediate',
+      'finance:get-health-score', 'finance:get-revenue-forecast', 'finance:get-proposals', 'finance:accept-proposal', 'finance:get-records', 'finance:get-contract',
+      'inference:dispatch', 'inference:get-tasks', 'inference:get-nodes', 'mesh:get-inference-state',
       'theme:apply', 'theme:get-branding', 'autonomous-action:trigger', 'wifi:get-ghosts',
       'perf:get-metrics', 'rag:index-status', 'rag:search-docs',
       'nexus:get-swarm-history', 'nexus:get-agent-history',
-      'audit:get-stats', 'geofence:get-arriving', 'npu:get-load'
+      'audit:get-stats', 'geofence:get-arriving', 'npu:get-load',
+      'get-dashboard-stats', 'get-queue-status', 'get-weekly-attendance-summary',
+      'pedagogical:upload-file', 'pedagogical:get-materials', 'pedagogical:dismiss-risk', 'pedagogical:complete-task',
+      'seating:get-layout', 'seating:get-recommendations', 'seating:save-layout',
+      'seating:get-rules', 'seating:save-rule', 'seating:delete-rule',
+      'seating:register-behavioral-occurrence', 'seating:validate-presence',
+      'notebook:ask', 'ai:vision-analyze', 'ai:search-grounding',
+      'cortex:get-health', 'cortex:get-recent-pulse', 'cortex:generate-strategy',
+      'governance:get-shield-status', 'governance:get-audit-logs',
+      'workflow:get-efficiency', 'workflow:get-maturity',
+      'nexus:start-swarm-mission',
+      'insight:request-swarm-help', 'global:get-trends', 'global:get-synthesized-pulse',
+      'get-exam-bancas', 'get-all-class-targets', 'set-class-target', 'pedagogy:get-student-target', 'pedagogy:get-pulse-history',
+      'pedagogical:browse-library', 'pedagogical:toggle-favorite', 'pedagogical:get-collections', 'pedagogical:create-collection', 'pedagogical:assign-collection',
+      'pedagogical:search-semantic', 'pedagogical:get-knowledge-map', 'pedagogical:generate-executive-digest',
+      'pedagogical:query-swarm', 'pedagogical:get-swarm-cache', 'pedagogical:vouch-for-resource',
+      'pedagogical:getEvasionRadar', 'pedagogical:getRiskStats',
+      'executive:get-roi', 'executive:get-pulse', 'executive:get-history', 'executive:log-metric', 'executive:get-ai-insights', 'executive:seed-insights',
+      'hr:get-staff', 'hr:calculate-payroll', 'hr:get-performance',
+      'secretary:generate-transcript',
+      'council:list-polls', 'council:cast-vote',
+      'system:get-dashboard-stats', 'system:get-weekly-attendance', 'system:get-recent-alerts',
+      'budget:get-report', 'identity:get-stats', 'support:get-summary', 'system:lockdown',
+      'social:get-graph', 'social:get-at-risk', 'legal:find-articles',
+      'ecosystem:get-state', 'ecosystem:update-state', 'ecosystem:toggle-module', 'ecosystem:set-ai-provider',
+      'system:get-info', 'wiki:search', 'wiki:get-article', 'companion:get-state', 'navigate', 'get-financial-records',
+      'get-student-economy', 'vision:analyze-board', 'lifecycle:get-history',
+      'coordination:get-biometric-health',
+      'coordination:get-finance-stats',
+      'coordination:get-churn-risk',
+      'coordination:approve-evolution',
+      'coordination:get-system-metabolism',
+      'coordination:get-resilience-stats',
+      'coordination:get-resilience-logs',
+      'coordination:generate-intervention',
+      'coordination:update-insight',
+      'coordination:get-daily-attendance-summary',
+      'coordination:get-evasion-profiles',
+      'coordination:get-high-risk-behaviors',
+      'coordination:get-settings',
+      'coordination:get-security-alerts',
+      'coordination:execute-security-protocol',
+      'coordination:get-camera-by-id',
+      'coordination:get-intervention-dossiers',
+      'coordination:get-summary',
+      'coordination:resolve-insight',
+      'coordination:get-finance-stats',
+      'institution:get-profile',
+      'pedagogical:get-longitudinal-insight',
+      'brain:get-active-tasks',
+      'inference:dispatch', 'inference:get-tasks', 'inference:get-nodes', 'mesh:get-inference-state',
+      'database:run-structural-check', 'database:test-atomicity',
+      'grading:get-assessments', 'grading:save-auto-grade', 'grading:scan-sheet', 'grading:create-assessment',
+      'attendance:audit-class', 'attendance:confirm-audit',
+      'churn:get-radar', 'attendance:get-stats', 'pedagogical:synthesize-trends',
+      'pedagogical:save-trend', 'pedagogical:share-with-parents',
+      'finance:calculate-quote', 'finance:calculate-roi', 'whatsapp:get-history',
+      'whatsapp:send-billing', 'get-subscription', 'finance:generate-pix',
+      'finance:generate-monthly-billing', 'institution:update-profile',
+      'secretariat:get-teachers', 'secretariat:create-teacher', 'secretariat:update-teacher', 'secretariat:delete-teacher',
+      'secretariat:get-teacher-classes', 'secretariat:link-teacher', 'secretariat:get-subjects', 'secretariat:generate-teacher-card', 'import-schedule-excel', 'export-schedule-template', 'secretariat:save-weights', 'secretariat:get-bulk-boletim', 'secretariat:generate-report-card',
+      'teachers:save-attendance', 'tasks:list', 'tasks:create', 'tasks:update', 'tasks:delete', 'teachers:save-daily-report', 'teachers:get-daily-reports', 'coordination:update-report-status',
+      'stress:run-benchmark', 'stress:start', 'stress:stop', 'stress:get-status',
+      'pedagogy:ask-copilot', 'pedagogy:process-whiteboard',
+      'seating:get-active-schedule-for-local-room', 'secretariat:get-students-by-class', 'seating:apply-layout', 'reports:get-bimestral-feedback'
     ];
 
 
@@ -537,6 +793,59 @@ const aquilaAPI = {
       console.error(`[SECURITY ALERT] Tentativa de acesso a canal IPC não autorizado: ${channel}`);
       return Promise.reject(new Error(`Canal IPC não autorizado: ${channel}`));
     }
+  },
+
+  // ---- PEDAGOGIA ----
+  getPulseHistory: (studentId: string) => ipcRenderer.invoke('pedagogy:get-pulse-history', studentId),
+
+  // ---- INTEGRITY & SOCIAL (Phase 900) ----
+  social: {
+    getGraph: () => ipcRenderer.invoke('social:get-graph'),
+    getAtRisk: () => ipcRenderer.invoke('social:get-at-risk'),
+  },
+  legal: {
+    findArticles: (query: string) => ipcRenderer.invoke('legal:find-articles', { query }),
+  },
+  
+  onIsolationStatus: (callback: (data: { isolated: boolean; reason: string }) => void) => {
+    const subscription = (_event: any, data: any) => callback(data);
+    ipcRenderer.on('sovereign:isolation:status', subscription);
+    return () => ipcRenderer.removeListener('sovereign:isolation:status', subscription);
+  },
+  // ---- EVOLUTION ----
+
+  // ---- AUDITORIA DE PRESENÇA CIENTÍFICA (Phase 401) ----
+  attendance: {
+    getAuditHistory: () => ipcRenderer.invoke('attendance-audit:get-history'),
+    getAuditStats: () => ipcRenderer.invoke('attendance-audit:get-stats'),
+    getValidationStatus: (classId: string) => ipcRenderer.invoke('attendance-audit:get-validation-status', classId),
+    generateAudit: (studentId: string, status: boolean) => ipcRenderer.invoke('attendance-audit:generate-audit', studentId, status),
+    remediate: (auditId: number, studentId: string, status: boolean) => ipcRenderer.invoke('attendance-audit:remediate', { auditId, studentId, status }),
+  },
+  pricing: {
+    getPlans: () => ipcRenderer.invoke('pricing:get-plans'),
+    calculateQuote: (criteria: any) => ipcRenderer.invoke('pricing:calculate-quote', { criteria }),
+    calculateROI: (criteria: any) => ipcRenderer.invoke('pricing:calculate-roi', criteria),
+    getHealthScore: () => ipcRenderer.invoke('finance:get-health-score'),
+    getRevenueForecast: (months: number) => ipcRenderer.invoke('finance:get-revenue-forecast', { months }),
+  },
+  colab: {
+    configureGpu: (url: string) => ipcRenderer.invoke('colab-gpu:configure', url),
+    getGpuStatus: () => ipcRenderer.invoke('colab-gpu:get-status'),
+    checkGpuHealth: () => ipcRenderer.invoke('colab-gpu:check-health'),
+    runGpuBenchmark: (matrixSize?: number) => ipcRenderer.invoke('colab-gpu:benchmark', matrixSize),
+    setEndpoint: (url: string) => ipcRenderer.invoke('colab:set-endpoint', url),
+    testConnection: () => ipcRenderer.invoke('colab:test-connection'),
+    getStatus: () => ipcRenderer.invoke('colab:get-status'),
+  },
+  mastery: {
+    getScaffolding: (questionId: string) => ipcRenderer.invoke('mastery:get-scaffolding', questionId),
+    getBySubject: (subject: string, exam?: string, limit?: number) => ipcRenderer.invoke('mastery:get-by-subject', { subject, exam, limit }),
+    getConcepts: (exam?: string, subject?: string) => ipcRenderer.invoke('mastery:get-concepts', { exam, subject }),
+    getGpuStatus: () => ipcRenderer.invoke('mastery:get-gpu-status'),
+    runGpuTraining: () => ipcRenderer.invoke('mastery:run-gpu-training'),
+    diagnoseAndLevel: (questionId: string, failed: boolean) => ipcRenderer.invoke('mastery:diagnose-level', { questionId, failed }),
+    generateLiveNvidia: (subject: string, difficulty: string, statement: string) => ipcRenderer.invoke('mastery:generate-nvidia', { subject, difficulty, statement }),
   },
 };
 

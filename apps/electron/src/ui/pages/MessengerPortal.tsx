@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { schoolMessengerService, Message } from '../../services/SchoolMessengerService';
 import './MessengerPortal.css';
 
+import { ArrowLeft } from 'lucide-react';
+
 /**
- * MessengerPortal (v2541)
+ * MessengerPortal (v2.1.0)
  * Unified interface for official school communication.
  */
-const MessengerPortal: React.FC<{ userRole: string }> = ({ userRole }) => {
+const MessengerPortal: React.FC<{ userRole: string; onBack?: () => void }> = ({ userRole, onBack }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
 
@@ -37,7 +39,14 @@ const MessengerPortal: React.FC<{ userRole: string }> = ({ userRole }) => {
 
       <div className="messenger-chat">
          <div className="chat-header">
-            <span className="chat-title">Mural da Escola</span>
+            <div className="flex items-center gap-4">
+               {onBack && (
+                  <button onClick={onBack} className="p-2 hover:bg-white/10 rounded-full transition-all mr-2">
+                     <ArrowLeft className="w-5 h-5 text-white" />
+                  </button>
+               )}
+               <span className="chat-title">Mural da Escola</span>
+            </div>
             <span className="online-stats">● 1.2k Alunos Online</span>
          </div>
 

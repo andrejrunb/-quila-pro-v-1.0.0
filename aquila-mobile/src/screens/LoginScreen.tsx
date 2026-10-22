@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Platform } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { api } from '../services/api';
 import { Car } from 'lucide-react-native';
 
-export default function LoginScreen({ navigation }: any) {
+interface LoginScreenProps {
+  navigation: { replace: (screen: string) => void };
+}
+
+export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [schoolId, setSchoolId] = useState('');
   const [studentHash, setStudentHash] = useState('');
   const [loading, setLoading] = useState(false);
@@ -12,7 +16,7 @@ export default function LoginScreen({ navigation }: any) {
 
   const handleLogin = async () => {
     if (!schoolId || !studentHash) {
-      setError('Preencha os campos obrigatórios.');
+      setError('Por favor, preencha o ID da Unidade e o Código do Aluno para continuar.');
       return;
     }
 
@@ -33,50 +37,84 @@ export default function LoginScreen({ navigation }: any) {
         }
         navigation.replace('Timeline');
       }
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Erro de conexão com o servidor escolar.');
+    } catch (err: unknown) {
+      const axiosErr = err as { response?: { data?: { error?: string } } };
+      const errorMessage = axiosErr.response?.data?.error || 'Erro de conexão com o servidor escolar. Verifique sua internet ou tente novamente em instantes.';
+      setError(errorMessage);
+      console.error('[Login Error]', { schoolId, error: errorMessage });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <View className="flex-1 bg-slate-950 justify-center p-5">
-      <View className="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
-        <View className="items-center mb-8">
-          <Car className="text-indigo-500" size={48} />
-          <Text className="text-3xl font-bold text-slate-50 mt-4">Áquila App</Text>
-          <Text className="text-base text-slate-400 mt-1">Portal dos Pais</Text>
+    <View className="flex-1 bg-[#030712] justify-center p-6">
+      <View className="bg-[#111827] p-8 rounded-[32px] border border-[#1e293b] shadow-2xl">
+        <View className="items-center mb-10">
+          <View className="w-20 h-20 bg-blue-600/10 rounded-full items-center justify-center border border-blue-500/20">
+            <Car className="text-blue-500" size={40} />
+          </View>
+          <Text className="text-4xl font-extrabold text-white mt-6 tracking-tight">ÁQUILA</Text>
+          <Text className="text-blue-400 font-bold tracking-[2px] text-xs uppercase mt-1">Sovereign Intelligence</Text>
         </View>
 
-        {error ? <Text className="text-rose-500 mb-4 text-center">{error}</Text> : null}
+        {error ? (
+          <View className="bg-red-500/10 border border-red-500/20 p-3 rounded-xl mb-6">
+            <Text className="text-red-400 text-center text-sm">{error}</Text>
+          </View>
+        ) : null}
 
-        <TextInput
-          className="bg-slate-950 border border-slate-800 text-slate-50 rounded-xl p-4 mb-4 text-base"
-          placeholder="ID da Escola"
-          placeholderTextColor="#64748b"
-          value={schoolId}
-          onChangeText={setSchoolId}
-          autoCapitalize="none"
-        />
+        <View className="space-y-4">
+          <View>
+            <Text className="text-gray-400 text-xs font-bold mb-2 ml-1 uppercase">ID da Unidade</Text>
+            <TextInput
+              className="bg-[#0f172a] border border-[#1e293b] text-white rounded-2xl p-4 text-base focus:border-blue-500"
+              placeholder="Ex: BSB-01"
+              placeholderTextColor="#475569"
+              value={schoolId}
+              onChangeText={setSchoolId}
+              autoCapitalize="none"
+            />
+          </View>
 
-        <TextInput
-          className="bg-slate-950 border border-slate-800 text-slate-50 rounded-xl p-4 mb-4 text-base"
-          placeholder="Código Único do Aluno"
-          placeholderTextColor="#64748b"
-          value={studentHash}
-          onChangeText={setStudentHash}
-          autoCapitalize="none"
-          secureTextEntry
-        />
+          <View className="mt-4">
+            <Text className="text-gray-400 text-xs font-bold mb-2 ml-1 uppercase">Código do Aluno</Text>
+            <TextInput
+              className="bg-[#0f172a] border border-[#1e293b] text-white rounded-2xl p-4 text-base focus:border-blue-500"
+              placeholder="••••••••"
+              placeholderTextColor="#475569"
+              value={studentHash}
+              onChangeText={setStudentHash}
+              autoCapitalize="none"
+              secureTextEntry
+            />
+          </View>
+        </View>
 
         <TouchableOpacity 
-          className="bg-indigo-600 p-4 rounded-xl items-center mt-2 shadow-lg shadow-indigo-500/20" 
+          className="bg-blue-600 p-5 rounded-2xl items-center mt-8 shadow-xl shadow-blue-500/30" 
           onPress={handleLogin} 
           disabled={loading}
         >
-          {loading ? <ActivityIndicator color="#fff" /> : <Text className="text-white font-bold text-lg">Acessar Portal</Text>}
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text className="text-white font-bold text-lg">Acessar Portal</Text>
+          )}
         </TouchableOpacity>
+
+        <TouchableOpacity 
+          className="mt-6 items-center" 
+          onPress={() => alert('Abrindo canal de suporte... (Em breve: Anexo automático de logs)')}
+        >
+          <Text className="text-gray-400 text-sm font-medium">
+            Problemas com o acesso? <Text className="text-blue-400 underline">Fale com o Suporte</Text>
+          </Text>
+        </TouchableOpacity>
+
+        <Text className="text-gray-500 text-center text-xs mt-8">
+          Versão 1.5.0 — Córtex Evolution
+        </Text>
       </View>
     </View>
   );

@@ -72,11 +72,11 @@ export const InfrastructureBudget: React.FC<Props> = ({ suggestionsCount, unitPr
         onClick={handleBuy}
         className="mt-10 w-full py-6 bg-blue-600 text-white rounded-[1.8rem] flex items-center justify-center gap-3 text-xs font-black uppercase tracking-[0.2em] hover:bg-blue-500 transition-all transform active:scale-95 shadow-xl shadow-blue-500/20"
       >
-         <ShoppingCart size={18} /> Comprar Hardware Verificado
+         <Router size={18} /> Acessar Fornecedor Homologado
       </button>
 
       <button className="mt-4 w-full py-4 bg-white/5 text-slate-400 rounded-[1.2rem] flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all">
-         <Calculator size={14} /> Baixar Relatório de Expansão (PDF)
+         <Calculator size={14} /> Exportar Dimensionamento (PDF)
       </button>
 
       <p className="text-center mt-6 text-[9px] text-slate-600 uppercase tracking-widest font-mono">

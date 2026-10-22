@@ -39,27 +39,52 @@ export const SmartClassHub: React.FC = () => {
   ];
 
   useEffect(() => {
-    const mockMaterials: SmartMaterial[] = [
-      {
-        id: '1',
-        title: 'Introdução à Termodinâmica',
-        type: 'image',
-        summary: 'A aula explorou os princípios da conservação de energia e a primeira lei da termodinâmica.',
-        flashcards: [
-          { question: 'O que diz a 1ª Lei?', answer: 'Energia se transforma.', tags: ['Física'] }
-        ],
-        timestamp: new Date()
+    const fetchMaterials = async () => {
+      try {
+        const api = (window as any).aquila;
+        const mats = await api.invoke('pedagogical:get-materials');
+        setMaterials(mats || []);
+      } catch (err) {
+        console.error('Falha ao buscar materiais reais:', err);
       }
-    ];
-    setMaterials(mockMaterials);
+    };
+    fetchMaterials();
   }, []);
 
   const handleFileUpload = async (e: any) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
     setIsProcessing(true);
-    setTimeout(() => {
+    try {
+      const api = (window as any).aquila;
+      const type = file.type.includes('image') ? 'image' : 'text';
+      const result = await api.invoke('pedagogy:process-material', { 
+        title: file.name.split('.')[0], 
+        type, 
+        content: 'Simulated parsed content of: ' + file.name 
+      });
+
+      if (result && result.success) {
+        const mat = result.data;
+        const newMaterial: SmartMaterial = {
+          id: `mat-${Date.now()}`,
+          title: file.name.split('.')[0],
+          type,
+          summary: mat.summary,
+          flashcards: mat.flashcards,
+          timestamp: new Date()
+        };
+        setMaterials(prev => [newMaterial, ...prev]);
+        setActiveMaterial(newMaterial);
+        (window as any).showToast?.('Material processado com sucesso no ecossistema de aula!', 'success');
+      } else {
+        (window as any).showToast?.('Falha ao processar material: ' + (result?.error || 'Erro interno da IA local.'), 'error');
+      }
+    } catch (err: any) {
+      (window as any).showToast?.('Erro de comunicação: ' + err.message, 'error');
+    } finally {
       setIsProcessing(false);
-      alert('Material processado! 🦅🚀');
-    }, 2000);
+    }
   };
 
   return (
@@ -82,7 +107,7 @@ export const SmartClassHub: React.FC = () => {
       <div className="project-health-hud">
         <HudCard label="Engajamento" value={metrics.engagement} color="purple" />
         <HudCard label="Inovação" value={metrics.innovation} color="gold" />
-        <div className="hud-card mini-glass pointer" onClick={() => alert('Sanidade OK')}>
+        <div className="hud-card mini-glass pointer" onClick={() => (window as any).showToast?.('Sanidade Operacional Áquila: 100% Nominal', 'info')}>
           <div className="hud-label">Status Global</div>
           <div className="hud-value text-purple">Ascending</div>
         </div>

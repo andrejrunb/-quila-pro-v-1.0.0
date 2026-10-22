@@ -18,17 +18,39 @@ const HardwareMonitor: React.FC = () => {
   ]);
   const [isStressTesting, setIsStressTesting] = useState(false);
   const [npuHardened, setNpuHardened] = useState(true);
+  const [thermalState, setThermalState] = useState<{
+    temperature: number;
+    isThrottling: boolean;
+    healthScore: number;
+    load_factor: number;
+  } | null>(null);
 
   useEffect(() => {
     const pollInterval = setInterval(async () => {
       try {
         const swarmState = await (window as any).electron.ipcRenderer.invoke('swarm:get-state');
+        const thermal = await (window as any).electron.ipcRenderer.invoke('hardware:get-thermal');
+        
+        setThermalState(thermal);
+        
         // Em prod, aqui processaríamos a telemetria real do enxame (v3480)
-        setNodes(prev => prev.map(n => ({
-          ...n,
-          cpu: Math.min(100, n.cpu + (Math.random() - 0.5) * 5),
-          npu: Math.min(100, n.npu + (Math.random() - 0.5) * 2),
-        })));
+        // Por enquanto, atualizamos o nó local com dados reais
+        setNodes(swarmState.map((n: any) => {
+          if (n.id === 'Alpha-Node (Local)') {
+            return {
+              ...n,
+              cpu: thermal.load_factor * 100,
+              npu: thermal.isThrottling ? 45 : 85, // Simulação de redução de clock
+              vram: 25 // Placeholder
+            };
+          }
+          return {
+            ...n,
+            cpu: Math.min(100, 20 + Math.random() * 10),
+            npu: Math.min(100, 40 + Math.random() * 15),
+            vram: 10
+          };
+        }));
       } catch (err) {
         console.error('[HwMonitor] Erro na telemetria:', err);
       }
@@ -53,13 +75,41 @@ const HardwareMonitor: React.FC = () => {
     <div className="hw-monitor-container">
       <header className="hw-header">
         <div className="hw-label">Monitor do Enxame</div>
-        {npuHardened && (
-          <div className="npu-status-badge">
-            <div className="npu-glow"></div>
-            <span>NPU HARDENED (TQ-3b)</span>
-          </div>
-        )}
+        <div className="status-badges">
+          {npuHardened && (
+            <div className={`npu-status-badge ${thermalState?.isThrottling ? 'throttled' : ''}`}>
+              <div className="npu-glow"></div>
+              <span>{thermalState?.isThrottling ? 'NPU THROTTLED' : 'NPU HARDENED (TQ-3b)'}</span>
+            </div>
+          )}
+          {thermalState && thermalState.temperature > 75 && (
+            <div className="critical-badge pulse">CRITICAL</div>
+          )}
+        </div>
       </header>
+
+      {thermalState && (
+        <section className={`thermal-monitor glass-mini ${thermalState.isThrottling ? 'throttling' : ''} ${thermalState.temperature > 75 ? 'critical' : ''}`}>
+           <div className="thermal-indicator">
+              <div className="thermal-ring">
+                 <div className="thermal-fill" style={{ height: `${Math.min(100, (thermalState.temperature / 100) * 100)}%` }}></div>
+              </div>
+           </div>
+           <div className="thermal-content">
+              <div className="thermal-main">
+                <span className="thermal-temp">{thermalState.temperature.toFixed(1)}°C</span>
+                <span className="thermal-label">HOMEOTASE TÉRMICA</span>
+              </div>
+              <div className="thermal-health">
+                <div className="health-bar-container">
+                   <div className="health-bar-fill" style={{ width: `${thermalState.healthScore}%` }}></div>
+                </div>
+                <span className="health-label">Saúde do Hardware: {thermalState.healthScore}%</span>
+              </div>
+           </div>
+           {thermalState.isThrottling && <div className="thermal-alert pulse">⚠️ AUTO-THROTTLING ATIVO (Constituição v2.0)</div>}
+        </section>
+      )}
 
       <div className="hw-node-list">
         {nodes.map(node => (

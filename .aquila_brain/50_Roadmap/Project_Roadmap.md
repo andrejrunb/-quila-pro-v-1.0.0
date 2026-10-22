@@ -20,6 +20,7 @@ O Áquila Pro é um ecossistema de segurança escolar de elite. Esta nota rastre
 - [x] Hardware Hub & Protocolos IoT
 - [x] Auditoria Acessibilidade (ARIA)
 - [x] Gerador de `setup.exe` v1.2.0
+- [x] Estabilização de Persistência & Boot Logic (Fase 1 Hydration)
 
 ## ✅ Fase 201-400: Expansion & Resilience
 - [x] [[50_Roadmap/201-400_Milestones|Detalhamento das Phases 201-400]]

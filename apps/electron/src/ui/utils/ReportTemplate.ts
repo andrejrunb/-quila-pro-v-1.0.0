@@ -2,7 +2,7 @@
  * Utilitário para geração de HTML formatado para os relatórios pedagógicos.
  */
 
-export const generateLessonReportHTML = (report: any, schoolName: string = "Áquila Pro - Colégio Modelo") => {
+export const generateLessonReportHTML = (report: any, schoolName: string = "Colégio Visão") => {
   return `
     <html>
       <head>
@@ -56,7 +56,7 @@ export const generateLessonReportHTML = (report: any, schoolName: string = "Áqu
           <div class="ai-badge">✨ Análise por Áquila Vision IA</div>
           <div class="section-title">Observações do Professor e IA</div>
           <div class="content-box">
-            ${report.analysis.replace(/\n/g, '<br>')}
+            ${(report.analysis || '').replace(/\n/g, '<br>')}
           </div>
         </div>
 

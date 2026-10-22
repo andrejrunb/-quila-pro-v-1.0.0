@@ -102,14 +102,14 @@ export const InventoryManagement: React.FC<InventoryProps> = ({ onBack }) => {
 
 const InventoryItemCard: React.FC<{ item: StockDetection }> = ({ item }) => {
   const barRef = useRef<HTMLDivElement>(null);
-  const STOCK_MAX = 50; // Mock Max
+  const maxCapacity = (item as any).maxCapacity || 100; // Obtém da configuração do NPU Edge ou default
 
   useEffect(() => {
     if (barRef.current) {
-      const percent = Math.min((item.count / STOCK_MAX) * 100, 100);
+      const percent = Math.min((item.count / maxCapacity) * 100, 100);
       barRef.current.style.setProperty('--stock-percent', `${percent}%`);
     }
-  }, [item.count]);
+  }, [item.count, maxCapacity]);
 
   return (
     <div className="inventory-card">
@@ -124,7 +124,7 @@ const InventoryItemCard: React.FC<{ item: StockDetection }> = ({ item }) => {
       <div className="stock-info">
         <div className="flex justify-between items-end mb-1">
           <span className="text-2xl font-black">{item.count}</span>
-          <span className="text-[10px] opacity-40 pb-1">/ {STOCK_MAX} UNITS</span>
+          <span className="text-[10px] opacity-40 pb-1">/ {maxCapacity} UNITS</span>
         </div>
         <div className="stock-meter-bg">
           <div 

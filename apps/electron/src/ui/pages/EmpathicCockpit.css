@@ -1,0 +1,134 @@
+.empathic-container {
+    padding: 2.5rem;
+    height: 100%;
+    overflow-y: auto;
+    color: white;
+    background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+}
+
+.empathic-header {
+    margin-bottom: 3rem;
+}
+
+.empathic-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 2rem;
+}
+
+.global-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.metric-box {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+}
+
+.m-data .label { display: block; font-size: 0.7rem; opacity: 0.5; text-transform: uppercase; margin-bottom: 0.25rem; }
+.m-data strong { font-size: 1.5rem; font-weight: 800; }
+
+.hotspots-section {
+    grid-row: span 2;
+}
+
+.hotspots-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.hotspot-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.25rem;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.h-info strong { display: block; font-size: 0.9rem; }
+.h-info span { font-size: 0.75rem; opacity: 0.4; }
+
+.emotion-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.emotion-indicator.joy { color: #10b981; background: #10b981; }
+.emotion-indicator.stress { color: #f59e0b; background: #f59e0b; }
+.emotion-indicator.engagement { color: #3b82f6; background: #3b82f6; }
+
+.resonance-visualizer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.waves-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.wave-orb {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.4;
+    animation: float-orb 4s ease-in-out infinite;
+}
+
+.wave-orb.joy { background: #10b981; animation-delay: 0s; }
+.wave-orb.stress { background: #f59e0b; animation-delay: 1s; }
+.wave-orb.engagement { background: #3b82f6; animation-delay: 2s; }
+
+@keyframes float-orb {
+    0%, 100% { transform: scale(1) translateY(0); opacity: 0.3; }
+    50% { transform: scale(1.5) translateY(-20px); opacity: 0.6; }
+}
+
+.resonance-note {
+    font-size: 0.7rem;
+    opacity: 0.4;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+}
+
+.empathic-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    opacity: 0.3;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 2rem;
+}

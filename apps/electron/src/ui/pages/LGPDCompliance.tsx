@@ -55,7 +55,18 @@ export const LGPDCompliance: React.FC = () => {
         <section className="consent-list-panel glass-panel">
           <div className="panel-header">
              <h2>Registros de Autorização</h2>
-             <button className="btn-download-ripd">
+             <button className="btn-download-ripd" onClick={async () => {
+                try {
+                  const res = await window.aquila.exportRipd();
+                  if (res.success) {
+                    alert(`Relatório RIPD exportado com sucesso em: ${res.filePath}`);
+                  } else {
+                    alert(`Falha ao exportar RIPD: ${res.error}`);
+                  }
+                } catch (err: any) {
+                  alert(`Erro interno: ${err.message}`);
+                }
+             }}>
                 <Download size={16} />
                 RIPD-v2.0
              </button>

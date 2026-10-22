@@ -45,6 +45,24 @@
   letter-spacing: 0.1rem;
 }
 
+.board-status-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.board-status.latency {
+  background: rgba(234, 179, 8, 0.1);
+  border-color: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+}
+
+.board-status.edge {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
 /* Airport Table Styling */
 .airport-table {
   width: 100%;

@@ -14,6 +14,8 @@ import AIServerSetup from './AIServerSetup';
 import SRSMorpher from './SRSMorpher';
 import HardwareMonitor from './HardwareMonitor';
 import HybridShieldWidget from './HybridShieldWidget';
+import BiometricEvolutionMonitor from './BiometricEvolutionMonitor';
+import DistributedMeshMonitor from './DistributedMeshMonitor';
 import './SovereignDashboard.css';
 
 interface DashboardStats {
@@ -106,6 +108,7 @@ export const SovereignDashboard: React.FC<{ role: 'admin' | 'teacher' | 'staff' 
                     <HardwareMonitor />
                     <HybridShieldWidget />
                   </div>
+                  <BiometricEvolutionMonitor />
                 </div>
               )
             ) : (
@@ -136,13 +139,7 @@ export const SovereignDashboard: React.FC<{ role: 'admin' | 'teacher' | 'staff' 
             />
           </div>
 
-          <div className="performance-chart glass">
-            <h4>Eficiência do Enxame</h4>
-            <div className="chart-placeholder">
-              <TrendingUp size={48} className="chart-icon" />
-              <span>Sincronia: 99.9%</span>
-            </div>
-          </div>
+          <DistributedMeshMonitor />
         </aside>
       </main>
     </div>

@@ -109,7 +109,16 @@ export const ExportHub: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ 
                              <span className="bundle-name">{b.name}</span>
                              <span className="bundle-meta">{b.type} • {b.size}</span>
                           </div>
-                          <button className="btn-download-mini" title="Baixar"><Download size={14} /></button>
+                          <button 
+                            className="btn-download-mini" 
+                            title="Baixar"
+                            onClick={() => {
+                              (window as any).aquila?.invoke('shell:openPath', 'C:/aquila/exports');
+                              (window as any).showToast?.(`Abrindo pacote: ${b.name}`, 'info');
+                            }}
+                          >
+                            <Download size={14} />
+                          </button>
                        </div>
                      ))}
                   </div>
@@ -156,12 +165,12 @@ export const ExportHub: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ 
                <p className="success-desc">Seus arquivos foram otimizados e estão prontos para seu Segundo Cérebro.</p>
                
                <div className="success-actions">
-                  <button className="btn-download-bundle" onClick={() => (window as any).electron.shell.openPath('C:/aquila/exports')}>
+                  <button className="btn-download-bundle" onClick={() => (window as any).aquila?.invoke('shell:openPath', 'C:/aquila/exports')}>
                     ABRIR PASTA DE EXPORTAÇÃO
                   </button>
                   <button className="btn-cloud-sync-mini" onClick={() => {
                     navigator.clipboard.writeText('Contexto de estudo gerado via Áquila Pro Sovereign Swarm.');
-                    alert('Link de compartilhamento copiado!');
+                    (window as any).showToast?.('Link de compartilhamento copiado!', 'success');
                   }}>
                     <Share2 size={14} /> SHARE
                   </button>

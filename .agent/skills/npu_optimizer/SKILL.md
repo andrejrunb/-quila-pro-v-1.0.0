@@ -3,15 +3,22 @@ name: NPU Optimizer
 description: Skill para otimização de inferência de IA em hardware Áquila Edge (NPU 26 TOPS).
 ---
 
-# Instruções de Uso
+# NPU Optimizer (Flash-MoE Enhanced)
 
-Esta skill deve ser ativada ao trabalhar em workers de visão computacional ou scripts de quantização.
+Extração máxima de performance para inferência soberana de baixa latência.
 
-## Diretrizes Técnicas
-- **Quantização**: Utilizar TurboQuant 3-bit para modelos baseados em MobileNet/YOLO.
-- **Memória**: Monitorar o uso de LPDDR5 ECC; manter o heap abaixo de 2GB por worker.
-- **Latência**: Meta de < 200ms para abertura de catraca (End-to-End).
+## Instruções de Uso
+Ativar para otimizar modelos MoE, depurar latência de inferência ou gerir recursos da NPU.
 
-## Comandos Recomendados
-- Analisar arquivos `.spec` para garantir alocação correta de NPU.
-- Verificar logs em `audio_ai.log` e `perf_audit.log`.
+## Capacidades
+- **Flash-MoE Strategy**: Implementação de Async Weight Streaming e Expert Repacking.
+- **Kernel Fusion**: Otimização de operações de dequantização e produto escalar na NPU.
+- **I/O Profiling**: Medição de carregamento de pesos e uso de DMA.
+
+## Regras Invioláveis (Zero-Bypass)
+1. **Non-Blocking**: Proibido bloquear a Main Thread com carregamentos síncronos.
+2. **Thermal Guard**: Monitorar temperatura e aplicar auto-throttling se exceder 75ºC.
+3. **Local Weights**: Pesos de modelos devem estar em armazenamento local criptografado.
+
+## Exemplos
+"Otimize a inferência do modelo de reconhecimento facial para rodar na NPU com menos de 20ms de latência."

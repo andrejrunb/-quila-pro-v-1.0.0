@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "qwtel.sqlite-viewer",
+    "vitest.explorer",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint"
+  ]
+}

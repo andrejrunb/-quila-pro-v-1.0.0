@@ -1,79 +1,59 @@
-# Implementation Plan — Phase 900: Teacher Empowerment & Classroom Intelligence
+# Compactação e Aumento de Densidade da UI (Zero-Scroll Priority) + Correções
 
-Esta fase foca em transformar a experiência do professor dentro de sala, automatizando tarefas administrativas (chamada e relatórios) através da visão computacional e inteligência de dados do Áquila Pro.
-
-# Undo/Redo Presence Correction System (Step 6)
-
-Implement a robust mechanism for teachers to manually override AI-detected presence/absence with the ability to undo and redo changes during a session.
-
-## Proposed Changes
-
-### Database Component
-
-#### [MODIFY] [Database.ts](file:///c:/aquila/aquilapro_electron/src/database/Database.ts)
-- Add `isManual` (BOOLEAN) and `originalType` (TEXT) columns to `attendance_logs`.
-- Implement `syncManualPresence` method to batch update logs from the dashboard.
-
-### IPC Component
-
-#### [MODIFY] [handlers.ts](file:///c:/aquila/aquilapro_electron/src/ipc/handlers.ts)
-- Register `teacher:bulk-update-presence` to handle the final state of the undo/redo stack when the teacher confirms.
-
-### UI Component
-
-#### [MODIFY] [TeacherDashboard.tsx](file:///c:/aquila/aquilapro_electron/src/ui/pages/TeacherDashboard.tsx)
-- Implement state-based history management for student statuses.
-- Add "Undo" (Ctrl+Z) and "Redo" (Ctrl+Y) functionality.
-- Visual indicators for manually corrected students (e.g., a "pencil" icon).
-
-## Verification Plan
-
-### Automated Tests
-- Mock IPC calls for presence updates.
-- Verify undo/redo state transitions in React.
-
-### Manual Verification
-1. Change a student's status from 'Present' to 'Absent'.
-2. Click 'Undo' and verify the status reverts.
-3. Click 'Redo' and verify it changes back.
-4. Confirm changes and check the database for the `isManual` flag.
+Este plano detalha as alterações estruturais na interface do **Áquila Pro** para reduzir letras e espaços excessivos, e também implementa as correções solicitadas (IA, Quadro IA e Relatório Diário).
 
 ## User Review Required
-
 > [!IMPORTANT]
-> **API de Análise de Quadro:** Para a "Inteligência de Quadro" (gerar relatório a partir da foto), utilizaremos inicialmente um motor de OCR local. No futuro, podemos integrar com GPT-4o-mini ou Gemini Pro Vision para resumos pedagógicos de alta qualidade.
-> 
-> **Importação de Planilha:** O sistema aceitará o formato CSV padrão (Disciplina, Professor, Sala, Início, Fim, Dia da Semana).
+> A IA estava falhando porque o serviço (`genAIService`) estava sendo registrado apenas no final da "Fase 2" de inicialização do sistema. Se algum módulo secundário demorasse ou falhasse, a IA ficava indisponível. Vou mover o registro da IA para a Fase 1 (imediata) para garantir que ela sempre funcione.
+>
+> Além disso, vou alterar globalmente a densidade do sistema (reduzindo fontes e espaços) e remodelar o Relatório Diário para um formato de lista expansível.
+> Por favor, aprove este plano para eu executar as alterações.
 
 ## Proposed Changes
 
-### [Component: Database]
-#### [MODIFY] [Database.ts](file:///c:/aquila/aquilapro_electron/src/database/Database.ts)
-- Adicionar tabela `lesson_reports`:
-    - `id`, `scheduleId`, `date`, `whiteboardPhotoPath`, `aiSummary`, `teacherNotes`.
-- Atualizar tabela `schedules` para incluir `teacherId` (FK para `users.id`).
+---
 
-### [Component: Teacher UI]
-#### [NEW] [TeacherDashboard.tsx](file:///c:/aquila/aquilapro_electron/src/ui/pages/TeacherDashboard.tsx)
-- View dedicada para o professor logado.
-- Exibição de "Aula Atual" baseada no horário.
-- Listagem de alunos presentes com indicador de "Tempo em Sala" (ProgressBar).
-- Botão "Capturar Conteúdo" para upload de foto do quadro.
+### 1. Correção do Motor de IA (`ai:chat`)
+O `GenerativeAIService` não estava sendo injetado corretamente nos IPC handlers se o boot demorasse ou abortasse no meio da Fase 2.
+#### [MODIFY] `orchestrator.ts`
+- Mover a inicialização e o registro do `genAIService` (`sovereignRegistry.registerInstance`) para a Fase 1 (garantindo disponibilidade no boot crítico) ou logo no início da Fase 2, antes de módulos propensos a falhas.
 
-### [Component: Management Intelligence]
-#### [NEW] [SchoolClimateService.ts](file:///c:/aquila/aquilapro_electron/src/services/SchoolClimateService.ts)
-- Engine de agregação de eventos de IA (Crowding, Loitering, Punctuality).
-- Geração de métricas anônimas por zonas (Corredores, Pátio, Entrada).
+---
 
-#### [NEW] [ClimateReportPanel.tsx](file:///c:/aquila/aquilapro_electron/src/ui/components/ClimateReportPanel.tsx)
-- Visualização de "Mapas de Calor de Eventos".
-- Gráficos de eficiência de portaria e fluxo de alunos.
+### 2. Global Design System (Alta Densidade)
+Redução cirúrgica das variáveis de tipografia e espaçamento para comprimir a interface inteira.
+#### [MODIFY] `index.css`
+- Reduzir `--container-padding` de `32px` para `16px`.
+- Reduzir a escala tipográfica (ex: `--fs-h1` de `2rem` para `1.5rem`, `--fs-body` de `0.9375rem` para `0.85rem`).
+- Reduzir as escalas de gap (`--gap-md`, `--gap-lg`, `--gap-xl`).
+
+---
+
+### 3. Módulo de Tarefas & Agendamentos
+Reorganização severa do layout para eliminar o enorme espaço vazio horizontal.
+#### [MODIFY] `TaskScheduler.css` & `TaskScheduler.tsx`
+- Reduzir os paddings do painel do formulário (`form-panel`).
+- Usar **Grid Layout no Formulário:** Colocar a Descrição ao lado dos metadados (Título/Data) para otimizar o espaço horizontal e cortar a altura do formulário pela metade.
+
+---
+
+### 4. Remoção da aba "Quadro IA" do PC
+#### [MODIFY] `Sidebar.tsx`
+- A funcionalidade "Quadro IA (Scanner)" foi feita apenas para o app celular.
+- Vou condicionar a exibição do menu `board-scanner` no Sidebar verificando se não estamos no desktop, ou simplesmente removendo o atalho da versão de computador.
+
+---
+
+### 5. Relatório Diário IA (TeacherDailyReport)
+O relatório de acompanhamento socioemocional usa um dropdown enorme.
+#### [MODIFY] `TeacherDailyReport.tsx` & `TeacherDailyReport.css`
+- **Lista Expansível:** Converter a seleção do aluno (dropdown) em uma lista de alunos (estilo chamada).
+- **Densidade:** Espaçamento curto, priorizando que todos os alunos apareçam sem scroll.
+- **Accordion:** Ao clicar no aluno, o painel de avaliação (textarea e IA) se expande de forma compacta (inline).
+- **Ditado:** O botão de "Ditar" (Ditado por voz) será ocultado via CSS/condicional na versão de PC (Desktop), mantendo-se exclusivo do celular (WebMobile).
 
 ## Verification Plan
-
-### Automated Tests
-- Validar se o `SchoolClimateService` retorna apenas dados agregados (sem IDs individuais).
-- Testar o renderizador de PDF para os relatórios semanais.
-
-### Manual Verification
-- O coordenador pedagógico deve conseguir visualizar o relatório "Mapa de Calor de Uso" e identificar gargalos de fluxo.
+1. Alterarei `orchestrator.ts` para reparar o backend da IA.
+2. Editarei o CSS global (`index.css`).
+3. Refatorarei `TaskScheduler.tsx`, `Sidebar.tsx` e `TeacherDailyReport.tsx`.
+4. Sem necessidade de recompilar para verificar o front-end, podemos usar `npm run dev` para testes rápidos.

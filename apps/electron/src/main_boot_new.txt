@@ -1,0 +1,341 @@
+﻿// ============================================================================
+// BACKGROUND SERVICES — inicializam após a UI estar ativa (Phase 2)
+// ============================================================================
+async function initBackgroundServices(db: any) {
+  console.log('[Boot Phase 2] Iniciando serviços de background...');
+  try {
+    const dbPath = path.join(USER_DATA_PATH, 'aquila_pro_v1.sqlite');
+
+    // Instalador Soberano
+    let installerService: any;
+    try {
+      const { installerService: svc } = require('./main/services/SovereignInstallerService');
+      installerService = svc;
+    } catch (_e) { installerService = createSafeServiceMock(); }
+
+    try { ipcMain.handle('ai:get-hardware-profile', async () => { const report = await installerService.getHardwareProfile(); if (report.totalRamGB < 8) await npuOptimizer.vramGarbageCollector(); return report; }); } catch(_e){}
+    try { ipcMain.handle('ai:vram-gc', async () => { await ollamaIntegration.resetMemory(); return await npuOptimizer.vramGarbageCollector(); }); } catch(_e){}
+    try { ipcMain.handle('security:cold-storage-backup', async () => { const { backupService } = require('./main/services/SovereignBackupService'); return await backupService.performSovereignBackup(dbPath, 'SCHOOL_SECRET_3469'); }); } catch(_e){}
+    try { ipcMain.handle('security:check-backup-disk', async () => { const { backupService } = require('./main/services/SovereignBackupService'); return await backupService.checkExternalMedia(); }); } catch(_e){}
+    try { ipcMain.handle('ai:install-model', async (_event: any, modelName: string) => await installerService.installModel(modelName)); } catch(_e){}
+    try { ipcMain.handle('ai:list-local-models', async () => await installerService.getInstalledModels()); } catch(_e){}
+    try { ipcMain.handle('ai:export-notebook', async (_event: any, data: any) => { const { notebookExportService } = require('./main/services/NotebookExportService'); return await notebookExportService.exportAsNotebook(data); }); } catch(_e){}
+
+    // RAG + AI
+    const ragPaths = [path.join(process.cwd(), 'docs'), path.join(process.cwd(), '.aquila_brain')];
+    pageIndexRAGService = new PageIndexRAGService(ragPaths);
+    pageIndexRAGService.buildIndex().catch((err: any) => console.error('[RAG] Falha na indexacao:', err));
+    ollamaIntegration = new OllamaIntegration('http://localhost:11434', 'llama3');
+    eduAI = new EducationalAIIntegration(undefined, ollamaIntegration, pageIndexRAGService, npuOptimizer, aiFlowManager);
+
+    // Audit Log
+    auditLog = new ImmutableAuditLog(db, process.env.AUDIT_SECRET || 'aquila-secret-256-bit-key');
+    await auditLog.initialize();
+    (db as any).auditLog = auditLog;
+
+    // Repair Engine
+    repairService = new SwarmRepairService(db);
+    await repairService.runEmergencyRepair();
+
+    // Swarm Orchestrator
+    const { swarmOrchestrator } = require('./main/services/SwarmOrchestrator');
+    swarmOrchestrator.init(db);
+    hybridSync = new HybridCloudSyncService(db);
+    eduAI.setDatabase(db);
+    installerService.syncCapacityWithAlpha().catch((err: any) => console.error('[Installer] Falha:', err));
+    swarmOrchestrator.on('deployCommandReceived', async (data: any) => await installerService.installModel(data.model));
+    db.setWriteHook((table: string, data: any) => {
+      swarmOrchestrator.replicateToSwarm(table, data);
+      hybridSync.queueForSync(table, data);
+      if (auditLog) auditLog.record(table, 'INSERT', data.id || 'N/A', data).catch((e: any) => console.error('[Audit] Failed:', e));
+    });
+
+    // Sovereign Swarm
+    const { sovereignSwarm } = require('./main/services/SovereignSwarm');
+    sovereignSwarm.init(db);
+    try { ipcMain.handle('swarm:simulate-failure', async (_e: any, nodeId: string) => { const { nexusSyncService: nss } = require('./main/services/NexusSyncService'); nss.simulateNodeFailure(nodeId); return { success: true }; }); } catch(_e){}
+    try { ipcMain.handle('swarm:restore-node', async (_e: any, nodeId: string) => { const { nexusSyncService: nss } = require('./main/services/NexusSyncService'); nss.restoreNode(nodeId); return { success: true }; }); } catch(_e){}
+    try { ipcMain.handle('swarm:get-state', async () => ({ ...sovereignSwarm.getSwarmStatus(), localNodeId: os.hostname(), masterNodeId: sovereignSwarm.masterNodeId })); } catch(_e){}
+    try { ipcMain.handle('swarm:run-stress-test', async () => { const { swarmStressTest } = require('./main/services/SwarmStressTest'); return await swarmStressTest.runMasterFailoverTest(); }); } catch(_e){}
+    try { ipcMain.handle('swarm:search', async (_e: any, query: string) => { const docs = await pageIndexRAGService.search(query); const ctx = docs.map((d: any) => d.snippet).join('\n---\n'); const aiAnswer = await ollamaIntegration.generate(`Responda: "${query}"\n\nContexto:\n${ctx}`); return { results: docs.map((d: any) => ({ id: Math.random().toString(36).substr(2, 9), title: d.breadcrumb?.slice(-1)[0] || 'Doc', path: d.file, type: 'doc', excerpt: d.snippet })), aiAnswer }; }); } catch(_e){}
+    try { ipcMain.handle('swarm:export-notebook', async () => ({ success: true, path: '~/Documents/AquilaStudies/Week_Knowledge.zip' })); } catch(_e){}
+
+    // License + Backup + Notifications
+    licenseManager = LicenseManager.getInstance(dbPath);
+    licenseManager.load();
+    await licenseService.initialize();
+    backupManager = new BackupManager(dbPath, licenseManager, USER_DATA_PATH, auditLog);
+    backupManager.scheduleBackup();
+    notificationManager = new NotificationManager(db);
+    notificationManager.startMonitoring();
+
+    // WhatsApp Queue (fire-and-forget)
+    const { NotificationGateway: NgClass, WhatsAppMetaProvider } = require('./main/services/NotificationGateway');
+    const notificationGateway = new NgClass();
+    const waConfig = { apiUrl: process.env.WA_API_URL || '', token: process.env.WA_TOKEN || '' };
+    if (waConfig.apiUrl) notificationGateway.registerProvider(new WhatsAppMetaProvider(waConfig.apiUrl, waConfig.token));
+    whatsAppQueue = new WhatsAppQueue(db, licenseManager, waConfig);
+    whatsAppQueue.setGateway(notificationGateway);
+    whatsAppQueue.start().catch((e: any) => console.error('[WhatsApp] Falha ao iniciar fila:', e));
+
+    // Servicos gerais
+    lgpdService = new LGPDService(db);
+    auditService = new AuditService(db);
+    mobileGateway = new MobileGateway(db);
+    hrSovereigntyService.init(db);
+    evasionRiskService.init(db);
+    attendanceAuditService.init(db);
+    attendanceAuditService.start();
+    geofenceMonitorService.init(db);
+    geofenceMonitorService.start();
+    wiFiDensePoseService.start();
+
+    messageRepository = new MessageRepository(db);
+    eagleMessenger = new EagleMessengerService(ollamaIntegration, messageRepository);
+    pageIndexRAGService.initSwarm(eagleMessenger);
+    documentService = new DocumentService(REPORTS_PATH);
+    classroomEntryService = new ClassroomEntryService(db);
+    economyService = new NexusEconomyService(db);
+    entropyService = new SwarmEntropyService();
+
+    syncService.start().catch((e: any) => console.error('[Sync] Falha ao iniciar:', e));
+    syncService?.on('sync-start', () => mainWindow?.webContents.send('sync-status', { status: 'syncing' }));
+    syncService?.on('sync-complete', (result: any) => mainWindow?.webContents.send('sync-status', { status: 'idle', lastSync: result.timestamp }));
+    syncService?.on('sync-error', (err: any) => mainWindow?.webContents.send('sync-status', { status: 'error', error: err.message }));
+
+    heatmapService = new HeatmapService(db, licenseManager);
+    heatmapService.start();
+    heatmapService.on('heatmap-updated', (data: any) => mainWindow?.webContents.send('analytics:heatmap-update', data));
+    themeService = new ThemeService(USER_DATA_PATH);
+
+    if (process.env.PLAYWRIGHT !== 'true') {
+      faceWorker = new FaceWorkerBridge(IS_DEV, process.resourcesPath || '');
+      faceWorker?.on('face-detected', (data: any) => { if (mainWindow && !mainWindow.isDestroyed()) mainWindow.webContents.send('face-detected', data); });
+      recognitionLoop = new RecognitionLoop(IS_DEV, process.resourcesPath || '');
+      recognitionLoop.on('face-recognized', (data: any) => { if (mainWindow) mainWindow.webContents.send('face-detected', data); });
+      try { mobileCompanion = new MobileCompanionService(); mobileCompanion.start(); } catch (err) { console.error('[Main] MobileCompanion erro:', err); }
+    }
+
+    try {
+      const isTest = process.env.PLAYWRIGHT === 'true';
+      const wsPort = isTest ? (9100 + parseInt(process.env.TEST_WORKER_INDEX || '0', 10)) : 9000;
+      wsServer = new WebSocketServerManager(wsPort);
+      await wsServer.start();
+      console.log('[Main] WebSocket Server ativo na porta ' + wsPort + '.');
+    } catch (err: any) { console.error('[Main] Falha WebSocketServer:', err.message); }
+
+    alertEngine = new AlertEngine(db, mobileCompanion, wsServer);
+    reportGenerator = new ReportGenerator(REPORTS_PATH, db);
+    analyticsService = new AnalyticsService(db);
+    securityAgent = new SecurityAgent();
+    pedagogicalAgent = new PedagogicalAgent(db);
+    swarmManager.registerAgent(securityAgent);
+    swarmManager.registerAgent(pedagogicalAgent);
+    swarmManager.on('agent:activity', (data: any) => { logger.info('[Swarm][' + data.agent + '] ' + data.entry); mainWindow?.webContents.send('swarm:activity', data); });
+    swarmManager.on('swarm:error', (err: any) => logger.error('[Swarm Error][' + err.agent + '] ' + err.error));
+    alertEngine?.on('alert-sent', (alertData: any) => { mobileCompanion?.broadcast('alert', alertData); wsServer?.notifyAlert(alertData); });
+    recognitionLoop?.on('face-recognized', async (data: any) => {
+      const zone = data.zone || 'geral';
+      alertEngine?.processDetection(data, zone, data.camera_id);
+      swarmManager.broadcast('face:recognized', { studentId: data.label, confidence: data.confidence, zone, cameraId: data.camera_id });
+      if (data.confidence > 0.85) ioTMainService.triggerCommand('DEFAULT_GATE', 'open');
+      const sessionsInZone = reIDService?.getAllSessions().filter((s: any) => s.lastSeenNode === zone && s.studentId !== data.studentId);
+      sessionsInZone?.forEach((s: any) => socialGraphService.registerInteraction(data.studentId, s.studentId, 0.05));
+      wsServer?.notifyFaceRecognition({ studentId: data.label, studentName: data.name || 'Aluno', zone, confidence: data.confidence, timestamp: new Date() });
+      reIDService?.trackMovement(data.label, data.camera_id || zone);
+      attendanceMonitor?.syncWithDatabase(db);
+    });
+    recognitionLoop?.on('crowd-recognized', (data: any) => alertEngine?.processCrowdDetection(data.zone_id || data.zone || 'area_comum', data.count || 0));
+
+    if (process.env.PLAYWRIGHT !== 'true') {
+      (async () => {
+        try {
+          await faceWorker.detectHardware();
+          await faceWorker.start();
+          const embeddings = await db.getFaceEmbeddings();
+          recognitionLoop.setEmbeddings(embeddings);
+          const cameras = await db.getCameras();
+          if (cameras.length > 0) {
+            await recognitionLoop.start(cameras.map((c: any) => ({ cameraId: c.id, rtspUrl: c.rtspUrl, zone: c.location || 'entrada', fps: c.fps || 1 })));
+          }
+        } catch (err: any) { console.error('[Main] Falha Core:', err.message); }
+      })();
+    }
+
+    autoUpdateManager = new AutoUpdateManager(logger);
+    autoUpdateManager.start();
+    shortcutsManager = new KeyboardShortcutsManager();
+    shortcutsManager.register(() => mainWindow);
+    weeklyReportService = new WeeklyReportService(db, whatsAppQueue);
+    weeklyReportService.start();
+    streamReader = new RTSPStreamReader(licenseManager?.getTier() === 'enterprise' ? 16 : 4);
+    if (process.env.PLAYWRIGHT !== 'true') {
+      streamWatchdog = new StreamWatchdog(streamReader);
+      streamWatchdog.start();
+      streamWatchdog?.on('health-changed', (health: any) => mainWindow?.webContents.send('stream-health-update', health));
+    }
+
+    storageCleanup.schedule(6 * 60 * 60 * 1000);
+    const dbMirror = new DatabaseMirrorService(app.getPath('userData'));
+    setInterval(() => dbMirror.syncMirror(), 30 * 60 * 1000);
+
+    cameraService = new CameraService(db, recognitionLoop, licenseService);
+    studentService = new StudentService(db);
+    boardAnalysis = new BoardAnalysisService(db, eduAI);
+    notebookBridge = new NotebookBridgeService(db);
+    adaptiveLearning = new AdaptiveLearningService(db);
+    parentWatchdog = new ParentWatchdogService(db);
+    learningStyle = new LearningStyleService(db);
+    deepWork = new DeepWorkService(db);
+    contentGuard = new ContentGuardService(db);
+    securityWatchdog = securityWatchdogService;
+    securityWatchdog.start();
+    parentWatchdog.monitorCriticalAlerts();
+
+    pushNotificationService?.on('push-sent', (log: any) => { console.log('[Main] Push FCM: ' + log.title); mainWindow?.webContents.send('push-status', log); });
+    selfHealing?.on('service-restart', ({ id, restartCount }: any) => { logger.error('[MAIN] Recuperando servico ' + id + ' #' + restartCount); if (id === 'FACE_WORKER') faceWorker?.start(); });
+    gestureService?.on('gesture-detected', (data: any) => mainWindow?.webContents.send('gesture-alert', data));
+
+    logger.info('Eagle AI: Sistema Soberano Totalmente Operacional');
+    console.log('[' + APP_NAME + '] Sistema inicializado com sucesso (v' + APP_VERSION + ')');
+  } catch (bgErr: any) {
+    console.error('[Boot Phase 2] Erro ao inicializar servicos de background:', bgErr?.message || bgErr);
+  }
+}
+
+// ============================================================================
+// INICIALIZACAO DO APP  Fase 1: Boot Critico (DB + Auth + Janela)
+// ============================================================================
+app.whenReady().then(async () => {
+  console.log('[' + APP_NAME + '] app.whenReady()  Boot critico iniciado.');
+  ensureDirectories();
+
+  if (process.env.PLAYWRIGHT !== 'true') {
+    createSplashWindow();
+  }
+
+  try {
+    // 1.1  Banco de dados
+    const dbPath = path.join(USER_DATA_PATH, 'aquila_pro_v1.sqlite');
+    const { Database: DBClass } = await import('./database/Database');
+    Database = DBClass;
+    db = new Database(dbPath);
+    await db.initialize();
+    console.log('[Boot Phase 1] Database pronto.');
+
+    // 1.2  AuthService
+    const { AuthService: AuthClass } = await import('./main/services/AuthService');
+    AuthService = AuthClass;
+    authService = new AuthService(db);
+
+    if (process.env.PLAYWRIGHT === 'true') {
+      try {
+        await db.run('DELETE FROM users WHERE username IN (?, ?)', ['playwright_admin', 'admin']);
+        const bcrypt = require('bcryptjs');
+        const hash = bcrypt.hashSync('senha_playwright_123', 12);
+        await db.run('INSERT INTO users (id, username, password_hash, name, role) VALUES (?, ?, ?, ?, ?)', ['user-e2e-playwright', 'playwright_admin', hash, 'E2E Admin', 'admin']);
+        await db.run('INSERT OR REPLACE INTO user_consent (userId, consentedAt, termVersion, clientIp) VALUES (?, ?, ?, ?)', ['user-e2e-playwright', new Date().toISOString(), 'v1.1-e2e', '127.0.0.1']);
+      } catch (e: any) { console.error('[E2E] Erro na injcao:', e.message); }
+    } else {
+      await authService.ensureDefaultAdmin();
+      await authService.seedDemoUsers();
+    }
+
+    // 1.3  SessionService
+    const { default: SessionClass } = await import('./main/services/SessionService');
+    SessionService = SessionClass;
+    sessionService = new SessionService();
+    console.log('[Boot Phase 1] Auth pronto.');
+
+    // 1.4  SyncService (instancia apenas)
+    const { SyncService: SyncClass } = await import('./main/services/SyncService');
+    SyncService = SyncClass;
+    syncService = new SyncService(db);
+
+    // 1.5  Rate Limiter
+    try { const m = await import('./main/utils/RateLimiter'); globalRateLimiter = m.globalRateLimiter; } catch (_e) { globalRateLimiter = createSafeServiceMock(); }
+
+    // 1.6  IPC handlers
+    registerIpcHandlers();
+    console.log('[Boot Phase 1] IPC handlers registrados.');
+
+    // 1.7  JANELA PRINCIPAL
+    createMainWindow();
+    createTray();
+    console.log('[Boot Phase 1] Janela principal criada.');
+
+    // Fase 2  background (fire-and-forget)
+    setTimeout(() => {
+      initBackgroundServices(db).catch((err: any) =>
+        console.error('[Boot Phase 2] Erro:', err?.message || err)
+      );
+    }, 300);
+
+  } catch (error: any) {
+    const errorDetail = error instanceof Error ? error.stack : String(error);
+    console.error('[' + APP_NAME + '] Erro CRITICO na inicializacao:', errorDetail);
+
+    if (process.env.PLAYWRIGHT === 'true') {
+      process.stderr.write('FATAL_E2E_ERROR: ' + errorDetail + '\n');
+      app.quit();
+      return;
+    }
+
+    if (dialog) {
+      const fullLog = 'ERRO AQUILA PRO v' + APP_VERSION + '\nDATA: ' + new Date().toLocaleString() + '\n----------------\n' + errorDetail;
+      dialog.showMessageBox({
+        type: 'error',
+        buttons: ['Sair', 'Copiar Log', 'WhatsApp Suporte'],
+        defaultId: 2, cancelId: 0,
+        title: 'Falha de Inicializacao - Aquila Pro',
+        message: 'O ' + APP_NAME + ' encontrou um erro critico e nao pode iniciar.',
+        detail: 'Resumo:\n\n' + errorDetail
+      }).then(({ response: choice }) => {
+        if (choice === 1) { clipboard.writeText(fullLog); dialog.showMessageBoxSync({ type: 'info', message: 'Log copiado!', title: 'Aquila Pro' }); app.quit(); }
+        else if (choice === 2) { const m = encodeURIComponent('ERRO AQUILA PRO\n\n' + fullLog.substring(0, 1500)); shell.openExternal('https://wa.me/5561999623099?text=' + m).then(() => setTimeout(() => app.quit(), 500)).catch(() => app.quit()); }
+        else { app.quit(); }
+      });
+    } else { app.quit(); }
+  }
+});
+
+// ============================================================================
+// APP EVENT HANDLERS
+// ============================================================================
+
+app?.on('window-all-closed', () => {
+  if (process.platform !== 'darwin' && isQuitting) app.quit();
+});
+
+app?.on('activate', () => {
+  if (mainWindow === null) createMainWindow();
+  else mainWindow?.show();
+});
+
+app?.on('before-quit', async () => {
+  isQuitting = true;
+  try {
+    if (recognitionLoop) recognitionLoop.stop();
+    if (heatmapService) heatmapService.stop();
+    if (faceWorker) faceWorker.stop();
+    if (syncService) syncService.stop();
+    if (whatsAppQueue) whatsAppQueue.stop();
+    if (notificationManager) notificationManager.stopMonitoring();
+    if (db) await db.close();
+  } catch (error) { console.error('Erro ao fechar:', error); }
+});
+
+// ============================================================================
+// TRATAMENTO DE ERROS GLOBAIS
+// ============================================================================
+
+process?.on('uncaughtException', (error: any) => {
+  const errorMsg = error instanceof Error ? error.message : String(error);
+  console.error('[FATAL] Uncaught Exception:', error);
+  if (process.env.PLAYWRIGHT === 'true') { process.stderr.write('PLAYWRIGHT_FATAL: ' + errorMsg + '\n'); return; }
+  if (dialog) { dialog.showErrorBox('Erro Inesperado', 'Ocorreu um erro inesperado:\n\n' + errorMsg); }
+});
+
+process?.on('unhandledRejection', (reason) => {
+  console.error('[FATAL] Unhandled Rejection:', reason);
+});

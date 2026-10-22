@@ -440,3 +440,44 @@
 .insight-icon--blue {
   background: rgba(59, 130, 246, 0.1);
 }
+
+/* Portfolio Tabs Navigation */
+.portfolio-tabs-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.portfolio-nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: #94A3B8;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-nav-tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.portfolio-nav-tab.active {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: rgba(0, 240, 255, 0.4);
+  color: #00F0FF;
+  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.15);
+}
+
+.portfolio-skill-tree-section {
+  width: 100%;
+}
+

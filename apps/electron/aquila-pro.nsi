@@ -6,7 +6,7 @@
 
 ; Configurações Gerais
 Name "Áquila Pro"
-OutFile "dist/AquilaPro-Setup-1.0.0.exe"
+OutFile "dist/AquilaPro-Setup-1.3.0.exe"
 InstallDir "$PROGRAMFILES\AquilaPro"
 InstallDirRegKey HKCU "Software\AquilaPro" "Install_Dir"
 
@@ -50,7 +50,7 @@ Section "Instalar Áquila Pro"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\AquilaPro" \
     "DisplayIcon" "$INSTDIR\AquilaPro.exe"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\AquilaPro" \
-    "DisplayVersion" "1.0.0"
+    "DisplayVersion" "1.3.0"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\AquilaPro" \
     "Publisher" "Áquila Pro"
 

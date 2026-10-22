@@ -2,9 +2,9 @@ import React from 'react';
 import '../styles/CoolmeiaUX.css';
 
 /**
- * HEX CELL CARD (v4001)
+ * HEX CELL CARD (v1.5.0)
  * --------------------
- * O componente base da Cool.me.ia que substitui o EagleCard.
+ * O componente base da Áquila Pro que substitui o EagleCard.
  * Representa uma 'célula' da colmeia escolar, utilizando clippath hexagonal
  * e estética Honey Amber / Obsidian.
  */
