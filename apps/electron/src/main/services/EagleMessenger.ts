@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { logger } from '../logger';
-// import { Client, LocalAuth } from 'whatsapp-web.js'; 
+// Áquila Pro — Eagle Messenger (Official Channels) 
 // Substituído temporariamente por mock ou injeção dinâmica devido à restrição de build.
 
 export interface MessageJob {

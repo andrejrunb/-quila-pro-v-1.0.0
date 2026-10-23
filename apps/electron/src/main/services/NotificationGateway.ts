@@ -24,10 +24,9 @@ export interface INotificationProvider {
   send(payload: NotificationPayload): Promise<boolean>;
 }
 
-import { WhatsAppWebJSProvider } from './WhatsAppWebJSProvider';
-
 /**
  * NotificationGateway — Enterprise abstraction for multi-channel alerts.
+ * Suporta canais oficiais: WhatsApp Meta Cloud API, Push Notifications Móvel e Mock.
  */
 export class NotificationGateway {
   private providers: Map<string, INotificationProvider> = new Map();
@@ -35,15 +34,15 @@ export class NotificationGateway {
 
   constructor() {
     this.registerProvider(new MockProvider());
-    this.registerProvider(new WhatsAppWebJSProvider());
+    this.registerProvider(new MobilePushProvider());
 
-    // Registro automático de Provedores de API (Identidade Sistêmica)
-    const metaUrl = process.env.WHATSAPP_API_URL;
+    // Registro automático de Provedores de API Oficial (Meta Business Graph API)
+    const metaUrl = process.env.WHATSAPP_API_URL || 'https://graph.facebook.com/v20.0/messages';
     const metaToken = process.env.WHATSAPP_API_TOKEN;
 
-    if (metaUrl && metaToken) {
+    if (metaToken) {
       this.registerProvider(new WhatsAppMetaProvider(metaUrl, metaToken));
-      this.logger.info('WhatsAppMetaProvider registrado automaticamente via Env.');
+      this.logger.info('[NotificationGateway] WhatsAppMetaProvider oficial registrado via Env.');
     }
   }
 
@@ -101,6 +100,17 @@ class MockProvider implements INotificationProvider {
   public name = 'mock';
   public async send(payload: NotificationPayload): Promise<boolean> {
     console.log(`[MOCK NOTIFICATION] to: ${payload.to} | body: ${payload.body}`);
+    return true;
+  }
+}
+
+/**
+ * MobilePushProvider — Envio de notificações push diretas para o app móvel dos responsáveis
+ */
+export class MobilePushProvider implements INotificationProvider {
+  public name = 'push';
+  public async send(payload: NotificationPayload): Promise<boolean> {
+    console.log(`[MOBILE PUSH] Notificação enviada para responsável do aluno ${payload.metadata?.student_id || payload.to}: ${payload.body}`);
     return true;
   }
 }

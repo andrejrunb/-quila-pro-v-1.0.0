@@ -134,3 +134,39 @@ export const auditLogs = sqliteTable('audit_logs', {
   entityIdx: index('audit_logs_entity_idx').on(table.entity, table.entityId),
   userIdx: index('audit_logs_user_idx').on(table.userId),
 }));
+
+/**
+ * LGPD Art. 14 — Registro Formal de Consentimento Biométrico de Menores
+ */
+export const biometricConsentLogs = sqliteTable('biometric_consent_logs', {
+  id: text('id').primaryKey(),
+  studentId: text('student_id').notNull().references(() => students.id),
+  institutionId: text('institution_id').notNull().references(() => institutions.id),
+  guardianCpf: text('guardian_cpf').notNull(),
+  guardianName: text('guardian_name').notNull(),
+  consentVersion: text('consent_version').notNull().default('v2.1'),
+  status: text('status', { enum: ['granted', 'revoked', 'expired'] }).notNull().default('granted'),
+  grantedAt: integer('granted_at', { mode: 'timestamp' }).notNull(),
+  revokedAt: integer('revoked_at', { mode: 'timestamp' }),
+  auditSignatureSha256: text('audit_signature_sha256').notNull(),
+}, (table) => ({
+  studentIdx: index('biometric_consent_student_idx').on(table.studentId),
+  institutionIdx: index('biometric_consent_institution_idx').on(table.institutionId),
+  guardianIdx: index('biometric_consent_guardian_idx').on(table.guardianCpf),
+}));
+
+/**
+ * LGPD Art. 16 — Registro Auditável de Expurgo/Destruição de Dados Biométricos
+ */
+export const biometricPurgeLogs = sqliteTable('biometric_purge_logs', {
+  id: text('id').primaryKey(),
+  studentId: text('student_id').notNull(),
+  institutionId: text('institution_id').notNull().references(() => institutions.id),
+  reason: text('reason', { enum: ['graduation', 'transfer', 'consent_revoked', 'court_order', 'retention_ttl_expired'] }).notNull(),
+  purgedByUserId: text('purged_by_user_id').references(() => users.id),
+  purgedAt: integer('purged_at', { mode: 'timestamp' }).notNull(),
+  evidenceHashSha256: text('evidence_hash_sha256').notNull(),
+}, (table) => ({
+  studentIdx: index('biometric_purge_student_idx').on(table.studentId),
+  institutionIdx: index('biometric_purge_institution_idx').on(table.institutionId),
+}));
