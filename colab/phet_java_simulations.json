@@ -1,0 +1,682 @@
+[
+  {
+    "project": "acid-base-solutions",
+    "name": "acid-base-solutions",
+    "title": "Soluções ácido-base",
+    "jar_url": "https://phet.colorado.edu/sims/acid-base-solutions/acid-base-solutions_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/acid-base-solutions/acid-base-solutions_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/acid-base-solutions/latest/acid-base-solutions.html?locale=pt_BR"
+  },
+  {
+    "project": "balance-and-torque",
+    "name": "balancing-act",
+    "title": "Balançando",
+    "jar_url": "https://phet.colorado.edu/sims/balance-and-torque/balancing-act_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/balance-and-torque/balancing-act_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/balance-and-torque/latest/balancing-act.html?locale=pt_BR"
+  },
+  {
+    "project": "balancing-chemical-equations",
+    "name": "balancing-chemical-equations",
+    "title": "Balanceamento de Equações",
+    "jar_url": "https://phet.colorado.edu/sims/balancing-chemical-equations/balancing-chemical-equations_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/balancing-chemical-equations/balancing-chemical-equations_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/balancing-chemical-equations/latest/balancing-chemical-equations.html?locale=pt_BR"
+  },
+  {
+    "project": "balloons",
+    "name": "balloons",
+    "title": "Balões e eletricidade estática",
+    "jar_url": "https://phet.colorado.edu/sims/balloons/balloons_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/balloons/balloons_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/balloons/latest/balloons.html?locale=pt_BR"
+  },
+  {
+    "project": "beers-law-lab",
+    "name": "beers-law-lab",
+    "title": "Lab Lei de Beer",
+    "jar_url": "https://phet.colorado.edu/sims/beers-law-lab/beers-law-lab_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/beers-law-lab/beers-law-lab_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/beers-law-lab/latest/beers-law-lab.html?locale=pt_BR"
+  },
+  {
+    "project": "beers-law-lab",
+    "name": "concentration",
+    "title": "Concentração",
+    "jar_url": "https://phet.colorado.edu/sims/beers-law-lab/concentration_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/beers-law-lab/concentration_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/beers-law-lab/latest/concentration.html?locale=pt_BR"
+  },
+  {
+    "project": "bending-light",
+    "name": "bending-light",
+    "title": "Curvando a Luz",
+    "jar_url": "https://phet.colorado.edu/sims/bending-light/bending-light_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/bending-light/bending-light_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/bending-light/latest/bending-light.html?locale=pt_BR"
+  },
+  {
+    "project": "build-a-molecule",
+    "name": "build-a-molecule",
+    "title": "Construa uma Molécula",
+    "jar_url": "https://phet.colorado.edu/sims/build-a-molecule/build-a-molecule_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/build-a-molecule/build-a-molecule_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/build-a-molecule/latest/build-a-molecule.html?locale=pt_BR"
+  },
+  {
+    "project": "build-an-atom",
+    "name": "build-an-atom",
+    "title": "Monte um Átomo",
+    "jar_url": "https://phet.colorado.edu/sims/build-an-atom/build-an-atom_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/build-an-atom/build-an-atom_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/build-an-atom/latest/build-an-atom.html?locale=pt_BR"
+  },
+  {
+    "project": "build-an-atom",
+    "name": "isotopes-and-atomic-mass",
+    "title": "Isótopos e Massa Atômica",
+    "jar_url": "https://phet.colorado.edu/sims/build-an-atom/isotopes-and-atomic-mass_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/build-an-atom/isotopes-and-atomic-mass_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/build-an-atom/latest/isotopes-and-atomic-mass.html?locale=pt_BR"
+  },
+  {
+    "project": "circuit-construction-kit",
+    "name": "circuit-construction-kit-ac",
+    "title": "Kit de Construção de Circuito (AC+DC)",
+    "jar_url": "https://phet.colorado.edu/sims/circuit-construction-kit/circuit-construction-kit-ac_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/circuit-construction-kit/circuit-construction-kit-ac_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/circuit-construction-kit/latest/circuit-construction-kit-ac.html?locale=pt_BR"
+  },
+  {
+    "project": "circuit-construction-kit",
+    "name": "circuit-construction-kit-ac-virtual-lab",
+    "title": "Kit de Construção de Circuito (AC+DC), Laboratório Virtual",
+    "jar_url": "https://phet.colorado.edu/sims/circuit-construction-kit/circuit-construction-kit-ac-virtual-lab_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/circuit-construction-kit/circuit-construction-kit-ac-virtual-lab_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/circuit-construction-kit/latest/circuit-construction-kit-ac-virtual-lab.html?locale=pt_BR"
+  },
+  {
+    "project": "circuit-construction-kit",
+    "name": "circuit-construction-kit-dc",
+    "title": "Kit de Construção de Circuito (DC)",
+    "jar_url": "https://phet.colorado.edu/sims/circuit-construction-kit/circuit-construction-kit-dc_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/circuit-construction-kit/circuit-construction-kit-dc_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/circuit-construction-kit/latest/circuit-construction-kit-dc.html?locale=pt_BR"
+  },
+  {
+    "project": "circuit-construction-kit",
+    "name": "circuit-construction-kit-dc-virtual-lab",
+    "title": "Kit de Construção de Circuito (DC), Laboratório Virtual",
+    "jar_url": "https://phet.colorado.edu/sims/circuit-construction-kit/circuit-construction-kit-dc-virtual-lab_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/circuit-construction-kit/circuit-construction-kit-dc-virtual-lab_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/circuit-construction-kit/latest/circuit-construction-kit-dc-virtual-lab.html?locale=pt_BR"
+  },
+  {
+    "project": "color-vision",
+    "name": "color-vision",
+    "title": "Visão de Cor",
+    "jar_url": "https://phet.colorado.edu/sims/color-vision/color-vision_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/color-vision/color-vision_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/color-vision/latest/color-vision.html?locale=pt_BR"
+  },
+  {
+    "project": "energy-forms-and-changes",
+    "name": "energy-forms-and-changes",
+    "title": "Formas de Energia e Transformações",
+    "jar_url": "https://phet.colorado.edu/sims/energy-forms-and-changes/energy-forms-and-changes_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/energy-forms-and-changes/energy-forms-and-changes_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/energy-forms-and-changes/latest/energy-forms-and-changes.html?locale=pt_BR"
+  },
+  {
+    "project": "energy-skate-park",
+    "name": "energy-skate-park",
+    "title": "Parque Energético para Skatistas",
+    "jar_url": "https://phet.colorado.edu/sims/energy-skate-park/energy-skate-park_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/energy-skate-park/energy-skate-park_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/energy-skate-park/latest/energy-skate-park.html?locale=pt_BR"
+  },
+  {
+    "project": "energy-skate-park",
+    "name": "energy-skate-park-basics",
+    "title": "Energy Skate Park: Basics",
+    "jar_url": "https://phet.colorado.edu/sims/energy-skate-park/energy-skate-park-basics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/energy-skate-park/energy-skate-park-basics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/energy-skate-park/latest/energy-skate-park-basics.html?locale=pt_BR"
+  },
+  {
+    "project": "fluid-pressure-and-flow",
+    "name": "under-pressure",
+    "title": "Sob Pressão ",
+    "jar_url": "https://phet.colorado.edu/sims/fluid-pressure-and-flow/under-pressure_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/fluid-pressure-and-flow/under-pressure_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/fluid-pressure-and-flow/latest/under-pressure.html?locale=pt_BR"
+  },
+  {
+    "project": "force-law-lab",
+    "name": "gravity-force-lab",
+    "title": "Laboratório de Força Gravítica",
+    "jar_url": "https://phet.colorado.edu/sims/force-law-lab/gravity-force-lab_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/force-law-lab/gravity-force-lab_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/force-law-lab/latest/gravity-force-lab.html?locale=pt_BR"
+  },
+  {
+    "project": "forces-and-motion-basics",
+    "name": "forces-and-motion-basics",
+    "title": "Forças e Movimentos: Noções Básicas",
+    "jar_url": "https://phet.colorado.edu/sims/forces-and-motion-basics/forces-and-motion-basics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/forces-and-motion-basics/forces-and-motion-basics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/forces-and-motion-basics/latest/forces-and-motion-basics.html?locale=pt_BR"
+  },
+  {
+    "project": "fractions",
+    "name": "build-a-fraction",
+    "title": "Monte uma Fração",
+    "jar_url": "https://phet.colorado.edu/sims/fractions/build-a-fraction_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/fractions/build-a-fraction_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/fractions/latest/build-a-fraction.html?locale=pt_BR"
+  },
+  {
+    "project": "fractions",
+    "name": "fraction-matcher",
+    "title": "Fração Legal",
+    "jar_url": "https://phet.colorado.edu/sims/fractions/fraction-matcher_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/fractions/fraction-matcher_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/fractions/latest/fraction-matcher.html?locale=pt_BR"
+  },
+  {
+    "project": "fractions",
+    "name": "fractions-intro",
+    "title": "Intro a Frações",
+    "jar_url": "https://phet.colorado.edu/sims/fractions/fractions-intro_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/fractions/fractions-intro_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/fractions/latest/fractions-intro.html?locale=pt_BR"
+  },
+  {
+    "project": "gene-expression-basics",
+    "name": "gene-expression-basics",
+    "title": "Expressão Genética - Fundamentos",
+    "jar_url": "https://phet.colorado.edu/sims/gene-expression-basics/gene-expression-basics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/gene-expression-basics/gene-expression-basics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/gene-expression-basics/latest/gene-expression-basics.html?locale=pt_BR"
+  },
+  {
+    "project": "gravity-and-orbits",
+    "name": "gravity-and-orbits",
+    "title": "Gravidade e Órbitas",
+    "jar_url": "https://phet.colorado.edu/sims/gravity-and-orbits/gravity-and-orbits_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/gravity-and-orbits/gravity-and-orbits_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/gravity-and-orbits/latest/gravity-and-orbits.html?locale=pt_BR"
+  },
+  {
+    "project": "html/acid-base-solutions",
+    "name": "acid-base-solutions",
+    "title": "Soluções Ácido-Base",
+    "jar_url": "https://phet.colorado.edu/sims/html/acid-base-solutions/acid-base-solutions_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/acid-base-solutions/acid-base-solutions_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/acid-base-solutions/latest/acid-base-solutions.html?locale=pt_BR"
+  },
+  {
+    "project": "html/atomic-interactions",
+    "name": "atomic-interactions",
+    "title": "Interações Atômicas",
+    "jar_url": "https://phet.colorado.edu/sims/html/atomic-interactions/atomic-interactions_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/atomic-interactions/atomic-interactions_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/atomic-interactions/latest/atomic-interactions.html?locale=pt_BR"
+  },
+  {
+    "project": "html/balancing-act",
+    "name": "balancing-act",
+    "title": "Balançando",
+    "jar_url": "https://phet.colorado.edu/sims/html/balancing-act/balancing-act_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/balancing-act/balancing-act_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/balancing-act/latest/balancing-act.html?locale=pt_BR"
+  },
+  {
+    "project": "html/balancing-chemical-equations",
+    "name": "balancing-chemical-equations",
+    "title": "Balanceamento de Equações Químicas",
+    "jar_url": "https://phet.colorado.edu/sims/html/balancing-chemical-equations/balancing-chemical-equations_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/balancing-chemical-equations/balancing-chemical-equations_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/balancing-chemical-equations/latest/balancing-chemical-equations.html?locale=pt_BR"
+  },
+  {
+    "project": "html/balloons-and-static-electricity",
+    "name": "balloons-and-static-electricity",
+    "title": "Balões e Eletricidade Estática",
+    "jar_url": "https://phet.colorado.edu/sims/html/balloons-and-static-electricity/balloons-and-static-electricity_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/balloons-and-static-electricity/balloons-and-static-electricity_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/balloons-and-static-electricity/latest/balloons-and-static-electricity.html?locale=pt_BR"
+  },
+  {
+    "project": "html/beers-law-lab",
+    "name": "beers-law-lab",
+    "title": "Laboratório da Lei de Beer",
+    "jar_url": "https://phet.colorado.edu/sims/html/beers-law-lab/beers-law-lab_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/beers-law-lab/beers-law-lab_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/beers-law-lab/latest/beers-law-lab.html?locale=pt_BR"
+  },
+  {
+    "project": "html/bending-light",
+    "name": "bending-light",
+    "title": "Desvio da Luz",
+    "jar_url": "https://phet.colorado.edu/sims/html/bending-light/bending-light_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/bending-light/bending-light_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/bending-light/latest/bending-light.html?locale=pt_BR"
+  },
+  {
+    "project": "html/build-a-fraction",
+    "name": "build-a-fraction",
+    "title": "Construir uma Fração",
+    "jar_url": "https://phet.colorado.edu/sims/html/build-a-fraction/build-a-fraction_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/build-a-fraction/build-a-fraction_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/build-a-fraction/latest/build-a-fraction.html?locale=pt_BR"
+  },
+  {
+    "project": "html/build-a-molecule",
+    "name": "build-a-molecule",
+    "title": "Monte uma Molécula",
+    "jar_url": "https://phet.colorado.edu/sims/html/build-a-molecule/build-a-molecule_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/build-a-molecule/build-a-molecule_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/build-a-molecule/latest/build-a-molecule.html?locale=pt_BR"
+  },
+  {
+    "project": "html/build-an-atom",
+    "name": "build-an-atom",
+    "title": "Monte um Átomo",
+    "jar_url": "https://phet.colorado.edu/sims/html/build-an-atom/build-an-atom_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/build-an-atom/build-an-atom_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/build-an-atom/latest/build-an-atom.html?locale=pt_BR"
+  },
+  {
+    "project": "html/circuit-construction-kit-ac",
+    "name": "circuit-construction-kit-ac",
+    "title": "Kit para Montar um Circuito: AC",
+    "jar_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/circuit-construction-kit-ac_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/circuit-construction-kit-ac_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac.html?locale=pt_BR"
+  },
+  {
+    "project": "html/circuit-construction-kit-ac-virtual-lab",
+    "name": "circuit-construction-kit-ac-virtual-lab",
+    "title": "Kit para Montar um Circuito: AC - Laboratório Virtual",
+    "jar_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac-virtual-lab/circuit-construction-kit-ac-virtual-lab_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac-virtual-lab/circuit-construction-kit-ac-virtual-lab_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/circuit-construction-kit-ac-virtual-lab/latest/circuit-construction-kit-ac-virtual-lab.html?locale=pt_BR"
+  },
+  {
+    "project": "html/circuit-construction-kit-dc",
+    "name": "circuit-construction-kit-dc",
+    "title": "Kit para Montar Circuito DC",
+    "jar_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc/circuit-construction-kit-dc_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc/circuit-construction-kit-dc_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/circuit-construction-kit-dc/latest/circuit-construction-kit-dc.html?locale=pt_BR"
+  },
+  {
+    "project": "html/circuit-construction-kit-dc-virtual-lab",
+    "name": "circuit-construction-kit-dc-virtual-lab",
+    "title": "Kit para Montar um Circuito DC - Laboratório Virtual",
+    "jar_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/circuit-construction-kit-dc-virtual-lab_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/circuit-construction-kit-dc-virtual-lab_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/circuit-construction-kit-dc-virtual-lab/latest/circuit-construction-kit-dc-virtual-lab.html?locale=pt_BR"
+  },
+  {
+    "project": "html/color-vision",
+    "name": "color-vision",
+    "title": "Visão Colorida",
+    "jar_url": "https://phet.colorado.edu/sims/html/color-vision/color-vision_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/color-vision/color-vision_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/color-vision/latest/color-vision.html?locale=pt_BR"
+  },
+  {
+    "project": "html/concentration",
+    "name": "concentration",
+    "title": "Concentração",
+    "jar_url": "https://phet.colorado.edu/sims/html/concentration/concentration_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/concentration/concentration_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/concentration/latest/concentration.html?locale=pt_BR"
+  },
+  {
+    "project": "html/energy-forms-and-changes",
+    "name": "energy-forms-and-changes",
+    "title": "Formas de Energia e Transformações",
+    "jar_url": "https://phet.colorado.edu/sims/html/energy-forms-and-changes/energy-forms-and-changes_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/energy-forms-and-changes/energy-forms-and-changes_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/energy-forms-and-changes/latest/energy-forms-and-changes.html?locale=pt_BR"
+  },
+  {
+    "project": "html/energy-skate-park",
+    "name": "energy-skate-park",
+    "title": "Energia na Pista de Skate",
+    "jar_url": "https://phet.colorado.edu/sims/html/energy-skate-park/energy-skate-park_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/energy-skate-park/energy-skate-park_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/energy-skate-park/latest/energy-skate-park.html?locale=pt_BR"
+  },
+  {
+    "project": "html/energy-skate-park-basics",
+    "name": "energy-skate-park-basics",
+    "title": "Energia na Pista de Skate: Básico",
+    "jar_url": "https://phet.colorado.edu/sims/html/energy-skate-park-basics/energy-skate-park-basics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/energy-skate-park-basics/energy-skate-park-basics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/energy-skate-park-basics/latest/energy-skate-park-basics.html?locale=pt_BR"
+  },
+  {
+    "project": "html/forces-and-motion-basics",
+    "name": "forces-and-motion-basics",
+    "title": "Forças e Movimento: Noções Básicas",
+    "jar_url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/forces-and-motion-basics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/forces-and-motion-basics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/forces-and-motion-basics/latest/forces-and-motion-basics.html?locale=pt_BR"
+  },
+  {
+    "project": "html/fraction-matcher",
+    "name": "fraction-matcher",
+    "title": "Associe Frações",
+    "jar_url": "https://phet.colorado.edu/sims/html/fraction-matcher/fraction-matcher_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/fraction-matcher/fraction-matcher_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/fraction-matcher/latest/fraction-matcher.html?locale=pt_BR"
+  },
+  {
+    "project": "html/fractions-intro",
+    "name": "fractions-intro",
+    "title": "Frações: Intro",
+    "jar_url": "https://phet.colorado.edu/sims/html/fractions-intro/fractions-intro_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/fractions-intro/fractions-intro_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/fractions-intro/latest/fractions-intro.html?locale=pt_BR"
+  },
+  {
+    "project": "html/gas-properties",
+    "name": "gas-properties",
+    "title": "Propriedades dos Gases",
+    "jar_url": "https://phet.colorado.edu/sims/html/gas-properties/gas-properties_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/gas-properties/gas-properties_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/gas-properties/latest/gas-properties.html?locale=pt_BR"
+  },
+  {
+    "project": "html/gene-expression-essentials",
+    "name": "gene-expression-essentials",
+    "title": "Fundamentos da Expressão Genética",
+    "jar_url": "https://phet.colorado.edu/sims/html/gene-expression-essentials/gene-expression-essentials_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/gene-expression-essentials/gene-expression-essentials_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/gene-expression-essentials/latest/gene-expression-essentials.html?locale=pt_BR"
+  },
+  {
+    "project": "html/graphing-lines",
+    "name": "graphing-lines",
+    "title": "Traçando Retas",
+    "jar_url": "https://phet.colorado.edu/sims/html/graphing-lines/graphing-lines_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/graphing-lines/graphing-lines_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/graphing-lines/latest/graphing-lines.html?locale=pt_BR"
+  },
+  {
+    "project": "html/gravity-and-orbits",
+    "name": "gravity-and-orbits",
+    "title": "Gravidade e Órbitas",
+    "jar_url": "https://phet.colorado.edu/sims/html/gravity-and-orbits/gravity-and-orbits_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/gravity-and-orbits/gravity-and-orbits_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/gravity-and-orbits/latest/gravity-and-orbits.html?locale=pt_BR"
+  },
+  {
+    "project": "html/gravity-force-lab",
+    "name": "gravity-force-lab",
+    "title": "Laboratório de Força Gravitacional",
+    "jar_url": "https://phet.colorado.edu/sims/html/gravity-force-lab/gravity-force-lab_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/gravity-force-lab/gravity-force-lab_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/gravity-force-lab/latest/gravity-force-lab.html?locale=pt_BR"
+  },
+  {
+    "project": "html/isotopes-and-atomic-mass",
+    "name": "isotopes-and-atomic-mass",
+    "title": "Isótopos e Massa Atômica",
+    "jar_url": "https://phet.colorado.edu/sims/html/isotopes-and-atomic-mass/isotopes-and-atomic-mass_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/isotopes-and-atomic-mass/isotopes-and-atomic-mass_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/isotopes-and-atomic-mass/latest/isotopes-and-atomic-mass.html?locale=pt_BR"
+  },
+  {
+    "project": "html/john-travoltage",
+    "name": "john-travoltage",
+    "title": "John Travoltagem",
+    "jar_url": "https://phet.colorado.edu/sims/html/john-travoltage/john-travoltage_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/john-travoltage/john-travoltage_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/john-travoltage/latest/john-travoltage.html?locale=pt_BR"
+  },
+  {
+    "project": "html/molarity",
+    "name": "molarity",
+    "title": "Molaridade",
+    "jar_url": "https://phet.colorado.edu/sims/html/molarity/molarity_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/molarity/molarity_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/molarity/latest/molarity.html?locale=pt_BR"
+  },
+  {
+    "project": "html/molecule-shapes",
+    "name": "molecule-shapes",
+    "title": "Geometria Molecular",
+    "jar_url": "https://phet.colorado.edu/sims/html/molecule-shapes/molecule-shapes_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/molecule-shapes/molecule-shapes_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/molecule-shapes/latest/molecule-shapes.html?locale=pt_BR"
+  },
+  {
+    "project": "html/molecule-shapes-basics",
+    "name": "molecule-shapes-basics",
+    "title": "Geometria Molecular: Básico",
+    "jar_url": "https://phet.colorado.edu/sims/html/molecule-shapes-basics/molecule-shapes-basics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/molecule-shapes-basics/molecule-shapes-basics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/molecule-shapes-basics/latest/molecule-shapes-basics.html?locale=pt_BR"
+  },
+  {
+    "project": "html/molecules-and-light",
+    "name": "molecules-and-light",
+    "title": "Moléculas e Luz",
+    "jar_url": "https://phet.colorado.edu/sims/html/molecules-and-light/molecules-and-light_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/molecules-and-light/molecules-and-light_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/molecules-and-light/latest/molecules-and-light.html?locale=pt_BR"
+  },
+  {
+    "project": "html/neuron",
+    "name": "neuron",
+    "title": "Neurônio",
+    "jar_url": "https://phet.colorado.edu/sims/html/neuron/neuron_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/neuron/neuron_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/neuron/latest/neuron.html?locale=pt_BR"
+  },
+  {
+    "project": "html/ph-scale",
+    "name": "ph-scale",
+    "title": "Escala de pH",
+    "jar_url": "https://phet.colorado.edu/sims/html/ph-scale/ph-scale_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/ph-scale/ph-scale_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/ph-scale/latest/ph-scale.html?locale=pt_BR"
+  },
+  {
+    "project": "html/reactants-products-and-leftovers",
+    "name": "reactants-products-and-leftovers",
+    "title": "Reagentes, Produtos e Excesso",
+    "jar_url": "https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/reactants-products-and-leftovers_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/reactants-products-and-leftovers_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers.html?locale=pt_BR"
+  },
+  {
+    "project": "html/rutherford-scattering",
+    "name": "rutherford-scattering",
+    "title": "Espalhamento de Rutherford",
+    "jar_url": "https://phet.colorado.edu/sims/html/rutherford-scattering/rutherford-scattering_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/rutherford-scattering/rutherford-scattering_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/rutherford-scattering/latest/rutherford-scattering.html?locale=pt_BR"
+  },
+  {
+    "project": "html/states-of-matter",
+    "name": "states-of-matter",
+    "title": "Estados da Matéria",
+    "jar_url": "https://phet.colorado.edu/sims/html/states-of-matter/states-of-matter_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/states-of-matter/states-of-matter_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/states-of-matter/latest/states-of-matter.html?locale=pt_BR"
+  },
+  {
+    "project": "html/states-of-matter-basics",
+    "name": "states-of-matter-basics",
+    "title": "Estados da Matéria: Básico",
+    "jar_url": "https://phet.colorado.edu/sims/html/states-of-matter-basics/states-of-matter-basics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/states-of-matter-basics/states-of-matter-basics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/states-of-matter-basics/latest/states-of-matter-basics.html?locale=pt_BR"
+  },
+  {
+    "project": "html/under-pressure",
+    "name": "under-pressure",
+    "title": "Sob Pressão",
+    "jar_url": "https://phet.colorado.edu/sims/html/under-pressure/under-pressure_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/under-pressure/under-pressure_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/under-pressure/latest/under-pressure.html?locale=pt_BR"
+  },
+  {
+    "project": "html/wave-interference",
+    "name": "wave-interference",
+    "title": "Interferência de Onda",
+    "jar_url": "https://phet.colorado.edu/sims/html/wave-interference/wave-interference_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/html/wave-interference/wave-interference_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/html/wave-interference/latest/wave-interference.html?locale=pt_BR"
+  },
+  {
+    "project": "ideal-gas",
+    "name": "gas-properties",
+    "title": "Propriedades dos Gases",
+    "jar_url": "https://phet.colorado.edu/sims/ideal-gas/gas-properties_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/ideal-gas/gas-properties_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/ideal-gas/latest/gas-properties.html?locale=pt_BR"
+  },
+  {
+    "project": "line-graphing",
+    "name": "graphing-lines",
+    "title": "Traçando Retas",
+    "jar_url": "https://phet.colorado.edu/sims/line-graphing/graphing-lines_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/line-graphing/graphing-lines_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/line-graphing/latest/graphing-lines.html?locale=pt_BR"
+  },
+  {
+    "project": "molarity",
+    "name": "molarity",
+    "title": "Molaridade",
+    "jar_url": "https://phet.colorado.edu/sims/molarity/molarity_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/molarity/molarity_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/molarity/latest/molarity.html?locale=pt_BR"
+  },
+  {
+    "project": "molecule-shapes",
+    "name": "molecule-shapes",
+    "title": "Forma da molécula",
+    "jar_url": "https://phet.colorado.edu/sims/molecule-shapes/molecule-shapes_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/molecule-shapes/molecule-shapes_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/molecule-shapes/latest/molecule-shapes.html?locale=pt_BR"
+  },
+  {
+    "project": "molecule-shapes",
+    "name": "molecule-shapes-basics",
+    "title": "Forma da molécula: Fundamentos",
+    "jar_url": "https://phet.colorado.edu/sims/molecule-shapes/molecule-shapes-basics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/molecule-shapes/molecule-shapes-basics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/molecule-shapes/latest/molecule-shapes-basics.html?locale=pt_BR"
+  },
+  {
+    "project": "molecules-and-light",
+    "name": "molecules-and-light",
+    "title": "Moléculas e Luz",
+    "jar_url": "https://phet.colorado.edu/sims/molecules-and-light/molecules-and-light_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/molecules-and-light/molecules-and-light_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/molecules-and-light/latest/molecules-and-light.html?locale=pt_BR"
+  },
+  {
+    "project": "neuron",
+    "name": "neuron",
+    "title": "Neurônio",
+    "jar_url": "https://phet.colorado.edu/sims/neuron/neuron_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/neuron/neuron_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/neuron/latest/neuron.html?locale=pt_BR"
+  },
+  {
+    "project": "ph-scale",
+    "name": "ph-scale",
+    "title": "Escala de pH",
+    "jar_url": "https://phet.colorado.edu/sims/ph-scale/ph-scale_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/ph-scale/ph-scale_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/ph-scale/latest/ph-scale.html?locale=pt_BR"
+  },
+  {
+    "project": "plate-tectonics",
+    "name": "plate-tectonics",
+    "title": "Placas tectônicas",
+    "jar_url": "https://phet.colorado.edu/sims/plate-tectonics/plate-tectonics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/plate-tectonics/plate-tectonics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/plate-tectonics/latest/plate-tectonics.html?locale=pt_BR"
+  },
+  {
+    "project": "quantum-wave-interference",
+    "name": "davisson-germer",
+    "title": "Experimento de Davisson-Germer",
+    "jar_url": "https://phet.colorado.edu/sims/quantum-wave-interference/davisson-germer_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/quantum-wave-interference/davisson-germer_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/quantum-wave-interference/latest/davisson-germer.html?locale=pt_BR"
+  },
+  {
+    "project": "reactants-products-and-leftovers",
+    "name": "reactants-products-and-leftovers",
+    "title": "Reagentes, Produtos e excesso",
+    "jar_url": "https://phet.colorado.edu/sims/reactants-products-and-leftovers/reactants-products-and-leftovers_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/reactants-products-and-leftovers/reactants-products-and-leftovers_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/reactants-products-and-leftovers/latest/reactants-products-and-leftovers.html?locale=pt_BR"
+  },
+  {
+    "project": "rutherford-scattering",
+    "name": "rutherford-scattering",
+    "title": "Espalhamento de Rutherford",
+    "jar_url": "https://phet.colorado.edu/sims/rutherford-scattering/rutherford-scattering_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/rutherford-scattering/rutherford-scattering_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/rutherford-scattering/latest/rutherford-scattering.html?locale=pt_BR"
+  },
+  {
+    "project": "sound",
+    "name": "sound",
+    "title": "Som",
+    "jar_url": "https://phet.colorado.edu/sims/sound/sound_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/sound/sound_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/sound/latest/sound.html?locale=pt_BR"
+  },
+  {
+    "project": "states-of-matter",
+    "name": "atomic-interactions",
+    "title": "Interações Atômicas",
+    "jar_url": "https://phet.colorado.edu/sims/states-of-matter/atomic-interactions_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/states-of-matter/atomic-interactions_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/states-of-matter/latest/atomic-interactions.html?locale=pt_BR"
+  },
+  {
+    "project": "states-of-matter",
+    "name": "states-of-matter",
+    "title": "Estados da Matéria",
+    "jar_url": "https://phet.colorado.edu/sims/states-of-matter/states-of-matter_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/states-of-matter/states-of-matter_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/states-of-matter/latest/states-of-matter.html?locale=pt_BR"
+  },
+  {
+    "project": "states-of-matter",
+    "name": "states-of-matter-basics",
+    "title": "Estados da Matéria: Básico",
+    "jar_url": "https://phet.colorado.edu/sims/states-of-matter/states-of-matter-basics_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/states-of-matter/states-of-matter-basics_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/states-of-matter/latest/states-of-matter-basics.html?locale=pt_BR"
+  },
+  {
+    "project": "travoltage",
+    "name": "travoltage",
+    "title": "John Travoltagem",
+    "jar_url": "https://phet.colorado.edu/sims/travoltage/travoltage_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/travoltage/travoltage_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/travoltage/latest/travoltage.html?locale=pt_BR"
+  },
+  {
+    "project": "wave-interference",
+    "name": "wave-interference",
+    "title": "Interferência de Ondas",
+    "jar_url": "https://phet.colorado.edu/sims/wave-interference/wave-interference_pt_BR.jar",
+    "jar_en_url": "https://phet.colorado.edu/sims/wave-interference/wave-interference_en.jar",
+    "cheerpj_html5": "https://phet.colorado.edu/sims/cheerpj/wave-interference/latest/wave-interference.html?locale=pt_BR"
+  }
+]

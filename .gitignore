@@ -82,3 +82,6 @@ storage/dominio_out/
 
 release_out/
 apps/electron/release_out/
+colab/decompiled_java/
+colab/java_extracted/
+colab/balloons_pt_BR.jar
