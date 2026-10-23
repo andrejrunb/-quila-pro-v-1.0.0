@@ -499,6 +499,34 @@ export class ColabGpuBridge extends EventEmitter {
     });
   }
 
+  /**
+   * Consulta uma trilha de aprendizagem multimodal (PhET + Micro-drills Kumon + Prompt de Imagem)
+   */
+  public async getLearningTrack(topic: string, studentId: string = 'aluno_01'): Promise<any> {
+    const payload = Buffer.from(JSON.stringify({ topic, student_id: studentId }), 'utf-8');
+    return this.rawRequest<any>('POST', '/v1/learning-track', payload, {
+      'Content-Type': 'application/json',
+    });
+  }
+
+  /**
+   * Busca simulações PhET HTML5 catalogadas no Colab
+   */
+  public async listPhetSimulations(query?: string): Promise<any> {
+    const endpoint = query ? `/v1/phet/simulations?q=${encodeURIComponent(query)}` : '/v1/phet/simulations';
+    return this.rawRequest<any>('GET', endpoint, null, {});
+  }
+
+  /**
+   * Executa geração de texto instrucional via agente especializado com LoRA ativo
+   */
+  public async generateAgentContent(agentId: string, prompt: string): Promise<any> {
+    const payload = Buffer.from(JSON.stringify({ prompt, temperature: 0.7, max_tokens: 1024 }), 'utf-8');
+    return this.rawRequest<any>('POST', `/v1/agent/${agentId}/generate`, payload, {
+      'Content-Type': 'application/json',
+    });
+  }
+
   private rawRequest<T>(method: string, endpoint: string, body: Buffer | null, headers: Record<string, string>): Promise<T> {
     return new Promise((resolve, reject) => {
       const url = new URL(endpoint, this.baseUrl);
