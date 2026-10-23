@@ -11,6 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import { Sparkles, Send, Brain, BookOpen, CheckCircle2, Lightbulb } from 'lucide-react-native';
+import { API_CONFIG } from '../services/apiConfig';
 
 interface StudyMessage {
   id: string;
@@ -41,7 +42,7 @@ export default function StudentLabTab() {
   ];
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:9000');
+    const socket = new WebSocket(API_CONFIG.GATEWAY_WS_URL);
 
     socket.onopen = () => {
       socket.send(
@@ -106,19 +107,39 @@ export default function StudentLabTab() {
         })
       );
     } else {
-      // Fallback socrático offline local caso o gateway esteja reiniciando
-      setTimeout(() => {
-        setLoading(false);
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: `albus-${Date.now()}`,
-            sender: 'albus',
-            text: `[Modo Offline Socrático] Pensando sobre "${query.trim()}": o que você já sabe sobre a base desse conceito? Tente dividir o problema em duas partes fundamentais antes de tentar calcular ou concluir.`,
-            timestamp: Date.now(),
-          },
-        ]);
-      }, 900);
+      // Tenta conexão direta com Colab GPU A100 Tutor
+      fetch(`${API_CONFIG.COLAB_GPU_URL}/tutor/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: query.trim(), student_level: 'Ensino Médio', subject: 'Geral' }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setLoading(false);
+          const reply = data.response || data.text || 'Excelente reflexão! Como você avançaria agora?';
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: `albus-${Date.now()}`,
+              sender: 'albus',
+              text: reply,
+              timestamp: Date.now(),
+            },
+          ]);
+        })
+        .catch(() => {
+          // Fallback socrático offline
+          setLoading(false);
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: `albus-${Date.now()}`,
+              sender: 'albus',
+              text: `[Modo Offline Socrático] Pensando sobre "${query.trim()}": o que você já sabe sobre a base desse conceito? Tente dividir o problema em duas partes fundamentais antes de tentar calcular ou concluir.`,
+              timestamp: Date.now(),
+            },
+          ]);
+        });
     }
   };
 

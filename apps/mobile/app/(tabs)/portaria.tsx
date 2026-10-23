@@ -4,6 +4,7 @@ import {
   ShieldCheck, MapPin, CheckCircle2, AlertTriangle, 
   Car, UserCheck, RefreshCw, QrCode, Bell, ShieldAlert
 } from 'lucide-react-native';
+import { API_CONFIG } from '../services/apiConfig';
 
 interface DismissalQueueItem {
   studentId: string;
@@ -48,7 +49,7 @@ export default function PortariaTab() {
   const [wsClient, setWsClient] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:9000');
+    const ws = new WebSocket(API_CONFIG.GATEWAY_WS_URL);
 
     ws.onopen = () => {
       setIsConnected(true);

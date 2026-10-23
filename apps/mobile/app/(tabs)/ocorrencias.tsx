@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { AlertTriangle, ShieldCheck, CheckCircle2, FileSignature, Clock, ChevronRight } from 'lucide-react-native';
+import { API_CONFIG } from '../services/apiConfig';
 
 interface Incident {
   id: string;
@@ -39,7 +40,7 @@ export default function OcorrenciasTab() {
   const handleSign = (incidentId: string) => {
     setSigningId(incidentId);
 
-    const ws = new WebSocket('ws://localhost:9000');
+    const ws = new WebSocket(API_CONFIG.GATEWAY_WS_URL);
     ws.onopen = () => {
       ws.send(JSON.stringify({
         type: 'SIGN_DISCIPLINARY_ACTION',

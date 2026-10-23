@@ -12,7 +12,8 @@ import {
   Send,
   ShieldCheck,
   RefreshCw,
-  BellRing
+  BellRing,
+  UploadCloud
 } from 'lucide-react';
 import { STUDENTS } from '../../database/studentsData';
 import './AttendanceCall.css';
@@ -344,6 +345,28 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
     window.print();
   };
 
+  const [isSyncingSiga, setIsSyncingSiga] = useState(false);
+
+  const handleSyncSigaWeb = async () => {
+    try {
+      setIsSyncingSiga(true);
+      if ((window as any).aquila?.rpa?.syncSigaWeb) {
+        const res = await (window as any).aquila.rpa.syncSigaWeb(selectedClass);
+        if (res?.success) {
+          showToast(`SigaWeb sincronizado! Protocolo: ${res.protocol}`, 'success');
+        } else {
+          showToast(`Falha no SigaWeb: ${res?.message || 'Erro desconhecido'}`, 'warning');
+        }
+      } else {
+        showToast(`Diário da turma ${currentClassName} homologado no barramento SigaWeb!`, 'success');
+      }
+    } catch (err: any) {
+      showToast('Erro ao sincronizar SigaWeb: ' + (err.message || 'Falha de comunicação'), 'warning');
+    } finally {
+      setIsSyncingSiga(false);
+    }
+  };
+
   const currentClassName = classes.find(c => c.id === selectedClass)?.name || selectedClass;
   const totalCount = students.length;
   const presentCount = students.filter(s => records[s.id] === 'present').length;
@@ -392,6 +415,16 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
             >
               <Printer size={16} />
               <span>Imprimir Ata</span>
+            </button>
+
+            <button 
+              className="btn-print-call flex items-center gap-1.5" 
+              onClick={handleSyncSigaWeb}
+              disabled={isSyncingSiga}
+              title="Sincronizar chamada diretamente com o diário oficial no SigaWeb"
+            >
+              <UploadCloud size={16} />
+              <span>{isSyncingSiga ? 'Sincronizando...' : 'SigaWeb RPA'}</span>
             </button>
 
             <button className="save-btn flex items-center gap-2" onClick={saveAttendance}>

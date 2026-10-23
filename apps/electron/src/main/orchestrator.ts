@@ -470,7 +470,14 @@ export class SovereignOrchestrator {
         await sovereignLifecycleService.bootMetabolism();
         sovereignRegistry.registerInstance('sovereignLifecycleService', sovereignLifecycleService);
 
-        console.log('[Orchestrator] Fase 2 Concluída: Inteligência Preditiva, Gêmeos Digitais, Federação Nexus, Mobilidade, Nuvem, 3D Bridge e Wiki Ativos.');
+        // 18. [Sprint 4] Headless RPA Workers (SigaWeb & Domínio Sistemas)
+        const { RpaOrchestrator } = await import('./services/rpa');
+        const rpaOrchestrator = RpaOrchestrator.getInstance();
+        await rpaOrchestrator.initialize();
+        sovereignRegistry.registerInstance('rpaOrchestrator', rpaOrchestrator);
+        console.log('[ORCHESTRATOR] RpaOrchestrator (SigaWeb & Domínio Sistemas) ativo.');
+
+        console.log('[Orchestrator] Fase 2 Concluída: Inteligência Preditiva, Gêmeos Digitais, Federação Nexus, Mobilidade, Nuvem, 3D Bridge, Wiki e RPA Ativos.');
 
 
 

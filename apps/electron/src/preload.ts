@@ -847,6 +847,15 @@ const aquilaAPI = {
     diagnoseAndLevel: (questionId: string, failed: boolean) => ipcRenderer.invoke('mastery:diagnose-level', { questionId, failed }),
     generateLiveNvidia: (subject: string, difficulty: string, statement: string) => ipcRenderer.invoke('mastery:generate-nvidia', { subject, difficulty, statement }),
   },
+  rpa: {
+    getStatus: () => ipcRenderer.invoke('rpa:get-status'),
+    getLogs: (limit?: number) => ipcRenderer.invoke('rpa:get-logs', limit),
+    syncSigaWeb: (classId?: string, date?: string) => ipcRenderer.invoke('rpa:sync-sigaweb', { classId, date }),
+    syncDominio: (startDate?: string, endDate?: string) => ipcRenderer.invoke('rpa:sync-dominio', { startDate, endDate }),
+    testConnection: () => ipcRenderer.invoke('rpa:test-connection'),
+    saveSigaConfig: (config: any) => ipcRenderer.invoke('rpa:save-siga-config', config),
+    saveDominioConfig: (config: any) => ipcRenderer.invoke('rpa:save-dominio-config', config),
+  },
 };
 
 // ============================================================================

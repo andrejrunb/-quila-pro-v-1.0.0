@@ -75,34 +75,3 @@ export default function TabLayout() {
     </Tabs>
   );
 }
-      <Tabs.Screen
-        name="financeiro"
-        options={{
-          title: 'Financeiro',
-          tabBarIcon: ({ color, size }) => <Wallet color={color} size={size || 20} />,
-        }}
-      />
-      <Tabs.Screen
-        name="ocorrencias"
-        options={{
-          title: 'Ocorrências',
-          tabBarIcon: ({ color, size }) => <AlertTriangle color={color} size={size || 20} />,
-        }}
-      />
-      <Tabs.Screen
-        name="chamada"
-        options={{
-          title: 'Chamada',
-          tabBarIcon: ({ color, size }) => <UserCheck color={color} size={size || 20} />,
-        }}
-      />
-      <Tabs.Screen
-        name="student"
-        options={{
-          title: 'Albus IA',
-          tabBarIcon: ({ color, size }) => <Sparkles color={color} size={size || 20} />,
-        }}
-      />
-    </Tabs>
-  );
-}

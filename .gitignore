@@ -76,3 +76,7 @@ Thumbs.db
 *.sqlite-wal
 *.sqlite-shm
 *.sqlite-journal
+.expo/
+apps/mobile/.expo/
+storage/dominio_out/
+

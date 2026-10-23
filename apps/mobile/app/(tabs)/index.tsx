@@ -5,6 +5,7 @@ import {
   Shield, Bell, BookOpen, Activity, ChevronRight, 
   MapPin, Wallet, AlertTriangle, UserCheck, Sparkles, CheckCircle2 
 } from 'lucide-react-native';
+import { API_CONFIG } from '../services/apiConfig';
 
 export default function HomeTab() {
   const router = useRouter();
@@ -17,8 +18,8 @@ export default function HomeTab() {
   const [wsClient, setWsClient] = useState<WebSocket | null>(null);
 
   useEffect(() => {
-    // Conecta ao Gateway Soberano na porta 9000 (localhost para emulador/desktop ou IP LAN)
-    const ws = new WebSocket('ws://localhost:9000');
+    // Conecta ao Gateway Soberano no host detectado ou LAN IP
+    const ws = new WebSocket(API_CONFIG.GATEWAY_WS_URL);
 
     ws.onopen = () => {
       setIsConnected(true);

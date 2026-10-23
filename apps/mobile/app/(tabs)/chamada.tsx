@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Users, CheckCircle2, XCircle, Clock, Send, ShieldAlert, Sparkles } from 'lucide-react-native';
+import { API_CONFIG } from '../services/apiConfig';
 
 interface StudentRoll {
   id: string;
@@ -31,7 +32,7 @@ export default function ChamadaMobileTab() {
   };
 
   const handleSyncAttendance = () => {
-    const ws = new WebSocket('ws://localhost:9000');
+    const ws = new WebSocket(API_CONFIG.GATEWAY_WS_URL);
     ws.onopen = () => {
       ws.send(JSON.stringify({
         type: 'TEACHER_QUICK_ATTENDANCE',

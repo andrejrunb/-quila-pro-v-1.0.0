@@ -4796,6 +4796,44 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
     const { nvidiaInferenceService } = require('../main/services/NvidiaInferenceService');
     return await nvidiaInferenceService.generateMasteryScaffolding(data.statement, data.subject, data.difficulty);
   });
+
+  // ---- RPA SPRINT 4 (SigaWeb & Domínio Sistemas) ----
+  protectedHandle('rpa:get-status', async () => {
+    const { RpaOrchestrator } = require('../main/services/rpa');
+    return await RpaOrchestrator.getInstance().getStatus();
+  });
+
+  protectedHandle('rpa:get-logs', async (_event, limit?: number) => {
+    const { RpaOrchestrator } = require('../main/services/rpa');
+    return await RpaOrchestrator.getInstance().getExecutionLogs(limit || 25);
+  });
+
+  protectedHandle('rpa:sync-sigaweb', async (_event, data?: { classId?: string; date?: string }) => {
+    const { RpaOrchestrator } = require('../main/services/rpa');
+    return await RpaOrchestrator.getInstance().syncSigaWeb(data?.classId, data?.date);
+  });
+
+  protectedHandle('rpa:sync-dominio', async (_event, data?: { startDate?: string; endDate?: string }) => {
+    const { RpaOrchestrator } = require('../main/services/rpa');
+    return await RpaOrchestrator.getInstance().syncDominio(data?.startDate, data?.endDate);
+  });
+
+  protectedHandle('rpa:test-connection', async () => {
+    const { RpaOrchestrator } = require('../main/services/rpa');
+    return await RpaOrchestrator.getInstance().testIntegrations();
+  });
+
+  protectedHandle('rpa:save-siga-config', async (_event, config: any) => {
+    const { SigaWebWorker } = require('../main/services/rpa');
+    await SigaWebWorker.getInstance().saveConfig(config);
+    return { success: true, config: SigaWebWorker.getInstance().getConfig() };
+  });
+
+  protectedHandle('rpa:save-dominio-config', async (_event, config: any) => {
+    const { DominioWebWorker } = require('../main/services/rpa');
+    await DominioWebWorker.getInstance().saveConfig(config);
+    return { success: true, config: DominioWebWorker.getInstance().getConfig() };
+  });
 }
 
 

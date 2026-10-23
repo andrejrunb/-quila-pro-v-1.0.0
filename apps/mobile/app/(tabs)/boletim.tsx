@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { BookOpen, Award, TrendingUp, CheckCircle, AlertCircle, RefreshCw } from 'lucide-react-native';
+import { API_CONFIG } from '../services/apiConfig';
 
 interface GradeItem {
   subject: string;
@@ -17,7 +18,7 @@ export default function BoletimTab() {
 
   const fetchGrades = () => {
     setLoading(true);
-    const ws = new WebSocket('ws://localhost:9000');
+    const ws = new WebSocket(API_CONFIG.GATEWAY_WS_URL);
 
     ws.onopen = () => {
       ws.send(JSON.stringify({

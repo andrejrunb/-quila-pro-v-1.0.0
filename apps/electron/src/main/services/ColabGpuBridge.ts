@@ -81,6 +81,33 @@ export interface BenchmarkResult {
   gpu: string;
 }
 
+export interface TutorChatResponse {
+  status: string;
+  response: string;
+  tokens: number;
+  duration_ms: number;
+}
+
+export interface QuestionResolveResponse {
+  status: string;
+  solution: string;
+  tokens: number;
+  duration_ms: number;
+}
+
+export interface DecomposeResponse {
+  status: string;
+  microsteps: string;
+  duration_ms: number;
+}
+
+export interface GenerateQuestionsResponse {
+  status: string;
+  topic: string;
+  material: string;
+  duration_ms: number;
+}
+
 // ─── Bridge ───
 
 export class ColabGpuBridge extends EventEmitter {
@@ -105,6 +132,14 @@ export class ColabGpuBridge extends EventEmitter {
   static getInstance(): ColabGpuBridge {
     if (!ColabGpuBridge.instance) {
       ColabGpuBridge.instance = new ColabGpuBridge();
+      const envUrl = process.env.COLAB_GPU_URL;
+      if (envUrl) {
+        try {
+          ColabGpuBridge.instance.configure(envUrl);
+        } catch (e: any) {
+          console.warn('[ColabGpuBridge] Falha ao auto-configurar a partir de COLAB_GPU_URL:', e.message);
+        }
+      }
     }
     return ColabGpuBridge.instance;
   }
@@ -299,6 +334,50 @@ export class ColabGpuBridge extends EventEmitter {
       optimized,
       'omr_sheet.jpg'
     );
+  }
+
+  // ─── EDUCATIONAL TUTOR (A100 Fine-Tuned LLaMA 3) ───
+
+  /**
+   * Envia prompt pedagógico para o modelo Áquila Tutor fine-tuned no Colab GPU A100.
+   */
+  async generateTutorChat(prompt: string, systemPrompt?: string, maxTokens: number = 600): Promise<TutorChatResponse> {
+    this.assertOnline();
+    return this.postJson<TutorChatResponse>('/tutor/chat', {
+      prompt,
+      system_prompt: systemPrompt,
+      max_tokens: maxTokens,
+    });
+  }
+
+  /**
+   * Resolução passo a passo de questão de física/matemática/ciências com rigor conceitual.
+   */
+  async resolveQuestion(question: string): Promise<QuestionResolveResponse> {
+    this.assertOnline();
+    return this.postJson<QuestionResolveResponse>('/tutor/resolve', { question });
+  }
+
+  /**
+   * Desconstrói uma lacuna de aprendizagem em micro-passos Kumon / Mastery Learning.
+   */
+  async decomposeDifficulty(subject: string, difficultyDescription: string): Promise<DecomposeResponse> {
+    this.assertOnline();
+    return this.postJson<DecomposeResponse>('/tutor/decompose', {
+      subject,
+      difficulty_description: difficultyDescription,
+    });
+  }
+
+  /**
+   * Gera resumo e questões inéditas de vestibular com gabarito formal comentado.
+   */
+  async generateVestibularQuestions(topic: string, count: number = 3): Promise<GenerateQuestionsResponse> {
+    this.assertOnline();
+    return this.postJson<GenerateQuestionsResponse>('/tutor/questions', {
+      topic,
+      count,
+    });
   }
 
   // ─── BENCHMARK ───

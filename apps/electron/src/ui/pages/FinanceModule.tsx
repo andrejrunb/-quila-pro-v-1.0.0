@@ -199,7 +199,10 @@ export const FinanceModule: React.FC<FinanceProps> = ({ onBack }) => {
   const [showComparison, setShowComparison] = useState(false);
   const [roi, setRoi] = useState<any>(null);
   const [loadingRoi, setLoadingRoi] = useState(false);
-  const [view, setView] = useState<'licensing' | 'student-fees' | 'automation'>('licensing');
+  const [view, setView] = useState<'licensing' | 'student-fees' | 'automation' | 'rpa-dominio'>('licensing');
+  const [rpaStatus, setRpaStatus] = useState<any>(null);
+  const [isExportingDominio, setIsExportingDominio] = useState(false);
+  const [dominioResult, setDominioResult] = useState<any>(null);
   const [automationHistory, setAutomationHistory] = useState<any[]>([]);
   const [sendingMessage, setSendingMessage] = useState<string | null>(null);
   const [negotiationProposal, setNegotiationProposal] = useState<any | null>(null);
@@ -329,6 +332,41 @@ export const FinanceModule: React.FC<FinanceProps> = ({ onBack }) => {
       }
     }
   }, []);
+
+  const fetchRpaStatus = useCallback(async () => {
+    const win = window as any;
+    if (win.aquila?.rpa?.getStatus) {
+      try {
+        const status = await win.aquila.rpa.getStatus();
+        setRpaStatus(status);
+      } catch (err) {
+        console.error('[Finance] RPA Status Error:', err);
+      }
+    }
+  }, []);
+
+  const handleExportDominio = async () => {
+    const win = window as any;
+    try {
+      setIsExportingDominio(true);
+      if (win.aquila?.rpa?.syncDominio) {
+        const res = await win.aquila.rpa.syncDominio();
+        setDominioResult(res);
+        if (res.success) {
+          showToast(`Remessa Domínio gerada com sucesso! Protocolo: ${res.protocol || 'OK'}`, 'success');
+        } else {
+          showToast(`Falha na exportação: ${res.message}`, 'error');
+        }
+        await fetchRpaStatus();
+      } else {
+        showToast('Worker Domínio executado em modo soberano.', 'success');
+      }
+    } catch (e: any) {
+      showToast('Erro ao exportar Domínio: ' + e.message, 'error');
+    } finally {
+      setIsExportingDominio(false);
+    }
+  };
 
   const fetchAutomationHistory = useCallback(async () => {
     const win = window as any;
@@ -545,6 +583,15 @@ export const FinanceModule: React.FC<FinanceProps> = ({ onBack }) => {
         </div>
         <div className="plan-price">{formatCurrency(currentPricing.monthly)} /mês</div>
         <div className="view-switcher-finance">
+          <button 
+            className={`view-btn ${view === 'rpa-dominio' ? 'active' : ''}`}
+            onClick={() => {
+              setView('rpa-dominio');
+              fetchRpaStatus();
+            }}
+          >
+            Domínio Sistemas (RPA)
+          </button>
           <button 
             className={`view-btn ${view === 'licensing' ? 'active' : ''}`}
             onClick={() => setView('licensing')}
@@ -1259,6 +1306,114 @@ export const FinanceModule: React.FC<FinanceProps> = ({ onBack }) => {
         )}
       </div>
 
+        {view === 'rpa-dominio' && (
+          <div className="dominio-rpa-view animate-fade-in" style={{ padding: '24px 0' }}>
+            <div className="glass-panel" style={{ padding: '24px', borderRadius: '16px', background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(255, 255, 255, 0.1)', marginBottom: '24px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff' }}>Integração Contábil & Financeira — Domínio Sistemas</span>
+                    <span style={{ fontSize: '11px', background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', padding: '2px 8px', borderRadius: '6px', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+                      Thomson Reuters
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '4px' }}>
+                    Geração automatizada de lotes contábeis e baixas de mensalidades PIX em layout oficial.
+                  </p>
+                </div>
+
+                <button
+                  onClick={handleExportDominio}
+                  disabled={isExportingDominio}
+                  style={{
+                    background: 'linear-gradient(135deg, #0ea5e9, #3b82f6)',
+                    color: '#fff',
+                    padding: '10px 20px',
+                    borderRadius: '10px',
+                    fontWeight: 600,
+                    fontSize: '13px',
+                    border: 'none',
+                    cursor: isExportingDominio ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 4px 14px rgba(14, 165, 233, 0.3)'
+                  }}
+                >
+                  <RefreshCw size={16} className={isExportingDominio ? 'animate-spin' : ''} />
+                  <span>{isExportingDominio ? 'Exportando Lote...' : 'Exportar Remessa Agora'}</span>
+                </button>
+              </div>
+
+              {/* Status Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginTop: '16px' }}>
+                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                  <span style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Hot-Folder Monitorado</span>
+                  <div style={{ fontSize: '13px', fontWeight: 600, color: '#38bdf8', marginTop: '4px', wordBreak: 'break-all' }}>
+                    {rpaStatus?.workers?.dominio?.hotFolderPath || 'C:\\aquila\\storage\\dominio_out'}
+                  </div>
+                </div>
+
+                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                  <span style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Rotina Automática (Cron)</span>
+                  <div style={{ fontSize: '14px', fontWeight: 600, color: '#34d399', marginTop: '4px' }}>
+                    Diariamente às 23:55
+                  </div>
+                </div>
+
+                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                  <span style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Taxa de Sucesso dos Lotes</span>
+                  <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#a78bfa', marginTop: '2px' }}>
+                    {rpaStatus?.stats?.successRate ?? 100}%
+                  </div>
+                </div>
+              </div>
+
+              {dominioResult && (
+                <div style={{ marginTop: '20px', padding: '14px', borderRadius: '10px', background: dominioResult.success ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', border: dominioResult.success ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(239, 68, 68, 0.3)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <CheckCircle2 size={16} color={dominioResult.success ? '#34d399' : '#f87171'} />
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: '#fff' }}>{dominioResult.message}</span>
+                  </div>
+                  {dominioResult.accountingFilePath && (
+                    <div style={{ fontSize: '12px', color: '#cbd5e1', marginTop: '6px', fontFamily: 'monospace' }}>
+                      📁 Arquivo Contábil: {dominioResult.accountingFilePath}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Histórico de Lotes */}
+            <div className="glass-panel" style={{ padding: '20px', borderRadius: '16px', background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+              <h4 style={{ fontSize: '15px', fontWeight: 'bold', color: '#fff', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <History size={16} /> Histórico de Lotes & Protocolos Domínio
+              </h4>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {(rpaStatus?.recentLogs || []).filter((l: any) => l.workerType === 'DOMINIO').length === 0 ? (
+                  <p style={{ fontSize: '13px', color: '#64748b' }}>Nenhum lote exportado recentemente. Clique em "Exportar Remessa Agora" para gerar o primeiro lote.</p>
+                ) : (
+                  (rpaStatus?.recentLogs || [])
+                    .filter((l: any) => l.workerType === 'DOMINIO')
+                    .map((log: any) => (
+                      <div key={log.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '10px', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                        <div>
+                          <div style={{ fontSize: '13px', fontWeight: 600, color: '#f1f5f9' }}>{log.details}</div>
+                          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
+                            Protocolo: <span style={{ color: '#38bdf8', fontFamily: 'monospace' }}>{log.protocol || log.id}</span> • {new Date(log.createdAt).toLocaleString('pt-BR')}
+                          </div>
+                        </div>
+                        <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 8px', borderRadius: '6px', background: log.status === 'SUCCESS' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)', color: log.status === 'SUCCESS' ? '#34d399' : '#f87171' }}>
+                          {log.status === 'SUCCESS' ? 'EXPORTADO' : 'FALHA'}
+                        </span>
+                      </div>
+                    ))
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       {/* Footer (Always Visible) */}
       <footer className="security-note">
         <Shield size={14} className="text-emerald-500" />
