@@ -4700,6 +4700,31 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
     return await colabGpuBridge.benchmark(matrixSize || 8192);
   });
 
+  // --- Colab Multimodal Learning, PhET & Kumon Cluster ---
+  protectedHandle('colab-gpu:get-learning-track', async (_e: any, { topic, studentId }: any) => {
+    return await colabGpuBridge.getLearningTrack(topic, studentId);
+  });
+
+  protectedHandle('colab-gpu:list-phet-sims', async (_e: any, query?: string) => {
+    return await colabGpuBridge.listPhetSimulations(query);
+  });
+
+  protectedHandle('colab-gpu:tutor-chat', async (_e: any, { prompt, systemPrompt, maxTokens }: any) => {
+    return await colabGpuBridge.generateTutorChat(prompt, systemPrompt, maxTokens);
+  });
+
+  protectedHandle('colab-gpu:resolve-question', async (_e: any, question: string) => {
+    return await colabGpuBridge.resolveQuestion(question);
+  });
+
+  protectedHandle('colab-gpu:decompose-difficulty', async (_e: any, { subject, difficultyDescription }: any) => {
+    return await colabGpuBridge.decomposeDifficulty(subject, difficultyDescription);
+  });
+
+  protectedHandle('colab-gpu:generate-agent-content', async (_e: any, { agentId, prompt }: any) => {
+    return await colabGpuBridge.generateAgentContent(agentId, prompt);
+  });
+
   // --- OMR Scanner Cluster (Passos 141-146) ---
   protectedHandle('omr:create-template', async (_event, data) => {
     if (!context.db) throw new Error('Database indisponível');

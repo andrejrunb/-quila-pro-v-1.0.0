@@ -263,7 +263,7 @@ export default function CollectiveBrain() {
         </EagleCard>
       </div>
 
-      <style jsx global>{`
+      <style>{`
         .text-glow-cyan {
           text-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
         }

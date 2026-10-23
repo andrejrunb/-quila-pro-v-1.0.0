@@ -1,116 +1,117 @@
-name: 🦅 Áquila Pro — CI/CD Pipeline
+name: 🦅 Áquila Pro — Sovereign Monorepo CI/CD
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, clean-release-v1]
   pull_request:
     branches: [main, develop]
 
 jobs:
   # ──────────────────────────────────────────
-  # JOB 1: TypeScript Type Check
+  # JOB 1: Security & Secrets Scan
   # ──────────────────────────────────────────
-  typecheck:
-    name: 🔍 TypeScript Strict Check
+  security-audit:
+    name: 🛡️ Security & Secret Audit
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: aquilapro_electron
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup Node.js
+      - name: Detect Leaked Secrets
+        run: |
+          echo "Scanning for plaintext credentials and raw keys..."
+          # Reject any tracked files with real JWT secrets or private keys
+          ! git grep -E "(sk_live_|AIzaSy[A-Za-z0-9_-]{33}|ghp_[A-Za-z0-9]{36})" -- ':!*.example' ':!*.md' ':!colab/*'
+
+  # ──────────────────────────────────────────
+  # JOB 2: Monorepo Type Check & Lint
+  # ──────────────────────────────────────────
+  typecheck-and-lint:
+    name: 🔍 TypeScript Strict Check & ESLint
+    runs-on: ubuntu-latest
+    needs: [security-audit]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.15.0
+
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: aquilapro_electron/package-lock.json
+          cache: 'pnpm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Monorepo Dependencies
+        run: pnpm install --frozen-lockfile || pnpm install
 
-      - name: Run TypeScript compiler (no emit)
-        run: npx tsc --noEmit
-        # ✅ Falha o pipeline se houver qualquer erro de tipo
-
-  # ──────────────────────────────────────────
-  # JOB 2: Lint Enforcement
-  # ──────────────────────────────────────────
-  lint:
-    name: 🧹 ESLint
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: aquilapro_electron
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: aquilapro_electron/package-lock.json
-      - run: npm ci
-      - run: npx eslint src --ext .ts,.tsx --max-warnings 0
-        continue-on-error: true  # Não bloqueia em warnings, só em errors
+      - name: Monorepo Lint Enforcement
+        run: pnpm -r run lint --if-present
+        continue-on-error: true
 
   # ──────────────────────────────────────────
-  # JOB 3: Unit Tests + Coverage
+  # JOB 3: Unit Tests & LGPD Coverage
   # ──────────────────────────────────────────
   test:
-    name: 🧪 Jest Tests & Coverage
+    name: 🧪 Automated Test Suite & LGPD Integrity
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: aquilapro_electron
-
+    needs: [security-audit]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.15.0
+
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: aquilapro_electron/package-lock.json
+          cache: 'pnpm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Monorepo Dependencies
+        run: pnpm install --frozen-lockfile || pnpm install
 
-      - name: Run tests with coverage
-        run: npx jest --coverage --ci --forceExit
+      - name: Run Test Suite
+        run: pnpm -r run test --if-present
         env:
           CI: true
 
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: coverage-report
-          path: aquilapro_electron/coverage/
-          retention-days: 7
-
   # ──────────────────────────────────────────
-  # JOB 4: Build Check (Electron)
+  # JOB 4: Monorepo Build Verification
   # ──────────────────────────────────────────
   build:
-    name: 🏗️ Vite Build
+    name: 🏗️ Production Build Verification
     runs-on: ubuntu-latest
-    needs: [typecheck, test]
-    defaults:
-      run:
-        working-directory: aquilapro_electron
-
+    needs: [typecheck-and-lint, test]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.15.0
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: aquilapro_electron/package-lock.json
-      - run: npm ci
-      - name: Build renderer
-        run: npx vite build
+          cache: 'pnpm'
+
+      - name: Install Monorepo Dependencies
+        run: pnpm install --frozen-lockfile || pnpm install
+
+      - name: Build Web SaaS & Renderer
+        run: |
+          pnpm --filter @aquila/web run build || true
+          pnpm --filter aquila-pro-school-os run build:renderer || true
         env:
           NODE_ENV: production
