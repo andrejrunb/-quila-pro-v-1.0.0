@@ -8,6 +8,7 @@ import {
 import { animate, stagger } from "animejs";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 const AScene = "a-scene" as any;
@@ -30,16 +31,24 @@ export default function LandingPage() {
 
   const showcaseTabs = [
     {
-      title: "Para Administradores",
-      features: ["Gestão financeira completa", "Relatórios de evasão preditivos", "Controle de acessos biométricos", "Dashboard de ROI em tempo real"]
+      title: "Para Gestão & Coordenação",
+      href: "/portal/coordenacao",
+      features: ["Gestão financeira completa (Domínio ERP)", "Relatórios de evasão preditivos (LDB Art. 12)", "Controle de acessos biométricos na portaria", "Dashboard de ROI em tempo real"]
     },
     {
       title: "Para Professores",
-      features: ["Chamada automática com IA", "Geração de provas e correção", "Diário de classe simplificado", "Comunicação direta com pais"]
+      href: "/portal/professor",
+      features: ["Chamada inteligente zero-typing com IA", "Geração de provas e diário BNCC", "Exportação automatizada SigaWeb RPA", "Comunicação direta com a coordenação"]
     },
     {
       title: "Para Pais",
-      features: ["Notificações de entrada e saída", "Boletim e desempenho escolar", "Pagamento de mensalidades", "Acompanhamento disciplinar"]
+      href: "/portal/pais",
+      features: ["Notificações de entrada e saída por biometria", "Boletim e desempenho escolar em tempo real", "Pagamento de mensalidades com PIX dinâmico", "Assinatura digital de ocorrências (LGPD)"]
+    },
+    {
+      title: "Para Alunos",
+      href: "/portal/aluno",
+      features: ["Tutor IA Áquila com aprendizado ativo", "Simulados e laboratório de redação Nota 1000", "Jornada gamificada com XP, missões e recompensas", "Grade horária com sinalização de aula em curso"]
     }
   ];
 
@@ -213,6 +222,15 @@ export default function LandingPage() {
                        </li>
                     ))}
                  </ul>
+                 <div className="pt-2">
+                    <Link
+                       href={showcaseTabs[activeTab].href}
+                       className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-full text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-600/30 no-underline"
+                    >
+                       <span>Acessar {showcaseTabs[activeTab].title}</span>
+                       <ArrowRight size={14} />
+                    </Link>
+                 </div>
               </div>
               <div className="flex-1 w-full aspect-video rounded-3xl bg-slate-950/80 border border-white/10 flex items-center justify-center relative overflow-hidden shadow-2xl">
                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10" />

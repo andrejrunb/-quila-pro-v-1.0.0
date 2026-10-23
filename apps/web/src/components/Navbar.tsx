@@ -34,10 +34,10 @@ export default function Navbar() {
 
       <div className="flex items-center gap-6">
          <Link href="/login" className="hidden sm:block text-[10px] font-black uppercase tracking-[0.2em] text-white hover:text-indigo-400 transition-colors">
-            Acesso Cliente
+            Portais Educacionais
          </Link>
-         <Link href="#contact" className="bg-indigo-600 px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-indigo-500 transition-all text-white no-underline shadow-lg shadow-indigo-600/20">
-            Consignar
+         <Link href="/login" className="bg-indigo-600 px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-indigo-500 transition-all text-white no-underline shadow-lg shadow-indigo-600/20">
+            Acesso Soberano
          </Link>
          <button className="lg:hidden text-white" aria-label="Menu">
             <Menu size={24} />
