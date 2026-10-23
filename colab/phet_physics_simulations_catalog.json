@@ -1,0 +1,1652 @@
+[
+  {
+    "id": 83,
+    "name": "the-ramp",
+    "title_pt": "A RAMPA",
+    "html5_url": "https://phet.colorado.edu/sims/html/the-ramp/latest/the-ramp_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/the-ramp/latest/the-ramp-600.png",
+    "design_team": "Wendy Adams, Trish Loeblein, Kathy Perkins, Sam Reid (developer), Carl Wieman, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 233,
+    "name": "vector-addition",
+    "title_pt": "Adição de Vetores",
+    "html5_url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition-600.png",
+    "design_team": "Brandon Li (developer), Chris Malley (developer), Martin Veillette (developer), Amy Rouinfar (lead designer), Michael Dubson (original designer), Matthew Blackman, Diana López Tavares, Amanda McGarry, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 75,
+    "name": "vector-addition",
+    "title_pt": "Adição de Vetores",
+    "html5_url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition-600.png",
+    "design_team": "Michael Dubson (developer/lead), Interviewer: Mindy Gratny",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 234,
+    "name": "vector-addition-equations",
+    "title_pt": "Adição de Vetores: Equações",
+    "html5_url": "https://phet.colorado.edu/sims/html/vector-addition-equations/latest/vector-addition-equations_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/vector-addition-equations/latest/vector-addition-equations-600.png",
+    "design_team": "Brandon Li (developer), Chris Malley (developer), Martin Veillette (developer), Amy Rouinfar (lead designer), Michael Dubson (original designer), Matthew Blackman, Diana López Tavares, Amanda McGarry, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 235,
+    "name": "curve-fitting",
+    "title_pt": "Ajuste de Curva",
+    "html5_url": "https://phet.colorado.edu/sims/html/curve-fitting/latest/curve-fitting_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/curve-fitting/latest/curve-fitting-600.png",
+    "design_team": "Michael Dubson (lead designer, original developer), Chris Malley (developer), Jonathan Olson (developer), Saurabh Totey (developer), Martin Veillette (developer), Amanda McGarry (lead designer), Trish Loeblein, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 36,
+    "name": "stretching-dna",
+    "title_pt": "Alongamento DNA",
+    "html5_url": "https://phet.colorado.edu/sims/html/stretching-dna/latest/stretching-dna_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/stretching-dna/latest/stretching-dna-600.png",
+    "design_team": "Kathy Perkins, Chris Malley, Tom Perkins, Mike Dubson, Wendy Adams, Meredith Betterton",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 64,
+    "name": "friction",
+    "title_pt": "Atrito",
+    "html5_url": "https://phet.colorado.edu/sims/html/friction/latest/friction_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/friction/latest/friction-600.png",
+    "design_team": "Michael Dubson (developer/lead), Carl Wieman, Interviewer: Wendy Adams, Interviewer: Mindy Gratny, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 164,
+    "name": "friction",
+    "title_pt": "Atrito",
+    "html5_url": "https://phet.colorado.edu/sims/html/friction/latest/friction_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/friction/latest/friction-600.png",
+    "design_team": "Noah Podolefsky (lead), Michael Dubson (lead, developer), John Blanco (developer), Jonathan Olson (developer), Michael Kauzmann (developer), Bryce Gruneich, Emily B. Moore, Matthew Moore, Ariel Paul, Kathy Perkins, Taliesin Smith, Carl Wieman, Wendy Adams (interviewer), Mindy Gratny (interviewer), Ashton Morris (sound design), Mike Winters (sound design)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 127,
+    "name": "balancing-act",
+    "title_pt": "Balançando",
+    "html5_url": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act-600.png",
+    "design_team": "Kathy Perkins (co-lead), John Blanco (co-lead, developer), Michael Dubson, Trish Loeblein, Ariel Paul",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 153,
+    "name": "balancing-act",
+    "title_pt": "Balançando",
+    "html5_url": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act-600.png",
+    "design_team": "Kathy Perkins (lead), Ariel Paul (lead), John Blanco (lead, developer), Michael Dubson, Patricia Loeblein",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 155,
+    "name": "balloons-and-static-electricity",
+    "title_pt": "Balões e Eletricidade Estática",
+    "html5_url": "https://phet.colorado.edu/sims/html/balloons-and-static-electricity/latest/balloons-and-static-electricity_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/balloons-and-static-electricity/latest/balloons-and-static-electricity-600.png",
+    "design_team": "Noah Podolefsky (lead), Sam Reid (lead, developer), Jesse Greenberg, Trish Loeblein, Emily B. Moore, Ariel Paul, Kathy Perkins, Taliesin Smith, Sharon Siman-Tov (graphic arts), Wendy Adams (interviewer)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 26,
+    "name": "balloons-and-buoyancy",
+    "title_pt": "Balões e Empuxo",
+    "html5_url": "https://phet.colorado.edu/sims/html/balloons-and-buoyancy/latest/balloons-and-buoyancy_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/balloons-and-buoyancy/latest/balloons-and-buoyancy-600.png",
+    "design_team": "Ron LeMaster (developer), Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 1,
+    "name": "balloons",
+    "title_pt": "Balões e eletricidade estática",
+    "html5_url": "https://phet.colorado.edu/sims/html/balloons/latest/balloons_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/balloons/latest/balloons-600.png",
+    "design_team": "Sam Reid (developer/lead), Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 13,
+    "name": "efield",
+    "title_pt": "Campo Elétrico dos Sonhos",
+    "html5_url": "https://phet.colorado.edu/sims/html/efield/latest/efield_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/efield/latest/efield-600.png",
+    "design_team": "Sam Reid (developer), Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 109,
+    "name": "capacitor-lab",
+    "title_pt": "Capacitor",
+    "html5_url": "https://phet.colorado.edu/sims/html/capacitor-lab/latest/capacitor-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/capacitor-lab/latest/capacitor-lab-600.png",
+    "design_team": "Noah Podolefsky (lead), Chris Malley (developer), Kathy Perkins, Mike Dubson",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 274,
+    "name": "quantum-coin-toss",
+    "title_pt": "Cara ou Coroa Quântica",
+    "html5_url": "https://phet.colorado.edu/sims/html/quantum-coin-toss/latest/quantum-coin-toss_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/quantum-coin-toss/latest/quantum-coin-toss-600.png",
+    "design_team": "Ariel Paul (lead designer), Amy Rouinfar (lead designer), Mike Bennet , John Blanco (developer), Josh Combes, Aiko Kyle, Phil Makotyn, Kathy Perkins, Ana Maria Rey, Agustín Vallejo (developer), Martin Veillette",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 59,
+    "name": "charges-and-fields",
+    "title_pt": "Cargas e Campos",
+    "html5_url": "https://phet.colorado.edu/sims/html/charges-and-fields/latest/charges-and-fields_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/charges-and-fields/latest/charges-and-fields-600.png",
+    "design_team": "Michael Dubson (developer/lead)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 188,
+    "name": "charges-and-fields",
+    "title_pt": "Cargas e Campos",
+    "html5_url": "https://phet.colorado.edu/sims/html/charges-and-fields/latest/charges-and-fields_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/charges-and-fields/latest/charges-and-fields-600.png",
+    "design_team": "Amy Rouinfar (lead designer - HTML5), Michael Dubson (lead designer/developer - Flash), Andrew Adare (developer), Martin Veillette (developer), Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 2,
+    "name": "battery-resistor-circuit",
+    "title_pt": "Circuito Bateria-Resistor",
+    "html5_url": "https://phet.colorado.edu/sims/html/battery-resistor-circuit/latest/battery-resistor-circuit_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/battery-resistor-circuit/latest/battery-resistor-circuit-600.png",
+    "design_team": "Sam Reid (developer), Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 10,
+    "name": "conductivity",
+    "title_pt": "Condutividade",
+    "html5_url": "https://phet.colorado.edu/sims/html/conductivity/latest/conductivity_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/conductivity/latest/conductivity-600.png",
+    "design_team": "Sam McKagan, Kathy Perkins, Sam Reid (developer), Carl Wieman, Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 34,
+    "name": "optical-quantum-control",
+    "title_pt": "Controle Quântico Ótico",
+    "html5_url": "https://phet.colorado.edu/sims/html/optical-quantum-control/latest/optical-quantum-control_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/optical-quantum-control/latest/optical-quantum-control-600.png",
+    "design_team": "Chris Malley (developer), Sam McKagan (lead), Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 115,
+    "name": "bending-light",
+    "title_pt": "Curvando a Luz",
+    "html5_url": "https://phet.colorado.edu/sims/html/bending-light/latest/bending-light_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/bending-light/latest/bending-light-600.png",
+    "design_team": "Noah Podolefsky (lead), Kathy Perkins, Trish Loeblein, Emily Moore (interviews), Sam Reid (developer)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 77,
+    "name": "calculus-grapher",
+    "title_pt": "Cálculo no Gráfico",
+    "html5_url": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher-600.png",
+    "design_team": "Michael Dubson (lead), Trish Loeblein",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 1277,
+    "name": "alpha-decay",
+    "title_pt": "Decaimento Alfa",
+    "html5_url": "https://phet.colorado.edu/sims/html/alpha-decay/latest/alpha-decay_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/alpha-decay/latest/alpha-decay-600.png",
+    "design_team": "John Blanco (developer), Agustín Vallejo (developer), Nancy Salpepi (lead designer), Noah Podolefsky (original designer), Ariel Paul, Kathy Perkins, Amy Rouinfar, Taliesin Smith, Diana Lopéz Tavares",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 79,
+    "name": "alpha-decay",
+    "title_pt": "Decaimento Alfa",
+    "html5_url": "https://phet.colorado.edu/sims/html/alpha-decay/latest/alpha-decay_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/alpha-decay/latest/alpha-decay-600.png",
+    "design_team": "Wendy Adams, John Blanco (developer), Ron LeMaster (developer), Sam McKagan, Kathy Perkins, Noah Podolefsky, Carl Wieman, Interviewer: Wendy Adams, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 1278,
+    "name": "beta-decay",
+    "title_pt": "Decaimento Beta",
+    "html5_url": "https://phet.colorado.edu/sims/html/beta-decay/latest/beta-decay_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/beta-decay/latest/beta-decay-600.png",
+    "design_team": "John Blanco (developer), Agustín Vallejo (developer), Nancy Salpepi (lead designer), Noah Podolefsky (original designer), Ariel Paul, Kathy Perkins, Amy Rouinfar, Taliesin Smith, Diana Lopéz Tavares",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 84,
+    "name": "beta-decay",
+    "title_pt": "Decaimento Beta",
+    "html5_url": "https://phet.colorado.edu/sims/html/beta-decay/latest/beta-decay_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/beta-decay/latest/beta-decay-600.png",
+    "design_team": "Wendy Adams, John Blanco (developer), Kathy Perkins, Noah Podolefsky, Carl Wieman, Interviewer: Noah Podolefsky",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 101,
+    "name": "density",
+    "title_pt": "Densidade",
+    "html5_url": "https://phet.colorado.edu/sims/html/density/latest/density_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/density/latest/density-600.png",
+    "design_team": "Wendy Adams, Kelly Lancaster (lead), Trish Loeblein, Chris Malley, Jonathan Olson (developer), Archie Paulson, Kathy Perkins, Noah Podolefsky, Sam Reid (developer), Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 250,
+    "name": "density",
+    "title_pt": "Densidade",
+    "html5_url": "https://phet.colorado.edu/sims/html/density/latest/density_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/density/latest/density-600.png",
+    "design_team": "Diana López Tavares (lead designer), Jonathan Olson (lead developer), PixelZoom, Inc. (developer), Sam Reid (developer), Wendy Adams, Kelly Lancaster, Trish Loeblein, Ariel Paul, Archie Paulson, Kathy Perkins, Noah Podolefsky, Amy Rouninfar, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 180,
+    "name": "bending-light",
+    "title_pt": "Desvio da Luz",
+    "html5_url": "https://phet.colorado.edu/sims/html/bending-light/latest/bending-light_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/bending-light/latest/bending-light-600.png",
+    "design_team": "Amy Rouinfar (lead), Sam Reid (developer), Noah Podolefsky, Trish Loeblein, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 229,
+    "name": "diffusion",
+    "title_pt": "Difusão",
+    "html5_url": "https://phet.colorado.edu/sims/html/diffusion/latest/diffusion_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/diffusion/latest/diffusion-600.png",
+    "design_team": "Chris Malley (developer), Amy Rouinfar (lead designer), Jack Barbera, John Blanco, Michael Dubson, Amy Hanson, Linda Koch, Ron LeMaster, Trish Loeblein, Emily B. Moore, Ariel Paul, Dennis Perepelitsa, Kathy Perkins, Tom Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 264,
+    "name": "projectile-sampling-distributions",
+    "title_pt": "Distribuição Amostral de Projéteis",
+    "html5_url": "https://phet.colorado.edu/sims/html/projectile-sampling-distributions/latest/projectile-sampling-distributions_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/projectile-sampling-distributions/latest/projectile-sampling-distributions-600.png",
+    "design_team": "Matthew Blackman (lead designer), Cathy Carter (designer), Sam Reid (developer), Ariel Paul, Kathy Perkins, Amy Rouinfar, Kelly Findley, Emily B. Moore, Ashton Morris (sound design)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 39,
+    "name": "photoelectric",
+    "title_pt": "Efeito Fotoelétrico",
+    "html5_url": "https://phet.colorado.edu/sims/html/photoelectric/latest/photoelectric_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/photoelectric/latest/photoelectric-600.png",
+    "design_team": "Ron LeMaster (developer), Sam McKagan, Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 238,
+    "name": "energy-skate-park",
+    "title_pt": "Energia na Pista de Skate",
+    "html5_url": "https://phet.colorado.edu/sims/html/energy-skate-park/latest/energy-skate-park_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/energy-skate-park/latest/energy-skate-park-600.png",
+    "design_team": "Ariel Paul (lead designer), Amy Rouinfar (lead designer), Sam Reid (lead developer), Jesse Greenberg (lead developer), Marla Schulz (developer), Agustín Vallejo (developer), Lusia Vargas (developer), Michael Dubson, Bryce Gruneich, Trish Loeblein, Diana López Tavares, Emily B. Moore, Kathy Perkins, Noah Podolefsky",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 160,
+    "name": "energy-skate-park-basics",
+    "title_pt": "Energia na Pista de Skate: Básico",
+    "html5_url": "https://phet.colorado.edu/sims/html/energy-skate-park-basics/latest/energy-skate-park-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/energy-skate-park-basics/latest/energy-skate-park-basics-600.png",
+    "design_team": "Ariel Paul (lead designer), Amy Rouinfar (lead designer), Sam Reid (lead developer), Jesse Greenberg (lead developer), Marla Schulz (developer), Agustín Vallejo (developer), Lusia Vargas (developer), Michael Dubson, Bryce Gruneich, Trish Loeblein, Diana López Tavares, Emily B. Moore, Kathy Perkins, Noah Podolefsky",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 128,
+    "name": "energy-skate-park-basics",
+    "title_pt": "Energy Skate Park: Basics",
+    "html5_url": "https://phet.colorado.edu/sims/html/energy-skate-park-basics/latest/energy-skate-park-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/energy-skate-park-basics/latest/energy-skate-park-basics-600.png",
+    "design_team": "Lead designer: Noah Podolefsky, Katherine Perkins, Emily B Moore, Ariel Paul, Trish Loeblein, Developer: Sam Reid, Interviewers: Noah Podolefsky & Ariel Paul",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 187,
+    "name": "rutherford-scattering",
+    "title_pt": "Espalhamento de Rutherford",
+    "html5_url": "https://phet.colorado.edu/sims/html/rutherford-scattering/latest/rutherford-scattering_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/rutherford-scattering/latest/rutherford-scattering-600.png",
+    "design_team": "Amy Hanson (lead designer), Sam McKagan (lead designer), Jesse Greenberg (lead developer), Chris Malley (developer), Dave Schmitz (developer), Agustín Vallejo (developer), Wendy Adams, Michael Dubson, Noah Finkelstein, Danielle Harlow, Emily B. Moore, Ariel Paul, Kathy Perkins, Noah Podolefsky, Amy Rouinfar, Marla Schulz, Taliesin Smith, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 47,
+    "name": "rutherford-scattering",
+    "title_pt": "Espalhamento de Rutherford",
+    "html5_url": "https://phet.colorado.edu/sims/html/rutherford-scattering/latest/rutherford-scattering_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/rutherford-scattering/latest/rutherford-scattering-600.png",
+    "design_team": "Wendy Adams, Michael Dubson, Chris Malley (developer), Sam McKagan (lead), Kathy Perkins, Carl Wieman, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 227,
+    "name": "blackbody-spectrum",
+    "title_pt": "Espectro de Corpo Negro ",
+    "html5_url": "https://phet.colorado.edu/sims/html/blackbody-spectrum/latest/blackbody-spectrum_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/blackbody-spectrum/latest/blackbody-spectrum-600.png",
+    "design_team": "Arnab Purkayastha (developer), Saurabh Totey (developer), Martin Veillette (developer), Diana López Tavares (lead designer), Michael Dubson (original designer), Wendy Adams, John Blanco, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 6,
+    "name": "bound-states",
+    "title_pt": "Estados Quânticos Ligados",
+    "html5_url": "https://phet.colorado.edu/sims/html/bound-states/latest/bound-states_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/bound-states/latest/bound-states-600.png",
+    "design_team": "Chris Malley (developer), Sam McKagan (lead), Kathy Perkins, Carl Wieman, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 193,
+    "name": "states-of-matter",
+    "title_pt": "Estados da Matéria",
+    "html5_url": "https://phet.colorado.edu/sims/html/states-of-matter/latest/states-of-matter_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/states-of-matter/latest/states-of-matter-600.png",
+    "design_team": "Yuen-ying Carpenter (lead designer, HTML5), Amy Rouinfar (lead designer, HTML5), Paul Beale (lead designer, Java), Sarah McKagan (lead designer, Java), Emily Moore (lead designer, Java), Noah Podolefsky (lead designer, Java), John Blanco (lead developer), Aaron Davis (developer), Aadish Gupta (developer), Wendy Adams , Jack Barbera, Amy Hanson, Kelly Lancaster, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 82,
+    "name": "states-of-matter",
+    "title_pt": "Estados da Matéria",
+    "html5_url": "https://phet.colorado.edu/sims/html/states-of-matter/latest/states-of-matter_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/states-of-matter/latest/states-of-matter-600.png",
+    "design_team": "Wendy Adams, Paul Beale, John Blanco (developer), Sarah McKagan, Kathy Perkins, Noah Podolefsky, Trish Loeblein",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 194,
+    "name": "states-of-matter-basics",
+    "title_pt": "Estados da Matéria: Básico",
+    "html5_url": "https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics-600.png",
+    "design_team": "Yuen-ying Carpenter (lead designer, HTML5), Amy Rouinfar (lead designer, HTML5), Paul Beale (lead designer, Java), Sarah McKagan (lead designer, Java), Emily Moore (lead designer, Java), Noah Podolefsky (lead designer, Java), John Blanco (lead developer), Aaron Davis (developer), Aadish Gupta (developer), Wendy Adams , Jack Barbera, Amy Hanson, Kelly Lancaster, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 2,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 126,
+    "name": "states-of-matter-basics",
+    "title_pt": "Estados da Matéria: Básico",
+    "html5_url": "https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/states-of-matter-basics/latest/states-of-matter-basics-600.png",
+    "design_team": "Wendy Adams, Paul Beale, John Blanco (developer), Sarah McKagan, Emily Moore, Kathy Perkins, Noah Podolefsky, Trish Loeblein",
+    "highGradeLevel": 2,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 4,
+    "name": "band-structure",
+    "title_pt": "Estrutura de Bandas",
+    "html5_url": "https://phet.colorado.edu/sims/html/band-structure/latest/band-structure_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/band-structure/latest/band-structure-600.png",
+    "design_team": "Chris Malley (developer), Sam McKagan (lead), Kathy Perkins, Carl Wieman, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 41,
+    "name": "davisson-germer",
+    "title_pt": "Experimento de Davisson-Germer",
+    "html5_url": "https://phet.colorado.edu/sims/html/davisson-germer/latest/davisson-germer_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/davisson-germer/latest/davisson-germer-600.png",
+    "design_team": "Sam McKagan (lead), Kathy Perkins, Sam Reid (developer), Carl Wieman, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 74,
+    "name": "stern-gerlach",
+    "title_pt": "Experimento de Stern-Gerlach",
+    "html5_url": "https://phet.colorado.edu/sims/html/stern-gerlach/latest/stern-gerlach_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/stern-gerlach/latest/stern-gerlach-600.png",
+    "design_team": "Michael Dubson (developer/lead), Sam McKagan (co-lead), Carl Wieman, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 80,
+    "name": "nuclear-fission",
+    "title_pt": "Fissão Nuclear",
+    "html5_url": "https://phet.colorado.edu/sims/html/nuclear-fission/latest/nuclear-fission_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/nuclear-fission/latest/nuclear-fission-600.png",
+    "design_team": "Wendy Adams, John Blanco (developer), Ron LeMaster (developer), Sam McKagan, Kathy Perkins, Noah Podolefsky, Carl Wieman, Interviewer: Wendy Adams, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 103,
+    "name": "buoyancy",
+    "title_pt": "Flutuabilidade",
+    "html5_url": "https://phet.colorado.edu/sims/html/buoyancy/latest/buoyancy_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/buoyancy/latest/buoyancy-600.png",
+    "design_team": "Wendy Adams, Kelly Lancaster (lead), Trish Loeblein, Chris Malley, Jonathan Olson (developer), Archie Paulson, Kathy Perkins, Noah Podolefsky (interviewer), Sam Reid (developer), Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 269,
+    "name": "buoyancy",
+    "title_pt": "Flutuabilidade",
+    "html5_url": "https://phet.colorado.edu/sims/html/buoyancy/latest/buoyancy_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/buoyancy/latest/buoyancy-600.png",
+    "design_team": "Diana López (lead designer), Agustín Vallejo (developer), Michael Kauzmann (developer), Sam Reid (developer), Jonathan Olson (developer), Amy Roinfar, Ariel Paul, Kathy Perkins , Wendy Adams, Kelly Lancaster , Trish Loeblein, Chris Malley, Archie Paulson, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 270,
+    "name": "buoyancy-basics",
+    "title_pt": "Flutuabilidade: Básico",
+    "html5_url": "https://phet.colorado.edu/sims/html/buoyancy-basics/latest/buoyancy-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/buoyancy-basics/latest/buoyancy-basics-600.png",
+    "design_team": "Diana López (lead designer), Agustín Vallejo (developer), Michael Kauzmann (developer), Sam Reid (developer), Jonathan Olson (developer), Amy Roinfar, Ariel Paul, Kathy Perkins , Wendy Adams, Kelly Lancaster , Trish Loeblein, Chris Malley, Archie Paulson, Carl Wieman",
+    "highGradeLevel": 2,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 148,
+    "name": "energy-forms-and-changes",
+    "title_pt": "Formas de Energia e Transformações",
+    "html5_url": "https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes-600.png",
+    "design_team": "Noah Podolefsky (lead designer, interviewer), John Blanco (developer), Ariel Paul, Emily Moore, Kathy Perkins, Trish Loeblein",
+    "highGradeLevel": 2,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 224,
+    "name": "energy-forms-and-changes",
+    "title_pt": "Formas de Energia e Transformações",
+    "html5_url": "https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes-600.png",
+    "design_team": "Chris Klusendorf (lead developer), John Blanco (developer), Andrew Adare (developer), Amy Rouinfar (lead designer), Noah Podolefsky , Trish Loeblein, Emily Moore, Kathy Perkins, Mariah Hermsmeyer (graphic arts), Megan Lai (graphic arts)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 105,
+    "name": "forces-and-motion",
+    "title_pt": "Forças e Movimento",
+    "html5_url": "https://phet.colorado.edu/sims/html/forces-and-motion/latest/forces-and-motion_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/forces-and-motion/latest/forces-and-motion-600.png",
+    "design_team": "Sam Reid (developer), Noah Podelefsky (lead designer), Trish Loeblein, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 162,
+    "name": "forces-and-motion-basics",
+    "title_pt": "Forças e Movimento: Noções Básicas",
+    "html5_url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics-600.png",
+    "design_team": "Noah Podolefsky (lead designer), Ariel Paul (lead designer), Sam Reid (lead developer), Jesse Greenberg (developer), Marla Schulz (developer), Luisa Vargas (developer), Patricia Loeblein, Matthew Moore, Kathy Perkins, Amy Rouinfar, Nancy Salpepi",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 145,
+    "name": "forces-and-motion-basics",
+    "title_pt": "Forças e Movimentos: Noções Básicas",
+    "html5_url": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics-600.png",
+    "design_team": "Noah Podolefsky (lead designer), Sam Reid (lead developer), Ariel Paul, Kathy Perkins, Trish Loeblein",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 20,
+    "name": "forces-1d",
+    "title_pt": "Forças em Uma Dimensão",
+    "html5_url": "https://phet.colorado.edu/sims/html/forces-1d/latest/forces-1d_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/forces-1d/latest/forces-1d-600.png",
+    "design_team": "Trish Loeblein, Kathy Perkins, Sam Reid (developer), Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 245,
+    "name": "fourier-making-waves",
+    "title_pt": "Fourier: Construindo Ondas",
+    "html5_url": "https://phet.colorado.edu/sims/html/fourier-making-waves/latest/fourier-making-waves_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/fourier-making-waves/latest/fourier-making-waves-600.png",
+    "design_team": "Chris Malley (lead developer), Amy Rouinfar (lead designer), Wendy Adams, Mike Dubson, Danielle Harlow, Sam McKagan, Ariel Paul, Kathy Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 21,
+    "name": "fourier",
+    "title_pt": "Fourier: Criando Ondas",
+    "html5_url": "https://phet.colorado.edu/sims/html/fourier/latest/fourier_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/fourier/latest/fourier-600.png",
+    "design_team": "Chris Malley (developer), Sam McKagan (lead), Carl Wieman, Interviewer: Danielle Harlow, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 230,
+    "name": "gases-intro",
+    "title_pt": "Gases: Introdução",
+    "html5_url": "https://phet.colorado.edu/sims/html/gases-intro/latest/gases-intro_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/gases-intro/latest/gases-intro-600.png",
+    "design_team": "Chris Malley (developer), Amy Rouinfar (lead designer), Jack Barbera, John Blanco, Michael Dubson, Amy Hanson, Linda Koch, Ron LeMaster, Trish Loeblein, Emily B. Moore, Ariel Paul, Dennis Perepelitsa, Kathy Perkins, Tom Perkins, Carl Wieman",
+    "highGradeLevel": 1,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 17,
+    "name": "generator",
+    "title_pt": "Gerador",
+    "html5_url": "https://phet.colorado.edu/sims/html/generator/latest/generator_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/generator/latest/generator-600.png",
+    "design_team": "Michael Dubson, Chris Malley (developer), Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow, Interviewer: Archie Paulson",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 268,
+    "name": "generator",
+    "title_pt": "Gerador",
+    "html5_url": "https://phet.colorado.edu/sims/html/generator/latest/generator_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/generator/latest/generator-600.png",
+    "design_team": "Chris Malley (developer), Amy Rouinfar (lead designer), Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Archie Paulson, Kathy Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 78,
+    "name": "ladybug-motion-2d",
+    "title_pt": "Giro 2D da Joaninha",
+    "html5_url": "https://phet.colorado.edu/sims/html/ladybug-motion-2d/latest/ladybug-motion-2d_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/ladybug-motion-2d/latest/ladybug-motion-2d-600.png",
+    "design_team": "Noah Podolefsky, Sam Reid, Trish Loeblein, Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 111,
+    "name": "gravity-and-orbits",
+    "title_pt": "Gravidade e Órbitas",
+    "html5_url": "https://phet.colorado.edu/sims/html/gravity-and-orbits/latest/gravity-and-orbits_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/gravity-and-orbits/latest/gravity-and-orbits-600.png",
+    "design_team": "Noah Podolefsky (lead designer), Emily Moore (lead), Kathy Perkins, Trish Loeblein, Sam Reid (lead developer), Jon Olson (developer), Chris Malley (developer), John Blanco (developer)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 191,
+    "name": "gravity-and-orbits",
+    "title_pt": "Gravidade e Órbitas",
+    "html5_url": "https://phet.colorado.edu/sims/html/gravity-and-orbits/latest/gravity-and-orbits_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/gravity-and-orbits/latest/gravity-and-orbits-600.png",
+    "design_team": "Amy Rouinfar (lead designer), Emily Moore (lead designer), Noah Podolefsky (lead designer), Trish Loeblein, Ariel Paul, Kathy Perkins, Jesse Greenberg (lead developer), Sam Reid (lead developer), Aaron Davis (developer), Jon Olson (developer)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 259,
+    "name": "calculus-grapher",
+    "title_pt": "Gráfico de Cálculo",
+    "html5_url": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher-600.png",
+    "design_team": "Amanda McGarry (lead designer), Catherine Carter (lead designer), Michael Dubson (original designer and developer), Martin Veillette (lead developer), Chris Malley (developer), Brandon Li (developer), Ariel Paul, Kathy Perkins, Taliesin Smith",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 14,
+    "name": "electric-hockey",
+    "title_pt": "Hóquei no Campo Elétrico",
+    "html5_url": "https://phet.colorado.edu/sims/html/electric-hockey/latest/electric-hockey_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/electric-hockey/latest/electric-hockey-600.png",
+    "design_team": "Michael Dubson (developer/lead), Sam Reid (developer), Interviewer: Wendy Adams, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 33,
+    "name": "mri",
+    "title_pt": "IRM Simplificada",
+    "html5_url": "https://phet.colorado.edu/sims/html/mri/latest/mri_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/mri/latest/mri-600.png",
+    "design_team": "Michael Dubson, Ron LeMaster (developer), Sam McKagan, Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 189,
+    "name": "atomic-interactions",
+    "title_pt": "Interações Atômicas",
+    "html5_url": "https://phet.colorado.edu/sims/html/atomic-interactions/latest/atomic-interactions_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/atomic-interactions/latest/atomic-interactions-600.png",
+    "design_team": "Yuen-ying Carpenter (lead designer, HTML5), Amy Rouinfar (lead designer, HTML5), Paul Beale (lead designer, Java), Sarah McKagan (lead designer, Java), Emily Moore (lead designer, Java), Noah Podelefsky (lead designer, Java), John Blanco (developer), Wendy Adams, Jack Barbera , Amy Hanson, Kelly Lancaster, Ariel Paul, Kathy Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 81,
+    "name": "atomic-interactions",
+    "title_pt": "Interações Atômicas",
+    "html5_url": "https://phet.colorado.edu/sims/html/atomic-interactions/latest/atomic-interactions_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/atomic-interactions/latest/atomic-interactions-600.png",
+    "design_team": "Wendy Adams, John Blanco (developer), Kathy Perkins, Noah Podolefsky, Carl Wieman, Jack Barbera (interviews), Kelly Lancaster (interviews)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 1276,
+    "name": "quantum-wave-interference",
+    "title_pt": "Interferência Quântica",
+    "html5_url": "https://phet.colorado.edu/sims/html/quantum-wave-interference/latest/quantum-wave-interference_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/quantum-wave-interference/latest/quantum-wave-interference-600.png",
+    "design_team": "Matthew Blackman (lead designer), Sam Reid (lead developer), Taliesin Smith, Amy Rouinfar, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 42,
+    "name": "quantum-wave-interference",
+    "title_pt": "Interferência Quântica",
+    "html5_url": "https://phet.colorado.edu/sims/html/quantum-wave-interference/latest/quantum-wave-interference_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/quantum-wave-interference/latest/quantum-wave-interference-600.png",
+    "design_team": "Wendy Adams, Sam McKagan (lead), Kathy Perkins, Sam Reid (developer), Carl Wieman, Interviewer: Danielle Harlow, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 225,
+    "name": "wave-interference",
+    "title_pt": "Interferência de Onda",
+    "html5_url": "https://phet.colorado.edu/sims/html/wave-interference/latest/wave-interference_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/wave-interference/latest/wave-interference-600.png",
+    "design_team": "Sam Reid (lead developer), Amy Rouinfar (lead designer), Noah Podolefsky (original designer), Wendy Adams, Diana López Tavares, Ariel Paul, Kathy Perkins, Katie Woessner, Cheryl McCutchan (graphic arts)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 56,
+    "name": "wave-interference",
+    "title_pt": "Interferência de Ondas",
+    "html5_url": "https://phet.colorado.edu/sims/html/wave-interference/latest/wave-interference_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/wave-interference/latest/wave-interference-600.png",
+    "design_team": "Wendy Adams, Noah Podolefsky (lead), Sam Reid (developer), Interviewer: Danielle Harlow, Interviewer: Noah Podolefsky",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 146,
+    "name": "radiating-charge",
+    "title_pt": "Irradiando Carga",
+    "html5_url": "https://phet.colorado.edu/sims/html/radiating-charge/latest/radiating-charge_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/radiating-charge/latest/radiating-charge-600.png",
+    "design_team": "Michael Dubson (lead designer/developer), Ariel Paul (development/interviews)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 85,
+    "name": "radioactive-dating-game",
+    "title_pt": "Jogo da Datação Radiativa",
+    "html5_url": "https://phet.colorado.edu/sims/html/radioactive-dating-game/latest/radioactive-dating-game_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/radioactive-dating-game/latest/radioactive-dating-game-600.png",
+    "design_team": "Wendy Adams, John Blanco (developer), Kathy Perkins, Noah Podolefsky, Carl Wieman, Interviewer: Noah Podolefsky",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 29,
+    "name": "maze-game",
+    "title_pt": "Jogo do Labirinto",
+    "html5_url": "https://phet.colorado.edu/sims/html/maze-game/latest/maze-game_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/maze-game/latest/maze-game-600.png",
+    "design_team": "Michael Dubson (developer/lead), Sam Reid (developer), Interviewer: Wendy Adams, Interviewer: Mindy Gratny",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 167,
+    "name": "john-travoltage",
+    "title_pt": "John Travoltagem",
+    "html5_url": "https://phet.colorado.edu/sims/html/john-travoltage/latest/john-travoltage_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/john-travoltage/latest/john-travoltage-600.png",
+    "design_team": "Noah Podolefsky (lead), Carl Wieman (lead), Sam Reid (lead, developer), Jesse Greenberg, Trish Loeblein, Emily B. Moore, Ariel Paul, Kathy Perkins, Taliesin Smith, Jonathan Hung (Inclusive Design Research Centre), Justin Obara (Inclusive Design Research Centre), Sharon Siman-Tov (graphic arts), Maria Hermsmeyer (graphic arts), Wendy Adams (interviewer), Ashton Morris (sound design), Mike Winters (sound design)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 55,
+    "name": "travoltage",
+    "title_pt": "John Travoltagem",
+    "html5_url": "https://phet.colorado.edu/sims/html/travoltage/latest/travoltage_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/travoltage/latest/travoltage-600.png",
+    "design_team": "Sam Reid (developer), Carl Wieman, Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 7,
+    "name": "circuit-construction-kit-ac",
+    "title_pt": "Kit de Construção de Circuito (AC+DC)",
+    "html5_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac-600.png",
+    "design_team": "Michael Dubson, Kathy Perkins, Sam Reid (developer/lead), Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 99,
+    "name": "circuit-construction-kit-ac-virtual-lab",
+    "title_pt": "Kit de Construção de Circuito (AC+DC), Laboratório Virtual",
+    "html5_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac-virtual-lab/latest/circuit-construction-kit-ac-virtual-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac-virtual-lab/latest/circuit-construction-kit-ac-virtual-lab-600.png",
+    "design_team": "Michael Dubson, Kathy Perkins, Sam Reid (developer/lead), Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 8,
+    "name": "circuit-construction-kit-dc",
+    "title_pt": "Kit de Construção de Circuito (DC)",
+    "html5_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc/latest/circuit-construction-kit-dc_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc/latest/circuit-construction-kit-dc-600.png",
+    "design_team": "Wendy Adams, Michael Dubson, Kathy Perkins, Sam Reid (developer/lead), Carl Wieman, Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 98,
+    "name": "circuit-construction-kit-dc-virtual-lab",
+    "title_pt": "Kit de Construção de Circuito (DC), Laboratório Virtual",
+    "html5_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/latest/circuit-construction-kit-dc-virtual-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/latest/circuit-construction-kit-dc-virtual-lab-600.png",
+    "design_team": "Wendy Adams, Michael Dubson, Kathy Perkins, Sam Reid (developer/lead), Carl Wieman, Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 205,
+    "name": "circuit-construction-kit-dc",
+    "title_pt": "Kit para Montar Circuito DC",
+    "html5_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc/latest/circuit-construction-kit-dc_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc/latest/circuit-construction-kit-dc-600.png",
+    "design_team": "Amy Rouinfar (lead designer), Sam Reid (lead developer), Denzell Barnett (developer), Matthew Blackman (developer), Wendy Adams, Michael Dubson, Noah Finkelstein, Chris Keller, Ariel Paul, Kathy Perkins, Taliesin Smith, Carl Wieman, Bryce Gruneich (graphic arts), Mariah Hermsmeyer (graphic arts), Cheryl McCutchan (graphic arts)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 206,
+    "name": "circuit-construction-kit-dc-virtual-lab",
+    "title_pt": "Kit para Montar um Circuito DC - Laboratório Virtual",
+    "html5_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/latest/circuit-construction-kit-dc-virtual-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/circuit-construction-kit-dc-virtual-lab/latest/circuit-construction-kit-dc-virtual-lab-600.png",
+    "design_team": "Amy Rouinfar (lead designer), Sam Reid (lead developer), Denzell Barnett (developer), Matthew Blackman (developer), Wendy Adams, Michael Dubson, Noah Finkelstein, Chris Keller, Ariel Paul, Kathy Perkins, Taliesin Smith, Carl Wieman, Bryce Gruneich (graphic arts), Mariah Hermsmeyer (graphic arts), Cheryl McCutchan (graphic arts)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 248,
+    "name": "circuit-construction-kit-ac",
+    "title_pt": "Kit para Montar um Circuito: AC",
+    "html5_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac-600.png",
+    "design_team": "Amy Rouinfar (lead designer), Sam Reid (lead developer), Denzell Barnett (developer), Wendy Adams, Michael Dubson, Noah Finkelstein, Chris Keller, Ariel Paul, Kathy Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 249,
+    "name": "circuit-construction-kit-ac-virtual-lab",
+    "title_pt": "Kit para Montar um Circuito: AC - Laboratório Virtual",
+    "html5_url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac-virtual-lab/latest/circuit-construction-kit-ac-virtual-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac-virtual-lab/latest/circuit-construction-kit-ac-virtual-lab-600.png",
+    "design_team": "Amy Rouinfar (lead designer), Sam Reid (lead developer), Denzell Barnett (developer), Wendy Adams, Michael Dubson, Noah Finkelstein, Chris Keller, Ariel Paul, Kathy Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 263,
+    "name": "projectile-data-lab",
+    "title_pt": "Lab Dados de Projéteis",
+    "html5_url": "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab-600.png",
+    "design_team": "Matthew Blackman (lead designer), Cathy Carter (designer), Sam Reid (developer), Ariel Paul, Kathy Perkins, Amy Rouinfar, Kelly Findley, Emily B. Moore, Ashton Morris (sound design)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 265,
+    "name": "faradays-electromagnetic-lab",
+    "title_pt": "Laboratório Eletromagnético de Faraday",
+    "html5_url": "https://phet.colorado.edu/sims/html/faradays-electromagnetic-lab/latest/faradays-electromagnetic-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/faradays-electromagnetic-lab/latest/faradays-electromagnetic-lab-600.png",
+    "design_team": "Chris Malley (developer), Amy Rouinfar (lead designer), Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Archie Paulson, Kathy Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 108,
+    "name": "collision-lab",
+    "title_pt": "Laboratório de Colisões",
+    "html5_url": "https://phet.colorado.edu/sims/html/collision-lab/latest/collision-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/collision-lab/latest/collision-lab-600.png",
+    "design_team": "Mike Dubson (design + development), Trish Loeblein, Kathy Perkins, Mindy Gratny (interviews), Jon Olson, Sam Reid, Ariel Paul (interviews)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 237,
+    "name": "collision-lab",
+    "title_pt": "Laboratório de Colisões",
+    "html5_url": "https://phet.colorado.edu/sims/html/collision-lab/latest/collision-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/collision-lab/latest/collision-lab-600.png",
+    "design_team": "Brandon Li (developer), Jonathon Olson (developer), Martin Veillette (developer), Amy Rouinfar (lead designer), Michael Dubson , Trish Loeblein, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 19,
+    "name": "faraday",
+    "title_pt": "Laboratório de Eletromagnetismo de Faraday",
+    "html5_url": "https://phet.colorado.edu/sims/html/faraday/latest/faraday_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/faraday/latest/faraday-600.png",
+    "design_team": "Michael Dubson, Chris Malley (developer), Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow, Interviewer: Archie Paulson",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 166,
+    "name": "gravity-force-lab",
+    "title_pt": "Laboratório de Força Gravitacional",
+    "html5_url": "https://phet.colorado.edu/sims/html/gravity-force-lab/latest/gravity-force-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/gravity-force-lab/latest/gravity-force-lab-600.png",
+    "design_team": "Michael Barlow (developer), Sam Reid (developer), John Blaco (developer), Aadish Gupta (developer), Michael Kauzmann (developer), Sam Reid (developer), Wendy Adams, Patricia Loeblein, Emily B. Moore, Ariel Paul, Noah Podolefsky, Amy Rouinfar, Taliesin Smith, Brianna Tomlinson, Carl Wieman, Mariah Hermsmeyer (graphic arts), Ashton Morris (sound design)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 232,
+    "name": "gravity-force-lab-basics",
+    "title_pt": "Laboratório de Força Gravitacional: Básico",
+    "html5_url": "https://phet.colorado.edu/sims/html/gravity-force-lab-basics/latest/gravity-force-lab-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/gravity-force-lab-basics/latest/gravity-force-lab-basics-600.png",
+    "design_team": "Michael Barlow (developer), John Blanco (developer), Jesse Greenberg (developer), Michael Kauzmann (developer), Amy Rouinfar (lead designer), Ariel Paul, Kathy Perkins, Emily B. Moore, Taliesin Smith, Brianna Tomlinson, Mariah Hermsmeyer (graphic arts), Ashton Morris (sound design)",
+    "highGradeLevel": 1,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 86,
+    "name": "gravity-force-lab",
+    "title_pt": "Laboratório de Força Gravítica",
+    "html5_url": "https://phet.colorado.edu/sims/html/gravity-force-lab/latest/gravity-force-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/gravity-force-lab/latest/gravity-force-lab-600.png",
+    "design_team": "Sam Reid, Noah Podolefsky, Carl Wieman, Trish Loeblein",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 70,
+    "name": "pendulum-lab",
+    "title_pt": "Laboratório de Pêndulos",
+    "html5_url": "https://phet.colorado.edu/sims/html/pendulum-lab/latest/pendulum-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/pendulum-lab/latest/pendulum-lab-600.png",
+    "design_team": "Michael Dubson (developer/lead), Trish Loeblein",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 207,
+    "name": "capacitor-lab-basics",
+    "title_pt": "Laboratório do Capacitor: Básico",
+    "html5_url": "https://phet.colorado.edu/sims/html/capacitor-lab-basics/latest/capacitor-lab-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/capacitor-lab-basics/latest/capacitor-lab-basics-600.png",
+    "design_team": "Amy Rouinfar (lead designer), Andrew Adare (developer), Jesse Greenberg (developer), Chris Malley (developer), Jonathan Olson (developer), Emily Randall (developer), Emily Moore, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 204,
+    "name": "pendulum-lab",
+    "title_pt": "Laboratório do Pêndulo",
+    "html5_url": "https://phet.colorado.edu/sims/html/pendulum-lab/latest/pendulum-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/pendulum-lab/latest/pendulum-lab-600.png",
+    "design_team": "Jonathon Olson (developer), Amy Rouinfar (lead designer), Michael Dubson (original designer), Trish Loeblein, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 28,
+    "name": "lasers",
+    "title_pt": "Lasers",
+    "html5_url": "https://phet.colorado.edu/sims/html/lasers/latest/lasers_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/lasers/latest/lasers-600.png",
+    "design_team": "Ron LeMaster (developer), Sam McKagan, Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 219,
+    "name": "coulombs-law",
+    "title_pt": "Lei de Coulomb",
+    "html5_url": "https://phet.colorado.edu/sims/html/coulombs-law/latest/coulombs-law_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/coulombs-law/latest/coulombs-law-600.png",
+    "design_team": "Michael Barlow (lead developer), Jesse Greenberg (developer), Amy Rouinfar (lead designer), Amy Hanson, Ariel Paul, Kathy Perkins, Mariah Hermsmeyer (graphic arts), Cheryl McCutchan (graphic arts)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 63,
+    "name": "faradays-law",
+    "title_pt": "Lei de Faraday",
+    "html5_url": "https://phet.colorado.edu/sims/html/faradays-law/latest/faradays-law_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/faradays-law/latest/faradays-law-600.png",
+    "design_team": "Michael Dubson (developer/lead), Trish Loeblein",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 161,
+    "name": "faradays-law",
+    "title_pt": "Lei de Faraday",
+    "html5_url": "https://phet.colorado.edu/sims/html/faradays-law/latest/faradays-law_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/faradays-law/latest/faradays-law-600.png",
+    "design_team": "Michael Dubson (lead), Bryce Gruneich (lead), John Blanco (developer), Jonathan Olson (developer), Ariel Paul, Kathy Perkins, Amy Rouinfar",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 178,
+    "name": "hookes-law",
+    "title_pt": "Lei de Hooke",
+    "html5_url": "https://phet.colorado.edu/sims/html/hookes-law/latest/hookes-law_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/hookes-law/latest/hookes-law-600.png",
+    "design_team": "Amy Rouinfar (lead), Chris Malley (developer), Mike Dubson, Bruna Shinohara de Mendonça, Ariel Paul, Kathy Perkins, Nancy Salpepi, Martin Veillette",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 172,
+    "name": "ohms-law",
+    "title_pt": "Lei de Ohm",
+    "html5_url": "https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law-600.png",
+    "design_team": "Michael Dubson (lead, developer), John Blanco (developer), Michael Kauzmann (developer), Martin Veillette (developer), Emily B. Moore, Ariel Paul, Kathy Perkins, Taliesin Smith, Brianna Tomlinson, Mindy Gratny (interviewer), Ashton Morris (Sound Design)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 69,
+    "name": "ohms-law",
+    "title_pt": "Lei de Ohm",
+    "html5_url": "https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law-600.png",
+    "design_team": "Michael Dubson (developer/lead), Interviewer: Mindy Gratny",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 260,
+    "name": "keplers-laws",
+    "title_pt": "Leis de Kepler",
+    "html5_url": "https://phet.colorado.edu/sims/html/keplers-laws/latest/keplers-laws_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/keplers-laws/latest/keplers-laws-600.png",
+    "design_team": "Diana López Tavares (lead designer), Agustín Vallejo (lead developer), Jonathan Olson (developer), Ashton Morris (sound design), Chris Malley, Emily B. Moore, Ariel Paul, Kathy Perkins, Amy Rouinfar",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 11,
+    "name": "discharge-lamps",
+    "title_pt": "Lâmpadas de neônio e outras lâmpadas de descarga",
+    "html5_url": "https://phet.colorado.edu/sims/html/discharge-lamps/latest/discharge-lamps_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/discharge-lamps/latest/discharge-lamps-600.png",
+    "design_team": "Ron LeMaster (developer), Sam McKagan, Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 217,
+    "name": "masses-and-springs",
+    "title_pt": "Massas e Molas",
+    "html5_url": "https://phet.colorado.edu/sims/html/masses-and-springs/latest/masses-and-springs_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/masses-and-springs/latest/masses-and-springs-600.png",
+    "design_team": "Denzell Barnett (developer), Matt Pennington (developer), Amy Rouinfar (lead designer), Mike Dubson (original designer), Wendy Adams, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 67,
+    "name": "mass-spring-lab",
+    "title_pt": "Massas e Molas",
+    "html5_url": "https://phet.colorado.edu/sims/html/mass-spring-lab/latest/mass-spring-lab_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/mass-spring-lab/latest/mass-spring-lab-600.png",
+    "design_team": "Michael Dubson (developer/lead), Kathy Perkins, Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 226,
+    "name": "masses-and-springs-basics",
+    "title_pt": "Massas e Molas: Básico",
+    "html5_url": "https://phet.colorado.edu/sims/html/masses-and-springs-basics/latest/masses-and-springs-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/masses-and-springs-basics/latest/masses-and-springs-basics-600.png",
+    "design_team": "Denzell Barnett (developer), Amy Rouinfar (lead designer), Mike Dubson (original designer), Wendy Adams, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 1,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 272,
+    "name": "quantum-measurement",
+    "title_pt": "Medição Quântica",
+    "html5_url": "https://phet.colorado.edu/sims/html/quantum-measurement/latest/quantum-measurement_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/quantum-measurement/latest/quantum-measurement-600.png",
+    "design_team": "Ariel Paul (lead designer), Amy Rouinfar (lead designer), Mike Bennet , John Blanco (developer), Josh Combes, Aiko Kyle, Phil Makotyn, Kathy Perkins, Ana Maria Rey, Agustín Vallejo (developer), Martin Veillette",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 256,
+    "name": "my-solar-system",
+    "title_pt": "Meu Sistema Solar",
+    "html5_url": "https://phet.colorado.edu/sims/html/my-solar-system/latest/my-solar-system_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/my-solar-system/latest/my-solar-system-600.png",
+    "design_team": "Diana López Tavares (lead designer), Michael Dubson (original designer and developer), Agustín Vallejo (lead developer), Jonathan Olson (developer), Emily B. Moore, Sola Olateju, Ariel Paul, Kathy Perkins, Amy Rouinfar",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 68,
+    "name": "my-solar-system",
+    "title_pt": "Meu Sistema Solar",
+    "html5_url": "https://phet.colorado.edu/sims/html/my-solar-system/latest/my-solar-system_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/my-solar-system/latest/my-solar-system-600.png",
+    "design_team": "Michael Dubson (developer/lead), Interviewer: Mindy Gratny, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 30,
+    "name": "microwaves",
+    "title_pt": "Micro-Ondas",
+    "html5_url": "https://phet.colorado.edu/sims/html/microwaves/latest/microwaves_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/microwaves/latest/microwaves-600.png",
+    "design_team": "Wendy Adams, Ron LeMaster (developer), Kathy Perkins, Carl Wieman, Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 271,
+    "name": "models-of-the-hydrogen-atom",
+    "title_pt": "Modelos do Átomo de Hidrogênio",
+    "html5_url": "https://phet.colorado.edu/sims/html/models-of-the-hydrogen-atom/latest/models-of-the-hydrogen-atom_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/models-of-the-hydrogen-atom/latest/models-of-the-hydrogen-atom-600.png",
+    "design_team": "Diana López (lead designer), Amy Rouinfar (designer), Nancy Salpepi (designer), Kathy Perkins, Ariel Paul, Chris Malley (developer), Wendy Adams, Michael Dubson, Sam McKagan , Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 24,
+    "name": "hydrogen-atom",
+    "title_pt": "Modelos do Átomo de Hidrogênio",
+    "html5_url": "https://phet.colorado.edu/sims/html/hydrogen-atom/latest/hydrogen-atom_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/hydrogen-atom/latest/hydrogen-atom-600.png",
+    "design_team": "Wendy Adams, Michael Dubson, Chris Malley (developer), Sam McKagan (lead), Kathy Perkins, Carl Wieman, Interviewer: Mindy Gratny, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 136,
+    "name": "normal-modes",
+    "title_pt": "Modos Normais",
+    "html5_url": "https://phet.colorado.edu/sims/html/normal-modes/latest/normal-modes_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/normal-modes/latest/normal-modes-600.png",
+    "design_team": "Michael Dubson (lead designer/developer), Jon Olson (developer), Ariel Paul (development/interviews), Trish Loeblein (development)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 169,
+    "name": "molecules-and-light",
+    "title_pt": "Moléculas e Luz",
+    "html5_url": "https://phet.colorado.edu/sims/html/molecules-and-light/latest/molecules-and-light_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/molecules-and-light/latest/molecules-and-light-600.png",
+    "design_team": "Amy Rouinfar (lead), Jesse Greenberg (developer), John Blanco (developer), Sam Reid (developer), Aaron Davis (developer), Kelly Lancaster, Yuen-ying Carpenter, Brett Fiedler, Patricia Loeblein, Wanda Diaz Merced, Emily B. Moore, Matthew Moore, Robert Parson, Ariel Paul, Kathy Perkins, Taliesin Smith, Brianna Tomlinson, Syan Zhou, Alex Klinger (graphic arts), Ashton Morris (sound design), Mike Winters (sond design)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 110,
+    "name": "molecules-and-light",
+    "title_pt": "Moléculas e Luz",
+    "html5_url": "https://phet.colorado.edu/sims/html/molecules-and-light/latest/molecules-and-light_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/molecules-and-light/latest/molecules-and-light-600.png",
+    "design_team": "John Blanco (developer), Kelly Lancaster (lead), Trish Loeblein, Robert Parson, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 253,
+    "name": "build-a-nucleus",
+    "title_pt": "Monte um Núcleo",
+    "html5_url": "https://phet.colorado.edu/sims/html/build-a-nucleus/latest/build-a-nucleus_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/build-a-nucleus/latest/build-a-nucleus-600.png",
+    "design_team": "Luisa Vargas (lead designer), Ariel Paul (lead designer), Luisa Vargas (developer), Michael Kauzmann (developer), Chris Klusendorf (developer), Marla Schulz (developer), Martin Veillette (developer), Jason Donev (University of Calgary), Amy Rouinfar, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 107,
+    "name": "build-an-atom",
+    "title_pt": "Monte um Átomo",
+    "html5_url": "https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom-600.png",
+    "design_team": "Kelly Lancaster (lead), John Blanco (developer), Sam Reid (developer), Jack Barbera, Suzanne Brahmia, Patricia Loeblein, Robert Parson, Kathy Perkins",
+    "highGradeLevel": 2,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 157,
+    "name": "build-an-atom",
+    "title_pt": "Monte um Átomo",
+    "html5_url": "https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom-600.png",
+    "design_team": "Kelly Lancaster (lead), John Blanco (developer), Sam Reid (developer), Agustín Vallejo (developer), Jack Barbera, Suzanne Brahmia, Julia Chamberlain, Yuen-ying Carpenter, Patricia Loeblein, Emily B. Moore, Robert Parson, Ariel Paul, Kathy Perkins, Amy Rouinfar, Nancy Salpepi, Sharon Siman-Tov, Taliesin Smith",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 35,
+    "name": "molecular-motors",
+    "title_pt": "Motores Moleculares",
+    "html5_url": "https://phet.colorado.edu/sims/html/molecular-motors/latest/molecular-motors_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/molecular-motors/latest/molecular-motors-600.png",
+    "design_team": "Kathy Perkins, Chris Malley, Tom Perkins, Mike Dubson, Wendy Adams, Meredith Betterton",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 72,
+    "name": "projectile-motion",
+    "title_pt": "Movimento de Projéteis",
+    "html5_url": "https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion-600.png",
+    "design_team": "Michael Dubson (developer/lead), Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 203,
+    "name": "projectile-motion",
+    "title_pt": "Movimento de Projétil",
+    "html5_url": "https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion-600.png",
+    "design_team": "Amy Rouinfar (lead designer), Andrea Lin (developer), Wendy Adams, John Blanco, Mike Dubson, Amanda McGarry, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 31,
+    "name": "motion-2d",
+    "title_pt": "Movimento em 2D",
+    "html5_url": "https://phet.colorado.edu/sims/html/motion-2d/latest/motion-2d_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/motion-2d/latest/motion-2d-600.png",
+    "design_team": "Michael Dubson (developer/lead), Sam Reid (developer)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 66,
+    "name": "lunar-lander",
+    "title_pt": "Módulo de Pouso Lunar",
+    "html5_url": "https://phet.colorado.edu/sims/html/lunar-lander/latest/lunar-lander_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/lunar-lander/latest/lunar-lander-600.png",
+    "design_team": "Michael Dubson (developer/lead)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 23,
+    "name": "greenhouse",
+    "title_pt": "O Efeito Estufa",
+    "html5_url": "https://phet.colorado.edu/sims/html/greenhouse/latest/greenhouse_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/greenhouse/latest/greenhouse-600.png",
+    "design_team": "Wendy Adams, John Blanco (developer), Kelly Lancaster, Ron LeMaster (developer), Trish Loeblein, Robert Parson, Kathy Perkins, Carl Wieman, Interviewer: Wendy Adams, Interviewer: Danielle Harlow, Interviewer: Kelly Lancaster",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 32,
+    "name": "moving-man",
+    "title_pt": "O Homem em Movimento",
+    "html5_url": "https://phet.colorado.edu/sims/html/moving-man/latest/moving-man_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/moving-man/latest/moving-man-600.png",
+    "design_team": "Wendy Adams, Kathy Perkins, Sam Reid (developer), Carl Wieman, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 177,
+    "name": "wave-on-a-string",
+    "title_pt": "Onda em Corda",
+    "html5_url": "https://phet.colorado.edu/sims/html/wave-on-a-string/latest/wave-on-a-string_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/wave-on-a-string/latest/wave-on-a-string-600.png",
+    "design_team": "Ariel Paul (lead), Michael Dubson (lead, developer), Brett Fiedler (lead, v1.2), Jonathan Olson (developer), Patricia Loeblein, Kathy Perkins, Amy Rouinfar, Sharon Siman-Tov (graphic arts)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 76,
+    "name": "wave-on-a-string",
+    "title_pt": "Onda em Corda",
+    "html5_url": "https://phet.colorado.edu/sims/html/wave-on-a-string/latest/wave-on-a-string_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/wave-on-a-string/latest/wave-on-a-string-600.png",
+    "design_team": "Michael Dubson (developer/lead), Interviewer: Wendy Adams, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 43,
+    "name": "radio-waves",
+    "title_pt": "Ondas de Rádio e Campos Eletromagnéticos",
+    "html5_url": "https://phet.colorado.edu/sims/html/radio-waves/latest/radio-waves_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/radio-waves/latest/radio-waves-600.png",
+    "design_team": "Wendy Adams, Michael Dubson, Ron LeMaster (developer), Kathy Perkins, Carl Wieman, Interviewer: Wendy Adams, Interviewer: Noah Podolefsky",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 231,
+    "name": "waves-intro",
+    "title_pt": "Ondas: Intro",
+    "html5_url": "https://phet.colorado.edu/sims/html/waves-intro/latest/waves-intro_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/waves-intro/latest/waves-intro-600.png",
+    "design_team": "Sam Reid (lead developer), Amy Rouinfar (lead designer), Noah Podolefsky (original designer), Wendy Adams, Diana López Tavares, Ariel Paul, Kathy Perkins, Katie Woessner, Cheryl McCutchan (graphic arts)",
+    "highGradeLevel": 1,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 40,
+    "name": "quantum-tunneling",
+    "title_pt": "Pacotes de Onda e Tunelamento Quântico",
+    "html5_url": "https://phet.colorado.edu/sims/html/quantum-tunneling/latest/quantum-tunneling_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/quantum-tunneling/latest/quantum-tunneling-600.png",
+    "design_team": "Chris Malley (developer), Sam McKagan (lead), Kathy Perkins, Carl Wieman, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 15,
+    "name": "energy-skate-park",
+    "title_pt": "Parque Energético para Skatistas",
+    "html5_url": "https://phet.colorado.edu/sims/html/energy-skate-park/latest/energy-skate-park_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/energy-skate-park/latest/energy-skate-park-600.png",
+    "design_team": "Wendy Adams, Michael Dubson, Trish Loeblein, Kathy Perkins, Sam Reid (developer/lead), Carl Wieman, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 37,
+    "name": "optical-tweezers",
+    "title_pt": "Pinças Ópticas e aplicações",
+    "html5_url": "https://phet.colorado.edu/sims/html/optical-tweezers/latest/optical-tweezers_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/optical-tweezers/latest/optical-tweezers-600.png",
+    "design_team": "Wendy Adams, Michael Dubson, Chris Malley (developer), Kathy Perkins (lead), Thomas Perkins, Interviewer: Archie Paulson",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 5,
+    "name": "covalent-bonds",
+    "title_pt": "Poços Duplos e Ligações Covalentes",
+    "html5_url": "https://phet.colorado.edu/sims/html/covalent-bonds/latest/covalent-bonds_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/covalent-bonds/latest/covalent-bonds-600.png",
+    "design_team": "Chris Malley (developer), Sam McKagan (lead), Kathy Perkins, Carl Wieman, Interviewer: Sam McKagan",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 137,
+    "name": "fluid-pressure-and-flow",
+    "title_pt": "Pressão do Fluido e Fluxo",
+    "html5_url": "https://phet.colorado.edu/sims/html/fluid-pressure-and-flow/latest/fluid-pressure-and-flow_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/fluid-pressure-and-flow/latest/fluid-pressure-and-flow-600.png",
+    "design_team": "Sam Reid (lead designer/developer), Noah Podolefsky, Ariel Paul, Trish Loeblein, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 190,
+    "name": "plinko-probability",
+    "title_pt": "Probabilidade Plinko",
+    "html5_url": "https://phet.colorado.edu/sims/html/plinko-probability/latest/plinko-probability_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/plinko-probability/latest/plinko-probability-600.png",
+    "design_team": "Martin Veillette (developer), Denzell Barnett (developer), Chris Malley (developer) , Guillermo Ramos-Macias (developer) , Amanda McGarry (lead designer), Michael Dubson (original designer), Karina K. Hensberry, Trish Loeblein, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 228,
+    "name": "gas-properties",
+    "title_pt": "Propriedades dos Gases",
+    "html5_url": "https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties-600.png",
+    "design_team": "Chris Malley (developer), Amy Rouinfar (lead designer), Jack Barbera, John Blanco, Michael Dubson, Amy Hanson, Linda Koch, Ron LeMaster, Trish Loeblein, Emily B. Moore, Ariel Paul, Dennis Perepelitsa, Kathy Perkins, Tom Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 25,
+    "name": "gas-properties",
+    "title_pt": "Propriedades dos Gases",
+    "html5_url": "https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties-600.png",
+    "design_team": "Jack Barbera, Michael Dubson, Linda Koch, Ron LeMaster (developer), Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 104,
+    "name": "ramp-forces-and-motion",
+    "title_pt": "Rampa: Forças e Movimento",
+    "html5_url": "https://phet.colorado.edu/sims/html/ramp-forces-and-motion/latest/ramp-forces-and-motion_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/ramp-forces-and-motion/latest/ramp-forces-and-motion-600.png",
+    "design_team": "Sam Reid (developer), Noah Podolefsky (lead design), Trish Loeblein, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 27,
+    "name": "reversible-reactions",
+    "title_pt": "Reações Reversíveis",
+    "html5_url": "https://phet.colorado.edu/sims/html/reversible-reactions/latest/reversible-reactions_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/reversible-reactions/latest/reversible-reactions-600.png",
+    "design_team": "Jack Barbera, Linda Koch (lead), Ron LeMaster (developer), Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 44,
+    "name": "reactions-and-rates",
+    "title_pt": "Reações e Taxas",
+    "html5_url": "https://phet.colorado.edu/sims/html/reactions-and-rates/latest/reactions-and-rates_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/reactions-and-rates/latest/reactions-and-rates-600.png",
+    "design_team": "Linda Koch (lead), Ron LeMaster (developer), Trish Loeblein, Kathy Perkins, Interviewer: Mindy Gratny",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 175,
+    "name": "resistance-in-a-wire",
+    "title_pt": "Resistência em um Fio",
+    "html5_url": "https://phet.colorado.edu/sims/html/resistance-in-a-wire/latest/resistance-in-a-wire_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/resistance-in-a-wire/latest/resistance-in-a-wire-600.png",
+    "design_team": "Michael Dubson (lead, developer), John Blanco (developer), Jesse Greenberg (developer), Michael Kauzmann (developer), Emily B. Moore, Ariel Paul, Kathy Perkins, Amy Rouinfar, Taliesin Smith, Brianna Tomlinson, Wendy Adams (interviewer), Mindy Gratny (interviewer), Ashton Morris (sound design), Mike Winters (sound design)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 73,
+    "name": "resistance-in-a-wire",
+    "title_pt": "Resistência em um Fio",
+    "html5_url": "https://phet.colorado.edu/sims/html/resistance-in-a-wire/latest/resistance-in-a-wire_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/resistance-in-a-wire/latest/resistance-in-a-wire-600.png",
+    "design_team": "Michael Dubson (developer/lead), Interviewer: Wendy Adams, Interviewer: Mindy Gratny",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 117,
+    "name": "resonance",
+    "title_pt": "Ressonância",
+    "html5_url": "https://phet.colorado.edu/sims/html/resonance/latest/resonance_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/resonance/latest/resonance-600.png",
+    "design_team": "Michael Dubson (lead design, lead developer), Patricia Loeblein (design), Jonathan Olson (developer), Kathy Perkins (design), Mindy Gratny (interviews)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 46,
+    "name": "rotation",
+    "title_pt": "Rotação da Joaninha",
+    "html5_url": "https://phet.colorado.edu/sims/html/rotation/latest/rotation_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/rotation/latest/rotation-600.png",
+    "design_team": "Kathy Perkins, Wendy Adams, Mindy Gratny, Sam Reid",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 2
+  },
+  {
+    "id": 49,
+    "name": "semiconductor",
+    "title_pt": "Semicondutores",
+    "html5_url": "https://phet.colorado.edu/sims/html/semiconductor/latest/semiconductor_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/semiconductor/latest/semiconductor-600.png",
+    "design_team": "Sam McKagan, Kathy Perkins, Sam Reid (developer), Carl Wieman, Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 3
+  },
+  {
+    "id": 50,
+    "name": "signal-circuit",
+    "title_pt": "Sinal de Circuito",
+    "html5_url": "https://phet.colorado.edu/sims/html/signal-circuit/latest/signal-circuit_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/signal-circuit/latest/signal-circuit-600.png",
+    "design_team": "Sam Reid (developer), Carl Wieman, Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 176,
+    "name": "under-pressure",
+    "title_pt": "Sob Pressão",
+    "html5_url": "https://phet.colorado.edu/sims/html/under-pressure/latest/under-pressure_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/under-pressure/latest/under-pressure-600.png",
+    "design_team": "Sam Reid (lead, developer), John Blanco (developer), Bryce Gruneich, Noah Podolefsky, Ariel Paul, Patricia Loeblein, Kathy Perkins, Rachel Pepper",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 138,
+    "name": "under-pressure",
+    "title_pt": "Sob Pressão ",
+    "html5_url": "https://phet.colorado.edu/sims/html/under-pressure/latest/under-pressure_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/under-pressure/latest/under-pressure-600.png",
+    "design_team": "Sam Reid (lead designer/developer), Noah Podolefsky, Ariel Paul, Trish Loeblein, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 52,
+    "name": "sound",
+    "title_pt": "Som",
+    "html5_url": "https://phet.colorado.edu/sims/html/sound/latest/sound_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/sound/latest/sound-600.png",
+    "design_team": "Ron LeMaster (developer), Kathy Perkins, Carl Wieman, Interviewer: Wendy Adams, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 3,
+    "name": "battery-voltage",
+    "title_pt": "Tensão de Bateria",
+    "html5_url": "https://phet.colorado.edu/sims/html/battery-voltage/latest/battery-voltage_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/battery-voltage/latest/battery-voltage-600.png",
+    "design_team": "Sam Reid (Developer), Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 45,
+    "name": "torque",
+    "title_pt": "Torque",
+    "html5_url": "https://phet.colorado.edu/sims/html/torque/latest/torque_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/torque/latest/torque-600.png",
+    "design_team": "Wendy Adams, Sam Reid, Kathy Perkins, Trish Loeblein",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 158,
+    "name": "color-vision",
+    "title_pt": "Visão Colorida",
+    "html5_url": "https://phet.colorado.edu/sims/html/color-vision/latest/color-vision_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/color-vision/latest/color-vision-600.png",
+    "design_team": "Bryce Gruneich (lead), Kathy Perkins (lead), Aaron Davis (developer), Ron LeMaster (developer), Chris Malley (developer), Sam Reid (developer), Wendy Adams, Danielle Harlow, Ariel Paul, Carl Wieman, Mike Fowler (graphic arts)",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 9,
+    "name": "color-vision",
+    "title_pt": "Visão de Cor",
+    "html5_url": "https://phet.colorado.edu/sims/html/color-vision/latest/color-vision_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/color-vision/latest/color-vision-600.png",
+    "design_team": "Ron LeMaster (developer), Chris Malley (developer), Kathy Perkins, Carl Wieman, Interviewer: Wendy Adams, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 58,
+    "name": "blackbody-spectrum",
+    "title_pt": "blackbody-spectrum",
+    "html5_url": "https://phet.colorado.edu/sims/html/blackbody-spectrum/latest/blackbody-spectrum_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/blackbody-spectrum/latest/blackbody-spectrum-600.png",
+    "design_team": "Michael Dubson (developer/lead), Kathy Perkins, Interviewer: Wendy Adams",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 18,
+    "name": "magnet-and-compass",
+    "title_pt": "Ímã e Bússola",
+    "html5_url": "https://phet.colorado.edu/sims/html/magnet-and-compass/latest/magnet-and-compass_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/magnet-and-compass/latest/magnet-and-compass-600.png",
+    "design_team": "Michael Dubson, Chris Malley (developer), Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow, Interviewer: Archie Paulson",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 266,
+    "name": "magnet-and-compass",
+    "title_pt": "Ímã e Bússola",
+    "html5_url": "https://phet.colorado.edu/sims/html/magnet-and-compass/latest/magnet-and-compass_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/magnet-and-compass/latest/magnet-and-compass-600.png",
+    "design_team": "Chris Malley (developer), Amy Rouinfar (lead designer), Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Archie Paulson, Kathy Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 16,
+    "name": "magnets-and-electromagnets",
+    "title_pt": "Ímãs e Eletroímãs",
+    "html5_url": "https://phet.colorado.edu/sims/html/magnets-and-electromagnets/latest/magnets-and-electromagnets_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/magnets-and-electromagnets/latest/magnets-and-electromagnets-600.png",
+    "design_team": "Michael Dubson, Chris Malley (developer), Kathy Perkins, Carl Wieman, Interviewer: Danielle Harlow, Interviewer: Archie Paulson",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 267,
+    "name": "magnets-and-electromagnets",
+    "title_pt": "Ímãs e Eletroímãs",
+    "html5_url": "https://phet.colorado.edu/sims/html/magnets-and-electromagnets/latest/magnets-and-electromagnets_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/magnets-and-electromagnets/latest/magnets-and-electromagnets-600.png",
+    "design_team": "Chris Malley (developer), Amy Rouinfar (lead designer), Wendy Adams, Mike Dubson, Danielle Harlow, Ariel Paul, Archie Paulson, Kathy Perkins, Carl Wieman",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 246,
+    "name": "geometric-optics",
+    "title_pt": "Óptica Geométrica",
+    "html5_url": "https://phet.colorado.edu/sims/html/geometric-optics/latest/geometric-optics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/geometric-optics/latest/geometric-optics-600.png",
+    "design_team": "Sarah Chang (developer), Chris Malley (developer), Martin Veillette (developer), Amy Rouinfar (lead designer), Mike Dubson, Chris Klusendorf, Diana López Tavares, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  },
+  {
+    "id": 255,
+    "name": "geometric-optics-basics",
+    "title_pt": "Óptica Geométrica: Básico",
+    "html5_url": "https://phet.colorado.edu/sims/html/geometric-optics-basics/latest/geometric-optics-basics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/geometric-optics-basics/latest/geometric-optics-basics-600.png",
+    "design_team": "Sarah Chang (developer), Chris Malley (developer), Martin Veillette (developer), Amy Rouinfar (lead designer), Mike Dubson, Chris Klusendorf, Diana López Tavares, Ariel Paul, Kathy Perkins",
+    "highGradeLevel": 2,
+    "lowGradeLevel": 0
+  },
+  {
+    "id": 65,
+    "name": "geometric-optics",
+    "title_pt": "Ótica Geométrica",
+    "html5_url": "https://phet.colorado.edu/sims/html/geometric-optics/latest/geometric-optics_all.html",
+    "thumb_600": "https://phet.colorado.edu/sims/html/geometric-optics/latest/geometric-optics-600.png",
+    "design_team": "Michael Dubson (developer/lead), Kathy Perkins, Interviewer: Mindy Gratny, Interviewer: Danielle Harlow",
+    "highGradeLevel": 3,
+    "lowGradeLevel": 1
+  }
+]
