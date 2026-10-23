@@ -1,5 +1,3 @@
 packages:
-  - 'client'
-  - 'server'
-  - 'shared'
-  - 'docs'
+  - 'apps/*'
+  - 'packages/*'
