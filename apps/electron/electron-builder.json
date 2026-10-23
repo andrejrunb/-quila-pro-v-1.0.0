@@ -1,0 +1,70 @@
+{
+  "appId": "com.aquilapro.desktop",
+  "productName": "Aquila Pro",
+  "npmRebuild": false,
+  "asar": true,
+  "asarUnpack": [
+    "**/node_modules/better-sqlite3/**/*",
+    "**/node_modules/sharp/**/*"
+  ],
+  "artifactName": "AquilaPro-Setup-${version}.${ext}",
+  "copyright": "Copyright © 2026 André Jr - Áquila Pro",
+  "directories": {
+    "buildResources": "resources",
+    "output": "release_out"
+  },
+  "files": [
+    "dist/**/*",
+    "package.json"
+  ],
+  "extraResources": [
+    {
+      "from": "dist/python_workers",
+      "to": "python_workers"
+    },
+    {
+      "from": "resources/",
+      "to": "resources/",
+      "filter": [
+        "**/*"
+      ]
+    }
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      },
+      {
+        "target": "portable",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "icon": "resources/icon.ico"
+  },
+  "nsis": {
+    "installerHeader": "resources/installerHeader.png",
+    "unicode": true,
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "allowElevation": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Aquila Pro",
+    "license": "resources/license.txt",
+    "installerLanguages": [
+      "pt_BR"
+    ],
+    "language": "1046",
+    "perMachine": true,
+    "runAfterFinish": true
+  },
+  "portable": {
+    "artifactName": "AquilaPro-Portable-${version}.exe"
+  }
+}

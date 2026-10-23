@@ -80,3 +80,5 @@ Thumbs.db
 apps/mobile/.expo/
 storage/dominio_out/
 
+release_out/
+apps/electron/release_out/
