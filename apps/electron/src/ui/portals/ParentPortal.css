@@ -544,3 +544,268 @@
   color: #64748B;
   font-size: 12px;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   RADAR NEURO-PEDAGÓGICO & ROTINA DE ESTUDOS EBBINGHAUS (PAIS)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.pp-neuro-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pp-neuro-hero {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(139, 92, 246, 0.14));
+  border: 1px solid rgba(14, 165, 233, 0.28);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.pp-neuro-hero-text h3 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #F8FAFC;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pp-neuro-hero-text p {
+  margin: 0;
+  font-size: 12px;
+  color: #94A3B8;
+  line-height: 1.45;
+  max-width: 680px;
+}
+
+.pp-neuro-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.pp-neuro-kpi-card {
+  padding: 12px 14px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.pp-neuro-kpi-card:hover {
+  border-color: rgba(0, 240, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.pp-neuro-kpi-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pp-neuro-kpi-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.pp-neuro-kpi-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: #F8FAFC;
+  letter-spacing: -0.02em;
+}
+
+.pp-neuro-kpi-sub {
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+.pp-neuro-kpi-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Timeline Quinta a Quinta */
+.pp-timeline-card {
+  padding: 16px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
+  border-radius: 10px;
+}
+
+.pp-timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pp-timeline-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #F8FAFC;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pp-timeline-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pp-timeline-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.pp-timeline-step.completed {
+  border-color: rgba(16, 185, 129, 0.25);
+  background: rgba(16, 185, 129, 0.03);
+}
+
+.pp-timeline-step.active {
+  border-color: rgba(0, 240, 255, 0.4);
+  background: rgba(0, 240, 255, 0.05);
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.1);
+}
+
+.pp-timeline-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pp-timeline-step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.pp-timeline-step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.pp-timeline-step-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+.pp-timeline-status-pill {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.pp-timeline-step-desc {
+  font-size: 11.5px;
+  color: #94A3B8;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Dinner Prompt Card */
+.pp-dinner-card {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.08));
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pp-dinner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pp-dinner-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 800;
+  color: #F59E0B;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pp-dinner-question-box {
+  padding: 14px 18px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: 8px;
+  border-left: 4px solid #F59E0B;
+}
+
+.pp-dinner-question {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFBEB;
+  line-height: 1.45;
+  margin: 0 0 8px 0;
+  font-style: italic;
+}
+
+.pp-dinner-explanation {
+  font-size: 12px;
+  color: #CBD5E1;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pp-dinner-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+

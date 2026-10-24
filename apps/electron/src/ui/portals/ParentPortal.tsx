@@ -4,7 +4,8 @@ import {
   User, Clock, BookOpen, DollarSign, MessageCircle,
   CheckCircle2, AlertTriangle, TrendingUp, TrendingDown,
   Bell, Calendar, Shield, Brain, Smartphone,
-  FileText, Award, Sparkles, Copy, QrCode, Check, X
+  FileText, Award, Sparkles, Copy, QrCode, Check, X,
+  Flame, Radio
 } from 'lucide-react';
 import { CommunityMarketplace } from '../pages/CommunityMarketplace';
 import AcademicReportCard, { ReportCardStudent } from '../components/AcademicReportCard';
@@ -101,7 +102,8 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
     currentMood: 'Focado & Participativo',
     engagement: 0.88,
   });
-  const [activeTab, setActiveTab] = useState<'resumo' | 'presenca' | 'notas' | 'financeiro' | 'marketplace' | 'mensagens' | 'ocorrencias' | 'conquistas'>('resumo');
+  const [activeTab, setActiveTab] = useState<'resumo' | 'neuro-rotina' | 'presenca' | 'notas' | 'financeiro' | 'marketplace' | 'mensagens' | 'ocorrencias' | 'conquistas'>('resumo');
+  const [dinnerCopied, setDinnerCopied] = useState(false);
   const [showBoletimModal, setShowBoletimModal] = useState(false);
   const [showPixModal, setShowPixModal] = useState(false);
   const [pixCopied, setPixCopied] = useState(false);
@@ -258,6 +260,235 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
   const avgGeneral = grades.length > 0
     ? (grades.reduce((a, g) => a + g.average, 0) / grades.length).toFixed(1)
     : '8.1';
+
+  const renderNeuroRotina = () => (
+    <div className="pp-neuro-container">
+      {/* Hero Banner */}
+      <div className="pp-neuro-hero">
+        <div className="pp-neuro-hero-text">
+          <h3>
+            <Flame size={16} color="#F97316" />
+            Radar Neuro-Pedagógico & Retenção Ebbinghaus
+          </h3>
+          <p>
+            Monitoramento inteligente da rotina de consolidação do aluno. Combina o espaçamento cognitivo
+            (+24h, +48h, +96h, +144h) e o método Kumon para eliminar a lacuna entre as aulas semanais (Quinta a Quinta).
+          </p>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            fontWeight: 800,
+            padding: '4px 10px',
+            borderRadius: 6,
+            background: 'rgba(16, 185, 129, 0.16)',
+            color: '#10B981',
+            border: '1px solid rgba(16, 185, 129, 0.35)',
+          }}>
+            CICLO ATIVO: ELETROSTÁTICA & VETORES
+          </span>
+        </div>
+      </div>
+
+      {/* 4 KPI Cards */}
+      <div className="pp-neuro-kpi-grid">
+        <div className="pp-neuro-kpi-card">
+          <div className="pp-neuro-kpi-info">
+            <span className="pp-neuro-kpi-label">SEQUÊNCIA ATIVA</span>
+            <span className="pp-neuro-kpi-value" style={{ color: '#F97316' }}>12 Dias 🔥</span>
+            <span className="pp-neuro-kpi-sub">Hábito de estudo diário</span>
+          </div>
+          <div className="pp-neuro-kpi-icon" style={{ background: 'rgba(249, 115, 22, 0.14)', color: '#F97316' }}>
+            <Flame size={20} />
+          </div>
+        </div>
+
+        <div className="pp-neuro-kpi-card">
+          <div className="pp-neuro-kpi-info">
+            <span className="pp-neuro-kpi-label">RETENÇÃO ESTIMADA</span>
+            <span className="pp-neuro-kpi-value" style={{ color: '#10B981' }}>92.4%</span>
+            <span className="pp-neuro-kpi-sub">Curva de Ebbinghaus protegida</span>
+          </div>
+          <div className="pp-neuro-kpi-icon" style={{ background: 'rgba(16, 185, 129, 0.14)', color: '#10B981' }}>
+            <Brain size={20} />
+          </div>
+        </div>
+
+        <div className="pp-neuro-kpi-card">
+          <div className="pp-neuro-kpi-info">
+            <span className="pp-neuro-kpi-label">PODCASTS NOTEBOOKLM</span>
+            <span className="pp-neuro-kpi-value" style={{ color: '#A78BFA' }}>4 Episódios</span>
+            <span className="pp-neuro-kpi-sub">Sofia & Lucas no Mobile</span>
+          </div>
+          <div className="pp-neuro-kpi-icon" style={{ background: 'rgba(167, 139, 250, 0.14)', color: '#A78BFA' }}>
+            <Radio size={20} />
+          </div>
+        </div>
+
+        <div className="pp-neuro-kpi-card">
+          <div className="pp-neuro-kpi-info">
+            <span className="pp-neuro-kpi-label">MAESTRIA ENEM & PAS</span>
+            <span className="pp-neuro-kpi-value" style={{ color: '#00F0FF' }}>850 XP</span>
+            <span className="pp-neuro-kpi-sub">Simulados UnB / UFG / UFMG</span>
+          </div>
+          <div className="pp-neuro-kpi-icon" style={{ background: 'rgba(0, 240, 255, 0.14)', color: '#00F0FF' }}>
+            <Sparkles size={20} />
+          </div>
+        </div>
+      </div>
+
+      {/* Cronograma Semanal Quinta a Quinta */}
+      <div className="pp-timeline-card">
+        <div className="pp-timeline-header">
+          <span className="pp-timeline-title">
+            <Calendar size={14} color="#00F0FF" />
+            Cronograma de Espaçamento Cognitivo (Quinta a Quinta)
+          </span>
+          <span style={{ fontSize: '11px', color: '#64748B', fontFamily: 'var(--font-mono)' }}>
+            EFEITO DE PRÁTICA DISTRIBUÍDA (CEPELIAUSKAS ET AL., 2024)
+          </span>
+        </div>
+
+        <div className="pp-timeline-grid">
+          {/* D0 */}
+          <div className="pp-timeline-step completed">
+            <span className="pp-timeline-badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+              QUINTA (D0)
+            </span>
+            <div className="pp-timeline-step-content">
+              <div className="pp-timeline-step-top">
+                <span className="pp-timeline-step-name">Aula Presencial: Eletrostática & Vetores Coulomb</span>
+                <span className="pp-timeline-status-pill" style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#10B981' }}>
+                  ✓ MINISTRADA NA SALA 3A
+                </span>
+              </div>
+              <p className="pp-timeline-step-desc">
+                Conceito introduzido pelo professor. Apresentação teórica dos sinais de carga e atrito triboelétrico.
+              </p>
+            </div>
+          </div>
+
+          {/* +24h */}
+          <div className="pp-timeline-step completed">
+            <span className="pp-timeline-badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+              SEXTA (+24h)
+            </span>
+            <div className="pp-timeline-step-content">
+              <div className="pp-timeline-step-top">
+                <span className="pp-timeline-step-name">Micro-doses Kumon Nível 1 & 2 no App Áquila Mobile</span>
+                <span className="pp-timeline-status-pill" style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#10B981' }}>
+                  ✓ 100% ACERTO (3 MIN)
+                </span>
+              </div>
+              <p className="pp-timeline-step-desc">
+                Automatização do cálculo aritmético de carga elementar (Q = n · e) e proporção quadrática inversa da força.
+              </p>
+            </div>
+          </div>
+
+          {/* +48h */}
+          <div className="pp-timeline-step completed">
+            <span className="pp-timeline-badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+              SÁBADO (+48h)
+            </span>
+            <div className="pp-timeline-step-content">
+              <div className="pp-timeline-step-top">
+                <span className="pp-timeline-step-name">Podcast Sofia & Lucas + Simulação PhET Interativa</span>
+                <span className="pp-timeline-status-pill" style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#10B981' }}>
+                  ✓ CONCLUÍDO (NOTA 10)
+                </span>
+              </div>
+              <p className="pp-timeline-step-desc">
+                Áudio imersivo de 2 min explicando polarização da parede neutra, seguido de experimentação 60 FPS no simulador Canvas.
+              </p>
+            </div>
+          </div>
+
+          {/* +96h */}
+          <div className="pp-timeline-step active">
+            <span className="pp-timeline-badge" style={{ background: 'rgba(0, 240, 255, 0.2)', color: '#00F0FF', border: '1px solid rgba(0, 240, 255, 0.4)' }}>
+              SEGUNDA (+96h)
+            </span>
+            <div className="pp-timeline-step-content">
+              <div className="pp-timeline-step-top">
+                <span className="pp-timeline-step-name">Desafio Gamificado Wordwall: "Abra a Caixa" (+30 XP)</span>
+                <span className="pp-timeline-status-pill" style={{ background: 'rgba(0, 240, 255, 0.25)', color: '#00F0FF' }}>
+                  ⏳ HOJE • DISPONÍVEL NO APP
+                </span>
+              </div>
+              <p className="pp-timeline-step-desc">
+                Recuperação ativa (Active Recall) sem consulta. 4 caixas surpresa com desafios rápidos sobre atração e repulsão vetorial.
+              </p>
+            </div>
+          </div>
+
+          {/* +144h */}
+          <div className="pp-timeline-step">
+            <span className="pp-timeline-badge" style={{ background: 'rgba(148, 163, 184, 0.12)', color: '#94A3B8', border: '1px solid rgba(148, 163, 184, 0.2)' }}>
+              QUARTA (+144h)
+            </span>
+            <div className="pp-timeline-step-content">
+              <div className="pp-timeline-step-top">
+                <span className="pp-timeline-step-name">Fechamento do Ciclo: Simulado Regional PAS 1 UnB / UFMG</span>
+                <span className="pp-timeline-status-pill" style={{ background: 'rgba(148, 163, 184, 0.15)', color: '#CBD5E1' }}>
+                  📅 AGENDADO
+                </span>
+              </div>
+              <p className="pp-timeline-step-desc">
+                Resolução de 1 questão discursiva real de vestibular para consolidar a memória de longo prazo antes da próxima aula.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Pergunta de Ouro para o Jantar em Família */}
+      <div className="pp-dinner-card">
+        <div className="pp-dinner-header">
+          <span className="pp-dinner-tag">
+            <Sparkles size={13} color="#F59E0B" />
+            PERGUNTA DE OURO PARA O JANTAR EM FAMÍLIA (CONEXÃO PAIS & FILHOS)
+          </span>
+          <span style={{ fontSize: '11px', color: '#94A3B8' }}>Sem cobrança de notas • Estímulo ao Pensamento Crítico</span>
+        </div>
+
+        <div className="pp-dinner-question-box">
+          <p className="pp-dinner-question">
+            "Filho, me explica: quando você esfrega um balão no casaco de lã e encosta ele na parede, por que ele gruda se a parede é neutra e não foi esfregada em nada?"
+          </p>
+          <p className="pp-dinner-explanation">
+            <strong>💡 Dica Científica para os Pais:</strong> O balão rouba elétrons (fica negativo). Ao encostar na parede neutra, ele empurra os elétrons da superfície para o fundo (polarização induzida). A atração entre os prótons da parede e o balão vence a repulsão. Segundo a pirâmide de William Glasser, <em>explicar um conceito para os pais fixa até 90% da memória</em>.
+          </p>
+        </div>
+
+        <div className="pp-dinner-actions">
+          <span style={{ fontSize: '11px', color: '#CBD5E1', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <Brain size={14} color="#F59E0B" />
+            Fortalece a cumplicidade familiar e substitui a pergunta "fez a tarefa?" por um diálogo fascinante.
+          </span>
+          <button
+            className="pp-action-btn"
+            style={{
+              background: dinnerCopied ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.18)',
+              borderColor: dinnerCopied ? '#10B981' : 'rgba(245, 158, 11, 0.4)',
+              color: dinnerCopied ? '#10B981' : '#FDE68A',
+            }}
+            onClick={() => {
+              navigator.clipboard?.writeText(
+                'Filho, me explica: quando você esfrega um balão no casaco de lã e encosta ele na parede, por que ele gruda se a parede é neutra e não foi esfregada em nada?'
+              );
+              setDinnerCopied(true);
+              setTimeout(() => setDinnerCopied(false), 3000);
+            }}
+          >
+            {dinnerCopied ? <Check size={13} /> : <Copy size={13} />}
+            <span>{dinnerCopied ? 'Copiado para Área de Transferência!' : 'Copiar Pergunta para o WhatsApp'}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   const renderPresenca = () => (
     <div className="pp-section">
@@ -629,7 +860,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
           </div>
         )}
 
-        <div className="pp-summary-card" onClick={() => setActiveTab('mensagens')}>
+        <div className="pp-summary-card" onClick={() => setActiveTab('neuro-rotina')}>
           <div className="pp-card-body">
             <span className="pp-card-label">ENGAJAMENTO NEURO-IA</span>
             <span className="pp-card-value" style={{ color: '#A78BFA' }}>
@@ -662,6 +893,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
 
   const TABS: { key: typeof activeTab; label: string; icon: React.ReactNode }[] = [
     { key: 'resumo', label: 'Visão Geral (Cockpit)', icon: <User size={13} /> },
+    { key: 'neuro-rotina', label: 'Rotina de Estudos & Neuro-IA', icon: <Flame size={13} color="#F97316" /> },
     { key: 'presenca', label: 'Presença & Portaria', icon: <Clock size={13} /> },
     { key: 'notas', label: 'Boletim & Notas', icon: <BookOpen size={13} /> },
     { key: 'conquistas', label: 'Conquistas & BNCC', icon: <Award size={13} /> },
@@ -728,6 +960,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
           ) : (
             <>
               {activeTab === 'resumo' && renderResumo()}
+              {activeTab === 'neuro-rotina' && renderNeuroRotina()}
               {activeTab === 'presenca' && renderPresenca()}
               {activeTab === 'notas' && renderNotas()}
               {activeTab === 'conquistas' && renderConquistas()}
