@@ -1,4 +1,43 @@
 import { NextResponse } from 'next/server';
+import { signSession } from '@/lib/session';
+import { scryptSync, timingSafeEqual } from 'crypto';
+
+// Contas do portal configuradas via ambiente ou valores de demonstração seguros
+const DEMO_USERS: Record<string, { pass: string; role: 'admin' | 'coordinator' | 'teacher' | 'parent' | 'student'; defaultPortal: string }> = {
+  'admin': {
+    pass: process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Secure',
+    role: 'admin',
+    defaultPortal: 'coordenacao',
+  },
+  'coordenacao': {
+    pass: process.env.INITIAL_COORD_PASSWORD || 'CoordSovereign2026#Secure',
+    role: 'coordinator',
+    defaultPortal: 'coordenacao',
+  },
+  'professor': {
+    pass: process.env.INITIAL_TEACHER_PASSWORD || 'ProfSovereign2026#Secure',
+    role: 'teacher',
+    defaultPortal: 'professores',
+  },
+  'aluno': {
+    pass: process.env.INITIAL_STUDENT_PASSWORD || 'AlunoSovereign2026#Secure',
+    role: 'student',
+    defaultPortal: 'aluno',
+  },
+};
+
+function verifyPassword(provided: string, expected: string): boolean {
+  try {
+    const providedBuf = Buffer.from(provided);
+    const expectedBuf = Buffer.from(expected);
+    if (providedBuf.length !== expectedBuf.length) {
+      return false;
+    }
+    return timingSafeEqual(providedBuf, expectedBuf);
+  } catch {
+    return false;
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -9,25 +48,30 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Usuário e senha são obrigatórios.' }, { status: 400 });
     }
 
-    if (password.length < 6) {
-      return NextResponse.json({ error: 'Senha inválida ou muito curta.' }, { status: 401 });
+    const cleanUser = String(username).trim().toLowerCase();
+    const userAccount = DEMO_USERS[cleanUser];
+
+    // Validação estrita de credenciais
+    if (!userAccount || !verifyPassword(String(password), userAccount.pass)) {
+      return NextResponse.json({ error: 'Credenciais inválidas. Verifique usuário e senha.' }, { status: 401 });
     }
 
-    // Criar payload de sessão auditável
-    const sessionPayload = {
-      username: username.trim(),
-      portal: portalId || 'aluno',
-      role: portalId === 'coordenacao' ? 'coordinator' : portalId === 'professores' ? 'teacher' : portalId === 'pais' ? 'parent' : 'student',
-      authenticatedAt: new Date().toISOString(),
-    };
+    // Role derivada da conta autenticada (e não forjável pelo cliente)
+    const role = userAccount.role;
+    const portal = portalId || userAccount.defaultPortal;
 
-    const sessionToken = Buffer.from(JSON.stringify(sessionPayload)).toString('base64');
+    // Gerar token assinado criptograficamente com HMAC-SHA256
+    const sessionToken = await signSession({
+      username: cleanUser,
+      portal,
+      role,
+    });
 
-    const destination = portalId === 'professores' ? '/portal/professor' : `/portal/${portalId || 'aluno'}`;
+    const destination = portal === 'professores' ? '/portal/professor' : `/portal/${portal}`;
     const response = NextResponse.json({ 
       success: true, 
       redirect: destination,
-      user: { username: sessionPayload.username, role: sessionPayload.role }
+      user: { username: cleanUser, role }
     });
 
     response.cookies.set('aquila_session', sessionToken, {
@@ -35,7 +79,7 @@ export async function POST(request: Request) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 60 * 8 // 8 horas
+      maxAge: 60 * 60 * 8, // 8 horas
     });
 
     return response;

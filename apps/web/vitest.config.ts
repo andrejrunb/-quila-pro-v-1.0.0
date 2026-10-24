@@ -8,7 +8,6 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
-    pool: 'threads',
     alias: {
       '@': path.resolve(__dirname, './src'),
     },

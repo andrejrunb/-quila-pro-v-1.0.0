@@ -74,7 +74,7 @@ const PRESET_DECKS: SlideDeck[] = [
         type: 'cover',
         title: 'As Três Leis do Movimento',
         subtitle: 'Da Inércia à Gravitação Universal no ENEM e Vestibulares',
-        content: 'Aula Estruturada • Colégio Visão • Ensino Médio',
+        content: 'Aula Estruturada • Colégio Áquila Modelo • Ensino Médio',
         mentorQuote: {
           mentorName: 'Isaac Newton',
           avatar: '🍎',
@@ -177,7 +177,7 @@ const PRESET_DECKS: SlideDeck[] = [
         type: 'cover',
         title: 'Química Nuclear & Radioatividade',
         subtitle: 'Da Descoberta do Rádio à Energia Nuclear e Medicina Moderna',
-        content: 'Laboratório Pedagógico Soberano • Colégio Visão',
+        content: 'Laboratório Pedagógico Soberano • Colégio Áquila Modelo',
         mentorQuote: {
           mentorName: 'Marie Curie',
           avatar: '🔬',
@@ -249,7 +249,7 @@ const PRESET_DECKS: SlideDeck[] = [
         type: 'cover',
         title: 'Funções Quadráticas & Otimização',
         subtitle: 'Parábolas, Pontos de Máximo e Mínimo na Engenharia e Economia',
-        content: 'Aula Interativa • Colégio Visão • Ensino Médio',
+        content: 'Aula Interativa • Colégio Áquila Modelo • Ensino Médio',
         mentorQuote: {
           mentorName: 'Ada Lovelace',
           avatar: '💻',
@@ -289,7 +289,7 @@ const PRESET_DECKS: SlideDeck[] = [
           correctAnswer: 'D',
           explanation: 'Seja x o número de aumentos de R$ 2,00. O novo preço é P(x) = 30 + 2x e o público é Q(x) = 400 - 10x. A receita é R(x) = P(x) · Q(x) = (30 + 2x)(400 - 10x) = -20x² + 500x + 12000. O vértice ocorre em x_v = -500 / (2 · -20) = 12,5 aumentos. O preço ideal é P(12,5) = 30 + 2(12,5) = R$ 55,00!'
         },
-        teacherNotes: 'Problema de alta taxa de acerto entre os alunos treinados no Colégio Visão.'
+        teacherNotes: 'Problema de alta taxa de acerto entre os alunos treinados no Colégio Áquila Modelo.'
       }
     ]
   }

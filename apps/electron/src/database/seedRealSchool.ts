@@ -1,8 +1,8 @@
 /**
- * seedRealSchool.ts — Seed de Dados Reais para Teste Piloto
+ * seedRealSchool.ts — Seed Institucional de Referência
  * ==========================================================
  * Popula o banco com professores, turmas, salas e grade horária reais
- * extraídos do PDF "HORÁRIO 04 DE MAIO GERAL".
+ * extraídos do PDF "GRADE INSTITUCIONAL MODELO".
  *
  * Login = nome do professor (lowercase, sem acento)
  * Senha = nome do professor (lowercase, sem acento)
@@ -194,7 +194,7 @@ const SCHEDULE_RAW: Array<{ day: number; time: string; teachers: string[] }> = [
 // ─────────────────────────────────────────────
 const SCHOOL = {
   id: 'school-visao',
-  name: 'Colégio Visão',
+  name: 'Colégio Áquila Modelo',
   type: 'private',
   plan: 'pro',
 };
@@ -211,7 +211,7 @@ export async function seedRealSchool(db: Database): Promise<{
 }> {
   console.log('\n╔══════════════════════════════════════════════════╗');
   console.log('║  🦅 ÁQUILA PRO — SEED PILOTO ESCOLA REAL         ║');
-  console.log('║  Horário 04 de Maio — Grade Completa              ║');
+  console.log('║  Grade Horária Padrão Institucional              ║');
   console.log('╚══════════════════════════════════════════════════╝\n');
 
   const credentials: Array<{ name: string; login: string; password: string; role: string }> = [];
@@ -297,9 +297,9 @@ export async function seedRealSchool(db: Database): Promise<{
   }
 
   // Adiciona turmas extras extraídas dos alunos (Filtrados para remover DF)
-  const visaoStudents = STUDENTS.filter(s => !s.classId.startsWith('DF-'));
+  const syntheticStudents = STUDENTS.filter(s => !s.classId.startsWith('DF-'));
   const studentClasses = new Set<string>();
-  for (const student of visaoStudents) {
+  for (const student of syntheticStudents) {
     studentClasses.add(student.classId);
   }
 
@@ -408,13 +408,13 @@ export async function seedRealSchool(db: Database): Promise<{
   // ── 6. ADMIN PADRÃO (caso não exista) ──
   const adminExists = await db.get("SELECT id FROM users WHERE username = 'admin'");
   if (!adminExists) {
-    const adminHash = hashPassword('Admin@2026!');
+    const adminHash = hashPassword(process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin');
     await db.run(
       'INSERT INTO users (id, username, password_hash, name, role) VALUES (?, ?, ?, ?, ?)',
       ['user-admin', 'admin', adminHash, 'Administrador Áquila', 'admin']
     );
-    credentials.push({ name: 'Administrador', login: 'admin', password: 'Admin@2026!', role: 'admin' });
-    console.log('\n🔐 Admin criado: admin / Admin@2026!');
+    credentials.push({ name: 'Administrador', login: 'admin', password: process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin', role: 'admin' });
+    console.log('\n🔐 Admin criado: admin / EagleSovereign2026#Admin');
   }
 
   // ── 7. ALUNOS ──
@@ -423,8 +423,8 @@ export async function seedRealSchool(db: Database): Promise<{
   await db.run("DELETE FROM students WHERE id LIKE 'stud-%'");
   
   // Agrupar alunos por turma para embaralhamento de posições
-  const studentsByClass: Record<string, typeof visaoStudents> = {};
-  for (const s of visaoStudents) {
+  const studentsByClass: Record<string, typeof syntheticStudents> = {};
+  for (const s of syntheticStudents) {
     if (!studentsByClass[s.classId]) {
       studentsByClass[s.classId] = [];
     }

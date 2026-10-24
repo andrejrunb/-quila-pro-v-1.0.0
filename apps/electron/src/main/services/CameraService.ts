@@ -62,7 +62,7 @@ export class CameraService extends EventEmitter {
             ip: camera.ip || '192.168.1.105',
             rtspUrl: camera.url || camera.rtspUrl,
             username: camera.username || 'admin',
-            password: camera.password || 'admin123',
+            password: camera.password || process.env.AQUILA_CAMERA_PASSWORD || '',
             status: 'online',
             type: camera.type || 'RTSP',
             enabled: true
@@ -122,13 +122,13 @@ export class CameraService extends EventEmitter {
             {
                 name: 'IPCam Entrada Principal (Detectada)',
                 ip: '192.168.1.105',
-                rtspUrl: 'rtsp://admin:admin123@192.168.1.105:554/stream1',
+                rtspUrl: process.env.AQUILA_CAM1_URL || 'rtsp://127.0.0.1:8554/stream1',
                 mac: 'A4:1F:72:B9:xx:xx'
             },
             {
                 name: 'IPCam Pátio Central (Detectada)',
                 ip: '192.168.1.110',
-                rtspUrl: 'rtsp://admin:admin123@192.168.1.110:554/stream1',
+                rtspUrl: process.env.AQUILA_CAM2_URL || 'rtsp://127.0.0.1:8554/stream2',
                 mac: 'A4:1F:72:C1:xx:xx'
             }
         ];

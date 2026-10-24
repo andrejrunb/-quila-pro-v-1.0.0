@@ -50,7 +50,7 @@ const ARTICLES: HelpArticle[] = [
   // ── INÍCIO RÁPIDO ──
   {
     id: 'qs-1', title: 'Primeiro acesso — O que fazer?',
-    content: `Após o login inicial (usuário: **admin**, senha: **admin123**), siga estes passos:\n\n**1. Configurar a escola**\nVá em ⚙️ **Configurações → Geral** e preencha o nome e CNPJ da sua instituição.\n\n**2. Cadastrar turmas**\nAcesse o **Portal Administrativo → Turmas** e crie as turmas do período letivo.\n\n**3. Cadastrar alunos**\nEm **Gestão de Alunos**, cadastre manualmente ou importe uma planilha Excel (botão "Importar").\n\n**4. Adicionar câmeras**\nNo **Portal de Segurança → Câmeras**, adicione câmeras RTSP com o endereço:\n\`rtsp://usuario:senha@IP:554/stream1\`\n\n**5. Configurar IA**\nEm ⚙️ **Configurações → IA**, insira sua chave do Google AI Studio para habilitar relatórios inteligentes.`,
+    content: `Após o login inicial (usuário: **admin**, senha: **EagleSovereign2026#Admin**), siga estes passos:\n\n**1. Configurar a escola**\nVá em ⚙️ **Configurações → Geral** e preencha o nome e CNPJ da sua instituição.\n\n**2. Cadastrar turmas**\nAcesse o **Portal Administrativo → Turmas** e crie as turmas do período letivo.\n\n**3. Cadastrar alunos**\nEm **Gestão de Alunos**, cadastre manualmente ou importe uma planilha Excel (botão "Importar").\n\n**4. Adicionar câmeras**\nNo **Portal de Segurança → Câmeras**, adicione câmeras RTSP com o endereço:\n\`rtsp://usuario:senha@IP:554/stream1\`\n\n**5. Configurar IA**\nEm ⚙️ **Configurações → IA**, insira sua chave do Google AI Studio para habilitar relatórios inteligentes.`,
     category: 'getting-started', tags: ['setup', 'primeiro acesso', 'configuração'], roles: ['admin', 'coordinator'], isNew: false,
   },
   {

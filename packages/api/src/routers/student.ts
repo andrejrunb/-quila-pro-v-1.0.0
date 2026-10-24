@@ -1,10 +1,10 @@
-import { router, publicProcedure } from '../index';
+import { router, protectedProcedure, adminProcedure } from '../index';
 import { z } from 'zod';
 import { students } from '@aquila/db';
 import { eq } from 'drizzle-orm';
 
 export const studentRouter = router({
-  list: publicProcedure
+  list: protectedProcedure
     .input(z.object({ limit: z.number().min(1).max(100).default(50), classId: z.string().optional() }))
     .query(async ({ input, ctx }) => {
       if (!ctx.db) return [];
@@ -14,7 +14,7 @@ export const studentRouter = router({
         .limit(input.limit);
     }),
 
-  create: publicProcedure
+  create: adminProcedure
     .input(z.object({
       name: z.string().min(3),
       registrationNumber: z.string(),
@@ -36,7 +36,7 @@ export const studentRouter = router({
       return newStudent;
     }),
 
-  getById: publicProcedure
+  getById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input, ctx }) => {
       if (!ctx.db) return null;

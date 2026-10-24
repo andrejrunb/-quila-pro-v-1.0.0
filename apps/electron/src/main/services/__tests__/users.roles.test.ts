@@ -361,7 +361,7 @@ describe('Áquila Pro — Usuários, Roles e Relações', () => {
   describe('6. Compatibilidade de hash — SetupWizard → AuthService', () => {
 
     it('hash scrypt gerado externamente é verificável pelo AuthService._verifyPassword', async () => {
-      const password = 'Admin@2026!';
+      const password = process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin';
       const hash = scryptHash(password); // mesmo algoritmo do create-admin-user corrigido
 
       const mockUser = { id: 'u-setup', username: 'novo_admin', password_hash: hash, name: 'Novo', role: 'admin' };

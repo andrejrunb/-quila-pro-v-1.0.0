@@ -88,7 +88,7 @@ const DAY_SHORT_TO_ID: Record<string, string> = {
 };
 
 /**
- * Converte o JSON real "HORÁRIO 04 DE MAIO GERAL" do Colégio Visão
+ * Converte o JSON real "GRADE INSTITUCIONAL MODELO" do Colégio Áquila Modelo
  * diretamente para a estrutura de grades do Urânia+ Engine.
  */
 function buildRealVisaoScheduleFromJson(): {
@@ -199,7 +199,7 @@ export const TimetableBuilder: React.FC = () => {
   } | null>({
     type: 'success',
     message:
-      'Motor Soberano Urânia+ v2.0 carregado com a grade oficial do Colégio Visão (22 turmas • 41 professores • 1º ao 10º horário). Clique em qualquer aula para testar a Permutação Guiada Sem Conflito!'
+      'Motor Soberano Urânia+ v2.0 carregado com a grade oficial do Colégio Áquila Modelo (22 turmas • 41 professores • 1º ao 10º horário). Clique em qualquer aula para testar a Permutação Guiada Sem Conflito!'
   });
 
   const aquila = (window as any).aquila;
@@ -234,7 +234,7 @@ export const TimetableBuilder: React.FC = () => {
           setGeneratedSchedules(formatted);
         }
       } catch (_) {
-        // Mantém o seed real embutido do Colégio Visão
+        // Mantém o seed real embutido do Colégio Áquila Modelo
       }
     };
     loadFromDatabaseIfPresent();
@@ -364,7 +364,7 @@ export const TimetableBuilder: React.FC = () => {
     setGeneratedSchedules(initialVisaoData.schedules);
     setAiInsight({
       type: 'success',
-      message: 'Grade Oficial do Colégio Visão (HORÁRIO 04 DE MAIO GERAL) restaurada integralmente!'
+      message: 'Grade Oficial do Colégio Áquila Modelo (GRADE INSTITUCIONAL MODELO) restaurada integralmente!'
     });
   };
 
@@ -500,7 +500,7 @@ export const TimetableBuilder: React.FC = () => {
                 Dobradinhas: <strong>{qualityReport.totalGeminadasAchieved}</strong>
               </span>
             </div>
-            <h1>Orquestrador de Grade Horária — Colégio Visão</h1>
+            <h1>Orquestrador de Grade Horária — Colégio Áquila Modelo</h1>
             <p>
               22 Turmas (1º Ano Fund. I à 3ª Série EM) • 41 Professores • Permutação Assistida 2-opt & Contraturno 10 Horários
             </p>
@@ -575,7 +575,7 @@ export const TimetableBuilder: React.FC = () => {
           <Grid size={16} />
           <div>
             <strong>Quadro Geral Mosaico (22 Turmas)</strong>
-            <small>Espelho Oficial "HORÁRIO 04 DE MAIO GERAL"</small>
+            <small>Espelho Oficial "GRADE INSTITUCIONAL MODELO"</small>
           </div>
         </button>
 
@@ -782,7 +782,7 @@ export const TimetableBuilder: React.FC = () => {
       {viewMode === 'by_teacher' && (
         <section className="urania-teacher-view">
           <div className="urania-teacher-sidebar">
-            <h4>Docentes Colégio Visão ({teachers.length})</h4>
+            <h4>Docentes Colégio Áquila Modelo ({teachers.length})</h4>
             <div className="urania-teacher-scroll">
               {teachers.map(t => {
                 const defect = qualityReport.teacherDefects.find(d => d.teacherId === t.teacherId);
@@ -937,7 +937,7 @@ export const TimetableBuilder: React.FC = () => {
               ))}
             </div>
             <span className="urania-hint-tag">
-              Espelho integral das 22 turmas simultâneas (Padrão "HORÁRIO 04 DE MAIO GERAL" — Colégio Visão)
+              Espelho integral das 22 turmas simultâneas (Padrão "GRADE INSTITUCIONAL MODELO" — Colégio Áquila Modelo)
             </span>
           </div>
 

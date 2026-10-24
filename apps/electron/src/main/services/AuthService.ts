@@ -148,7 +148,7 @@ export class AuthService {
       console.log('[AuthService] Criando usuário admin padrão...');
       await this.createUser({
         username: 'admin',
-        password: process.env.INITIAL_ADMIN_PASSWORD || 'Admin@2026!',
+        password: process.env.INITIAL_ADMIN_PASSWORD || process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin',
         name: 'Administrador Áquila',
         role: 'admin'
       });

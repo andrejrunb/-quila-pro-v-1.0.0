@@ -579,7 +579,7 @@ INSTRUÇÕES OBRIGATÓRIAS:
           <div className="tai-main-card">
             <div className="tai-params-bar">
               <div className="tai-field">
-                <label>Turma (Colégio Visão)</label>
+                <label>Turma (Colégio Áquila Modelo)</label>
                 <select value={grade} onChange={e => setGrade(e.target.value)} aria-label="Turma">
                   <option value="6º Ano A (Fund. II)">6º Ano A (Fund. II)</option>
                   <option value="9º Ano A (Fund. II)">9º Ano A (Fund. II)</option>

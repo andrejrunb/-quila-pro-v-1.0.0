@@ -13,9 +13,9 @@ async function main() {
         name: 'Camera Pedagógica - Principal',
         location: 'Entrada Principal',
         ip: '192.168.1.105',
-        url: 'rtsp://admin:admin123@192.168.1.105:554/stream1',
+        url: 'rtsp://admin:EagleSovereign2026#Admin@192.168.1.105:554/stream1',
         username: 'admin',
-        password: 'admin123',
+        password: process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin',
         type: 'RTSP'
     };
 

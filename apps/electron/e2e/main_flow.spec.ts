@@ -103,7 +103,7 @@ test.describe('Fluxo Principal — Login & Navegação', () => {
     // 3. Testar login com sucesso
     await window.locator('input[placeholder*="COLEGIOVISAO"]').fill('VISAO');
     await window.locator('input[placeholder*="usuário"]').fill('admin');
-    await window.locator('input[type="password"]').fill('Admin@2026!'); 
+    await window.locator('input[type="password"]').fill(process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin'); 
     await window.locator('button[type="submit"]').first().click();
 
     // Dashboard deve carregar e estar visível

@@ -1,8 +1,8 @@
-import { router, publicProcedure } from '../index';
+import { router, adminProcedure } from '../index';
 import { z } from 'zod';
 
 export const financeRouter = router({
-  getSummary: publicProcedure.query(async () => {
+  getSummary: adminProcedure.query(async () => {
     return {
       monthlyRevenue: 142800,
       collectedAmount: 134200,
@@ -13,7 +13,7 @@ export const financeRouter = router({
     };
   }),
 
-  listInvoices: publicProcedure
+  listInvoices: adminProcedure
     .input(z.object({ status: z.enum(['paid', 'pending', 'overdue', 'all']).default('all') }))
     .query(async ({ input }) => {
       const mockInvoices = [

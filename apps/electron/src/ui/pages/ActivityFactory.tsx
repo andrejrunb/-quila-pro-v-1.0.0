@@ -620,7 +620,7 @@ export const ActivityFactory: React.FC<ActivityFactoryProps> = ({ onBack }) => {
             <div className="af-modal-body">
               <div className="af-form-grid">
                 <div className="af-form-field">
-                  <label>Turma do Colégio Visão</label>
+                  <label>Turma do Colégio Áquila Modelo</label>
                   <select
                     className="af-select"
                     value={targetClass}
@@ -640,7 +640,7 @@ export const ActivityFactory: React.FC<ActivityFactoryProps> = ({ onBack }) => {
                     onChange={e => setMinScore(Number(e.target.value))}
                   >
                     <option value={60}>60% (Básico • SAEB / Prova Brasil)</option>
-                    <option value={70}>70% (Padrão Colégio Visão)</option>
+                    <option value={70}>70% (Padrão Colégio Áquila Modelo)</option>
                     <option value={80}>80% (Proficiente • Recomendado)</option>
                     <option value={90}>90% (Excelente • Foco ENEM / Medicina)</option>
                   </select>

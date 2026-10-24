@@ -516,13 +516,13 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate }) => {
                 disabled={isScanning || isProcessing}
                 aria-label="Turma Selecionada"
               >
-                <option value="F-EF26A">6º Ano A — Colégio Visão</option>
-                <option value="F-EF26B">6º Ano B — Colégio Visão</option>
-                <option value="F-EF27A">7º Ano A — Colégio Visão</option>
-                <option value="F-EF27B">7º Ano B — Colégio Visão</option>
-                <option value="F-EM1A">1ª Série A (EM) — Colégio Visão</option>
-                <option value="F-EM2A">2ª Série A (EM) — Colégio Visão</option>
-                <option value="F-EM3A">3ª Série A (EM) — Colégio Visão</option>
+                <option value="F-EF26A">6º Ano A — Colégio Áquila Modelo</option>
+                <option value="F-EF26B">6º Ano B — Colégio Áquila Modelo</option>
+                <option value="F-EF27A">7º Ano A — Colégio Áquila Modelo</option>
+                <option value="F-EF27B">7º Ano B — Colégio Áquila Modelo</option>
+                <option value="F-EM1A">1ª Série A (EM) — Colégio Áquila Modelo</option>
+                <option value="F-EM2A">2ª Série A (EM) — Colégio Áquila Modelo</option>
+                <option value="F-EM3A">3ª Série A (EM) — Colégio Áquila Modelo</option>
               </select>
             </div>
 
@@ -892,7 +892,7 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate }) => {
                 </div>
 
                 <div style={{ marginTop: '30px', textAlign: 'center', fontSize: '9px', color: '#777', borderTop: '1px solid #ccc', paddingTop: '8px' }}>
-                  Colégio Visão • Sistema de Avaliação Contínua Áquila Pro • Prova Gerada por Inteligência Socrática Soberana
+                  Colégio Áquila Modelo • Sistema de Avaliação Contínua Áquila Pro • Prova Gerada por Inteligência Socrática Soberana
                 </div>
               </div>
 

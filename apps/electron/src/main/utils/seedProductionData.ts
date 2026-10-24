@@ -101,7 +101,7 @@ export async function seedProductionData() {
     // 4.5 Criar Usuários de Login (Sistema)
     console.log('Gerando usuários de sistema...');
     const systemUsers = [
-      { id: 'user-admin-01', name: 'Administrador Principal', role: 'admin', username: 'admin', pass: 'Admin@2026!', email: 'admin@aquila.edu' },
+      { id: 'user-admin-01', name: 'Administrador Principal', role: 'admin', username: 'admin', pass: process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin', email: 'admin@aquila.edu' },
       { id: uuidv4(), name: 'Diretor Áquila', role: 'director', username: 'diretor', pass: 'Diretor@2026!', email: 'diretor@aquila.edu' },
       { id: uuidv4(), name: 'Professor Principal', role: 'docente', username: 'professor', pass: 'Prof@2026!', email: 'professor@aquila.edu' },
       { id: uuidv4(), name: 'Monitoria Pátio', role: 'security', username: 'monitor', pass: 'Sec@2026!', email: 'monitor@aquila.edu' }

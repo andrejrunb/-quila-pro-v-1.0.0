@@ -10,7 +10,7 @@ async function register() {
         const result = await cameraService.addCamera({
             id: 'cam_principal_01',
             name: 'Câmera Principal - Entrada',
-            url: 'rtsp://admin:admin123@192.168.1.105:554/stream1',
+            url: 'rtsp://admin:EagleSovereign2026#Admin@192.168.1.105:554/stream1',
             location: 'Entrada Principal',
             type: 'RTSP',
             metadata: {

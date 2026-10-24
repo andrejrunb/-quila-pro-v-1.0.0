@@ -59,12 +59,12 @@ interface FinanceProps {
 }
 
 /**
- * Conta o total de aulas semanais reais de cada professor no JSON oficial do Colégio Visão
+ * Conta o total de aulas semanais reais de cada professor no JSON oficial do Colégio Áquila Modelo
  */
 function countRealTeacherWeeklyLessons(): Record<string, number> {
   const counts: Record<string, number> = {};
   const raw = rawVisaoScheduleJson as Record<string, Array<Array<string | null>>>;
-  const sheet = raw['HORÁRIO 04 DE MAIO GERAL'] || Object.values(raw)[0] || [];
+  const sheet = raw['GRADE INSTITUCIONAL MODELO'] || Object.values(raw)[0] || [];
 
   for (const row of sheet) {
     if (!Array.isArray(row)) continue;
@@ -181,7 +181,7 @@ const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
   const [pluginStatus, setPluginStatus] = useState<'IDLE' | 'CONNECTING' | 'CONNECTED'>('IDLE');
   const [exportedTxtNotice, setExportedTxtNotice] = useState<string | null>(null);
 
-  // 1. Geração da Base Real de Faturamento (440+ Alunos Reais do Colégio Visão)
+  // 1. Geração da Base Real de Faturamento (440+ Alunos Reais do Colégio Áquila Modelo)
   const billingRecords = useMemo<BillingRecord[]>(() => {
     return STUDENTS.map((st, idx) => {
       const isEM = st.classRoom.includes('SERIE');
@@ -209,7 +209,7 @@ const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
     });
   }, []);
 
-  // 2. Geração da Folha Docente Real (41 Professores do Colégio Visão + Aulas da Grade)
+  // 2. Geração da Folha Docente Real (41 Professores do Colégio Áquila Modelo + Aulas da Grade)
   const teacherPayrolls = useMemo<TeacherPayrollRecord[]>(() => {
     const lessonCounts = countRealTeacherWeeklyLessons();
     return PRESET_VISAO_TEACHERS.map((t, idx) => {
@@ -706,7 +706,7 @@ const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
           <div className="dom-section-header">
             <div>
               <h2>Domínio Patrimônio — Controle de Ativo Imobilizado & Depreciação RFB</h2>
-              <p>Inventário patrimonial auditado do Colégio Visão com cálculo automático das quotas mensais de depreciação conforme Instrução Normativa RFB nº 1.700/2017.</p>
+              <p>Inventário patrimonial auditado do Colégio Áquila Modelo com cálculo automático das quotas mensais de depreciação conforme Instrução Normativa RFB nº 1.700/2017.</p>
             </div>
           </div>
 

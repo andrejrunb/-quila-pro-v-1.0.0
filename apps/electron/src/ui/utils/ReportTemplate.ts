@@ -2,7 +2,7 @@
  * Utilitário para geração de HTML formatado para os relatórios pedagógicos.
  */
 
-export const generateLessonReportHTML = (report: any, schoolName: string = "Colégio Visão") => {
+export const generateLessonReportHTML = (report: any, schoolName: string = "Colégio Áquila Modelo") => {
   return `
     <html>
       <head>

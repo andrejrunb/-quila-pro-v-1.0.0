@@ -11,7 +11,7 @@ export const useBranding = (planId: string = 'basic') => {
   const { invoke } = useIPC();
   const [branding, setBranding] = useState<BrandingData>({
     logo: 'visao.png',
-    name: 'Colégio Visão',
+    name: 'Colégio Áquila Modelo',
     isWhiteLabel: false
   });
   const [loading, setLoading] = useState(true);

@@ -33,7 +33,7 @@ jobs:
       - name: Dependency Vulnerability Audit Report
         run: |
           echo "Auditing dependencies..."
-          pnpm audit || true
+          pnpm audit --audit-level=high
 
   # ──────────────────────────────────────────
   # JOB 2: Monorepo Type Check & Lint

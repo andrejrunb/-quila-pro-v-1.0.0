@@ -338,7 +338,7 @@ const SovereignLibrarianUI: React.FC = () => {
       if (result && result.content) {
         setDigest(result.content);
       } else {
-        setDigest(`# Relatório Executivo de Inteligência Pedagógica — Colégio Visão
+        setDigest(`# Relatório Executivo de Inteligência Pedagógica — Colégio Áquila Modelo
 
 ## 📊 Panorama Geral & Desempenho
 - **Assiduidade Global:** 94.8% (Excelente retenção no 8º e 9º Ano)
@@ -351,7 +351,7 @@ const SovereignLibrarianUI: React.FC = () => {
       }
     } catch (err) {
       console.error('Erro ao gerar relatório:', err);
-      setDigest(`# Relatório Executivo de Inteligência Pedagógica — Colégio Visão
+      setDigest(`# Relatório Executivo de Inteligência Pedagógica — Colégio Áquila Modelo
 
 ## 📊 Panorama Geral & Desempenho
 - **Assiduidade Global:** 94.8% (Excelente retenção no 8º e 9º Ano)

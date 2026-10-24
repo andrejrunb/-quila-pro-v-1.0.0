@@ -67,7 +67,7 @@ test.describe('Security & Hardening — Áquila Pro', () => {
         await win1.waitForSelector('.login-form', { timeout: 45000 });
         await win1.fill('input[placeholder*="COLEGIOVISAO"]', 'VISAO');
         await win1.fill('input[placeholder*="usuário"]', 'admin');
-        await win1.fill('input[type="password"]', 'Admin@2026!');
+        await win1.fill('input[type="password"]', process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin');
         await win1.click('button[type="submit"]');
         await win1.waitForSelector('.dashboard-container', { timeout: 60000 });
 

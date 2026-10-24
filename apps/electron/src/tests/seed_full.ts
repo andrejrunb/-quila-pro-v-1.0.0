@@ -121,7 +121,7 @@ async function seedFull() {
   // ── 5. Usuários — todos os roles do sistema ──────────────────────────────────
   const userDefs = [
     // Role: admin (acesso total ao desktop + configurações)
-    { id: 'user-admin-01',  username: 'admin',       name: 'Administrador Principal',    role: 'admin',       pass: 'Admin@2026!' },
+    { id: 'user-admin-01',  username: 'admin',       name: 'Administrador Principal',    role: 'admin',       pass: process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin' },
     { id: 'user-admin-02',  username: 'diretor',     name: 'Diretor Geral',              role: 'director',    pass: 'Diretor@2026!' },
     // Role: secretary (secretaria)
     { id: 'user-sec-01',    username: 'secretaria',  name: 'Secretária Ana',             role: 'secretary',   pass: 'Sec@2026!' },
@@ -234,7 +234,7 @@ async function seedFull() {
 
   // ── 12. Configurações base ───────────────────────────────────────────────────
   const settings = [
-    ['school_name',   'Colégio Visão'],
+    ['school_name',   'Colégio Áquila Modelo'],
     ['school_id',     schoolId],
     ['app_version',   '1.5.0'],
     ['setup_done',    'true'],

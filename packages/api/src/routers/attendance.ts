@@ -1,8 +1,8 @@
-import { router, publicProcedure } from '../index';
+import { router, protectedProcedure } from '../index';
 import { z } from 'zod';
 
 export const attendanceRouter = router({
-  getDailySummary: publicProcedure
+  getDailySummary: protectedProcedure
     .input(z.object({ date: z.string().optional() }))
     .query(async ({ input }) => {
       const targetDate = input.date || new Date().toISOString().split('T')[0];
@@ -16,7 +16,7 @@ export const attendanceRouter = router({
       };
     }),
 
-  markAttendance: publicProcedure
+  markAttendance: protectedProcedure
     .input(z.object({
       studentId: z.string(),
       status: z.enum(['present', 'absent', 'late']),

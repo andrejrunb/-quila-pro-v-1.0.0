@@ -56,18 +56,18 @@ interface TeacherGradebookProps {
 }
 
 const DEFAULT_CLASSES = [
-  { id: 'F-EF26A', name: '6º Ano A — Colégio Visão' },
-  { id: 'F-EF26B', name: '6º Ano B — Colégio Visão' },
-  { id: 'F-EF27A', name: '7º Ano A — Colégio Visão' },
-  { id: 'F-EF27B', name: '7º Ano B — Colégio Visão' },
-  { id: 'F-EF28A', name: '8º Ano A — Colégio Visão' },
-  { id: 'F-EF28B', name: '8º Ano B — Colégio Visão' },
-  { id: 'F-EF29A', name: '9º Ano A — Colégio Visão' },
-  { id: 'F-EF29B', name: '9º Ano B — Colégio Visão' },
-  { id: 'F-EM1A',  name: '1ª Série A (EM) — Colégio Visão' },
-  { id: 'F-EM1B',  name: '1ª Série B (EM) — Colégio Visão' },
-  { id: 'F-EM2A',  name: '2ª Série A (EM) — Colégio Visão' },
-  { id: 'F-EM3A',  name: '3ª Série A (EM) — Colégio Visão' },
+  { id: 'F-EF26A', name: '6º Ano A — Colégio Áquila Modelo' },
+  { id: 'F-EF26B', name: '6º Ano B — Colégio Áquila Modelo' },
+  { id: 'F-EF27A', name: '7º Ano A — Colégio Áquila Modelo' },
+  { id: 'F-EF27B', name: '7º Ano B — Colégio Áquila Modelo' },
+  { id: 'F-EF28A', name: '8º Ano A — Colégio Áquila Modelo' },
+  { id: 'F-EF28B', name: '8º Ano B — Colégio Áquila Modelo' },
+  { id: 'F-EF29A', name: '9º Ano A — Colégio Áquila Modelo' },
+  { id: 'F-EF29B', name: '9º Ano B — Colégio Áquila Modelo' },
+  { id: 'F-EM1A',  name: '1ª Série A (EM) — Colégio Áquila Modelo' },
+  { id: 'F-EM1B',  name: '1ª Série B (EM) — Colégio Áquila Modelo' },
+  { id: 'F-EM2A',  name: '2ª Série A (EM) — Colégio Áquila Modelo' },
+  { id: 'F-EM3A',  name: '3ª Série A (EM) — Colégio Áquila Modelo' },
   { id: 'F-EF11A', name: '1º Ano A (Fund. I)' },
   { id: 'F-EF11B', name: '1º Ano B (Fund. I)' },
   { id: 'F-EF12A', name: '2º Ano A (Fund. I)' },
@@ -224,7 +224,7 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
     }
 
     let studentList: { id: string; name: string; ra?: string }[] = [];
-    // Prioridade 1: Alunos reais do Colégio Visão extraídos do Activesoft (studentsData.ts)
+    // Prioridade 1: Alunos reais do Colégio Áquila Modelo extraídos do Activesoft (studentsData.ts)
     const realVisaoStudents = STUDENTS.filter(s => s.classId === selectedClassId);
     if (realVisaoStudents.length > 0) {
       studentList = realVisaoStudents.map(s => ({
@@ -302,7 +302,7 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
     let partial = 0;
 
     if (formulaMode === 'ponderada_visao') {
-      // Fórmula Ponderada Activesoft / Colégio Visão: N1 (30%) + N2 Simulado TRI (30%) + N3 Prova Global (40%)
+      // Fórmula Ponderada Activesoft / Colégio Áquila Modelo: N1 (30%) + N2 Simulado TRI (30%) + N3 Prova Global (40%)
       const n1Safe = isNaN(v1) ? 0 : v1;
       const n2Safe = isNaN(v2) ? 0 : v2;
       const n3Safe = isNaN(v3) ? 0 : v3;

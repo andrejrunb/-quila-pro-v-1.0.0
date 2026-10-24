@@ -88,7 +88,7 @@ export class AuthenticationService {
     this.createUser({
       username: 'admin',
       email: 'admin@aquila.local',
-      password: process.env.INITIAL_ADMIN_PASSWORD || 'admin123',
+      password: process.env.INITIAL_ADMIN_PASSWORD || process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin',
       role: 'admin',
       name: 'Administrador',
     });

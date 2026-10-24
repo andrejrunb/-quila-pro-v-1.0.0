@@ -37,7 +37,7 @@ Este documento representa a orientação estratégica consolidada do **Cérebro 
 ---
 
 ## 🛡️ Diretrizes Constitucionais de Governança
-1. **Soberania Absoluta (LGPD)**: Nenhuma foto biométrica, dado de nota ou contracheque de professor sai da rede interna do Colégio Visão sem encriptação militar e consentimento expresso.
+1. **Soberania Absoluta (LGPD)**: Nenhuma foto biométrica, dado de nota ou contracheque de professor sai da rede interna do Colégio Áquila Modelo sem encriptação militar e consentimento expresso.
 2. **Proteção Integral do Educando**: Prevenção ativa de evasão escolar e bullying, combinando visão de presença com suporte pedagógico humanizado.
 3. **Resiliência de Hardware & Auto-Throttling**: Redução dinâmica de FPS dos workers de visão computacional se a temperatura do hardware Áquila Edge ultrapassar 75ºC.
 4. **Governança de Código & CI Limpo**: Proibição estrita de supressão de erros (`|| true`) em pipelines de integração contínua; qualquer release exige testes E2E Playwright verdes e typecheck aprovado.

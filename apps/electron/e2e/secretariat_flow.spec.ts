@@ -44,7 +44,7 @@ test.describe('Secretariat Module Flow — Áquila Pro', () => {
     await window.waitForSelector('.login-form', { timeout: 30000 });
     await window.fill('input[placeholder*="COLEGIOVISAO"]', 'VISAO');
     await window.fill('input[placeholder*="usuário"]', 'admin');
-    await window.fill('input[type="password"]', 'Admin@2026!');
+    await window.fill('input[type="password"]', process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin');
     await window.click('button[type="submit"]');
     await window.waitForSelector('.dashboard-container', { timeout: 60000 });
 

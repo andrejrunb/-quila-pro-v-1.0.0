@@ -41,7 +41,7 @@ test.describe('Regressão Visual — Áquila Pro Elite UI', () => {
     await window.waitForSelector('.login-form', { timeout: 30000 });
     await window.fill('input[placeholder*="COLEGIOVISAO"]', 'VISAO');
     await window.fill('input[placeholder*="usuário"]', 'admin');
-    await window.fill('input[type="password"]', 'Admin@2026!');
+    await window.fill('input[type="password"]', process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin');
     await window.click('button[type="submit"]');
     await window.waitForSelector('.dashboard-container, .dashboard-elite', { timeout: 60000 });
 

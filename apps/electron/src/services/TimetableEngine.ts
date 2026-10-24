@@ -3,7 +3,7 @@
  * ===============================================================
  * Motor CSP Híbrido + Busca Local Meta-Heurística (3 Fases) inspirado na
  * engenharia reversa do URÂNIA+ (v1.30.30):
- *  - Suporte aos 10 períodos do Colégio Visão (1º ao 6º Manhã + 7º ao 10º Contraturno Tarde EM)
+ *  - Suporte aos 10 períodos do Colégio Áquila Modelo (1º ao 6º Manhã + 7º ao 10º Contraturno Tarde EM)
  *  - Matriz de Disponibilidade por Aula (AVAILABLE, UNAVAILABLE, AVOID, HAF)
  *  - Tipos de Geminação (Dobradinhas Ideais vs Aceitáveis, sem cruzar recreio/interturno)
  *  - LAP (Limite de Aulas por Professor na mesma Turma/Dia)
@@ -247,7 +247,7 @@ export class TimetableEngine {
     }
 
     for (const day of this.days) {
-      // No Colégio Visão, Ensino Médio tem contraturno (7..10) às Terças e Quintas
+      // No Colégio Áquila Modelo, Ensino Médio tem contraturno (7..10) às Terças e Quintas
       const dayPeriods =
         isEM && (day === 'tuesday' || day === 'thursday')
           ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

@@ -245,7 +245,7 @@ export const EvasionRadar: React.FC = () => {
       `📚 *Disciplinas com maior ausência:* ${selectedSosStudent.criticalSubjects.join(', ')}.\n` +
       (sosCustomNote ? `📝 *Observação da Coordenação:* ${sosCustomNote}\n\n` : '\n') +
       `Solicitamos seu comparecimento urgente à Coordenação Pedagógica no prazo de até 48 horas para alinhamento e assinatura do Plano de Recuperação.\n\n` +
-      `_Colégio Visão • Áquila Pro School OS_`;
+      `_Colégio Áquila Modelo • Áquila Pro School OS_`;
 
     try {
       const cleanPhone = sosPhone.replace(/\D/g, '');
@@ -772,7 +772,7 @@ export const EvasionRadar: React.FC = () => {
             <div className="af-modal-body" style={{ fontSize: '0.84rem', lineHeight: 1.6, color: '#e2e8f0' }}>
               <div style={{ padding: '14px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                  <p style={{ margin: 0 }}><strong>ESTABELECIMENTO:</strong> Colégio Visão — Unidade Central</p>
+                  <p style={{ margin: 0 }}><strong>ESTABELECIMENTO:</strong> Colégio Áquila Modelo — Unidade Central</p>
                   <p style={{ margin: 0 }}><strong>COMARCA:</strong> Goiânia / GO</p>
                   <p style={{ margin: 0 }}><strong>ESTUDANTE:</strong> {selectedFicaiStudent.name}</p>
                   <p style={{ margin: 0 }}><strong>MATRÍCULA:</strong> #{selectedFicaiStudent.id}</p>

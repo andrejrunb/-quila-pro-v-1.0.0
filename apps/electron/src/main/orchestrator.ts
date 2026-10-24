@@ -19,7 +19,7 @@ export class SovereignOrchestrator {
     DBClass.setInstance(db);
     sovereignRegistry.setDatabase(db);
 
-    // 1.1 Seeding de Produção (Colégio Visão - Dados Reais)
+    // 1.1 Seeding de Produção (Colégio Áquila Modelo - Dados Reais)
     const staffCount: any = await db.all('SELECT COUNT(*) as count FROM staff');
     if (staffCount[0].count === 0 || process.env.AQUILA_FORCE_SEED === 'true') {
       const { seedRealSchool } = await import('../database/seedRealSchool');

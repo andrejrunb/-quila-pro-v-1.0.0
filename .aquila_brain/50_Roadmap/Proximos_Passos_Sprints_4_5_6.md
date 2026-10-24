@@ -80,7 +80,7 @@ sequenceDiagram
     actor Pai as Smartphone do Responsável
     Portao->>Aquila: Reconhecimento Facial (Aluno entrou 07:11)
     Aquila->>Push: Evento ENTRY_LOGGED
-    Push->>Pai: Push: "Lucas entrou no Colégio Visão às 07:11"
+    Push->>Pai: Push: "Lucas entrou no Colégio Áquila Modelo às 07:11"
     Note over Aquila,Pai: Em caso de ausência não justificada:
     Aquila->>Push: Alerta Preventivo LDB Art. 12 VII
     Push->>Pai: Notificação Oficial com Botão "Justificar Falta"
@@ -101,7 +101,7 @@ sequenceDiagram
 
 ## 🧠 Sprint 6: Albus Sovereign Knowledge Canvas & RAG Didático Local
 
-**Objetivo:** Transformar o acervo didático do Colégio Visão em um grafo de conhecimento vivo e explorável por IA offline.
+**Objetivo:** Transformar o acervo didático do Colégio Áquila Modelo em um grafo de conhecimento vivo e explorável por IA offline.
 
 ```mermaid
 graph TD
@@ -121,7 +121,7 @@ graph TD
    - Clique com botão direito em qualquer conceito para pedir ao Córtex local: *"Desdobrar sub-tópicos"*, *"Explicar com analogia prática"* ou *"Gerar desafio de vestibular"*.
 2. **RAG Local de Apostilas (Positivo & Material Próprio):**
    - Ingestão dos PDFs das apostilas do 6º Ano ao 3º Ano Médio.
-   - Recuperação contextual em milissegundos usando embeddings locais sem vazar dados para fora do Colégio Visão.
+   - Recuperação contextual em milissegundos usando embeddings locais sem vazar dados para fora do Colégio Áquila Modelo.
 3. **Modo Estudo Ativo para Alunos:**
    - Sistema de Coroas de Maestria Khan Academy (5 níveis) integrado diretamente a cada nó do Canvas.
    - Geração dinâmica de flashcards com repetição espaçada (Algoritmo SuperMemo SM-2) para fixação de longo prazo.

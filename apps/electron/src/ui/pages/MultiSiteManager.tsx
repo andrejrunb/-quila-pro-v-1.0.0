@@ -39,7 +39,7 @@ export const MultiSiteManager: React.FC<MultiSiteManagerProps> = ({ onBack, onSe
   const [units, setUnits] = useState<Unit[]>([
     { 
       id: 'unit-matriz', 
-      name: 'Colégio Visão — Matriz Asa Sul', 
+      name: 'Colégio Áquila Modelo — Matriz Asa Sul', 
       address: 'SGAS 915 Lote 68, Brasília - DF', 
       inepCode: '53001892',
       status: 'online', 
@@ -50,7 +50,7 @@ export const MultiSiteManager: React.FC<MultiSiteManagerProps> = ({ onBack, onSe
     },
     { 
       id: 'unit-kids', 
-      name: 'Colégio Visão — Unidade Kids Asa Norte', 
+      name: 'Colégio Áquila Modelo — Unidade Kids Asa Norte', 
       address: 'SGAN 706 Bloco C, Brasília - DF', 
       inepCode: '53002410',
       status: 'online', 
@@ -61,7 +61,7 @@ export const MultiSiteManager: React.FC<MultiSiteManagerProps> = ({ onBack, onSe
     },
     { 
       id: 'unit-highschool', 
-      name: 'Colégio Visão — Unidade Águas Claras High', 
+      name: 'Colégio Áquila Modelo — Unidade Águas Claras High', 
       address: 'Rua das Figueiras Lote 12, Águas Claras - DF', 
       inepCode: '53003980',
       status: 'online', 
@@ -138,7 +138,7 @@ export const MultiSiteManager: React.FC<MultiSiteManagerProps> = ({ onBack, onSe
           <div>
             <h1 className="ms-title">Gestão Multi-Unidade da Rede (Tenant Central)</h1>
             <p className="ms-subtitle">
-              Sincronização federada P2P • Colégio Visão • Córtex Central v2.1
+              Sincronização federada P2P • Colégio Áquila Modelo • Córtex Central v2.1
             </p>
           </div>
         </div>
@@ -319,7 +319,7 @@ export const MultiSiteManager: React.FC<MultiSiteManagerProps> = ({ onBack, onSe
                 <input 
                   type="text" 
                   className="ms-form-input" 
-                  placeholder="Ex: Colégio Visão — Unidade Sudoeste"
+                  placeholder="Ex: Colégio Áquila Modelo — Unidade Sudoeste"
                   value={newUnitName}
                   onChange={e => setNewUnitName(e.target.value)}
                   required 

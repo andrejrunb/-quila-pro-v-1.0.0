@@ -75,7 +75,7 @@ test.describe('Portals Resilience — Áquila Pro', () => {
       await win.fill('input[placeholder*="COLEGIOVISAO"]', 'VISAO').catch(() => {});
     }
     await win.fill('input[placeholder*="usuário"]', 'admin');
-    await win.fill('input[type="password"]', 'Admin@2026!');
+    await win.fill('input[type="password"]', process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin');
     await win.click('button[type="submit"]');
 
     // Dispensar modal LGPD caso apareça após o login (sem consentimento no DB de teste)

@@ -147,7 +147,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                   required
                 >
                   <option value="" disabled>Selecione sua instituição</option>
-                  <option value="COLEGIOVISAO">Colégio Visão</option>
+                  <option value="COLEGIOVISAO">Colégio Áquila Modelo</option>
                   <option value="ESCOLAFUTURO">Escola do Futuro</option>
                   <option value="AQUILA_DEMO">Áquila Demo</option>
                 </select>

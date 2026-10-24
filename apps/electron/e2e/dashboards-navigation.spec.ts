@@ -88,7 +88,7 @@ test.describe('Dashboards Navigation & Crash Resilience', () => {
     await win.waitForSelector('.login-form', { timeout: 30000 });
     await win.fill('input[placeholder*="COLEGIOVISAO"]', 'VISAO');
     await win.fill('input[placeholder*="usuário"]', 'admin');
-    await win.fill('input[type="password"]', 'Admin@2026!');
+    await win.fill('input[type="password"]', process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin');
     await win.click('button[type="submit"]');
     await win.waitForSelector('.dashboard-container, .dashboard-elite', { timeout: 60000 });
 
