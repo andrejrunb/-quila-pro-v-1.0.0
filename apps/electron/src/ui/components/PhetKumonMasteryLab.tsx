@@ -282,6 +282,137 @@ const MASTER_TOPICS: MasteryTopic[] = [
       { day: 'Quarta-feira (+144h)', focus: 'Questão ENEM / UniRV L3', duration: '6 min', description: 'Análise de montanha-russa com looping circular e força centrípeta.' }
     ]
   }
+,
+  {
+    id: 'ondulatoria_acustica_doppler',
+    title: 'Ondulatória, Acústica & Efeito Doppler (PAS-UnB / UFMG)',
+    badge: 'Ondulatória & Som',
+    bncc: 'EM13CNT302',
+    canonRef: 'Halliday & Resnick, Vol. 2, Cap. 16-17 • Ramalho & Nicolau, Vol. 2, Cap. 18',
+    phetName: 'waves-intro',
+    phetTitle: 'Introdução às Ondas',
+    phetUrl: 'https://phet.colorado.edu/sims/html/waves-intro/latest/waves-intro_all.html',
+    phetThumb: 'https://phet.colorado.edu/sims/html/waves-intro/latest/waves-intro-600.png',
+    drillsL1: [
+      {
+        id: 'w1',
+        drill: 'Simplifique potências de 10: 10^8 / 10^9 em decimal:',
+        ans: '0.1',
+        hint: 'Subtraia os expoentes: 8 - 9 = -1, e 10^-1 = 0,1',
+        explanation: 'Fundamental ao calcular comprimento de onda de satélites e ondas de rádio (c = 3·10^8 m/s).'
+      },
+      {
+        id: 'w2',
+        drill: 'Em v = λ · f, com v = 340 m/s e f = 170 Hz, qual o valor de λ (em m)?',
+        ans: '2',
+        hint: 'λ = 340 / 170',
+        explanation: 'Comprimento de onda acústico de 2 metros propagando-se no ar atmosférico.'
+      },
+      {
+        id: 'w3',
+        drill: 'Se a frequência f = 50 Hz, quanto vale o período T = 1/f em segundos?',
+        ans: '0.02',
+        hint: '1 / 50 = 2 / 100 = 0,02 s',
+        explanation: 'Cada oscilação completa dura exatamente 20 milissegundos.'
+      }
+    ],
+    drillsL2: [
+      {
+        id: 'w4',
+        drill: 'Em v = λ · f, se a frequência de uma onda sonora duplica (2x) no mesmo ar, o comprimento de onda λ:',
+        ans: 'cai pela metade',
+        hint: 'Como a velocidade do som no meio é fixa, λ e f são inversamente proporcionais',
+        explanation: 'Ao dobrar a frequência (som mais agudo), as cristas ficam 2x mais próximas (λ divide por 2).'
+      },
+      {
+        id: 'w5',
+        drill: 'No Efeito Doppler, quando uma ambulância se aproxima do pedestre parado, a frequência ouvida é:',
+        ans: 'maior',
+        hint: 'As frentes de onda se comprimem na direção do movimento',
+        explanation: 'A frequência percebida é mais alta (som mais agudo) durante a aproximação.'
+      }
+    ],
+    drillsL3: [
+      {
+        id: 'w6',
+        drill: 'Um sinal de telecomunicação da UnB tem f = 1,5 GHz (1,5·10^9 Hz) e viaja a 3,0·10^8 m/s. Qual seu comprimento de onda em metros (ex: 0.2)?',
+        ans: '0.2',
+        hint: 'λ = c / f = (3,0·10^8) / (1,5·10^9) = 2 · 10^-1 = 0,2 m',
+        explanation: 'O comprimento de onda é 20 cm (faixa de micro-ondas para satélites ambientais).'
+      }
+    ],
+    spacedSchedule: [
+      { day: 'Sexta-feira (+24h)', focus: 'Visualização de Ondas PhET', duration: '3 min', description: 'Abrir a simulação Introdução às Ondas e alternar entre gotejador de água e gerador de som.' },
+      { day: 'Sábado (+48h)', focus: 'Fluência Kumon L1', duration: '5 min', description: 'Manipulação rápida de grandezas inversas T = 1/f e notação científica de frequências em Hz, kHz e MHz.' },
+      { day: 'Segunda-feira (+96h)', focus: 'Interferência & Difração Kumon L2', duration: '5 min', description: 'Identificação de nós e ventres em tubos sonoros abertos e fechados.' },
+      { day: 'Quarta-feira (+144h)', focus: 'Questão Discursiva PAS-UnB L3', duration: '6 min', description: 'Análise de radar Doppler meteorológico monitorando tempestades no Planalto Central.' }
+    ]
+  },
+  {
+    id: 'termodinamica_gases_cerrado',
+    title: 'Termodinâmica, Máquinas Térmicas & Clima do Cerrado (UFG / UEG)',
+    badge: 'Termofísica & Gases',
+    bncc: 'EM13CNT102',
+    canonRef: 'Sears & Zemansky, Física II, Cap. 19-20 • Ramalho & Nicolau, Vol. 2, Cap. 10',
+    phetName: 'gas-properties',
+    phetTitle: 'Propriedades dos Gases',
+    phetUrl: 'https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_all.html',
+    phetThumb: 'https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties-600.png',
+    drillsL1: [
+      {
+        id: 't1',
+        drill: 'Converta a temperatura de 27 °C para a escala absoluta Kelvin (27 + 273):',
+        ans: '300',
+        hint: 'T(K) = T(°C) + 273',
+        explanation: 'Em equações termodinâmicas (p·V = n·R·T), a temperatura deve estar sempre em Kelvin.'
+      },
+      {
+        id: 't2',
+        drill: 'Calcule o produto p · V para p = 2 atm e V = 15 L:',
+        ans: '30',
+        hint: '2 · 15 = 30',
+        explanation: 'O produto p·V é constante em transformações isotérmicas (Lei de Boyle).'
+      },
+      {
+        id: 't3',
+        drill: 'Em uma máquina térmica que recebe 1000 J e rejeita 600 J, quanto trabalho útil W é produzido (1000 - 600)?',
+        ans: '400',
+        hint: '1ª Lei: W = Q1 - Q2',
+        explanation: 'O trabalho útil realizado é a diferença entre o calor da fonte quente e o rejeitado à fonte fria.'
+      }
+    ],
+    drillsL2: [
+      {
+        id: 't4',
+        drill: 'Em um botijão rígido (volume constante), se a temperatura absoluta Kelvin dobra (2x), a pressão interna:',
+        ans: 'dobra',
+        hint: 'Em transformação isovolumétrica, p/T = constante',
+        explanation: 'A pressão e a temperatura absoluta são diretamente proporcionais (Lei de Charles/Gay-Lussac).'
+      },
+      {
+        id: 't5',
+        drill: 'Segundo a 2ª Lei da Termodinâmica, é possível construir uma máquina térmica com 100% de rendimento?',
+        ans: 'não',
+        hint: 'Enunciado de Kelvin-Planck',
+        explanation: 'Nenhuma máquina que opera em ciclos pode transformar integralmente calor em trabalho.'
+      }
+    ],
+    drillsL3: [
+      {
+        id: 't6',
+        drill: 'Um aquecedor solar em Goiânia eleva em 40 °C a temperatura de 50 kg de água (c=4200 J/kg°C) em 1000 s. Qual a potência média útil em kW?',
+        ans: '8.4',
+        hint: 'Q = 50 · 4200 · 40 = 8.400.000 J = 8,4 MJ. Potência P = 8.400.000 / 1000 = 8400 W = 8,4 kW.',
+        explanation: 'Potência térmica útil média de 8,4 kW gerada por captação da radiação solar do Cerrado.'
+      }
+    ],
+    spacedSchedule: [
+      { day: 'Sexta-feira (+24h)', focus: 'Cinética de Moléculas PhET', duration: '3 min', description: 'Bombear moléculas pesadas e leves no simulador e acompanhar o termômetro e manômetro.' },
+      { day: 'Sábado (+48h)', focus: 'Fluência Kumon L1', duration: '5 min', description: 'Cálculo instantâneo de rendimento percentual η = (1 - T2/T1) e calores sensíveis.' },
+      { day: 'Segunda-feira (+96h)', focus: 'Diagramas p-V Kumon L2', duration: '5 min', description: 'Cálculo de trabalho através da área sob a curva no ciclo de Carnot e Otto.' },
+      { day: 'Quarta-feira (+144h)', focus: 'Questão Estilo UFG / UEG L3', duration: '6 min', description: 'Resolução de balanço térmico e umidade relativa do ar no inverno goiano.' }
+    ]
+  }
 ];
 
 export const PhetKumonMasteryLab: React.FC = () => {
