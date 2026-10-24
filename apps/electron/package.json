@@ -163,7 +163,7 @@
         }
       ],
       "icon": "resources/icons/icon.png",
-      "requestedExecutionLevel": "requireAdministrator"
+      "requestedExecutionLevel": "asInvoker"
     },
     "nsis": {
       "installerHeader": "resources/installerHeader.png",

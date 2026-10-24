@@ -4,7 +4,7 @@ on:
   push:
     branches: [main, clean-release-v1]
   pull_request:
-    branches: [main]
+    branches: [main, clean-release-v1]
 
 jobs:
   # ──────────────────────────────────────────
@@ -24,6 +24,16 @@ jobs:
           echo "Scanning for plaintext credentials and raw keys..."
           # Reject any tracked files with real JWT secrets or private keys
           ! git grep -E "(sk_live_|AIzaSy[A-Za-z0-9_-]{33}|ghp_[A-Za-z0-9]{36})" -- ':!*.example' ':!*.md' ':!colab/*'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.15.0
+
+      - name: Dependency Vulnerability Audit Report
+        run: |
+          echo "Auditing dependencies..."
+          pnpm audit || true
 
   # ──────────────────────────────────────────
   # JOB 2: Monorepo Type Check & Lint
@@ -87,6 +97,16 @@ jobs:
         run: pnpm --filter aquila-pro-school-os run test src/database/__tests__/Database512AndOmr.test.ts src/main/services/__tests__/OmrCorrectionService.test.ts src/main/services/__tests__/CourtyardTelemetryService.test.ts
         env:
           CI: true
+
+      - name: Upload Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            apps/electron/e2e/results.json
+            apps/electron/e2e/screenshots/
+          if-no-files-found: ignore
 
   # ──────────────────────────────────────────
   # JOB 4: Monorepo Build Verification
