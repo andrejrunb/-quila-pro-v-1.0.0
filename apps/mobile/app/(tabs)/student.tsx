@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {
   Sparkles, Send, Brain, BookOpen, CheckCircle2, Lightbulb,
-  Zap, Flame, Trophy, Radio, RotateCcw, HelpCircle, XCircle, Box
+  Zap, Flame, Trophy, Radio, RotateCcw, HelpCircle, XCircle, Box, FileText
 } from 'lucide-react-native';
 import { API_CONFIG } from '../services/apiConfig';
 
@@ -71,8 +71,79 @@ const MOBILE_WORDWALL_BOXES: MobileWordwallBox[] = [
   { id: 4, term: '🌊 Onda Sonora', badge: 'Ondulatória', challenge: 'Em v = λ · f, com v = 340 m/s e f = 170 Hz, qual o comprimento de onda em metros?', answer: '2', hint: 'λ = 340 / 170' }
 ];
 
+const DEFAULT_MOBILE_EXAM_ITEMS = [
+  {
+    id: 1,
+    exam: 'ENEM 2023',
+    subject: 'Física',
+    topic: 'Eletrodinâmica & Consumo',
+    statement: 'Um chuveiro elétrico de 4.400 W opera em 220 V por 15 min diários. A corrente exigida e o consumo mensal (30 dias) são:',
+    alternatives: {
+      A: '10 A e 16,5 kWh',
+      B: '20 A e 33,0 kWh',
+      C: '20 A e 22,0 kWh',
+      D: '22 A e 33,0 kWh',
+      E: '44 A e 66,0 kWh'
+    },
+    correct: 'B',
+    explanation: 'i = P / U = 4400 / 220 = 20 A. Tempo mensal: 0,25 h × 30 = 7,5 h. Energia: 4,4 kW × 7,5 h = 33 kWh.'
+  },
+  {
+    id: 2,
+    exam: 'UnB / PAS 2024',
+    subject: 'Física',
+    topic: 'Ondulatória & Telecomunicações',
+    statement: 'Sinal de 1,5 GHz (1,5 × 10⁹ Hz) viaja no vácuo a c = 3,0 × 10⁸ m/s. O comprimento de onda λ é:',
+    alternatives: {
+      A: '5 cm',
+      B: '20 cm (0,20 m)',
+      C: '50 cm',
+      D: '2,0 m',
+      E: '5,0 m'
+    },
+    correct: 'B',
+    explanation: 'λ = c / f = 3,0 × 10⁸ / 1,5 × 10⁹ = 0,20 m = 20 cm.'
+  },
+  {
+    id: 3,
+    exam: 'UFG 2021',
+    subject: 'Física',
+    topic: 'Calorimetria & Cerrado',
+    statement: 'Aquecem-se 50 kg de água (c = 4200 J/kg°C) de 20 °C a 60 °C em 1000 s. O calor absorvido em MJ e a potência em kW são:',
+    alternatives: {
+      A: '4,2 MJ e 4,2 kW',
+      B: '8,4 MJ e 8,4 kW',
+      C: '8,4 MJ e 4,2 kW',
+      D: '12,6 MJ e 12,6 kW',
+      E: '16,8 MJ e 8,4 kW'
+    },
+    correct: 'B',
+    explanation: 'Q = 50 × 4200 × 40 = 8.400.000 J = 8,4 MJ. Potência P = 8.400.000 / 1000 = 8,4 kW.'
+  },
+  {
+    id: 4,
+    exam: 'UniRV 2024',
+    subject: 'Medicina',
+    topic: 'Óptica & Dioptrias',
+    statement: 'Uma lente convergente para hipermetropia tem vergência V = +2,5 dioptrias. Sua distância focal é:',
+    alternatives: {
+      A: '20 cm',
+      B: '25 cm',
+      C: '40 cm',
+      D: '50 cm',
+      E: '80 cm'
+    },
+    correct: 'C',
+    explanation: 'f = 1 / V = 1 / 2,5 = 0,40 m = 40 cm.'
+  }
+];
+
 export default function StudentLabTab() {
-  const [activeMode, setActiveMode] = useState<'chat' | 'kumon' | 'podcast' | 'wordwall'>('chat');
+  const [activeMode, setActiveMode] = useState<'chat' | 'kumon' | 'podcast' | 'wordwall' | 'simulado'>('chat');
+  const [dispatchedSimulado, setDispatchedSimulado] = useState<any>(null);
+  const [simuladoAnswers, setSimuladoAnswers] = useState<Record<number, string>>({});
+  const [simuladoSubmitted, setSimuladoSubmitted] = useState(false);
+  const [simuladoScore, setSimuladoScore] = useState<{ correct: number; total: number; xp: number } | null>(null);
   const [topic, setTopic] = useState('');
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<StudyMessage[]>([
@@ -136,17 +207,21 @@ export default function StudentLabTab() {
         }
         if (payload.type === 'PEDAGOGICAL_PACK_DISPATCH') {
           const pack = payload.payload || {};
+          if (Array.isArray(pack.items) && pack.items.length > 0) {
+            setDispatchedSimulado(pack);
+          }
           setMessages((prev) => [
             ...prev,
             {
               id: `pack-${Date.now()}`,
               sender: 'albus',
-              text: `📢 NOVO MATERIAL ENVIADO PELO PROFESSOR!
+              text: `📢 SIMULADO / MATERIAL ENVIADO PELO PROFESSOR!
 
-📌 ${pack.discipline || 'Estudos'}: ${pack.topic || 'Revisão'}
-💡 "${pack.everydayHook || ''}"
+📌 ${pack.school || 'Colégio Áquila Pro'}
+📝 ${pack.title || pack.topic || 'Simulado Oficial Regional'}
+💡 "${pack.everydayHook || 'Toque na aba Simulado para testar seus conhecimentos!'}"
 
-🎙️ O Podcast com Sofia & Lucas e os desafios de retenção já estão sincronizados no seu app!`,
+🎙️ Podcast com Sofia & Lucas e Prova Digital já sincronizados!`,
               timestamp: Date.now(),
             },
           ]);
@@ -279,6 +354,14 @@ export default function StudentLabTab() {
           >
             <Box color={activeMode === 'wordwall' ? '#38bdf8' : '#94a3b8'} size={14} />
             <Text style={[styles.modeText, activeMode === 'wordwall' && styles.modeTextActive]}>Wordwall</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.modeBtn, activeMode === 'simulado' && styles.modeBtnActive]}
+            onPress={() => setActiveMode('simulado')}
+          >
+            <FileText color={activeMode === 'simulado' ? '#38bdf8' : '#94a3b8'} size={14} />
+            <Text style={[styles.modeText, activeMode === 'simulado' && styles.modeTextActive]}>Simulado</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -532,6 +615,136 @@ export default function StudentLabTab() {
               );
             })}
           </View>
+        </ScrollView>
+      )}
+
+      {/* MODO 5: SIMULADO REGIONAL DIGITAL */}
+      {activeMode === 'simulado' && (
+        <ScrollView style={styles.chatArea} contentContainerStyle={{ padding: 16 }}>
+          {/* HEADER DO SIMULADO */}
+          <View style={styles.simuladoHeaderCard}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+              <FileText color="#38bdf8" size={24} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.simuladoCardTitle}>
+                  {dispatchedSimulado?.title || 'Simulado Regional Vestibulares 2026'}
+                </Text>
+                <Text style={styles.simuladoCardSub}>
+                  {dispatchedSimulado?.school || 'Colégio Áquila Pro'} • ENEM, UnB, UFG, UniRV
+                </Text>
+              </View>
+            </View>
+            {simuladoSubmitted && simuladoScore && (
+              <View style={styles.simuladoScoreBadge}>
+                <Trophy color="#10b981" size={16} />
+                <Text style={styles.simuladoScoreText}>
+                  {simuladoScore.correct} / {simuladoScore.total} Acertos (+{simuladoScore.xp} XP)
+                </Text>
+              </View>
+            )}
+          </View>
+
+          {/* LISTA DE QUESTÕES */}
+          {(dispatchedSimulado?.items || DEFAULT_MOBILE_EXAM_ITEMS).map((q: any, idx: number) => {
+            const isCorrect = simuladoAnswers[idx] === q.correct;
+            return (
+              <View key={idx} style={styles.simuladoQuestionCard}>
+                <View style={styles.simuladoQuestionMeta}>
+                  <Text style={styles.simuladoQuestionNum}>QUESTÃO {String(idx + 1).padStart(2, '0')}</Text>
+                  <Text style={styles.simuladoQuestionBanca}>{q.exam || 'VESTIBULAR REGIONAL'}</Text>
+                </View>
+
+                <Text style={styles.simuladoStatement}>{q.statement}</Text>
+
+                {/* ALTERNATIVAS A, B, C, D, E */}
+                <View style={{ gap: 8, marginTop: 10 }}>
+                  {(['A', 'B', 'C', 'D', 'E'] as const).map((letter) => {
+                    const isSelected = simuladoAnswers[idx] === letter;
+                    const isTheCorrectOne = letter === q.correct;
+                    let altStyle = styles.simuladoAltBtn;
+                    if (isSelected) altStyle = [styles.simuladoAltBtn, styles.simuladoAltSelected];
+                    if (simuladoSubmitted) {
+                      if (isTheCorrectOne) altStyle = [styles.simuladoAltBtn, styles.simuladoAltCorrect];
+                      else if (isSelected && !isTheCorrectOne) altStyle = [styles.simuladoAltBtn, styles.simuladoAltIncorrect];
+                    }
+
+                    return (
+                      <TouchableOpacity
+                        key={letter}
+                        style={altStyle}
+                        disabled={simuladoSubmitted}
+                        onPress={() => setSimuladoAnswers((prev) => ({ ...prev, [idx]: letter }))}
+                      >
+                        <View style={[styles.simuladoRadioCircle, isSelected && styles.simuladoRadioCircleActive]}>
+                          <Text style={[styles.simuladoRadioLetter, isSelected && { color: '#ffffff' }]}>
+                            {letter}
+                          </Text>
+                        </View>
+                        <Text style={styles.simuladoAltText}>
+                          {q.alternatives ? q.alternatives[letter] : `Opção (${letter})`}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+
+                {/* RESOLUÇÃO APÓS ENTREGA */}
+                {simuladoSubmitted && (
+                  <View style={styles.simuladoExplanationBox}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                      {isCorrect ? (
+                        <>
+                          <CheckCircle2 color="#34d399" size={14} />
+                          <Text style={{ color: '#34d399', fontWeight: '800', fontSize: 12 }}>ACERTOU! GABARITO ({q.correct})</Text>
+                        </>
+                      ) : (
+                        <>
+                          <XCircle color="#f87171" size={14} />
+                          <Text style={{ color: '#f87171', fontWeight: '800', fontSize: 12 }}>GABARITO OFICIAL: ({q.correct})</Text>
+                        </>
+                      )}
+                    </View>
+                    <Text style={styles.simuladoExplanationText}>{q.explanation}</Text>
+                  </View>
+                )}
+              </View>
+            );
+          })}
+
+          {/* BOTÃO DE ENTREGA */}
+          {!simuladoSubmitted ? (
+            <TouchableOpacity
+              style={styles.simuladoSubmitBtn}
+              onPress={() => {
+                const items = dispatchedSimulado?.items || DEFAULT_MOBILE_EXAM_ITEMS;
+                let correctCount = 0;
+                items.forEach((item: any, i: number) => {
+                  if (simuladoAnswers[i] === item.correct) correctCount++;
+                });
+                const total = items.length;
+                const earned = correctCount * 25;
+                setSimuladoScore({ correct: correctCount, total, xp: earned });
+                setSimuladoSubmitted(true);
+                setEarnedXp((prev) => prev + earned);
+                setStreakDays((prev) => prev + 1);
+              }}
+            >
+              <CheckCircle2 color="#ffffff" size={18} />
+              <Text style={styles.simuladoSubmitBtnText}>Entregar Prova Digital</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.simuladoResetBtn}
+              onPress={() => {
+                setSimuladoAnswers({});
+                setSimuladoSubmitted(false);
+                setSimuladoScore(null);
+              }}
+            >
+              <RotateCcw color="#38bdf8" size={16} />
+              <Text style={styles.simuladoResetBtnText}>Refazer Simulado</Text>
+            </TouchableOpacity>
+          )}
         </ScrollView>
       )}
     </KeyboardAvoidingView>
@@ -984,5 +1197,161 @@ const styles = StyleSheet.create({
     color: '#f87171',
     fontSize: 12,
     fontWeight: '600',
+  },
+  simuladoHeaderCard: {
+    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.3)',
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 16,
+    gap: 10,
+  },
+  simuladoCardTitle: {
+    color: '#f8fafc',
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  simuladoCardSub: {
+    color: '#94a3b8',
+    fontSize: 11,
+  },
+  simuladoScoreBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(16, 185, 129, 0.3)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
+  simuladoScoreText: {
+    color: '#34d399',
+    fontSize: 12,
+    fontWeight: '800',
+  },
+  simuladoQuestionCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 14,
+  },
+  simuladoQuestionMeta: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  simuladoQuestionNum: {
+    color: '#38bdf8',
+    fontSize: 11,
+    fontWeight: '800',
+  },
+  simuladoQuestionBanca: {
+    color: '#94a3b8',
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  simuladoStatement: {
+    color: '#e2e8f0',
+    fontSize: 13,
+    lineHeight: 19,
+  },
+  simuladoAltBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    padding: 10,
+    borderRadius: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.02)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.06)',
+  },
+  simuladoAltSelected: {
+    backgroundColor: 'rgba(56, 189, 248, 0.15)',
+    borderColor: '#38bdf8',
+  },
+  simuladoAltCorrect: {
+    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+    borderColor: '#10b981',
+  },
+  simuladoAltIncorrect: {
+    backgroundColor: 'rgba(239, 68, 68, 0.15)',
+    borderColor: '#ef4444',
+  },
+  simuladoRadioCircle: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 1.5,
+    borderColor: '#64748b',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  simuladoRadioCircleActive: {
+    borderColor: '#38bdf8',
+    backgroundColor: '#0284c7',
+  },
+  simuladoRadioLetter: {
+    color: '#94a3b8',
+    fontSize: 10,
+    fontWeight: '800',
+  },
+  simuladoAltText: {
+    color: '#cbd5e1',
+    fontSize: 12,
+    flex: 1,
+  },
+  simuladoExplanationBox: {
+    marginTop: 12,
+    padding: 12,
+    borderRadius: 8,
+    backgroundColor: 'rgba(15, 23, 42, 0.8)',
+    borderLeftWidth: 3,
+    borderLeftColor: '#38bdf8',
+  },
+  simuladoExplanationText: {
+    color: '#94a3b8',
+    fontSize: 11.5,
+    lineHeight: 16,
+  },
+  simuladoSubmitBtn: {
+    backgroundColor: '#0284c7',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingVertical: 14,
+    borderRadius: 10,
+    marginTop: 8,
+    marginBottom: 30,
+  },
+  simuladoSubmitBtnText: {
+    color: '#ffffff',
+    fontSize: 14,
+    fontWeight: '800',
+  },
+  simuladoResetBtn: {
+    backgroundColor: 'rgba(56, 189, 248, 0.15)',
+    borderWidth: 1,
+    borderColor: '#38bdf8',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingVertical: 12,
+    borderRadius: 10,
+    marginTop: 8,
+    marginBottom: 30,
+  },
+  simuladoResetBtnText: {
+    color: '#38bdf8',
+    fontSize: 13,
+    fontWeight: '700',
   },
 });
