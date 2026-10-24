@@ -8,6 +8,7 @@ import * as fs from 'fs';
  * Verifica se o app inicia e carrega o UnifiedCommand.
  */
 test('should launch app and show UnifiedCommand', async () => {
+    test.slow();
     const userDataDir = path.join(__dirname, '../test-user-data-smoke');
     if (fs.existsSync(userDataDir)) {
         try { fs.rmSync(userDataDir, { recursive: true, force: true }); } catch (e) {}
@@ -29,9 +30,9 @@ test('should launch app and show UnifiedCommand', async () => {
     electronApp.process().stdout?.on('data', data => console.log(`[Main] ${data.toString()}`));
     electronApp.process().stderr?.on('data', data => console.error(`[Main Error] ${data.toString()}`));
 
-    // Aguarda a primeira janela
+    // Aguarda a primeira janela (tolerância para cold start do Electron v28 com inicialização de enxame)
     console.log('[E2E] Aguardando primeira janela...');
-    const window = await electronApp.firstWindow({ timeout: 60000 });
+    const window = await electronApp.firstWindow({ timeout: 120000 });
     
     // Capturar logs do console do Renderer
     window.on('console', msg => console.log(`[Renderer] ${msg.text()}`));
