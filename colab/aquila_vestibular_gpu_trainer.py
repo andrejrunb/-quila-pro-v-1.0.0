@@ -841,7 +841,25 @@ def run_gpu_vestibular_training(db_path: str) -> Dict[str, Any]:
     concepts_trained = 0
     questions_trained = 0
 
-    for idx, item in enumerate(HISTORICAL_CONCEPT_CATALOG):
+    # Carregar catalogo canonico + banco expandido de vestibulares regionais
+    catalog = list(HISTORICAL_CONCEPT_CATALOG)
+    seen_keys = {(c["exam"], c["subject"], c["topic"]) for c in catalog}
+
+    master_bank = Path("colab/data_finetuning/aquila_master_exam_bank.jsonl")
+    if master_bank.exists():
+        with open(master_bank, "r", encoding="utf-8") as f_bank:
+            for line in f_bank:
+                if line.strip():
+                    try:
+                        item_json = json.loads(line)
+                        k = (item_json.get("exam"), item_json.get("subject"), item_json.get("topic"))
+                        if k not in seen_keys:
+                            catalog.append(item_json)
+                            seen_keys.add(k)
+                    except Exception:
+                        pass
+
+    for idx, item in enumerate(catalog):
         exam = item["exam"]
         subject = item["subject"]
         topic = item["topic"]
@@ -868,43 +886,47 @@ def run_gpu_vestibular_training(db_path: str) -> Dict[str, Any]:
         ))
         concepts_trained += 1
 
-        sq = item.get("sample_question")
+        sq = item.get("sample_question") or item.get("question")
         if sq:
-            q_id = f"{exam.lower()}_{sq['year']}_{subject.lower()[:3]}_{idx+1:02d}"
+            q_id = f"{exam.lower()}_{sq.get('year', 2024)}_{subject.lower()[:3]}_{idx+1:02d}"
+            d_l1 = sq.get("drills_l1") or item.get("kumon_drills", {}).get("l1_arithmetic", [])
+            d_l2 = sq.get("drills_l2") or item.get("kumon_drills", {}).get("l2_formula_proportions", [])
+            d_l3 = sq.get("drills_l3") or item.get("kumon_drills", {}).get("l3_exam_drills", [])
+
             scaffolding_payload = {
                 "question_id": q_id,
                 "exam": exam,
-                "year": sq["year"],
-                "decades": item["decades"],
+                "year": sq.get("year", 2024),
+                "decades": item.get("decades", "1996-2025"),
                 "topic": topic,
-                "incidence_pct": item["incidence_pct"],
-                "tri_difficulty": item["tri_difficulty"],
+                "incidence_pct": item.get("incidence_pct", 20.0),
+                "tri_difficulty": item.get("tri_difficulty", 700),
                 "subject": subject,
-                "original_question": sq["statement"],
-                "alternatives": sq["alternatives"],
-                "correct_answer": sq["correct"],
+                "original_question": sq.get("statement", ""),
+                "alternatives": sq.get("alternatives", {}),
+                "correct_answer": sq.get("correct", "A"),
                 "diagnostic": {
-                    "prerequisite_math": item["prereq_math"],
-                    "prerequisite_concept": f"[{exam} • {topic}] {item['concepts']}"
+                    "prerequisite_math": item.get("prereq_math", ""),
+                    "prerequisite_concept": f"[{exam} • {topic}] {item.get('concepts', '')}"
                 },
                 "mastery_progressive_levels": [
                     {
                         "level": 1,
                         "title": "Nível 1 — Isolamento do Músculo Base (Micro-passos)",
                         "description": f"Automatize o cálculo e raciocínio elementar exigido pela banca {exam}.",
-                        "exercises": sq["drills_l1"]
+                        "exercises": d_l1
                     },
                     {
                         "level": 2,
                         "title": "Nível 2 — Manipulação de Fórmulas & Conceitos",
                         "description": f"Domine as relações estruturais de {topic}.",
-                        "exercises": sq["drills_l2"]
+                        "exercises": d_l2
                     },
                     {
                         "level": 3,
                         "title": f"Nível 3 — Aplicação Guiada Padrão {exam}",
                         "description": "Consolide sua confiança antes de retornar à questão oficial.",
-                        "exercises": sq["drills_l3"]
+                        "exercises": d_l3
                     }
                 ],
                 "gpu_embedding_preview": emb[:8]
