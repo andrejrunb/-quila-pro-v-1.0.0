@@ -53,7 +53,11 @@ interface FullOmrReport {
   processedAt: string;
 }
 
-export const OmrScannerUI: React.FC = () => {
+export interface OmrScannerUIProps {
+  onNavigate?: (page: string) => void;
+}
+
+export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState<'SCANNER' | 'CRIAR_SIMULADO' | 'IMPRIMIR_GABARITO'>('SCANNER');
   
   // Lista de templates carregados
@@ -86,13 +90,35 @@ export const OmrScannerUI: React.FC = () => {
   // Inicializar dados de turmas e templates
   const loadTemplates = async () => {
     try {
+      // 1. Verificar se há gabarito ativo enviado pelo ExamPaperFoundry
+      let activeFromFoundry: any = null;
+      try {
+        const cachedStr = sessionStorage.getItem('aquila_active_omr_template');
+        if (cachedStr) {
+          activeFromFoundry = JSON.parse(cachedStr);
+        }
+      } catch (_) {}
+
+      let loadedList: any[] = [];
       if ((window as any).aquila?.omr?.listTemplates) {
         const list = await (window as any).aquila.omr.listTemplates();
         if (list && list.length > 0) {
-          setTemplates(list);
-          if (!selectedTemplateId) setSelectedTemplateId(list[0].id);
-          return;
+          loadedList = list;
         }
+      }
+
+      if (activeFromFoundry) {
+        const exists = loadedList.some(t => t.id === activeFromFoundry.id);
+        const combined = exists ? loadedList : [activeFromFoundry, ...loadedList];
+        setTemplates(combined);
+        setSelectedTemplateId(activeFromFoundry.id);
+        return;
+      }
+
+      if (loadedList.length > 0) {
+        setTemplates(loadedList);
+        if (!selectedTemplateId) setSelectedTemplateId(loadedList[0].id);
+        return;
       }
       
       // Fallback: criar template inicial calibrado caso não haja nenhum no banco
@@ -287,36 +313,73 @@ export const OmrScannerUI: React.FC = () => {
     if (!report) return;
 
     try {
-      // 1. Salvar no SQLite
-      if ((window as any).aquila?.omr?.saveGrade) {
-        await (window as any).aquila.omr.saveGrade({
-          studentId: report.studentId || selectedStudentId,
-          classId: selectedClassId,
-          value: report.triResult.schoolGrade,
-          type: 'SIMULADO_TRI_OMR',
-          weight: 1.0
-        });
-      }
+      const studentId = report.studentId || selectedStudentId;
+      const schoolGrade = Number(report.triResult.schoolGrade.toFixed(1));
 
-      // 2. Sincronizar no localStorage do TeacherGradebook
-      const storageKey = `aquila_grades_${selectedClassId}_Matemática_B1`;
-      const cachedGradesStr = localStorage.getItem(storageKey);
-      if (cachedGradesStr) {
+      // 1. Salvar no SQLite oficial
+      if ((window as any).aquila?.invoke) {
         try {
-          const cachedGrades = JSON.parse(cachedGradesStr);
-          const updated = cachedGrades.map((r: any) => {
-            if (r.studentId === report.studentId || r.ra === report.studentId || r.studentName === report.studentName) {
-              return { ...r, n2: report.triResult.schoolGrade.toFixed(1) };
-            }
-            return r;
+          await (window as any).aquila.invoke('academic:save-student-grade', {
+            studentId,
+            classId: selectedClassId,
+            value: schoolGrade,
+            type: 'SIMULADO_TRI_OMR',
+            weight: 1.0
           });
-          localStorage.setItem(storageKey, JSON.stringify(updated));
         } catch (_) {}
       }
 
+      // 2. Sincronizar no localStorage de todas as disciplinas ativas no TeacherGradebook
+      const subjects = ['Matemática', 'Física', 'Química', 'Biologia', 'História', 'Geografia'];
+      const bimesters = ['B1', 'B2', 'B3', 'B4'];
+      subjects.forEach(sub => {
+        bimesters.forEach(bim => {
+          const key = `aquila_gradebook_${selectedClassId}_${sub}_${bim}`;
+          const cachedStr = localStorage.getItem(key);
+          if (cachedStr) {
+            try {
+              const cached = JSON.parse(cachedStr);
+              if (Array.isArray(cached)) {
+                const updated = cached.map((r: any) => {
+                  const match =
+                    r.studentId === studentId ||
+                    r.ra === studentId ||
+                    r.studentName === report.studentName ||
+                    r.studentId === `STU-${studentId}`;
+                  if (match) {
+                    return { ...r, n2: schoolGrade.toFixed(1) };
+                  }
+                  return r;
+                });
+                localStorage.setItem(key, JSON.stringify(updated));
+              }
+            } catch (_) {}
+          }
+        });
+      });
+
+      // 3. Disparar notificação em tempo real via WebSocket para o app Mobile do Aluno e Pais
+      if ((window as any).aquila?.invoke) {
+        try {
+          await (window as any).aquila.invoke('mobile:broadcast-grade', {
+            studentId,
+            studentName: report.studentName,
+            classId: selectedClassId,
+            subject: 'Simulado Regional TRI (OMR)',
+            score: schoolGrade,
+            triScore: report.triResult.enemScaleScore,
+            accuracyPct: report.accuracyPct,
+            processedAt: new Date().toISOString()
+          });
+        } catch (_) {}
+      }
+
+      // 4. Emitir evento local para atualização reativa do Diário
+      window.dispatchEvent(new CustomEvent('aquila:gradebook-updated'));
+
       setSyncStatus(true);
       (window as any).showToast?.(
-        `Nota ${report.triResult.schoolGrade.toFixed(1)} (TRI: ${report.triResult.enemScaleScore} pts) lançada no Diário de Classe!`,
+        `Nota ${schoolGrade.toFixed(1)} (TRI: ${report.triResult.enemScaleScore} pts) lançada no Diário e enviada ao Mobile!`,
         'success'
       );
     } catch (err: any) {
@@ -399,6 +462,26 @@ export const OmrScannerUI: React.FC = () => {
           >
             <Printer size={16} /> Imprimir Gabarito OMR
           </button>
+          {onNavigate && (
+            <button
+              className="omr-tab-btn"
+              style={{ borderColor: 'rgba(56, 189, 248, 0.4)', color: '#38BDF8' }}
+              onClick={() => onNavigate('exam-foundry')}
+              title="Abrir Gerador Soberano de Avaliações e Provas A4"
+            >
+              <FileText size={16} /> Gerador Provas A4
+            </button>
+          )}
+          {onNavigate && (
+            <button
+              className="omr-tab-btn"
+              style={{ borderColor: 'rgba(16, 185, 129, 0.4)', color: '#10B981' }}
+              onClick={() => onNavigate('gradebook')}
+              title="Abrir Diário de Classe do Professor"
+            >
+              <TrendingUp size={16} /> Diário de Classe
+            </button>
+          )}
         </nav>
       </header>
 
@@ -594,8 +677,18 @@ export const OmrScannerUI: React.FC = () => {
                       onClick={handleSyncToGradebook}
                     >
                       {syncStatus ? <Check size={18} /> : <Save size={18} />}
-                      {syncStatus ? 'Sincronizado no Diário de Classe!' : 'Lançar Nota no Diário de Classe'}
+                      {syncStatus ? 'Sincronizado no Diário e Mobile!' : 'Lançar Nota no Diário de Classe'}
                     </button>
+                    {onNavigate && (
+                      <button
+                        className="btn-next-scan"
+                        style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38BDF8', borderColor: 'rgba(56, 189, 248, 0.4)' }}
+                        onClick={() => onNavigate('gradebook')}
+                        title="Abrir Diário de Classe para visualizar nota lançada"
+                      >
+                        <FileText size={16} /> Ver no Diário
+                      </button>
+                    )}
                     <button className="btn-next-scan" onClick={() => { setReport(null); startCamera(); }}>
                       <Camera size={16} /> Próximo Aluno
                     </button>

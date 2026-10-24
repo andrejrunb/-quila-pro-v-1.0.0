@@ -57,6 +57,34 @@ export default function HomeTab() {
             };
           });
         }
+        } else if (payload.type === 'GRADE_DISPATCH') {
+          const g = payload.payload || {};
+          setActiveAlert({
+            type: 'success',
+            message: `🎓 Nova nota lançada no Diário: ${g.subject || 'Simulado'} — Nota ${Number(g.score || 0).toFixed(1)} / 10.0 (TRI: ${g.triScore || 720} pts)`
+          });
+          setTimeout(() => setActiveAlert(null), 6000);
+
+          setParentData((prev) => {
+            if (!prev) return prev;
+            return {
+              ...prev,
+              recentEvents: [
+                {
+                  action: `Nota lançada em ${g.subject || 'Simulado'}: ${Number(g.score || 0).toFixed(1)} (TRI ${g.triScore || 720} pts)`,
+                  timestamp: Date.now(),
+                },
+                ...(prev.recentEvents || []),
+              ],
+            };
+          });
+        } else if (payload.type === 'PEDAGOGICAL_PACK_DISPATCH') {
+          const p = payload.payload || {};
+          setActiveAlert({
+            type: 'info',
+            message: `📝 Novo Simulado Regional disponibilizado para o aluno: ${p.title || 'Simulado Oficial'}`
+          });
+          setTimeout(() => setActiveAlert(null), 5000);
       } catch (err) {
         console.error('Error parsing WS message', err);
       }

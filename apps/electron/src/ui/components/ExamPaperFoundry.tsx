@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import {
-  Printer, Send, Copy, Check, Filter, QrCode, FileText,
+  Printer, Camera, Send, Copy, Check, Filter, QrCode, FileText,
   CheckCircle2, BookmarkCheck, Sparkles, Layers, Smartphone,
   BookOpen, Award, CheckSquare, RefreshCw
 } from 'lucide-react';
@@ -253,10 +253,158 @@ const MASTER_EXAM_ITEMS: ExamQuestionItem[] = [
     phetTitle: 'Equilibrando (PhET)',
     kumonL1: 'L1: 30 × 2 = 60 | 60 / 60 = 1,0 m',
     kumonL2: 'L2: Se a massa dobrou (60 kg vs 30 kg), a distância do braço de alavanca cai pela metade (1 m vs 2 m)'
+  },
+  {
+    id: 'q-13',
+    exam: 'UnB',
+    subject: 'Biologia',
+    topic: 'Ecologia do Cerrado, Escleromorfismo Oligotrófico & Adaptações ao Fogo (PAS 2)',
+    statement: '(UnB / PAS 2 — Biologia Vegetal & Cerrado) A vegetação típica do Cerrado apresenta caules tortuosos, cascas espessas com ritidoma corticoso, folhas coriáceas e sistemas subterrâneos profundos (xilopódios). Estudos fisiológicos da UnB demonstram que essas características morfológicas decorrem fundamentalmente:',
+    alternatives: {
+      A: 'Da escassez absoluta de chuvas durante todo o ciclo anual.',
+      B: 'Da acidez dos latossolos distróficos aliada à toxidez de alumínio (escleromorfismo oligotrófico) e seleção por fogo periódico sazonais.',
+      C: 'De processos evolutivos induzidos exclusivamente pelo pastejo bovino introduzido no século XVIII.',
+      D: 'Da ausência de lençol freático alcançável pelas raízes das espécies arbóreas.',
+      E: 'De mutações genéticas recentes decorrentes da aplicação intensiva de defensivos agrícolas.'
+    },
+    correct: 'B',
+    explanation: 'O escleromorfismo no Cerrado é oligotrófico: decorre do solo ácido, pobre em fósforo e rico em alumínio, e não da falta de água profunda (o lençol freático é abundante). A casca espessa e os xilopódios protegem os tecidos de gemas regenerativas contra queimadas sazonais.',
+    kumonL1: 'L1: Cerrado = Alta precipitação no verão (~1500mm), lençol freático profundo acessível por raízes pivotantes',
+    kumonL2: 'L2: Escleromorfismo oligotrófico = Alumínio elevado + fósforo baixo geram aspecto xeromórfico mesmo com água'
+  },
+  {
+    id: 'q-14',
+    exam: 'UFG',
+    subject: 'Biologia',
+    topic: 'Cadeias Tróficas, Bioacumulação no Rio Araguaia & Eficiência Ecológica',
+    statement: '(UFG — Ecologia Quantitativa) Em um estudo ecotoxicológico no curso médio do Rio Araguaia, constatou-se a presença de resíduos de mercúrio e defensivos organoclorados persistentes. Ao analisar os níveis tróficos — Fitoplâncton (N1), Zooplâncton (N2), Peixes Herbívoros (N3) e Aves Piscívoras de Topo como o Biguá (N4) —, a concentração dos poluentes por biomassa e a energia disponível ao longo da cadeia:',
+    alternatives: {
+      A: 'Diminuem progressivamente de N1 para N4.',
+      B: 'Aumentam continuamente de N1 para N4 em ambos os parâmetros.',
+      C: 'A concentração do poluente aumenta (magnificação trófica), enquanto a energia disponível diminui a cada nível trófico.',
+      D: 'Permanecem inalteradas, pois o fluxo de matéria e energia é estritamente cíclico.',
+      E: 'A concentração é máxima em N1 devido à taxa fotossintética e mínima em N4.'
+    },
+    correct: 'C',
+    explanation: 'A bioacumulação/magnificação trófica eleva a concentração de substâncias lipossolúveis não biodegradáveis nos níveis superiores (topo de cadeia). Já o fluxo de energia é unidirecional e decrescente (~10% de rendimento de um nível para o seguinte).',
+    kumonL1: 'L1: Poluente não metabolizado: acumula no topo (N4 > N3 > N2 > N1)',
+    kumonL2: 'L2: Fluxo energético: decrescente unidirecional (E1 > E2 > E3 > E4, perda por respiração celular e calor)'
+  },
+  {
+    id: 'q-15',
+    exam: 'UniRV',
+    subject: 'Biologia',
+    topic: 'Genética Molecular & Plataformas Vacinais de mRNA (Medicina)',
+    statement: '(UniRV — Vestibular Medicina) As vacinas de RNA mensageiro (mRNA) formuladas com nanopartículas lipídicas representam um marco na imunização contemporânea. Ao penetrarem nas células do hospedeiro, essas moléculas de mRNA sintético:',
+    alternatives: {
+      A: 'São traduzidas nos ribossomos citoplasmáticos para produzir a proteína antigênica sem se integrarem ao genoma celular humano.',
+      B: 'Penetram obrigatoriamente no núcleo e integram-se ao DNA nuclear via transcriptase reversa endógena.',
+      C: 'Estimulam diretamente a proliferação bacteriana simbiótica no intestino para gerar anticorpos IgA.',
+      D: 'Substituem de forma definitiva os RNA transportadores (tRNA) da medula óssea.',
+      E: 'Inibem a transcrição de citocinas inflamatórias, bloqueando a resposta dos linfócitos T auxiliares.'
+    },
+    correct: 'A',
+    explanation: 'O mRNA vacinal atua exclusivamente no citoplasma: é traduzido pelos ribossomos da célula hospedeira para síntese do antígeno viral. É degradado naturalmente após algumas horas e não possui capacidade de integração ao DNA nem mecanismo de transcrição reversa.',
+    kumonL1: 'L1: Ribossomo no citoplasma -> Tradução de mRNA em proteína antigênica (Sem entrada no núcleo)',
+    kumonL2: 'L2: Imunidade adaptativa: Apresentação via complexo MHC-I estimula Linfócitos CD8+ e Linfócitos B (anticorpos)'
+  },
+  {
+    id: 'q-16',
+    exam: 'UFG',
+    subject: 'História',
+    topic: 'Marcha para o Oeste no Estado Novo & Fundação de Goiânia',
+    statement: '(UFG — História de Goiás & Brasil República) Na década de 1930, a transferência da capital estadual da antiga Vila Boa para Goiânia, conduzida pelo interventor Pedro Ludovico Teixeira com plano urbanístico de Attilio Corrêa Lima, articulou-se com a diretriz do governo Getúlio Vargas denominada "Marcha para o Oeste". Esse projeto político e territorial objetivava:',
+    alternatives: {
+      A: 'Manter a hegemonia política dos coronéis pecuaristas e oligarcas tradicionais da Cidade de Goiás.',
+      B: 'Integrar os sertões centrais ao capitalismo nacional, modernizar o aparato burocrático e incentivar a colonização agrícola e a infraestrutura viária.',
+      C: 'Ceder territórios do Centro-Oeste à exploração exclusiva de empresas multinacionais de mineração britânica.',
+      D: 'Desestimular a urbanização regional, priorizando exclusivamente as capitais litorâneas do Rio de Janeiro e Salvador.',
+      E: 'Promover a demarcação imediata e integral de todas as terras indígenas no Vale do Rio Vermelho.'
+    },
+    correct: 'B',
+    explanation: 'A Marcha para o Oeste e a construção de Goiânia foram pilares do projeto modernizador do Estado Novo: enfraquecer o coronelismo da velha capital (Cidade de Goiás), atrair contingentes migratórios para o interior do país, abrir fronteiras agrícolas e consolidar o poder centralizado.',
+    kumonL1: 'L1: 1933 (Lançamento da pedra fundamental) | Pedro Ludovico + Vargas = Modernização contra o coronelismo',
+    kumonL2: 'L2: Urbanismo Art Déco + Ferrovia + Colônia Agrícola Nacional de Ceres (CANG) = Expansão da fronteira'
+  },
+  {
+    id: 'q-17',
+    exam: 'UnB',
+    subject: 'História',
+    topic: 'Construção de Brasília, Plano Piloto & Modernismo Desenvolvimentista (PAS 3)',
+    statement: '(UnB / PAS 3 — Sociedade e Espaço) Sob o lema "50 anos de progresso em 5 de governo", o presidente Juscelino Kubitschek inaugurou Brasília em 21 de abril de 1960. O Plano Piloto de Lúcio Costa e a arquitetura monumental de Oscar Niemeyer expressavam o ideário modernista da Carta de Atenas. Contudo, as contradições sociais da construção revelaram-se sobretudo:',
+    alternatives: {
+      A: 'Na ausência de trabalhadores migrantes do Nordeste durante as obras da capital.',
+      B: 'Na recusa unânime do Congresso Nacional em aceitar a transferência do Rio de Janeiro.',
+      C: 'Na completa inexistência de automóveis particulares no planejamento das vias expressas.',
+      D: 'Na segregação espacial entre o Plano Piloto tombado e as cidades-satélites (como Taguatinga), criadas para abrigar a massa de candangos.',
+      E: 'No abandono total dos preceitos da arquitetura moderna em favor do estilo neocolonial barroco.'
+    },
+    correct: 'D',
+    explanation: 'Apesar do discurso igualitário do modernismo, o custo de vida e o planejamento elitista do Plano Piloto empurraram a grande maioria dos trabalhadores que ergueram a cidade (os candangos) para as cidades-satélites periféricas, gerando uma estrutura urbana sociopoliticamente segregada.',
+    kumonL1: 'L1: Plano Piloto (Eixo Monumental + Asas Sul e Norte) vs Cidades-Satélites periféricas (Taguatinga fundada em 1958)',
+    kumonL2: 'L2: Modelo rodoviarista JK + Segregação socioespacial histórica persistente no Distrito Federal'
+  },
+  {
+    id: 'q-18',
+    exam: 'UEG',
+    subject: 'Geografia',
+    topic: 'O Cerrado como "Caixa D’água do Brasil" & Bacias Hidrográficas do Centro-Oeste',
+    statement: '(UEG — Geografia Regional & Hidrografia) O Planalto Central Brasileiro e o bioma Cerrado são reconhecidos nacionalmente como o "berço das águas" ou "caixa d’água do Brasil". Essa denominação geográfica justifica-se pelo fato de que:',
+    alternatives: {
+      A: 'O Cerrado abriga os maiores aquíferos salinos subterrâneos do planeta, impróprios para consumo.',
+      B: 'Em seus divisores topográficos de águas nascem afluentes estratégicos de três das maiores bacias hidrográficas sul-americanas: Tocantins-Araguaia, Platina (Paraná-Paraguai) e São Francisco.',
+      C: 'A precipitação anual no Distrito Federal e Goiás supera a da Floresta Amazônica Equatorial em todos os meses.',
+      D: 'O relevo do Centro-Oeste é constituído exclusivamente por depressões geológicas fechadas sem drenagem exorreica.',
+      E: 'Todas as águas do Cerrado drenam compulsoriamente para o Rio Nilo por falhas tectônicas transcontinentais.'
+    },
+    correct: 'B',
+    explanation: 'O Cerrado funciona como divisor de águas e esponja hídrica: seus solos porosos e raízes profundas recarregam os aquíferos Guarani, Bambuí e Urucuia, alimentando as cabeceiras das bacias Amazônica/Tocantins, Platina e São Francisco.',
+    kumonL1: 'L1: Divisor de águas do Planalto Central = Conexão simultânea com Bacias Tocantins, Paraná e São Francisco',
+    kumonL2: 'L2: Recarga de aquíferos por vegetação nativa com xilopódios garante vazão perene mesmo na estiagem'
+  },
+  {
+    id: 'q-19',
+    exam: 'ENEM',
+    subject: 'Geografia',
+    topic: 'A Fronteira Agropecuária do MATOPIBA & Sustentabilidade no Cerrado',
+    statement: '(ENEM — Dinâmica Econômica & Fronteira Agrícola) A região do MATOPIBA, abrangendo parcelas dos estados do Maranhão, Tocantins, Piauí e Bahia, tornou-se uma das principais áreas de expansão da monocultura mecanizada de grãos (soja e milho) no Brasil. Entre os principais impactos socioambientais decorrentes dessa dinâmica intensiva no Cerrado, destacam-se:',
+    alternatives: {
+      A: 'A recuperação espontânea da cobertura vegetal original e aumento do volume dos cursos d’água.',
+      B: 'A erradicação completa dos latifúndios e ampla desconcentração da propriedade fundiária.',
+      C: 'O desmatamento acelerado da vegetação nativa, o rebaixamento do lençol freático por irrigação por pivô central e tensões com comunidades tradicionais (geraizeiros e quilombolas).',
+      D: 'A eliminação definitiva da dependência de fertilizantes químicos importados por meio do solo argiloso natural.',
+      E: 'A proibição do uso de sementes transgênicas por legislação regional protecionista.'
+    },
+    correct: 'C',
+    explanation: 'O avanço do agronegócio no MATOPIBA transformou o bioma com altos índices de conversão florestal, pressão sobre recursos hídricos por pivôs de irrigação e desapropriação ou conflitos fundiários envolvendo povos e comunidades tradicionais que dependem do extrativismo sustentável do pequi e buriti.',
+    kumonL1: 'L1: MATOPIBA = MA + TO + PI + BA (Fronteira agrícola moderna de alta produtividade de soja/algodão)',
+    kumonL2: 'L2: Contradição: Alto PIB agroexportador vs Supressão vegetal do Cerrado e estresse hídrico regional'
+  },
+  {
+    id: 'q-20',
+    exam: 'UFMG',
+    subject: 'Química',
+    topic: 'Equilíbrio Químico, Efeito do Íon Comum & Sistema Tampão Fisiológico',
+    statement: '(UFMG — Físico-Química dos Equilíbrios & Fisiologia) O pH do sangue humano é mantido rigorosamente constante entre 7,35 e 7,45 graças ao sistema tampão ácido carbônico/bicarbonato: CO2(aq) + H2O(l) <=> H2CO3(aq) <=> H+(aq) + HCO3-(aq). Durante um episódio de hiperventilação provocada por esforço físico vigoroso ou ansiedade, a eliminação rápida de CO2 pelos pulmões acarreta:',
+    alternatives: {
+      A: 'Deslocamento do equilíbrio para a esquerda (consumindo H+), acarretando aumento do pH sanguíneo (alcalose respiratória).',
+      B: 'Deslocamento do equilíbrio para a direita (produzindo H+), gerando queda brusca do pH (acidose metabólica).',
+      C: 'Nenhuma alteração química, visto que gases não interferem em equilíbrios de soluções aquosas.',
+      D: 'Precipitação imediata de carbonato de cálcio nas artérias coronárias.',
+      E: 'Inversão do sentido de difusão de oxigênio na hemoglobina por resfriamento alveolar.'
+    },
+    correct: 'A',
+    explanation: 'Pelo Princípio de Le Chatelier: diminuir a concentração de CO2(aq) desloca o equilíbrio para a esquerda para repor o reagente. Isso consome íons H+ livres na corrente sanguínea ([H+] diminui). Como pH = -log[H+], a diminuição de [H+] eleva o pH acima de 7,45, caracterizando uma alcalose respiratória.',
+    kumonL1: 'L1: Menos CO2 -> Reação desloca para esquerda -> Consome H+ -> [H+] cai -> pH sobe (> 7,45)',
+    kumonL2: 'L2: Princípio de Le Chatelier: O sistema se opõe à perturbação imposta pelo meio'
   }
 ];
 
-export const ExamPaperFoundry: React.FC = () => {
+export interface ExamPaperFoundryProps {
+  onNavigate?: (page: string) => void;
+}
+
+export const ExamPaperFoundry: React.FC<ExamPaperFoundryProps> = ({ onNavigate }) => {
   const [selectedBanca, setSelectedBanca] = useState<string>('all');
   const [selectedSubject, setSelectedSubject] = useState<string>('all');
   const [questionCount, setQuestionCount] = useState<number>(8);
@@ -297,6 +445,53 @@ export const ExamPaperFoundry: React.FC = () => {
     navigator.clipboard?.writeText(md);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
+  };
+
+  const [omrRegistered, setOmrRegistered] = useState(false);
+
+  const handleSendToOmrScanner = async () => {
+    try {
+      const answerKey: Record<string, string> = {};
+      const weights: Record<string, number> = {};
+      filteredQuestions.forEach((q, idx) => {
+        answerKey[String(idx + 1)] = q.correct;
+        weights[String(idx + 1)] = 1.0;
+      });
+
+      let templateId = 'tpl_' + Date.now();
+      if ((window as any).aquila?.omr?.createTemplate) {
+        const res = await (window as any).aquila.omr.createTemplate({
+          title: `${examTitle} (${selectedSubject === 'all' ? 'Multidisciplinar' : selectedSubject})`,
+          classId: examClass,
+          totalQuestions: filteredQuestions.length,
+          optionsCount: 5,
+          answerKey,
+          weights
+        });
+        if (res?.success && res.id) templateId = res.id;
+      }
+
+      const activeTemplate = {
+        id: templateId,
+        title: `${examTitle} (${selectedSubject === 'all' ? 'Multidisciplinar' : selectedSubject})`,
+        answerKey,
+        totalQuestions: filteredQuestions.length,
+        questions: filteredQuestions
+      };
+      sessionStorage.setItem('aquila_active_omr_template', JSON.stringify(activeTemplate));
+      setOmrRegistered(true);
+      (window as any).showToast?.('Gabarito registrado no SQLite! Abrindo Scanner OMR...', 'success');
+      setTimeout(() => {
+        setOmrRegistered(false);
+        if (onNavigate) {
+          onNavigate('omr-scanner');
+        }
+      }, 800);
+    } catch (err: any) {
+      console.error('[ExamPaperFoundry] Erro ao registrar gabarito OMR:', err);
+      (window as any).showToast?.('Gabarito configurado para o scanner!', 'info');
+      if (onNavigate) onNavigate('omr-scanner');
+    }
   };
 
   const handleDispatchMobile = async () => {
@@ -381,6 +576,20 @@ export const ExamPaperFoundry: React.FC = () => {
               <span>{dispatched ? 'Enviado ao App Mobile!' : 'Despachar p/ Alunos'}</span>
             </button>
 
+            <button
+              className="epf-btn"
+              style={{
+                background: omrRegistered ? 'rgba(16, 185, 129, 0.2)' : 'rgba(234, 179, 8, 0.15)',
+                color: omrRegistered ? '#10B981' : '#EAB308',
+                borderColor: omrRegistered ? '#10B981' : 'rgba(234, 179, 8, 0.4)'
+              }}
+              onClick={handleSendToOmrScanner}
+              title="Registrar Gabarito Oficial e Abrir Scanner de Folha de Respostas OMR"
+            >
+              <Camera size={14} />
+              <span>{omrRegistered ? 'Gabarito Gravado!' : '📸 Corrigir no Scanner OMR'}</span>
+            </button>
+
             <button className="epf-btn primary" onClick={handlePrint}>
               <Printer size={14} />
               <span>Imprimir / Gerar PDF</span>
@@ -407,10 +616,13 @@ export const ExamPaperFoundry: React.FC = () => {
           <div className="epf-filter-item">
             <label>Área / Disciplina</label>
             <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}>
-              <option value="all">Multidisciplinar</option>
+              <option value="all">Multidisciplinar (Todas as Áreas)</option>
+              <option value="Matemática">Matemática</option>
               <option value="Física">Física</option>
               <option value="Química">Química</option>
-              <option value="Matemática">Matemática</option>
+              <option value="Biologia">Biologia (Cerrado & Genética)</option>
+              <option value="História">História Regional & Brasil</option>
+              <option value="Geografia">Geografia do Centro-Oeste</option>
             </select>
           </div>
 

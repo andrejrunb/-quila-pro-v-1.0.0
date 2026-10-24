@@ -2700,6 +2700,22 @@ function registerExpansionCluster(context: any, protectedHandle: any) {
     }
   });
 
+  protectedHandle('mobile:broadcast-grade', async (_e: any, gradeData: any) => {
+    try {
+      const { mobileGateway } = await import('../main/services/MobileGateway');
+      mobileGateway.broadcast({
+        type: 'GRADE_DISPATCH',
+        payload: {
+          timestamp: new Date().toISOString(),
+          ...gradeData
+        }
+      });
+      return { success: true, deliveredAt: new Date().toISOString() };
+    } catch (err: any) {
+      return { success: false, error: err?.message || String(err) };
+    }
+  });
+
   // INFRAESTRUTURA (CLOUD)
   protectedHandle('infra:cloud-sync', async () => {
     const { cloudMirrorService } = await import('../main/services/CloudMirrorService');

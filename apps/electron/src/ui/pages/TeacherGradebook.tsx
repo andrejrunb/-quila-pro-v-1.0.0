@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   ChevronLeft,
+  Camera,
   Save,
   Download,
   CheckCircle2,
@@ -200,6 +201,14 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
 
   useEffect(() => {
     loadGradeSheet();
+  }, [selectedClassId, selectedSubject, selectedBimester]);
+
+  useEffect(() => {
+    const handleGradebookEvent = () => {
+      loadGradeSheet();
+    };
+    window.addEventListener('aquila:gradebook-updated', handleGradebookEvent);
+    return () => window.removeEventListener('aquila:gradebook-updated', handleGradebookEvent);
   }, [selectedClassId, selectedSubject, selectedBimester]);
 
   const loadGradeSheet = async () => {
@@ -526,6 +535,30 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
               </button>
             ))}
           </div>
+
+          {onNavigate && (
+            <button
+              className="tg-btn secondary"
+              onClick={() => onNavigate('omr-scanner')}
+              title="Corrigir Provas e Gabaritos via Câmera/Scanner OMR"
+              style={{ borderColor: 'rgba(234, 179, 8, 0.5)', color: '#EAB308' }}
+            >
+              <Camera size={14} />
+              <span>Scanner OMR</span>
+            </button>
+          )}
+
+          {onNavigate && (
+            <button
+              className="tg-btn secondary"
+              onClick={() => onNavigate('exam-foundry')}
+              title="Gerar Cadernos de Avaliação e Provas A4 (ENEM/PAS/Bancas Regionais)"
+              style={{ borderColor: 'rgba(56, 189, 248, 0.5)', color: '#38BDF8' }}
+            >
+              <FileText size={14} />
+              <span>Gerador Provas A4</span>
+            </button>
+          )}
 
           <button
             className="tg-btn secondary"

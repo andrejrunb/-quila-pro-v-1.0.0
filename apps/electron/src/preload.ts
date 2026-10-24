@@ -663,7 +663,7 @@ const aquilaAPI = {
       'calculate-reprobation-risk', 'get-behavioral-stats', 'get-social-context-summary',
       'whatsapp:get-status', 'whatsapp:update-config', 'whatsapp:test-connection', 'send-whatsapp',
       'save-whatsapp-templates', 'auth:login', 'auth:logout', 'auth:validate',
-      'dialog:openDirectory', 'dialog:openFile', 'shell:openPath', 'shell:openExternal', 'omr:create-template', 'omr:get-template', 'omr:list-templates', 'omr:correct-exam', 'omr:get-corrections', 'academic:save-student-grade', 'scan-photo-folder', 'parse-import-spreadsheet',
+      'dialog:openDirectory', 'dialog:openFile', 'shell:openPath', 'shell:openExternal', 'omr:create-template', 'omr:get-template', 'omr:list-templates', 'omr:correct-exam', 'omr:get-corrections', 'academic:save-student-grade', 'mobile:broadcast-pedagogical-pack', 'mobile:broadcast-grade', 'scan-photo-folder', 'parse-import-spreadsheet',
       'get-whatsapp-templates', 'theme:get-config', 'theme:update',
       'get-schedule-optimizations', 'get-unread-alerts', 'mark-all-alerts-read',
       'get-coordinations', 'upsert-coordination', 'delete-coordination',

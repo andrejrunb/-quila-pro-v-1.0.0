@@ -362,7 +362,7 @@ export const TeacherPortal: React.FC<TeacherPortalProps> = ({ currentPage, onNav
         return <ActivityFactory onBack={onBack} />;
       case 'exam-foundry':
       case 'banco-provas':
-        return <ExamPaperFoundry />;
+        return <ExamPaperFoundry onNavigate={onNavigate} />;
       case 'slide-studio':
         return <SlideStudio onBack={onBack} />;
       case 'arena':
@@ -376,7 +376,7 @@ export const TeacherPortal: React.FC<TeacherPortalProps> = ({ currentPage, onNav
         return <EssayLab1000 onBack={onBack} />;
       case 'omr':
       case 'omr-scanner':
-        return <OmrScannerUI />;
+        return <OmrScannerUI onNavigate={onNavigate} />;
       case 'bncc-heatmap':
       case 'heatmap':
         return <BNCCProficiencyHeatmap />;

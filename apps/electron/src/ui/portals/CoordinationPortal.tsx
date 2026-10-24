@@ -9,6 +9,7 @@ import { TimetableBuilder } from '../components/TimetableBuilder';
 import { BNCCProficiencyHeatmap } from '../components/BNCCProficiencyHeatmap';
 import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
+import { OmrScannerUI } from '../components/OmrScannerUI';
 import './CoordinationPortal.css';
 import {
   Users, TrendingDown, AlertTriangle, BookOpen,
@@ -66,7 +67,14 @@ export const CoordinationPortal: React.FC<CoordinationPortalProps> = ({ currentP
       case 'banco-provas':
         return (
           <div className="coord-portal-shell">
-            <ExamPaperFoundry />
+            <ExamPaperFoundry onNavigate={onNavigate} />
+          </div>
+        );
+      case 'omr':
+      case 'omr-scanner':
+        return (
+          <div className="coord-portal-shell">
+            <OmrScannerUI onNavigate={onNavigate} />
           </div>
         );
       default:

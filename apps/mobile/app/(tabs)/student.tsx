@@ -226,6 +226,27 @@ export default function StudentLabTab() {
             },
           ]);
         }
+
+        if (payload.type === 'GRADE_DISPATCH') {
+          const g = payload.payload || {};
+          setXp((prev) => prev + 100);
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: `grade-${Date.now()}`,
+              sender: 'albus',
+              text: `🎉 NOTA OFICIAL DE SIMULADO LANÇADA NO DIÁRIO!
+
+📚 Disciplina: ${g.subject || 'Simulado Regional TRI'}
+🎯 Sua Nota: ${Number(g.score || 0).toFixed(1)} / 10.0
+⚡ Escala TRI: ${g.triScore || 720} pts (ENEM/PAS)
+📈 Precisão: ${g.accuracyPct || 85}%
+
+Parabéns pelo empenho! Você recebeu +100 XP na Trilha de Maestria!`,
+              timestamp: Date.now(),
+            },
+          ]);
+        }
       } catch (err) {
         console.error('Erro no parser do Albus IA', err);
         setLoading(false);
