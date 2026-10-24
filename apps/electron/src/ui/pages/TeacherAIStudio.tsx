@@ -10,6 +10,7 @@ import { STUDENTS } from '../../database/studentsData';
 import { HISTORICAL_CHARACTERS, generateCharacterResponse, HistoricalCharacter, CharacterArea } from '../utils/historicalPersonas';
 import { generatePedagogicalContent } from '../utils/curriculumGenerator';
 import { PhetKumonMasteryLab } from '../components/PhetKumonMasteryLab';
+import { NativePhETSimulationLab } from '../components/NativePhETSimulationLab';
 import { MultimodalPedagogicalStudio } from '../components/MultimodalPedagogicalStudio';
 import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 import './TeacherAIStudio.css';
@@ -204,6 +205,7 @@ const SAMPLE_SUBMISSIONS: StudentWritingSubmission[] = [
 
 export const TeacherAIStudio: React.FC<TeacherAIStudioProps> = ({ onBack }) => {
   const [activeStation, setActiveStation] = useState<StudioStation>('aquila-studio');
+  const [stemSubTab, setStemSubTab] = useState<'official-phet' | 'native-rea'>('official-phet');
 
   // Estação 1: Gerador Pedagógico Áquila
   const [selectedTool, setSelectedTool] = useState<AquilaToolId>('bncc-lesson');
@@ -1073,9 +1075,26 @@ INSTRUÇÕES OBRIGATÓRIAS:
           ===================================================================== */}
       {activeStation === 'aquila-stem-lab' && (
         <div className="tai-sections-grid">
+          <div style={{ gridColumn: '1 / -1', display: 'flex', gap: 12, marginBottom: 8 }}>
+            <button
+              className={`tai-station-btn ${stemSubTab === 'official-phet' ? 'active' : ''}`}
+              style={{ padding: '8px 16px', borderRadius: 8, fontSize: '0.82rem' }}
+              onClick={() => setStemSubTab('official-phet')}
+            >
+              🌐 1. Catálogo PhET HTML5 & Desafios Kumon (+24h/+48h/+96h)
+            </button>
+            <button
+              className={`tai-station-btn ${stemSubTab === 'native-rea' ? 'active' : ''}`}
+              style={{ padding: '8px 16px', borderRadius: 8, fontSize: '0.82rem' }}
+              onClick={() => setStemSubTab('native-rea')}
+            >
+              ⚡ 2. Motor Físico Nativo Transpilado do Java (REA • Eletrostática 60 FPS)
+            </button>
+          </div>
+
           {/* LABORATÓRIO SOBERANO PHET COLORADO & KUMON MASTERY */}
           <div style={{ gridColumn: '1 / -1' }}>
-            <PhetKumonMasteryLab />
+            {stemSubTab === 'official-phet' ? <PhetKumonMasteryLab /> : <NativePhETSimulationLab />}
           </div>
 
           {/* MENTORIA HISTÓRICA COM CIENTISTAS E PENSADORES */}
