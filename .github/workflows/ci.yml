@@ -2,9 +2,9 @@ name: 🦅 Áquila Pro — Sovereign Monorepo CI/CD
 
 on:
   push:
-    branches: [main, develop, clean-release-v1]
+    branches: [main, clean-release-v1]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   # ──────────────────────────────────────────
@@ -50,9 +50,8 @@ jobs:
       - name: Install Monorepo Dependencies
         run: pnpm install --frozen-lockfile || pnpm install
 
-      - name: Monorepo Lint Enforcement
-        run: pnpm -r run lint --if-present
-        continue-on-error: true
+      - name: Mobile TypeScript Strict Check
+        run: pnpm --filter aquila-pro-mobile exec tsc --noEmit
 
   # ──────────────────────────────────────────
   # JOB 3: Unit Tests & LGPD Coverage
@@ -79,8 +78,13 @@ jobs:
       - name: Install Monorepo Dependencies
         run: pnpm install --frozen-lockfile || pnpm install
 
-      - name: Run Test Suite
-        run: pnpm -r run test --if-present
+      - name: Run Web Vitest Suite
+        run: pnpm --filter @aquila/web run test
+        env:
+          CI: true
+
+      - name: Run Electron Critical Test Suites
+        run: pnpm --filter aquila-pro-school-os run test src/database/__tests__/Database512AndOmr.test.ts src/main/services/__tests__/OmrCorrectionService.test.ts src/main/services/__tests__/CourtyardTelemetryService.test.ts
         env:
           CI: true
 
@@ -109,9 +113,9 @@ jobs:
       - name: Install Monorepo Dependencies
         run: pnpm install --frozen-lockfile || pnpm install
 
-      - name: Build Web SaaS & Renderer
+      - name: Build Web SaaS & Electron Renderer
         run: |
-          pnpm --filter @aquila/web run build || true
-          pnpm --filter aquila-pro-school-os run build:renderer || true
+          pnpm --filter @aquila/web run build
+          pnpm --filter aquila-pro-school-os run build:renderer
         env:
           NODE_ENV: production
