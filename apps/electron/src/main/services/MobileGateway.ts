@@ -94,6 +94,9 @@ export class MobileGateway extends EventEmitter {
         });
       });
     });
+    } catch (err: any) {
+      logger.error(`[MobileGateway] Falha crítica ao inicializar WebSocketServer na porta ${port}:`, err);
+    }
   }
 
   /**
@@ -262,7 +265,7 @@ export class MobileGateway extends EventEmitter {
       try {
         const aiService = GenerativeAIService.getInstance();
         const res = await aiService.generateText(prompt);
-        aiResponse = res?.text || '';
+        aiResponse = typeof res === 'string' ? res : (res as any)?.text || '';
       } catch (e) {
         aiResponse = `📘 **Síntese Didática Soberana (Modo Offline SQA-1000)**\n\n**Tópico:** ${topic}\n\n1. **Conceito Essencial:** O estudo de ${topic} é fundamental para a matriz BNCC e o ENEM. Ele conecta a teoria à observação empírica de fenômenos naturais e sociais.\n\n2. **Analogia Prática:** Pense nisso como uma engrenagem que sincroniza causa e efeito no dia a dia.\n\n3. **Desafio Socrático:** Como você aplicaria este princípio para resolver um problema real em sua cidade?`;
       }
