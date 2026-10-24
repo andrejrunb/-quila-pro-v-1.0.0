@@ -1,2 +1,0 @@
-
-"smart_sources:skills/get-shit-done/commands/gsd/help.md": {"path":"skills/get-shit-done/commands/gsd/help.md","last_embed":{"hash":null},"embeddings":{},"last_read":{"hash":"nqdydf","at":1774580028249},"class_name":"SmartSource","last_import":{"mtime":1774319829393,"size":616,"at":1774580028371,"hash":"nqdydf"},"blocks":{"#---frontmatter---":[1,4],"#":[5,23]},"outlinks":[],"metadata":{"name":"gsd:help","description":"Show available GSD commands and usage guide"},"task_lines":[],"tasks":{},"codeblock_ranges":[]},

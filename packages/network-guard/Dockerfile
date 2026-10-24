@@ -4,9 +4,6 @@ FROM pihole/pihole:2024.07.0
 # Define fuso horário padrão do ecossistema escolar brasileiro
 ENV TZ="America/Sao_Paulo"
 
-# Credencial padrão de conformidade (Admin@2026!)
-ENV WEBPASSWORD="Admin@2026!"
-
 # DNS Upstream Soberanos e Seguros (Cloudflare Security)
 ENV PIHOLE_DNS_="1.1.1.3;1.0.0.3"
 ENV DNSSEC="true"

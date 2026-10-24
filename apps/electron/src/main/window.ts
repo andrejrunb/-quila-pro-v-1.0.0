@@ -92,7 +92,7 @@ export class WindowManager {
         nodeIntegration: false,
         contextIsolation: true,
         sandbox: false,
-        webSecurity: false,
+        webSecurity: true,
       },
     });
 

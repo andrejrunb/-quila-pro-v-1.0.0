@@ -1,2 +1,0 @@
-
-"smart_sources:skills/get-shit-done/commands/gsd/cleanup.md": {"path":"skills/get-shit-done/commands/gsd/cleanup.md","last_embed":{"hash":null},"embeddings":{},"last_read":{"hash":"pntfvh","at":1774580028248},"class_name":"SmartSource","last_import":{"mtime":1774319829381,"size":594,"at":1774580028370,"hash":"pntfvh"},"blocks":{"#---frontmatter---":[1,4],"#":[5,19]},"outlinks":[],"metadata":{"name":"gsd:cleanup","description":"Archive accumulated phase directories from completed milestones"},"task_lines":[],"tasks":{},"codeblock_ranges":[]},

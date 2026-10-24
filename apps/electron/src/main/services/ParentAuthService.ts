@@ -17,7 +17,7 @@ export interface ParentAuthorization {
  */
 class ParentAuthService extends EventEmitter {
   private activeAuthorizations: Map<string, ParentAuthorization> = new Map();
-  private readonly SECRET = 'AQUILA_PRO_IDENTITY_V1614_SECRET';
+  private readonly SECRET = process.env.AQUILA_PARENT_AUTH_SECRET || process.env.AQUILA_ENCRYPTION_SECRET || crypto.randomBytes(32).toString('hex');
 
   constructor() {
     super();

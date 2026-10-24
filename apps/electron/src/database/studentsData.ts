@@ -1,7 +1,8 @@
 /**
- * studentsData.ts — Lista de Alunos Reais do Colégio Visão
- * =======================================================
- * Auto-gerado a partir dos PDFs do colégio.
+ * studentsData.ts — Lista de Alunos Sintéticos para Testes e Validação
+ * ====================================================================
+ * Nomes 100% fictícios gerados em conformidade estrita com LGPD (Art. 14).
+ * Matrículas e vínculos de turmas preservados para integridade de testes.
  */
 
 export interface StudentData {
@@ -14,2197 +15,2197 @@ export interface StudentData {
 export const STUDENTS: StudentData[] = [
   {
     "registrationNumber": "45453",
-    "name": "ALEXANDRE RODRIGUES PAZ",
+    "name": "GIOVANNA CAMPOS GOMES",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45207",
-    "name": "ANA JULIA SQUINZANI CABRAL",
+    "name": "EDUARDO GONCALVES BARBOSA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52239",
-    "name": "ARTHUR BORGES BOTELHO CAMPOS NEIVA",
+    "name": "ARTHUR FREITAS NASCIMENTO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45063",
-    "name": "CAIO BREMENKAMP HAMU OPA",
+    "name": "MANUELA RODRIGUES BORGES",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "44988",
-    "name": "DANIEL BORGES PORFIRIO GUERRA",
+    "name": "RAFAEL FONTES PAIVA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45397",
-    "name": "DAVI LUCAS SILVA BORGES",
+    "name": "BERNARDO SOARES BARBOSA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "44998",
-    "name": "ELIAS AFFIUNE CURY",
+    "name": "CAIO ALBUQUERQUE FARIA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45457",
-    "name": "ENZO MATEUS ISBELO CAIXETA",
+    "name": "LUCAS MEDEIROS NOGUEIRA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "51475",
-    "name": "FERNANDA MOTA CORAZZA",
+    "name": "BEATRIZ NASCIMENTO DUARTE",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "44982",
-    "name": "GUILHERME DIAS RAVANELLO",
+    "name": "PEDRO BARROS FREITAS",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45232",
-    "name": "HELENA BARON RIBAS",
+    "name": "BERNARDO BORGES LOPES",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52468",
-    "name": "ISABELLA BELLON SANTA CRUZ",
+    "name": "YASMIN DUARTE MORAES",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45376",
-    "name": "JOÃO PEDRO BITTENCOURT ULHOA",
+    "name": "MATHEUS RIBEIRO RODRIGUES",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45210",
-    "name": "JOÃO PEDRO GOUBETTI PINGUELLI",
+    "name": "LORENZO SANTANA OLIVEIRA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45482",
-    "name": "LAVÍNIA GUIMARÃES GONTIJO",
+    "name": "HENRIQUE CARDOSO SANTOS",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "51034",
-    "name": "LIS COSTA BARROS",
+    "name": "ELENA FERREIRA COSTA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45245",
-    "name": "LIVIA MARINS CANALI",
+    "name": "LEONARDO ALMEIDA SILVA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45414",
-    "name": "LORENZO ALVES CURY",
+    "name": "PEDRO CAMPOS NASCIMENTO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52019",
-    "name": "LUCAS WESCHENFELDER CENCI",
+    "name": "VALENTINA MACHADO LIMA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52357",
-    "name": "LUIS FERNANDO PORTUGAL",
+    "name": "HENRIQUE RIBEIRO SANTOS",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45023",
-    "name": "LUISA PEREIRA TRINDADE",
+    "name": "BEATRIZ RAMOS CARVALHO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52389",
-    "name": "LUIZA PELLICANO MOROSINI",
+    "name": "FELIPE PINTO MEDEIROS",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45018",
-    "name": "MARIA EDUARDA LIMA AGNES",
+    "name": "ALICE MARQUES PAIVA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52578",
-    "name": "MARIANE RESENDE SILVA",
+    "name": "ARTHUR BRAGA CARVALHO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52534",
-    "name": "MIGUEL ARRUDA AGUIAR FERREIRA",
+    "name": "VINICIUS MARQUES BRANDAO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45022",
-    "name": "MURILO KNUP SANTOS",
+    "name": "DAVI ROCHA MELO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "51023",
-    "name": "PEDRO GARCEZ BUENO SIGNORI",
+    "name": "ELENA SILVA ROCHA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45379",
-    "name": "PEDRO MIGUEL SOUZA DE DEUS",
+    "name": "DANIEL DIAS PINTO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45519",
-    "name": "RAFAEL LOPES GARCIA",
+    "name": "MATEUS OLIVEIRA LIMA",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "51734",
-    "name": "RAUL GONTIJO FERNANDES DE CARVALHO",
+    "name": "BEATRIZ MORAES NASCIMENTO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45019",
-    "name": "RICARDO CENCI MACIEL",
+    "name": "ELENA PEREIRA NASCIMENTO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52267",
-    "name": "VALENTHINA EMANUELLE FERREIRA GONÇALVES",
+    "name": "JOAO MOREIRA LOPES",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45190",
-    "name": "VALENTINA LOBO ABDALLA",
+    "name": "LIVIA ALVES RIBEIRO",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52478",
-    "name": "ADAM BARRETO ALVES",
+    "name": "PEDRO FERREIRA CARVALHO",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52344",
-    "name": "ALICIA MOTA CAVALINI",
+    "name": "JOAO FARIA MEDEIROS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45329",
-    "name": "ANA GABRIELLA GUIMARÃES MACHADO",
+    "name": "CAIO GONCALVES MEDEIROS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45377",
-    "name": "ARTHUR LUIZ RIBEIRO TOLEDO",
+    "name": "GIOVANNA FERREIRA FREITAS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45664",
-    "name": "ARTHUR TEIXEIRA MARKUS",
+    "name": "LEONARDO MELO NASCIMENTO",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45518",
-    "name": "CLARA OLIVEIRA CALEGARI",
+    "name": "THEO RODRIGUES FARIA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45277",
-    "name": "ERIC DE OLIVEIRA MARTINS",
+    "name": "THEO GARCIA NOGUEIRA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45327",
-    "name": "GABRIEL RIBEIRO DE OLIVEIRA",
+    "name": "DAVI GOMES RAMOS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52085",
-    "name": "HAYRA PYETRA DE BRITO BAUER",
+    "name": "DANIEL SOARES ALBUQUERQUE",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52630",
-    "name": "HEITOR RIBAS DE AMORIM",
+    "name": "RAFAEL MOREIRA GARCIA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51459",
-    "name": "HELENA FERREIRA BORGES",
+    "name": "LIVIA GARCIA MEDEIROS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51251",
-    "name": "ISAAC MAGALHÃES CALEGARI",
+    "name": "HELENA SOUZA MARTINS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45447",
-    "name": "JOÃO GUILHERME FERREIRA DE ATAIDES",
+    "name": "GABRIEL PAIVA BARBOSA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45532",
-    "name": "LARISSA MORAES MAIA",
+    "name": "JOAO RODRIGUES BARBOSA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52280",
-    "name": "LAURA ARAUJO PINHEIRO",
+    "name": "DAVI PEREIRA SILVA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51429",
-    "name": "LAURA MACEDO MENDES",
+    "name": "VALENTINA OLIVEIRA SANTANA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45355",
-    "name": "LAVINIA MODESTO RIBEIRO",
+    "name": "CAIO DIAS MENDES",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51727",
-    "name": "LORENZO ROSSO TIERTE",
+    "name": "ISABELA MORAES RAMOS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52238",
-    "name": "LUCAS BORGES BOTELHO CAMPOS NEIVA",
+    "name": "ELENA DUARTE GOMES",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45319",
-    "name": "LUÍS GUSTAVO GONTIJO",
+    "name": "FERNANDA CAMPOS SANTANA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45206",
-    "name": "LUIZ FELLIPE AZEVEDO DA SILVA",
+    "name": "JULIA GOMES BRAGA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45646",
-    "name": "MANUELA TONELLE BALBINOT",
+    "name": "LARA RODRIGUES RODRIGUES",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52190",
-    "name": "MIGUEL CAMPOS SPINDOLA DE ATAIDES",
+    "name": "CAROLINA MACHADO BARROS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51062",
-    "name": "MIGUEL MAKOTO YAMAGUCHI",
+    "name": "VINICIUS RODRIGUES DIAS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52043",
-    "name": "MIGUEL NAJAR GERMANO",
+    "name": "LARA PAIVA PAIVA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45062",
-    "name": "MIGUEL WENDT ELOY",
+    "name": "ALICE SANTOS LOPES",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45221",
-    "name": "PEDRO BELTRÃO JOSÉ THOMÉ",
+    "name": "ALICE GONCALVES RODRIGUES",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45017",
-    "name": "RAFAEL CICHETTI MARQUES DE OLIVEIRA",
+    "name": "VALENTINA CARVALHO FREITAS",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45259",
-    "name": "SOFIA RIBEIRO DE OLIVEIRA",
+    "name": "ALICE PINTO FONTES",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45691",
-    "name": "TÚLIO LÔBO FERNANDES",
+    "name": "REBECA OLIVEIRA SOUZA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45496",
-    "name": "VALENTINA COSTA MARCHESE",
+    "name": "YASMIN ALMEIDA PEREIRA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45083",
-    "name": "VALENTINA ROCHA ALVARENGA WEBER",
+    "name": "MATEUS COSTA ALMEIDA",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52544",
-    "name": "VICTOR GABRIEL RODRIGUES CHAVES",
+    "name": "ELENA SOUZA NASCIMENTO",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45568",
-    "name": "VICTTORIO MACHADO DE PAIVA",
+    "name": "SAMUEL GARCIA BORGES",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51356",
-    "name": "ALICE LUCAS LEPESQUEUR AMADO",
+    "name": "LORENZO OLIVEIRA MARTINS",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45332",
-    "name": "ANDRE LUIZ OPA FERREIRA",
+    "name": "ALICE DIAS DIAS",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44551",
-    "name": "BEATRIZ SCHROEDER ANDRADE",
+    "name": "LARA GONCALVES ALVES",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45418",
-    "name": "CAUÊ PIRES GONÇALVES",
+    "name": "EDUARDO LOPES MARQUES",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "52598",
-    "name": "DAVI LUCAS DINIZ CASTRO",
+    "name": "MIGUEL DUARTE ROCHA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45249",
-    "name": "DEBORA GONÇALVES ISOTON",
+    "name": "ARTHUR FREITAS AZEVEDO",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45082",
-    "name": "EDUARDO DE MELO BORGES",
+    "name": "SOFIA FREITAS RAMOS",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45248",
-    "name": "ELISE ANGELO MARTINS",
+    "name": "BERNARDO FONTES BORGES",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45114",
-    "name": "FERNANDO PATRIOTA GUALBERTO MONTEIRO",
+    "name": "MIGUEL FERREIRA LIMA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45366",
-    "name": "GEORGE PIRES SANTOS",
+    "name": "BERNARDO LOPES RODRIGUES",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45192",
-    "name": "GIOVANNA HELOISE TERUYA PODGORSKI",
+    "name": "MIGUEL AZEVEDO MELO",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "51971",
-    "name": "GIULLY RODRIGUES CABREIRA",
+    "name": "ELENA ROCHA PEREIRA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45250",
-    "name": "GUSTAVO MARCELINO DE OLIVEIRA",
+    "name": "ELENA MELO SILVA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45202",
-    "name": "HEITOR MIRANDA BORGES",
+    "name": "BERNARDO PAIVA DIAS",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44548",
-    "name": "HELENA SCHROEDER MARTINS",
+    "name": "MIGUEL MACHADO ROCHA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44555",
-    "name": "HELOISA ROCHA TOSO",
+    "name": "VALENTINA SOUZA SILVA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45266",
-    "name": "JOSE LEANDRO NORONHA DOS ANJOS CAVALINI",
+    "name": "MIGUEL MORAES MARTINS",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45265",
-    "name": "LUIZA SALVADORI AGNES",
+    "name": "MIGUEL MELO MACHADO",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44673",
-    "name": "MANUELA AFFIUNE SCHERER",
+    "name": "VINICIUS BARBOSA PAIVA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "51422",
-    "name": "MARCELO SILVA CURADO FILHO",
+    "name": "MATHEUS ALVES NOGUEIRA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45048",
-    "name": "MARIA EDUARDA PETRY",
+    "name": "HELENA MORAES GOMES",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45261",
-    "name": "MARIA TEREZA CORASSA KONAGESKI",
+    "name": "MIGUEL GOMES FERREIRA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45216",
-    "name": "MAYSA MORORÓ VERSIANI",
+    "name": "LUISA PEREIRA BRAGA",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45252",
-    "name": "MIGUEL PEREIRA DA CRUZ",
+    "name": "LIVIA SOARES DIAS",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45317",
-    "name": "NATHAN COSTA DA MATA",
+    "name": "EDUARDO RODRIGUES LOPES",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45226",
-    "name": "PEDRO BARROS FERREIRA",
+    "name": "VINICIUS GARCIA RODRIGUES",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44516",
-    "name": "PEDRO SILVA BERNARD",
+    "name": "ELENA ROCHA MARTINS",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45177",
-    "name": "THIAGO DAVI ALVES MATIAS",
+    "name": "PEDRO MACHADO CAMPOS",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45535",
-    "name": "ALICE MORENA SAMPAIO STRACK",
+    "name": "NICOLAS ALBUQUERQUE GARCIA",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45087",
-    "name": "ANA LUISA MARTINS DE SOUZA",
+    "name": "LORENZO BRAGA RAMOS",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45347",
-    "name": "CECILIA VIEIRA VALADARES",
+    "name": "CAIO PINTO DIAS",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "51980",
-    "name": "EDUARDO DAVI DE SOUSA PEIXOTO",
+    "name": "VINICIUS PINTO ALBUQUERQUE",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "44817",
-    "name": "ELISA LOURENÇO DOS SANTOS",
+    "name": "THEO ALBUQUERQUE DIAS",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45695",
-    "name": "ENZO GABRIEL JOSÉ DIAS",
+    "name": "SOFIA OLIVEIRA DUARTE",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45505",
-    "name": "GABRIELLA BATISTA NESSRALLA",
+    "name": "DANIEL FARIA RIBEIRO",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "52025",
-    "name": "HELENA MEDINA ROSSI",
+    "name": "DAVI MARTINS OLIVEIRA",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45045",
-    "name": "JOSE MIGUEL VENÂNCIO PEREIRA",
+    "name": "MATHEUS PINTO MENDES",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "50999",
-    "name": "JULIA DE PAIVA FONSECA",
+    "name": "LORENZO ALMEIDA COSTA",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "44993",
-    "name": "LAURA OLIVEIRA BOENO",
+    "name": "JOAO NOGUEIRA MARQUES",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "51054",
-    "name": "LORENA DE OLIVEIRA ATAÍDES",
+    "name": "ALICE FONTES BRANDAO",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45420",
-    "name": "MARIA CLARA SOUZA MARQUEZ",
+    "name": "DAVI FERREIRA MACHADO",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45096",
-    "name": "MARIA FERNANDA DAMACENA GEBRIM",
+    "name": "CAIO SOARES CASTRO",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45223",
-    "name": "MURILO BASTOS DOS SANTOS",
+    "name": "GABRIEL MEDEIROS BORGES",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "51404",
-    "name": "PEDRO ANTONIO DE ARAUJO NETO",
+    "name": "SAMUEL GONCALVES MEDEIROS",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45025",
-    "name": "SAMUEL VICENTE DE OLIVEIRA BRITO",
+    "name": "HENRIQUE PAIVA MENDES",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "52449",
-    "name": "ALESSANDRA DOS SANTOS FLORENÇO",
+    "name": "ARTHUR CAMPOS AZEVEDO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "51468",
-    "name": "ÁLVARO MOTA CORAZZA",
+    "name": "LEONARDO FERREIRA ROCHA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44036",
-    "name": "ANA LUIZA CUNHA TELES DA COSTA",
+    "name": "NICOLAS GONCALVES GONCALVES",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44940",
-    "name": "ANNA FLÁVIA DOS REIS CALÇADO CORTES",
+    "name": "HELENA OLIVEIRA BARROS",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52490",
-    "name": "ARTHUR FERREIRA MAGALHÃES",
+    "name": "DANIEL PAIVA CARDOSO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44745",
-    "name": "ARTUR ANTUNES CARVALHO",
+    "name": "LIVIA ALVES ALBUQUERQUE",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44010",
-    "name": "ARTUR FIORESE FROZZA",
+    "name": "EDUARDO TEIXEIRA CARDOSO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "43989",
-    "name": "CAIO UITER MARTINS ARAUJO",
+    "name": "MATHEUS PAIVA FONTES",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45498",
-    "name": "CECÍLIA ALMEIDA CRUZ",
+    "name": "JOAO DIAS PAIVA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "51458",
-    "name": "CECÍLIA FERREIRA BORGES",
+    "name": "JULIA SILVA CARVALHO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "51710",
-    "name": "CLAUS BÜLL PADILHA",
+    "name": "RAFAEL ALVES MENDES",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52484",
-    "name": "DANIEL PETRY BAESSO",
+    "name": "DAVI MACHADO AZEVEDO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44730",
-    "name": "GABRIEL VARGAS SANTANA",
+    "name": "GUILHERME DIAS MENDES",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44640",
-    "name": "GUILHERME FERREIRA FREIRE",
+    "name": "CAROLINA SILVA BARROS",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45343",
-    "name": "HERON LIMA GUNTHER",
+    "name": "MIGUEL BARROS MORAES",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44952",
-    "name": "ISABELA COTRIM DE GODOI BEDIN",
+    "name": "YASMIN NASCIMENTO VIEIRA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45386",
-    "name": "JHUAN GUILHERME ALMEIDA QUEIROZ",
+    "name": "SAMUEL PAIVA RODRIGUES",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44990",
-    "name": "JÚLIA COLEONE GUIMARÃES",
+    "name": "YASMIN VIEIRA MACHADO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44768",
-    "name": "LAIS DE SOUZA BITTAR",
+    "name": "JOAO NOGUEIRA MARQUES",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45506",
-    "name": "LUCAS MOREIRA MARQUES",
+    "name": "VALENTINA VIEIRA SOUZA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "43811",
-    "name": "LUISA AMORIM FALCOMER PAIVA",
+    "name": "LORENZO DUARTE PEREIRA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52366",
-    "name": "LUIZ OTAVIO DE MELO SIQUEIRA",
+    "name": "JULIA MORAES MARTINS",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45024",
-    "name": "MANUELA FERNANDES GABRIEL",
+    "name": "VINICIUS BORGES PINTO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44630",
-    "name": "MARCO ANTONIO MACHADO VIANA",
+    "name": "CAROLINA MACHADO OLIVEIRA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45709",
-    "name": "MARIA EDUARDA MACHADO DE PAIVA",
+    "name": "CAROLINA COSTA SANTANA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44164",
-    "name": "MARIA LUIZA POMERENING PASA",
+    "name": "LEONARDO MELO NASCIMENTO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44608",
-    "name": "MARIANA VALADARES DE OLIVEIRA",
+    "name": "MANUELA CASTRO SOARES",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52339",
-    "name": "MATHEUS VINICIUS PELEGRIN SERRA",
+    "name": "VINICIUS BORGES FONTES",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45222",
-    "name": "MIGUEL DA SILVA SANTOS",
+    "name": "BERNARDO BORGES BARBOSA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45097",
-    "name": "MIGUEL LUIZ DOS SANTOS ALMEIDA",
+    "name": "VINICIUS MOREIRA NOGUEIRA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44450",
-    "name": "MOISÉS SANTOS SILVA",
+    "name": "RAFAEL RODRIGUES CARDOSO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "51565",
-    "name": "MURILO DUARTE MIRANDA",
+    "name": "MATHEUS PINTO GARCIA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45204",
-    "name": "SAMUEL VICTOR ATAIDES DE OLIVEIRA",
+    "name": "MATHEUS BORGES TEIXEIRA",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52309",
-    "name": "SOPHIA ARAUJO PINHEIRO",
+    "name": "GUILHERME GONCALVES PINTO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45029",
-    "name": "VALENTIN VITOR SACARDO",
+    "name": "HELENA NASCIMENTO NASCIMENTO",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44587",
-    "name": "ALANA DIAS VIEIRA",
+    "name": "GUILHERME BRANDAO SANTOS",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "43603",
-    "name": "ANA CLARA MARTINS FERREIRA",
+    "name": "PEDRO BRAGA CARVALHO",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45548",
-    "name": "ARTHUR ALVES DE ARAÚJO",
+    "name": "ISABELA SANTANA MORAES",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52201",
-    "name": "ARTHUR CAMPOS SPINDOLA DE ATAIDES",
+    "name": "PEDRO AZEVEDO BRAGA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45155",
-    "name": "CAMILA MARIA DE ANDRADE MACEDO",
+    "name": "MANUELA FARIA RIBEIRO",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "43406",
-    "name": "DAVI DE ALVARENGA E BERNARDES",
+    "name": "VINICIUS GARCIA ALVES",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45036",
-    "name": "DAVI MACHADO LIMA",
+    "name": "MIGUEL CARVALHO FERREIRA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44357",
-    "name": "EDUARDA PIMENTEL MURUSSI",
+    "name": "PEDRO MACHADO FREITAS",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44696",
-    "name": "EMANUELLY LUIZA ZIMMERMANN",
+    "name": "FERNANDA SANTANA SOUZA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44660",
-    "name": "GABRIEL THIMOTEO CAVALCANTE",
+    "name": "HENRIQUE PAIVA ALBUQUERQUE",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52466",
-    "name": "GABRIELA BORGES PIRES",
+    "name": "LORENZO BARROS SOUZA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "43270",
-    "name": "HEITOR LEMOS DE MELO REIS",
+    "name": "MATHEUS FONTES MENDES",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44028",
-    "name": "JANINE MARIA ANDRADE OLIVEIRA AMORIM",
+    "name": "MATEUS SANTANA ROCHA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44308",
-    "name": "JOÃO MIGUEL NATAL KOCH",
+    "name": "MATHEUS NOGUEIRA BORGES",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44479",
-    "name": "JOSÉ AUGUSTO CENCI MACIEL",
+    "name": "ALICE TEIXEIRA BRANDAO",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "51048",
-    "name": "JOSÉ MATHEUS RODRIGUES CARDOSO",
+    "name": "FELIPE BORGES SOARES",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44004",
-    "name": "LARA AGNES FÁVERO",
+    "name": "DAVI MACHADO SANTANA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44976",
-    "name": "LIVIA CORASSA KONAGESKI",
+    "name": "LARA RODRIGUES ALVES",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44618",
-    "name": "LUIZ MIGUEL ALENCAR HERMES",
+    "name": "LORENZO FREITAS ALMEIDA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45176",
-    "name": "MANUELA ALVES VALADARES FALCÃO",
+    "name": "LIVIA SANTOS CASTRO",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44646",
-    "name": "MANUELA BARON RIBAS",
+    "name": "GIOVANNA BARROS BRAGA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45021",
-    "name": "MANUELA BATISTA PIASENTIN",
+    "name": "MIGUEL MORAES PEREIRA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44471",
-    "name": "MARIA CLARA LIMA AGNES",
+    "name": "ALICE MOREIRA RODRIGUES",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45534",
-    "name": "MARIANA BARROS OLIVEIRA LEITE",
+    "name": "LUCAS GONCALVES PINTO",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "51106",
-    "name": "MIGUEL QUEIROZ NETO",
+    "name": "VALENTINA RAMOS SOUZA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45407",
-    "name": "PEDRO RABÊLO ORNELAS",
+    "name": "JULIA SANTANA CAMPOS",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44006",
-    "name": "PEDRO SCHROEDER ANDRADE",
+    "name": "JULIA ROCHA BRAGA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "51047",
-    "name": "RAFAELA BORTOLETTO MENA ROMEIRO",
+    "name": "LEONARDO DUARTE VIEIRA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44765",
-    "name": "SAMARA RODRIGUES KAPPAUN",
+    "name": "LARA GARCIA MENDES",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52320",
-    "name": "SARA MISHIMA VIEIRA",
+    "name": "HENRIQUE PAIVA GARCIA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45032",
-    "name": "SOFIA SABINO CARVALHO",
+    "name": "ELENA LIMA CAMPOS",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45131",
-    "name": "SOPHIA VALENTE VIEIRA REIS",
+    "name": "MIGUEL GOMES BRAGA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52507",
-    "name": "STELLA PEREIRA AGNES",
+    "name": "DANIEL ALBUQUERQUE SANTOS",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52576",
-    "name": "VICTOR MIGUEL OLIVEIRA EVAGELISTA DE SOUSA",
+    "name": "THEO BRANDAO MOREIRA",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45035",
-    "name": "YAN OLIVEIRA KOEHLER",
+    "name": "HENRIQUE PAIVA ALBUQUERQUE",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44598",
-    "name": "ALESSANDRA DA SILVA BORGES",
+    "name": "LARA MARQUES SOARES",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52044",
-    "name": "ANA BEATRIZ NAJAR GERMANO",
+    "name": "MATEUS DUARTE LIMA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52244",
-    "name": "ANA CORREA DE PAULA MUNDIM",
+    "name": "MATHEUS FARIA MEDEIROS",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "51103",
-    "name": "ARTHUR MIGUEL MARTINS LOPES",
+    "name": "EDUARDO SANTOS SOARES",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44565",
-    "name": "BÁRBARA STHEFANINI RIBEIRO",
+    "name": "PEDRO MORAES OLIVEIRA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43440",
-    "name": "CAMILA GONTIJO DO NASCIMENTO",
+    "name": "MATEUS BRAGA DUARTE",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43439",
-    "name": "CARLOS ERUARDO FARIA GUIMARÃES",
+    "name": "MATEUS BARROS COSTA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44755",
-    "name": "EDUARDA ALVES RODRIGUES",
+    "name": "LUCAS BARBOSA MENDES",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45555",
-    "name": "EDUARDO GUIMARÃES CESAR SUDRÉ",
+    "name": "LUISA BARROS OLIVEIRA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43000",
-    "name": "FLÁVIO HENRIQUE ARAÚJO TEIXEIRA JUNIOR",
+    "name": "PEDRO ROCHA BARROS",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44033",
-    "name": "GIOVANNA BATISTA PIASENTIN",
+    "name": "LUISA ROCHA ROCHA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43926",
-    "name": "HELOISA GOUBETTI PINGUELLI",
+    "name": "YASMIN GOMES SOUZA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45693",
-    "name": "ISABELLE LÔBO FERNANDES",
+    "name": "DAVI LIMA GOMES",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44188",
-    "name": "JOÃO PEDRO FERREIRA DE ATAÍDES",
+    "name": "LORENZO CAMPOS ROCHA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43432",
-    "name": "JORDANA CARVALHO ALARCÃO",
+    "name": "MATHEUS RODRIGUES BARBOSA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44564",
-    "name": "JÚLIA FERNANDES DE MELO",
+    "name": "ARTHUR RAMOS NASCIMENTO",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43684",
-    "name": "LARA ALICE RODRIGUES FALEIRO",
+    "name": "BERNARDO ALBUQUERQUE MEDEIROS",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45110",
-    "name": "LAURA REIS BITTAR",
+    "name": "MIGUEL MELO DUARTE",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45125",
-    "name": "LORENA CARNELÓS KOCH",
+    "name": "CAROLINA MACHADO MACHADO",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44652",
-    "name": "LUCAS BENÍCIO DE OLIVEIRA BRITO",
+    "name": "GIOVANNA BRAGA FREITAS",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "42820",
-    "name": "LUCAS DIAS RAVANELLO",
+    "name": "LIVIA CASTRO ALBUQUERQUE",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45422",
-    "name": "LUCAS GOUVEIA TESTA",
+    "name": "LUISA FREITAS FREITAS",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43515",
-    "name": "MANUELLA BATISTA ANDRADE",
+    "name": "YASMIN VIEIRA MACHADO",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44309",
-    "name": "MARIA CLARA DE SOUSA CORREA",
+    "name": "SAMUEL MOREIRA PINTO",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52548",
-    "name": "MARIA FERNANDA RIBEIRO COELHO",
+    "name": "SAMUEL ALBUQUERQUE FARIA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45301",
-    "name": "MARIA HELENA MENDES BALBINOT",
+    "name": "MATHEUS CARDOSO RODRIGUES",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52276",
-    "name": "MARIA LUIZA ARANTES DE SOUSA",
+    "name": "CAIO PAIVA GONCALVES",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52557",
-    "name": "MARIA RITA DUTRA MENDES",
+    "name": "DANIEL MENDES SANTOS",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43895",
-    "name": "MARIA VITÓRIA DE OLIVEIRA RAMOS",
+    "name": "LUISA SILVA DUARTE",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "51033",
-    "name": "MARINA CARVALHO SILVA VELOSO",
+    "name": "CAIO CARDOSO PAIVA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "51763",
-    "name": "MURILO LIMA LACERDA",
+    "name": "HELENA ALMEIDA ALMEIDA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "42817",
-    "name": "PEDRO PEREIRA TRINDADE",
+    "name": "NICOLAS DIAS NOGUEIRA",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45315",
-    "name": "SOFIA RODRIGUES OLIVEIRA",
+    "name": "ELENA CAMPOS MACHADO",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52516",
-    "name": "ANA CLARA BORDIGNON",
+    "name": "FERNANDA COSTA PEREIRA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52579",
-    "name": "ANA LUISA BRANDÃO RAMOS",
+    "name": "SOFIA AZEVEDO NASCIMENTO",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43529",
-    "name": "DAVI GUILHERME BALEST",
+    "name": "MANUELA BARBOSA PINTO",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44022",
-    "name": "EMILY MAYUMI BRASILEIRO E OKAYAMA",
+    "name": "ALICE NOGUEIRA SANTOS",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44504",
-    "name": "FELIPE BRAGHIM FERRAZ",
+    "name": "BEATRIZ MORAES LIMA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43929",
-    "name": "GABRIEL GUETNER SERRANO",
+    "name": "MIGUEL BRAGA AZEVEDO",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43674",
-    "name": "GABRIEL ISMAIL EISHA AZEVEDO",
+    "name": "HELENA SANTANA LIMA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44046",
-    "name": "GABRIEL MARTINS XAVIER",
+    "name": "MATHEUS CARDOSO MOREIRA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "45091",
-    "name": "GABRIELA CATUNDA MARTINS",
+    "name": "SAMUEL SOARES ALVES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "51030",
-    "name": "HELENA SCHMITT APIO",
+    "name": "GUILHERME DIAS MENDES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43567",
-    "name": "HELOÍSA ORNELAS MACHADO DE JESUS",
+    "name": "RAFAEL MARQUES SANTOS",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43362",
-    "name": "JOÃO RAFAEL CARDOSO MARTINS",
+    "name": "MATHEUS CASTRO DIAS",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52573",
-    "name": "JÚLIA PASSOS OLIVEIRA",
+    "name": "ALICE SOARES SOARES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44007",
-    "name": "JÚLIA RIBEIRO PRADO",
+    "name": "SOFIA VIEIRA RAMOS",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52287",
-    "name": "JULIANA DE GODOI STUEPP",
+    "name": "THEO RIBEIRO BARBOSA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44501",
-    "name": "LAURA MARINS CANALI",
+    "name": "FERNANDA NASCIMENTO BRAGA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44325",
-    "name": "LETHÍCIA OLIVEIRA GOMES",
+    "name": "THEO BORGES MENDES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43419",
-    "name": "LÍVIA FIORESE ZAMIN",
+    "name": "FERNANDA RAMOS SANTANA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43947",
-    "name": "LUCAS CAIXETA DE JESUS",
+    "name": "LARA LOPES SANTOS",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43820",
-    "name": "LUÍSA RODRIGUES FUZARO",
+    "name": "GUILHERME SANTOS CARDOSO",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44184",
-    "name": "LUIZ MIGUEL FERREIRA DA SILVA",
+    "name": "JULIA PEREIRA COSTA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44217",
-    "name": "MARIA FERNANDA NASCIMENTO RIBEIRO",
+    "name": "GIOVANNA PEREIRA VIEIRA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "51390",
-    "name": "MARIA HELOISA FERNANDES",
+    "name": "MATEUS BRAGA DUARTE",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43614",
-    "name": "MARIA LUIZA ALVES SOUZA",
+    "name": "GABRIEL MENDES PINTO",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43996",
-    "name": "MIGUEL CICHETTI MARQUES DE OLIVEIRA",
+    "name": "SOFIA MARTINS FERREIRA",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "45337",
-    "name": "MIGUEL SIQUEIRA PIZA",
+    "name": "ISABELA ALMEIDA CAMPOS",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44203",
-    "name": "MOZART ÂNGELO MARTINS",
+    "name": "CAIO ALBUQUERQUE MARQUES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "45710",
-    "name": "PEDRO THEO MACHADO DE PAIVA",
+    "name": "RAFAEL GONCALVES MENDES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52288",
-    "name": "PIETRO DE GODOI STUEPP",
+    "name": "FERNANDA BRAGA MORAES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44846",
-    "name": "RAISSA VAZ AGUIAR",
+    "name": "FELIPE MOREIRA RODRIGUES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44049",
-    "name": "SOFIA SILVA KUNZ",
+    "name": "GUILHERME RODRIGUES FONTES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "51706",
-    "name": "VERÔNICA TORRES E SILVA",
+    "name": "RAFAEL DIAS GONCALVES",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52392",
-    "name": "YASMIN REVIL DE LIMA",
+    "name": "YASMIN LIMA MELO",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52037",
-    "name": "ANDRÉ PIETRO BATISTA LOURENÇO",
+    "name": "CAROLINA CAMPOS VIEIRA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51726",
-    "name": "ANTONELLA ROSSO TIERTE",
+    "name": "HELENA MARTINS MARTINS",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51469",
-    "name": "AURONES GABRIEL BOTELHO CRISOSTES",
+    "name": "YASMIN BRAGA NASCIMENTO",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43517",
-    "name": "BEATRIZ DE SOUZA OLIVEIRA",
+    "name": "EDUARDO ALVES LOPES",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43415",
-    "name": "BRUNO DANIEL FOLIATTI",
+    "name": "MATEUS SOUZA DUARTE",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "42741",
-    "name": "DIEGO DUPUY HERMES FILHO",
+    "name": "SAMUEL MARQUES ALVES",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "52533",
-    "name": "DIOGO LEDO DANIEL",
+    "name": "MATEUS AZEVEDO ALMEIDA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "45275",
-    "name": "ELOÁ CAVALCANTE DE SOUSA",
+    "name": "FELIPE MENDES ALBUQUERQUE",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44080",
-    "name": "FERNANDO LUIS NEVES MOURA",
+    "name": "HENRIQUE SOARES RIBEIRO",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44571",
-    "name": "GABRIELLY GONÇALVES ISOTON",
+    "name": "MATHEUS GARCIA MOREIRA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44769",
-    "name": "ISABELLA LISBOA GONÇALVES",
+    "name": "MATEUS DUARTE LIMA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43383",
-    "name": "ISABELLA MENDES DA SILVA",
+    "name": "BERNARDO BRANDAO MARQUES",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44200",
-    "name": "ISADORA FERREIRA DE LIMA",
+    "name": "LARA CARDOSO ALBUQUERQUE",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43422",
-    "name": "JOÃO PAULO BUENO TRINDADE",
+    "name": "BEATRIZ MARTINS CAMPOS",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43336",
-    "name": "JOÃO PEDRO BRITO DE OLIVEIRA",
+    "name": "VINICIUS GARCIA CASTRO",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "52512",
-    "name": "JOSUÉ CALEB DE SOUSA OLIVEIRA",
+    "name": "HELENA VIEIRA VIEIRA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44071",
-    "name": "LARA MARCELINO DE OLIVEIRA",
+    "name": "HELENA MARTINS FERREIRA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43084",
-    "name": "LAURA SQUINZANI AMORIM",
+    "name": "MIGUEL FERREIRA COSTA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "52026",
-    "name": "MAITE MEDINA ROSSI",
+    "name": "GABRIEL SANTOS CASTRO",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43074",
-    "name": "MARCOS ANTONIO ANDRADE FILHO",
+    "name": "LEONARDO RAMOS AZEVEDO",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51319",
-    "name": "MARIA CLARA SILVA",
+    "name": "MATEUS MACHADO LIMA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43621",
-    "name": "MIGUEL KNUP SANTOS",
+    "name": "FELIPE MOREIRA RODRIGUES",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51656",
-    "name": "OTAVIO OPA DE ALMEIDA",
+    "name": "DANIEL PINTO RODRIGUES",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "52243",
-    "name": "PEDRO CORREA DE PAULA MUNDIM",
+    "name": "SAMUEL ALBUQUERQUE BORGES",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43321",
-    "name": "RODRIGO FREITAS ROSSI",
+    "name": "REBECA OLIVEIRA BRAGA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43436",
-    "name": "THIAGO AMORIM DE SOUSA E SILVA",
+    "name": "MIGUEL MORAES FERREIRA",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51457",
-    "name": "VANESSA STHEFANY FERREIRA BORGES",
+    "name": "FERNANDA SILVA FREITAS",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43509",
-    "name": "VITOR HUGO FERREIRA MARKUS",
+    "name": "LUCAS ALVES PINTO",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51091",
-    "name": "AMANDA HAMU COSTA",
+    "name": "DAVI VIEIRA FERREIRA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "45040",
-    "name": "ANA LAURA DE ARAUJO OLIVEIRA",
+    "name": "VALENTINA SOUZA DUARTE",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "45650",
-    "name": "CAIO SOUZA MARTINS",
+    "name": "EDUARDO MEDEIROS RIBEIRO",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "51400",
-    "name": "DAVI SILVA PRADO",
+    "name": "YASMIN MELO SILVA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "51643",
-    "name": "EDUARDA LAIS DE SOUZA RABELO",
+    "name": "BEATRIZ CAMPOS ALMEIDA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "51649",
-    "name": "ISADORA CARVALHO DA CUNHA CASAGRANDE",
+    "name": "FELIPE MEDEIROS TEIXEIRA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "44671",
-    "name": "ITALO OLIVEIRA SHIMIZU",
+    "name": "REBECA SILVA BRAGA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43843",
-    "name": "IZADORA ONOFRE SIQUEIRA",
+    "name": "DANIEL CASTRO FARIA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43420",
-    "name": "JOÃO ALEXANDRE JORGE NETO",
+    "name": "LUCAS SANTOS CARDOSO",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "51105",
-    "name": "JOAO PEDRO PINHEIRO QUEIROZ",
+    "name": "NICOLAS ALBUQUERQUE CARDOSO",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "42850",
-    "name": "JOÃO SAMUEL AMORIM MOURA",
+    "name": "HENRIQUE PAIVA MENDES",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43438",
-    "name": "JÚLIA DE MORAIS VAZ",
+    "name": "CAROLINA ALMEIDA ALMEIDA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "41761",
-    "name": "LUCAS ALEGRINO OTTONI LELIS",
+    "name": "ELENA GOMES FERREIRA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "44594",
-    "name": "LUIS FELIPE TEIXEIRA DE DEUS",
+    "name": "BEATRIZ GOMES AZEVEDO",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "45295",
-    "name": "MARIA LUIZA SOUZA DE DEUS",
+    "name": "LUISA MACHADO DUARTE",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "44581",
-    "name": "MAUAN GOETTEMS CHAGAS",
+    "name": "RAFAEL NOGUEIRA GONCALVES",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "45530",
-    "name": "RAFAEL MARCELO JACOBINO SILVA",
+    "name": "LIVIA MOREIRA GARCIA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "52420",
-    "name": "RAFAELA DE PAULA OLIVEIRA",
+    "name": "REBECA AZEVEDO BARROS",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "52539",
-    "name": "SOPHIA RODRIGUES DOS SANTOS",
+    "name": "REBECA CARVALHO SANTANA",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43452",
-    "name": "VALENTINA RIBEIRO PRADO",
+    "name": "MATEUS ALMEIDA RAMOS",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43846",
-    "name": "VICTOR LUCAS ONOFRE SIQUEIRA",
+    "name": "LIVIA NOGUEIRA ALVES",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "42775",
-    "name": "ANA LOUISE DOS SANTOS",
+    "name": "RAFAEL GONCALVES CARDOSO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43478",
-    "name": "ANNA CLARA MANZONI DE OLIVEIRA",
+    "name": "HENRIQUE MOREIRA PAIVA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51924",
-    "name": "ANTONY GABRIEL FERREIRA BRITTO",
+    "name": "LORENZO GOMES COSTA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42316",
-    "name": "CAIO MENDES SILVA",
+    "name": "HENRIQUE TEIXEIRA CASTRO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43247",
-    "name": "EDUARDO LOPES GARCIA",
+    "name": "MATHEUS RODRIGUES NOGUEIRA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43505",
-    "name": "EMILLY MOREIRA DOS REIS",
+    "name": "DAVI FERREIRA SILVA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45647",
-    "name": "FELIPE IRINEU TONELLE BALBINOT",
+    "name": "NICOLAS SANTOS SANTOS",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "52599",
-    "name": "FERNANDA ARRAIS MENDES DOS REIS",
+    "name": "LORENZO ALMEIDA COSTA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42933",
-    "name": "GABRIEL NESSRALLA DOS REIS TEIXEIRA",
+    "name": "VINICIUS BARBOSA BORGES",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44264",
-    "name": "GABRIELLA DE OLIVEIRA MADEIRA",
+    "name": "FELIPE TEIXEIRA MEDEIROS",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51673",
-    "name": "HELENA BOSSA GILIOLI",
+    "name": "LARA MARQUES SOARES",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45290",
-    "name": "HELENA GUIMARAES DE FREITAS SOUZA",
+    "name": "VINICIUS MEDEIROS GARCIA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43864",
-    "name": "HYANNA JÚLLIA GOMES GUIMARÃES",
+    "name": "GIOVANNA ALMEIDA SANTANA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42616",
-    "name": "ISABELA BATISTA BARKERT",
+    "name": "DANIEL BRANDAO CASTRO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45643",
-    "name": "ISABELA GONÇALVES LOBO",
+    "name": "SAMUEL RIBEIRO BORGES",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45645",
-    "name": "ISABELA NICOLAU FERREIRA",
+    "name": "VALENTINA SOUZA MACHADO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43378",
-    "name": "ISABELLE ALVES DE OLIVEIRA",
+    "name": "FERNANDA SOUZA CARVALHO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51357",
-    "name": "JOÃO LUCAS LEPESQUEUR AMADO",
+    "name": "PEDRO OLIVEIRA FREITAS",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "52264",
-    "name": "JOÃO LUCAS MARTINS E SILVA",
+    "name": "JULIA BRAGA LIMA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44799",
-    "name": "JOÃO LUCAS OLIVEIRA DA ROCHA",
+    "name": "SOFIA COSTA LIMA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42627",
-    "name": "JOSÉ INACIO MACEDO NETO",
+    "name": "LUCAS TEIXEIRA LOPES",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "41915",
-    "name": "JÚLIA LOPES REIS",
+    "name": "REBECA COSTA SILVA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45464",
-    "name": "LARA GEBRIM VIEIRA",
+    "name": "LORENZO CARVALHO SANTANA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51379",
-    "name": "LARA LUIZY SILVA MARTINS",
+    "name": "JULIA BRAGA AZEVEDO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "41814",
-    "name": "LEANDRO AUGUSTO RODRIGUES FALEIRO",
+    "name": "HELENA COSTA AZEVEDO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44095",
-    "name": "LETÍCIA SEBASTIANI MARTINS LOPES",
+    "name": "ISABELA BRAGA MACHADO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42867",
-    "name": "LUCAS FIORESE FROZZA",
+    "name": "NICOLAS LOPES NOGUEIRA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "52268",
-    "name": "MARCO TULIO GONÇALVES PIRES",
+    "name": "RAFAEL MEDEIROS SOARES",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44663",
-    "name": "MARIA EDUARDA THIMOTEO CAVALCANTE",
+    "name": "MATHEUS DIAS FARIA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51487",
-    "name": "MENA OTILIO BEZERRA MUNER",
+    "name": "GIOVANNA PEREIRA RAMOS",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "52275",
-    "name": "PEDRO HENRIQUE ARANTES DE SOUSA",
+    "name": "BERNARDO ALVES CARDOSO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "41763",
-    "name": "PEDRO RIBEIRO LÔBO",
+    "name": "FERNANDA FERREIRA MORAES",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43341",
-    "name": "RHAIRA LUNNY FONSECA MARTINS",
+    "name": "NICOLAS ALVES MOREIRA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44591",
-    "name": "SAMUEL HENRIQUE NUNES RIBEIRO SALES",
+    "name": "ARTHUR AZEVEDO PEREIRA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44949",
-    "name": "SOPHIA COTRIM DE GODOI E SANTANA",
+    "name": "ALICE MEDEIROS TEIXEIRA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42885",
-    "name": "SOPHIA HONORATO DE LISBOA",
+    "name": "ISABELA PEREIRA BARROS",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43400",
-    "name": "STEFFANY OLIVEIRA KOEHLER",
+    "name": "GIOVANNA NASCIMENTO DUARTE",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43596",
-    "name": "THAINA VITOR ARANTES",
+    "name": "FELIPE GONCALVES RODRIGUES",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42879",
-    "name": "TIAGO RAFAEL ALACOQUE GUIMARÃES JUNIOR",
+    "name": "GUILHERME GONCALVES MEDEIROS",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42231",
-    "name": "VICTOR AMORIM GOMES",
+    "name": "DAVI MELO SOUZA",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43318",
-    "name": "VICTOR COSTA BARROS",
+    "name": "HELENA ROCHA CARVALHO",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51339",
-    "name": "ANA BEATRIZ OPA GALVAGNI",
+    "name": "VALENTINA BARROS COSTA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42789",
-    "name": "ANA CAROLINA ALMEIDA RIBEIRO",
+    "name": "EDUARDO BORGES FONTES",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42172",
-    "name": "ANA CLARA CARVALHO RAMOS",
+    "name": "RAFAEL BORGES BARBOSA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "45199",
-    "name": "ANA SOFIA ATAIDES DE OLIVEIRA",
+    "name": "LARA PINTO TEIXEIRA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "51765",
-    "name": "BRUNA MARTINS FREIER",
+    "name": "MATEUS PEREIRA DUARTE",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "45419",
-    "name": "CARLOS ERUARDO SOUZA MARQUEZ",
+    "name": "BERNARDO ALBUQUERQUE TEIXEIRA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "44751",
-    "name": "DARLAN MELO FERNANDES DE CARVALHO",
+    "name": "HELENA SOUZA MARTINS",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "52047",
-    "name": "DAVI PARREIRA MUNDIM",
+    "name": "RAFAEL PAIVA BARBOSA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "45046",
-    "name": "ENZO PAIVA CASTRO",
+    "name": "RAFAEL NOGUEIRA ALVES",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41765",
-    "name": "GABRIEL PIASENTIN ROSA",
+    "name": "RAFAEL RODRIGUES RIBEIRO",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42007",
-    "name": "GABRIELA AGNES FÁVERO",
+    "name": "SOFIA FREITAS RAMOS",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "11094",
-    "name": "JOÃO VITOR SOARES MELO REIS",
+    "name": "BEATRIZ MORAES AZEVEDO",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41712",
-    "name": "JORGE MIGUEL AFFIUNE FILHO",
+    "name": "LIVIA PAIVA NOGUEIRA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41760",
-    "name": "JULIA BIANCHI ANVERSA",
+    "name": "PEDRO MORAES MACHADO",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41536",
-    "name": "JULIA RIBEIRO MAGALHÃES",
+    "name": "EDUARDO CARDOSO CASTRO",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42436",
-    "name": "LAURA MARCHESANO GUIMARÃES DE FREITAS",
+    "name": "MIGUEL CARVALHO FERREIRA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "43570",
-    "name": "LUIS EDUARDO REIS DA SILVA",
+    "name": "CAIO DIAS CARDOSO",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "43526",
-    "name": "LUIZ HENRIQUE BALEST",
+    "name": "ARTHUR NASCIMENTO BRAGA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41065",
-    "name": "MARIA CLARA OLIVEIRA MARTINS",
+    "name": "LEONARDO ALMEIDA OLIVEIRA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "52022",
-    "name": "MARIANA CALAZANS ALVES",
+    "name": "JULIA LIMA RAMOS",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "44104",
-    "name": "PALOMA TEIXEIRA CAMPOS",
+    "name": "LIVIA GARCIA FONTES",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "43559",
-    "name": "RAQUEL KLEIN SCHMITZ",
+    "name": "VINICIUS PAIVA BRANDAO",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "52139",
-    "name": "RENATO FUMAGALI DRUMMOND",
+    "name": "JULIA MARTINS LIMA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42430",
-    "name": "SOFIA SCHROEDER ANDRADE",
+    "name": "PEDRO ALMEIDA DUARTE",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42781",
-    "name": "SOPHIA DE MORAIS MELO",
+    "name": "LORENZO BARROS MARTINS",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "52571",
-    "name": "SOPHIA PASSOS OLIVEIRA",
+    "name": "GUILHERME MARQUES CASTRO",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42752",
-    "name": "VINÍCIUS AMORIM DE SOUSA E SILVA",
+    "name": "THEO GARCIA NOGUEIRA",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42807",
-    "name": "YASMIN CHRISTINE MORAIS DE SOUZA",
+    "name": "GABRIEL PAIVA LOPES",
     "cpf": "",
     "classId": "F-EM3A"
   }

@@ -13,7 +13,7 @@ export class SecurityService {
   constructor() {
     // A chave é derivada de um segredo único do hardware 
     const salt = 'aquila-pro-secure-salt-v1';
-    const hwSecret = os.hostname() + os.arch() + (process.env.COMPUTERNAME || 'eagle-device');
+    const hwSecret = process.env.AQUILA_ENCRYPTION_SECRET || (os.hostname() + os.arch() + (process.env.COMPUTERNAME || 'eagle-device'));
     this.key = crypto.pbkdf2Sync(hwSecret, salt, 10000, 32, 'sha256');
   }
 

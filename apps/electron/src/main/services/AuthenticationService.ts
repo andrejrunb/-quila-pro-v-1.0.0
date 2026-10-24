@@ -88,7 +88,7 @@ export class AuthenticationService {
     this.createUser({
       username: 'admin',
       email: 'admin@aquila.local',
-      password: 'admin123', // Mudar em produção
+      password: process.env.INITIAL_ADMIN_PASSWORD || 'admin123',
       role: 'admin',
       name: 'Administrador',
     });
@@ -97,7 +97,7 @@ export class AuthenticationService {
     this.createUser({
       username: 'coordinator',
       email: 'coordinator@aquila.local',
-      password: 'coord123', // Mudar em produção
+      password: process.env.INITIAL_COORD_PASSWORD || 'coord123',
       role: 'coordinator',
       name: 'Coordenador Pedagógico',
       department: 'Coordenação',

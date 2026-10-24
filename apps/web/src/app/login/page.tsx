@@ -57,23 +57,55 @@ export default function Login() {
     }
   ];
 
-  const handleLogin = (e: React.FormEvent) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    const destination = selectedPortal?.route || "/portal/aluno";
-    setTimeout(() => {
+    setErrorMessage(null);
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username,
+          password,
+          portalId: selectedPortal?.id || "alunos"
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setErrorMessage(data.error || "Credenciais inválidas.");
+        setIsLoading(false);
+        return;
+      }
+      router.push(data.redirect || selectedPortal?.route || "/portal/aluno");
+    } catch (err) {
+      setErrorMessage("Erro de rede ao conectar com o serviço de autenticação.");
       setIsLoading(false);
-      router.push(destination);
-    }, 600);
+    }
   };
 
-  const handleDemoAccess = () => {
+  const handleDemoAccess = async () => {
     setIsLoading(true);
-    const destination = selectedPortal?.route || "/portal/aluno";
-    setTimeout(() => {
+    setErrorMessage(null);
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: "demo_user",
+          password: "demo_password",
+          portalId: selectedPortal?.id || "alunos"
+        })
+      });
+      const data = await res.json();
+      router.push(data.redirect || selectedPortal?.route || "/portal/aluno");
+    } catch (err) {
+      router.push(selectedPortal?.route || "/portal/aluno");
+    } finally {
       setIsLoading(false);
-      router.push(destination);
-    }, 400);
+    }
   };
 
   return (
@@ -174,6 +206,8 @@ export default function Login() {
                   />
                 </div>
               </div>
+
+              {errorMessage && <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl">{errorMessage}</div>}
 
               <button 
                 type="submit"

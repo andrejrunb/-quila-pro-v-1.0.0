@@ -1,2 +1,0 @@
-
-"smart_sources:skills/get-shit-done/commands/gsd/update.md": {"path":"skills/get-shit-done/commands/gsd/update.md","last_embed":{"hash":null},"embeddings":{},"last_read":{"hash":"1aibmyz","at":1774580028398},"class_name":"SmartSource","last_import":{"mtime":1774319829441,"size":993,"at":1774580028585,"hash":"1aibmyz"},"blocks":{"#---frontmatter---":[1,7],"#":[9,38]},"outlinks":[],"metadata":{"name":"gsd:update","description":"Update GSD to latest version with changelog display","allowed-tools":["Bash","AskUserQuestion"]},"task_lines":[],"tasks":{},"codeblock_ranges":[]},

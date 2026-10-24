@@ -164,14 +164,13 @@ export default function FinanceiroTab() {
     } else {
       // Fallback de liquidação autônoma offline
       setTimeout(() => {
-        const dummyHash = 'e8c2a10b' + Math.random().toString(16).substring(2, 10) + '94f31c287b40';
-        const dummyAuth = `AQ-PIX-${pendingInvoice.id.replace('fat-', '').toUpperCase()}-8821`;
+        const offlineAuth = `OFFLINE-SYNC-${pendingInvoice.id.replace('fat-', '').toUpperCase()}`;
         const updated: Invoice = {
           ...pendingInvoice,
           status: 'PAID',
           paidAt: new Date().toISOString().split('T')[0],
-          receiptHash: dummyHash,
-          authCode: dummyAuth
+          receiptHash: 'PENDING_SERVER_SIGNATURE',
+          authCode: offlineAuth
         };
         setInvoices(prev => prev.map(i => i.id === pendingInvoice.id ? updated : i));
         setSettledJustNow(updated);

@@ -67,6 +67,17 @@ audit_credentials_report.json
 scan_secrets.py
 inject_api_key*.js
 
+
+# Databases & local user data
+*.db
+*.sqlite
+*.sqlite3
+apps/electron/userData/
+userData/
+
+# Obsidian Smart Connections cache
+.smart-env/
+
 # OS
 .DS_Store
 Thumbs.db

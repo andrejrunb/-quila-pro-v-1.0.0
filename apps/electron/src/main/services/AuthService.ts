@@ -148,7 +148,7 @@ export class AuthService {
       console.log('[AuthService] Criando usuário admin padrão...');
       await this.createUser({
         username: 'admin',
-        password: 'Admin@2026!',
+        password: process.env.INITIAL_ADMIN_PASSWORD || 'Admin@2026!',
         name: 'Administrador Áquila',
         role: 'admin'
       });
@@ -156,6 +156,7 @@ export class AuthService {
   }
 
   async ensureTestUser(): Promise<void> {
+    if (process.env.NODE_ENV === 'production') return;
     const testUser = await this.db.get('SELECT * FROM users WHERE username = ?', ['teste']);
     if (!testUser) {
       console.log('[AuthService] Criando usuário de teste...');

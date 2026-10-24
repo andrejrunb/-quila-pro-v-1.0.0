@@ -94,7 +94,7 @@ interface LicensePayload {
   signature: string;       // HMAC-SHA256 de key+tier+school_id+expires_at+hardware_id
 }
 
-const LICENSE_HMAC_SECRET = 'aquila-pro-license-v1-secret-2026';
+const LICENSE_HMAC_SECRET = process.env.AQUILA_LICENSE_HMAC_SECRET || process.env.AQUILA_ENCRYPTION_SECRET || 'aquila-pro-license-v1-secret-2026';
 const LICENSE_AES_KEY = crypto.scryptSync('aquila-license-key', 'aquila-salt', 32);
 const LICENSE_AES_IV_LEN = 16;
 
