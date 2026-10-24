@@ -2,6 +2,11 @@
   "name": "@aquila/db",
   "version": "1.0.0",
   "main": "src/index.ts",
+  "scripts": {
+    "generate": "drizzle-kit generate",
+    "push": "drizzle-kit push",
+    "migrate": "drizzle-kit migrate"
+  },
   "dependencies": {
     "better-sqlite3": "^11.0.0",
     "drizzle-orm": "^0.45.3"
