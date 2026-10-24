@@ -129,12 +129,104 @@ const PRESETS: Record<string, PresetData> = {
       { id: 5, term: 'DNA vs RNA', definition: 'Fita dupla com timina vs fita simples mensageira com uracila', challenge: 'Qual a base nitrogenada que substitui a timina no RNA?' },
       { id: 6, term: 'Epigenética', definition: 'Alterações na expressão gênica causadas por hábitos sem alterar o DNA', challenge: 'Estresse e má alimentação podem ativar ou desligar genes saudáveis?' }
     ]
+  },
+  ondulatoria: {
+    id: 'ondulatoria',
+    topic: 'Ondulatória, Acústica & Efeito Doppler no Cerrado',
+    discipline: 'Física',
+    bimesterRef: '2º Bimestre • Ondas, Som e Luz (PAS 2/3 UnB e UFMG)',
+    everydayHook: 'Por que o som de um carro de corrida ou ambulância fica mais agudo quando se aproxima e grave quando se afasta?',
+    podcast: [
+      { speaker: 'sofia', text: 'Lucas, ontem passou uma viatura da polícia em alta velocidade perto de mim em Brasília e o barulho da sirene mudou completamente quando ela passou! Era "UIIIII" na aproximação e virou "UUUUU" no afastamento. O motorista mexeu no botão ou foi pura física?' },
+      { speaker: 'lucas', text: 'Sofia, isso é um dos fenômenos mais elegantes da natureza: o Efeito Doppler! O motorista ouviu a sirene no mesmo tom o tempo todo. Mas você, que tava parada na calçada, percebeu a frequência mudar porque a fonte de ondas estava em movimento!' },
+      { speaker: 'sofia', text: 'E o que acontece com a onda quando a viatura vem na minha direção?' },
+      { speaker: 'lucas', text: 'Pensa numa máquina de jogar bolinhas de tênis. Se ela anda pra frente enquanto atira, cada nova frente de onda é emitida mais perto da anterior. As cristas da onda sonora se comprimem! O comprimento de onda encolhe e mais ondas chegam no seu ouvido por segundo. Maior frequência significa som mais agudo!' },
+      { speaker: 'sofia', text: 'E quando a viatura se afasta?' },
+      { speaker: 'lucas', text: 'As ondas se esticam, chegam menos cristas por segundo e o som fica mais grave. E o mais incrível: astrônomos usam exatamente essa mesma física com a luz das galáxias distantes. O "Desvio para o Vermelho" prova que o Universo está se expandindo!' }
+    ],
+    chunks: [
+      {
+        pillNumber: 1,
+        title: 'Equação Fundamental: v = λ · f',
+        badge: 'Lei Geral das Ondas',
+        badgeType: 'c1',
+        content: 'A velocidade da onda depende exclusivamente do meio material (no ar a 20°C, v ≈ 340 m/s). Como a velocidade não muda com o movimento da fonte, se o comprimento aparente (λ) diminui na aproximação, a frequência percebida (f) obrigatoriamente aumenta.'
+      },
+      {
+        pillNumber: 2,
+        title: 'Analogia do Barco e as Ondas do Lago',
+        badge: 'Visualização Mental',
+        badgeType: 'c2',
+        content: 'Imagine uma lancha parada na lagoa emitindo marolas circulares. Se a lancha acelerar para a frente, as marolas da frente se espremem enquanto as marolas de trás se distanciam. Quem está na margem frontal é atingido por marolas com muito mais rapidez.'
+      },
+      {
+        pillNumber: 3,
+        title: 'Armadilha Típica do Vestibular (PAS-UnB / ENEM)',
+        badge: 'Atenção aos Distratores',
+        badgeType: 'c3',
+        content: 'Pegadinha clássica: "O som fica mais FORTE ou mais AGUDO no Efeito Doppler?". Resposta: O Doppler altera a ALTURA (frequência: agudo/grave), e não a intensidade (volume: forte/fraco). O volume cresce apenas por proximidade geométrica.'
+      }
+    ],
+    boxes: [
+      { id: 1, term: 'Efeito Doppler', definition: 'Alteração na frequência percebida devido ao movimento relativo entre fonte e observador', challenge: 'Na aproximação, a frequência percebida é maior ou menor que a real?' },
+      { id: 2, term: 'Equação v = λ · f', definition: 'Velocidade = comprimento de onda multiplicado pela frequência', challenge: 'Se a velocidade é 340 m/s e f = 170 Hz, quanto vale o comprimento λ?' },
+      { id: 3, term: 'Altura Sonora', definition: 'Qualidade que distingue sons agudos (alta f) de sons graves (baixa f)', challenge: 'Uma nota musical de 880 Hz é mais aguda ou mais grave que uma de 220 Hz?' },
+      { id: 4, term: 'Timbre', definition: 'Formato da onda que permite distinguir instrumentos emitindo a mesma nota', challenge: 'Por que um violão e um piano soam diferentes tocando o mesmo Dó?' },
+      { id: 5, term: 'Redshift Cósmico', definition: 'Desvio da luz de galáxias distantes para frequências menores (vermelho)', challenge: 'O que o redshift cosmológico revelou sobre a evolução do universo?' },
+      { id: 6, term: 'Ecografia Doppler', definition: 'Uso de ultrassom com efeito Doppler para medir fluxo sanguíneo', challenge: 'Como a medicina diagnóstica mede a velocidade do sangue sem cortes?' }
+    ]
+  },
+  termodinamica: {
+    id: 'termodinamica',
+    topic: 'Termodinâmica, Calorimetria & Clima do Cerrado',
+    discipline: 'Física / Química',
+    bimesterRef: '1º Bimestre • Termodinâmica e Entropia (UFG / UEG)',
+    everydayHook: 'Por que colocar álcool ou suar no calor esfria o corpo e por que a panela de pressão cozinha o feijão mais rápido?',
+    podcast: [
+      { speaker: 'sofia', text: 'Lucas, quando a gente passa álcool em gel na mão, ela fica geladinha na mesma hora. O álcool tá na mesma temperatura ambiente da sala, então de onde vem essa sensação de gelo?' },
+      { speaker: 'lucas', text: 'Sofia, isso é puro Calor Latente de Vaporização! Para o líquido virar vapor, as moléculas mais rápidas precisam roubar calor de algum lugar para quebrar as ligações intermoleculares. E de onde elas roubam esse calor? Da sua pele!' },
+      { speaker: 'sofia', text: 'Então quando o corpo humano sua no calor de 38°C de Goiânia, o suor só funciona se ele evaporar?' },
+      { speaker: 'lucas', text: 'Exatamente! O suor líquido não esfria nada por si só. É o processo de evaporação que extrai 540 calorias por cada grama de água que vai para o ar. Por isso no clima seco do Cerrado a gente quase não vê o suor escorrer — ele evapora instantaneamente roubando calor e refrigerando o cérebro!' },
+      { speaker: 'sofia', text: 'E a panela de pressão? Ela cozinha a carne em 20 minutos por causa da Primeira Lei da Termodinâmica?' },
+      { speaker: 'lucas', text: 'Com certeza! Ao aumentar a pressão interna para 2 atmosferas, o ponto de ebulição da água sobe de 100°C para cerca de 120°C. Mais calor e mais temperatura aceleram a quebra do colágeno pela teoria das colisões da química cinética!' }
+    ],
+    chunks: [
+      {
+        pillNumber: 1,
+        title: 'Calor Sensível vs Calor Latente',
+        badge: 'Equações de Troca',
+        badgeType: 'c1',
+        content: 'Calor Sensível (Q = m · c · ΔT) altera a temperatura sem mudar o estado físico; Calor Latente (Q = m · L) muda o estado físico mantendo a temperatura constante durante a transição.'
+      },
+      {
+        pillNumber: 2,
+        title: 'Segunda Lei da Termodinâmica: A Seta do Tempo',
+        badge: 'Entropia e Limite',
+        badgeType: 'c2',
+        content: 'O calor flui espontaneamente sempre do corpo mais quente para o mais frio. Nenhuma máquina térmica real consegue converter 100% do calor recebido em trabalho útil (Teorema de Carnot).'
+      },
+      {
+        pillNumber: 3,
+        title: 'Destaque UFG / UEG (Agronomia e Clima)',
+        badge: 'Contexto Regional',
+        badgeType: 'c3',
+        content: 'A baixa umidade relativa do ar no inverno goiano (inferior a 15%) gera altas amplitudes térmicas: 14°C na madrugada e 34°C à tarde, porque o ar seco tem menor capacidade térmica que o ar úmido.'
+      }
+    ],
+    boxes: [
+      { id: 1, term: 'Primeira Lei da Termodinâmica', definition: 'ΔU = Q - W (A variação da energia interna é calor menos trabalho)', challenge: 'Se um gás recebe 500 J de calor e realiza 300 J de trabalho, quanto vale ΔU?' },
+      { id: 2, term: 'Ciclo de Carnot', definition: 'Rendimento máximo teórico de uma máquina térmica operando entre duas temperaturas', challenge: 'Uma máquina térmica pode ter rendimento de 100%?' },
+      { id: 3, term: 'Calor Latente', definition: 'Energia necessária para mudança de fase sem alteração de temperatura', challenge: 'Durante a fusão do gelo a 0°C, a temperatura varia?' },
+      { id: 4, term: 'Entropia (S)', definition: 'Medida do grau de desordem ou indisponibilidade de energia de um sistema', challenge: 'A entropia do universo tende a aumentar ou diminuir no tempo?' },
+      { id: 5, term: 'Pressão de Vapor', definition: 'Pressão exercida pelos vapores em equilíbrio com o líquido', challenge: 'No topo de uma montanha alta, a água ferve acima ou abaixo de 100°C?' },
+      { id: 6, term: 'Inversão Térmica', definition: 'Fenômeno meteorológico em que ar frio fica preso sob camada quente no Cerrado', challenge: 'Por que a poluição se concentra mais na época da seca em Goiânia?' }
+    ]
   }
 };
 
 export const MultimodalPedagogicalStudio: React.FC = () => {
   const [selectedPresetId, setSelectedPresetId] = useState<string>('eletrodinamica');
-  const [activeTab, setActiveTab] = useState<'podcast' | 'chunks' | 'wordwall'>('podcast');
+  const [activeTab, setActiveTab] = useState<'podcast' | 'chunks' | 'wordwall' | 'video-quiz'>('podcast');
   const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
   const [currentLineIdx, setCurrentLineIdx] = useState<number>(-1);
   const [openedBoxes, setOpenedBoxes] = useState<Record<number, boolean>>({});
@@ -364,6 +456,15 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
           <Box size={16} />
           <span>3. Jogos Gamificados (Estilo Wordwall)</span>
         </button>
+
+        <button
+          type="button"
+          className={`mms-tab-btn ${activeTab === 'video-quiz' ? 'active' : ''}`}
+          onClick={() => setActiveTab('video-quiz')}
+        >
+          <Video size={16} />
+          <span>4. Vídeo para Quiz & Notas (Estilo Brisk)</span>
+        </button>
       </div>
 
       {/* ABA 1: PODCAST DEEP DIVE (NOTEBOOKLM) */}
@@ -540,6 +641,125 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
               );
             })}
           </div>
+
+      {/* ABA 4: BRISK VIDEO-TO-QUIZ & NOTAS COGNITIVAS */}
+      {activeTab === 'video-quiz' && (
+        <div className="mms-video-card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+            <div>
+              <h4 style={{ margin: 0, fontSize: '1rem', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Video size={18} color="#a855f7" />
+                Brisk Video-to-Quiz & Descompressor de Videoaulas
+              </h4>
+              <p style={{ margin: '4px 0 0 0', fontSize: '0.82rem', color: '#94a3b8' }}>
+                Extrai marcos cognitivos por timestamp, gera 3 perguntas calibradas (DOK 1-3) e resumo para os alunos.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="mms-tab-btn"
+              style={{ background: 'rgba(168, 85, 247, 0.2)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.4)' }}
+              onClick={() => handleCopy(
+                `AULA DESCOMPRIMIDA: ${currentPreset.topic}\n\nTIMESTAMPS:\n- 00:00 Introdução & Fenômeno no Cotidiano\n- 03:20 Formulação Matemática e Leis Físicas\n- 07:15 Erro Clássico de Distrator no ENEM/PAS\n- 10:45 Resolução Socrática do Exercício`,
+                'Quiz do Vídeo'
+              )}
+            >
+              <Copy size={14} />
+              <span>{copiedText === 'Quiz do Vídeo' ? 'Copiado!' : 'Copiar Notas do Vídeo'}</span>
+            </button>
+          </div>
+
+          {/* INPUT DO VÍDEO */}
+          <div className="mms-video-input-row">
+            <input
+              type="text"
+              className="mms-video-input"
+              placeholder="Cole a URL do YouTube ou tema da videoaula..."
+              defaultValue="https://www.youtube.com/watch?v=aula-eletromagnetismo-coulomb"
+            />
+            <button
+              type="button"
+              className="mms-action-btn primary"
+              style={{ padding: '0 18px', height: 38 }}
+            >
+              <Sparkles size={14} />
+              <span>Analisar Videoaula com IA</span>
+            </button>
+          </div>
+
+          {/* MARCOS TEMPORAIS (TIMESTAMPS COGNITIVOS) */}
+          <h5 style={{ margin: '10px 0 4px 0', fontSize: '0.85rem', color: '#e2e8f0', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            Marcos Cognitivos da Videoaula ({currentPreset.discipline})
+          </h5>
+          <div className="mms-milestones-grid">
+            <div className="mms-milestone-item">
+              <span className="mms-milestone-time">00:00 — 02:45</span>
+              <strong style={{ fontSize: '0.85rem', color: '#f8fafc' }}>Contexto & Gancho</strong>
+              <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>{currentPreset.everydayHook}</span>
+            </div>
+            <div className="mms-milestone-item">
+              <span className="mms-milestone-time">02:45 — 06:30</span>
+              <strong style={{ fontSize: '0.85rem', color: '#f8fafc' }}>Modelagem Matemática</strong>
+              <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Dedução das variáveis e proporcionalidades no SI.</span>
+            </div>
+            <div className="mms-milestone-item">
+              <span className="mms-milestone-time">06:30 — 09:15</span>
+              <strong style={{ fontSize: '0.85rem', color: '#f8fafc' }}>Distratores de Prova</strong>
+              <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Onde a maioria dos estudantes erra na interpretação da banca.</span>
+            </div>
+            <div className="mms-milestone-item">
+              <span className="mms-milestone-time">09:15 — 12:00</span>
+              <strong style={{ fontSize: '0.85rem', color: '#f8fafc' }}>Fechamento & Síntese</strong>
+              <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Resolução guiada passo a passo pelo método Kumon.</span>
+            </div>
+          </div>
+
+          {/* QUIZ DE CHECAGEM COGNITIVA */}
+          <h5 style={{ margin: '14px 0 4px 0', fontSize: '0.85rem', color: '#e2e8f0', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            Checagem Rápida de Compreensão (3 Níveis de Bloom / DOK)
+          </h5>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div className="mms-quiz-item">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <strong style={{ fontSize: '0.85rem', color: '#38bdf8' }}>Nível 1 (Lembrar / DOK 1)</strong>
+                <span style={{ fontSize: '0.72rem', color: '#34d399', fontWeight: 700 }}>TAXA DE RETENÇÃO ESPERADA: 95%</span>
+              </div>
+              <p style={{ margin: 0, fontSize: '0.82rem', color: '#e2e8f0' }}>
+                Qual é a grandeza física fundamental que se conserva em todo processo de eletrização ou reação isolada?
+              </p>
+              <div style={{ fontSize: '0.76rem', color: '#94a3b8' }}>
+                <em>Gabarito:</em> Carga elétrica líquida (Princípio da Conservação das Cargas).
+              </div>
+            </div>
+
+            <div className="mms-quiz-item">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <strong style={{ fontSize: '0.85rem', color: '#f59e0b' }}>Nível 2 (Compreender / DOK 2)</strong>
+                <span style={{ fontSize: '0.72rem', color: '#f59e0b', fontWeight: 700 }}>TAXA DE RETENÇÃO ESPERADA: 80%</span>
+              </div>
+              <p style={{ margin: 0, fontSize: '0.82rem', color: '#e2e8f0' }}>
+                Se dobrarmos a distância entre dois corpos carregados, o que ocorre exatamente com a força eletrostática entre eles?
+              </p>
+              <div style={{ fontSize: '0.76rem', color: '#94a3b8' }}>
+                <em>Gabarito:</em> A força é dividida por 4 (proporcionalidade quadrática inversa da Lei de Coulomb).
+              </div>
+            </div>
+
+            <div className="mms-quiz-item">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <strong style={{ fontSize: '0.85rem', color: '#c084fc' }}>Nível 3 (Aplicar / DOK 3)</strong>
+                <span style={{ fontSize: '0.72rem', color: '#c084fc', fontWeight: 700 }}>TAXA DE RETENÇÃO ESPERADA: 70%</span>
+              </div>
+              <p style={{ margin: 0, fontSize: '0.82rem', color: '#e2e8f0' }}>
+                {currentPreset.boxes[0]?.challenge || 'Como explicar a polarização induzida sem transferência líquida de elétrons?'}
+              </p>
+              <div style={{ fontSize: '0.76rem', color: '#94a3b8' }}>
+                <em>Gabarito:</em> {currentPreset.boxes[0]?.definition || 'Separação de centros de carga na matéria neutra.'}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
           {/* MODAL DE DESAFIO DA CAIXA */}
           {selectedBoxModal && (
