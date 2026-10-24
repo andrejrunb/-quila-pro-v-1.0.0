@@ -321,6 +321,27 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
                 Batalhar
               </button>
             </div>
+            <div className="quest-card q-gold" onClick={() => onNavigate?.('phet-mastery')}>
+              <div className="quest-left">
+                <span className="q-badge">🔬 PHET & KUMON • +350 XP</span>
+                <h4>Laboratório PhET & Micro-Drills Kumon</h4>
+                <span className="quest-sub">Simulações de Física, Eletrostática Nativa e Desafios Diários de 3 min</span>
+              </div>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+                Praticar
+              </button>
+            </div>
+
+            <div className="quest-card q-gold" onClick={() => onNavigate?.('multimodal-studio')}>
+              <div className="quest-left">
+                <span className="q-badge">🎙️ PODCAST & WORDWALL • +200 XP</span>
+                <h4>Estúdio Multimodal & Gamificação</h4>
+                <span className="quest-sub">Podcast Sofia & Lucas, Pílulas Cognitivas Brisk e Abra a Caixa 30s</span>
+              </div>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+                Jogar
+              </button>
+            </div>
 
             <div className="quest-card q-bronze" onClick={() => onNavigate?.('ai-lab')}>
               <div className="quest-left">

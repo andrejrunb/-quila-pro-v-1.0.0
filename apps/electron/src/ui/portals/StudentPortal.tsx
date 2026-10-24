@@ -6,6 +6,9 @@ import { StudentMasteryChamber } from '../pages/StudentMasteryChamber';
 import { SovereignPvPArena } from '../components/SovereignPvPArena';
 import { BNCCSkillTree } from '../components/BNCCSkillTree';
 import { EssayLab1000 } from '../components/EssayLab1000';
+import { PhetKumonMasteryLab } from '../components/PhetKumonMasteryLab';
+import { MultimodalPedagogicalStudio } from '../components/MultimodalPedagogicalStudio';
+import { NativePhETSimulationLab } from '../components/NativePhETSimulationLab';
 
 interface StudentPortalProps {
   currentPage: string;
@@ -32,6 +35,14 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNav
       case 'essay-lab':
       case 'redacao':
         return <EssayLab1000 studentId={studentId} onBack={() => onNavigate('student-portal')} />;
+      case 'phet-mastery':
+      case 'stem-lab':
+        return <PhetKumonMasteryLab />;
+      case 'multimodal-studio':
+      case 'podcast-wordwall':
+        return <MultimodalPedagogicalStudio />;
+      case 'native-phet':
+        return <NativePhETSimulationLab />;
       case 'student-portal':
       case 'dashboard':
       default:

@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {
   Sparkles, Send, Brain, BookOpen, CheckCircle2, Lightbulb,
-  Zap, Flame, Trophy, Radio, RotateCcw, HelpCircle, XCircle
+  Zap, Flame, Trophy, Radio, RotateCcw, HelpCircle, XCircle, Box
 } from 'lucide-react-native';
 import { API_CONFIG } from '../services/apiConfig';
 
@@ -55,8 +55,24 @@ const DAILY_KUMON_DRILLS: KumonMobileDrill[] = [
   },
 ];
 
+interface MobileWordwallBox {
+  id: number;
+  term: string;
+  badge: string;
+  challenge: string;
+  answer: string;
+  hint: string;
+}
+
+const MOBILE_WORDWALL_BOXES: MobileWordwallBox[] = [
+  { id: 1, term: '⚡ Lei de Ohm', badge: 'Física', challenge: 'Na equação U = R · i, para U = 220 V e R = 11 Ω, qual a corrente i (em A)?', answer: '20', hint: 'i = 220 / 11' },
+  { id: 2, term: '🍎 1ª Lei de Newton', badge: 'Mecânica', challenge: 'A inércia de um corpo depende exclusivamente de qual grandeza física fundamental?', answer: 'massa', hint: 'Quanto mais pesado o corpo, mais difícil acelerá-lo.' },
+  { id: 3, term: '🧪 Lei de Proust', badge: 'Química', challenge: 'Se 2g de H₂ reagem com 16g de O₂ formando 18g de água, 4g de H₂ formam quantos gramas de água?', answer: '36', hint: 'Dobre a proporção fixa (18 x 2).' },
+  { id: 4, term: '🌊 Onda Sonora', badge: 'Ondulatória', challenge: 'Em v = λ · f, com v = 340 m/s e f = 170 Hz, qual o comprimento de onda em metros?', answer: '2', hint: 'λ = 340 / 170' }
+];
+
 export default function StudentLabTab() {
-  const [activeMode, setActiveMode] = useState<'chat' | 'kumon' | 'podcast'>('chat');
+  const [activeMode, setActiveMode] = useState<'chat' | 'kumon' | 'podcast' | 'wordwall'>('chat');
   const [topic, setTopic] = useState('');
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<StudyMessage[]>([
@@ -75,6 +91,9 @@ export default function StudentLabTab() {
   const [drillStatus, setDrillStatus] = useState<Record<string, 'correct' | 'incorrect'>>({});
   const [streakDays, setStreakDays] = useState(4);
   const [earnedXp, setEarnedXp] = useState(75);
+  const [openedBoxes, setOpenedBoxes] = useState<Record<number, boolean>>({});
+  const [wordwallAnswers, setWordwallAnswers] = useState<Record<number, string>>({});
+  const [wordwallStatus, setWordwallStatus] = useState<Record<number, 'correct' | 'incorrect'>>({});
 
   const quickPrompts = [
     '📐 Teorema de Pitágoras no cotidiano',
@@ -253,6 +272,14 @@ export default function StudentLabTab() {
             <Radio color={activeMode === 'podcast' ? '#38bdf8' : '#94a3b8'} size={14} />
             <Text style={[styles.modeText, activeMode === 'podcast' && styles.modeTextActive]}>Podcast</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.modeBtn, activeMode === 'wordwall' && styles.modeBtnActive]}
+            onPress={() => setActiveMode('wordwall')}
+          >
+            <Box color={activeMode === 'wordwall' ? '#38bdf8' : '#94a3b8'} size={14} />
+            <Text style={[styles.modeText, activeMode === 'wordwall' && styles.modeTextActive]}>Wordwall</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -390,7 +417,7 @@ export default function StudentLabTab() {
         </ScrollView>
       )}
 
-      {/* MODO 3: PODCAST NOTEBOOKLM */}
+      {/* MODO 3: PODCAST NOTEBOOKLM EXPANDIDO */}
       {activeMode === 'podcast' && (
         <ScrollView style={styles.chatArea} contentContainerStyle={{ padding: 16 }}>
           <View style={styles.podcastMobileCard}>
@@ -398,17 +425,112 @@ export default function StudentLabTab() {
               <Radio color="#c084fc" size={28} />
               <View style={{ flex: 1 }}>
                 <Text style={styles.podcastMobileTitle}>Deep Dive: Eletrodinâmica no Chuveiro</Text>
-                <Text style={styles.podcastMobileSub}>Apresentadores: Sofia & Lucas • Áudio de 4 min</Text>
+                <Text style={styles.podcastMobileSub}>Apresentadores: Sofia & Lucas • Áudio Completo</Text>
               </View>
             </View>
 
             <View style={styles.dialogueBox}>
-              <Text style={styles.speakerSofia}>🎙️ Sofia:</Text>
-              <Text style={styles.dialogueText}>"Lucas, por que todo mundo morre de medo de mudar a chave do chuveiro com o corpo molhado? É paranoia de mãe?"</Text>
+              <Text style={styles.speakerSofia}>🎙️ Sofia (00:04):</Text>
+              <Text style={styles.dialogueText}>"Lucas, por que todo mundo morre de medo de mudar a chave do chuveiro com o corpo molhado? É paranoia de mãe ou a física realmente explica isso?"</Text>
 
-              <Text style={[styles.speakerLucas, { marginTop: 12 }]}>🔬 Lucas:</Text>
-              <Text style={styles.dialogueText}>"Sofia, sua mãe tá coberta de razão! Pele seca tem 100 mil ohms. Molhada com sabão cai para menos de 1000 ohms. A corrente elétrica dispara e é ela quem causa o choque!"</Text>
+              <Text style={[styles.speakerLucas, { marginTop: 14 }]}>🔬 Lucas (00:15):</Text>
+              <Text style={styles.dialogueText}>"Sofia, sua mãe tá coberta de razão! Quando nossa pele tá seca, ela tem uma resistência altíssima de quase 100 mil ohms. Mas quando você tá molhado e com sabão, essa resistência despenca para menos de 1000 ohms. E pela Primeira Lei de Ohm, se a resistência cai, a corrente elétrica que atravessa seu corpo dispara!"</Text>
+
+              <Text style={[styles.speakerSofia, { marginTop: 14 }]}>🎙️ Sofia (00:32):</Text>
+              <Text style={styles.dialogueText}>"E o que realmente machuca a gente? É a voltagem de 220 volts ou é a corrente elétrica?"</Text>
+
+              <Text style={[styles.speakerLucas, { marginTop: 14 }]}>🔬 Lucas (00:44):</Text>
+              <Text style={styles.dialogueText}>"É a corrente! A voltagem é só o empurrão do elétron. Mas são os elétrons passando — a corrente em ampères — que causam fibrilação ventricular. Uma corrente de apenas 50 miliampères já pode ser fatal! É por isso que o fio terra é obrigatório por lei!"</Text>
+
+              <Text style={[styles.speakerSofia, { marginTop: 14 }]}>🎙️ Sofia (01:02):</Text>
+              <Text style={styles.dialogueText}>"Caramba! E quando cai o disjuntor da casa inteira porque ligaram a fritadeira e o chuveiro ao mesmo tempo?"</Text>
+
+              <Text style={[styles.speakerLucas, { marginTop: 14 }]}>🔬 Lucas (01:14):</Text>
+              <Text style={styles.dialogueText}>"Aí é pura associação em paralelo! Tudo na casa recebe 220V, mas cada aparelho puxa mais corrente. Quando a soma passa do limite do fio, o disjuntor desarma termicamente para não incendiar a fiação!"</Text>
             </View>
+          </View>
+        </ScrollView>
+      )}
+
+      {/* MODO 4: WORDWALL GAMIFICAÇÃO (ABRA A CAIXA) */}
+      {activeMode === 'wordwall' && (
+        <ScrollView style={styles.chatArea} contentContainerStyle={{ padding: 16 }}>
+          <View style={styles.wordwallHeaderCard}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+              <Box color="#34d399" size={24} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.wordwallTitle}>Wordwall: Abra a Caixa (30s)</Text>
+                <Text style={styles.wordwallSub}>Toque em uma caixa para destrancar o desafio (+30 XP)</Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.wordwallGrid}>
+            {MOBILE_WORDWALL_BOXES.map((b) => {
+              const isOpen = openedBoxes[b.id];
+              const st = wordwallStatus[b.id];
+              return (
+                <View key={b.id} style={[styles.wordwallBoxCard, isOpen && styles.wordwallBoxCardOpen]}>
+                  <TouchableOpacity
+                    style={styles.boxHeaderRow}
+                    activeOpacity={0.8}
+                    onPress={() => {
+                      if (!isOpen) {
+                        setOpenedBoxes((prev) => ({ ...prev, [b.id]: true }));
+                        setEarnedXp((prev) => prev + 30);
+                      }
+                    }}
+                  >
+                    <View style={styles.boxNumBadge}>
+                      <Text style={styles.boxNumText}>CAIXA {b.id}</Text>
+                    </View>
+                    <Text style={styles.boxTermText}>{isOpen ? b.term : '❓ Destrancar Caixa'}</Text>
+                    <Text style={styles.boxBadgeText}>{b.badge}</Text>
+                  </TouchableOpacity>
+
+                  {isOpen && (
+                    <View style={styles.boxBody}>
+                      <Text style={styles.boxChallengeText}>{b.challenge}</Text>
+                      <View style={styles.boxActionRow}>
+                        <TextInput
+                          style={styles.boxInput}
+                          placeholder="Digite a resposta..."
+                          placeholderTextColor="#64748b"
+                          value={wordwallAnswers[b.id] || ''}
+                          onChangeText={(val) => setWordwallAnswers((prev) => ({ ...prev, [b.id]: val }))}
+                        />
+                        <TouchableOpacity
+                          style={styles.boxCheckBtn}
+                          onPress={() => {
+                            const u = (wordwallAnswers[b.id] || '').trim().toLowerCase();
+                            const isCorrect = u.includes(b.answer.toLowerCase());
+                            setWordwallStatus((prev) => ({ ...prev, [b.id]: isCorrect ? 'correct' : 'incorrect' }));
+                            if (isCorrect && wordwallStatus[b.id] !== 'correct') {
+                              setEarnedXp((prev) => prev + 40);
+                            }
+                          }}
+                        >
+                          <Text style={styles.boxCheckBtnText}>OK</Text>
+                        </TouchableOpacity>
+                      </View>
+
+                      {st === 'correct' && (
+                        <View style={styles.boxCorrectAlert}>
+                          <CheckCircle2 color="#34d399" size={14} />
+                          <Text style={styles.boxCorrectText}>Mandou bem! +40 XP garantidos!</Text>
+                        </View>
+                      )}
+                      {st === 'incorrect' && (
+                        <View style={styles.boxIncorrectAlert}>
+                          <XCircle color="#f87171" size={14} />
+                          <Text style={styles.boxIncorrectText}>Dica: {b.hint}</Text>
+                        </View>
+                      )}
+                    </View>
+                  )}
+                </View>
+              );
+            })}
           </View>
         </ScrollView>
       )}
@@ -741,5 +863,126 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 18,
     marginTop: 2,
+  },
+  wordwallHeaderCard: {
+    backgroundColor: 'rgba(52, 211, 153, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(52, 211, 153, 0.3)',
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 16,
+  },
+  wordwallTitle: {
+    color: '#f8fafc',
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  wordwallSub: {
+    color: '#94a3b8',
+    fontSize: 12,
+    marginTop: 2,
+  },
+  wordwallGrid: {
+    gap: 12,
+  },
+  wordwallBoxCard: {
+    backgroundColor: '#0a1024',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 14,
+    padding: 14,
+  },
+  wordwallBoxCardOpen: {
+    borderColor: '#34d399',
+    backgroundColor: 'rgba(16, 185, 129, 0.06)',
+  },
+  boxHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  boxNumBadge: {
+    backgroundColor: 'rgba(56, 189, 248, 0.15)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  boxNumText: {
+    color: '#38bdf8',
+    fontSize: 10,
+    fontWeight: '800',
+  },
+  boxTermText: {
+    color: '#f8fafc',
+    fontSize: 13,
+    fontWeight: '700',
+    flex: 1,
+    marginLeft: 10,
+  },
+  boxBadgeText: {
+    color: '#94a3b8',
+    fontSize: 10,
+    fontWeight: '600',
+  },
+  boxBody: {
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.06)',
+  },
+  boxChallengeText: {
+    color: '#cbd5e1',
+    fontSize: 13,
+    lineHeight: 18,
+    marginBottom: 10,
+  },
+  boxActionRow: {
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+  },
+  boxInput: {
+    flex: 1,
+    backgroundColor: '#030712',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    color: '#f8fafc',
+    fontSize: 13,
+  },
+  boxCheckBtn: {
+    backgroundColor: '#10b981',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+  boxCheckBtnText: {
+    color: '#ffffff',
+    fontWeight: '800',
+    fontSize: 12,
+  },
+  boxCorrectAlert: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 8,
+  },
+  boxCorrectText: {
+    color: '#34d399',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  boxIncorrectAlert: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 8,
+  },
+  boxIncorrectText: {
+    color: '#f87171',
+    fontSize: 12,
+    fontWeight: '600',
   },
 });
