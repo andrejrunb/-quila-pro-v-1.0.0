@@ -11,6 +11,7 @@ import { HISTORICAL_CHARACTERS, generateCharacterResponse, HistoricalCharacter, 
 import { generatePedagogicalContent } from '../utils/curriculumGenerator';
 import { PhetKumonMasteryLab } from '../components/PhetKumonMasteryLab';
 import { MultimodalPedagogicalStudio } from '../components/MultimodalPedagogicalStudio';
+import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 import './TeacherAIStudio.css';
 
 interface TeacherAIStudioProps {
@@ -24,6 +25,7 @@ type StudioStation =
   | 'aquila-leveler'
   | 'aquila-stem-lab'
   | 'aquila-multimodal-studio'
+  | 'aquila-growth-agents'
   | 'aquila-copilot'
   | 'aquila-snapshot';
 
@@ -518,6 +520,13 @@ INSTRUÇÕES OBRIGATÓRIAS:
         >
           <Sparkles size={16} />
           <span>8. Estúdio Multimodal & Gamificação (Brisk • NotebookLM Podcast • Wordwall)</span>
+        </button>
+        <button
+          className={`tai-station-btn ${activeStation === 'aquila-growth-agents' ? 'active' : ''}`}
+          onClick={() => setActiveStation('aquila-growth-agents')}
+        >
+          <Sparkles size={16} />
+          <span>9. Enxame de Agentes (Blog Storyteller • Leads & Marketing • Autoridade Científica)</span>
         </button>
       </nav>
 
@@ -1050,6 +1059,13 @@ INSTRUÇÕES OBRIGATÓRIAS:
           ===================================================================== */}
       {activeStation === 'aquila-multimodal-studio' && (
         <MultimodalPedagogicalStudio />
+      )}
+
+      {/* =====================================================================
+          ESTAÇÃO 9: ENXAME DE AGENTES (STORYTELLER, LEADS, AUTORIDADE)
+          ===================================================================== */}
+      {activeStation === 'aquila-growth-agents' && (
+        <SchoolGrowthAgentSuite />
       )}
 
 {/* =====================================================================

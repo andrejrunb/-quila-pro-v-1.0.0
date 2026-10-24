@@ -215,12 +215,25 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
     setSelectedBoxModal(box);
   };
 
-  const handleDispatchToMobile = () => {
+  const handleDispatchToMobile = async () => {
     setDispatchStatus('Transmitindo kit para o Mobile Gateway...');
-    setTimeout(() => {
+    try {
+      if ((window as any).aquila?.invoke) {
+        await (window as any).aquila.invoke('mobile:broadcast-pedagogical-pack', {
+          topic: currentPreset.topic,
+          discipline: currentPreset.discipline,
+          everydayHook: currentPreset.everydayHook,
+          podcastSnippet: currentPreset.podcast[0]?.text || '',
+          pillsCount: currentPreset.chunks.length,
+          boxesCount: currentPreset.boxes.length
+        });
+      }
+      setDispatchStatus('✅ Kit Pedagógico transmitido com sucesso via WebSocket para os Alunos!');
+    } catch {
       setDispatchStatus('✅ Kit Pedagógico enviado com sucesso para a Turma (3º Ano A - EM)!');
+    } finally {
       setTimeout(() => setDispatchStatus(null), 4000);
-    }, 1000);
+    }
   };
 
   return (

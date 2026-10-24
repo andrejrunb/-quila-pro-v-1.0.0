@@ -2684,6 +2684,22 @@ function registerExpansionCluster(context: any, protectedHandle: any) {
     return { activeClients: 0 }; // Placeholder
   });
 
+  protectedHandle('mobile:broadcast-pedagogical-pack', async (_e: any, packData: any) => {
+    try {
+      const { mobileGateway } = await import('../main/services/MobileGateway');
+      mobileGateway.broadcast({
+        type: 'PEDAGOGICAL_PACK_DISPATCH',
+        payload: {
+          timestamp: new Date().toISOString(),
+          ...packData
+        }
+      });
+      return { success: true, deliveredAt: new Date().toISOString() };
+    } catch (err: any) {
+      return { success: false, error: err?.message || String(err) };
+    }
+  });
+
   // INFRAESTRUTURA (CLOUD)
   protectedHandle('infra:cloud-sync', async () => {
     const { cloudMirrorService } = await import('../main/services/CloudMirrorService');

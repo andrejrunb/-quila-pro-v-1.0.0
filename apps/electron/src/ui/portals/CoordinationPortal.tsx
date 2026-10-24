@@ -7,6 +7,7 @@ import { SeatingIntelligence } from '../pages/SeatingIntelligence';
 import { StudentMasteryChamber } from '../pages/StudentMasteryChamber';
 import { TimetableBuilder } from '../components/TimetableBuilder';
 import { BNCCProficiencyHeatmap } from '../components/BNCCProficiencyHeatmap';
+import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 import './CoordinationPortal.css';
 import {
   Users, TrendingDown, AlertTriangle, BookOpen,
@@ -51,6 +52,13 @@ export const CoordinationPortal: React.FC<CoordinationPortalProps> = ({ currentP
         return (
           <div className="coord-portal-shell">
             <BNCCProficiencyHeatmap />
+          </div>
+        );
+      case 'growth-agents':
+      case 'school-growth-agents':
+        return (
+          <div className="coord-portal-shell">
+            <SchoolGrowthAgentSuite />
           </div>
         );
       default:
@@ -146,6 +154,10 @@ const CoordKPIBar: React.FC<{ onNavigate: (page: string) => void }> = ({ onNavig
           <button className="coord-cmd-btn primary" onClick={() => onNavigate('timetable')}>
             <Clock size={13} />
             <span>Grade Horária (Urânia+ IA)</span>
+          </button>
+          <button className="coord-cmd-btn primary" onClick={() => onNavigate('growth-agents')}>
+            <Sparkles size={13} />
+            <span>Agentes & Autoridade</span>
           </button>
           <button className="coord-cmd-btn" onClick={() => onNavigate('seating-intelligence')}>
             <LayoutGrid size={13} />

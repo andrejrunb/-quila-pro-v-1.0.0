@@ -19,6 +19,7 @@ import { StudentAILab } from '../pages/StudentAILab';
 import HelpCenter from '../pages/HelpCenter';
 import { PricingGlassUI } from '../pages/PricingGlassUI';
 import { StudentMasteryChamber } from '../pages/StudentMasteryChamber';
+import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 
 // Relocated Security Pages
 import { SecurityMonitor } from '../pages/SecurityMonitor';
@@ -90,6 +91,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
           <button onClick={() => onNavigate('seating-intelligence')} className="ap-btn primary">
             <LayoutGrid size={14} />
             <span>Mapa de Salas IA</span>
+          </button>
+          <button onClick={() => onNavigate('growth-agents')} className="ap-btn primary">
+            <Sparkles size={14} />
+            <span>Agentes de Crescimento</span>
           </button>
           <button onClick={() => onNavigate('students')} className="ap-btn">
             <UserPlus size={14} />
@@ -347,6 +352,9 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
         return <LoadTesting onBack={onBack} />;
       case 'network-traffic':
         return <NetworkTrafficDashboard onBack={onBack} />;
+      case 'growth-agents':
+      case 'school-growth-agents':
+        return <SchoolGrowthAgentSuite />;
       default:
         return renderExecutiveDashboard();
     }

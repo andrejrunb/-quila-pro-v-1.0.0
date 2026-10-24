@@ -115,6 +115,23 @@ export default function StudentLabTab() {
             },
           ]);
         }
+        if (payload.type === 'PEDAGOGICAL_PACK_DISPATCH') {
+          const pack = payload.payload || {};
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: `pack-${Date.now()}`,
+              sender: 'albus',
+              text: `📢 NOVO MATERIAL ENVIADO PELO PROFESSOR!
+
+📌 ${pack.discipline || 'Estudos'}: ${pack.topic || 'Revisão'}
+💡 "${pack.everydayHook || ''}"
+
+🎙️ O Podcast com Sofia & Lucas e os desafios de retenção já estão sincronizados no seu app!`,
+              timestamp: Date.now(),
+            },
+          ]);
+        }
       } catch (err) {
         console.error('Erro no parser do Albus IA', err);
         setLoading(false);
