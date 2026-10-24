@@ -11,3 +11,7 @@ tmp
 latest.yml
 builder-effective-config.yaml
 builder-debug.yml
+test-user-data/
+test-user-data-*/
+test-results/
+e2e/.auth/

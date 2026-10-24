@@ -541,9 +541,9 @@ export async function seedRealSchool(db: Database): Promise<{
       description: 'Resolver os exercícios de 1 a 10 da página 45 da apostila de matemática.',
       date: todayStr,
       type: 'tarefa',
-      classId: 'class-1a',
+      classId: null,
       subject: 'Matemática',
-      teacherId: 'teacher-docente1'
+      teacherId: null
     },
     {
       id: 'seed-evt-tarefa-2',
@@ -551,9 +551,9 @@ export async function seedRealSchool(db: Database): Promise<{
       description: 'Escrever texto dissertativo de até 30 linhas sobre a Proclamação da República.',
       date: tomorrowStr,
       type: 'tarefa',
-      classId: 'class-1a',
+      classId: null,
       subject: 'História',
-      teacherId: 'teacher-docente2'
+      teacherId: null
     },
     {
       id: 'seed-evt-tarefa-3',
@@ -561,9 +561,9 @@ export async function seedRealSchool(db: Database): Promise<{
       description: 'Escrever no caderno 3 exemplos práticos de aplicação da Primeira e Terceira Lei de Newton.',
       date: tomorrowStr,
       type: 'tarefa',
-      classId: 'class-2a',
+      classId: null,
       subject: 'Física',
-      teacherId: 'teacher-docente1'
+      teacherId: null
     }
   ];
 
