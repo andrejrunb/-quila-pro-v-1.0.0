@@ -10,6 +10,7 @@ import { STUDENTS } from '../../database/studentsData';
 import { HISTORICAL_CHARACTERS, generateCharacterResponse, HistoricalCharacter, CharacterArea } from '../utils/historicalPersonas';
 import { generatePedagogicalContent } from '../utils/curriculumGenerator';
 import { PhetKumonMasteryLab } from '../components/PhetKumonMasteryLab';
+import { MultimodalPedagogicalStudio } from '../components/MultimodalPedagogicalStudio';
 import './TeacherAIStudio.css';
 
 interface TeacherAIStudioProps {
@@ -22,6 +23,7 @@ type StudioStation =
   | 'aquila-inspect'
   | 'aquila-leveler'
   | 'aquila-stem-lab'
+  | 'aquila-multimodal-studio'
   | 'aquila-copilot'
   | 'aquila-snapshot';
 
@@ -509,6 +511,13 @@ INSTRUÇÕES OBRIGATÓRIAS:
         >
           <BarChart3 size={16} />
           <span>7. Raio-X da Turma & Diagnóstico BNCC</span>
+        </button>
+        <button
+          className={`tai-station-btn ${activeStation === 'aquila-multimodal-studio' ? 'active' : ''}`}
+          onClick={() => setActiveStation('aquila-multimodal-studio')}
+        >
+          <Sparkles size={16} />
+          <span>8. Estúdio Multimodal & Gamificação (Brisk • NotebookLM Podcast • Wordwall)</span>
         </button>
       </nav>
 
@@ -1036,7 +1045,14 @@ INSTRUÇÕES OBRIGATÓRIAS:
         </div>
       )}
 
-      {/* =====================================================================
+            {/* =====================================================================
+          ESTAÇÃO 8: ESTÚDIO MULTIMODAL (BRISK + NOTEBOOKLM + WORDWALL)
+          ===================================================================== */}
+      {activeStation === 'aquila-multimodal-studio' && (
+        <MultimodalPedagogicalStudio />
+      )}
+
+{/* =====================================================================
           ESTAÇÃO 5: LABORATÓRIO STEM & DIÁLOGO COM 33 GRANDES PENSADORES
           ===================================================================== */}
       {activeStation === 'aquila-stem-lab' && (
