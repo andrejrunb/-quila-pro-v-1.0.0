@@ -15,19 +15,20 @@ describe('Navbar Component', () => {
   it('deve renderizar o título Áquila Pro', () => {
     render(<Navbar />);
     expect(screen.getByText(/Áquila/i)).toBeInTheDocument();
-    expect(screen.getByText(/School OS/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pro/i)).toBeInTheDocument();
   });
 
-  it('deve exibir o link de Agendar Demo', () => {
+  it('deve exibir os botões de ação institucional', () => {
     render(<Navbar />);
-    const demoButton = screen.getByText(/Agendar Demo/i);
-    expect(demoButton).toBeInTheDocument();
+    expect(screen.getByText(/Portais Educacionais/i)).toBeInTheDocument();
+    expect(screen.getByText(/Acesso Soberano/i)).toBeInTheDocument();
   });
 
   it('deve possuir os links principais de navegação', () => {
     render(<Navbar />);
-    expect(screen.getByText(/Produto/i)).toBeInTheDocument();
-    expect(screen.getByText(/Soluções/i)).toBeInTheDocument();
-    expect(screen.getByText(/Segurança/i)).toBeInTheDocument();
+    expect(screen.getByText(/Intro/i)).toBeInTheDocument();
+    expect(screen.getByText(/Vantagens/i)).toBeInTheDocument();
+    expect(screen.getByText(/Tecnologia/i)).toBeInTheDocument();
+    expect(screen.getByText(/ROI/i)).toBeInTheDocument();
   });
 });

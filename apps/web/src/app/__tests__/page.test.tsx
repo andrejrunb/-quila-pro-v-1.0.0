@@ -12,7 +12,16 @@ vi.mock('next/image', () => {
   };
 });
 
-// Mock do Lucide React para evitar problemas de renderização de ícones complexos em JSDOM
+// Mock do animejs para evitar problemas de animação em ambiente JSDOM
+vi.mock('animejs', () => {
+  return {
+    animate: vi.fn(),
+    stagger: vi.fn(),
+    default: vi.fn(),
+  };
+});
+
+// Mock do Lucide React
 vi.mock('lucide-react', async () => {
   const actual = await vi.importActual('lucide-react');
   return {
@@ -27,24 +36,26 @@ describe('Home Page', () => {
   it('deve renderizar o título principal (H1)', () => {
     render(<Home />);
     const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent(/O Sistema Operacional Escolar Soberano/i);
+    expect(heading).toHaveTextContent(/Áquila/i);
+    expect(heading).toHaveTextContent(/Pro/i);
   });
 
-  it('deve renderizar o botão de Agendar Conversa', () => {
+  it('deve renderizar os botões de Agendar Demo', () => {
     render(<Home />);
-    expect(screen.getByText(/Agendar Conversa/i)).toBeInTheDocument();
+    const demoBtns = screen.getAllByText(/Agendar Demo/i);
+    expect(demoBtns.length).toBeGreaterThan(0);
   });
 
-  it('deve renderizar as seções de benefícios', () => {
+  it('deve renderizar as abas de soluções por público', () => {
     render(<Home />);
-    expect(screen.getByText(/Segurança & Presença/i)).toBeInTheDocument();
-    expect(screen.getByText(/Transparência Real/i)).toBeInTheDocument();
-    expect(screen.getByText(/Zero Burocracia/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Para Gestão & Coordenação/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Para Professores/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Para Pais/i).length).toBeGreaterThan(0);
   });
 
-  it('deve renderizar os números de impacto', () => {
+  it('deve renderizar os indicadores institucionais', () => {
     render(<Home />);
-    expect(screen.getByText((content) => content.startsWith('0.2'))).toBeInTheDocument();
-    expect(screen.getByText(/Tempo de Presença/i)).toBeInTheDocument();
+    expect(screen.getByText(/Escolas/i)).toBeInTheDocument();
+    expect(screen.getByText(/Uptime/i)).toBeInTheDocument();
   });
 });
