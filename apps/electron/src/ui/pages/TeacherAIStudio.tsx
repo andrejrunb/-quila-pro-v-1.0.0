@@ -9,6 +9,7 @@ import {
 import { STUDENTS } from '../../database/studentsData';
 import { HISTORICAL_CHARACTERS, generateCharacterResponse, HistoricalCharacter, CharacterArea } from '../utils/historicalPersonas';
 import { generatePedagogicalContent } from '../utils/curriculumGenerator';
+import { PhetKumonMasteryLab } from '../components/PhetKumonMasteryLab';
 import './TeacherAIStudio.css';
 
 interface TeacherAIStudioProps {
@@ -1040,48 +1041,9 @@ INSTRUÇÕES OBRIGATÓRIAS:
           ===================================================================== */}
       {activeStation === 'aquila-stem-lab' && (
         <div className="tai-sections-grid">
-          {/* SIMULADOR FÍSICO INTERATIVO */}
-          <div className="tai-main-card">
-            <span className="tai-badge-inline">LABORATÓRIO STEM SOBERANO • MECÂNICA & BALÍSTICA</span>
-            <h2>Simulador Físico: Lançamento Oblíquo de Projéteis (g = 9,8 m/s²)</h2>
-
-            <div className="tai-sim-controls" style={{ marginTop: 14 }}>
-              <div className="sim-slider">
-                <label>Ângulo de Disparo (θ): <strong>{projectileAngle}°</strong></label>
-                <input
-                  type="range"
-                  min={10}
-                  max={85}
-                  value={projectileAngle}
-                  onChange={e => setProjectileAngle(Number(e.target.value))}
-                />
-              </div>
-              <div className="sim-slider">
-                <label>Velocidade Inicial (v₀): <strong>{projectileVelocity} m/s</strong></label>
-                <input
-                  type="range"
-                  min={10}
-                  max={60}
-                  value={projectileVelocity}
-                  onChange={e => setProjectileVelocity(Number(e.target.value))}
-                />
-              </div>
-            </div>
-
-            <div className="inspect-kpi-strip" style={{ marginTop: '16px' }}>
-              <div className="inspect-kpi">
-                <span>ALCANCE HORIZONTAL (R)</span>
-                <strong className="text-emerald-400">{projectileMetrics.range} m</strong>
-              </div>
-              <div className="inspect-kpi">
-                <span>ALTURA MÁXIMA (H máx)</span>
-                <strong className="text-cyan-400">{projectileMetrics.maxHeight} m</strong>
-              </div>
-              <div className="inspect-kpi">
-                <span>TEMPO DE VOO (t total)</span>
-                <strong className="text-amber-400">{projectileMetrics.flightTime} s</strong>
-              </div>
-            </div>
+          {/* LABORATÓRIO SOBERANO PHET COLORADO & KUMON MASTERY */}
+          <div style={{ gridColumn: '1 / -1' }}>
+            <PhetKumonMasteryLab />
           </div>
 
           {/* MENTORIA HISTÓRICA COM CIENTISTAS E PENSADORES */}
