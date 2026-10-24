@@ -1,0 +1,524 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ÁQUILA EXAM & ASSESSMENT FOUNDRY — CSS
+   Padrão ENEM / PAS-UnB / SOMOS Plurall com Impressão A4 2 Colunas
+   ═══════════════════════════════════════════════════════════════════ */
+
+.epf-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  color: var(--stitch-text-primary, #F8FAFC);
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+/* Painel de Controle de Geração (Oculto na impressão) */
+.epf-control-panel {
+  padding: 16px 20px;
+  background: var(--stitch-surface, rgba(14, 19, 31, 0.9));
+  border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.epf-control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.epf-control-title h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #F8FAFC;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.epf-control-title p {
+  margin: 0;
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.epf-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.epf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #141B2D;
+  color: #E2E8F0;
+  transition: all 0.15s ease;
+}
+
+.epf-btn:hover {
+  background: rgba(14, 165, 233, 0.18);
+  border-color: #0EA5E9;
+  color: #FFF;
+}
+
+.epf-btn.primary {
+  background: linear-gradient(135deg, #0284C7, #6366F1);
+  border-color: #0EA5E9;
+  color: #FFF;
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.3);
+}
+
+.epf-btn.primary:hover {
+  background: linear-gradient(135deg, #0369A1, #4F46E5);
+}
+
+.epf-btn.success {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: #10B981;
+  color: #34D399;
+}
+
+.epf-filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.epf-filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.epf-filter-item label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono, monospace);
+}
+
+.epf-filter-item select,
+.epf-filter-item input {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #F8FAFC;
+  padding: 0 10px;
+  font-size: 12px;
+  outline: none;
+}
+
+.epf-filter-item select:focus,
+.epf-filter-item input:focus {
+  border-color: #00F0FF;
+}
+
+/* Modos de visualização (Prova / Gabarito / Cartão) */
+.epf-view-toggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.epf-toggle-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: #94A3B8;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.epf-toggle-btn.active {
+  background: #0EA5E9;
+  color: #FFFFFF;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FOLHA A4 DA PROVA (PADRÃO ENEM / SOMOS PLURALL 2 COLUNAS)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.epf-paper-preview {
+  background: #FFFFFF;
+  color: #111827;
+  padding: 28px 32px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  font-family: 'Times New Roman', Times, serif;
+  margin: 0 auto;
+  max-width: 900px;
+  min-height: 1000px;
+}
+
+/* Cabeçalho da Prova */
+.epf-exam-header {
+  border: 2px solid #111827;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  background: #FAFAFA;
+}
+
+.epf-exam-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid #111827;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.epf-school-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.epf-school-seal {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #0F172A;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  border: 2px solid #0284C7;
+}
+
+.epf-school-info h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #0F172A;
+  font-family: 'Inter', sans-serif;
+}
+
+.epf-school-info span {
+  font-size: 11px;
+  color: #475569;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.epf-exam-title-badge {
+  text-align: right;
+  font-family: 'Inter', sans-serif;
+}
+
+.epf-exam-title-badge .title {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0284C7;
+  text-transform: uppercase;
+}
+
+.epf-exam-title-badge .subtitle {
+  font-size: 10px;
+  color: #64748B;
+  font-weight: 600;
+}
+
+/* Dados do Aluno */
+.epf-student-fields {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 8px;
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+}
+
+.epf-student-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px dotted #64748B;
+  padding-bottom: 2px;
+}
+
+.epf-student-field strong {
+  font-size: 10px;
+  color: #334155;
+  text-transform: uppercase;
+}
+
+/* Instruções de Prova */
+.epf-instructions-box {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-left: 3px solid #0284C7;
+  padding: 6px 12px;
+  margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9.5px;
+  color: #334155;
+  line-height: 1.4;
+}
+
+/* Grid de Questões em 2 Colunas */
+.epf-questions-two-col {
+  column-count: 2;
+  column-gap: 24px;
+  column-rule: 1px solid #E2E8F0;
+  text-align: justify;
+}
+
+.epf-question-block {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #CBD5E1;
+}
+
+.epf-q-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-family: 'Inter', sans-serif;
+}
+
+.epf-q-num {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0F172A;
+  background: #F1F5F9;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.epf-q-banca {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #0284C7;
+  text-transform: uppercase;
+}
+
+.epf-q-statement {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #1E293B;
+  margin: 0 0 8px 0;
+}
+
+.epf-q-alternatives {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.epf-q-alt-item {
+  font-size: 11px;
+  line-height: 1.35;
+  color: #334155;
+  display: flex;
+  gap: 4px;
+}
+
+.epf-q-alt-letter {
+  font-weight: 700;
+  color: #0F172A;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Pill Interativo com Simulação PhET / NotebookLM */
+.epf-q-interactive-pill {
+  margin-top: 8px;
+  padding: 4px 8px;
+  background: #F0FDF4;
+  border: 1px dashed #22C55E;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  color: #15803D;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.epf-q-interactive-pill strong {
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CARTÃO RESPOSTA OFICIAL OMR (FOLHA DE BOLINHAS)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.epf-omr-container {
+  border: 2px solid #0F172A;
+  padding: 20px;
+  background: #FAFAFA;
+}
+
+.epf-omr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 24px;
+  margin-top: 14px;
+}
+
+.epf-omr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 4px;
+}
+
+.epf-omr-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0F172A;
+  min-width: 24px;
+}
+
+.epf-omr-bubbles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.epf-omr-bubble {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #334155;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+
+.epf-omr-bubble.marked {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GABARITO COMENTADO & KUMON RESOLUTION GUIDE
+   ═══════════════════════════════════════════════════════════════════ */
+
+.epf-answer-key-box {
+  background: #F8FAFC;
+  border: 2px solid #0284C7;
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+.epf-ans-item {
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.epf-ans-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.epf-ans-badge {
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #0284C7;
+  color: #FFF;
+  font-size: 11px;
+}
+
+.epf-ans-letter {
+  font-weight: 900;
+  color: #10B981;
+  font-size: 14px;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.epf-kumon-trail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: #EFF6FF;
+  border-radius: 6px;
+  font-size: 10.5px;
+  color: #1E3A8A;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   REGRAS DE IMPRESSÃO A4 (WINDOW.PRINT)
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .epf-paper-preview,
+  .epf-paper-preview * {
+    visibility: visible;
+  }
+  .epf-paper-preview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    background: #FFF !important;
+  }
+  .epf-control-panel,
+  .epf-view-toggle,
+  .tai-header,
+  .tai-station-tabs,
+  .sidebar,
+  .topbar {
+    display: none !important;
+  }
+}

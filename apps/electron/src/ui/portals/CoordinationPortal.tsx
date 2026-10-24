@@ -8,10 +8,11 @@ import { StudentMasteryChamber } from '../pages/StudentMasteryChamber';
 import { TimetableBuilder } from '../components/TimetableBuilder';
 import { BNCCProficiencyHeatmap } from '../components/BNCCProficiencyHeatmap';
 import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
+import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
 import './CoordinationPortal.css';
 import {
   Users, TrendingDown, AlertTriangle, BookOpen,
-  Calendar, FileText, LayoutGrid, Sparkles, Clock, Flame
+  Calendar, FileText, LayoutGrid, Sparkles, Clock, Flame, Printer
 } from 'lucide-react';
 
 interface CoordinationPortalProps {
@@ -59,6 +60,13 @@ export const CoordinationPortal: React.FC<CoordinationPortalProps> = ({ currentP
         return (
           <div className="coord-portal-shell">
             <SchoolGrowthAgentSuite />
+          </div>
+        );
+      case 'exam-foundry':
+      case 'banco-provas':
+        return (
+          <div className="coord-portal-shell">
+            <ExamPaperFoundry />
           </div>
         );
       default:
@@ -154,6 +162,10 @@ const CoordKPIBar: React.FC<{ onNavigate: (page: string) => void }> = ({ onNavig
           <button className="coord-cmd-btn primary" onClick={() => onNavigate('timetable')}>
             <Clock size={13} />
             <span>Grade Horária (Urânia+ IA)</span>
+          </button>
+          <button className="coord-cmd-btn primary" onClick={() => onNavigate('exam-foundry')}>
+            <Printer size={13} />
+            <span>Gerador de Provas A4</span>
           </button>
           <button className="coord-cmd-btn primary" onClick={() => onNavigate('growth-agents')}>
             <Sparkles size={13} />

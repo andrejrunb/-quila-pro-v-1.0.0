@@ -20,9 +20,10 @@ import { BNCCSkillTree } from '../components/BNCCSkillTree';
 import { EssayLab1000 } from '../components/EssayLab1000';
 import OmrScannerUI from '../components/OmrScannerUI';
 import { BNCCProficiencyHeatmap } from '../components/BNCCProficiencyHeatmap';
+import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
 import {
   Clock, Users, AlertCircle, CheckCircle2, Calendar,
-  FileText, ChevronRight, AlertTriangle, LayoutGrid, Sparkles, BookOpen, FileSpreadsheet, Swords, Presentation, Camera, Flame
+  FileText, ChevronRight, AlertTriangle, LayoutGrid, Sparkles, BookOpen, FileSpreadsheet, Swords, Presentation, Camera, Flame, Printer
 } from 'lucide-react';
 import './TeacherPortal.css';
 
@@ -71,6 +72,10 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void }> = ({ on
           <h1 className="tp-command-title">Gestão de Sala & Telemetria Pedagógica</h1>
         </div>
         <div className="tp-command-actions">
+          <button className="tp-action-btn primary" onClick={() => onNavigate('exam-foundry')}>
+            <Printer size={14} />
+            <span>Gerador de Provas A4</span>
+          </button>
           <button className="tp-action-btn primary" onClick={() => onNavigate('slide-studio')}>
             <Presentation size={14} />
             <span>Estúdio de Slides</span>
@@ -355,6 +360,9 @@ export const TeacherPortal: React.FC<TeacherPortalProps> = ({ currentPage, onNav
         return <TeacherAIStudio onBack={onBack} />;
       case 'activity-factory':
         return <ActivityFactory onBack={onBack} />;
+      case 'exam-foundry':
+      case 'banco-provas':
+        return <ExamPaperFoundry />;
       case 'slide-studio':
         return <SlideStudio onBack={onBack} />;
       case 'arena':

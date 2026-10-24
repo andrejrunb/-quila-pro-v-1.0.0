@@ -13,6 +13,7 @@ import { PhetKumonMasteryLab } from '../components/PhetKumonMasteryLab';
 import { NativePhETSimulationLab } from '../components/NativePhETSimulationLab';
 import { MultimodalPedagogicalStudio } from '../components/MultimodalPedagogicalStudio';
 import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
+import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
 import './TeacherAIStudio.css';
 
 interface TeacherAIStudioProps {
@@ -27,6 +28,7 @@ type StudioStation =
   | 'aquila-stem-lab'
   | 'aquila-multimodal-studio'
   | 'aquila-growth-agents'
+  | 'aquila-exam-foundry'
   | 'aquila-copilot'
   | 'aquila-snapshot';
 
@@ -530,6 +532,13 @@ INSTRUÇÕES OBRIGATÓRIAS:
           <Sparkles size={16} />
           <span>9. Enxame de Agentes (Blog Storyteller • Leads & Marketing • Autoridade Científica)</span>
         </button>
+        <button
+          className={`tai-station-btn ${activeStation === 'aquila-exam-foundry' ? 'active' : ''}`}
+          onClick={() => setActiveStation('aquila-exam-foundry')}
+        >
+          <Printer size={16} />
+          <span>10. Gerador de Provas A4 & OMR (Padrão ENEM / PAS / SOMOS Plurall)</span>
+        </button>
       </nav>
 
       {/* =====================================================================
@@ -774,8 +783,20 @@ INSTRUÇÕES OBRIGATÓRIAS:
             {/* 5. LISTA DE QUESTÕES VESTIBULAR */}
             {selectedTool === 'enem-saeb-gen' && (
               <div className="tai-output-box">
-                <span className="tai-badge-inline">BANCO DE QUESTÕES VESTIBULARES • PADRÃO TRI</span>
-                <h2>Lista de Questões Calibradas — {topic}</h2>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 12 }}>
+                  <div>
+                    <span className="tai-badge-inline">BANCO DE QUESTÕES VESTIBULARES • PADRÃO TRI</span>
+                    <h2 style={{ margin: '4px 0 0 0' }}>Lista de Questões Calibradas — {topic}</h2>
+                  </div>
+                  <button
+                    className="af-btn primary"
+                    style={{ background: 'linear-gradient(135deg, #0284c7, #6366f1)', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+                    onClick={() => setActiveStation('aquila-exam-foundry')}
+                  >
+                    <Printer size={16} />
+                    <span>Diagramar Prova Oficial A4 (2 Colunas + OMR)</span>
+                  </button>
+                </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginTop: 16 }}>
                   {dynamicPedagogy.questions.map((q, idx) => (
@@ -1068,6 +1089,13 @@ INSTRUÇÕES OBRIGATÓRIAS:
           ===================================================================== */}
       {activeStation === 'aquila-growth-agents' && (
         <SchoolGrowthAgentSuite />
+      )}
+
+      {/* =====================================================================
+          ESTAÇÃO 10: GERADOR DE PROVAS A4 & OMR (ENEM / PAS / PLURALL)
+          ===================================================================== */}
+      {activeStation === 'aquila-exam-foundry' && (
+        <ExamPaperFoundry />
       )}
 
 {/* =====================================================================
