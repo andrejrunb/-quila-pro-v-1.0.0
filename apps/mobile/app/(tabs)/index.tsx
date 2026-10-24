@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator
 import { useRouter } from 'expo-router';
 import { 
   Shield, Bell, BookOpen, Activity, ChevronRight, 
-  MapPin, Wallet, AlertTriangle, UserCheck, Sparkles, CheckCircle2 
+  MapPin, Wallet, AlertTriangle, UserCheck, Sparkles, CheckCircle2,
+  Flame, Trophy, Brain, Radio, Copy, Check
 } from 'lucide-react-native';
 import { API_CONFIG } from '../services/apiConfig';
 
@@ -16,6 +17,7 @@ export default function HomeTab() {
   const [distance, setDistance] = useState(1000);
   const [eta, setEta] = useState(4);
   const [wsClient, setWsClient] = useState<WebSocket | null>(null);
+  const [dinnerCopied, setDinnerCopied] = useState(false);
 
   useEffect(() => {
     // Conecta ao Gateway Soberano no host detectado ou LAN IP
@@ -226,6 +228,76 @@ export default function HomeTab() {
             </View>
           </TouchableOpacity>
         )}
+      </View>
+
+      {/* RADAR NEURO-PEDAGÓGICO & EBBINGHAUS (PAIS) */}
+      <View style={styles.neuroSection}>
+        <View style={styles.neuroHeaderRow}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <Flame color="#f97316" size={20} />
+            <Text style={styles.neuroSectionTitle}>Radar Neuro-Pedagógico & Retenção</Text>
+          </View>
+          <View style={styles.neuroActiveBadge}>
+            <Text style={styles.neuroActiveBadgeText}>12 DIAS 🔥</Text>
+          </View>
+        </View>
+
+        {/* 4 KPIS */}
+        <View style={styles.neuroKpiGrid}>
+          <View style={styles.neuroKpiCard}>
+            <Text style={styles.neuroKpiLabel}>RETENÇÃO ESTIMADA</Text>
+            <Text style={[styles.neuroKpiVal, { color: '#10b981' }]}>92.4%</Text>
+            <Text style={styles.neuroKpiSub}>Curva de Ebbinghaus</Text>
+          </View>
+
+          <View style={styles.neuroKpiCard}>
+            <Text style={styles.neuroKpiLabel}>PODCASTS OUVIDOS</Text>
+            <Text style={[styles.neuroKpiVal, { color: '#8b5cf6' }]}>4 Eps</Text>
+            <Text style={styles.neuroKpiSub}>Sofia & Lucas</Text>
+          </View>
+
+          <View style={styles.neuroKpiCard}>
+            <Text style={styles.neuroKpiLabel}>MAESTRIA REGIONAL</Text>
+            <Text style={[styles.neuroKpiVal, { color: '#38bdf8' }]}>850 XP</Text>
+            <Text style={styles.neuroKpiSub}>PAS / ENEM / UFG</Text>
+          </View>
+
+          <View style={styles.neuroKpiCard}>
+            <Text style={styles.neuroKpiLabel}>CICLO ATIVO</Text>
+            <Text style={[styles.neuroKpiVal, { color: '#f59e0b' }]}>D+4 Hoje</Text>
+            <Text style={styles.neuroKpiSub}>Desafio Wordwall</Text>
+          </View>
+        </View>
+
+        {/* PERGUNTA DE OURO PARA O JANTAR EM FAMÍLIA */}
+        <View style={styles.dinnerCard}>
+          <View style={styles.dinnerTagRow}>
+            <Sparkles color="#f59e0b" size={14} />
+            <Text style={styles.dinnerTagText}>PERGUNTA DE OURO PARA O JANTAR EM FAMÍLIA</Text>
+          </View>
+
+          <Text style={styles.dinnerQuestion}>
+            "Filho, me explica: quando você esfrega um balão no casaco de lã e encosta ele na parede, por que ele gruda se a parede é neutra?"
+          </Text>
+
+          <Text style={styles.dinnerExplanation}>
+            💡 <Text style={{ fontWeight: '700' }}>Dica Pedagógica:</Text> O balão polariza a parede neutra. Deixar o aluno explicar com as próprias palavras fixa até 90% da memória (Pirâmide de Glasser).
+          </Text>
+
+          <TouchableOpacity
+            style={[styles.dinnerCopyBtn, dinnerCopied && styles.dinnerCopyBtnSuccess]}
+            activeOpacity={0.8}
+            onPress={() => {
+              setDinnerCopied(true);
+              setTimeout(() => setDinnerCopied(false), 3000);
+            }}
+          >
+            {dinnerCopied ? <Check color="#10b981" size={14} /> : <Copy color="#f59e0b" size={14} />}
+            <Text style={[styles.dinnerCopyBtnText, dinnerCopied && { color: '#10b981' }]}>
+              {dinnerCopied ? 'Copiado para o WhatsApp!' : 'Copiar Pergunta para o WhatsApp'}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* ACESSO RÁPIDO AOS MÓDULOS */}
@@ -676,5 +748,118 @@ const styles = StyleSheet.create({
   footerText: {
     color: '#64748b',
     fontSize: 11,
+  },
+  neuroSection: {
+    marginBottom: 24,
+    backgroundColor: 'rgba(15, 23, 42, 0.65)',
+    borderWidth: 1,
+    borderColor: 'rgba(249, 115, 22, 0.25)',
+    borderRadius: 16,
+    padding: 16,
+  },
+  neuroHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 14,
+  },
+  neuroSectionTitle: {
+    color: '#f8fafc',
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  neuroActiveBadge: {
+    backgroundColor: 'rgba(249, 115, 22, 0.15)',
+    borderWidth: 1,
+    borderColor: '#f97316',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
+  },
+  neuroActiveBadgeText: {
+    color: '#f97316',
+    fontSize: 10,
+    fontWeight: '800',
+  },
+  neuroKpiGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 14,
+  },
+  neuroKpiCard: {
+    flex: 1,
+    minWidth: '46%',
+    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.06)',
+    borderRadius: 10,
+    padding: 10,
+  },
+  neuroKpiLabel: {
+    color: '#64748b',
+    fontSize: 9,
+    fontWeight: '800',
+  },
+  neuroKpiVal: {
+    fontSize: 16,
+    fontWeight: '800',
+    marginVertical: 2,
+  },
+  neuroKpiSub: {
+    color: '#94a3b8',
+    fontSize: 10,
+  },
+  dinnerCard: {
+    backgroundColor: 'rgba(245, 158, 11, 0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(245, 158, 11, 0.3)',
+    borderRadius: 12,
+    padding: 14,
+    gap: 8,
+  },
+  dinnerTagRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  dinnerTagText: {
+    color: '#f59e0b',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  dinnerQuestion: {
+    color: '#fffbeb',
+    fontSize: 13,
+    fontWeight: '700',
+    lineHeight: 18,
+    fontStyle: 'italic',
+  },
+  dinnerExplanation: {
+    color: '#cbd5e1',
+    fontSize: 11,
+    lineHeight: 16,
+  },
+  dinnerCopyBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    backgroundColor: 'rgba(245, 158, 11, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(245, 158, 11, 0.35)',
+    paddingVertical: 8,
+    borderRadius: 8,
+    marginTop: 4,
+  },
+  dinnerCopyBtnSuccess: {
+    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+    borderColor: '#10b981',
+  },
+  dinnerCopyBtnText: {
+    color: '#fde68a',
+    fontSize: 11,
+    fontWeight: '700',
   },
 });
