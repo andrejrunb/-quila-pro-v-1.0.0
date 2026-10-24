@@ -139,6 +139,10 @@ export class MobileGateway extends EventEmitter {
         this.handleGetStudentFinance(ws, data);
         break;
 
+      case 'SETTLE_STUDENT_INVOICE':
+        this.handleSettleStudentInvoice(ws, data);
+        break;
+
       case 'SIGN_DISCIPLINARY_ACTION':
         this.handleSignDisciplinaryAction(ws, data);
         break;
@@ -321,27 +325,150 @@ export class MobileGateway extends EventEmitter {
   private async handleGetStudentFinance(ws: WebSocket, data: any) {
     try {
       const studentId = data.studentId || this.deviceToStudentMap.get(data.deviceId) || 'stu-9a-02';
-      
       const pixPayload = '00020101021226840014br.gov.bcb.pix2562pix-qr.colegiovisao.edu.br/qr/v2/9b7e415204000053039865802BR5913Colegio Visao6008Brasilia62070503***6304E2D1';
 
-      const invoices = [
-        { id: 'fat-2026-10', month: 'Outubro / 2026', value: 890.00, dueDate: '2026-10-25', status: 'PAID', paidAt: '2026-10-10' },
-        { id: 'fat-2026-11', month: 'Novembro / 2026', value: 890.00, dueDate: '2026-11-25', status: 'PENDING', pixCode: pixPayload },
-        { id: 'fat-2026-12', month: 'Dezembro / 2026', value: 890.00, dueDate: '2026-12-25', status: 'UPCOMING' },
-      ];
+      let rows: any[] = [];
+      try {
+        rows = await (db as any).all(
+          'SELECT id, amount, dueDate, status, pixCode, updatedAt FROM billing WHERE studentHash = ? ORDER BY dueDate ASC',
+          [studentId]
+        );
+      } catch (e) {
+        logger.warn('[MobileGateway] Tabela billing indisponivel ou vazia:', e);
+      }
+
+      if (!rows || rows.length === 0) {
+        const seedInvoices = [
+          { id: 'fat-2026-10', amount: 890.00, dueDate: '2026-10-25', status: 'paid', pixCode: null, updatedAt: '2026-10-10' },
+          { id: 'fat-2026-11', amount: 890.00, dueDate: '2026-11-25', status: 'pending', pixCode: pixPayload, updatedAt: null },
+          { id: 'fat-2026-12', amount: 890.00, dueDate: '2026-12-25', status: 'upcoming', pixCode: null, updatedAt: null }
+        ];
+
+        for (const seed of seedInvoices) {
+          try {
+            await (db as any).run(
+              'INSERT OR REPLACE INTO billing (id, studentHash, amount, dueDate, status, pixCode, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)',
+              [seed.id, studentId, seed.amount, seed.dueDate, seed.status, seed.pixCode, seed.updatedAt]
+            );
+          } catch (insertErr) {
+            logger.warn(`[MobileGateway] Falha ao semear fatura ${seed.id}:`, insertErr);
+          }
+        }
+
+        try {
+          rows = await (db as any).all(
+            'SELECT id, amount, dueDate, status, pixCode, updatedAt FROM billing WHERE studentHash = ? ORDER BY dueDate ASC',
+            [studentId]
+          );
+        } catch {
+          rows = seedInvoices;
+        }
+      }
+
+      const monthNames: Record<string, string> = {
+        'fat-2026-10': 'Outubro / 2026',
+        'fat-2026-11': 'Novembro / 2026',
+        'fat-2026-12': 'Dezembro / 2026'
+      };
+
+      const invoices = (rows || []).map(r => {
+        const isPaid = (r.status || '').toLowerCase() === 'paid';
+        const isPending = (r.status || '').toLowerCase() === 'pending';
+        const cleanId = r.id || 'fat-2026-11';
+        const receiptHash = isPaid
+          ? crypto.createHash('sha256').update(`${cleanId}:${studentId}:PIX_SOBERANO_QUITADO`).digest('hex')
+          : undefined;
+        const authCode = isPaid ? `AQ-PIX-${cleanId.replace('fat-', '').toUpperCase()}-8821` : undefined;
+
+        return {
+          id: cleanId,
+          month: monthNames[cleanId] || `Competência ${r.dueDate?.substring(0, 7) || '2026'}`,
+          value: Number(r.amount) || 890.00,
+          dueDate: r.dueDate || '2026-11-25',
+          status: isPaid ? 'PAID' : isPending ? 'PENDING' : 'UPCOMING',
+          pixCode: r.pixCode || pixPayload,
+          paidAt: isPaid ? (r.updatedAt ? r.updatedAt.split('T')[0] : '2026-10-10') : undefined,
+          receiptHash,
+          authCode
+        };
+      });
+
+      const pendingCount = invoices.filter(i => i.status === 'PENDING').length;
 
       ws.send(JSON.stringify({
         type: 'STUDENT_FINANCE_RESPONSE',
         data: {
           studentId,
           balance: 0.00,
-          pendingCount: 1,
+          pendingCount,
           pixPayload,
           invoices
         }
       }));
     } catch (err) {
       logger.error('[MobileGateway] Erro ao buscar financeiro:', err);
+    }
+  }
+
+  private async handleSettleStudentInvoice(ws: WebSocket, data: any) {
+    try {
+      const {
+        invoiceId = 'fat-2026-11',
+        studentId = this.deviceToStudentMap.get(data.deviceId) || 'stu-9a-02',
+        amount = 890.00,
+        payerName = 'Mariana Mendes (Responsável)'
+      } = data.payload || {};
+
+      const paidAt = new Date().toISOString().split('T')[0];
+      const receiptHash = crypto
+        .createHash('sha256')
+        .update(`${invoiceId}:${studentId}:${Date.now()}:PIX_SOBERANO_BACEN`)
+        .digest('hex');
+      const authCode = `AQ-PIX-${receiptHash.substring(0, 16).toUpperCase()}`;
+
+      await (db as any).run(
+        "UPDATE billing SET status = 'paid', updatedAt = CURRENT_TIMESTAMP WHERE id = ?",
+        [invoiceId]
+      );
+
+      await (db as any).run(
+        'INSERT INTO zero_bypass_audits (userId, action, details, metadata) VALUES (?, ?, ?, ?)',
+        [
+          payerName,
+          'FINANCIAL_PIX_SETTLEMENT',
+          `Quitação integral da fatura ${invoiceId} (R$ ${Number(amount).toFixed(2)}) via PIX Soberano`,
+          JSON.stringify({ invoiceId, studentId, receiptHash, authCode, amount, paidAt, method: 'PIX_DINAMICO' })
+        ]
+      );
+
+      ws.send(JSON.stringify({
+        type: 'STUDENT_INVOICE_SETTLED',
+        data: {
+          invoiceId,
+          status: 'PAID',
+          paidAt,
+          receiptHash,
+          authCode,
+          message: 'Fatura liquidada com sucesso via PIX Dinâmico Soberano.'
+        }
+      }));
+
+      this.broadcast({
+        type: 'NEW_ALERT',
+        data: {
+          type: 'finance',
+          message: `Mensalidade ${invoiceId} do aluno João Gabriel Mendes liquidada via PIX (Autenticação: ${authCode.substring(0, 12)}...).`,
+          timestamp: Date.now()
+        }
+      });
+
+      logger.info(`[MobileGateway] Fatura ${invoiceId} liquidada com sucesso. Hash: ${receiptHash}`);
+    } catch (err) {
+      logger.error('[MobileGateway] Erro ao liquidar fatura:', err);
+      ws.send(JSON.stringify({
+        type: 'STUDENT_INVOICE_SETTLED',
+        error: 'Falha ao processar quitação PIX.'
+      }));
     }
   }
 

@@ -229,7 +229,7 @@ export default function StudentLabTab() {
 
         if (payload.type === 'GRADE_DISPATCH') {
           const g = payload.payload || {};
-          setXp((prev) => prev + 100);
+          setEarnedXp((prev) => prev + 100);
           setMessages((prev) => [
             ...prev,
             {
@@ -682,7 +682,7 @@ Parabéns pelo empenho! Você recebeu +100 XP na Trilha de Maestria!`,
                   {(['A', 'B', 'C', 'D', 'E'] as const).map((letter) => {
                     const isSelected = simuladoAnswers[idx] === letter;
                     const isTheCorrectOne = letter === q.correct;
-                    let altStyle = styles.simuladoAltBtn;
+                    let altStyle: any = styles.simuladoAltBtn;
                     if (isSelected) altStyle = [styles.simuladoAltBtn, styles.simuladoAltSelected];
                     if (simuladoSubmitted) {
                       if (isTheCorrectOne) altStyle = [styles.simuladoAltBtn, styles.simuladoAltCorrect];

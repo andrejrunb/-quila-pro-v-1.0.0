@@ -56,7 +56,6 @@ export default function HomeTab() {
               ],
             };
           });
-        }
         } else if (payload.type === 'GRADE_DISPATCH') {
           const g = payload.payload || {};
           setActiveAlert({
@@ -85,6 +84,7 @@ export default function HomeTab() {
             message: `📝 Novo Simulado Regional disponibilizado para o aluno: ${p.title || 'Simulado Oficial'}`
           });
           setTimeout(() => setActiveAlert(null), 5000);
+        }
       } catch (err) {
         console.error('Error parsing WS message', err);
       }

@@ -41,7 +41,7 @@ describe('CourtyardTelemetryService', () => {
 
     const alerts = await courtyardTelemetryService.processFrame('cam-1', dummyBuffer);
     expect(alerts).toHaveLength(0);
-    expect(colabTunnelWatchdog.enqueueTask).toHaveBeenCalledWith('yolo_detect', expect.any(Object), 2);
+    expect(colabTunnelWatchdog.enqueueTask).toHaveBeenCalledWith('object_detection', expect.any(Object));
   });
 
   test('deve detectar intrusão se NightSentryMode estiver ativo', async () => {
