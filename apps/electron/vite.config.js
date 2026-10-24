@@ -38,6 +38,9 @@ module.exports = defineConfig(async () => {
   ],
   root: __dirname,
   publicDir: 'public',
+  optimizeDeps: {
+    entries: ['index.html'],
+  },
   build: {
     outDir: path.resolve(__dirname, 'dist'),
     emptyOutDir: false,
