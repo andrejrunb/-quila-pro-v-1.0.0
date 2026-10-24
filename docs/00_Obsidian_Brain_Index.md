@@ -1,6 +1,6 @@
 ---
 title: Índice Geral da Documentação & Obsidian Brain
-date: 2026-10-20
+date: 2026-10-24
 tags:
   - index
   - moc
@@ -9,13 +9,21 @@ tags:
   - navegacao
 ---
 
-# 🦅 Áquila Pro — Índice Geral do Cérebro Obsidian (v3.0.0 Soberano)
+# 🦅 Áquila Pro — Índice Geral do Cérebro Obsidian (v3.1.0 Soberano)
 
 Este índice conecta todas as especificações técnicas, registros de execução e planejamentos estratégicos do ecossistema **Áquila Pro**.
 
 ---
 
 ## 🗺️ Mapa de Conteúdo (MOC)
+
+### ⚖️ 10 / 40 — Governança, Releases & Desdobramento Soberano (v2.1.0-rc.3)
+- [[RELEASE_GOVERNANCE|Governança Oficial de Releases (7 Regras de Ouro, SemVer 2.0.0 & Branch Taxonomy)]]
+- [[PILOT_DEPLOYMENT_GUIDE|Guia de Implantação e Operação no Colégio Piloto (Cold Start, Portas 9000/8081/8000/3000 & Backup WAL)]]
+- [[archive/2026-03-communication-protocol|Arquivo Histórico do Protocolo AI Team / Manus (Março 2026)]]
+- [[implantacao/GUIA_IMPLANTACAO_INFRA_TI|Guia de Infraestrutura de TI & Topologia Edge de Borda]]
+- [[implantacao/MANUAL_PRATICO_PROFESSOR_COORDENADOR|Manual Prático do Professor & Coordenador]]
+- [[implantacao/RELATORIO_IMPACTO_PROTECAO_DADOS_LGPD|Relatório de Impacto à Proteção de Dados (RIPD - LGPD Art. 38)]]
 
 ### 🎓 50 — Pedagogia de Elite & Mentoria Socrática
 - [[50_Pedagogia_IA/Elite_Design_System_Harmonizacao_Portais|Harmonização de Layout, Formatação & Elite Design System dos 6 Portais Soberanos]]
@@ -64,6 +72,9 @@ c:\aquila\
   │     └── 50_Roadmap/
   └── docs/                            # Documentação Técnica e Operacional
         ├── 00_Obsidian_Brain_Index.md
+        ├── RELEASE_GOVERNANCE.md
+        ├── PILOT_DEPLOYMENT_GUIDE.md
+        ├── archive/
         ├── 20_Servicos_Core/
         ├── 30_Operacoes_RH/
         ├── 50_Pedagogia_IA/
@@ -71,4 +82,4 @@ c:\aquila\
         └── 60_Registro_de_Execucao/
 ```
 
-*Última sincronização: 20 de Outubro de 2026 — Edição Soberana v3.0.0.*
+*Última sincronização: 24 de Outubro de 2026 — Edição Soberana v3.1.0 (v2.1.0-rc.3).*

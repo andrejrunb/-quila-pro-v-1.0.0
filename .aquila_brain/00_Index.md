@@ -6,6 +6,11 @@ Bem-vindo ao centro de inteligência e documentação viva do **Áquila Pro** (E
 
 ## 🗺️ Map of Content (MOC)
 
+### ⚖️ [[40_Legal_LGPD/RELEASE_GOVERNANCE|Governança, Releases & Desdobramento (v2.1.0-rc.3)]]
+- [[../docs/RELEASE_GOVERNANCE|Governança Oficial de Releases (7 Regras de Ouro, SemVer 2.0.0 & Branch Taxonomy)]]
+- [[../docs/PILOT_DEPLOYMENT_GUIDE|Guia de Implantação e Operação no Colégio Piloto (Cold Start, Portas & Backup WAL)]]
+- [[../docs/archive/2026-03-communication-protocol|Arquivo Histórico do Protocolo AI Team / Manus (Março 2026)]]
+
 ### 🎓 [[50_Pedagogia_IA/Teachy_Brisk_AI_Studio|Pedagogia de Elite & IA Co-Pilot (v2.5.0)]]
 - [[50_Pedagogia_IA/Teachy_Brisk_AI_Studio|Estúdio Docente de IA: Teachy & Brisk Teaching (BNCC, PEI, DOK 1-4, OCR & Replay)]]
 - [[50_Pedagogia_IA/Wordwall_Activity_Factory|Fábrica de Atividades Interativas Wordwall (7 Templates, Atribuição & Leaderboard)]]
@@ -51,6 +56,7 @@ Bem-vindo ao centro de inteligência e documentação viva do **Áquila Pro** (E
 ---
 
 ### 🕒 Histórico de Atualizações Recentes
+- **2026-10-24 (v2.1.0-rc.3):** Unificação de branches Git (`main` e `clean-release-v1` consolidadas como fonte única da verdade; arquivamento de `master` e `production-baseline`), formalização do `RELEASE_GOVERNANCE.md`, publicação do `PILOT_DEPLOYMENT_GUIDE.md`, validação de teste E2E Playwright no Electron v28 nativo (100% verde e determinístico, 0 flaky), expurgo de caches de desenvolvimento (`test-user-data`) do Git e publicação da tag `v2.1.0-rc.3`.
 - **2026-10-19 (v2.5.0):** Implementação completa da Suíte Pedagógica & ERP Hub: Fábrica de Atividades Wordwall (7 templates, atribuição com PIN, leaderboard), Khanmigo Co-Pilot & Class Snapshot BNCC (Positivo On), Radar de Infrequência LDB Art. 12 VII (Lei 13.803/2019 com emissão de ficha FICAI para Conselho Tutelar), Ocorrências Disciplinares com assinatura digital familiar ICP-BR, e Domínio Web / Onvio ERP Hub com folha de 43 colunas para os 41 professores.
 - **2026-04-13:** Integração de Seating Intelligence e Automated Grading v1.5.0.
 - **2026-03-31:** Refatoração v1.0.1 (Sovereign OS Edge & Timetable Engine).
