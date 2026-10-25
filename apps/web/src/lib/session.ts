@@ -1,3 +1,8 @@
+/**
+ * Áquila Pro — Utilitário de Sessão Criptográfica Segura (HMAC-SHA256)
+ * Utiliza Web Crypto API nativa (compatível com Edge Runtime do Next.js).
+ */
+
 const AUTH_SECRET = process.env.AQUILA_AUTH_SECRET || process.env.AQUILA_ENCRYPTION_SECRET || 'aquila_sovereign_auth_secret_key_v2_1_production';
 
 export interface SessionPayload {
@@ -6,6 +11,7 @@ export interface SessionPayload {
   role: 'admin' | 'coordinator' | 'teacher' | 'parent' | 'student';
   iat: number;
   exp: number;
+  [key: string]: any;
 }
 
 function base64UrlEncode(buffer: Uint8Array | string): string {
@@ -58,13 +64,16 @@ async function getCryptoKey(): Promise<CryptoKey> {
 /**
  * Assina criptograficamente uma sessão usando HMAC-SHA256 (Web Crypto API)
  */
-export async function signSession(payload: Omit<SessionPayload, 'iat' | 'exp'>, expiresInSeconds = 60 * 60 * 8): Promise<string> {
+export async function signSession(payload: Partial<SessionPayload>, expiresInSeconds = 60 * 60 * 8): Promise<string> {
   const header = { alg: 'HS256', typ: 'JWT' };
   const now = Math.floor(Date.now() / 1000);
   const fullPayload: SessionPayload = {
+    username: payload.username || 'unknown',
+    portal: payload.portal || 'portal',
+    role: payload.role || 'coordinator',
+    iat: payload.iat ?? now,
+    exp: payload.exp ?? (now + expiresInSeconds),
     ...payload,
-    iat: now,
-    exp: now + expiresInSeconds,
   };
 
   const encHeader = base64UrlEncode(JSON.stringify(header));

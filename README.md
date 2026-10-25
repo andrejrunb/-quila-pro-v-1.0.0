@@ -1,17 +1,29 @@
 # 🦅 Áquila Pro — Sovereign School OS & AI Ecosystem v2.1
 
-> **A Plataforma Educacional Soberana de Inteligência Artificial, Neuroaprendizagem e Gestão Escolar**  
-> Desenvolvida com arquitetura *Offline-First*, *Agent-First Governance* e conformidade irrestrita com a **LGPD (Art. 14 e 16)** e **LDB (Art. 12, VII)**.
+> **A Plataforma Educacional de Inteligência de Apoio, Neuroaprendizagem e Gestão Escolar**  
+> Desenvolvida com arquitetura *Offline-First*, governança *Human-in-the-Loop* e em conformidade com as diretrizes da **LGPD (Art. 14 e 16)** e **LDB (Art. 12, VII)**, sujeita a validação por [RIPD/DPIA Institucional](docs/compliance/RIPD_DPIA_Biometria_Menores.md).
+
+---
+
+## 🎯 Escopo da Versão e Estágio de Maturidade
+
+Para garantir máxima estabilidade e conformidade na implantação em escolas-piloto, as funcionalidades do ecossistema estão categorizadas em três níveis operacionais:
+
+| Nível Operacional | Módulos e Recursos | Status no Piloto |
+| :--- | :--- | :---: |
+| **🟢 Núcleo do Piloto (Core)** | Diário de Classe Digital, Chamada Assistida (RFID/Lista/Validação Humana), Notificações Escolares (WhatsApp/Push), Boletins, Correção Óptica OMR Controlada e Relatórios Pedagógicos. | **Ativo por Padrão** |
+| **🟡 Módulos Experimentais (Labs)** | Percepção Passiva por Sinais RF (RuView CSI), Geofencing de Aproximação de Pais, Agentes Autônomos de Marketing e Compilador iOS via SwiftPM sem Mac. | **Desativado por Padrão** *(Requer Feature Flag explícita)* |
+| **🔵 Planejamento / Roadmap** | Aceleração On-Device em larga escala via NPUs de 26 TOPS e federação de dados multi-campus descentralizada. | **Em Validação Técnica** |
 
 ---
 
 ## 🌟 Visão Geral
 
-O **Áquila Pro** é o primeiro ecossistema educacional do Brasil desenhado para eliminar a dependência de plataformas proprietárias em nuvem estrangeira (Brisk Teaching, Google Classroom, SOMOS Plurall, SuperPro), unindo em uma única suíte soberana:
-1. **Desktop School OS (Electron + Vite + React):** Cockpits para Direção, Coordenação, Professores, Alunos e Famílias.
-2. **Mobile Companion (Expo React Native):** Treinamento cognitivo diário, podcasts imersivos, gamificação e simulados no bolso do aluno e dos pais.
-3. **Hardware Edge & Local NPU:** Visão computacional de portaria (26 TOPS NPU), presença biométrica com hash criptográfico SHA-256 e sem envio de biometria de menores para nuvens públicas.
-4. **GPU Offload (Google Colab / On-Premise):** Treinamento de embeddings conceituais e calibração fina de bancos vestibulares.
+O **Áquila Pro** é um ecossistema educacional desenhado para prover autonomia e reduzir a dependência de plataformas proprietárias em nuvens estrangeiras, unindo em uma suíte integrada:
+1. **Desktop School OS (Electron + Vite + React):** Cockpits operacionais para Direção, Coordenação, Professores, Alunos e Famílias.
+2. **Mobile Companion (Expo React Native):** Apoio ao estudo individual, podcasts didáticos, desafios de fixação e simulados no bolso do aluno e dos pais.
+3. **Hardware Edge Local:** Processamento local de telemetria, integridade de dados via hash criptográfico SHA-256 e perímetro seguro sem envio de biometria ou dados crus de menores para nuvens públicas.
+4. **GPU Offload (Google Colab / On-Premise):** Suporte opcional para treinamento de embeddings conceituais e calibração de bancos de questões.
 
 ---
 
@@ -19,8 +31,8 @@ O **Áquila Pro** é o primeiro ecossistema educacional do Brasil desenhado para
 
 ```mermaid
 flowchart TD
-    Teacher["Estúdio Docente Áquila"] -->|Brisk / Slides / Video-to-Quiz| MultiModal["Estúdio Multimodal"]
-    Teacher -->|ENEM / PAS-UnB / SOMOS| ExamFoundry["Exam & Assessment Foundry"]
+    Teacher["Estúdio Docente Áquila"] -->|Planos / Avaliações / Quizzes| MultiModal["Estúdio de Aprendizagem"]
+    Teacher -->|Bancos Regionais / ENEM| ExamFoundry["Exam & Assessment Foundry"]
     
     ExamFoundry -->|A4 2 Colunas + OMR| Print["Impressão Gráfica & PDF"]
     ExamFoundry -->|WebSocket Gateway| Mobile["Áquila Mobile Companion"]
@@ -28,49 +40,33 @@ flowchart TD
     
     Mobile -->|Modo 1: Tutor Albus| Student["Aluno"]
     Mobile -->|Modo 2: Kumon 3 min| Student
-    Mobile -->|Modo 3: NotebookLM Podcast| Student
-    Mobile -->|Modo 4: Wordwall Caixa| Student
+    Mobile -->|Modo 3: Podcast Didático| Student
+    Mobile -->|Modo 4: Desafios de Fixação| Student
     Mobile -->|Modo 5: Simulado Digital| Student
     
-    Student -->|Retenção Ebbinghaus 92%| Parent["Canal Família (Desktop & Mobile)"]
-    Parent -->|Pergunta de Ouro p/ Jantar| FamilyConnection["Conexão Familiar"]
+    Student -->|Reforço por Espaçamento Cognitivo| Parent["Canal Família (Desktop & Mobile)"]
+    Parent -->|Perguntas Socráticas p/ o Jantar| FamilyConnection["Conexão Familiar"]
 ```
 
 ---
 
-## 🚀 Funcionalidades Chave
+## 🚀 Funcionalidades Chave (Núcleo do Piloto)
 
-### 1. 🖨️ Áquila Exam & Assessment Foundry (Substituto do Plurall & SuperPro)
-- **Diagramação A4 em 2 Colunas:** Padrão gráfico oficial do INEP / Cebraspe / SOMOS Educação.
-- **Folha de Respostas OMR (Cartão de Bolinhas):** Leitura óptica automatizada de gabaritos.
-- **Banco Regional de Vestibulares:** Questões calibradas de ENEM, PAS-UnB (Etapas 1, 2 e 3), UFG, UFMG, UFU, UFV, UEG, UniRV (Medicina), PUC Goiás e IFG.
-- **QR Codes Interativos:** Cada questão impressa inclui link/QR para o laboratório PhET 60 FPS e áudio explicativo no aplicativo móvel.
-- **Gabarito com Trilha Kumon:** Resoluções comentadas divididas em L1 (aritmética direta), L2 (proporções) e L3 (maestria vestibular).
+### 1. 🖨️ Áquila Exam & Assessment Foundry
+- **Diagramação A4 em 2 Colunas:** Padrão gráfico de avaliações alinhado ao formato oficial de exames nacionais (INEP/ENEM).
+- **Folha de Respostas OMR (Cartão de Respostas):** Leitura óptica automatizada de gabaritos com tolerância calibrada de alinhamento.
+- **Banco Regional de Questões:** Itens catalogados por área do conhecimento e matriz de habilidades da BNCC.
+- **QR Codes de Aprofundamento:** Links opcionais em avaliações impressas para simulações científicas interativas e áudios didáticos no aplicativo.
 
-### 2. 🎙️ Estúdio Multimodal & Gamificação (Brisk + NotebookLM + Wordwall)
-- **NotebookLM Dual-Host Podcast:** Diálogos dinâmicos entre Sofia (curiosa/questionadora) e Lucas (analítico/científico) com síntese de voz nativa (*Web Speech API*) e modo de estudo contextualizado.
-- **Fracionamento Cognitivo (Brisk):** Micro-doses de aprendizagem de 2 minutos baseadas no método Kumon.
-- **Gamificação Wordwall ("Abra a Caixa"):** 6 caixas de desafio interativo por tópico, com verificação de resposta em tempo real, desbloqueio de XP e recompensas.
-- **Brisk Video-to-Quiz:** Descompressão de videoaulas do YouTube em marcos temporais (timestamps cognitivos) e perguntas de checagem com taxonomia de Bloom (DOK 1, 2 e 3).
+### 2. 🎙️ Estúdio Didático & Fixação Cognitiva
+- **Diálogos de Revisão Contextualizada:** Resumos conceituais gerados com base nos planos de aula do professor.
+- **Micro-Doses de Estudo:** Atividades rápidas focadas na resolução de dúvidas conceituais imediatas.
+- **Desafios Interativos de Fixação:** Exercícios práticos com validação imediata e feedback pedagógico passo a passo.
 
-### 3. ⚛️ Laboratório PhET Colorado em Canvas Nativo (60 FPS)
-- **Engenharia Reversa Java ➔ HTML5 Canvas:** Transpilação via `morluto/rea` e CFR de applets Java legados para Canvas de alta performance sem dependência de runtimes externos ou Java plugin.
-- **Física Vetorial de Coulomb em Tempo Real:** Vetores de força elétrica ($\vec{F} = \frac{k \cdot q_1 \cdot q_2}{r^3} \cdot \vec{r}$), fricção triboelétrica e polarização eletrostática induzida da matéria neutra.
-
-### 4. 🧠 Radar Neuro-Pedagógico & Ebbinghaus (Canal Família)
-- **Quebra do Hiato "Quinta-a-Quinta":** Ciclo de espaçamento distribuído (+24h Sexta, +48h Sábado, +96h Segunda, +144h Quarta) que eleva a taxa de retenção para 92,4%.
-- **Pergunta de Ouro para o Jantar em Família:** Prompts socráticos semanais para os pais conversarem com os filhos sobre a matéria do dia sem parecer cobrança de notas, estimulando a autoexplicação (Pirâmide de Glasser).
-- **Botão de Envio para WhatsApp:** Permite que os pais copiem instantaneamente a pergunta e a dica pedagógica.
-
-### 5. 🤖 Enxame de Agentes de Crescimento & Autoridade Escolar
-- **🎓 Professor Virtual Storyteller:** Artigos de blog conectando a BNCC a fenômenos do cotidiano dos alunos.
-- **📈 Gerador de Leads & Marketing Escolar:** Copys de captação no método AIDA para Instagram, carrosséis e roteiros de Reels.
-- **🔬 Autoridade Científica & Pedagógica:** Pareceres técnicos e artigos com citações acadêmicas e DOIs reais (Dehaene, Hattie, Cepeliauskas, UNESCO) para a direção apresentar aos pais e mantenedores.
-
-### 6. 📱 Mobile Companion (iOS & Android via Expo)
-- **5 Modos Interativos:** Tutor Socrático Albus, Kumon 3 min, Podcast Sofia & Lucas, Wordwall e Simulado Regional Digital.
-- **Despacho em Tempo Real:** Comunicação bidirecional via WebSocket local (`MobileGateway.ts`).
-- **Dashboard dos Pais:** Radar de presença, geofencing *"Estou Chegando"* com ETA para a portaria e acompanhamento do ciclo de estudos.
+### 3. 🧠 Apoio ao Ciclo de Aprendizagem & Canal Família
+- **Espaçamento Distribuído:** Recomendações de revisão periódica baseadas no modelo teórico da curva do esquecimento (Ebbinghaus), auxiliando o estudante a consolidar a memória de longo prazo.
+- **Perguntas Socráticas para o Cotidiano:** Sugestões semanais para que responsáveis conversem com os alunos sobre os temas abordados em aula, estimulando a autoexplicação.
+- **Canal Direto de Notificações:** Envio de comunicados, avisos de faltas e comunicados escolares via WhatsApp e notificações Push aos responsáveis cadastrados.
 
 ---
 
@@ -78,31 +74,31 @@ flowchart TD
 
 ### Pré-requisitos
 - **Node.js:** v20+ LTS
-- **pnpm:** v12+
-- **Python:** 3.10+ (para módulos de IA/NPU)
+- **pnpm:** v10+ ou v12+
+- **Python:** 3.10+ (para módulos auxiliares de processamento)
 
-### 1. Instalação Geral
+### 1. Instalação de Dependências
 ```bash
 pnpm install
 ```
 
-### 2. Iniciar o Desktop School OS (Electron + Vite)
+### 2. Executar o Desktop School OS (Electron + Vite)
 ```bash
-# Terminal 1: Renderer Vite
+# Terminal 1: Interface Vite Renderer
 pnpm --filter aquila-pro-school-os run dev:renderer
 
-# Terminal 2: Electron Daemon
+# Terminal 2: Processo Principal Electron
 pnpm --filter aquila-pro-school-os run dev:electron
 ```
 
-### 3. Iniciar o Mobile Companion (Expo)
+### 3. Executar o Portal Web
 ```bash
-pnpm --filter aquila-pro-mobile run start --lan
+pnpm --filter @aquila/web run dev
 ```
 
 ### 4. Compilação para Produção
 ```bash
-# Compilar Web SaaS (Next.js 16 Turbopack)
+# Compilar Web SaaS (Next.js 16 com Turbopack)
 pnpm --filter @aquila/web run build
 
 # Compilar Desktop Renderer & Main Process
@@ -111,15 +107,15 @@ pnpm --filter aquila-pro-school-os run build
 
 ---
 
-## 🛡️ Governança & Conformidade Legal
+## 🛡️ Governança, Privacidade e Diretrizes Legais
 
-- **LGPD Art. 14:** Coleta de dados e imagens de menores condicionada a consentimento explícito dos responsáveis legais, com trilha forense imutável.
-- **LGPD Art. 16:** Purga segura de vetores biométricos com geração de hash SHA-256 e recibo digital irrevogável.
-- **LDB Art. 12, VII:** Monitoramento em tempo real de frequência escolar para garantia do piso legal de 75% de presença e prevenção de retenção.
+- **LGPD (Art. 14 — Crianças e Adolescentes):** A coleta de dados e processamento de informações cadastrais ou biométricas é restrita ao melhor interesse do estudante, condicionada a termo de consentimento explícito dos responsáveis legais ou base legal de segurança física/acesso escolar. A instituição disponibiliza alternativas não-biométricas (RFID/crachá) sem distinção ou prejuízo ao estudante.
+- **LGPD (Art. 16 — Eliminação de Dados):** Rotina formal de purga definitiva de dados sensíveis mediante término de vínculo ou revogação de consentimento. Os registros de auditoria utilizam hash de integridade SHA-256 para verificação técnica contra adulterações locais. *(Nota técnica: o hash SHA-256 assegura integridade criptográfica do registro, não substituindo assinatura qualificada com certificado digital ICP-Brasil quando exigida por normas notariais específicas).*
+- **LDB (Art. 12, VII — Frequência Escolar):** O sistema oferece ferramentas de apoio ao monitoramento de presença e sinalização preventiva de infrequência para auxílio à coordenação pedagógica, sem substituir as obrigações regimentais, legais e documentais próprias da secretaria da instituição de ensino.
+- **Documentação de Conformidade:** Consulte o [RIPD / DPIA Institucional para Biometria de Menores](docs/compliance/RIPD_DPIA_Biometria_Menores.md).
 
 ---
 
 ## 📄 Licença
 
-Proprietário. Todos os direitos reservados ao ecossistema Áquila Pro.
-*Construído para transformar colégios particulares e redes de ensino com tecnologia de soberania nacional.*
+Distribuído sob a licença **MIT**. Consulte o arquivo [`LICENSE`](LICENSE) para mais detalhes.
