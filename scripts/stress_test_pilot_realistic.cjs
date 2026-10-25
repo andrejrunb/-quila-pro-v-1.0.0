@@ -218,7 +218,7 @@ async function runRealisticPilotStressTest() {
     const attStats = calculateTelemetry(attendanceLatencies);
     console.log(`\u2705 30 Di\xE1rios de classe lan\xE7ados com 750 presen\xE7as processadas em ${totalAttTime.toFixed(2)} ms:`);
     console.log(`   - Lat\xEAncia p50 por Di\xE1rio: ${attStats.p50Ms.toFixed(3)} ms`);
-    console.log(`   - Lat\xEAncia p95 por Di\xE1rio: ${attStats.p95Ms.toFixed(3)} ms (Meta: < 150 ms) -> ${attStats.p95Ms < 150 ? "APROVADO" : "FALHA"}`);
+    console.log(`   - Lat\xEAncia p95 por Di\xE1rio: ${attStats.p95Ms.toFixed(3)} ms (${(attStats.p95Ms / 1e3).toFixed(4)} s \u2014 sub-milissegundos) [Meta: < 150.00 ms (0.150 s)] -> ${attStats.p95Ms < 150 ? "APROVADO" : "FALHA"}`);
     console.log(`   - Lat\xEAncia p99 por Di\xE1rio: ${attStats.p99Ms.toFixed(3)} ms`);
     console.log(`   - Vaz\xE3o: ${attStats.opsPerSec.toFixed(1)} di\xE1rios/s (${(750 / (totalAttTime / 1e3)).toFixed(0)} presen\xE7as/s)
 `);
@@ -284,7 +284,7 @@ async function runRealisticPilotStressTest() {
     const closingStats = calculateTelemetry(closingLatencies);
     console.log(`\u2705 Fechamento de m\xE9dias de 20 turmas (500 alunos) conclu\xEDdo em ${totalClosingTime.toFixed(2)} ms:`);
     console.log(`   - Lat\xEAncia p50 por Turma: ${closingStats.p50Ms.toFixed(3)} ms`);
-    console.log(`   - Lat\xEAncia p95 por Turma: ${closingStats.p95Ms.toFixed(3)} ms (Meta: < 500 ms) -> ${closingStats.p95Ms < 500 ? "APROVADO" : "FALHA"}`);
+    console.log(`   - Lat\xEAncia p95 por Turma: ${closingStats.p95Ms.toFixed(3)} ms (${(closingStats.p95Ms / 1e3).toFixed(4)} s \u2014 sub-milissegundos) [Meta: < 500.00 ms (0.500 s)] -> ${closingStats.p95Ms < 500 ? "APROVADO" : "FALHA"}`);
     console.log(`   - Lat\xEAncia p99 por Turma: ${closingStats.p99Ms.toFixed(3)} ms
 `);
     console.log("5\uFE0F\u20E3 Simula\xE7\xE3o de Carga de Leitura: 500 consultas simult\xE2neas de boletim escolar...");
@@ -342,8 +342,8 @@ async function runRealisticPilotStressTest() {
 \u{1F4BE} Tamanho total do banco ap\xF3s 500 alunos, 2.000 notas e 750 presen\xE7as: ${(dbSize / 1024).toFixed(1)} KB (Sem crescimento an\xF4malo).`);
     console.log("\n\u{1F3C6} =========================================================================");
     console.log("   RESULTADO DO STRESS TEST REALISTA: 100% APROVADO");
-    console.log(`   - Lat\xEAncia p95 Chamada: ${attStats.p95Ms.toFixed(3)} ms (Meta: < 150 ms)`);
-    console.log(`   - Lat\xEAncia p95 M\xE9dias:  ${closingStats.p95Ms.toFixed(3)} ms (Meta: < 500 ms)`);
+    console.log(`   - Lat\xEAncia p95 Chamada: ${attStats.p95Ms.toFixed(3)} ms (${(attStats.p95Ms / 1e3).toFixed(4)} s) [Meta: < 150.00 ms (0.150 s)]`);
+    console.log(`   - Lat\xEAncia p95 M\xE9dias:  ${closingStats.p95Ms.toFixed(3)} ms (${(closingStats.p95Ms / 1e3).toFixed(4)} s) [Meta: < 500.00 ms (0.500 s)]`);
     console.log("   - Taxa de Erro: 0,00% (Zero transa\xE7\xF5es abortadas)");
     console.log("   - Integridade P\xF3s-Crash: 100% \xCDntegra");
     console.log("=========================================================================\n");

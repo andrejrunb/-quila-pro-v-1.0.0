@@ -16,6 +16,7 @@
     "test:dr:full": "node scripts/test_backup_dr_suite.cjs",
     "test:stress": "node scripts/stress_test_pilot_load.cjs",
     "test:stress:realistic": "node scripts/stress_test_pilot_realistic.cjs",
+    "test:e2e:critical": "node scripts/test_e2e_critical_flow.cjs",
     "backup:edge": "node scripts/backup_edge.cjs",
     "restore:drill": "node scripts/restore_edge.cjs",
     "lint": "pnpm -r run lint"

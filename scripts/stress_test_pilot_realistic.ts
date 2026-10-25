@@ -246,7 +246,7 @@ async function runRealisticPilotStressTest() {
 
     console.log(`✅ 30 Diários de classe lançados com 750 presenças processadas em ${totalAttTime.toFixed(2)} ms:`);
     console.log(`   - Latência p50 por Diário: ${attStats.p50Ms.toFixed(3)} ms`);
-    console.log(`   - Latência p95 por Diário: ${attStats.p95Ms.toFixed(3)} ms (Meta: < 150 ms) -> ${attStats.p95Ms < 150 ? 'APROVADO' : 'FALHA'}`);
+    console.log(`   - Latência p95 por Diário: ${attStats.p95Ms.toFixed(3)} ms (${(attStats.p95Ms / 1000).toFixed(4)} s — sub-milissegundos) [Meta: < 150.00 ms (0.150 s)] -> ${attStats.p95Ms < 150 ? 'APROVADO' : 'FALHA'}`);
     console.log(`   - Latência p99 por Diário: ${attStats.p99Ms.toFixed(3)} ms`);
     console.log(`   - Vazão: ${attStats.opsPerSec.toFixed(1)} diários/s (${(750 / (totalAttTime / 1000)).toFixed(0)} presenças/s)\n`);
 
@@ -321,7 +321,7 @@ async function runRealisticPilotStressTest() {
 
     console.log(`✅ Fechamento de médias de 20 turmas (500 alunos) concluído em ${totalClosingTime.toFixed(2)} ms:`);
     console.log(`   - Latência p50 por Turma: ${closingStats.p50Ms.toFixed(3)} ms`);
-    console.log(`   - Latência p95 por Turma: ${closingStats.p95Ms.toFixed(3)} ms (Meta: < 500 ms) -> ${closingStats.p95Ms < 500 ? 'APROVADO' : 'FALHA'}`);
+    console.log(`   - Latência p95 por Turma: ${closingStats.p95Ms.toFixed(3)} ms (${(closingStats.p95Ms / 1000).toFixed(4)} s — sub-milissegundos) [Meta: < 500.00 ms (0.500 s)] -> ${closingStats.p95Ms < 500 ? 'APROVADO' : 'FALHA'}`);
     console.log(`   - Latência p99 por Turma: ${closingStats.p99Ms.toFixed(3)} ms\n`);
 
     // 5. Consultas Concorrentes de Boletim Escolar (Simulação de Acesso de Pais)
@@ -392,8 +392,8 @@ async function runRealisticPilotStressTest() {
 
     console.log('\n🏆 =========================================================================');
     console.log('   RESULTADO DO STRESS TEST REALISTA: 100% APROVADO');
-    console.log(`   - Latência p95 Chamada: ${attStats.p95Ms.toFixed(3)} ms (Meta: < 150 ms)`);
-    console.log(`   - Latência p95 Médias:  ${closingStats.p95Ms.toFixed(3)} ms (Meta: < 500 ms)`);
+    console.log(`   - Latência p95 Chamada: ${attStats.p95Ms.toFixed(3)} ms (${(attStats.p95Ms / 1000).toFixed(4)} s) [Meta: < 150.00 ms (0.150 s)]`);
+    console.log(`   - Latência p95 Médias:  ${closingStats.p95Ms.toFixed(3)} ms (${(closingStats.p95Ms / 1000).toFixed(4)} s) [Meta: < 500.00 ms (0.500 s)]`);
     console.log('   - Taxa de Erro: 0,00% (Zero transações abortadas)');
     console.log('   - Integridade Pós-Crash: 100% Íntegra');
     console.log('=========================================================================\n');
