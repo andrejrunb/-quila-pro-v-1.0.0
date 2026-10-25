@@ -3,7 +3,6 @@ import { evidenceArchiver } from './EvidenceArchiver';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-
 export type NotificationPriority = 'low' | 'medium' | 'high' | 'critical';
 
 export interface NotificationPayload {
@@ -26,7 +25,8 @@ export interface INotificationProvider {
 
 /**
  * NotificationGateway — Enterprise abstraction for multi-channel alerts.
- * Suporta canais oficiais: WhatsApp Meta Cloud API, Push Notifications Móvel e Mock.
+ * Suporta canais oficiais: WhatsApp Meta Cloud API (primário oficial), Push Notifications Móvel,
+ * Mock (desenvolvimento) e Provedor Experimental Evolution API (opt-in institucional).
  */
 export class NotificationGateway {
   private providers: Map<string, INotificationProvider> = new Map();
@@ -36,27 +36,25 @@ export class NotificationGateway {
     this.registerProvider(new MockProvider());
     this.registerProvider(new MobilePushProvider());
 
-    // Registro automático de Provedores de API Oficial (Meta Business Graph API)
+    // 1. Canal Oficial Primário: WhatsApp Meta Business Graph API
     const metaUrl = process.env.WHATSAPP_API_URL || 'https://graph.facebook.com/v20.0/messages';
     const metaToken = process.env.WHATSAPP_API_TOKEN;
 
     if (metaToken) {
       this.registerProvider(new WhatsAppMetaProvider(metaUrl, metaToken));
       this.logger.info('[NotificationGateway] WhatsAppMetaProvider oficial registrado via Env.');
-    
-    // Registro automÃ¡tico de Evolution API (Baileys / WhatsApp Gateway Soberano)
+    }
+
+    // 2. Canal Experimental Secundário: Evolution API (WhatsApp Gateway Local / Opt-in)
     const evoUrl = process.env.EVOLUTION_API_URL;
     const evoKey = process.env.EVOLUTION_API_KEY;
     const evoInstance = process.env.EVOLUTION_INSTANCE || 'aquila_edge';
 
     if (evoUrl && evoKey) {
       this.registerProvider(new EvolutionApiProvider(evoUrl, evoKey, evoInstance));
-      this.logger.info('[NotificationGateway] EvolutionApiProvider (Baileys Sovereign) registrado.');
+      this.logger.info('[NotificationGateway] EvolutionApiProvider (Experimental Opt-in) registrado.');
     }
   }
-  }
-
-
 
   public registerProvider(provider: INotificationProvider): void {
     this.providers.set(provider.name, provider);
@@ -80,7 +78,6 @@ export class NotificationGateway {
         const evidencePath = await evidenceArchiver.archive(incidentId, payload.metadata.frame);
         if (evidencePath) {
           payload.metadata.evidence_path = evidencePath;
-          // Remover o frame gigante do payload para não carregar a memória/rede se não for necessário
           delete payload.metadata.frame;
         }
       }
@@ -126,7 +123,7 @@ export class MobilePushProvider implements INotificationProvider {
 }
 
 /**
- * WhatsAppMetaProvider — Meta Business API Implementation.
+ * WhatsAppMetaProvider — Meta Business Cloud API Implementation (Canal Primário Homologado).
  */
 export class WhatsAppMetaProvider implements INotificationProvider {
   public name = 'whatsapp_meta';
@@ -161,11 +158,9 @@ export class WhatsAppMetaProvider implements INotificationProvider {
   }
 }
 
-
-
 /**
- * EvolutionApiProvider — Baileys-based WhatsApp Gateway (Zero SaaS Cost, Local/Docker Edge).
- * Utiliza o protocolo WhatsApp Web emulado (Noise Protocol / Protobuf) via Evolution API.
+ * EvolutionApiProvider — Gateway Experimental de Contingência.
+ * Requer opt-in institucional explícito e monitoramento de reputação de número.
  */
 export class EvolutionApiProvider implements INotificationProvider {
   public name = 'evolution_api';
@@ -180,7 +175,8 @@ export class EvolutionApiProvider implements INotificationProvider {
     if (!this.serverUrl || !this.apiKey) return false;
 
     const cleanNumber = payload.to.replace(/\D/g, '');
-    const endpoint = ${this.serverUrl.replace(/\/$/, '')}/message/sendText/;
+    const cleanUrl = this.serverUrl.replace(/\/$/, '');
+    const endpoint = `${cleanUrl}/message/sendText/${encodeURIComponent(this.instance)}`;
 
     try {
       const response = await fetch(endpoint, {
