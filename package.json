@@ -12,6 +12,8 @@
     "dev:mobile": "pnpm --filter aquila-pro-mobile start",
     "build": "pnpm -r run build",
     "test": "pnpm -r run test",
+    "test:dr": "node scripts/sqlite_backup_dr.cjs",
+    "test:stress": "node scripts/stress_test_pilot_load.cjs",
     "lint": "pnpm -r run lint"
   },
   "devDependencies": {

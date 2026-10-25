@@ -83,9 +83,15 @@ export class BackupManager {
 
       archive.pipe(output);
       
-      // Adicionar o DB ao zip
+      // Adicionar o DB principal e WAL (se existir) ao zip para consistência total
       if (fs.existsSync(this.dbPath)) {
         archive.file(this.dbPath, { name: 'database.sqlite' });
+        if (fs.existsSync(`${this.dbPath}-wal`)) {
+          archive.file(`${this.dbPath}-wal`, { name: 'database.sqlite-wal' });
+        }
+        if (fs.existsSync(`${this.dbPath}-shm`)) {
+          archive.file(`${this.dbPath}-shm`, { name: 'database.sqlite-shm' });
+        }
       }
 
       // Adicionar relatório de integridade ao backup
