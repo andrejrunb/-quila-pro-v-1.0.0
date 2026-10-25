@@ -43,7 +43,17 @@ export class NotificationGateway {
     if (metaToken) {
       this.registerProvider(new WhatsAppMetaProvider(metaUrl, metaToken));
       this.logger.info('[NotificationGateway] WhatsAppMetaProvider oficial registrado via Env.');
+    
+    // Registro automÃ¡tico de Evolution API (Baileys / WhatsApp Gateway Soberano)
+    const evoUrl = process.env.EVOLUTION_API_URL;
+    const evoKey = process.env.EVOLUTION_API_KEY;
+    const evoInstance = process.env.EVOLUTION_INSTANCE || 'aquila_edge';
+
+    if (evoUrl && evoKey) {
+      this.registerProvider(new EvolutionApiProvider(evoUrl, evoKey, evoInstance));
+      this.logger.info('[NotificationGateway] EvolutionApiProvider (Baileys Sovereign) registrado.');
     }
+  }
   }
 
 
@@ -151,3 +161,50 @@ export class WhatsAppMetaProvider implements INotificationProvider {
   }
 }
 
+
+
+/**
+ * EvolutionApiProvider — Baileys-based WhatsApp Gateway (Zero SaaS Cost, Local/Docker Edge).
+ * Utiliza o protocolo WhatsApp Web emulado (Noise Protocol / Protobuf) via Evolution API.
+ */
+export class EvolutionApiProvider implements INotificationProvider {
+  public name = 'evolution_api';
+
+  constructor(
+    private serverUrl: string,
+    private apiKey: string,
+    private instance: string = 'aquila_edge'
+  ) {}
+
+  public async send(payload: NotificationPayload): Promise<boolean> {
+    if (!this.serverUrl || !this.apiKey) return false;
+
+    const cleanNumber = payload.to.replace(/\D/g, '');
+    const endpoint = ${this.serverUrl.replace(/\/$/, '')}/message/sendText/;
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'apikey': this.apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          number: cleanNumber,
+          options: {
+            delay: 800,
+            presence: 'composing'
+          },
+          textMessage: {
+            text: payload.body
+          }
+        })
+      });
+
+      return response.ok;
+    } catch (err) {
+      console.error('[EvolutionApiProvider] Erro ao enviar mensagem WhatsApp Baileys:', err);
+      return false;
+    }
+  }
+}
