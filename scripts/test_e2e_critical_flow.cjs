@@ -57,12 +57,53 @@ var NotificationOutboxService = class {
       CREATE INDEX IF NOT EXISTS idx_outbox_status_retry ON notification_outbox(status, next_retry_at);
       CREATE INDEX IF NOT EXISTS idx_outbox_idempotency ON notification_outbox(idempotency_key);
       CREATE INDEX IF NOT EXISTS idx_outbox_provider_id ON notification_outbox(provider_message_id);
+
+      CREATE TABLE IF NOT EXISTS guardian_whatsapp_consents (
+        recipient_phone TEXT PRIMARY KEY,
+        student_id TEXT NOT NULL,
+        consented INTEGER NOT NULL DEFAULT 1,
+        channel TEXT NOT NULL DEFAULT 'whatsapp_meta',
+        updated_at TEXT NOT NULL
+      );
     `);
   }
   /**
    * Enfileira uma mensagem com chave de idempotência.
    * Se a chave já existir, ignora a inserção sem duplicar disparo.
    */
+  /**
+   * Registra ou revoga consentimento LGPD (Art. 14) do responsável para WhatsApp Meta Cloud API
+   */
+  setGuardianConsent(recipientPhone, studentId, consented, channel = "whatsapp_meta") {
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    this.db.prepare(`
+      INSERT INTO guardian_whatsapp_consents (recipient_phone, student_id, consented, channel, updated_at)
+      VALUES (?, ?, ?, ?, ?)
+      ON CONFLICT(recipient_phone) DO UPDATE SET
+        consented = excluded.consented,
+        channel = excluded.channel,
+        updated_at = excluded.updated_at
+    `).run(recipientPhone, studentId, consented ? 1 : 0, channel, now);
+  }
+  /**
+   * Verifica se o responsável possui consentimento LGPD ativo para canal oficial permitido
+   */
+  hasGuardianConsent(recipientPhone) {
+    const row = this.db.prepare(
+      "SELECT consented, channel FROM guardian_whatsapp_consents WHERE recipient_phone = ?"
+    ).get(recipientPhone);
+    if (!row) return false;
+    return row.consented === 1 && (row.channel === "whatsapp_meta" || row.channel === "push");
+  }
+  /**
+   * Enfileira mensagem em lote controlado exigindo consentimento ativo do responsável (LGPD Art. 14)
+   */
+  enqueueControlledPilot(item) {
+    if (!this.hasGuardianConsent(item.recipientPhone)) {
+      return { enqueued: false, duplicate: false, blockedByLgpdConsent: true };
+    }
+    return this.enqueue(item);
+  }
   enqueue(item) {
     try {
       const stmt = this.db.prepare(`
@@ -689,6 +730,21 @@ async function runE2ECriticalFlowSuite() {
     const t1 = performance.now();
     console.log("2\uFE0F\u20E3 [E2E-02] Validando Mensageria: Idempot\xEAncia, Backoff Exponencial e Dead-Letter Queue...");
     const outboxService = new NotificationOutboxService(db);
+    const blockedNoConsent = outboxService.enqueueControlledPilot({
+      idempotencyKey: "AVISO_SEM_CONSENTIMENTO_001",
+      recipientPhone: "5511900000000",
+      studentId: "STD_001",
+      templateName: "aviso_ausencia_v1",
+      parameters: { student_name: "Aluno Sem Consentimento" }
+    });
+    if (blockedNoConsent.enqueued || !blockedNoConsent.blockedByLgpdConsent) {
+      throw new Error("FALHA LGPD: envio sem consentimento do respons\xE1vel n\xE3o foi bloqueado!");
+    }
+    outboxService.setGuardianConsent("5511988887777", "STD_001", true, "whatsapp_meta");
+    if (!outboxService.hasGuardianConsent("5511988887777")) {
+      throw new Error("FALHA LGPD: consentimento leg\xEDtimo n\xE3o foi registrado!");
+    }
+    console.log("   - Gate LGPD Art. 14 (WhatsApp Meta): disparo sem consentimento bloqueado e lote autorizado validado.");
     const item1 = outboxService.enqueue({
       idempotencyKey: "AVISO_AUSENCIA_STD001_20261025",
       recipientPhone: "5511988887777",

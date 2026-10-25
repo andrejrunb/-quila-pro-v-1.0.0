@@ -93,6 +93,23 @@ async function runE2ECriticalFlowSuite() {
     console.log('2️⃣ [E2E-02] Validando Mensageria: Idempotência, Backoff Exponencial e Dead-Letter Queue...');
     const outboxService = new NotificationOutboxService(db);
 
+    // 2.0 Validação de Lote Controlado WhatsApp Meta com Consentimento LGPD (Art. 14)
+    const blockedNoConsent = outboxService.enqueueControlledPilot({
+      idempotencyKey: 'AVISO_SEM_CONSENTIMENTO_001',
+      recipientPhone: '5511900000000',
+      studentId: 'STD_001',
+      templateName: 'aviso_ausencia_v1',
+      parameters: { student_name: 'Aluno Sem Consentimento' }
+    });
+    if (blockedNoConsent.enqueued || !blockedNoConsent.blockedByLgpdConsent) {
+      throw new Error('FALHA LGPD: envio sem consentimento do responsável não foi bloqueado!');
+    }
+    outboxService.setGuardianConsent('5511988887777', 'STD_001', true, 'whatsapp_meta');
+    if (!outboxService.hasGuardianConsent('5511988887777')) {
+      throw new Error('FALHA LGPD: consentimento legítimo não foi registrado!');
+    }
+    console.log('   - Gate LGPD Art. 14 (WhatsApp Meta): disparo sem consentimento bloqueado e lote autorizado validado.');
+
     // 2.1 Enfileiramento com Chave de Idempotência
     const item1 = outboxService.enqueue({
       idempotencyKey: 'AVISO_AUSENCIA_STD001_20261025',

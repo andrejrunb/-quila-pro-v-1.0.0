@@ -81,6 +81,14 @@ export class NotificationOutboxService {
       CREATE INDEX IF NOT EXISTS idx_outbox_status_retry ON notification_outbox(status, next_retry_at);
       CREATE INDEX IF NOT EXISTS idx_outbox_idempotency ON notification_outbox(idempotency_key);
       CREATE INDEX IF NOT EXISTS idx_outbox_provider_id ON notification_outbox(provider_message_id);
+
+      CREATE TABLE IF NOT EXISTS guardian_whatsapp_consents (
+        recipient_phone TEXT PRIMARY KEY,
+        student_id TEXT NOT NULL,
+        consented INTEGER NOT NULL DEFAULT 1,
+        channel TEXT NOT NULL DEFAULT 'whatsapp_meta',
+        updated_at TEXT NOT NULL
+      );
     `);
   }
 
@@ -88,6 +96,54 @@ export class NotificationOutboxService {
    * Enfileira uma mensagem com chave de idempotência.
    * Se a chave já existir, ignora a inserção sem duplicar disparo.
    */
+  /**
+   * Registra ou revoga consentimento LGPD (Art. 14) do responsável para WhatsApp Meta Cloud API
+   */
+  public setGuardianConsent(
+    recipientPhone: string,
+    studentId: string,
+    consented: boolean,
+    channel: 'whatsapp_meta' | 'push' = 'whatsapp_meta'
+  ): void {
+    const now = new Date().toISOString();
+    this.db.prepare(`
+      INSERT INTO guardian_whatsapp_consents (recipient_phone, student_id, consented, channel, updated_at)
+      VALUES (?, ?, ?, ?, ?)
+      ON CONFLICT(recipient_phone) DO UPDATE SET
+        consented = excluded.consented,
+        channel = excluded.channel,
+        updated_at = excluded.updated_at
+    `).run(recipientPhone, studentId, consented ? 1 : 0, channel, now);
+  }
+
+  /**
+   * Verifica se o responsável possui consentimento LGPD ativo para canal oficial permitido
+   */
+  public hasGuardianConsent(recipientPhone: string): boolean {
+    const row = this.db.prepare(
+      "SELECT consented, channel FROM guardian_whatsapp_consents WHERE recipient_phone = ?"
+    ).get(recipientPhone) as { consented: number; channel: string } | undefined;
+    if (!row) return false;
+    return row.consented === 1 && (row.channel === 'whatsapp_meta' || row.channel === 'push');
+  }
+
+  /**
+   * Enfileira mensagem em lote controlado exigindo consentimento ativo do responsável (LGPD Art. 14)
+   */
+  public enqueueControlledPilot(item: {
+    idempotencyKey: string;
+    recipientPhone: string;
+    studentId: string;
+    templateName: string;
+    parameters: Record<string, any>;
+    maxRetries?: number;
+  }): { enqueued: boolean; duplicate: boolean; blockedByLgpdConsent?: boolean } {
+    if (!this.hasGuardianConsent(item.recipientPhone)) {
+      return { enqueued: false, duplicate: false, blockedByLgpdConsent: true };
+    }
+    return this.enqueue(item);
+  }
+
   public enqueue(item: {
     idempotencyKey: string;
     recipientPhone: string;

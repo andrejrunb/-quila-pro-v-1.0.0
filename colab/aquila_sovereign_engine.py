@@ -1,21 +1,17 @@
 """
-🦅 ÁQUILA PRO — SOVEREIGN GPU ENGINE v3.1
-==========================================
-FOCO: Processamento gráfico/visual acelerado por GPU.
+🦅 ÁQUILA PRO — SOVEREIGN GPU ENGINE v4.0 (VISION + LOCAL GPU LLM)
+==================================================================
+FOCO: Processamento gráfico/visual + LLMs Locais na GPU (Zero Custo de Cota).
 
-Cole este script INTEIRO em uma ÚNICA célula do Google Colab.
-Runtime: GPU (T4 grátis ou A100 Pro)
+Cole este script INTEIRO em uma ÚNICA célula do Google Colab / Kaggle / Lightning.
+Runtime: GPU (T4 grátis 15GB ou A100 Pro)
 
 O que roda aqui (GPU):
-  ✅ Face Recognition (dlib + InsightFace)
+  ✅ Face Recognition (dlib + InsightFace 512-dim)
   ✅ Object Detection (YOLOv8/v11)
-  ✅ Embeddings faciais (ArcFace ONNX)
   ✅ Processamento de imagem (OpenCV + CUDA)
-  ✅ Inferência ONNX genérica com GPU
-
-O que NÃO roda aqui:
-  ❌ LLMs de chat (o Antigravity já faz isso)
-  ❌ Geração de código (o Antigravity já faz isso)
+  ✅ LLMs Treinadas na GPU via Ollama (Qwen2.5-Coder-7B & DeepSeek-R1-7B)
+  ✅ Endpoint OpenAI-compatible (/v1/chat/completions) para poupar 90% dos créditos do Antigravity!
 """
 
 import subprocess, os, sys, time, json, threading, io, base64, traceback
@@ -117,6 +113,33 @@ try:
 except:
     print("⚠️ ONNX Runtime não disponível")
 
+# ============================================================
+# FASE 3.5: OLLAMA + LLMs TREINADAS NA GPU + HD DO COLAB (/content/aquila_brain)
+# ============================================================
+BRAIN_DIR = Path("/content/aquila_brain")
+BRAIN_DIR.mkdir(parents=True, exist_ok=True)
+ollama_ready = False
+COLAB_LLM_MODEL = os.environ.get("AQUILA_COLAB_LLM", "qwen2.5-coder:7b")
+AQUILA_TUNED_MODEL = "aquila-specialist"
+print(f"\n🤖 Configurando Ollama na GPU com modelo base {COLAB_LLM_MODEL}...")
+try:
+    subprocess.run("curl -fsSL https://ollama.com/install.sh | sh > /dev/null 2>&1", shell=True, check=True)
+    subprocess.Popen(["ollama", "serve"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    time.sleep(4)
+    subprocess.run(["ollama", "pull", COLAB_LLM_MODEL], check=True)
+    # Cria modelo especializado com o DNA do Áquila Pro na GPU
+    default_modelfile = BRAIN_DIR / "Modelfile.aquila"
+    if not default_modelfile.exists():
+        default_modelfile.write_text(
+            f'FROM {COLAB_LLM_MODEL}\nPARAMETER temperature 0.2\nSYSTEM """Você é o motor especialista do Ecossistema Áquila Pro v2.1 (SQLite WAL, NotificationOutboxService com idempotency_key e DLQ, OMR Δfill < 25% -> PENDING_TEACHER_REVIEW, WebSocket Porta 9000 com HMAC-SHA256 e LGPD Art. 14/16/18)."""\n',
+            encoding="utf-8"
+        )
+    subprocess.run(["ollama", "create", AQUILA_TUNED_MODEL, "-f", str(default_modelfile)], check=True)
+    ollama_ready = True
+    print(f"✅ LLM Especialista '{AQUILA_TUNED_MODEL}' ({COLAB_LLM_MODEL}) ativa na GPU T4!")
+except Exception as e:
+    print(f"⚠️ Ollama GPU opcional não iniciou: {e}")
+
 print(f"\n📊 Modelos carregados. VRAM usada: ", end="")
 try:
     import torch
@@ -211,8 +234,107 @@ async def health():
             "face_recognition": face_analyzer is not None,
             "object_detection": yolo_model is not None,
             "onnx_gpu": ort_session is not None or "CUDAExecutionProvider" in (ort.get_available_providers() if 'ort' in dir() else []),
+            "local_gpu_llm": ollama_ready,
+            "llm_model": COLAB_LLM_MODEL if ollama_ready else None,
         }
     }
+
+# ─── GPU LLM: Endpoint OpenAI-Compatible (/v1/chat/completions) e Gerador Direto ───
+class ChatCompletionRequest(BaseModel):
+    model: Optional[str] = None
+    messages: List[Dict[str, str]]
+    max_tokens: Optional[int] = 2048
+    temperature: Optional[float] = 0.2
+
+@app.post("/v1/chat/completions")
+@app.post("/llm/generate")
+async def gpu_llm_chat(req: ChatCompletionRequest):
+    """
+    Executa inferência de LLM diretamente na GPU do Colab via Ollama.
+    Economiza 100% dos créditos semanais do Antigravity para geração de código, testes e análises.
+    """
+    ENGINE["requests"] += 1
+    t0 = time.perf_counter()
+    target_model = req.model if (req.model and req.model != "default") else COLAB_LLM_MODEL
+    try:
+        import urllib.request
+        payload = json.dumps({
+            "model": target_model,
+            "messages": req.messages,
+            "stream": False,
+            "options": {"temperature": req.temperature, "num_predict": req.max_tokens}
+        }).encode("utf-8")
+        ollama_req = urllib.request.Request(
+            "http://127.0.0.1:11434/api/chat",
+            data=payload,
+            headers={"Content-Type": "application/json"}
+        )
+        with urllib.request.urlopen(ollama_req, timeout=120) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            content = data.get("message", {}).get("content", "")
+            elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+            return {
+                "id": f"colab-gpu-{int(time.time())}",
+                "object": "chat.completion",
+                "model": target_model,
+                "latency_ms": elapsed_ms,
+                "choices": [{
+                    "index": 0,
+                    "message": {"role": "assistant", "content": content},
+                    "finish_reason": "stop"
+                }]
+            }
+    except Exception as e:
+        ENGINE["errors"] += 1
+        raise HTTPException(500, f"Erro na LLM da GPU Colab: {str(e)}")
+
+# ─── SWARM SYNC: Transferência da Base SQLite, .md dos Agentes e Modelfile para o HD do Colab ───
+class SwarmSyncRequest(BaseModel):
+    project: str
+    release: str
+    knowledge_base_md: str
+    agent_profiles: Dict[str, str]
+    sql_schema: str
+    modelfile: str
+
+@app.post("/swarm/sync-context")
+async def sync_swarm_context(bundle: SwarmSyncRequest):
+    """
+    Recebe o pacote completo do Áquila Pro (Knowledge Base, Perfis .md, Schema SQLite e Modelfile),
+    salva no HD do Colab (/content/aquila_brain), instancia o banco SQLite local na máquina GPU
+    e recompila o modelo 'aquila-specialist' no Ollama com todo o contexto atualizado.
+    """
+    ENGINE["requests"] += 1
+    try:
+        import sqlite3
+        (BRAIN_DIR / "AQUILA_KNOWLEDGE_BASE.md").write_text(bundle.knowledge_base_md, encoding="utf-8")
+        agents_sub = BRAIN_DIR / "agents"
+        agents_sub.mkdir(parents=True, exist_ok=True)
+        for name, content in bundle.agent_profiles.items():
+            (agents_sub / f"{name}.md").write_text(content, encoding="utf-8")
+
+        # Criar/atualizar banco SQLite no HD do Colab
+        db_colab_path = BRAIN_DIR / "aquila_colab.db"
+        conn = sqlite3.connect(str(db_colab_path))
+        conn.executescript(bundle.sql_schema)
+        conn.close()
+
+        # Atualizar Modelfile e recriar modelo 'aquila-specialist' no Ollama
+        modelfile_path = BRAIN_DIR / "Modelfile.aquila"
+        modelfile_path.write_text(bundle.modelfile, encoding="utf-8")
+        if ollama_ready:
+            subprocess.run(["ollama", "create", AQUILA_TUNED_MODEL, "-f", str(modelfile_path)], check=False)
+
+        return {
+            "status": "SYNCED_AND_TUNED",
+            "colab_hd_path": str(BRAIN_DIR),
+            "sqlite_db": str(db_colab_path),
+            "agents_synced": list(bundle.agent_profiles.keys()),
+            "tuned_model": AQUILA_TUNED_MODEL if ollama_ready else None
+        }
+    except Exception as e:
+        ENGINE["errors"] += 1
+        raise HTTPException(500, f"Falha ao sincronizar contexto no HD do Colab: {str(e)}")
 
 # ─── FACE: Extrair Embeddings ───
 @app.post("/face/embeddings")

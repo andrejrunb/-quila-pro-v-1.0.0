@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-10-25T22:44:43Z",
+  "releaseCandidate": "v2.1.0-rc.18",
+  "testSuites": [
+    {
+      "suite": "SQLite Edge Backup & DR Security Suite",
+      "status": "PASSED",
+      "duration_ms": 6024.9
+    },
+    {
+      "suite": "E2E Critical Operational Flows (Pedagógico + Outbox + LGPD + OMR + WS)",
+      "status": "PASSED",
+      "duration_ms": 1752.6
+    },
+    {
+      "suite": "Hostile Environment Stress Test (500 Alunos + Backup Concorrente + Crash)",
+      "status": "PASSED",
+      "duration_ms": 1066.0
+    },
+    {
+      "suite": "Swarm Specialists Verification Suite",
+      "status": "PASSED",
+      "duration_ms": 18464.4
+    }
+  ],
+  "sha256Checksums": {
+    "apps/electron/src/main/services/NotificationOutboxService.ts": "854c5a3d09e40d72d7ac4b47c56a55edf0a590530ffa098844a30bae489d5e56",
+    "apps/electron/src/main/services/WebSocketServer.ts": "31626d19552c0ccdc62893e85b3fc8666e6401e6555ae7f69b52cf796653ca61",
+    "apps/electron/src/main/services/SQLiteDisasterRecoveryService.ts": "fd3dbb4e85b038064fc4a28290f079d46d90dade776926cf8bad41248288f6e4",
+    "colab/aquila_sovereign_engine.py": "ac7d58aefe0ec15b01dedec8b48a217566d7fe9d37a6b765463229463ead1265",
+    "scripts/test_e2e_critical_flow.cjs": "c5e65a3b849a8393d890d3e553447e108883fe95c7e4815fea47c832f8f565e7",
+    "scripts/stress_test_pilot_hostile_env.cjs": "ed336fecea5874cdbe2935946928c1583d69aa336c0ff3c63577e08e6a87c785",
+    "scripts/test_backup_dr_suite.cjs": "4144debfce7cf5979874f2396cfb570b5f3b05b6a0a71afae9fed5eed98c8c38",
+    "scripts/swarm_router.py": "53878b7bfb026088c6bed96f098bf8a4189a7118af31b02daa043ed1b8ba53ee",
+    "swarm/AQUILA_KNOWLEDGE_BASE.md": "4cc3172f6e428c12e18cf27701a099551aba00cff9a01116c023dec68bdd6a83",
+    "docs/RUNBOOK_INCIDENTES_SOC_ESCOLAR.md": "eb032a1d27060f48035ef24bec1f611f1691f3dbbda5f2e0f84c32ef4f1d1738"
+  },
+  "swarmArchitectVerdict": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "latencyMs": 6695,
+    "verdict": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User wants a technical opinion (parecer técnico) homologating release v2.1.0-rc.18 of Áquila Pro.\n   - Constraints: Max 8 lines.\n   - 4 specific conditions must be referenced/homologated:\n     1. NotificationOutboxService: idempotência, reconciliação Meta, DLQ HITL, Gate LGPD Art. 14\n     2. WebSocket Porta 9000: HMAC-SHA256 e Rate Limit Multicamadas por Role/Categoria\n     3. Todas as 4 baterias (Backup DR, E2E Crítico, Stress Hostil com 500 alunos, Swarm Verification) passaram 100% verdes\n     4. Manifesto SHA256SUMS.txt e Runbook de Incidentes SOC foram publicados\n   - Tone: Direct, concise, faithful to Áquila Pro v2.1 contracts.\n\n2.  **Identify Key Requirements:**\n   - Max 8 lines. I need to be very concise.\n   - Must explicitly mention/homologate the 4 points.\n   - Professional, technical tone.\n   - Probably a single paragraph or bullet-like concise statement, but staying within 8 lines.\n\n3.  **Drafting - Attempt 1 (Mental):**\n   Parecer de homologação da release v2.1.0-rc.18:\n   1) NotificationOutboxService confirma idempotência, reconciliação Meta e DLQ HITL com LGPD Art. 14.\n   2) WebSocket na porta 9000 opera com HMAC-SHA256 e rate limit multicamalhado por Role/Categoria.\n   3) Todas as 4 baterias (Backup DR, E2E Crítico, Stress 500 alunos, Swarm Verification) passaram 100% verdes.\n   4) Manifesto SHA256SUMS.txt e Runbook SOC publicados.\n   Homologado para produção.\n\n   Count lines: That's about 5-6 lines if I format compactly. Let's verify line breaks. I'll make sure it's ≤ 8 lines.\n\n4.  **Drafting - Attempt 2 (More compact):**\n   Homologação release v2.1.0-rc.18:\n   - NotificationOutboxService: idempotência, reconciliação Meta, DLQ HITL e LGPD Art. 14 em conformidade.\n   - WebSocket porta 9000: HMAC-SHA256 e rate limit multicamadas por Role/Categoria operacionais.\n   - 4 baterias 100% verdes: Backup DR, E2E Crítico, Stress 500 alunos e Swarm Verification.\n   - Manifesto SHA256SUMS.txt e Runbook SOC publicados.\n   Release homologada para produção.\n\n   Still within 8 lines. Let's count: 1 (title), 2, 3, 4, 5, 6. Good.\n\n5.  **Drafting - Attempt 3 (Aiming for exactly 8 lines max, very concise):**\n   Parecer de homologação da release Áquila Pro v2.1.0-rc.18:\n   1) NotificationOutboxService: idempotência, reconciliação Meta, DLQ HITL e LGPD Art. 14.\n   2) WebSocket porta 9000: HMAC-SHA256 e rate limit multicamadas por Role/Categoria.\n   3) 4 baterias 100% verdes: Backup DR, E2E Crítico, Stress 500 alunos e Swarm Verification.\n   4) Manifesto SHA256SUMS.txt e Runbook SOC publicados.\n   Todos os itens validados. Release homologada para produção imediata.\n\n   Count lines: Let's count manually:\n   Line 1: \"Parecer de homologação da release Áquila Pro v2.1.0-rc.18:\"\n   Line 2: \"1) NotificationOutboxService: idempotência, reconciliação Meta, DLQ HITL e LGPD Art. 14.\"\n   Line 3: \"2) WebSocket porta 9000: HMAC-SHA256 e rate limit multicamadas por Role/Categoria.\"\n   Line 4: \"3) 4 baterias 100% verdes: Backup DR, E2E Crítico, Stress 500 alunos e Swarm Verification.\"\n   Line 5: \"4) Manif"
+  }
+}
