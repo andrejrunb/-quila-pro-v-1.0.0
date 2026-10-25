@@ -31,13 +31,25 @@ var SQLiteDisasterRecoveryService = class {
   static SALT_LENGTH = 16;
   static IV_LENGTH = 16;
   static TAG_LENGTH = 16;
-  static DEFAULT_KEY = process.env.AQUILA_BACKUP_MASTER_KEY || "AQUILA_PRO_SOVEREIGN_EDGE_KEY_2026_LGPD";
+  /**
+   * Obtém a chave mestra com validação estrita de segurança.
+   * Proíbe terminantemente o uso de chaves padrão hardcoded.
+   */
+  static resolveMasterKey(explicitKey) {
+    const key = explicitKey || process.env.AQUILA_BACKUP_MASTER_KEY;
+    if (!key || key.trim().length < 32) {
+      throw new Error(
+        "AQUILA_BACKUP_MASTER_KEY \xE9 obrigat\xF3ria e deve ter pelo menos 32 caracteres. Backup/restaura\xE7\xE3o recusados para impedir uso de chave padr\xE3o."
+      );
+    }
+    return key;
+  }
   /**
    * Executa backup completo, atômico e criptografado com AES-256-GCM
    */
   static createEncryptedBackup(options) {
     const start = performance.now();
-    const key = options.masterKey || this.DEFAULT_KEY;
+    const key = this.resolveMasterKey(options.masterKey);
     const author = options.author || "SYSTEM_AUTOMATION";
     if (!fs.existsSync(options.dbPath)) {
       throw new Error(`Banco de dados de origem n\xE3o encontrado: ${options.dbPath}`);
@@ -48,7 +60,7 @@ var SQLiteDisasterRecoveryService = class {
     const controlDb = new import_better_sqlite3.default(options.dbPath);
     controlDb.pragma("journal_mode = WAL");
     controlDb.pragma("wal_checkpoint(TRUNCATE)");
-    const timestamp = (/* @__PURE__ */ new Date()).toISOString();
+    const timestamp = (options.referenceDate || /* @__PURE__ */ new Date()).toISOString();
     const safeTimestamp = timestamp.replace(/[:.]/g, "-");
     const tempSnapshotPath = path.join(options.backupPrimaryDir, `temp_snap_${safeTimestamp}.db`);
     if (fs.existsSync(tempSnapshotPath)) fs.unlinkSync(tempSnapshotPath);
@@ -81,7 +93,7 @@ var SQLiteDisasterRecoveryService = class {
     };
     snapDb.close();
     const manifest = {
-      version: "2.1.0-rc.9",
+      version: "2.1.0-rc.14",
       timestamp,
       sourceDbName: path.basename(options.dbPath),
       unencryptedSizeBytes: snapshotBuffer.length,
@@ -106,6 +118,7 @@ var SQLiteDisasterRecoveryService = class {
     fs.writeFileSync(primaryFile, finalBackupBuffer);
     if (fs.existsSync(tempSnapshotPath)) fs.unlinkSync(tempSnapshotPath);
     let secondaryFile;
+    let secondaryCopySuccess = false;
     if (options.backupSecondaryDir) {
       try {
         if (!fs.existsSync(options.backupSecondaryDir)) {
@@ -113,16 +126,23 @@ var SQLiteDisasterRecoveryService = class {
         }
         secondaryFile = path.join(options.backupSecondaryDir, backupFileName);
         fs.copyFileSync(primaryFile, secondaryFile);
+        secondaryCopySuccess = true;
       } catch (err) {
-        console.warn(`[SQLiteDisasterRecovery] Aviso: falha ao copiar para destino secund\xE1rio: ${err.message}`);
+        if (options.requireSecondary) {
+          if (fs.existsSync(primaryFile)) fs.unlinkSync(primaryFile);
+          throw new Error(`Falha cr\xEDtica ao copiar backup para destino secund\xE1rio obrigat\xF3rio: ${err.message}`);
+        } else {
+          console.warn(`[SQLiteDisasterRecovery] ALERTA: falha ao copiar para destino secund\xE1rio: ${err.message}`);
+        }
       }
     }
-    this.rotateGFSBackups(options.backupPrimaryDir);
+    this.rotateGFSBackups(options.backupPrimaryDir, options.referenceDate);
     const durationMs = performance.now() - start;
     return {
       success: true,
       backupFile: primaryFile,
       secondaryFile,
+      secondaryCopySuccess,
       manifest,
       sizeEncryptedBytes: finalBackupBuffer.length,
       durationMs,
@@ -134,7 +154,7 @@ var SQLiteDisasterRecoveryService = class {
    */
   static restoreEncryptedBackup(options) {
     const start = performance.now();
-    const key = options.masterKey || this.DEFAULT_KEY;
+    const key = this.resolveMasterKey(options.masterKey);
     if (!fs.existsSync(options.backupFilePath)) {
       throw new Error(`Arquivo de backup n\xE3o encontrado: ${options.backupFilePath}`);
     }
@@ -204,6 +224,7 @@ var SQLiteDisasterRecoveryService = class {
     const log = [];
     const t0 = performance.now();
     log.push(`[DRILL] Iniciando simula\xE7\xE3o de Disaster Recovery para: ${path.basename(backupFilePath)}`);
+    const key = this.resolveMasterKey(masterKey);
     const sandboxDir = path.join(path.dirname(backupFilePath), ".restore_drill_sandbox");
     if (fs.existsSync(sandboxDir)) fs.rmSync(sandboxDir, { recursive: true, force: true });
     fs.mkdirSync(sandboxDir, { recursive: true });
@@ -212,7 +233,7 @@ var SQLiteDisasterRecoveryService = class {
       const res = this.restoreEncryptedBackup({
         backupFilePath,
         targetRestorePath: sandboxTarget,
-        masterKey,
+        masterKey: key,
         actor: "RESTORE_DRILL_AUTOMATION"
       });
       const totalMs = performance.now() - t0;
@@ -241,27 +262,76 @@ var SQLiteDisasterRecoveryService = class {
     }
   }
   /**
-   * Rotação GFS (Grandfather-Father-Son): 7 diários, 4 semanais, 12 mensais
+   * Rotação GFS Real (Grandfather-Father-Son):
+   * - Preserva até 7 backups diários (< 7 dias)
+   * - Preserva até 4 backups semanais (7 a 28 dias)
+   * - Preserva até 12 backups mensais (28 a 365 dias)
+   * - Remove backups obsoletos que não se enquadram nas janelas de retenção
    */
-  static rotateGFSBackups(backupDir) {
+  static rotateGFSBackups(backupDir, referenceDate) {
     try {
+      const now = referenceDate ? referenceDate.getTime() : Date.now();
+      const DAY_MS = 24 * 60 * 60 * 1e3;
       const files = fs.readdirSync(backupDir).filter((f) => f.startsWith("aquila_backup_") && f.endsWith(".aquila.bak")).map((f) => {
         const filePath = path.join(backupDir, f);
         return {
           name: f,
           path: filePath,
-          mtime: fs.statSync(filePath).mtime
+          mtime: fs.statSync(filePath).mtime.getTime()
         };
-      }).sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
-      const MAX_DAILY = 7;
-      if (files.length > MAX_DAILY) {
-        const toDelete = files.slice(MAX_DAILY);
-        for (const item of toDelete) {
-          fs.unlinkSync(item.path);
+      }).sort((a, b) => b.mtime - a.mtime);
+      const daily = [];
+      const weekly = [];
+      const monthly = [];
+      const dailyBuckets = /* @__PURE__ */ new Set();
+      const weeklyBuckets = /* @__PURE__ */ new Set();
+      const monthlyBuckets = /* @__PURE__ */ new Set();
+      for (const file of files) {
+        const ageMs = Math.max(0, now - file.mtime);
+        const ageDays = ageMs / DAY_MS;
+        const fileDate = new Date(file.mtime);
+        if (ageDays <= 7) {
+          const dayKey = fileDate.toISOString().slice(0, 10);
+          if (!dailyBuckets.has(dayKey) && daily.length < 7) {
+            dailyBuckets.add(dayKey);
+            daily.push(file);
+          }
+        } else if (ageDays <= 35) {
+          const weekIndex = Math.floor(ageDays / 7);
+          const weekKey = `W_${weekIndex}`;
+          if (!weeklyBuckets.has(weekKey) && weekly.length < 4) {
+            weeklyBuckets.add(weekKey);
+            weekly.push(file);
+          }
+        } else if (ageDays <= 365) {
+          const monthKey = fileDate.toISOString().slice(0, 7);
+          if (!monthlyBuckets.has(monthKey) && monthly.length < 12) {
+            monthlyBuckets.add(monthKey);
+            monthly.push(file);
+          }
         }
       }
-    } catch (e) {
-      console.warn("[SQLiteDisasterRecovery] Falha na rota\xE7\xE3o GFS:", e.message);
+      const keepPaths = /* @__PURE__ */ new Set([
+        ...daily.map((f) => f.path),
+        ...weekly.map((f) => f.path),
+        ...monthly.map((f) => f.path)
+      ]);
+      let prunedCount = 0;
+      for (const file of files) {
+        if (!keepPaths.has(file.path)) {
+          fs.unlinkSync(file.path);
+          prunedCount++;
+        }
+      }
+      return {
+        dailyCount: daily.length,
+        weeklyCount: weekly.length,
+        monthlyCount: monthly.length,
+        prunedCount,
+        retainedFiles: Array.from(keepPaths)
+      };
+    } catch (error) {
+      throw new Error(`Falha na rota\xE7\xE3o GFS: ${error.message}`);
     }
   }
 };
@@ -287,6 +357,11 @@ async function main() {
   const masterKey = args["key"] || process.env.AQUILA_BACKUP_MASTER_KEY;
   if (!backupFilePath) {
     console.error("\u274C Par\xE2metro obrigat\xF3rio ausente: --backup <caminho_do_arquivo.aquila.bak>");
+    process.exit(1);
+  }
+  if (!masterKey || masterKey.trim().length < 32) {
+    console.error("\u274C ERRO DE SEGURAN\xC7A: AQUILA_BACKUP_MASTER_KEY \xE9 obrigat\xF3ria e deve possuir pelo menos 32 caracteres.");
+    console.error("   Passe via --key ou configure a vari\xE1vel de ambiente AQUILA_BACKUP_MASTER_KEY.");
     process.exit(1);
   }
   console.log("\u{1F3DB}\uFE0F ==============================================================");

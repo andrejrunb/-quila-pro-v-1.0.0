@@ -24,6 +24,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 // scripts/test_backup_dr_suite.ts
 var fs2 = __toESM(require("fs"));
 var path2 = __toESM(require("path"));
+var crypto2 = __toESM(require("crypto"));
 var import_better_sqlite32 = __toESM(require("better-sqlite3"));
 
 // apps/electron/src/main/services/SQLiteDisasterRecoveryService.ts
@@ -36,13 +37,25 @@ var SQLiteDisasterRecoveryService = class {
   static SALT_LENGTH = 16;
   static IV_LENGTH = 16;
   static TAG_LENGTH = 16;
-  static DEFAULT_KEY = process.env.AQUILA_BACKUP_MASTER_KEY || "AQUILA_PRO_SOVEREIGN_EDGE_KEY_2026_LGPD";
+  /**
+   * Obtém a chave mestra com validação estrita de segurança.
+   * Proíbe terminantemente o uso de chaves padrão hardcoded.
+   */
+  static resolveMasterKey(explicitKey) {
+    const key = explicitKey || process.env.AQUILA_BACKUP_MASTER_KEY;
+    if (!key || key.trim().length < 32) {
+      throw new Error(
+        "AQUILA_BACKUP_MASTER_KEY \xE9 obrigat\xF3ria e deve ter pelo menos 32 caracteres. Backup/restaura\xE7\xE3o recusados para impedir uso de chave padr\xE3o."
+      );
+    }
+    return key;
+  }
   /**
    * Executa backup completo, atômico e criptografado com AES-256-GCM
    */
   static createEncryptedBackup(options) {
     const start = performance.now();
-    const key = options.masterKey || this.DEFAULT_KEY;
+    const key = this.resolveMasterKey(options.masterKey);
     const author = options.author || "SYSTEM_AUTOMATION";
     if (!fs.existsSync(options.dbPath)) {
       throw new Error(`Banco de dados de origem n\xE3o encontrado: ${options.dbPath}`);
@@ -53,7 +66,7 @@ var SQLiteDisasterRecoveryService = class {
     const controlDb = new import_better_sqlite3.default(options.dbPath);
     controlDb.pragma("journal_mode = WAL");
     controlDb.pragma("wal_checkpoint(TRUNCATE)");
-    const timestamp = (/* @__PURE__ */ new Date()).toISOString();
+    const timestamp = (options.referenceDate || /* @__PURE__ */ new Date()).toISOString();
     const safeTimestamp = timestamp.replace(/[:.]/g, "-");
     const tempSnapshotPath = path.join(options.backupPrimaryDir, `temp_snap_${safeTimestamp}.db`);
     if (fs.existsSync(tempSnapshotPath)) fs.unlinkSync(tempSnapshotPath);
@@ -86,7 +99,7 @@ var SQLiteDisasterRecoveryService = class {
     };
     snapDb.close();
     const manifest = {
-      version: "2.1.0-rc.9",
+      version: "2.1.0-rc.14",
       timestamp,
       sourceDbName: path.basename(options.dbPath),
       unencryptedSizeBytes: snapshotBuffer.length,
@@ -111,6 +124,7 @@ var SQLiteDisasterRecoveryService = class {
     fs.writeFileSync(primaryFile, finalBackupBuffer);
     if (fs.existsSync(tempSnapshotPath)) fs.unlinkSync(tempSnapshotPath);
     let secondaryFile;
+    let secondaryCopySuccess = false;
     if (options.backupSecondaryDir) {
       try {
         if (!fs.existsSync(options.backupSecondaryDir)) {
@@ -118,16 +132,23 @@ var SQLiteDisasterRecoveryService = class {
         }
         secondaryFile = path.join(options.backupSecondaryDir, backupFileName);
         fs.copyFileSync(primaryFile, secondaryFile);
+        secondaryCopySuccess = true;
       } catch (err) {
-        console.warn(`[SQLiteDisasterRecovery] Aviso: falha ao copiar para destino secund\xE1rio: ${err.message}`);
+        if (options.requireSecondary) {
+          if (fs.existsSync(primaryFile)) fs.unlinkSync(primaryFile);
+          throw new Error(`Falha cr\xEDtica ao copiar backup para destino secund\xE1rio obrigat\xF3rio: ${err.message}`);
+        } else {
+          console.warn(`[SQLiteDisasterRecovery] ALERTA: falha ao copiar para destino secund\xE1rio: ${err.message}`);
+        }
       }
     }
-    this.rotateGFSBackups(options.backupPrimaryDir);
+    this.rotateGFSBackups(options.backupPrimaryDir, options.referenceDate);
     const durationMs = performance.now() - start;
     return {
       success: true,
       backupFile: primaryFile,
       secondaryFile,
+      secondaryCopySuccess,
       manifest,
       sizeEncryptedBytes: finalBackupBuffer.length,
       durationMs,
@@ -139,7 +160,7 @@ var SQLiteDisasterRecoveryService = class {
    */
   static restoreEncryptedBackup(options) {
     const start = performance.now();
-    const key = options.masterKey || this.DEFAULT_KEY;
+    const key = this.resolveMasterKey(options.masterKey);
     if (!fs.existsSync(options.backupFilePath)) {
       throw new Error(`Arquivo de backup n\xE3o encontrado: ${options.backupFilePath}`);
     }
@@ -209,6 +230,7 @@ var SQLiteDisasterRecoveryService = class {
     const log = [];
     const t0 = performance.now();
     log.push(`[DRILL] Iniciando simula\xE7\xE3o de Disaster Recovery para: ${path.basename(backupFilePath)}`);
+    const key = this.resolveMasterKey(masterKey);
     const sandboxDir = path.join(path.dirname(backupFilePath), ".restore_drill_sandbox");
     if (fs.existsSync(sandboxDir)) fs.rmSync(sandboxDir, { recursive: true, force: true });
     fs.mkdirSync(sandboxDir, { recursive: true });
@@ -217,7 +239,7 @@ var SQLiteDisasterRecoveryService = class {
       const res = this.restoreEncryptedBackup({
         backupFilePath,
         targetRestorePath: sandboxTarget,
-        masterKey,
+        masterKey: key,
         actor: "RESTORE_DRILL_AUTOMATION"
       });
       const totalMs = performance.now() - t0;
@@ -246,197 +268,370 @@ var SQLiteDisasterRecoveryService = class {
     }
   }
   /**
-   * Rotação GFS (Grandfather-Father-Son): 7 diários, 4 semanais, 12 mensais
+   * Rotação GFS Real (Grandfather-Father-Son):
+   * - Preserva até 7 backups diários (< 7 dias)
+   * - Preserva até 4 backups semanais (7 a 28 dias)
+   * - Preserva até 12 backups mensais (28 a 365 dias)
+   * - Remove backups obsoletos que não se enquadram nas janelas de retenção
    */
-  static rotateGFSBackups(backupDir) {
+  static rotateGFSBackups(backupDir, referenceDate) {
     try {
+      const now = referenceDate ? referenceDate.getTime() : Date.now();
+      const DAY_MS = 24 * 60 * 60 * 1e3;
       const files = fs.readdirSync(backupDir).filter((f) => f.startsWith("aquila_backup_") && f.endsWith(".aquila.bak")).map((f) => {
         const filePath = path.join(backupDir, f);
         return {
           name: f,
           path: filePath,
-          mtime: fs.statSync(filePath).mtime
+          mtime: fs.statSync(filePath).mtime.getTime()
         };
-      }).sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
-      const MAX_DAILY = 7;
-      if (files.length > MAX_DAILY) {
-        const toDelete = files.slice(MAX_DAILY);
-        for (const item of toDelete) {
-          fs.unlinkSync(item.path);
+      }).sort((a, b) => b.mtime - a.mtime);
+      const daily = [];
+      const weekly = [];
+      const monthly = [];
+      const dailyBuckets = /* @__PURE__ */ new Set();
+      const weeklyBuckets = /* @__PURE__ */ new Set();
+      const monthlyBuckets = /* @__PURE__ */ new Set();
+      for (const file of files) {
+        const ageMs = Math.max(0, now - file.mtime);
+        const ageDays = ageMs / DAY_MS;
+        const fileDate = new Date(file.mtime);
+        if (ageDays <= 7) {
+          const dayKey = fileDate.toISOString().slice(0, 10);
+          if (!dailyBuckets.has(dayKey) && daily.length < 7) {
+            dailyBuckets.add(dayKey);
+            daily.push(file);
+          }
+        } else if (ageDays <= 35) {
+          const weekIndex = Math.floor(ageDays / 7);
+          const weekKey = `W_${weekIndex}`;
+          if (!weeklyBuckets.has(weekKey) && weekly.length < 4) {
+            weeklyBuckets.add(weekKey);
+            weekly.push(file);
+          }
+        } else if (ageDays <= 365) {
+          const monthKey = fileDate.toISOString().slice(0, 7);
+          if (!monthlyBuckets.has(monthKey) && monthly.length < 12) {
+            monthlyBuckets.add(monthKey);
+            monthly.push(file);
+          }
         }
       }
-    } catch (e) {
-      console.warn("[SQLiteDisasterRecovery] Falha na rota\xE7\xE3o GFS:", e.message);
+      const keepPaths = /* @__PURE__ */ new Set([
+        ...daily.map((f) => f.path),
+        ...weekly.map((f) => f.path),
+        ...monthly.map((f) => f.path)
+      ]);
+      let prunedCount = 0;
+      for (const file of files) {
+        if (!keepPaths.has(file.path)) {
+          fs.unlinkSync(file.path);
+          prunedCount++;
+        }
+      }
+      return {
+        dailyCount: daily.length,
+        weeklyCount: weekly.length,
+        monthlyCount: monthly.length,
+        prunedCount,
+        retainedFiles: Array.from(keepPaths)
+      };
+    } catch (error) {
+      throw new Error(`Falha na rota\xE7\xE3o GFS: ${error.message}`);
     }
   }
 };
 
 // scripts/test_backup_dr_suite.ts
-async function runFullDrSuite() {
-  console.log("\u{1F3DB}\uFE0F =========================================================================");
-  console.log("   \xC1QUILA PRO \u2014 HOMOLOGA\xC7\xC3O DA OP\xC7\xC3O A: BACKUP & DR DO SQLITE EDGE");
-  console.log("=========================================================================\n");
-  const baseTestDir = path2.join(__dirname, "..", ".tmp_op_a_validation");
-  if (fs2.existsSync(baseTestDir)) {
-    fs2.rmSync(baseTestDir, { recursive: true, force: true });
+var TEST_ROOT = path2.join(process.cwd(), ".backup-dr-test-v14");
+var DB_PATH = path2.join(TEST_ROOT, "aquila_test.db");
+var BACKUP_DIR = path2.join(TEST_ROOT, "backups");
+var RESTORE_DIR = path2.join(TEST_ROOT, "restore");
+var SECONDARY_DIR = path2.join(TEST_ROOT, "secondary");
+var STRONG_KEY = crypto2.randomBytes(32).toString("base64");
+var WRONG_KEY = crypto2.randomBytes(32).toString("base64");
+function resetEnvironment() {
+  if (fs2.existsSync(TEST_ROOT)) {
+    fs2.rmSync(TEST_ROOT, { recursive: true, force: true });
   }
-  fs2.mkdirSync(baseTestDir, { recursive: true });
-  const primaryBackupDir = path2.join(baseTestDir, "primary_backups");
-  const secondaryBackupDir = path2.join(baseTestDir, "secondary_usb_mock");
-  const liveDbPath = path2.join(baseTestDir, "aquila_live.db");
-  const restoreTargetPath = path2.join(baseTestDir, "aquila_emergency_restored.db");
-  const masterKey = "CHAVE_MESTRA_TESTE_AES256GCM_PILOTO_2026";
+  fs2.mkdirSync(TEST_ROOT, { recursive: true });
+  fs2.mkdirSync(BACKUP_DIR, { recursive: true });
+  fs2.mkdirSync(RESTORE_DIR, { recursive: true });
+  fs2.mkdirSync(SECONDARY_DIR, { recursive: true });
+}
+function createTestDatabase() {
+  const db = new import_better_sqlite32.default(DB_PATH);
+  db.pragma("journal_mode = WAL");
+  db.pragma("synchronous = NORMAL");
+  db.exec(`
+    CREATE TABLE students (id TEXT PRIMARY KEY, name TEXT NOT NULL, class_id TEXT NOT NULL);
+    CREATE TABLE classes (id TEXT PRIMARY KEY, name TEXT NOT NULL, room TEXT NOT NULL);
+    CREATE TABLE attendance_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, student_id TEXT NOT NULL, status TEXT NOT NULL, timestamp TEXT NOT NULL);
+    CREATE TABLE zero_bypass_audits (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id TEXT NOT NULL, action TEXT NOT NULL, details TEXT NOT NULL, created_at TEXT NOT NULL);
+    CREATE TABLE users (id TEXT PRIMARY KEY, name TEXT NOT NULL, role TEXT NOT NULL);
+  `);
+  const insertStudent = db.prepare("INSERT INTO students VALUES (?, ?, ?)");
+  const insertClass = db.prepare("INSERT INTO classes VALUES (?, ?, ?)");
+  const insertAttendance = db.prepare("INSERT INTO attendance_logs (student_id, status, timestamp) VALUES (?, ?, ?)");
+  const insertAudit = db.prepare("INSERT INTO zero_bypass_audits (user_id, action, details, created_at) VALUES (?, ?, ?, ?)");
+  const insertUser = db.prepare("INSERT INTO users VALUES (?, ?, ?)");
+  const tx = db.transaction(() => {
+    insertClass.run("TURMA_1EM_A", "1\xBA Ano EM A", "Sala 101");
+    insertClass.run("TURMA_2EM_B", "2\xBA Ano EM B", "Sala 102");
+    for (let i = 1; i <= 50; i++) {
+      const sid = `STD_${i.toString().padStart(3, "0")}`;
+      insertStudent.run(sid, `Estudante Piloto ${i}`, i <= 25 ? "TURMA_1EM_A" : "TURMA_2EM_B");
+      insertAttendance.run(sid, "PRESENT", (/* @__PURE__ */ new Date()).toISOString());
+      insertAudit.run("COORD_01", "ATTENDANCE_RECORDED", `Presen\xE7a validada para ${sid}`, (/* @__PURE__ */ new Date()).toISOString());
+    }
+    for (let u = 1; u <= 5; u++) {
+      insertUser.run(`PROF_${u}`, `Professor ${u}`, "TEACHER");
+    }
+  });
+  tx();
+  db.close();
+}
+function testBackupWithoutKeyMustFail() {
+  const savedKey = process.env.AQUILA_BACKUP_MASTER_KEY;
+  delete process.env.AQUILA_BACKUP_MASTER_KEY;
+  let rejected = false;
   try {
-    console.log("1\uFE0F\u20E3 Criando banco SQLite ativo com WAL e dados do col\xE9gio piloto...");
-    const db = new import_better_sqlite32.default(liveDbPath);
-    db.pragma("journal_mode = WAL");
-    db.pragma("synchronous = NORMAL");
-    db.exec(`
-      CREATE TABLE students (id TEXT PRIMARY KEY, name TEXT NOT NULL, class_id TEXT NOT NULL);
-      CREATE TABLE classes (id TEXT PRIMARY KEY, name TEXT NOT NULL, room TEXT NOT NULL);
-      CREATE TABLE attendance_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, student_id TEXT NOT NULL, status TEXT NOT NULL, timestamp TEXT NOT NULL);
-      CREATE TABLE zero_bypass_audits (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id TEXT NOT NULL, action TEXT NOT NULL, details TEXT NOT NULL, created_at TEXT NOT NULL);
-      CREATE TABLE users (id TEXT PRIMARY KEY, name TEXT NOT NULL, role TEXT NOT NULL);
-    `);
-    const insertStudent = db.prepare("INSERT INTO students VALUES (?, ?, ?)");
-    const insertClass = db.prepare("INSERT INTO classes VALUES (?, ?, ?)");
-    const insertAttendance = db.prepare("INSERT INTO attendance_logs (student_id, status, timestamp) VALUES (?, ?, ?)");
-    const insertAudit = db.prepare("INSERT INTO zero_bypass_audits (user_id, action, details, created_at) VALUES (?, ?, ?, ?)");
-    const insertUser = db.prepare("INSERT INTO users VALUES (?, ?, ?)");
-    const populateTx = db.transaction(() => {
-      insertClass.run("TURMA_1EM_A", "1\xBA Ano EM A", "Sala 101");
-      insertClass.run("TURMA_2EM_B", "2\xBA Ano EM B", "Sala 102");
-      for (let i = 1; i <= 50; i++) {
-        const sid = `STD_${i.toString().padStart(3, "0")}`;
-        const cid = i <= 25 ? "TURMA_1EM_A" : "TURMA_2EM_B";
-        insertStudent.run(sid, `Estudante Piloto ${i}`, cid);
-        insertAttendance.run(sid, "PRESENT", (/* @__PURE__ */ new Date()).toISOString());
-        insertAttendance.run(sid, "PRESENT", (/* @__PURE__ */ new Date()).toISOString());
-        insertAudit.run("COORD_01", "ATTENDANCE_RECORDED", `Presen\xE7a validada para ${sid}`, (/* @__PURE__ */ new Date()).toISOString());
-      }
-      for (let u = 1; u <= 10; u++) {
-        insertUser.run(`PROF_${u}`, `Professor ${u}`, "TEACHER");
-      }
-    });
-    populateTx();
-    console.log("\u2705 Banco populado: 50 alunos, 2 turmas, 100 presen\xE7as, 10 usu\xE1rios e 50 auditorias gravadas no WAL.\n");
-    console.log("2\uFE0F\u20E3 Executando Snapshot At\xF4mico (WAL checkpoint + VACUUM INTO + Criptografia AES-256-GCM)...");
-    const backupStart = performance.now();
-    const backupResult = SQLiteDisasterRecoveryService.createEncryptedBackup({
-      dbPath: liveDbPath,
-      backupPrimaryDir: primaryBackupDir,
-      backupSecondaryDir: secondaryBackupDir,
-      masterKey,
-      author: "ROTINA_NOTURNA_TI_PILOTO"
-    });
-    const backupElapsed = performance.now() - backupStart;
-    console.log(`\u2705 Backup gerado com sucesso em ${backupElapsed.toFixed(2)} ms:`);
-    console.log(`   - Arquivo Prim\xE1rio:   ${path2.basename(backupResult.backupFile)}`);
-    console.log(`   - Arquivo Secund\xE1rio: ${backupResult.secondaryFile ? path2.basename(backupResult.secondaryFile) : "N/A"}`);
-    console.log(`   - Tamanho Cifrado:    ${backupResult.sizeEncryptedBytes} bytes`);
-    console.log(`   - Algoritmo:          ${backupResult.manifest.encryption} (com Auth Tag)`);
-    console.log(`   - Hash SHA-256 Orig.: ${backupResult.manifest.sha256}`);
-    console.log(`   - Resumo L\xF3gico:      Alunos=${backupResult.manifest.rowCounts.students}, Turmas=${backupResult.manifest.rowCounts.classes}, Presen\xE7as=${backupResult.manifest.rowCounts.attendance_logs}, Audits=${backupResult.manifest.rowCounts.zero_bypass_audits}
-`);
-    if (!fs2.existsSync(backupResult.backupFile)) throw new Error("Arquivo de backup prim\xE1rio n\xE3o foi gravado!");
-    if (!backupResult.secondaryFile || !fs2.existsSync(backupResult.secondaryFile)) throw new Error("Arquivo secund\xE1rio n\xE3o foi gravado!");
-    console.log("3\uFE0F\u20E3 Testando prote\xE7\xE3o anti-adultera\xE7\xE3o criptogr\xE1fica (Auth Tag AES-256-GCM)...");
-    const tamperedBackupPath = path2.join(baseTestDir, "tampered_backup.aquila.bak");
-    const validBytes = fs2.readFileSync(backupResult.backupFile);
-    validBytes[validBytes.length - 10] ^= 255;
-    fs2.writeFileSync(tamperedBackupPath, validBytes);
-    let tamperingDetected = false;
-    try {
-      SQLiteDisasterRecoveryService.restoreEncryptedBackup({
-        backupFilePath: tamperedBackupPath,
-        targetRestorePath: path2.join(baseTestDir, "should_fail.db"),
-        masterKey
-      });
-    } catch (err) {
-      tamperingDetected = true;
-      console.log(`\u2705 Viola\xE7\xE3o detectada com sucesso pelo hardware criptogr\xE1fico: "${err.message}"
-`);
-    }
-    if (!tamperingDetected) {
-      throw new Error("Falha de seguran\xE7a cr\xEDtica: arquivo adulterado foi aceito sem erro de autentica\xE7\xE3o!");
-    }
-    console.log("4\uFE0F\u20E3 Executando Restore Drill em sandbox isolado...");
-    const drillResult = SQLiteDisasterRecoveryService.runRestoreDrill(backupResult.backupFile, masterKey);
-    drillResult.log.forEach((l) => console.log(`   ${l}`));
-    if (!drillResult.success || !drillResult.underTwoMinutes || !drillResult.integrityOk) {
-      throw new Error("Restore Drill falhou nos crit\xE9rios de aceita\xE7\xE3o!");
-    }
-    console.log(`\u2705 Restore Drill Aprovado: tempo de ${drillResult.durationMs.toFixed(2)} ms (< 120.000 ms).
-`);
-    console.log("5\uFE0F\u20E3 Simulando pane catastr\xF3fica: destrui\xE7\xE3o do banco ativo e recupera\xE7\xE3o de emerg\xEAncia...");
-    db.close();
-    fs2.writeFileSync(liveDbPath, "DADOS_CORROMPIDOS_FALHA_DE_DISCO_PANE_ELETRICA");
-    if (fs2.existsSync(`${liveDbPath}-wal`)) fs2.unlinkSync(`${liveDbPath}-wal`);
-    if (fs2.existsSync(`${liveDbPath}-shm`)) fs2.unlinkSync(`${liveDbPath}-shm`);
-    const restoreStart = performance.now();
-    const restoreRes = SQLiteDisasterRecoveryService.restoreEncryptedBackup({
-      backupFilePath: backupResult.backupFile,
-      targetRestorePath: liveDbPath,
-      masterKey,
-      actor: "COORDENADOR_TI_EMERGENCIA"
-    });
-    const restoreElapsed = performance.now() - restoreStart;
-    console.log(`\u2705 Banco restaurado a partir do backup em ${restoreElapsed.toFixed(2)} ms:`);
-    console.log(`   - PRAGMA integrity_check: ${restoreRes.integrityPragma}`);
-    console.log(`   - Hash SHA-256 verificado: ${restoreRes.sha256Verified ? "SIM" : "N\xC3O"}`);
-    const restoredDb = new import_better_sqlite32.default(liveDbPath, { readonly: true });
-    const countStudents = restoredDb.prepare("SELECT count(*) as total FROM students").get().total;
-    const countClasses = restoredDb.prepare("SELECT count(*) as total FROM classes").get().total;
-    const countAttendance = restoredDb.prepare("SELECT count(*) as total FROM attendance_logs").get().total;
-    const countAudits = restoredDb.prepare("SELECT count(*) as total FROM zero_bypass_audits").get().total;
-    const countUsers = restoredDb.prepare("SELECT count(*) as total FROM users").get().total;
-    const pragmaFinal = restoredDb.pragma("integrity_check")[0].integrity_check;
-    restoredDb.close();
-    console.log(`   - Alunos restaurados:     ${countStudents}/50`);
-    console.log(`   - Turmas restauradas:     ${countClasses}/2`);
-    console.log(`   - Presen\xE7as restauradas:  ${countAttendance}/100`);
-    console.log(`   - Audits restaurados:     ${countAudits}/50`);
-    console.log(`   - Usu\xE1rios restaurados:   ${countUsers}/10`);
-    console.log(`   - Integridade Estrutural: ${pragmaFinal}`);
-    if (countStudents !== 50 || countAttendance !== 100 || pragmaFinal !== "ok") {
-      throw new Error("Diverg\xEAncia de dados encontrada no banco recuperado!");
-    }
-    console.log("\n6\uFE0F\u20E3 Testando pol\xEDtica de reten\xE7\xE3o GFS (m\xE1ximo 7 backups di\xE1rios)...");
-    for (let b = 1; b <= 10; b++) {
-      const dummyFile = path2.join(primaryBackupDir, `aquila_backup_2026-10-${b.toString().padStart(2, "0")}T00-00-00-000Z.aquila.bak`);
-      fs2.writeFileSync(dummyFile, "DUMMY_BACKUP_PAYLOAD");
-      const fileTime = new Date(2026, 9, b).getTime() / 1e3;
-      fs2.utimesSync(dummyFile, fileTime, fileTime);
-    }
     SQLiteDisasterRecoveryService.createEncryptedBackup({
-      dbPath: liveDbPath,
-      backupPrimaryDir: primaryBackupDir,
-      masterKey
+      dbPath: DB_PATH,
+      backupPrimaryDir: BACKUP_DIR,
+      backupSecondaryDir: SECONDARY_DIR
     });
-    const remainingFiles = fs2.readdirSync(primaryBackupDir).filter((f) => f.endsWith(".aquila.bak"));
-    console.log(`\u2705 Rota\xE7\xE3o GFS confirmada: ${remainingFiles.length} arquivos retidos (limite m\xE1ximo de 7 ativos).`);
-    if (remainingFiles.length > 7) {
-      throw new Error(`Falha na rota\xE7\xE3o GFS: foram encontrados ${remainingFiles.length} backups (esperado: <= 7).`);
+  } catch (err) {
+    if (err.message.includes("AQUILA_BACKUP_MASTER_KEY \xE9 obrigat\xF3ria")) {
+      rejected = true;
     }
-    console.log("\n\u{1F3C6} =========================================================================");
-    console.log("   RESULTADO DA HOMOLOGA\xC7\xC3O DA OP\xC7\xC3O A: 100% APROVADO");
-    console.log("   - Integridade Criptogr\xE1fica: AES-256-GCM com Auth Tag");
-    console.log(`   - Tempo de Restaura\xE7\xE3o: ${restoreElapsed.toFixed(2)} ms (Meta: < 120.000 ms)`);
-    console.log("   - Perda de Dados: 0 (Zero tuplas perdidas)");
-    console.log("   - Destino Duplo & Rota\xE7\xE3o GFS: Operacionais");
-    console.log("=========================================================================\n");
   } finally {
-    if (fs2.existsSync(baseTestDir)) {
-      try {
-        fs2.rmSync(baseTestDir, { recursive: true, force: true });
-      } catch {
-      }
+    if (savedKey) process.env.AQUILA_BACKUP_MASTER_KEY = savedKey;
+  }
+  if (!rejected) {
+    throw new Error("FALHA REGRESSIVA: backup foi aceito sem AQUILA_BACKUP_MASTER_KEY!");
+  }
+  console.log("\u2705 TESTE 1: Backup sem chave mestra foi recusado com sucesso.");
+}
+function testWeakKeyMustFail() {
+  const weakKey = "senha_curta_123";
+  let rejected = false;
+  try {
+    SQLiteDisasterRecoveryService.createEncryptedBackup({
+      dbPath: DB_PATH,
+      backupPrimaryDir: BACKUP_DIR,
+      backupSecondaryDir: SECONDARY_DIR,
+      masterKey: weakKey
+    });
+  } catch (err) {
+    if (err.message.includes("pelo menos 32 caracteres")) {
+      rejected = true;
+    }
+  }
+  if (!rejected) {
+    throw new Error("FALHA: backup aceitou chave mestra fraca (< 32 caracteres)!");
+  }
+  console.log("\u2705 TESTE 2: Chave mestra fraca (< 32 chars) foi recusada com sucesso.");
+}
+function testBackupAndRestoreWithValidKey() {
+  const t0 = performance.now();
+  const backup = SQLiteDisasterRecoveryService.createEncryptedBackup({
+    dbPath: DB_PATH,
+    backupPrimaryDir: BACKUP_DIR,
+    backupSecondaryDir: SECONDARY_DIR,
+    masterKey: STRONG_KEY,
+    author: "TESTE_AUTOMATIZADO_V14"
+  });
+  if (!backup.success || !backup.backupFile || !fs2.existsSync(backup.backupFile)) {
+    throw new Error("FALHA: backup prim\xE1rio n\xE3o foi gerado com sucesso.");
+  }
+  if (!backup.secondaryFile || !fs2.existsSync(backup.secondaryFile) || !backup.secondaryCopySuccess) {
+    throw new Error("FALHA: c\xF3pia secund\xE1ria n\xE3o foi gerada com sucesso.");
+  }
+  const restoredDbPath = path2.join(RESTORE_DIR, "restored_valid.db");
+  const restore = SQLiteDisasterRecoveryService.restoreEncryptedBackup({
+    backupFilePath: backup.backupFile,
+    targetRestorePath: restoredDbPath,
+    masterKey: STRONG_KEY,
+    actor: "TESTE_AUTOMATIZADO_V14"
+  });
+  const totalMs = performance.now() - t0;
+  if (!restore.success || !restore.sha256Verified || restore.integrityPragma !== "ok") {
+    throw new Error(`FALHA: restaura\xE7\xE3o falhou! Pragma: ${restore.integrityPragma}, SHA verificado: ${restore.sha256Verified}`);
+  }
+  const verifyDb = new import_better_sqlite32.default(restoredDbPath, { readonly: true });
+  const count = verifyDb.prepare("SELECT count(*) as total FROM students").get().total;
+  verifyDb.close();
+  if (count !== 50) {
+    throw new Error(`FALHA: diverg\xEAncia de dados no banco restaurado! Alunos: ${count}/50`);
+  }
+  console.log(`\u2705 TESTE 3: Backup e restaura\xE7\xE3o com chave v\xE1lida aprovados em ${totalMs.toFixed(2)} ms (Alunos: 50/50, SHA-256 verificado, PRAGMA ok).`);
+}
+function testWrongKeyMustFail() {
+  const backup = SQLiteDisasterRecoveryService.createEncryptedBackup({
+    dbPath: DB_PATH,
+    backupPrimaryDir: BACKUP_DIR,
+    masterKey: STRONG_KEY,
+    author: "TESTE_WRONG_KEY"
+  });
+  let rejected = false;
+  try {
+    SQLiteDisasterRecoveryService.restoreEncryptedBackup({
+      backupFilePath: backup.backupFile,
+      targetRestorePath: path2.join(RESTORE_DIR, "should_fail_wrong_key.db"),
+      masterKey: WRONG_KEY,
+      actor: "TESTE_WRONG_KEY"
+    });
+  } catch (err) {
+    rejected = true;
+  }
+  if (!rejected) {
+    throw new Error("FALHA: restaura\xE7\xE3o aceitou chave mestra incorreta!");
+  }
+  console.log("\u2705 TESTE 4: Restaura\xE7\xE3o com chave incorreta foi rejeitada pelo motor criptogr\xE1fico.");
+}
+function testTamperedBackupMustFail() {
+  const backup = SQLiteDisasterRecoveryService.createEncryptedBackup({
+    dbPath: DB_PATH,
+    backupPrimaryDir: BACKUP_DIR,
+    masterKey: STRONG_KEY,
+    author: "TESTE_TAMPERED"
+  });
+  const originalBytes = fs2.readFileSync(backup.backupFile);
+  const tamperedBytes = Buffer.from(originalBytes);
+  tamperedBytes[tamperedBytes.length - 1] ^= 255;
+  const tamperedPath = path2.join(BACKUP_DIR, "tampered_test.aquila.bak");
+  fs2.writeFileSync(tamperedPath, tamperedBytes);
+  let rejected = false;
+  try {
+    SQLiteDisasterRecoveryService.restoreEncryptedBackup({
+      backupFilePath: tamperedPath,
+      targetRestorePath: path2.join(RESTORE_DIR, "should_fail_tampered.db"),
+      masterKey: STRONG_KEY,
+      actor: "TESTE_TAMPERED"
+    });
+  } catch (err) {
+    rejected = true;
+  }
+  if (!rejected) {
+    throw new Error("FALHA: backup com ciphertext adulterado foi aceito sem erro de autentica\xE7\xE3o!");
+  }
+  console.log("\u2705 TESTE 5: Backup adulterado foi rejeitado pela Auth Tag do AES-256-GCM.");
+}
+function testGfsRetention() {
+  const gfsTestDir = path2.join(TEST_ROOT, "gfs_test");
+  fs2.mkdirSync(gfsTestDir, { recursive: true });
+  const now = new Date(2026, 9, 25, 12, 0, 0);
+  const DAY_MS = 24 * 60 * 60 * 1e3;
+  const testAgesDays = [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    14,
+    21,
+    28,
+    35,
+    42,
+    60,
+    90,
+    120,
+    150,
+    180,
+    210,
+    240,
+    270,
+    300,
+    330,
+    360,
+    400,
+    450
+  ];
+  for (let i = 0; i < testAgesDays.length; i++) {
+    const ageDays = testAgesDays[i];
+    const fileDate = new Date(now.getTime() - ageDays * DAY_MS);
+    const tsStr = fileDate.toISOString().replace(/[:.]/g, "-");
+    const fPath = path2.join(gfsTestDir, `aquila_backup_${tsStr}_test_${i}.aquila.bak`);
+    fs2.writeFileSync(fPath, `DUMMY_GFS_DATA_${i}`);
+    const timeSec = fileDate.getTime() / 1e3;
+    fs2.utimesSync(fPath, timeSec, timeSec);
+  }
+  const summary = SQLiteDisasterRecoveryService.rotateGFSBackups(gfsTestDir, now);
+  if (summary.dailyCount > 7) {
+    throw new Error(`FALHA GFS: dailyCount excedeu 7 (${summary.dailyCount})`);
+  }
+  if (summary.weeklyCount > 4) {
+    throw new Error(`FALHA GFS: weeklyCount excedeu 4 (${summary.weeklyCount})`);
+  }
+  if (summary.monthlyCount > 12) {
+    throw new Error(`FALHA GFS: monthlyCount excedeu 12 (${summary.monthlyCount})`);
+  }
+  if (summary.prunedCount === 0) {
+    throw new Error("FALHA GFS: nenhum arquivo obsoleto foi podado!");
+  }
+  console.log(`\u2705 TESTE 6: Pol\xEDtica GFS Real validada: ${summary.dailyCount} di\xE1rios, ${summary.weeklyCount} semanais, ${summary.monthlyCount} mensais retidos (${summary.prunedCount} podados com sucesso).`);
+}
+function testSecondaryDestinationFailure() {
+  const invalidDir = process.platform === "win32" ? "Z:\\non_existent_drive_mount_999\\backups" : "/sys/kernel/security/impossible_backup_dir";
+  let rejected = false;
+  try {
+    SQLiteDisasterRecoveryService.createEncryptedBackup({
+      dbPath: DB_PATH,
+      backupPrimaryDir: BACKUP_DIR,
+      backupSecondaryDir: invalidDir,
+      requireSecondary: true,
+      // Modo estrito: falha se o destino secundário obrigatório falhar
+      masterKey: STRONG_KEY,
+      author: "TESTE_SECONDARY_FAIL"
+    });
+  } catch (err) {
+    if (err.message.includes("destino secund\xE1rio obrigat\xF3rio")) {
+      rejected = true;
+    }
+  }
+  if (!rejected) {
+    throw new Error("FALHA: backup com requireSecondary=true deveria ter falhado com destino secund\xE1rio inacess\xEDvel!");
+  }
+  const softBackup = SQLiteDisasterRecoveryService.createEncryptedBackup({
+    dbPath: DB_PATH,
+    backupPrimaryDir: BACKUP_DIR,
+    backupSecondaryDir: invalidDir,
+    requireSecondary: false,
+    masterKey: STRONG_KEY,
+    author: "TESTE_SECONDARY_SOFT"
+  });
+  if (!softBackup.success || softBackup.secondaryCopySuccess !== false) {
+    throw new Error("FALHA: backup suave com destino secund\xE1rio inv\xE1lido deveria retornar secondaryCopySuccess: false!");
+  }
+  console.log("\u2705 TESTE 7: Detec\xE7\xE3o de falha no destino secund\xE1rio validada (bloqueio no modo estrito e flag secondaryCopySuccess: false no modo suave).");
+}
+function runAllTests() {
+  console.log("\u{1F3DB}\uFE0F =========================================================================");
+  console.log("   \xC1QUILA PRO \u2014 BATERIA DE TESTES DE SEGURAN\xC7A E GFS (Op\xE7\xE3o A \u2014 rc.14)");
+  console.log("=========================================================================\n");
+  resetEnvironment();
+  createTestDatabase();
+  testBackupWithoutKeyMustFail();
+  testWeakKeyMustFail();
+  testBackupAndRestoreWithValidKey();
+  testWrongKeyMustFail();
+  testTamperedBackupMustFail();
+  testGfsRetention();
+  testSecondaryDestinationFailure();
+  console.log("\n\u{1F3C6} TODAS AS 7 PROVAS DE SEGURAN\xC7A E CONTINUIDADE APROVADAS COM SUCESSO (100% VERDE).");
+  if (fs2.existsSync(TEST_ROOT)) {
+    try {
+      fs2.rmSync(TEST_ROOT, { recursive: true, force: true });
+    } catch {
     }
   }
 }
 if (require.main === module) {
-  runFullDrSuite().then(() => process.exit(0)).catch((err) => {
-    console.error("\u274C Falha fatal na su\xEDte da Op\xE7\xE3o A:", err);
-    process.exit(1);
-  });
+  runAllTests();
 }

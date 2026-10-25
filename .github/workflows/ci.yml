@@ -99,6 +99,9 @@ jobs:
       - name: Run OMR Calibration & Accuracy Benchmark
         run: pnpm dlx tsx scripts/test_omr_calibration.ts
 
+      - name: Run SQLite Edge Backup & DR Security Suite
+        run: node scripts/test_backup_dr_suite.cjs
+
       - name: Upload Test Artifacts
         if: always()
         uses: actions/upload-artifact@v4

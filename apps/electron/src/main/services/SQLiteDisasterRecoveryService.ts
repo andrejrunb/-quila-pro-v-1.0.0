@@ -4,10 +4,11 @@
  * Módulo de Missão Crítica para Soberania e Continuidade Escolar (Opção A):
  * 1. Ponto de restauração atômico em modo WAL (PRAGMA wal_checkpoint(TRUNCATE) + VACUUM INTO)
  * 2. Criptografia militar de repouso com AES-256-GCM (IV 16B + Auth Tag 16B + Salt 16B)
- * 3. Manifesto criptográfico de integridade lógica com contagem de tuplas (alunos, turmas, frequência, auditoria)
- * 4. Política de Retenção GFS (Grandfather-Father-Son: 7 diários, 4 semanais, 12 mensais)
- * 5. Destino duplo (armazenamento local primário + storage secundário/pendrive/NAS)
- * 6. Rotina de Restauração Assistida e Simulação de Desastre (Restore Drill) com verificação em < 2 minutos
+ * 3. Chave mestra obrigatória derivada de DPAPI/Ambiente (mínimo 32 caracteres, sem fallback padrão)
+ * 4. Manifesto criptográfico de integridade lógica com censo de tuplas (alunos, turmas, frequência, auditoria)
+ * 5. Política de Retenção GFS Real (Grandfather-Father-Son: 7 diários, 4 semanais, 12 mensais)
+ * 6. Destino duplo auditável (armazenamento local primário + storage secundário/pendrive/NAS com detecção de falha)
+ * 7. Rotina de Restauração Assistida e Simulação de Desastre (Restore Drill) com verificação em < 2 minutos
  */
 
 import * as fs from 'fs';
@@ -37,6 +38,7 @@ export interface BackupResult {
   success: boolean;
   backupFile: string;
   secondaryFile?: string;
+  secondaryCopySuccess: boolean;
   manifest: BackupManifest;
   sizeEncryptedBytes: number;
   durationMs: number;
@@ -64,12 +66,36 @@ export interface RestoreDrillResult {
   log: string[];
 }
 
+export interface GFSRotationSummary {
+  dailyCount: number;
+  weeklyCount: number;
+  monthlyCount: number;
+  prunedCount: number;
+  retainedFiles: string[];
+}
+
 export class SQLiteDisasterRecoveryService {
   private static readonly ALGORITHM = 'aes-256-gcm';
   private static readonly SALT_LENGTH = 16;
   private static readonly IV_LENGTH = 16;
   private static readonly TAG_LENGTH = 16;
-  private static readonly DEFAULT_KEY = process.env.AQUILA_BACKUP_MASTER_KEY || 'AQUILA_PRO_SOVEREIGN_EDGE_KEY_2026_LGPD';
+
+  /**
+   * Obtém a chave mestra com validação estrita de segurança.
+   * Proíbe terminantemente o uso de chaves padrão hardcoded.
+   */
+  private static resolveMasterKey(explicitKey?: string): string {
+    const key = explicitKey || process.env.AQUILA_BACKUP_MASTER_KEY;
+
+    if (!key || key.trim().length < 32) {
+      throw new Error(
+        'AQUILA_BACKUP_MASTER_KEY é obrigatória e deve ter pelo menos 32 caracteres. ' +
+        'Backup/restauração recusados para impedir uso de chave padrão.'
+      );
+    }
+
+    return key;
+  }
 
   /**
    * Executa backup completo, atômico e criptografado com AES-256-GCM
@@ -78,11 +104,13 @@ export class SQLiteDisasterRecoveryService {
     dbPath: string;
     backupPrimaryDir: string;
     backupSecondaryDir?: string;
+    requireSecondary?: boolean;
     masterKey?: string;
     author?: string;
+    referenceDate?: Date;
   }): BackupResult {
     const start = performance.now();
-    const key = options.masterKey || this.DEFAULT_KEY;
+    const key = this.resolveMasterKey(options.masterKey);
     const author = options.author || 'SYSTEM_AUTOMATION';
 
     if (!fs.existsSync(options.dbPath)) {
@@ -98,7 +126,7 @@ export class SQLiteDisasterRecoveryService {
     controlDb.pragma('journal_mode = WAL');
     controlDb.pragma('wal_checkpoint(TRUNCATE)');
 
-    const timestamp = new Date().toISOString();
+    const timestamp = (options.referenceDate || new Date()).toISOString();
     const safeTimestamp = timestamp.replace(/[:.]/g, '-');
     const tempSnapshotPath = path.join(options.backupPrimaryDir, `temp_snap_${safeTimestamp}.db`);
 
@@ -141,7 +169,7 @@ export class SQLiteDisasterRecoveryService {
 
     // 4. Cria o manifesto
     const manifest: BackupManifest = {
-      version: '2.1.0-rc.9',
+      version: '2.1.0-rc.14',
       timestamp,
       sourceDbName: path.basename(options.dbPath),
       unencryptedSizeBytes: snapshotBuffer.length,
@@ -177,8 +205,10 @@ export class SQLiteDisasterRecoveryService {
     // Remove snapshot temporário não criptografado
     if (fs.existsSync(tempSnapshotPath)) fs.unlinkSync(tempSnapshotPath);
 
-    // 7. Cópia secundária (USB/NAS) se configurado
+    // 7. Cópia secundária (USB/NAS) com tratamento explícito de falhas
     let secondaryFile: string | undefined;
+    let secondaryCopySuccess = false;
+
     if (options.backupSecondaryDir) {
       try {
         if (!fs.existsSync(options.backupSecondaryDir)) {
@@ -186,13 +216,19 @@ export class SQLiteDisasterRecoveryService {
         }
         secondaryFile = path.join(options.backupSecondaryDir, backupFileName);
         fs.copyFileSync(primaryFile, secondaryFile);
+        secondaryCopySuccess = true;
       } catch (err: any) {
-        console.warn(`[SQLiteDisasterRecovery] Aviso: falha ao copiar para destino secundário: ${err.message}`);
+        if (options.requireSecondary) {
+          if (fs.existsSync(primaryFile)) fs.unlinkSync(primaryFile);
+          throw new Error(`Falha crítica ao copiar backup para destino secundário obrigatório: ${err.message}`);
+        } else {
+          console.warn(`[SQLiteDisasterRecovery] ALERTA: falha ao copiar para destino secundário: ${err.message}`);
+        }
       }
     }
 
-    // 8. Rotação GFS no diretório primário
-    this.rotateGFSBackups(options.backupPrimaryDir);
+    // 8. Rotação GFS Real no diretório primário (7 diários, 4 semanais, 12 mensais)
+    this.rotateGFSBackups(options.backupPrimaryDir, options.referenceDate);
 
     const durationMs = performance.now() - start;
 
@@ -200,6 +236,7 @@ export class SQLiteDisasterRecoveryService {
       success: true,
       backupFile: primaryFile,
       secondaryFile,
+      secondaryCopySuccess,
       manifest,
       sizeEncryptedBytes: finalBackupBuffer.length,
       durationMs,
@@ -217,7 +254,7 @@ export class SQLiteDisasterRecoveryService {
     actor?: string;
   }): RestoreResult {
     const start = performance.now();
-    const key = options.masterKey || this.DEFAULT_KEY;
+    const key = this.resolveMasterKey(options.masterKey);
 
     if (!fs.existsSync(options.backupFilePath)) {
       throw new Error(`Arquivo de backup não encontrado: ${options.backupFilePath}`);
@@ -311,6 +348,8 @@ export class SQLiteDisasterRecoveryService {
     const t0 = performance.now();
     log.push(`[DRILL] Iniciando simulação de Disaster Recovery para: ${path.basename(backupFilePath)}`);
 
+    const key = this.resolveMasterKey(masterKey);
+
     const sandboxDir = path.join(path.dirname(backupFilePath), '.restore_drill_sandbox');
     if (fs.existsSync(sandboxDir)) fs.rmSync(sandboxDir, { recursive: true, force: true });
     fs.mkdirSync(sandboxDir, { recursive: true });
@@ -321,7 +360,7 @@ export class SQLiteDisasterRecoveryService {
       const res = this.restoreEncryptedBackup({
         backupFilePath,
         targetRestorePath: sandboxTarget,
-        masterKey,
+        masterKey: key,
         actor: 'RESTORE_DRILL_AUTOMATION'
       });
 
@@ -353,10 +392,17 @@ export class SQLiteDisasterRecoveryService {
   }
 
   /**
-   * Rotação GFS (Grandfather-Father-Son): 7 diários, 4 semanais, 12 mensais
+   * Rotação GFS Real (Grandfather-Father-Son):
+   * - Preserva até 7 backups diários (< 7 dias)
+   * - Preserva até 4 backups semanais (7 a 28 dias)
+   * - Preserva até 12 backups mensais (28 a 365 dias)
+   * - Remove backups obsoletos que não se enquadram nas janelas de retenção
    */
-  private static rotateGFSBackups(backupDir: string): void {
+  public static rotateGFSBackups(backupDir: string, referenceDate?: Date): GFSRotationSummary {
     try {
+      const now = referenceDate ? referenceDate.getTime() : Date.now();
+      const DAY_MS = 24 * 60 * 60 * 1000;
+
       const files = fs.readdirSync(backupDir)
         .filter(f => f.startsWith('aquila_backup_') && f.endsWith('.aquila.bak'))
         .map(f => {
@@ -364,21 +410,71 @@ export class SQLiteDisasterRecoveryService {
           return {
             name: f,
             path: filePath,
-            mtime: fs.statSync(filePath).mtime
+            mtime: fs.statSync(filePath).mtime.getTime()
           };
         })
-        .sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
+        .sort((a, b) => b.mtime - a.mtime); // Mais recentes primeiro
 
-      // Política padrão para o piloto: mantém os 7 backups diários mais recentes
-      const MAX_DAILY = 7;
-      if (files.length > MAX_DAILY) {
-        const toDelete = files.slice(MAX_DAILY);
-        for (const item of toDelete) {
-          fs.unlinkSync(item.path);
+      const daily: Array<{ name: string; path: string; mtime: number }> = [];
+      const weekly: Array<{ name: string; path: string; mtime: number }> = [];
+      const monthly: Array<{ name: string; path: string; mtime: number }> = [];
+
+      // Mapeamento por baldes de data para garantir 1 por dia / semana / mês
+      const dailyBuckets = new Set<string>();
+      const weeklyBuckets = new Set<string>();
+      const monthlyBuckets = new Set<string>();
+
+      for (const file of files) {
+        const ageMs = Math.max(0, now - file.mtime);
+        const ageDays = ageMs / DAY_MS;
+        const fileDate = new Date(file.mtime);
+
+        if (ageDays <= 7) {
+          const dayKey = fileDate.toISOString().slice(0, 10);
+          if (!dailyBuckets.has(dayKey) && daily.length < 7) {
+            dailyBuckets.add(dayKey);
+            daily.push(file);
+          }
+        } else if (ageDays <= 35) {
+          // Semana calculada a partir de blocos de 7 dias
+          const weekIndex = Math.floor(ageDays / 7);
+          const weekKey = `W_${weekIndex}`;
+          if (!weeklyBuckets.has(weekKey) && weekly.length < 4) {
+            weeklyBuckets.add(weekKey);
+            weekly.push(file);
+          }
+        } else if (ageDays <= 365) {
+          const monthKey = fileDate.toISOString().slice(0, 7); // YYYY-MM
+          if (!monthlyBuckets.has(monthKey) && monthly.length < 12) {
+            monthlyBuckets.add(monthKey);
+            monthly.push(file);
+          }
         }
       }
-    } catch (e: any) {
-      console.warn('[SQLiteDisasterRecovery] Falha na rotação GFS:', e.message);
+
+      const keepPaths = new Set([
+        ...daily.map(f => f.path),
+        ...weekly.map(f => f.path),
+        ...monthly.map(f => f.path)
+      ]);
+
+      let prunedCount = 0;
+      for (const file of files) {
+        if (!keepPaths.has(file.path)) {
+          fs.unlinkSync(file.path);
+          prunedCount++;
+        }
+      }
+
+      return {
+        dailyCount: daily.length,
+        weeklyCount: weekly.length,
+        monthlyCount: monthly.length,
+        prunedCount,
+        retainedFiles: Array.from(keepPaths)
+      };
+    } catch (error: any) {
+      throw new Error(`Falha na rotação GFS: ${error.message}`);
     }
   }
 }

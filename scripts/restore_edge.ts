@@ -3,10 +3,10 @@
  * 
  * Uso:
  * 1. Simulação Semanal de Restauração (Drill sem alterar banco ao vivo):
- *    node scripts/restore_edge.cjs --backup "C:/AquilaPro/backups/aquila_backup_....aquila.bak" --drill
+ *    node scripts/restore_edge.cjs --backup "C:/AquilaPro/backups/aquila_backup_....aquila.bak" --drill --key "CHAVE_32_CHARS"
  * 
  * 2. Restauração Real de Emergência:
- *    node scripts/restore_edge.cjs --backup "C:/AquilaPro/backups/aquila_backup_....aquila.bak" --target "C:/AquilaPro/aquila.db"
+ *    node scripts/restore_edge.cjs --backup "C:/AquilaPro/backups/aquila_backup_....aquila.bak" --target "C:/AquilaPro/aquila.db" --key "CHAVE_32_CHARS"
  */
 
 import * as path from 'path';
@@ -36,6 +36,12 @@ async function main() {
 
   if (!backupFilePath) {
     console.error('❌ Parâmetro obrigatório ausente: --backup <caminho_do_arquivo.aquila.bak>');
+    process.exit(1);
+  }
+
+  if (!masterKey || masterKey.trim().length < 32) {
+    console.error('❌ ERRO DE SEGURANÇA: AQUILA_BACKUP_MASTER_KEY é obrigatória e deve possuir pelo menos 32 caracteres.');
+    console.error('   Passe via --key ou configure a variável de ambiente AQUILA_BACKUP_MASTER_KEY.');
     process.exit(1);
   }
 
