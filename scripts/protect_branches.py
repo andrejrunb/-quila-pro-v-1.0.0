@@ -5,7 +5,6 @@ import json
 
 token = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
 if not token:
-    # Ler de variável de ambiente ou prompt
     print("GITHUB_TOKEN not found in environment. Please export GITHUB_TOKEN=<token>")
     exit(1)
 
@@ -18,13 +17,21 @@ headers = {
 
 branches = ['main', 'clean-release-v1']
 
-# Standard GitHub branch protection
+# Proteção Rigorosa de Nível Enterprise (Auditoria v2.1.0-rc.7)
 payload = {
-    "required_status_checks": None,
-    "enforce_admins": False,
+    "required_status_checks": {
+        "strict": True,
+        "contexts": [
+            "🛡️ Security & Secret Audit",
+            "🔍 TypeScript Strict Check & ESLint",
+            "🧪 Automated Test Suite & LGPD Integrity",
+            "🏗️ Production Build Verification"
+        ]
+    },
+    "enforce_admins": True,
     "required_pull_request_reviews": {
         "dismiss_stale_reviews": True,
-        "require_code_owner_reviews": False,
+        "require_code_owner_reviews": True,
         "required_approving_review_count": 1
     },
     "restrictions": None,
@@ -39,8 +46,10 @@ for b in branches:
     try:
         with urllib.request.urlopen(req) as resp:
             res = json.loads(resp.read().decode('utf-8'))
-            print(f"Successfully protected {b}!")
-            print(f" - Required PR reviews: {res.get('required_pull_request_reviews', {}).get('required_approving_review_count')}")
+            print(f"Successfully configured Enterprise protection for {b}!")
+            print(f" - Required checks: {res.get('required_status_checks', {}).get('contexts')}")
+            print(f" - Enforce admins: {res.get('enforce_admins', {}).get('enabled')}")
+            print(f" - Code owner reviews: {res.get('required_pull_request_reviews', {}).get('require_code_owner_reviews')}")
             print(f" - Allow force pushes: {res.get('allow_force_pushes', {}).get('enabled')}")
             print(f" - Allow deletions: {res.get('allow_deletions', {}).get('enabled')}")
     except urllib.error.HTTPError as e:

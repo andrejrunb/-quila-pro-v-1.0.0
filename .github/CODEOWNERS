@@ -1,0 +1,18 @@
+# Áquila Pro — CODEOWNERS
+# Revisão mandatória para caminhos críticos e sensíveis de conformidade e segurança
+
+# Governança, Compliance e Jurídico
+/docs/compliance/       @andrejrunb
+/docs/research/         @andrejrunb
+/SECURITY.md            @andrejrunb
+
+# Core de Segurança e Serviços de Backend
+/apps/electron/src/main/services/       @andrejrunb
+/apps/electron/src/config/pilotScope.ts @andrejrunb
+/apps/web/src/app/api/                  @andrejrunb
+/apps/web/src/lib/session.ts            @andrejrunb
+/packages/api/                          @andrejrunb
+/packages/db/                           @andrejrunb
+
+# CI/CD e Infraestrutura
+/.github/workflows/     @andrejrunb

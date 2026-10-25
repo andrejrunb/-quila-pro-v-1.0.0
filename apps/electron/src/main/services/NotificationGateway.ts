@@ -1,5 +1,6 @@
 import { Logger } from './Logger';
 import { evidenceArchiver } from './EvidenceArchiver';
+import { PILOT_FEATURE_FLAGS } from '../../config/pilotScope';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -25,8 +26,12 @@ export interface INotificationProvider {
 
 /**
  * NotificationGateway — Enterprise abstraction for multi-channel alerts.
- * Suporta canais oficiais: WhatsApp Meta Cloud API (primário oficial), Push Notifications Móvel,
- * Mock (desenvolvimento) e Provedor Experimental Evolution API (opt-in institucional).
+ * 
+ * Política de Canais (Auditoria P0):
+ * - Canal Primário Oficial: WhatsApp Meta Cloud API (homologado pela Meta) e Push direto móvel.
+ * - Canal de Fallback: Mock para desenvolvimento/desconectado.
+ * - Evolution API: Bloqueado no piloto padrão por segurança jurídica/risco de banimento.
+ *   Disponível exclusivamente se explicitamente ativado via flag `ENABLE_EXPERIMENTAL_EVOLUTION=true`.
  */
 export class NotificationGateway {
   private providers: Map<string, INotificationProvider> = new Map();
@@ -45,14 +50,18 @@ export class NotificationGateway {
       this.logger.info('[NotificationGateway] WhatsAppMetaProvider oficial registrado via Env.');
     }
 
-    // 2. Canal Experimental Secundário: Evolution API (WhatsApp Gateway Local / Opt-in)
+    // 2. Canal Experimental Secundário: Evolution API (Bloqueado no Piloto por padrão)
     const evoUrl = process.env.EVOLUTION_API_URL;
     const evoKey = process.env.EVOLUTION_API_KEY;
     const evoInstance = process.env.EVOLUTION_INSTANCE || 'aquila_edge';
 
     if (evoUrl && evoKey) {
-      this.registerProvider(new EvolutionApiProvider(evoUrl, evoKey, evoInstance));
-      this.logger.info('[NotificationGateway] EvolutionApiProvider (Experimental Opt-in) registrado.');
+      if (PILOT_FEATURE_FLAGS.enableEvolutionApiFallback) {
+        this.registerProvider(new EvolutionApiProvider(evoUrl, evoKey, evoInstance));
+        this.logger.warn('[NotificationGateway] AVISO: EvolutionApiProvider ativo em modo experimental.');
+      } else {
+        this.logger.info('[NotificationGateway] EvolutionApiProvider desativado pela política de governança do piloto escolar.');
+      }
     }
   }
 

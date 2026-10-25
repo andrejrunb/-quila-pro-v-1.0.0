@@ -10,10 +10,15 @@ export interface PilotFeatureConfig {
   // === NÚCLEO ESSENCIAL DO PILOTO (ATIVO POR PADRÃO) ===
   enableDigitalDiary: boolean;       // Diário de classe digital e chamadas
   enableAssistedAttendance: boolean;  // Frequência via RFID / lista / validação humana
-  enableParentCommunications: boolean;// Mensagens via WhatsApp / Push para responsáveis
+  enableParentCommunications: boolean;// Mensagens via canal homologado para responsáveis
   enableGradeBook: boolean;           // Boletim escolar e fechamento de médias
   enableOmrGrading: boolean;          // Correção óptica de cartões-resposta (OMR controlado)
   enablePedagogicalReports: boolean;  // Relatórios de rendimento e radar de defasagem
+
+  // === POLÍTICA DE CANAL DE MENSAGERIA NO PILOTO ===
+  // O canal primário oficial e homologado é Meta Cloud API ou Push direto
+  primaryNotificationProvider: 'whatsapp_meta' | 'push' | 'mock';
+  enableEvolutionApiFallback: boolean; // Desativado por padrão no piloto (alto risco contratual)
 
   // === MÓDULOS EXPERIMENTAIS (DESATIVADOS POR PADRÃO NO PILOTO) ===
   enableLiveFaceRecognition: boolean; // Biometria facial autônoma ao vivo em portaria
@@ -33,6 +38,10 @@ export const PILOT_FEATURE_FLAGS: PilotFeatureConfig = {
   enableOmrGrading: true,
   enablePedagogicalReports: true,
 
+  // Política de Mensageria Homologada
+  primaryNotificationProvider: 'whatsapp_meta',
+  enableEvolutionApiFallback: process.env.ENABLE_EXPERIMENTAL_EVOLUTION === 'true', // false por padrão
+
   // Módulos Experimentais — Desativados por padrão para segurança e foco no MVP
   enableLiveFaceRecognition: process.env.ENABLE_EXPERIMENTAL_FACE_RECOGNITION === 'true',
   enableRfDensePose: process.env.ENABLE_EXPERIMENTAL_DENSE_POSE === 'true',
@@ -43,5 +52,5 @@ export const PILOT_FEATURE_FLAGS: PilotFeatureConfig = {
 };
 
 export function isFeatureActive(feature: keyof PilotFeatureConfig): boolean {
-  return PILOT_FEATURE_FLAGS[feature] ?? false;
+  return Boolean(PILOT_FEATURE_FLAGS[feature]);
 }
