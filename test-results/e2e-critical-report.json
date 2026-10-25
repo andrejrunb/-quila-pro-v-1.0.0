@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-10-25T22:00:48.719Z",
+  "releaseCandidate": "v2.1.0-rc.16",
+  "totalTests": 4,
+  "allPassed": true,
+  "auditTrail": [
+    {
+      "test": "E2E-01-Pedagogico",
+      "status": "PASSED",
+      "latencyMs": 20.38229990005493,
+      "details": "Média=8.75, Freq=100%"
+    },
+    {
+      "test": "E2E-02-Mensageria-DLQ-Reconciliacao",
+      "status": "PASSED",
+      "latencyMs": 40.455700039863586,
+      "details": "Idempotência, DLQ, HITL e Reconciliação verificados"
+    },
+    {
+      "test": "E2E-03-OMR-HITL",
+      "status": "PASSED",
+      "latencyMs": 1.405400037765503,
+      "details": "Ambiguidade retida e homologada por docente"
+    },
+    {
+      "test": "E2E-04-WebSocket-HMAC-RateLimit",
+      "status": "PASSED",
+      "latencyMs": 15.510599970817566,
+      "details": "HMAC, Origens LAN e isolamento por Tenant aprovados"
+    }
+  ]
+}

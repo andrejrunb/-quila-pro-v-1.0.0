@@ -113,6 +113,7 @@ jobs:
           path: |
             docs/architecture/omr_calibration_report.md
             apps/electron/e2e/results.json
+            test-results/e2e-critical-report.json
           if-no-files-found: ignore
 
   # ──────────────────────────────────────────

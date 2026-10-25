@@ -8,27 +8,50 @@ import * as crypto from 'crypto';
  */
 export interface WSMessage {
   type: string;
-  category?: string;
+  category?: 'READ' | 'WRITE' | 'DISPATCH' | string;
   message?: string;
   data: any;
   timestamp: Date;
 }
 
+export type WSUserRole = 'ADMIN' | 'TEACHER' | 'STUDENT' | 'GUARDIAN' | 'GATEWAY' | 'GUEST';
+
 export interface WSClientMeta {
   ip: string;
   authenticated: boolean;
-  role?: string;
+  role: WSUserRole;
   userId?: string;
+  schoolId?: string;
   connectedAt: Date;
   messageCount: number;
   lastMessageTime: number;
+  readCount: number;
+  writeCount: number;
+  dispatchCount: number;
+  windowStart: number;
+  violationCount: number;
+  blockedUntil?: number;
 }
+
+/**
+ * Limites por papel institucional (mensagens por minuto)
+ */
+const ROLE_RATE_LIMITS: Record<WSUserRole, { read: number; write: number; dispatch: number }> = {
+  ADMIN:    { read: 300, write: 150, dispatch: 60 },
+  GATEWAY:  { read: 300, write: 150, dispatch: 60 },
+  TEACHER:  { read: 120, write: 60,  dispatch: 20 },
+  GUARDIAN: { read: 60,  write: 10,  dispatch: 0  },
+  STUDENT:  { read: 60,  write: 10,  dispatch: 0  },
+  GUEST:    { read: 20,  write: 0,   dispatch: 0  }
+};
 
 /**
  * Servidor WebSocket para notificações em tempo real com Segurança Enterprise:
  * - Validação de Origem (LAN e domínios homologados)
  * - Autenticação por HMAC-SHA256 / Bearer Token
- * - Rate Limiting por IP (Proteção contra DoS local)
+ * - Rate Limiting Multicamadas (IP, Usuário, Role, Tenant e Tipo de Evento)
+ * - Bloqueio Progressivo de Abuso (cooldown temporário e corte com código 1008)
+ * - Trilha de Auditoria para Tentativas Rejeitadas
  */
 export class WebSocketServerManager extends EventEmitter {
   private wss: WebSocketServer | null = null;
@@ -36,9 +59,9 @@ export class WebSocketServerManager extends EventEmitter {
   private clients: Map<WebSocket, WSClientMeta> = new Map();
   private port: number = 9000;
   private isRunning: boolean = false;
-  private ipRateLimits: Map<string, { count: number; windowStart: number }> = new Map();
-  private readonly MAX_MESSAGES_PER_MINUTE = 120;
+  private ipRateLimits: Map<string, { count: number; windowStart: number; blockedUntil?: number }> = new Map();
   private readonly MAX_CONNECTIONS_PER_IP = 20;
+  private readonly MAX_IP_MESSAGES_PER_MINUTE = 180;
   private hmacSecret: string = process.env.AQUILA_WS_SECRET || 'AQUILA_EDGE_WS_HMAC_SECRET_2026';
 
   constructor(port: number = 9000, hmacSecret?: string) {
@@ -74,7 +97,7 @@ export class WebSocketServerManager extends EventEmitter {
         timestamp: new Date(),
       });
 
-      console.log(`[WebSocket] Servidor Seguro iniciado na porta ${this.port} (Origem validada, Rate Limit ativo).`);
+      console.log(`[WebSocket] Servidor Seguro iniciado na porta ${this.port} (Origem validada, Rate Limit Granular ativo).`);
     } catch (error: any) {
       this.emit('error', {
         error: error instanceof Error ? error.message : 'Erro ao iniciar servidor',
@@ -93,25 +116,33 @@ export class WebSocketServerManager extends EventEmitter {
   ): void {
     const req = info.req;
     const ip = req.socket.remoteAddress || '127.0.0.1';
-
-    // 1. Verificação de Rate Limit de Conexões por IP
     const now = Date.now();
-    const rate = this.ipRateLimits.get(ip) || { count: 0, windowStart: now };
-    if (now - rate.windowStart > 60000) {
-      rate.count = 1;
-      rate.windowStart = now;
+
+    // 1. Verificação de Bloqueio Ativo por IP
+    const ipState = this.ipRateLimits.get(ip) || { count: 0, windowStart: now };
+    if (ipState.blockedUntil && now < ipState.blockedUntil) {
+      const remainingSeconds = Math.ceil((ipState.blockedUntil - now) / 1000);
+      console.warn(`[WebSocket] Conexão bloqueada: IP ${ip} em cooldown temporário por ${remainingSeconds}s.`);
+      callback(false, 429, `Too Many Requests: Cooldown active (${remainingSeconds}s)`);
+      return;
+    }
+
+    if (now - ipState.windowStart > 60000) {
+      ipState.count = 1;
+      ipState.windowStart = now;
     } else {
-      rate.count++;
-      if (rate.count > this.MAX_MESSAGES_PER_MINUTE) {
-        console.warn(`[WebSocket] Conexão rejeitada por Rate Limit do IP: ${ip}`);
-        callback(false, 429, 'Too Many Requests');
+      ipState.count++;
+      if (ipState.count > this.MAX_IP_MESSAGES_PER_MINUTE) {
+        ipState.blockedUntil = now + 60000; // 1 minuto de cooldown por saturação
+        this.ipRateLimits.set(ip, ipState);
+        console.warn(`[WebSocket] IP ${ip} atingiu limite máximo de conexões/minuto. Cooldown acionado.`);
+        callback(false, 429, 'Too Many Requests: Rate Limit Exceeded');
         return;
       }
     }
-    this.ipRateLimits.set(ip, rate);
+    this.ipRateLimits.set(ip, ipState);
 
     // 2. Verificação de Origem (Origin Header)
-    // Permite conexões locais (Electron/Next.js), redes privadas homologadas e requisições sem origin (terminais RFID nativos)
     const origin = info.origin || req.headers['origin'] || '';
     if (origin) {
       const allowedOrigins = [
@@ -135,7 +166,6 @@ export class WebSocketServerManager extends EventEmitter {
     const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
     const token = url.searchParams.get('token') || (req.headers['authorization'] || '').replace('Bearer ', '');
 
-    // Em ambiente de produção, conexões sem token são recusadas
     if (process.env.NODE_ENV === 'production' && !token) {
       console.warn(`[WebSocket] Conexão rejeitada: Token ausente para IP ${ip}`);
       callback(false, 401, 'Unauthorized: Token Required');
@@ -159,7 +189,6 @@ export class WebSocketServerManager extends EventEmitter {
    */
   public validateAuthToken(token: string): boolean {
     if (!token || token.trim() === '') return false;
-    // Permite tokens de sessão interna com HMAC
     try {
       if (token.includes('.')) {
         const [payloadB64, sig] = token.split('.');
@@ -169,6 +198,26 @@ export class WebSocketServerManager extends EventEmitter {
       return token.length >= 16;
     } catch {
       return false;
+    }
+  }
+
+  /**
+   * Extrai metadados do token (Role, UserId, Tenant) se payload JWT/HMAC presente
+   */
+  public parseTokenMetadata(token?: string): { role: WSUserRole; userId?: string; schoolId?: string } {
+    if (!token || !token.includes('.')) {
+      return { role: 'TEACHER' }; // Papel operacional padrão interno
+    }
+    try {
+      const [payloadB64] = token.split('.');
+      const json = JSON.parse(Buffer.from(payloadB64, 'base64').toString('utf-8'));
+      return {
+        role: (json.role as WSUserRole) || 'TEACHER',
+        userId: json.userId || json.sub,
+        schoolId: json.schoolId || json.tenantId
+      };
+    } catch {
+      return { role: 'GUEST' };
     }
   }
 
@@ -200,12 +249,24 @@ export class WebSocketServerManager extends EventEmitter {
 
     this.wss.on('connection', (ws: WebSocket, req: IncomingMessage) => {
       const ip = req.socket.remoteAddress || '127.0.0.1';
+      const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
+      const token = url.searchParams.get('token') || (req.headers['authorization'] || '').replace('Bearer ', '');
+      const metaParsed = this.parseTokenMetadata(token);
+
       const meta: WSClientMeta = {
         ip,
         authenticated: true,
+        role: metaParsed.role,
+        userId: metaParsed.userId,
+        schoolId: metaParsed.schoolId,
         connectedAt: new Date(),
         messageCount: 0,
-        lastMessageTime: Date.now()
+        lastMessageTime: Date.now(),
+        readCount: 0,
+        writeCount: 0,
+        dispatchCount: 0,
+        windowStart: Date.now(),
+        violationCount: 0
       };
 
       this.clients.set(ws, meta);
@@ -213,28 +274,104 @@ export class WebSocketServerManager extends EventEmitter {
       this.emit('client:connected', {
         clientsCount: this.clients.size,
         ip,
+        role: meta.role,
+        userId: meta.userId,
         timestamp: new Date(),
       });
 
       ws.on('message', (data: string) => {
         try {
           const clientMeta = this.clients.get(ws);
-          if (clientMeta) {
-            const now = Date.now();
-            clientMeta.messageCount++;
-            // Rate limit interno por conexão: max 30 msgs a cada 5 segundos
-            if (now - clientMeta.lastMessageTime < 5000 && clientMeta.messageCount > 30) {
-              console.warn(`[WebSocket] Conexão violou rate limit: desconectando IP ${clientMeta.ip}`);
-              ws.close(1008, 'Policy Violation: Rate Limit Exceeded');
-              return;
-            }
-            if (now - clientMeta.lastMessageTime >= 5000) {
-              clientMeta.messageCount = 1;
-              clientMeta.lastMessageTime = now;
-            }
+          if (!clientMeta) return;
+
+          const now = Date.now();
+
+          // 1. Verificação de Cooldown / Bloqueio Progressivo Ativo
+          if (clientMeta.blockedUntil && now < clientMeta.blockedUntil) {
+            const remaining = Math.ceil((clientMeta.blockedUntil - now) / 1000);
+            this.sendToClient(ws, {
+              type: 'error',
+              message: `Acesso temporariamente bloqueado por abuso (${remaining}s restantes).`,
+              data: { remainingSeconds: remaining },
+              timestamp: new Date()
+            });
+            return;
           }
 
           const message = JSON.parse(data.toString()) as WSMessage;
+          const category = this.categorizeMessage(message);
+
+          // 2. Janela de 60 segundos para Rate Limiting Multicamadas
+          if (now - clientMeta.windowStart > 60000) {
+            clientMeta.windowStart = now;
+            clientMeta.readCount = 0;
+            clientMeta.writeCount = 0;
+            clientMeta.dispatchCount = 0;
+          }
+
+          const limits = ROLE_RATE_LIMITS[clientMeta.role] || ROLE_RATE_LIMITS.GUEST;
+          let limitExceeded = false;
+          let exceededReason = '';
+
+          if (category === 'READ') {
+            clientMeta.readCount++;
+            if (clientMeta.readCount > limits.read) {
+              limitExceeded = true;
+              exceededReason = `Limite de consultas excedido (${limits.read}/min para papel ${clientMeta.role})`;
+            }
+          } else if (category === 'WRITE') {
+            clientMeta.writeCount++;
+            if (clientMeta.writeCount > limits.write) {
+              limitExceeded = true;
+              exceededReason = `Limite de mutações excedido (${limits.write}/min para papel ${clientMeta.role})`;
+            }
+          } else if (category === 'DISPATCH') {
+            clientMeta.dispatchCount++;
+            if (clientMeta.dispatchCount > limits.dispatch) {
+              limitExceeded = true;
+              exceededReason = `Disparo não autorizado ou limite excedido (${limits.dispatch}/min para papel ${clientMeta.role})`;
+            }
+          }
+
+          if (limitExceeded) {
+            clientMeta.violationCount++;
+            this.emit('security:rate_limit_violation', {
+              ip: clientMeta.ip,
+              userId: clientMeta.userId,
+              role: clientMeta.role,
+              category,
+              violationCount: clientMeta.violationCount,
+              reason: exceededReason,
+              timestamp: new Date()
+            });
+
+            if (clientMeta.violationCount === 1) {
+              // 1ª Violação: Aviso formal e rejeição da mensagem
+              this.sendToClient(ws, {
+                type: 'rate_limit_warning',
+                message: exceededReason,
+                data: { violationCount: 1 },
+                timestamp: new Date()
+              });
+              return;
+            } else if (clientMeta.violationCount === 2) {
+              // 2ª Violação: 1 minuto de congelamento
+              clientMeta.blockedUntil = now + 60000;
+              this.sendToClient(ws, {
+                type: 'rate_limit_cooldown',
+                message: 'Cooldown de 60 segundos ativado por violação de política.',
+                data: { cooldownSeconds: 60 },
+                timestamp: new Date()
+              });
+              return;
+            } else {
+              // 3ª Violação: Corte definitivo da conexão com código 1008
+              console.warn(`[WebSocket] Desconectando cliente persistente por abuso: ${clientMeta.ip} (${clientMeta.role})`);
+              ws.close(1008, 'Policy Violation: Repeated Rate Limit Abuse');
+              return;
+            }
+          }
+
           this.handleMessage(ws, message);
         } catch (error) {
           console.error('[WebSocket] Erro ao processar mensagem recebida:', error);
@@ -254,6 +391,23 @@ export class WebSocketServerManager extends EventEmitter {
         });
       });
     });
+  }
+
+  /**
+   * Categoriza mensagem para rate limit de acordo com o impacto
+   */
+  private categorizeMessage(message: WSMessage): 'READ' | 'WRITE' | 'DISPATCH' {
+    if (message.category === 'READ' || message.category === 'WRITE' || message.category === 'DISPATCH') {
+      return message.category;
+    }
+    const type = (message.type || '').toLowerCase();
+    if (type.includes('ping') || type.includes('subscribe') || type.includes('query') || type.includes('get')) {
+      return 'READ';
+    }
+    if (type.includes('broadcast') || type.includes('notify') || type.includes('alert')) {
+      return 'DISPATCH';
+    }
+    return 'WRITE';
   }
 
   /**

@@ -19,7 +19,8 @@
     "test:e2e:critical": "node scripts/test_e2e_critical_flow.cjs",
     "backup:edge": "node scripts/backup_edge.cjs",
     "restore:drill": "node scripts/restore_edge.cjs",
-    "lint": "pnpm -r run lint"
+    "lint": "pnpm -r run lint",
+    "test:stress:hostile": "node scripts/stress_test_pilot_hostile_env.cjs"
   },
   "devDependencies": {
     "typescript": "^5.3.3"
