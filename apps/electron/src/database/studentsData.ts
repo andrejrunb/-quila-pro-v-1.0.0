@@ -1,4 +1,4 @@
-/**
+﻿/**
  * studentsData.ts — Lista de Alunos Sintéticos para Testes e Validação
  * ====================================================================
  * Nomes 100% fictícios gerados em conformidade estrita com LGPD (Art. 14).
@@ -6,13 +6,32 @@
  */
 
 export interface StudentData {
+  id: string;
+  ra: string;
+  classRoom: string;
+  className: string;
+  class: string;
   registrationNumber: string;
   name: string;
   cpf: string;
   classId: string;
 }
 
-export const STUDENTS: StudentData[] = [
+const CLASS_ID_TO_NAME: Record<string, string> = {
+  'F-EF11A': '1 ANO A', 'F-EF11B': '1 ANO B',
+  'F-EF12A': '2 ANO A', 'F-EF12B': '2 ANO B',
+  'F-EF13A': '3 ANO A', 'F-EF13B': '3 ANO B',
+  'F-EF14A': '4 ANO A', 'F-EF14B': '4 ANO B',
+  'F-EF15A': '5 ANO A', 'F-EF15B': '5 ANO B',
+  'F-EF26A': '6 ANO A', 'F-EF26B': '6 ANO B',
+  'F-EF27A': '7 ANO A', 'F-EF27B': '7 ANO B',
+  'F-EF28A': '8 ANO A', 'F-EF28B': '8 ANO B',
+  'F-EF29A': '9 ANO A', 'F-EF29B': '9 ANO B',
+  'F-EM1A': '1 SERIE A', 'F-EM1B': '1 SERIE B',
+  'F-EM2A': '2 SERIE A', 'F-EM3A': '3 SERIE A',
+};
+
+const RAW_STUDENTS = [
   {
     "registrationNumber": "45453",
     "name": "GIOVANNA CAMPOS GOMES",
@@ -2210,3 +2229,16 @@ export const STUDENTS: StudentData[] = [
     "classId": "F-EM3A"
   }
 ];
+
+export const STUDENTS: StudentData[] = RAW_STUDENTS.map((s) => {
+  const room = CLASS_ID_TO_NAME[s.classId] || s.classId || '1 ANO A';
+  return {
+    ...s,
+    id: 'std-' + s.registrationNumber,
+    ra: s.registrationNumber,
+    classRoom: room,
+    className: room,
+    class: room,
+  };
+});
+

@@ -21,6 +21,7 @@ import { EssayLab1000 } from '../components/EssayLab1000';
 import OmrScannerUI from '../components/OmrScannerUI';
 import { BNCCProficiencyHeatmap } from '../components/BNCCProficiencyHeatmap';
 import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
+import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder';
 import {
   Clock, Users, AlertCircle, CheckCircle2, Calendar,
   FileText, ChevronRight, AlertTriangle, LayoutGrid, Sparkles, BookOpen, FileSpreadsheet, Swords, Presentation, Camera, Flame, Printer
@@ -356,6 +357,9 @@ export const TeacherPortal: React.FC<TeacherPortalProps> = ({ currentPage, onNav
       case 'knowledge-canvas':
       case 'albus-canvas':
         return <StudentMasteryChamber studentId={studentParams?.studentId} initialMode="canvas" onBack={onBack} />;
+      case 'youtube-radar':
+      case 'video-finder':
+        return <YouTubePedagogicalFinder />;
       case 'ai-studio':
         return <TeacherAIStudio onBack={onBack} />;
       case 'activity-factory':

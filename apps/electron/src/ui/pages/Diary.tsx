@@ -42,6 +42,7 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
   const [selectedClass, setSelectedClass] = useState('all');
   const [viewMode, setViewMode] = useState<'detailed' | 'bulk' | 'list'>('list');
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const setStudentPresence = (studentId: string, present: boolean) => {
     setEntries(prev => ({
@@ -450,11 +451,12 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
     try {
       setLoading(true);
       const data = await (window as any).aquila.invoke('get-students', selectedClass);
-      setStudents(data);
+      const safeStudents = Array.isArray(data) ? data : [];
+      setStudents(safeStudents);
       
       // Initialize entries if empty
       const initialEntries: Record<string, DiaryEntry> = {};
-      data.forEach((s: Student) => {
+      safeStudents.forEach((s: Student) => {
         initialEntries[s.id] = { studentId: s.id, mood: null, observation: '', present: true };
       });
       setEntries(initialEntries);

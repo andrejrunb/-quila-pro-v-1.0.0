@@ -27,6 +27,17 @@ Este documento define as diretrizes técnicas, éticas e operacionais para todos
 
 ---
 
+
+
+5. **Distribuição Obrigatória de Tarefas & Potencial Máximo de Hardware (Multi-Agent & Multi-GPU Sovereign Rule)**:
+   - **Proibição de Processamento Monolítico:** O agente orquestrador NUNCA deve concentrar cargas computacionais pesadas (auditorias massivas de banco, particionamento de grandes datasets, extração de texto/PDF, benchmarks e treinamentos/SFT) em si próprio.
+   - **Delegação Imediata para Agentes Especialistas:** Toda tarefa analítica, de segregação de dados, direitos autorais, testes e governança DEVE ser distribuída a subagentes autônomos dedicados (ex: license_partitioner, gpu_worker_colab, qa_expert, security_review).
+   - **Potencial Máximo de GPUs NVIDIA & Google Colab Pro (A100-SXM4-80GB):** Cargas intensivas de aprendizado profundo, visão computacional, transformações matriciais pesadas e treino de adaptadores (LoRA BF16) DEVEM ser obrigatoriamente despachadas para aceleração por hardware (GPUs NVIDIA locais via CUDA/TensorRT ou instâncias remotas Colab Pro A100 via colab-mcp e endpoints REST).
+   - **Ativação Extensiva de Skills & MCPs:** Utilização proativa das skills instaladas (colab_offload, 
+pu_optimizer, ision_worker, qa_expert, security_review, pi_anything) e dos servidores MCP disponíveis (colab-mcp, ilesystem, chrome-devtools-mcp).
+
+---
+
 ## 🛠️ 2. Matriz de Permissões por Agente
 
 | Perfil / Agente | Leitura de Código | Escrita de Código | Acesso a Banco | Exclusão de Dados | Execução de Testes | Deploy / Push |

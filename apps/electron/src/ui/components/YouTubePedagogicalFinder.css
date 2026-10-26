@@ -1,0 +1,414 @@
+.yt-finder-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: radial-gradient(circle at top left, #1e1338, #0e091b);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: #f3f4f6;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+}
+
+.yt-finder-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 1rem;
+}
+
+.yt-finder-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.yt-finder-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0.25rem 0;
+}
+
+.yt-finder-subtitle {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.yt-finder-searchbar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.yt-search-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.yt-search-icon {
+  position: absolute;
+  left: 0.85rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #a78bfa;
+}
+
+.yt-search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 0.5rem;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.yt-search-input:focus {
+  border-color: #c084fc;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+}
+
+.yt-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.yt-filter-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.yt-filter-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #d1d5db;
+  margin-right: 0.25rem;
+}
+
+.yt-filter-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e5e7eb;
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.4rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.yt-filter-chip:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: #a78bfa;
+}
+
+.yt-filter-chip.active {
+  background: #7c3aed;
+  border-color: #9333ea;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(124, 58, 237, 0.5);
+}
+
+.yt-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.yt-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(24, 18, 43, 0.7);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.yt-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(124, 58, 237, 0.2);
+  border-color: rgba(168, 85, 247, 0.5);
+}
+
+.yt-card-thumb-wrap {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  background: #000;
+  cursor: pointer;
+}
+
+.yt-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #180d2b, #2a1548);
+}
+
+.yt-duration {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.yt-play-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.yt-card-thumb-wrap:hover .yt-play-overlay {
+  opacity: 1;
+}
+
+.yt-card-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.yt-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.yt-tag {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.yt-tag.discipline {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.yt-tag.exam {
+  background: rgba(234, 179, 8, 0.2);
+  color: #fde047;
+  border: 1px solid rgba(234, 179, 8, 0.4);
+}
+
+.yt-tag.stage {
+  background: rgba(168, 85, 247, 0.2);
+  color: #d8b4fe;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.yt-tag.bncc {
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.yt-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f9fafb;
+  line-height: 1.3;
+  margin: 0 0 0.4rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.yt-channel-name {
+  font-size: 0.8rem;
+  color: #d1d5db;
+  margin: 0 0 0.5rem 0;
+}
+
+.yt-summary {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  line-height: 1.35;
+  margin: 0 0 1rem 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.yt-card-footer {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.yt-btn-preview {
+  flex: 1;
+  background: rgba(139, 92, 246, 0.25);
+  border: 1px solid rgba(139, 92, 246, 0.5);
+  color: #ffffff;
+  padding: 0.45rem;
+  border-radius: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.yt-btn-preview:hover {
+  background: #7c3aed;
+}
+
+.yt-btn-attach {
+  flex: 1;
+  background: rgba(16, 185, 129, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #a7f3d0;
+  padding: 0.45rem;
+  border-radius: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.yt-btn-attach:hover {
+  background: #059669;
+  color: #ffffff;
+}
+
+.yt-external-helper {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.yt-live-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #c084fc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.yt-live-link:hover {
+  color: #e9d5ff;
+  text-decoration: underline;
+}
+
+/* Modal */
+.yt-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.yt-modal-content {
+  background: #170f2a;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 650px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+.yt-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.yt-modal-header h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #ffffff;
+}
+
+.yt-modal-close {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.yt-modal-player-box {
+  padding: 1.5rem;
+  background: #090514;
+}
+
+.yt-simulated-player {
+  background: #120924;
+  border: 1px dashed rgba(139, 92, 246, 0.4);
+  border-radius: 0.75rem;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+}
+
+.yt-watch-direct-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #ef4444;
+  color: #ffffff;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+  transition: transform 0.15s, background 0.15s;
+}
+
+.yt-watch-direct-btn:hover {
+  background: #dc2626;
+  transform: scale(1.03);
+}
+
+.yt-modal-footer {
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}

@@ -1,0 +1,315 @@
+{
+  "generated_at": "2026-10-25T23:40:31.317405",
+  "consultation_date": "2026-10-25",
+  "legal_corrections_applied": {
+    "eca_digital_statute": "Lei nº 15.211, de 17 de setembro de 2025 (Estatuto Digital da Criança e do Adolescente)",
+    "eca_digital_regulation": "Decreto nº 12.880, de 18 de março de 2026",
+    "lei_15352_2026_scope": "Reestruturação da ANPD e inclusão do art. 41-A na Lei nº 15.211/2025 fixando vigência em 17/03/2026",
+    "loot_boxes_prohibition": "Art. 20 da Lei nº 15.211/2025 e arts. 22, § 2º, II, e 23 do Decreto nº 12.880/2026",
+    "screen_time_reward_prohibition": "Decreto nº 12.880/2026 (mecanismo de incentivo ao uso excessivo ou problemático)",
+    "camera_gps_biometrics_isolation": "Política interna de privacidade do Áquila Pro, alinhada à LGPD (Lei nº 13.709/2018) e ao melhor interesse da criança (Enunciado CD/ANPD nº 1/2023)",
+    "ai_mentor_notice_classification": "Texto adotado pelo Áquila Pro para atender ao art. 11, I, do Decreto nº 12.880/2026, acompanhado de Relatório de Avaliação de Risco Algorítmico e salvaguardas do art. 11, II",
+    "ip_diligence_registry": "Cadastro interno de diligência de exatos 12 campos, baseado no art. 29 da Lei nº 9.610/1998",
+    "three_audit_questions": "Política interna de aprovação pedagógica do projeto Áquila Pro"
+  },
+  "finetune_dataset_pii_audit": {
+    "file": "C:\\aquila\\swarm\\dataset\\aquila_finetune_dataset.jsonl",
+    "total_records_audited": 718,
+    "real_student_pii_records_found": 0,
+    "historical_citations_separated_from_fictional_dialogue": true,
+    "status": "CLEAN_ZERO_STUDENT_PII"
+  },
+  "verifiable_40_references_count": 40,
+  "traceability_7_disclaimers_count": 7,
+  "curriculum_20_disciplines_count": 20,
+  "mvp_6_thematic_sets": [
+    {
+      "set_id": "set_01_nikola_tesla_eletricidade",
+      "character_and_file_id": "set_01_nikola_tesla::set_01_nikola_tesla.svg",
+      "collection_album": "Inventores e energia",
+      "discipline": "Física",
+      "title": "Expedição da Eletricidade — Nikola Tesla, Michael Faraday & Isaac Newton",
+      "historical_reference": "Nikola Tesla, Michael Faraday, Isaac Newton",
+      "rule_id": "fisica_eletricidade_tesla_01",
+      "svg_filename": "set_01_nikola_tesla.svg",
+      "accent_color": "#38bdf8",
+      "stages_5": [
+        {
+          "etapa": "Conhecer",
+          "atividade": "Explorar uma apresentação sobre Tesla e o contexto das tecnologias elétricas",
+          "criterio": "Identificar contribuições e distinguir pessoa, invenção e contexto",
+          "recompensa": "Card biográfico original"
+        },
+        {
+          "etapa": "Compreender",
+          "atividade": "Interpretar representações de circuitos e fontes de energia",
+          "criterio": "Explicar relações adequadas à etapa escolar",
+          "recompensa": "Acessório de laboratório"
+        },
+        {
+          "etapa": "Aplicar",
+          "atividade": "Resolver um desafio em simulador",
+          "criterio": "Construir uma solução e justificar escolhas",
+          "recompensa": "Traje 'Laboratório Tesla'"
+        },
+        {
+          "etapa": "Investigar",
+          "atividade": "Comparar soluções para um problema energético",
+          "criterio": "Argumentação baseada em evidências",
+          "recompensa": "Cenário de oficina"
+        },
+        {
+          "etapa": "Retomar",
+          "atividade": "Resolver outra situação em momento posterior",
+          "criterio": "Demonstrar compreensão sem repetir apenas a resposta decorada",
+          "recompensa": "Variante visual do conjunto"
+        }
+      ],
+      "modalities_3": {
+        "personagem": "Representação original estilizada da figura histórica (Nikola Tesla).",
+        "traje_inspirado": "O aluno mantém seu avatar e usa o traje ou acessórios temáticos 'Laboratório Tesla'.",
+        "ambiente": "O aluno personaliza o cenário 'Oficina da Eletricidade'."
+      }
+    },
+    {
+      "set_id": "set_02_machado_firmina_literatura",
+      "character_and_file_id": "set_02_machado_firmina::set_02_machado_firmina.svg",
+      "collection_album": "Escritoras e escritores brasileiros",
+      "discipline": "Língua Portuguesa",
+      "title": "Perspectivas Literárias — Machado de Assis, Maria Firmina dos Reis & Lima Barreto",
+      "historical_reference": "Machado de Assis, Maria Firmina dos Reis, Lima Barreto",
+      "rule_id": "portugues_literatura_machado_firmina_01",
+      "svg_filename": "set_02_machado_firmina.svg",
+      "accent_color": "#f59e0b",
+      "stages_5": [
+        {
+          "etapa": "Conhecer",
+          "atividade": "Explorar textos em domínio público de Machado de Assis, Maria Firmina dos Reis e Lima Barreto",
+          "criterio": "Identificar o contexto histórico e literário das obras",
+          "recompensa": "Card biográfico original"
+        },
+        {
+          "etapa": "Compreender",
+          "atividade": "Interpretar perspectivas narrativas e escolhas de linguagem",
+          "criterio": "Explicar como o narrador constrói o sentido do texto",
+          "recompensa": "Acessório escrivaninha e pena"
+        },
+        {
+          "etapa": "Aplicar",
+          "atividade": "Produzir um texto autoral aplicando mudança de perspectiva narrativa",
+          "criterio": "Coerência e justificativa das escolhas textuais",
+          "recompensa": "Conjunto literário inspirado"
+        },
+        {
+          "etapa": "Investigar",
+          "atividade": "Comparar diferentes crônicas e documentos da época",
+          "criterio": "Produção avaliada por rubrica pedagógica",
+          "recompensa": "Biblioteca personalizável"
+        },
+        {
+          "etapa": "Retomar",
+          "atividade": "Analisar novo trecho literário em momento posterior",
+          "criterio": "Transferência de leitura crítica sem repetição mecânica",
+          "recompensa": "Variante visual da Biblioteca"
+        }
+      ],
+      "modalities_3": {
+        "personagem": "Representação original de Machado de Assis, Maria Firmina dos Reis e Lima Barreto.",
+        "traje_inspirado": "Conjunto literário vestível no próprio avatar do estudante.",
+        "ambiente": "Biblioteca personalizável e escrivaninha."
+      }
+    },
+    {
+      "set_id": "set_03_merian_mendel_biodiversidade",
+      "character_and_file_id": "set_03_merian_mendel::set_03_merian_mendel_biodiversidade.svg",
+      "collection_album": "Vida e biodiversidade",
+      "discipline": "Biologia",
+      "title": "Investigação Naturalista — Charles Darwin, Gregor Mendel & Maria Sibylla Merian",
+      "historical_reference": "Charles Darwin, Gregor Mendel, Maria Sibylla Merian",
+      "rule_id": "biologia_biodiversidade_merian_mendel_01",
+      "svg_filename": "set_03_merian_mendel_biodiversidade.svg",
+      "accent_color": "#10b981",
+      "stages_5": [
+        {
+          "etapa": "Conhecer",
+          "atividade": "Explorar registros de observação de seres vivos e metamorfose",
+          "criterio": "Identificar métodos de observação e classificação biológica",
+          "recompensa": "Card biográfico original"
+        },
+        {
+          "etapa": "Compreender",
+          "atividade": "Explicar relações ecológicas e padrões de hereditariedade",
+          "criterio": "Representação correta das relações entre seres vivos",
+          "recompensa": "Caderno de campo naturalista"
+        },
+        {
+          "etapa": "Aplicar",
+          "atividade": "Resolver problema de classificação e cruzamento em simulador",
+          "criterio": "Solução acompanhada de raciocínio biológico",
+          "recompensa": "Traje de investigação biológica"
+        },
+        {
+          "etapa": "Investigar",
+          "atividade": "Comparar hipóteses sobre biodiversidade e adaptação",
+          "criterio": "Argumentação avaliada por critérios científicos",
+          "recompensa": "Jardim virtual e espécimes"
+        },
+        {
+          "etapa": "Retomar",
+          "atividade": "Analisar novo ecossistema em momento posterior",
+          "criterio": "Compreensão consolidada sem resposta decorada",
+          "recompensa": "Variante visual do Jardim virtual"
+        }
+      ],
+      "modalities_3": {
+        "personagem": "Representação original de Maria Sibylla Merian, Gregor Mendel e Charles Darwin.",
+        "traje_inspirado": "Vestimenta de campo naturalista para o avatar do estudante.",
+        "ambiente": "Jardim virtual personalizável."
+      }
+    },
+    {
+      "set_id": "set_04_hipatia_euclides_matematica",
+      "character_and_file_id": "set_04_hipatia_euclides::set_04_hipatia_euclides_matematica.svg",
+      "collection_album": "Matemática em ação",
+      "discipline": "Matemática",
+      "title": "Geometria e Álgebra — Euclides, Hipátia & al-Khwarizmi",
+      "historical_reference": "Euclides, Hipátia, al-Khwarizmi",
+      "rule_id": "matematica_geometria_hipatia_euclides_01",
+      "svg_filename": "set_04_hipatia_euclides_matematica.svg",
+      "accent_color": "#a855f7",
+      "stages_5": [
+        {
+          "etapa": "Conhecer",
+          "atividade": "Explorar problemas históricos de geometria e álgebra",
+          "criterio": "Identificar como padrões geométricos e equações representam problemas",
+          "recompensa": "Card biográfico original"
+        },
+        {
+          "etapa": "Compreender",
+          "atividade": "Explicar visualmente por que uma propriedade geométrica ou algébrica é válida",
+          "criterio": "Demonstração ou representação clara",
+          "recompensa": "Instrumentos matemáticos"
+        },
+        {
+          "etapa": "Aplicar",
+          "atividade": "Construir e explicar uma solução em situação nova",
+          "criterio": "Solução acompanhada do raciocínio completo",
+          "recompensa": "Traje 'Oficina Matemática'"
+        },
+        {
+          "etapa": "Investigar",
+          "atividade": "Comparar diferentes estratégias de resolução para um problema de construção",
+          "criterio": "Justificativa avaliada por critérios",
+          "recompensa": "Oficina de construções"
+        },
+        {
+          "etapa": "Retomar",
+          "atividade": "Resolver problema equivalente em revisão posterior",
+          "criterio": "Transferência de estratégia matemática",
+          "recompensa": "Variante visual de padrões geométricos"
+        }
+      ],
+      "modalities_3": {
+        "personagem": "Representação original de Hipátia, Euclides e al-Khwarizmi.",
+        "traje_inspirado": "Traje e instrumentos matemáticos no avatar do estudante.",
+        "ambiente": "Oficina de construções matemáticas."
+      }
+    },
+    {
+      "set_id": "set_05_fontes_historicas_cartografia",
+      "character_and_file_id": "set_05_fontes_historicas::set_05_fontes_historicas_cartografia.svg",
+      "collection_album": "Civilizações e fontes históricas",
+      "discipline": "História & Geografia",
+      "title": "Fontes e Territórios — Eratóstenes, Alexander von Humboldt & Investigadores Originais",
+      "historical_reference": "Eratóstenes, Alexander von Humboldt e figuras/investigadores históricos",
+      "rule_id": "historia_geografia_fontes_01",
+      "svg_filename": "set_05_fontes_historicas_cartografia.svg",
+      "accent_color": "#ec4899",
+      "stages_5": [
+        {
+          "etapa": "Conhecer",
+          "atividade": "Explorar documentos históricos, mapas e escalas",
+          "criterio": "Identificar tipo de fonte, autor e contexto",
+          "recompensa": "Card de investigação histórica"
+        },
+        {
+          "etapa": "Compreender",
+          "atividade": "Distinguir evidência histórica de interpretação e ler escalas cartográficas",
+          "criterio": "Explicação fundamentada das relações territoriais e documentais",
+          "recompensa": "Instrumentos de cartografia"
+        },
+        {
+          "etapa": "Aplicar",
+          "atividade": "Confrontar duas fontes ou mapas sobre um mesmo tema",
+          "criterio": "Análise comparativa acompanhada de raciocínio",
+          "recompensa": "Vestimenta contextualizada de pesquisa"
+        },
+        {
+          "etapa": "Investigar",
+          "atividade": "Produzir síntese comparando documentos e contextos",
+          "criterio": "Produção avaliada por rubrica docente",
+          "recompensa": "Galeria histórica e estação de pesquisa"
+        },
+        {
+          "etapa": "Retomar",
+          "atividade": "Analisar nova fonte documental em momento posterior",
+          "criterio": "Leitura crítica sem repetição decorada",
+          "recompensa": "Variante visual da Galeria histórica"
+        }
+      ],
+      "modalities_3": {
+        "personagem": "Representação original de Eratóstenes, Humboldt e investigadores históricos.",
+        "traje_inspirado": "Vestimenta contextualizada de investigador de fontes e cartografia.",
+        "ambiente": "Galeria histórica e estação de pesquisa."
+      }
+    },
+    {
+      "set_id": "set_06_ada_turing_algoritmos",
+      "character_and_file_id": "set_06_ada_turing::set_06_ada_turing_algoritmos.svg",
+      "collection_album": "Algoritmos e cidadania digital",
+      "discipline": "Computação & Cidadania Digital",
+      "title": "Algoritmos e Proteção de Dados — Ada Lovelace, Alan Turing & Criadores Originais",
+      "historical_reference": "Ada Lovelace, Alan Turing e investigadores digitais originais",
+      "rule_id": "computacao_algoritmos_ada_turing_01",
+      "svg_filename": "set_06_ada_turing_algoritmos.svg",
+      "accent_color": "#6366f1",
+      "stages_5": [
+        {
+          "etapa": "Conhecer",
+          "atividade": "Explorar o conceito de algoritmo com Ada Lovelace e Alan Turing e boas práticas digitais",
+          "criterio": "Identificar sequência lógica e princípios de verificação de fontes",
+          "recompensa": "Card biográfico original"
+        },
+        {
+          "etapa": "Compreender",
+          "atividade": "Explicar como um algoritmo processa entradas e por que proteger dados pessoais",
+          "criterio": "Explicação clara do fluxo lógico",
+          "recompensa": "Acessório de lógica e insígnia digital"
+        },
+        {
+          "etapa": "Aplicar",
+          "atividade": "Elaborar um algoritmo e explicar como foi testado",
+          "criterio": "Solução funcional acompanhada do registro de teste",
+          "recompensa": "Traje 'Oficina de Programação'"
+        },
+        {
+          "etapa": "Investigar",
+          "atividade": "Avaliar hipóteses, testar casos-limite e justificar decisões de proteção de dados",
+          "criterio": "Produção avaliada por critérios",
+          "recompensa": "Oficina de programação e laboratório digital"
+        },
+        {
+          "etapa": "Retomar",
+          "atividade": "Depurar e aperfeiçoar um algoritmo em revisão posterior",
+          "criterio": "Compreensão demonstrada em nova situação",
+          "recompensa": "Variante visual do Laboratório Digital"
+        }
+      ],
+      "modalities_3": {
+        "personagem": "Representação original de Ada Lovelace, Alan Turing e investigadores digitais.",
+        "traje_inspirado": "Traje temático de programação e cidadania digital no avatar do aluno.",
+        "ambiente": "Oficina de programação e laboratório digital."
+      }
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import { EssayLab1000 } from '../components/EssayLab1000';
 import { PhetKumonMasteryLab } from '../components/PhetKumonMasteryLab';
 import { MultimodalPedagogicalStudio } from '../components/MultimodalPedagogicalStudio';
 import { NativePhETSimulationLab } from '../components/NativePhETSimulationLab';
+import { StudentCosmeticsChamber } from '../components/StudentCosmeticsChamber';
 
 interface StudentPortalProps {
   currentPage: string;
@@ -43,6 +44,10 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNav
         return <MultimodalPedagogicalStudio />;
       case 'native-phet':
         return <NativePhETSimulationLab />;
+      case 'cosmetics-chamber':
+      case 'battle-banner':
+      case 'skins-shop':
+        return <StudentCosmeticsChamber studentId={studentId} />;
       case 'student-portal':
       case 'dashboard':
       default:

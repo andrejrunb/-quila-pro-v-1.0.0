@@ -1,0 +1,421 @@
+.cr-chamber-root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 1.5rem;
+  background: radial-gradient(circle at 50% 0%, #1c1035, #0a0614 70%);
+  color: #ffffff;
+  min-height: 100%;
+}
+
+.cr-chamber-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1.5rem;
+}
+
+.cr-brand-group {
+  max-width: 650px;
+}
+
+.cr-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(234, 179, 8, 0.15);
+  color: #fde047;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.cr-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0.25rem 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cr-subtitle {
+  font-size: 0.9rem;
+  color: #a1a1aa;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.cr-wallet-badge {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(168, 85, 247, 0.2));
+  border: 2px solid #eab308;
+  padding: 0.75rem 1.25rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.25);
+}
+
+.cr-wallet-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cr-wallet-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fde047;
+  letter-spacing: 0.08em;
+}
+
+.cr-wallet-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.cr-feedback-toast {
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.cr-feedback-toast.success {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10b981;
+  color: #6ee7b7;
+}
+
+.cr-feedback-toast.warn {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid #f59e0b;
+  color: #fcd34d;
+}
+
+/* BATTLE BANNER PREVIEW (CLASH ROYALE STYLE) */
+.cr-banner-preview-section {
+  display: flex;
+  justify-content: center;
+}
+
+.cr-banner-preview-box {
+  width: 100%;
+  max-width: 600px;
+}
+
+.cr-banner-bg {
+  position: relative;
+  background: linear-gradient(135deg, #2e1a5a, #150a2b);
+  border: 3px solid #06b6d4;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(6, 182, 212, 0.3);
+  overflow: hidden;
+}
+
+.cr-banner-bg-art {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  width: fit-content;
+}
+
+.cr-banner-bg-icon {
+  font-size: 1.2rem;
+}
+
+.cr-banner-bg-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #c4b5fd;
+  text-transform: uppercase;
+}
+
+.cr-banner-profile-strip {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cr-avatar-frame-wrap {
+  width: 70px;
+  height: 70px;
+  border-radius: 0.75rem;
+  border: 3px solid #06b6d4;
+  background: radial-gradient(circle, #3b1d6e, #130926);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+.cr-avatar-emoji {
+  font-size: 2.5rem;
+}
+
+.cr-profile-texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.cr-profile-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.cr-level-pill {
+  background: #3b82f6;
+  color: #ffffff;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.cr-profile-title {
+  font-size: 0.85rem;
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.cr-banner-badges-rack {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: center;
+}
+
+.cr-mini-badge-slot {
+  width: 34px;
+  height: 34px;
+  border-radius: 0.4rem;
+  background: #251642;
+  border: 1px solid #eab308;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 0 8px rgba(234, 179, 8, 0.4);
+}
+
+/* NAVEGAÇÃO DE CATEGORIAS */
+.cr-category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cr-cat-btn {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e4e4e7;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cr-cat-btn:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: #a855f7;
+}
+
+.cr-cat-btn.active {
+  background: #7c3aed;
+  border-color: #a855f7;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.6);
+}
+
+/* GRID DE CARTÕES CLASH ROYALE STYLE */
+.cr-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.cr-cosmetic-card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #1e1338, #110922);
+  border: 2px solid var(--rarity-glow, #a855f7);
+  border-radius: 0.85rem;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.cr-cosmetic-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.8), 0 0 20px var(--rarity-glow, #a855f7);
+}
+
+.cr-cosmetic-card.equipped {
+  border-width: 3px;
+  box-shadow: 0 0 22px rgba(16, 185, 129, 0.7);
+}
+
+.cr-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: 2px solid var(--rarity-glow, #a855f7);
+}
+
+.cr-rarity-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #000;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.25rem;
+  letter-spacing: 0.05em;
+}
+
+.cr-discipline-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #d4d4d8;
+}
+
+.cr-card-art-box {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+  position: relative;
+}
+
+.cr-card-art-emoji {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.cr-equipped-ribbon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #10b981;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.cr-card-body {
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cr-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.35rem 0;
+  line-height: 1.25;
+}
+
+.cr-card-ref {
+  font-size: 0.75rem;
+  color: #fbbf24;
+  margin: 0 0 0.4rem 0;
+  font-weight: 500;
+}
+
+.cr-card-desc {
+  font-size: 0.78rem;
+  color: #a1a1aa;
+  line-height: 1.35;
+  margin: 0 0 0.6rem 0;
+  flex: 1;
+}
+
+.cr-card-bncc {
+  font-size: 0.7rem;
+  color: #a78bfa;
+  margin-top: auto;
+}
+
+.cr-card-action {
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cr-btn-equip {
+  width: 100%;
+  background: #7c3aed;
+  border: 1px solid #a855f7;
+  color: #ffffff;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cr-btn-equip:hover {
+  background: #6d28d9;
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+}
+
+.cr-btn-equipped {
+  width: 100%;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10b981;
+  color: #6ee7b7;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: default;
+}
+
+.cr-btn-buy {
+  width: 100%;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border: 1px solid #fbbf24;
+  color: #000000;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  font-weight: 800;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+}
+
+.cr-btn-buy:hover {
+  background: #fbbf24;
+  transform: scale(1.02);
+}

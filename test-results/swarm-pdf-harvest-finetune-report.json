@@ -1,0 +1,266 @@
+{
+  "timestamp": "2026-10-26T00:48:20.152727+00:00",
+  "duration_ms": 73896.99,
+  "files_downloaded": 22,
+  "total_targets_processed": 24,
+  "total_bytes_on_disk": 50833554,
+  "total_mb_on_disk": 48.48,
+  "discovered_sublinks_in_portals": 172,
+  "total_sft_records": 451,
+  "new_sft_records_added": 29,
+  "swarm_gpu_syntheses": [
+    {
+      "role": "vision",
+      "batch_title": "Listas de Exercícios Temáticas (Projeto Agatha, Filadd & Blog do Enem)",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "latency_ms": 11246,
+      "status": "SWARM_SYNTHESIZED"
+    },
+    {
+      "role": "architect",
+      "batch_title": "Matemática Olímpica & IMPA/OBMEP (Apostilas 1 a 7 PIC)",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "latency_ms": 11304,
+      "status": "SWARM_SYNTHESIZED"
+    },
+    {
+      "role": "coder",
+      "batch_title": "Provas e Gabaritos Oficiais ENEM INEP (Ciências da Natureza e Matemática)",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "latency_ms": 14422,
+      "status": "SWARM_SYNTHESIZED"
+    },
+    {
+      "role": "qa",
+      "batch_title": "Vestibular UNICAMP / COMVEST & FUVEST USP (Provas Oficiais PDF)",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "latency_ms": 14662,
+      "status": "SWARM_SYNTHESIZED"
+    },
+    {
+      "role": "security",
+      "batch_title": "Auditoria de Direitos Autorais, Licenças Oficiais e Integridade SHA-256 dos PDFs Baixados",
+      "model": "local_deterministic_synthesizer",
+      "latency_ms": 0,
+      "status": "LOCAL_FALLBACK (Todos os modelos Gemini falharam: gemini-flash-latest: The read operation timed out)"
+    }
+  ],
+  "downloaded_files": [
+    {
+      "id": "IMPA_APOSTILA_01_ARITMETICA",
+      "title": "Apostila 1 PIC/OBMEP — Iniciação à Aritmética (Abramo Hefez)",
+      "institution": "Instituto de Matemática Pura e Aplicada (IMPA / MCTI)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\IMPA_APOSTILA_01_ARITMETICA.pdf",
+      "size_bytes": 2457995,
+      "sha256": "4132d9b49a2a393b676023b417f7102661504d5dd6dbd93967dc63050fab0e2b",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "IMPA_APOSTILA_02_CONTAGEM_PROBABILIDADE",
+      "title": "Apostila 2 PIC/OBMEP — Métodos de Contagem e Probabilidade (Paulo Cezar P. Carvalho)",
+      "institution": "Instituto de Matemática Pura e Aplicada (IMPA / MCTI)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\IMPA_APOSTILA_02_CONTAGEM_PROBABILIDADE.pdf",
+      "size_bytes": 1288518,
+      "sha256": "951b7634ea81e1e1241338d94746e00173124c2cbe0a3e59fe6b6c149df812ab",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "IMPA_APOSTILA_03_PITAGORAS_AREAS",
+      "title": "Apostila 3 PIC/OBMEP — Teorema de Pitágoras e Áreas (Eduardo Wagner)",
+      "institution": "Instituto de Matemática Pura e Aplicada (IMPA / MCTI)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\IMPA_APOSTILA_03_PITAGORAS_AREAS.pdf",
+      "size_bytes": 3230926,
+      "sha256": "ee1111be8107c327a7affbc272aaccf36106dd5f480b9f19e9a43b76f51d7785",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "IMPA_APOSTILA_04_INDUCAO_MATEMATICA",
+      "title": "Apostila 4 PIC/OBMEP — Indução Matemática (Abramo Hefez)",
+      "institution": "Instituto de Matemática Pura e Aplicada (IMPA / MCTI)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\IMPA_APOSTILA_04_INDUCAO_MATEMATICA.pdf",
+      "size_bytes": 824512,
+      "sha256": "76206e141aa180f652f3efa9b0d9ee1f1a4c4b5856c6c826c1caa50af0f6c019",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "IMPA_APOSTILA_05_GRAFOS",
+      "title": "Apostila 5 PIC/OBMEP — Grafos: Introdução e Aplicações (Cláudio Lucchesi et al.)",
+      "institution": "Instituto de Matemática Pura e Aplicada (IMPA / MCTI)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\IMPA_APOSTILA_05_GRAFOS.pdf",
+      "size_bytes": 1190585,
+      "sha256": "038c59a36c82b4b496eb02e684e49afb482c041d74af5109fa3a99b4b47db38d",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "IMPA_APOSTILA_06_GEOMETRIA_GLOBO",
+      "title": "Apostila 6 PIC/OBMEP — A Geometria do Globo Terrestre (PC Carvalho)",
+      "institution": "Instituto de Matemática Pura e Aplicada (IMPA / MCTI)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\IMPA_APOSTILA_06_GEOMETRIA_GLOBO.pdf",
+      "size_bytes": 2671175,
+      "sha256": "237ccf20b578d8c874efafc014aa03e69e00a22c60ccd9db85fef06559c7e157",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "IMPA_APOSTILA_07_CRIPTOGRAFIA",
+      "title": "Apostila 7 PIC/OBMEP — Criptografia RSA e Aritmética Modular (SC Coutinho)",
+      "institution": "Instituto de Matemática Pura e Aplicada (IMPA / MCTI)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\IMPA_APOSTILA_07_CRIPTOGRAFIA.pdf",
+      "size_bytes": 2196839,
+      "sha256": "498e1ffcae312cc0ce815239a8eb57eeca657289c8decfe7e65f166d27cbe5b5",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "INEP_ENEM_2020_DIA2_PROVA_AZUL",
+      "title": "ENEM 2020 Oficial — 2º Dia Caderno 7 Azul (Natureza e Matemática)",
+      "institution": "INEP / Ministério da Educação (MEC)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\INEP_ENEM_2020_DIA2_PROVA_AZUL.pdf",
+      "size_bytes": 6518863,
+      "sha256": "f9970a82e0ee67a31ec16e2f14c99e620738b88dfe7c68484128964a5d5d69bc",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "INEP_ENEM_2021_DIA2_PROVA_AZUL",
+      "title": "ENEM 2021 Oficial — 2º Dia Caderno 7 Azul (Natureza e Matemática)",
+      "institution": "INEP / Ministério da Educação (MEC)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\INEP_ENEM_2021_DIA2_PROVA_AZUL.pdf",
+      "size_bytes": 1354632,
+      "sha256": "887b2a10ebb163f0c40db2ab4f67a5a4b5959ceb74ce7273466a755b8e55f540",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "INEP_ENEM_2022_DIA2_GABARITO_AZUL",
+      "title": "ENEM 2022 Oficial — Gabarito 2º Dia Caderno 7 Azul",
+      "institution": "INEP / Ministério da Educação (MEC)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\INEP_ENEM_2022_DIA2_GABARITO_AZUL.pdf",
+      "size_bytes": 210705,
+      "sha256": "1b4b0cd0978bfc6c862d9631c4f8a5c25091938d09acfd2bd8c8b510764cb118",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "INEP_ENEM_2022_DIA2_PROVA_AZUL",
+      "title": "ENEM 2022 Oficial — 2º Dia Caderno 7 Azul (Natureza e Matemática)",
+      "institution": "INEP / Ministério da Educação (MEC)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\INEP_ENEM_2022_DIA2_PROVA_AZUL.pdf",
+      "size_bytes": 6854310,
+      "sha256": "ab4cdea89504ab1bfc9435addacea482417cd82e9f220abaa6a317a10bd0b0f9",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "INEP_ENEM_2023_DIA1_GABARITO_AZUL",
+      "title": "ENEM 2023 Oficial — Gabarito 1º Dia Caderno 1 Azul",
+      "institution": "INEP / Ministério da Educação (MEC)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\INEP_ENEM_2023_DIA1_GABARITO_AZUL.pdf",
+      "size_bytes": 592479,
+      "sha256": "d01f0ca9e0855b69428cf0942585259d046a2d63706568fa73a1efefb760d5c1",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "INEP_ENEM_2023_DIA1_PROVA_AZUL",
+      "title": "ENEM 2023 Oficial — 1º Dia Caderno 1 Azul (Linguagens, Humanas e Redação)",
+      "institution": "INEP / Ministério da Educação (MEC)",
+      "local_path": "",
+      "size_bytes": 0,
+      "sha256": "45ddf357986ec71a104e13ca00989ffdd555ded637e58061a9591516a83f59ea",
+      "status": "CATALOGED_METADATA (URLError)"
+    },
+    {
+      "id": "INEP_ENEM_2023_DIA2_GABARITO_AMARELO",
+      "title": "ENEM 2023 Oficial — Gabarito 2º Dia Caderno 5 Amarelo",
+      "institution": "INEP / Ministério da Educação (MEC)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\INEP_ENEM_2023_DIA2_GABARITO_AMARELO.pdf",
+      "size_bytes": 593520,
+      "sha256": "597ab9fab55c19351f1ac98d9d722ddbae6789943d9ae8da34e7776c28f532a4",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "INEP_ENEM_2023_DIA2_PROVA_AMARELO",
+      "title": "ENEM 2023 Oficial — 2º Dia Caderno 5 Amarelo (Natureza e Matemática)",
+      "institution": "INEP / Ministério da Educação (MEC)",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\INEP_ENEM_2023_DIA2_PROVA_AMARELO.pdf",
+      "size_bytes": 3847280,
+      "sha256": "818b89dec87eb0b77bf77f96d3e744502c7bdffb57166d2b5137beb3a6b9ac59",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "LISTA_AGATHA_BANCO_QUESTOES",
+      "title": "Projeto Agatha Edu — Índice de Listas de Exercícios ENEM, Fuvest e ITA",
+      "institution": "Projeto Agatha Edu",
+      "local_path": "colab\\data_finetuning\\downloaded_lists\\LISTA_AGATHA_BANCO_QUESTOES.html",
+      "size_bytes": 56418,
+      "sha256": "f179b2903f34c8d3e6d860ba64c3bba0af5f43d399258fa2b3b2b753a95f1612",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "LISTA_BLOG_DO_ENEM_EXERCICIOS",
+      "title": "Blog do Enem — Listas de Exercícios com Gabarito por Disciplina",
+      "institution": "Blog do Enem",
+      "local_path": "colab\\data_finetuning\\downloaded_lists\\LISTA_BLOG_DO_ENEM_EXERCICIOS.html",
+      "size_bytes": 289061,
+      "sha256": "f27124cd4b106e4cea94d6c4b5b1e9bfda2c469793b0eb08969f2d6532a9acdc",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "LISTA_FILADD_2025",
+      "title": "Filadd — Coleção de Listas de Exercícios ENEM 2025 em PDF",
+      "institution": "Filadd Brasil",
+      "local_path": "colab\\data_finetuning\\downloaded_lists\\LISTA_FILADD_2025.html",
+      "size_bytes": 172948,
+      "sha256": "33eb6059b7ebededffdda17c0ffd6c3713ca59189be960ec3b53ff521df7fd7f",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "LISTA_FILADD_2026",
+      "title": "Filadd — Coleção de Listas de Exercícios ENEM 2026 em PDF",
+      "institution": "Filadd Brasil",
+      "local_path": "colab\\data_finetuning\\downloaded_lists\\LISTA_FILADD_2026.html",
+      "size_bytes": 130232,
+      "sha256": "8d3c57323493e685ddc4acc171aae1e6874f00ae3a021c4e4a8be56205a5513a",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "PORTAL_COMVEST_UNICAMP_ANTERIORES",
+      "title": "Acervo Oficial COMVEST/UNICAMP — Provas e Padrões de Resposta",
+      "institution": "COMVEST / UNICAMP",
+      "local_path": "colab\\data_finetuning\\downloaded_lists\\PORTAL_COMVEST_UNICAMP_ANTERIORES.html",
+      "size_bytes": 133813,
+      "sha256": "a2c8386dc160cd5729e387488a6ef997322f03588ef66f559d8e38cecfa9f491",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "PORTAL_FUVEST_ACERVO_OFICIAL",
+      "title": "Acervo Oficial FUVEST/USP (1978–2026)",
+      "institution": "FUVEST / USP",
+      "local_path": "",
+      "size_bytes": 0,
+      "sha256": "be8bb33ad8ad537e70b3f38a949a9ad6e5f2f7521f2872279077a62dbae7aded",
+      "status": "CATALOGED_METADATA (HTTPError)"
+    },
+    {
+      "id": "PORTAL_INEP_PROVAS_GABARITOS",
+      "title": "Portal Oficial INEP — Índice Completo de Provas e Gabaritos ENEM",
+      "institution": "INEP / MEC",
+      "local_path": "colab\\data_finetuning\\downloaded_lists\\PORTAL_INEP_PROVAS_GABARITOS.html",
+      "size_bytes": 229928,
+      "sha256": "ac38ec14880d2d1d3af5519e9f754d38a40af664881dd3ae6cb303e450e247c7",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "UNICAMP_2025_1FASE_PROVA_QZ",
+      "title": "Prova Oficial UNICAMP 2025 1ª Fase Caderno Q/Z",
+      "institution": "COMVEST / UNICAMP",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\UNICAMP_2025_1FASE_PROVA_QZ.pdf",
+      "size_bytes": 6827525,
+      "sha256": "0d7a6122c5336dbb0d4f5a5199498d41253c2426ffc37d21f44fdc035c499c37",
+      "status": "DOWNLOADED_VERIFIED"
+    },
+    {
+      "id": "UNICAMP_2026_1FASE_PROVA_QX",
+      "title": "Prova Oficial UNICAMP 2026 1ª Fase Caderno Q/X",
+      "institution": "COMVEST / UNICAMP",
+      "local_path": "colab\\data_finetuning\\downloaded_pdfs\\UNICAMP_2026_1FASE_PROVA_QX.pdf",
+      "size_bytes": 9161290,
+      "sha256": "b64d8cd012c3e29c3543ba35e971dff70a0d77fad2c25dd990e3f607fc63150a",
+      "status": "DOWNLOADED_VERIFIED"
+    }
+  ]
+}
