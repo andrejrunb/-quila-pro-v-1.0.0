@@ -196,6 +196,24 @@ WATCHED_OFFICIAL_RADARS = [
         "url": "https://estudeemcasa.educacao.mg.gov.br/pets",
         "base_domain": "https://estudeemcasa.educacao.mg.gov.br"
     },
+    {
+        "radar_id": "RADAR_PISA_OECD",
+        "fonte": "OECD / PISA",
+        "exame": "PISA",
+        "instituicao": "Organisation for Economic Co-operation and Development (OCDE)",
+        "disciplina": "Leitura, Matemática e Ciências",
+        "url": "https://www.oecd.org/en/about/programmes/pisa/pisa-test.html",
+        "base_domain": "https://www.oecd.org"
+    },
+    {
+        "radar_id": "RADAR_TIMSS_IEA",
+        "fonte": "IEA / TIMSS & PIRLS",
+        "exame": "TIMSS",
+        "instituicao": "International Association for the Evaluation of Educational Achievement (IEA)",
+        "disciplina": "Matemática e Ciências (4º e 8º anos)",
+        "url": "https://timssandpirls.bc.edu/timss-released-items.html",
+        "base_domain": "https://timssandpirls.bc.edu"
+    },
 ]
 
 
