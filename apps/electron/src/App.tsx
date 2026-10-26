@@ -62,6 +62,7 @@ import { PerformanceProvider } from './ui/hooks/PerformanceContext';
 import { ToastProvider } from './ui/hooks/ToastContext';
 import { ToastContainer } from './ui/components/ToastContainer';
 import { HelpCenterFab } from './ui/components/HelpCenterFab';
+import { ErrorBoundary } from './ui/components/ErrorBoundary';
 import { StudentAILab } from './ui/pages/StudentAILab';
 import { ClassroomDashboard } from './ui/pages/ClassroomDashboard';
 import { CoordinationDashboard } from './ui/pages/CoordinationDashboard';
@@ -79,6 +80,8 @@ const CoordinationPortal = React.lazy(() => import('./ui/portals/CoordinationPor
 const SecretariaPortal = React.lazy(() => import('./ui/portals/SecretariaPortal'));
 const ParentPortal = React.lazy(() => import('./ui/portals/ParentPortal'));
 const StudentPortal = React.lazy(() => import('./ui/portals/StudentPortal'));
+const StudentCosmeticsChamber = React.lazy(() => import('./ui/components/StudentCosmeticsChamber').then(m => ({ default: m.StudentCosmeticsChamber })));
+const YouTubePedagogicalFinder = React.lazy(() => import('./ui/components/YouTubePedagogicalFinder').then(m => ({ default: m.YouTubePedagogicalFinder })));
 import { PortalLayout } from './ui/layouts/PortalLayout';
 
 import { SocialNexus } from './ui/pages/SocialNexus';
@@ -463,13 +466,13 @@ export const App: React.FC = () => {
             'teacher-dashboard', 'rooms', 'schedule', 'diary', 'gradebook', 'student-portfolio', 
             'attendance', 'students', 'photos', 'ranking-board', 'seating-intelligence',
             'tasks', 'whiteboard', 'daily-report', 'mastery-chamber', 'ai-studio', 'activity-factory',
-            'slide-studio', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'omr-scanner', 'bncc-heatmap', 'knowledge-canvas', 'albus-canvas'
+            'slide-studio', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'omr-scanner', 'bncc-heatmap', 'knowledge-canvas', 'albus-canvas', 'exam-foundry', 'banco-provas', 'youtube-radar', 'video-finder', 'omr'
           ].includes(currentPage);
           
           const isCoordinationPage = ['coordination', 'academic-calendar', 'curriculum', 'coordination-dashboard', 'coordination-overview', 'bncc-heatmap', 'skills-heatmap', 'heatmap'].includes(currentPage);
           const isSecretaryPage = ['secretaria-portal'].includes(currentPage);
           const isParentPage = ['parent-portal'].includes(currentPage);
-          const isStudentPage = ['student-portal', 'mastery-chamber', 'ai-lab', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'knowledge-canvas', 'albus-canvas'].includes(currentPage);
+          const isStudentPage = ['student-portal', 'mastery-chamber', 'ai-lab', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'knowledge-canvas', 'albus-canvas', 'cosmetics-chamber', 'battle-banner', 'skins-shop', 'phet-mastery', 'stem-lab', 'multimodal-studio', 'podcast-wordwall', 'native-phet', 'youtube-radar', 'video-finder'].includes(currentPage);
 
           const isSustainabilityPage = ['sustainability', 'analytics-bi', 'event-mode', 'consent'].includes(currentPage);
 
@@ -513,6 +516,13 @@ export const App: React.FC = () => {
               return <ExecutiveCockpit onBack={onBack} />;
             case 'ai-lab':
               return <StudentAILab studentId={currentUser?.id} onBack={onBack} />;
+            case 'cosmetics-chamber':
+            case 'battle-banner':
+            case 'skins-shop':
+              return <StudentCosmeticsChamber studentId={currentUser?.id} onBack={onBack} />;
+            case 'youtube-radar':
+            case 'video-finder':
+              return <YouTubePedagogicalFinder onBack={onBack} />;
             case 'coordination-dashboard':
               return <CoordinationDashboard />;
             case 'coordination-overview':
@@ -709,7 +719,9 @@ export const App: React.FC = () => {
         />
         
         <div className="page-content animate-fade-in">
-          {renderPage()}
+          <ErrorBoundary onNavigateHome={() => setCurrentPage('dashboard')}>
+            {renderPage()}
+          </ErrorBoundary>
         </div>
 
         {/* Global HUD and Help FAB removed per user request */}

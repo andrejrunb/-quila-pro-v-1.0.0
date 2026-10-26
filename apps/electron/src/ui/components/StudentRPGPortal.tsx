@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './StudentRPGPortal.css';
 import SovereignShop from './SovereignShop';
 import { Proposal } from '../../services/SovereignCouncilService';
-import { Sparkles, Brain, Trophy, Flame, Target, BookOpen, ShoppingBag, Vote, Swords, PenTool, GitFork, Network } from 'lucide-react';
+import { Sparkles, Brain, Trophy, Flame, Target, BookOpen, ShoppingBag, Vote, Swords, PenTool, GitFork, Network, Crown, Tv } from 'lucide-react';
 
 interface Achievement {
   id: string;
@@ -174,6 +174,14 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
             <Brain size={14} />
             <span>Lab & Cientistas</span>
           </button>
+          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('cosmetics-chamber')} title="Câmara de Cosméticos e Battle Banners Clash Royale">
+            <Crown size={14} color="#FBBF24" />
+            <span>Cosméticos & Banners</span>
+          </button>
+          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('youtube-radar')} title="Radar Pedagógico de Videoaulas YouTube">
+            <Tv size={14} color="#EF4444" />
+            <span>Videoaulas</span>
+          </button>
           <button className="rpg-action-btn" onClick={() => setShowShop(v => !v)}>
             <ShoppingBag size={14} />
             <span>Mercado ({economy?.balance || 1420} 💎)</span>
@@ -187,6 +195,16 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
             <h3 className="rpg-title"><ShoppingBag size={14} color="#F59E0B" /> Mercado Soberano de Recompensas</h3>
             <button className="rpg-action-btn" style={{ height: 24, padding: '0 8px' }} onClick={() => setShowShop(false)}>
               Fechar
+            </button>
+          </div>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+            <button
+              className="rpg-action-btn primary"
+              style={{ width: '100%', padding: '10px 16px', justifyContent: 'center', height: 'auto', fontSize: '13px', fontWeight: 600 }}
+              onClick={() => { setShowShop(false); onNavigate?.('cosmetics-chamber'); }}
+            >
+              <Crown size={15} color="#FBBF24" />
+              <span>Abrir Câmara de Banners & Cosméticos Clash Royale (Avatares, Molduras, Emblemas)</span>
             </button>
           </div>
           <SovereignShop studentId={studentId} onPurchaseSuccess={loadEconomy} />
@@ -289,13 +307,35 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
           </div>
 
           <div className="arcade-grid">
+            <div className="quest-card q-gold" onClick={() => onNavigate?.('cosmetics-chamber')}>
+              <div className="quest-left">
+                <span className="q-badge">👑 BATTLE BANNER & SKINS • +150 XP</span>
+                <h4>Câmara de Cosméticos & Identidade Clash Royale</h4>
+                <span className="quest-sub">Personalize seu Banner 3D com molduras animadas de campeão, emotes e avatares</span>
+              </div>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }} onClick={(e) => { e.stopPropagation(); onNavigate?.('cosmetics-chamber'); }}>
+                Personalizar
+              </button>
+            </div>
+
+            <div className="quest-card q-gold" onClick={() => onNavigate?.('youtube-radar')}>
+              <div className="quest-left">
+                <span className="q-badge">📺 RADAR PEDAGÓGICO • +120 XP</span>
+                <h4>Videoaulas YouTube Curadas pelos Professores</h4>
+                <span className="quest-sub">Aulas organizadas por níveis Kumon e descritores BNCC (Boaro, Ferretto, Jubilut)</span>
+              </div>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }} onClick={(e) => { e.stopPropagation(); onNavigate?.('youtube-radar'); }}>
+                Assistir
+              </button>
+            </div>
+
             <div className="quest-card q-gold" onClick={() => onNavigate?.('essay-lab')}>
               <div className="quest-left">
                 <span className="q-badge">✍️ REDAÇÃO NOTA 1000 • +300 XP</span>
                 <h4>Laboratório de Redação INEP (5 Competências)</h4>
                 <span className="quest-sub">Mentoria socrática de Machado de Assis & Checagem dos 5 Elementos</span>
               </div>
-              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }} onClick={(e) => { e.stopPropagation(); onNavigate?.('essay-lab'); }}>
                 Escrever
               </button>
             </div>
@@ -306,7 +346,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
                 <h4>Árvore de Habilidades & Parâmetros TRI</h4>
                 <span className="quest-sub">Conquiste insígnias de mentores e avance de nível</span>
               </div>
-              <button className="rpg-action-btn" style={{ height: 28, padding: '0 10px' }}>
+              <button className="rpg-action-btn" style={{ height: 28, padding: '0 10px' }} onClick={(e) => { e.stopPropagation(); onNavigate?.('skill-tree'); }}>
                 Explorar
               </button>
             </div>
@@ -317,17 +357,18 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
                 <h4>Arena de Batalhas Socráticas (LAN)</h4>
                 <span className="quest-sub">Duelos 1v1 contra colegas e Boss Raids contra Mentores</span>
               </div>
-              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }} onClick={(e) => { e.stopPropagation(); onNavigate?.('arena'); }}>
                 Batalhar
               </button>
             </div>
+
             <div className="quest-card q-gold" onClick={() => onNavigate?.('phet-mastery')}>
               <div className="quest-left">
                 <span className="q-badge">🔬 PHET & KUMON • +350 XP</span>
                 <h4>Laboratório PhET & Micro-Drills Kumon</h4>
                 <span className="quest-sub">Simulações de Física, Eletrostática Nativa e Desafios Diários de 3 min</span>
               </div>
-              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }} onClick={(e) => { e.stopPropagation(); onNavigate?.('phet-mastery'); }}>
                 Praticar
               </button>
             </div>
@@ -338,7 +379,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
                 <h4>Estúdio Multimodal & Gamificação</h4>
                 <span className="quest-sub">Podcast Sofia & Lucas, Pílulas Cognitivas Brisk e Abra a Caixa 30s</span>
               </div>
-              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }} onClick={(e) => { e.stopPropagation(); onNavigate?.('multimodal-studio'); }}>
                 Jogar
               </button>
             </div>
@@ -349,7 +390,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
                 <h4>Laboratório de Simulação Científica</h4>
                 <span className="quest-sub">Óptica, Balística, Circuitos e Genética de Mendel</span>
               </div>
-              <button className="rpg-action-btn" style={{ height: 28, padding: '0 10px' }}>
+              <button className="rpg-action-btn" style={{ height: 28, padding: '0 10px' }} onClick={(e) => { e.stopPropagation(); onNavigate?.('ai-lab'); }}>
                 Simular
               </button>
             </div>
@@ -360,7 +401,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
                 <h4>Diálogo com Cientistas & Pensadores</h4>
                 <span className="quest-sub">75+ personagens históricos em domínio público</span>
               </div>
-              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }}>
+              <button className="rpg-action-btn primary" style={{ height: 28, padding: '0 10px' }} onClick={(e) => { e.stopPropagation(); onNavigate?.('ai-lab'); }}>
                 Dialogar
               </button>
             </div>

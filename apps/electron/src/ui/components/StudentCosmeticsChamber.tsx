@@ -214,7 +214,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   }
 ];
 
-export const StudentCosmeticsChamber: React.FC<{ studentId?: string }> = ({ studentId = 'aluno_demo' }) => {
+export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: () => void }> = ({ studentId = 'aluno_demo', onBack }) => {
   const [items, setItems] = useState<CosmeticCardItem[]>(CLASH_ROYALE_STYLE_COSMETICS);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [aureusBalance, setAureusBalance] = useState<number>(2450);
@@ -256,6 +256,31 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string }> = ({ stud
   return (
     <main className="cr-chamber-root" role="main" aria-label="Câmara de Cosméticos e Identidade Estudantil Áquila">
       {/* CABEÇALHO DO ESTUDANTE COM MOEDA COSMÉTICA */}
+      {onBack && (
+        <div style={{ padding: '8px 24px 0 24px' }}>
+          <button
+            onClick={onBack}
+            className="cr-back-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              background: 'rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              color: '#f8fafc',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: 600,
+              transition: 'all 0.2s ease'
+            }}
+            aria-label="Voltar para a Área do Aluno"
+          >
+            ← Voltar ao Portal do Aluno
+          </button>
+        </div>
+      )}
       <header className="cr-chamber-header" role="banner">
         <div className="cr-brand-group">
           <div className="cr-brand-badge" role="note" aria-label="Aviso de Conformidade Educacional">

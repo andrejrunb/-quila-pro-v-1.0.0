@@ -14,12 +14,14 @@ interface Props {
   initialSubject?: string;
   initialTopic?: string;
   onSelectVideoForLessonPlan?: (video: PedagogicalVideoItem) => void;
+  onBack?: () => void;
 }
 
 export const YouTubePedagogicalFinder: React.FC<Props> = ({
   initialSubject = 'Física',
   initialTopic = 'Eletrodinâmica e Corrente Alternada',
-  onSelectVideoForLessonPlan
+  onSelectVideoForLessonPlan,
+  onBack
 }) => {
   const [searchTerm, setSearchTerm] = useState(initialTopic);
   const [selectedDiscipline, setSelectedDiscipline] = useState(initialSubject);
@@ -46,6 +48,30 @@ export const YouTubePedagogicalFinder: React.FC<Props> = ({
 
   return (
     <section className="yt-finder-container" aria-label="Assistente de Videoaulas YouTube Pedagógicas">
+      {onBack && (
+        <div style={{ marginBottom: '16px' }}>
+          <button
+            onClick={onBack}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 16px',
+              borderRadius: '8px',
+              background: 'rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              color: '#f8fafc',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: 600,
+              transition: 'all 0.2s ease'
+            }}
+            aria-label="Voltar para a página anterior"
+          >
+            ← Voltar
+          </button>
+        </div>
+      )}
       <header className="yt-finder-header">
         <div className="yt-finder-badge" role="note" aria-label="Aviso de Curadoria">
           <Tv className="w-5 h-5 text-red-500 mr-2 inline" aria-hidden="true" />

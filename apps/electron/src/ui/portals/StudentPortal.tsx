@@ -10,6 +10,7 @@ import { PhetKumonMasteryLab } from '../components/PhetKumonMasteryLab';
 import { MultimodalPedagogicalStudio } from '../components/MultimodalPedagogicalStudio';
 import { NativePhETSimulationLab } from '../components/NativePhETSimulationLab';
 import { StudentCosmeticsChamber } from '../components/StudentCosmeticsChamber';
+import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder';
 
 interface StudentPortalProps {
   currentPage: string;
@@ -47,7 +48,10 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNav
       case 'cosmetics-chamber':
       case 'battle-banner':
       case 'skins-shop':
-        return <StudentCosmeticsChamber studentId={studentId} />;
+        return <StudentCosmeticsChamber studentId={studentId} onBack={() => onNavigate('student-portal')} />;
+      case 'youtube-radar':
+      case 'video-finder':
+        return <YouTubePedagogicalFinder onBack={() => onNavigate('student-portal')} />;
       case 'student-portal':
       case 'dashboard':
       default:

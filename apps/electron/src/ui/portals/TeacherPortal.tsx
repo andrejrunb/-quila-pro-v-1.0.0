@@ -24,7 +24,7 @@ import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
 import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder';
 import {
   Clock, Users, AlertCircle, CheckCircle2, Calendar,
-  FileText, ChevronRight, AlertTriangle, LayoutGrid, Sparkles, BookOpen, FileSpreadsheet, Swords, Presentation, Camera, Flame, Printer
+  FileText, ChevronRight, AlertTriangle, LayoutGrid, Sparkles, BookOpen, FileSpreadsheet, Swords, Presentation, Camera, Flame, Printer, Tv
 } from 'lucide-react';
 import './TeacherPortal.css';
 
@@ -73,6 +73,10 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void }> = ({ on
           <h1 className="tp-command-title">Gestão de Sala & Telemetria Pedagógica</h1>
         </div>
         <div className="tp-command-actions">
+          <button className="tp-action-btn primary" onClick={() => onNavigate('youtube-radar')}>
+            <Tv size={14} />
+            <span>Radar Videoaulas YouTube</span>
+          </button>
           <button className="tp-action-btn primary" onClick={() => onNavigate('exam-foundry')}>
             <Printer size={14} />
             <span>Gerador de Provas A4</span>
