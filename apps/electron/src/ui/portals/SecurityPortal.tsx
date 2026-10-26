@@ -92,7 +92,7 @@ export const SecurityPortal: React.FC<SecurityPortalProps> = ({ currentPage, onN
   };
 
   return (
-    <PortalLayout portalName="Centro de Segurança & Resiliência" themeColor="#ef4444">
+    <PortalLayout portalName="Centro de Segurança & Resiliência" themeColor="#ef4444" onNavigate={onNavigate}>
       {renderSecurityPage()}
     </PortalLayout>
   );

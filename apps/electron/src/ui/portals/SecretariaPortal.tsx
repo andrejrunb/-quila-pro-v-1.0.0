@@ -75,7 +75,7 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
   ];
 
   return (
-    <PortalLayout portalName="Secretaria Digital" themeColor="#10b981">
+    <PortalLayout portalName="Secretaria Digital" themeColor="#10b981" onNavigate={onNavigate}>
       <div className="sec-cockpit">
         {/* Command Bar */}
         <div className="sec-command-bar">
