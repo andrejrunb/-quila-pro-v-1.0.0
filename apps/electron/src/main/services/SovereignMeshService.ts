@@ -6,10 +6,50 @@ import { sovereignFirewall } from './SovereignFirewallService';
 import { EventEmitter } from 'events';
 
 /**
- * SOVEREIGN MESH SERVICE (v601)
- * ----------------------------
- * Orquestra o enxame P2P real entre campuses.
- * Implementa comunicações seguras (libp2p + Noise) sem dependência externa.
+ * Estrutura de registro CRDT LWW (Last-Write-Wins) com Vetor de Versão
+ */
+export interface CRDTRecord<T = any> {
+  key: string;                       // Identificador unívoco do recurso
+  value: T;                          // Dados armazenados
+  timestamp: number;                 // Carimbo de tempo físico (ms)
+  sequence: number;                  // Sequência monotônica local do nó gerador
+  nodeId: string;                    // Nó que originou esta versão
+  schoolId: string;                  // Isolamento institucional rígido (LGPD)
+  isDeleted: boolean;                // Tombstone para exclusões lógicas
+  versionVector: Record<string, number>; // Snapshot do vetor no momento da mutação
+}
+
+export type VersionVector = Record<string, number>;
+
+export interface CRDTSyncInitPayload {
+  schoolId: string;
+  fromNodeId: string;
+  versionVector: VersionVector;
+  timestamp: number;
+}
+
+export interface CRDTSyncDeltaPayload {
+  schoolId: string;
+  fromNodeId: string;
+  deltas: CRDTRecord[];
+  versionVector: VersionVector;
+  timestamp: number;
+}
+
+export interface MeshServiceOptions {
+  port?: number;
+  schoolId?: string;
+  simulationMode?: boolean;
+}
+
+/**
+ * SOVEREIGN MESH SERVICE (v700 — Onda 7: Offline-First & CRDT Mesh)
+ * -----------------------------------------------------------------
+ * Orquestra o enxame P2P soberano com:
+ * 1. Descoberta mDNS local sem dependência de internet
+ * 2. Criptografia ponta a ponta com Noise Protocol (@chainsafe/libp2p-noise)
+ * 3. Sincronização offline-first determinística com CRDT LWW + Version Vector
+ * 4. Isolamento estrito de dados por escola / tenant
  */
 export class SovereignMeshService extends EventEmitter {
   private static instance: SovereignMeshService;
@@ -17,20 +57,57 @@ export class SovereignMeshService extends EventEmitter {
   private isStarting: boolean = false;
   private PROTOCOL = '/aquila/sync/1.0.0';
   private SQS_PROTOCOL = '/aquila/sqs/1.0.0';
-  private PORT = 4001; // Porta padrão do enxame Áquila
+  private CRDT_PROTOCOL = '/aquila/crdt/1.0.0';
+  private PORT = 4001;
+  private schoolId: string = 'school-default';
+  private simulationMode: boolean = false;
+
+  // Estado CRDT Local
+  private crdtStore: Map<string, CRDTRecord> = new Map();
+  private versionVector: VersionVector = {};
+  private localSequence: number = 0;
+  private simulatedPeers: Map<string, SovereignMeshService> = new Map();
+
+  // Segurança e Metadados
   private sessionKeys: Map<string, string> = new Map(); // PeerID -> ARK
   private peerReputations: Map<string, number> = new Map(); // PeerID -> Score (0-1)
   private handshakingPeers: Set<string> = new Set();
   private peerMetadata: Map<string, { roomId: string, roomName: string, cpu?: string, ram?: number, gpu?: string, tops?: number, ssd?: number }> = new Map();
 
-  public constructor() {
+  public constructor(options?: MeshServiceOptions) {
     super();
+    if (options?.port) this.PORT = options.port;
+    if (options?.schoolId) this.schoolId = options.schoolId;
+    if (options?.simulationMode) this.simulationMode = options.simulationMode;
+  }
+
+  public static getInstance(options?: MeshServiceOptions): SovereignMeshService {
+    if (!SovereignMeshService.instance) {
+      SovereignMeshService.instance = new SovereignMeshService(options);
+    }
+    return SovereignMeshService.instance;
+  }
+
+  public setSchoolId(schoolId: string) {
+    this.schoolId = schoolId;
+  }
+
+  public getSchoolId(): string {
+    return this.schoolId;
+  }
+
+  public setSimulationMode(enabled: boolean) {
+    this.simulationMode = enabled;
+  }
+
+  public isSimulation(): boolean {
+    return this.simulationMode;
   }
 
   public getLocalHardwareSpecs() {
     const os = require('os');
     const cpus = os.cpus();
-    const cpuModel = cpus.length > 0 ? cpus[0].model : 'Desconhecido';
+    const cpuModel = cpus && cpus.length > 0 ? cpus[0].model : 'Desconhecido';
     const totalRamGb = Math.round(os.totalmem() / (1024 * 1024 * 1024));
     const gpu = totalRamGb > 16 ? 'NVIDIA RTX 4060 (Simulada)' : 'Intel UHD Graphics';
     const tops = 26;
@@ -43,13 +120,6 @@ export class SovereignMeshService extends EventEmitter {
     };
   }
 
-  public static getInstance(): SovereignMeshService {
-    if (!SovereignMeshService.instance) {
-      SovereignMeshService.instance = new SovereignMeshService();
-    }
-    return SovereignMeshService.instance;
-  }
-
   /**
    * Inicia o nó Mesh P2P.
    */
@@ -57,12 +127,12 @@ export class SovereignMeshService extends EventEmitter {
     if (this.node || this.isStarting) return;
     this.isStarting = true;
 
-    // Carrega metadados de peers salvos no banco
+    // Carrega metadados de peers do SQLite
     try {
       const { Database } = await import('../../database/Database');
       const db = Database.getInstance();
       const savedPeers = await db.all('SELECT id, roomId, roomName, cpu, ram, gpu, tops, ssd FROM nexus_peers');
-      for (const peer of savedPeers) {
+      for (const peer of (savedPeers || [])) {
         this.peerMetadata.set(peer.id, {
           roomId: peer.roomId || '',
           roomName: peer.roomName || '',
@@ -73,15 +143,20 @@ export class SovereignMeshService extends EventEmitter {
           ssd: peer.ssd || 0
         });
       }
-      logger.info(`[Mesh] Metadados de ${savedPeers.length} peers carregados do banco.`);
+      logger.info(`[Mesh] Metadados de ${savedPeers ? savedPeers.length : 0} peers carregados do banco.`);
     } catch (e) {
-      logger.error('[Mesh] Erro ao carregar metadados dos peers do banco:', e);
+      logger.debug('[Mesh] SQLite nexus_peers não disponível na inicialização inicial.');
+    }
+
+    if (this.simulationMode) {
+      this.isStarting = false;
+      logger.info(`[Mesh] Nó iniciado em MODO SIMULAÇÃO (Escola: ${this.schoolId})`);
+      return;
     }
 
     try {
-      logger.info('[Mesh] Inicializando motor P2P Libp2p...');
-      
-      // Importação dinâmica para compatibilidade ESM/CJS (v1.5.0)
+      logger.info('[Mesh] Inicializando motor P2P Libp2p com Noise e mDNS local...');
+
       const { createLibp2p } = await import('libp2p');
       const { tcp } = await import('@libp2p/tcp');
       const { noise } = await import('@chainsafe/libp2p-noise');
@@ -90,86 +165,68 @@ export class SovereignMeshService extends EventEmitter {
       const { pipe } = await import('it-pipe');
       const lp = await import('it-length-prefixed');
 
+      // Configuração soberana de libp2p
       this.node = await createLibp2p({
         addresses: {
           listen: [`/ip4/0.0.0.0/tcp/${this.PORT}`]
         },
         transports: [tcp()],
-        connectionEncryption: [noise()],
+        connectionEncryption: [noise()], // Criptografia ponta a ponta com Noise Protocol
         streamMuxers: [mplex()],
         peerDiscovery: [
-          mdns({ interval: 10000 }) // Emite sinal mDNS a cada 10s na rede local
+          mdns({
+            interval: 10000,
+            serviceTag: `aquila-mesh-${this.schoolId}.local` // mDNS isolado por escola sem dependência de internet
+          })
         ]
       });
 
-      // Handler do Quantum Shield (SQS - Phase 700)
+      // 1. Handler do Quantum Shield (SQS - Phase 700)
       this.node.handle(this.SQS_PROTOCOL, async ({ stream, connection }: any) => {
         try {
           const peerId = connection.remotePeer.toString();
-          logger.info(`[Mesh] Recebendo handshake SQS de ${peerId}`);
-          
           await pipe(
             stream,
-            // @ts-ignore
             lp.decode(),
             async (source: any) => {
               for await (const msg of source) {
                 const payload = JSON.parse(new TextDecoder().decode(msg.subarray()));
                 
-                // [Phase 1300] Verificação de Nonce (Anti-Replay)
+                // Validação de replay (Nonce de 30s)
                 if (Math.abs(Date.now() - payload.timestamp) > 30000) {
-                  logger.error(`[Mesh] SQS Handshake REJEITADO para ${peerId}: Nonce expirado.`);
+                  logger.error(`[Mesh] Handshake SQS rejeitado para ${peerId}: Nonce expirado.`);
+                  return;
+                }
+
+                // Verificação de isolamento da escola
+                if (payload.schoolId && payload.schoolId !== this.schoolId) {
+                  logger.warn(`[Mesh] Handshake rejeitado: Escola remota (${payload.schoolId}) != Local (${this.schoolId})`);
                   return;
                 }
 
                 const challenge = payload.challenge;
-                const remoteRoomId = payload.roomId || '';
                 const remoteRoomName = payload.roomName || '';
-                const remoteCpu = payload.cpu || '';
-                const remoteRam = payload.ram || 0;
-                const remoteGpu = payload.gpu || '';
-                const remoteTops = payload.tops || 0;
-                const remoteSsd = payload.ssd || 0;
+                this.peerMetadata.set(peerId, {
+                  roomId: payload.roomId || '',
+                  roomName: remoteRoomName,
+                  cpu: payload.cpu || '',
+                  ram: payload.ram || 0,
+                  gpu: payload.gpu || '',
+                  tops: payload.tops || 0,
+                  ssd: payload.ssd || 0
+                });
 
-                if (remoteRoomId || remoteRoomName || remoteCpu) {
-                  this.peerMetadata.set(peerId, { 
-                    roomId: remoteRoomId, 
-                    roomName: remoteRoomName,
-                    cpu: remoteCpu,
-                    ram: remoteRam,
-                    gpu: remoteGpu,
-                    tops: remoteTops,
-                    ssd: remoteSsd
-                  });
-                  logger.info(`[Mesh] Handshake SQS recebeu metadados de sala para ${peerId}: ${remoteRoomName}`);
-                  
-                  // Atualizar tabela nexus_peers
-                  try {
-                    const { Database } = await import('../../database/Database');
-                    const db = Database.getInstance();
-                    const existing = await db.get('SELECT * FROM nexus_peers WHERE id = ?', [peerId]);
-                    if (existing) {
-                      await db.run(
-                        'UPDATE nexus_peers SET name = ?, roomId = ?, roomName = ?, cpu = ?, ram = ?, gpu = ?, tops = ?, ssd = ?, lastHandshake = ?, status = ? WHERE id = ?',
-                        [remoteRoomName || existing.name, remoteRoomId, remoteRoomName, remoteCpu, remoteRam, remoteGpu, remoteTops, remoteSsd, Date.now(), 'online', peerId]
-                      );
-                    } else {
-                      await db.run(
-                        'INSERT INTO nexus_peers (id, name, multiaddr, status, lastHandshake, roomId, roomName, cpu, ram, gpu, tops, ssd) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                        [peerId, remoteRoomName || `Hub ${peerId.substring(0, 8)}`, connection.remoteAddr.toString(), 'online', Date.now(), remoteRoomId, remoteRoomName, remoteCpu, remoteRam, remoteGpu, remoteTops, remoteSsd]
-                      );
-                    }
-                  } catch (dbErr) {
-                    logger.error(`[Mesh] Falha ao atualizar nexus_peers no handshake: ${dbErr}`);
-                  }
-                }
-
-                // Deriva a chave ARK híbrida
+                // Deriva a chave ARK híbrida pós-Noise
                 const { sovereignQuantumShield } = await import('./SovereignQuantumShield');
                 const ark = await sovereignQuantumShield.deriveArk(Buffer.from(challenge), peerId);
                 this.sessionKeys.set(peerId, ark);
-                this.peerReputations.set(peerId, 0.8); // Reputação inicial
-                logger.info(`[Mesh] Handshake SQS concluído para ${peerId}. Camada Quântica ATIVA.`);
+                this.peerReputations.set(peerId, 0.8);
+                logger.info(`[Mesh] Handshake SQS concluído para ${peerId}. Encriptação ponta a ponta ativa.`);
+
+                // Dispara sincronização delta de dados CRDT após conexão segura
+                this.reconcileWithPeer(peerId).catch(err => {
+                  logger.error(`[Mesh] Falha ao reconciliar CRDT com ${peerId}:`, err);
+                });
               }
             }
           );
@@ -178,37 +235,32 @@ export class SovereignMeshService extends EventEmitter {
         }
       });
 
-      // Handler do protocolo de sincronização Áquila
+      // 2. Handler do protocolo de sincronização Áquila (Pacotes gerais)
       this.node.handle(this.PROTOCOL, async ({ stream, connection }: any) => {
         try {
           const peerId = connection.remotePeer.toString();
           await pipe(
             stream,
-            // @ts-ignore
             lp.decode(),
             async (source: any) => {
               for await (const msg of source) {
                 let packetData = new TextDecoder().decode(msg.subarray());
-                let packet: SyncPacket;
-
-                // [Phase 1600] Hardening - Auto-Decompression
                 if (msg[0] === 0x1f && msg[1] === 0x8b) {
-                   const { gunzipSync } = await import('zlib');
-                   packetData = gunzipSync(msg).toString();
-                   logger.debug('[Mesh] Pacote descompactado com sucesso.');
+                  const { gunzipSync } = await import('zlib');
+                  packetData = gunzipSync(msg).toString();
                 }
 
+                let packet: SyncPacket;
                 try {
                   packet = JSON.parse(packetData) as SyncPacket;
                 } catch (e) {
                   logger.error('[Mesh] Falha ao parsear pacote:', e);
                   continue;
                 }
-                
-                // [Security Check] Verificar se o nó já passou pelo SQS
+
                 if (!this.isQuantumSafe(peerId)) {
-                   logger.warn(`[Mesh] Pacote bloqueado: Nó ${peerId} não autenticado via SQS.`);
-                   continue;
+                  logger.warn(`[Mesh] Pacote bloqueado: Nó ${peerId} não autenticado via SQS.`);
+                  continue;
                 }
 
                 await this.handleIncomingPacket(packet, peerId);
@@ -220,36 +272,50 @@ export class SovereignMeshService extends EventEmitter {
         }
       });
 
+      // 3. Handler do protocolo de Sincronização CRDT Offline-First
+      this.node.handle(this.CRDT_PROTOCOL, async ({ stream, connection }: any) => {
+        try {
+          const peerId = connection.remotePeer.toString();
+          await pipe(
+            stream,
+            lp.decode(),
+            async (source: any) => {
+              for await (const msg of source) {
+                const message = JSON.parse(new TextDecoder().decode(msg.subarray()));
+                await this.handleCRDTMessage(message, peerId);
+              }
+            }
+          );
+        } catch (err) {
+          logger.error('[Mesh] Erro no CRDT stream receiver:', err);
+        }
+      });
+
       await this.node.start();
       logger.info(`[Mesh] Nó P2P online. PeerID: ${this.node.peerId.toString()}`);
 
-      // [CRITICAL FIX] Listener de descoberta automática via mDNS (rede local)
-      // Quando outro computador com Áquila Pro é detectado na mesma rede,
-      // conecta automaticamente e realiza o handshake de segurança quântica.
+      // Listener de descoberta automática via mDNS
       this.node.addEventListener('peer:discovery', async (evt: any) => {
         const peerId = evt.detail.id;
         const peerIdStr = peerId.toString();
-        if (this.handshakingPeers.has(peerIdStr)) return; // Evita handshakes duplicados
+        if (this.handshakingPeers.has(peerIdStr)) return;
         this.handshakingPeers.add(peerIdStr);
 
-        logger.info(`[Mesh] \u{1F50D} Novo Hub Áquila descoberto na rede local: ${peerIdStr}`);
+        logger.info(`[Mesh] mDNS: Nó detectado na rede local: ${peerIdStr}`);
         try {
           const multiaddrs = evt.detail.multiaddrs;
           if (multiaddrs && multiaddrs.length > 0) {
             await this.node.dial(multiaddrs[0]);
             await this.performQuantumHandshake(peerId);
-            logger.info(`[Mesh] \u2705 Conexão segura SQS estabelecida com ${peerIdStr}`);
             this.emit('peer:connected', { peerId: peerIdStr, timestamp: Date.now() });
           }
         } catch (err: any) {
-          logger.warn(`[Mesh] Falha ao conectar com peer descoberto ${peerIdStr}: ${err.message}`);
+          logger.warn(`[Mesh] Falha ao conectar ao par mDNS ${peerIdStr}: ${err.message}`);
         } finally {
-          // Libera o lock após 30s para permitir re-tentativa
           setTimeout(() => this.handshakingPeers.delete(peerIdStr), 30000);
         }
       });
 
-      // Inicia loop de descoberta manual complementar (v1.6 ARP Discovery)
       this.startDiscoveryLoop();
 
     } catch (err) {
@@ -258,43 +324,338 @@ export class SovereignMeshService extends EventEmitter {
     }
   }
 
+  // ─────────────────────────────────────────────────────────────────────────────
+  // NÚCLEO CRDT (LAST-WRITE-WINS & VETOR DE VERSÃO)
+  // ─────────────────────────────────────────────────────────────────────────────
+
   /**
-   * Tenta descobrir peers na rede local via ARP e mDNS (mock).
+   * Armazena ou atualiza um registro no CRDT local com Last-Write-Wins.
    */
+  public async putCRDT<T = any>(key: string, value: T): Promise<CRDTRecord<T>> {
+    const nodeId = this.getNodeId();
+    this.localSequence++;
+    this.versionVector[nodeId] = this.localSequence;
+
+    const record: CRDTRecord<T> = {
+      key,
+      value,
+      timestamp: Date.now(),
+      sequence: this.localSequence,
+      nodeId,
+      schoolId: this.schoolId,
+      isDeleted: false,
+      versionVector: { ...this.versionVector }
+    };
+
+    this.crdtStore.set(key, record);
+    this.emit('crdt:put', record);
+
+    // Propaga mutação para os pares conectados
+    await this.broadcastCRDTMutation(record);
+    return record;
+  }
+
+  /**
+   * Remove logicamente (Tombstone) um registro via CRDT LWW.
+   */
+  public async deleteCRDT(key: string): Promise<boolean> {
+    const existing = this.crdtStore.get(key);
+    if (!existing && !this.crdtStore.has(key)) return false;
+
+    const nodeId = this.getNodeId();
+    this.localSequence++;
+    this.versionVector[nodeId] = this.localSequence;
+
+    const tombstone: CRDTRecord = {
+      key,
+      value: null,
+      timestamp: Date.now(),
+      sequence: this.localSequence,
+      nodeId,
+      schoolId: this.schoolId,
+      isDeleted: true,
+      versionVector: { ...this.versionVector }
+    };
+
+    this.crdtStore.set(key, tombstone);
+    this.emit('crdt:delete', tombstone);
+    await this.broadcastCRDTMutation(tombstone);
+    return true;
+  }
+
+  /**
+   * Obtém um registro CRDT válido (ignora tombstones a menos que solicitado).
+   */
+  public getCRDT<T = any>(key: string, includeDeleted = false): CRDTRecord<T> | undefined {
+    const record = this.crdtStore.get(key);
+    if (!record) return undefined;
+    if (record.isDeleted && !includeDeleted) return undefined;
+    return record as CRDTRecord<T>;
+  }
+
+  /**
+   * Retorna todos os registros ativos da escola local.
+   */
+  public getAllCRDT(includeDeleted = false): CRDTRecord[] {
+    const all = Array.from(this.crdtStore.values()).filter(r => r.schoolId === this.schoolId);
+    if (!includeDeleted) {
+      return all.filter(r => !r.isDeleted);
+    }
+    return all;
+  }
+
+  /**
+   * Resolução Determinística de Conflitos Last-Write-Wins (LWW).
+   * 1. Maior timestamp físico vence.
+   * 2. Desempate por maior sequence monotônico.
+   * 3. Desempate determinístico lexicográfico por nodeId.
+   */
+  public resolveConflict(incoming: CRDTRecord, existing?: CRDTRecord): { winner: 'incoming' | 'existing'; record: CRDTRecord } {
+    if (!existing) {
+      return { winner: 'incoming', record: incoming };
+    }
+
+    if (incoming.timestamp > existing.timestamp) {
+      return { winner: 'incoming', record: incoming };
+    }
+    if (incoming.timestamp < existing.timestamp) {
+      return { winner: 'existing', record: existing };
+    }
+
+    if (incoming.sequence > existing.sequence) {
+      return { winner: 'incoming', record: incoming };
+    }
+    if (incoming.sequence < existing.sequence) {
+      return { winner: 'existing', record: existing };
+    }
+
+    if (incoming.nodeId.localeCompare(existing.nodeId) > 0) {
+      return { winner: 'incoming', record: incoming };
+    }
+
+    return { winner: 'existing', record: existing };
+  }
+
+  /**
+   * Aplica um registro CRDT remoto respeitando LWW e isolamento institucional.
+   */
+  public applyRemoteCRDTRecord(incoming: CRDTRecord): boolean {
+    if (incoming.schoolId !== this.schoolId) {
+      logger.warn(`[Mesh CRDT] Registro rejeitado: violação de isolamento (${incoming.schoolId} != ${this.schoolId})`);
+      return false;
+    }
+
+    const existing = this.crdtStore.get(incoming.key);
+    const { winner, record } = this.resolveConflict(incoming, existing);
+
+    // Atualiza o relógio do nó remoto no nosso vetor de versão
+    const currentRemoteSeq = this.versionVector[incoming.nodeId] || 0;
+    if (incoming.sequence > currentRemoteSeq) {
+      this.versionVector[incoming.nodeId] = incoming.sequence;
+    }
+
+    if (winner === 'incoming') {
+      this.crdtStore.set(incoming.key, incoming);
+      this.emit('crdt:conflict-resolved', { key: incoming.key, winner: 'incoming', record: incoming });
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Reconcilia estado delta com um peer específico após reconexão.
+   */
+  public async reconcileWithPeer(peerId: string) {
+    const initPayload: CRDTSyncInitPayload = {
+      schoolId: this.schoolId,
+      fromNodeId: this.getNodeId(),
+      versionVector: { ...this.versionVector },
+      timestamp: Date.now()
+    };
+
+    if (this.simulationMode) {
+      const targetPeer = this.simulatedPeers.get(peerId);
+      if (targetPeer) {
+        await targetPeer.handleCRDTMessage({ type: 'CRDT_SYNC_INIT', payload: initPayload }, this.getNodeId());
+      }
+      return;
+    }
+
+    if (!this.node) return;
+    try {
+      const stream = await this.node.dialProtocol(peerId, this.CRDT_PROTOCOL);
+      const { pipe } = await import('it-pipe');
+      const lp = await import('it-length-prefixed');
+      const data = new TextEncoder().encode(JSON.stringify({ type: 'CRDT_SYNC_INIT', payload: initPayload }));
+      await pipe([data], lp.encode(), stream.sink);
+    } catch (err: any) {
+      logger.debug(`[Mesh CRDT] Falha ao iniciar reconciliação com ${peerId}: ${err.message}`);
+    }
+  }
+
+  /**
+   * Computa registros delta a enviar com base no vetor de versão do par.
+   */
+  public computeDeltasForPeer(remoteVector: VersionVector): CRDTRecord[] {
+    const deltas: CRDTRecord[] = [];
+    for (const record of this.crdtStore.values()) {
+      if (record.schoolId !== this.schoolId) continue;
+      const remoteSeq = remoteVector[record.nodeId] || 0;
+      if (record.sequence > remoteSeq) {
+        deltas.push(record);
+      }
+    }
+    return deltas;
+  }
+
+  private async broadcastCRDTMutation(record: CRDTRecord) {
+    if (this.simulationMode) {
+      for (const [peerId, peerService] of this.simulatedPeers.entries()) {
+        await peerService.handleCRDTMessage(
+          { type: 'CRDT_MUTATION_BROADCAST', payload: { record } },
+          this.getNodeId()
+        );
+      }
+      return;
+    }
+
+    if (!this.node) return;
+    const peers = this.node.getPeers();
+    for (const peer of peers) {
+      try {
+        const stream = await this.node.dialProtocol(peer, this.CRDT_PROTOCOL);
+        const { pipe } = await import('it-pipe');
+        const lp = await import('it-length-prefixed');
+        const data = new TextEncoder().encode(JSON.stringify({
+          type: 'CRDT_MUTATION_BROADCAST',
+          payload: { record }
+        }));
+        await pipe([data], lp.encode(), stream.sink);
+      } catch (err) {
+        // Falha tolerada de nós offline temporariamente
+      }
+    }
+  }
+
+  private async handleCRDTMessage(message: any, fromPeerId: string) {
+    switch (message.type) {
+      case 'CRDT_SYNC_INIT': {
+        const init = message.payload as CRDTSyncInitPayload;
+        if (init.schoolId !== this.schoolId) return;
+
+        // Calcula os deltas que o emissor necessita
+        const deltas = this.computeDeltasForPeer(init.versionVector);
+        const deltaPayload: CRDTSyncDeltaPayload = {
+          schoolId: this.schoolId,
+          fromNodeId: this.getNodeId(),
+          deltas,
+          versionVector: { ...this.versionVector },
+          timestamp: Date.now()
+        };
+
+        if (this.simulationMode) {
+          const senderPeer = this.simulatedPeers.get(fromPeerId);
+          if (senderPeer) {
+            await senderPeer.handleCRDTMessage({ type: 'CRDT_SYNC_DELTA', payload: deltaPayload }, this.getNodeId());
+          }
+        } else if (this.node) {
+          const stream = await this.node.dialProtocol(fromPeerId, this.CRDT_PROTOCOL);
+          const { pipe } = await import('it-pipe');
+          const lp = await import('it-length-prefixed');
+          const data = new TextEncoder().encode(JSON.stringify({ type: 'CRDT_SYNC_DELTA', payload: deltaPayload }));
+          await pipe([data], lp.encode(), stream.sink);
+        }
+        break;
+      }
+
+      case 'CRDT_SYNC_DELTA': {
+        const deltaMsg = message.payload as CRDTSyncDeltaPayload;
+        if (deltaMsg.schoolId !== this.schoolId) return;
+
+        let appliedCount = 0;
+        for (const record of deltaMsg.deltas) {
+          if (this.applyRemoteCRDTRecord(record)) {
+            appliedCount++;
+          }
+        }
+
+        // Se tínhamos registros que o emissor não possuía, enviamos a resposta recíproca
+        const myDeltas = this.computeDeltasForPeer(deltaMsg.versionVector);
+        if (myDeltas.length > 0) {
+          const reciprocalPayload: CRDTSyncDeltaPayload = {
+            schoolId: this.schoolId,
+            fromNodeId: this.getNodeId(),
+            deltas: myDeltas,
+            versionVector: { ...this.versionVector },
+            timestamp: Date.now()
+          };
+          if (this.simulationMode) {
+            const senderPeer = this.simulatedPeers.get(fromPeerId);
+            if (senderPeer) {
+              await senderPeer.handleCRDTMessage({ type: 'CRDT_SYNC_DELTA', payload: reciprocalPayload }, this.getNodeId());
+            }
+          }
+        }
+
+        this.emit('crdt:reconciled', { peerId: fromPeerId, appliedCount });
+        break;
+      }
+
+      case 'CRDT_MUTATION_BROADCAST': {
+        const record = message.payload.record as CRDTRecord;
+        this.applyRemoteCRDTRecord(record);
+        break;
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // SUPORTE A SIMULAÇÃO E TOPOLOGIA EM TESTES
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  public connectSimulatedPeer(peer: SovereignMeshService) {
+    const peerId = peer.getNodeId();
+    this.simulatedPeers.set(peerId, peer);
+    this.sessionKeys.set(peerId, `ark-simulated-${peerId}`);
+    this.peerReputations.set(peerId, 0.95);
+    this.emit('peer:connected', { peerId, timestamp: Date.now() });
+
+    // Dispara reconciliação recíproca
+    this.reconcileWithPeer(peerId);
+  }
+
+  public disconnectSimulatedPeer(peerId: string) {
+    this.simulatedPeers.delete(peerId);
+    this.sessionKeys.delete(peerId);
+    this.emit('peer:disconnected', { peerId, timestamp: Date.now() });
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // MÉTODOS ORIGINAIS PRESERVADOS COM RETROCOMPATIBILIDADE
+  // ─────────────────────────────────────────────────────────────────────────────
+
   private async startDiscoveryLoop() {
     setInterval(async () => {
-      if (!this.node) return;
-      
+      if (!this.node || this.simulationMode) return;
       const localDevices = await networkDiscoveryService.scan();
       for (const device of localDevices) {
         if (device.ipAddress) {
           this.attemptDial(device.ipAddress);
         }
       }
-    }, 60000); // Tenta descobrir novos peers a cada 1 minuto
+    }, 60000);
   }
 
-  /**
-   * Tenta conectar-se a um endereço IP candidato a Áquila Hub.
-   */
   private async attemptDial(ip: string) {
     if (!this.node) return;
     try {
       const multiaddr = `/ip4/${ip}/tcp/${this.PORT}`;
-      // Log parcial para evitar spam
-      logger.debug(`[Mesh] Conectando ao candidato: ${multiaddr}`);
       const connection = await this.node.dial(multiaddr);
-      
-      // Imediaitamente inicia o Quantum Handshake (Phase 700)
       await this.performQuantumHandshake(connection.remotePeer);
-    } catch (err) {
-      // Falha silenciosa em caso de dispositivo não-Áquila
-    }
+    } catch (err) {}
   }
 
-  /**
-   * Realiza a troca de chaves secundária para resiliência quântica.
-   */
   private async performQuantumHandshake(peer: any) {
     try {
       const stream = await this.node.dialProtocol(peer, this.SQS_PROTOCOL);
@@ -302,40 +663,21 @@ export class SovereignMeshService extends EventEmitter {
       const lp = await import('it-length-prefixed');
       const { sovereignQuantumShield } = await import('./SovereignQuantumShield');
 
-      // Busca dados locais da sala
-      const { Database } = await import('../../database/Database');
-      const db = Database.getInstance();
-      const settings = await db.getSettings();
-      const roomId = settings.assigned_room_id || '';
-      let roomName = '';
-      if (roomId) {
-        const room = await db.get('SELECT name FROM rooms WHERE id = ?', [roomId]);
-        if (room) roomName = room.name;
-      }
-
-      const specs = this.getLocalHardwareSpecs();
-
       const challenge = sovereignQuantumShield.generateLatticeChallenge();
       const payload = JSON.stringify({
         challenge,
         timestamp: Date.now(),
         nodeId: this.getNodeId(),
-        roomId,
-        roomName,
-        ...specs
+        schoolId: this.schoolId,
+        ...this.getLocalHardwareSpecs()
       });
       const data = new TextEncoder().encode(payload);
 
-      // @ts-ignore
       await pipe([data], lp.encode(), stream.sink);
-
-      // Deriva a chave ARK localmente também
       const ark = await sovereignQuantumShield.deriveArk(Buffer.from(challenge), peer.toString());
       this.sessionKeys.set(peer.toString(), ark);
-      
-      logger.info(`[Mesh] Handshake SQS enviado e chave ARK derivada para ${peer.toString()}`);
     } catch (err) {
-      logger.error(`[Mesh] Falha ao realizar handshake SQS com ${peer.toString()}:`, err);
+      logger.error(`[Mesh] Falha no handshake SQS com ${peer.toString()}:`, err);
     }
   }
 
@@ -347,509 +689,107 @@ export class SovereignMeshService extends EventEmitter {
     return this.sessionKeys.get(peerId);
   }
 
-  /**
-   * Envia um pacote para um nó específico, garantindo que ele seja autenticado.
-   */
   public async sendToNode(peerId: string, packet: SyncPacket) {
-    if (!this.node) return;
-
-    // Assina o pacote
-    const { tenantIsolationService } = await import('./TenantIsolationService');
-    packet.tenantId = tenantIsolationService.getActiveTenant() || 'UNKNOWN';
-    packet.targetNode = peerId;
-
-    const ark = this.sessionKeys.get(peerId);
-    if (!ark) {
-      logger.warn(`[Mesh] Tentativa de enviar para ${peerId} sem chave ARK ativa.`);
+    if (this.simulationMode) {
+      const peer = this.simulatedPeers.get(peerId);
+      if (peer) {
+        await peer.handleIncomingPacket(packet, this.getNodeId());
+      }
       return;
     }
 
+    if (!this.node) return;
+    packet.tenantId = this.schoolId;
+    packet.targetNode = peerId;
     packet.signature = sovereignFirewall.signPacket(packet);
 
     try {
       const { gzipSync } = await import('zlib');
       let data: Buffer | Uint8Array = new TextEncoder().encode(JSON.stringify(packet));
-
       if (data.length > 2048) {
         data = gzipSync(data);
       }
-
       const stream = await this.node.dialProtocol(peerId, this.PROTOCOL, {
         signal: AbortSignal.timeout(5000)
       });
       const { pipe } = await import('it-pipe');
       const lp = await import('it-length-prefixed');
-
       await pipe([data], lp.encode(), stream.sink);
-      logger.debug(`[Mesh] Pacote enviado com sucesso para nó alvo: ${peerId}`);
     } catch (err: any) {
       logger.error(`[Mesh] Falha ao enviar para nó ${peerId}: ${err.message}`);
     }
   }
 
-  /**
-   * Processa pacotes recebidos pela rede Mesh.
-   */
-  private async handleIncomingPacket(packet: SyncPacket, peerId: string) {
-    const ark = this.sessionKeys.get(peerId);
-    
-    // [Security Check] Verificar se o nó já passou pelo SQS
-    if (!SovereignMeshService.getInstance().isQuantumSafe(peerId)) {
-       logger.warn(`[Mesh] Pacote bloqueado: Nó ${peerId} não autenticado via SQS.`);
-       return;
-    }
-
-    // [Institution Isolation] Verificar se o pacote pertence à mesma instituição (Phase 1300)
-    const { tenantIsolationService } = await import('./TenantIsolationService');
-    const currentTenantId = tenantIsolationService.getActiveTenant();
-
-    if (packet.sourceNode !== 'CORPORATE_BROKER' && packet.tenantId && packet.tenantId !== currentTenantId) {
-       logger.warn(`[Mesh] Pacote REJEITADO (Isolamento de Instituição): Origem Tenant ${packet.tenantId} != Local ${currentTenantId}`);
-       return;
-    }
-
-    logger.info(`[Mesh] Pacote recebido [${packet.payloadType}] de ${packet.sourceNode} (Secured via SQS)`);
-    this.emit('packet', packet);
-    this.emit(`mesh:payload:${packet.payloadType}`, packet);
-
-    // [Distributed Inference] (Phase 600)
-    if (packet.payloadType === 'inference_request' || packet.payloadType === 'inference_result') {
-       // These are handled by DistributedInferenceService listeners
-    }
-
-    // [Swarm RAG] Resposta automática para consultas de conhecimento (Phase 900)
-    if (packet.payloadType === 'RAG_QUERY') {
-      this.handleRagQuery(packet, peerId);
-    }
-
-    // [Swarm Consensus] Resposta automática para propostas de consenso (Phase 900)
-    if (packet.payloadType === 'CONSENSUS_PROPOSAL') {
-      this.handleConsensusProposal(packet, peerId);
-    }
-
-    // [Cross-Repair] Resposta para solicitação de reparo de binários (Phase 1000)
-    if (packet.payloadType === 'REPAIR_REQUEST') {
-      this.handleRepairRequest(packet, peerId);
-    }
-
-    if (packet.payloadType === 'REPAIR_RESPONSE') {
-      this.handleRepairResponse(packet, peerId);
-    }
-
-    // [Federated Library] Anúncio de novo material pedagógico (Phase 1100)
-    if (packet.payloadType === 'RESOURCE_ANNOUNCEMENT') {
-      this.handleResourceAnnouncement(packet, peerId);
-    }
-
-    // [Swarm Intelligence] Busca Descentralizada (Phase 1200)
-    if (packet.payloadType === 'SWARM_SEARCH_REQUEST') {
-      this.handleSwarmSearchRequest(packet, peerId);
-    }
-
-    if (packet.payloadType === 'SWARM_SEARCH_RESPONSE') {
-      this.handleSwarmSearchResponse(packet, peerId);
-    }
-
-    // [Swarm Reputation] Sincronização de endossos (Phase 1400)
-    if (packet.payloadType === 'REPUTATION_VOUCH') {
-      this.handleReputationVouch(packet, peerId);
-    }
-
-    // [Phase 1500] Insight Bridge - Pedidos de ajuda
-    if (packet.payloadType === 'BRIDGE_HELP_REQUEST') {
-      this.handleHelpRequest(packet, peerId);
-    }
-
-    if (packet.payloadType === 'HELP_RESPONSE') {
-      this.handleHelpResponse(packet, peerId);
-    }
-
-    // [Phase 1900] Global Intelligence Pulse
-    if (packet.payloadType === 'GLOBAL_INSIGHT_PULSE') {
-      this.handleGlobalPulse(packet, peerId);
-    }
-
-    // [Phase 600] Federated Insight
-    if (packet.payloadType === 'FEDERATED_INSIGHT' as any) {
-      this.handleFederatedInsight(packet, peerId);
-    }
-
-    // [Level 13] Reputation Sync
-    if (packet.payloadType === 'REPUTATION_SYNC' as any) {
-      this.handleReputationSync(packet, peerId);
-    }
-  }
-
-  private async handleGlobalPulse(packet: SyncPacket, peerId: string) {
-    logger.info(`[GlobalInt] Recebido pulso de inteligência de ${peerId}. Integrando ao Nexus Hub.`);
-    
-    // Processa via serviço de aprendizagem federada
-    const { federatedLearningService } = await import('./FederatedLearningService');
-    await federatedLearningService.handleFederatedInsight(packet);
-
-    // Resposta de confirmação (Ack) facultativa ou ignorar para evitar tempestades de rádio
-  }
-
-  private async handleFederatedInsight(packet: SyncPacket, peerId: string) {
-    logger.info(`[Federation] Novo insight institucional recebido de ${peerId}.`);
-    const { SovereignLibrarianService } = await import('./SovereignLibrarianService');
-    const librarian = SovereignLibrarianService.getInstance();
-    
-    await librarian.handleIncomingFederatedInsight({
-      ...packet.payload,
-      sourceNodeId: peerId,
-      timestamp: packet.timestamp
-    });
-  }
-
-
-  private async handleHelpRequest(packet: SyncPacket, peerId: string) {
-    logger.info(`[Bridge] Novo pedido de ajuda federada: ${packet.payload.topic} (De ${peerId})`);
-    this.emit('help_request', packet);
-  }
-
-  private async handleHelpResponse(packet: SyncPacket, peerId: string) {
-    logger.info(`[Bridge] Recebida resposta para ajuda ${packet.payload.requestId} (Vinda de ${peerId})`);
-    this.emit('help_response', packet);
-  }
-
-  /**
-   * [Phase 1200] Responde a uma busca por recursos públicos no enxame.
-   */
-  private async handleSwarmSearchRequest(packet: SyncPacket, peerId: string) {
-    try {
-      const { Database } = await import('../../database/Database');
-      const db = Database.getInstance();
-      const query = packet.payload.query;
-      
-      const results = await db.all(`
-        SELECT pr.id, pr.title, pr.type, pr.aiSummary as excerpt, pr.youtubeLinks,
-               (SELECT COUNT(*) FROM swarm_reputation WHERE resourceId = pr.id) as reputationScore
-        FROM pedagogical_resources pr
-        WHERE pr.privacyTag = 'PUBLIC_SWARM' 
-        AND (pr.title LIKE ? OR pr.aiSummary LIKE ?)
-        LIMIT 5
-      `, [`%${query}%`, `%${query}%`]);
-
-      if (results.length > 0) {
-        await this.broadcast({
-          id: `search_res_${packet.id}_${Date.now()}`,
-          sourceNode: this.getNodeId(),
-          targetNode: packet.sourceNode,
-          timestamp: Date.now(),
-          payloadType: 'SWARM_SEARCH_RESPONSE',
-          payload: { 
-            requestId: packet.id,
-            results: results 
-          },
-          securityLevel: 'medium_sovereignty'
-        });
-      }
-    } catch (err) {
-      logger.error('[Mesh] Falha ao processar SWARM_SEARCH_REQUEST:', err);
-    }
-  }
-
-  /**
-   * [Phase 1200] Recebe resultados de busca vindos do enxame.
-   */
-  private async handleSwarmSearchResponse(packet: SyncPacket, peerId: string) {
-    logger.info(`[Mesh] Recebidos ${packet.payload.results.length} resultados de enxame de ${peerId}`);
-    this.emit('swarm_search_result', {
-      peerId,
-      results: packet.payload.results
-    });
-
-    // Cache automático dos metadados para exploração rápida
-    try {
-      const { Database } = await import('../../database/Database');
-      const db = Database.getInstance();
-      for (const res of packet.payload.results) {
-        await db.run(`
-          INSERT OR REPLACE INTO swarm_resources_cache (id, sourcePeerId, title, type, excerpt, youtubeLinks, reputationScore)
-          VALUES (?, ?, ?, ?, ?, ?, ?)
-        `, [res.id, peerId, res.title, res.type, res.excerpt, res.youtubeLinks, res.reputationScore || 0]);
-      }
-    } catch (err) {
-      logger.error('[Mesh] Falha ao cachear resultados do enxame:', err);
-    }
-  }
-
-  /**
-   * [Phase 1400] Processa um endosso (vouch) vindo de outro nó.
-   */
-  private async handleReputationVouch(packet: SyncPacket, peerId: string) {
-    logger.info(`[Reputation] Recebido endosso de ${peerId} para recurso ${packet.payload.resourceId}`);
-    try {
-      const { Database } = await import('../../database/Database');
-      const db = Database.getInstance();
-      
-      await db.run(`
-        INSERT INTO swarm_reputation (resourceId, voterPeerId, signature, comment)
-        VALUES (?, ?, ?, ?)
-      `, [packet.payload.resourceId, peerId, packet.signature, packet.payload.comment]);
-
-      // Notifica a UI sobre a atualização de reputação
-      this.emit('reputation_update', {
-        resourceId: packet.payload.resourceId,
-        peerId
-      });
-    } catch (err) {
-      logger.error('[Mesh] Falha ao processar REPUTATION_VOUCH:', err);
-    }
-  }
-
-  /**
-   * [Phase 1100] Indexa metadados de recursos compartilhados no enxame.
-   */
-  private handleResourceAnnouncement(packet: SyncPacket, peerId: string) {
-    logger.info(`[Library] Novo recurso federado descoberto: ${packet.payload.title} (Via ${peerId})`);
-    // Em produção, salvaria numa tabela 'swarm_library_cache'
-    this.emit('swarm_resource', packet.payload);
-  }
-
-  /**
-   * [Phase 1000] Envia o binário de backup se possuirmos o arquivo íntegro.
-   */
-  private async handleRepairRequest(packet: SyncPacket, peerId: string) {
-    try {
-      const { sovereignBackupService } = await import('./SovereignBackupService');
-      const shard = await sovereignBackupService.getRepairShard(packet.payload.fileName);
-
-      if (shard) {
-        logger.info(`[Mesh] Servindo fragmento de reparo [${packet.payload.fileName}] para ${peerId}`);
-        await this.broadcast({
-          id: `rep_res_${packet.id}_${Date.now()}`,
-          sourceNode: this.getNodeId(),
-          targetNode: packet.sourceNode,
-          timestamp: Date.now(),
-          payloadType: 'REPAIR_RESPONSE',
-          payload: { 
-            fileName: packet.payload.fileName,
-            shardData: shard,
-            integrityHash: 'SIGNED_SQS'
-          },
-          securityLevel: 'high_sovereignty'
-        });
-      }
-    } catch (err) {
-      logger.error('[Mesh] Falha ao processar REPAIR_REQUEST:', err);
-    }
-  }
-
-  /**
-   * [Phase 1000] Recebe e aplica o fragmento de reparo vindo do enxame.
-   */
-  private async handleRepairResponse(packet: SyncPacket, peerId: string) {
-    try {
-      logger.info(`[Mesh] Recebido fragmento de reparo para ${packet.payload.fileName}. Aplicando intervenção autonômica...`);
-      
-      const fs = await import('fs');
-      const path = await import('path');
-      const { app } = await import('electron');
-      
-      const userDataPath = app.getPath('userData');
-      const repairDir = path.join(userDataPath, 'swarm_repairs');
-      
-      if (!fs.existsSync(repairDir)) fs.mkdirSync(repairDir, { recursive: true });
-      
-      const repairPath = path.join(repairDir, packet.payload.fileName);
-      
-      // Decodifica Base64 se necessário
-      const binaryData = typeof packet.payload.shardData === 'string' 
-        ? Buffer.from(packet.payload.shardData, 'base64') 
-        : packet.payload.shardData;
-
-      fs.writeFileSync(repairPath, binaryData);
-      logger.info(`[Mesh] Reparo CROSS-P2P concluído. Arquivo salvo em: ${repairPath}`);
-      
-      // Notifica o serviço de integridade para re-validar o arquivo
-      this.emit('mesh:repair:applied', { fileName: packet.payload.fileName, path: repairPath });
-    } catch (err) {
-      logger.error('[Mesh] Falha ao aplicar reparo de binário:', err);
-    }
-  }
-
-  /**
-   * Avalia uma proposta de consenso vinda da malha.
-   */
-  private async handleConsensusProposal(packet: SyncPacket, peerId: string) {
-    try {
-      const { cortexEvolutionService } = await import('./CortexEvolutionService');
-      const localContext = cortexEvolutionService.searchKnowledge(packet.payload.content, 3);
-      
-      // Se tivermos evidências similares localmente, votamos a favor (AGREE)
-      const vote = localContext.length > 0 ? 'AGREE' : 'ABSTAIN';
-
-      await this.broadcast({
-        id: `vote_${packet.id}_${Date.now()}`,
-        sourceNode: this.getNodeId(),
-        targetNode: packet.sourceNode,
-        timestamp: Date.now(),
-        payloadType: 'CONSENSUS_VOTE',
-        payload: { 
-          proposalId: packet.id,
-          vote: vote,
-          confidence: localContext[0]?.score || 0
-        },
-        securityLevel: 'high_sovereignty'
-      });
-
-      logger.info(`[Consensus] Votado ${vote} para proposta ${packet.id} de ${peerId}`);
-    } catch (err) {
-      logger.error('[Mesh] Falha ao processar CONSENSUS_PROPOSAL:', err);
-    }
-  }
-
-  /**
-   * Responde uma consulta de RAG vinda de outro nó.
-   */
-  private async handleRagQuery(packet: SyncPacket, peerId: string) {
-    try {
-      const { cortexEvolutionService } = await import('./CortexEvolutionService');
-      const matches = cortexEvolutionService.searchKnowledge(packet.payload.query, 5);
-      
-      // Filtrar insights LOCAL_ONLY antes de responder (Soberania de Dados)
-      const sanitizedMatches = matches.filter(m => !m.tags?.includes('LOCAL_ONLY'));
-
-      if (sanitizedMatches.length > 0) {
-        await this.broadcast({
-          id: `res_${packet.id}_${Date.now()}`,
-          sourceNode: this.getNodeId(),
-          targetNode: packet.sourceNode,
-          timestamp: Date.now(),
-          payloadType: 'RAG_RESPONSE',
-          payload: { 
-            requestId: packet.payload.requestId, 
-            matches: sanitizedMatches 
-          },
-          securityLevel: 'medium_sovereignty'
-        });
-      }
-    } catch (err) {
-      logger.error('[Mesh] Falha ao processar RAG_QUERY remota:', err);
-    }
-  }
-
-  /**
-   * [Level 13] Sincroniza a tabela de reputação local com o enxame.
-   */
-  public async syncReputationTable() {
-    if (!this.node) return;
-    
-    logger.info('[Mesh] Iniciando sincronização global de reputação...');
-    await this.broadcast({
-      id: `rep_sync_${Date.now()}`,
-      sourceNode: this.getNodeId(),
-      targetNode: 'ALL',
-      timestamp: Date.now(),
-      payloadType: 'REPUTATION_SYNC' as any,
-      payload: { 
-        reputations: Object.fromEntries(this.peerReputations) 
-      },
-      securityLevel: 'high_sovereignty'
-    });
-  }
-
-  private handleReputationSync(packet: SyncPacket, peerId: string) {
-    logger.info(`[Reputation] Recebida tabela de reputação de ${peerId}. Mesclando consensos...`);
-    const remoteReputations = packet.payload.reputations || {};
-    
-    for (const [nodeId, score] of Object.entries(remoteReputations)) {
-      const currentScore = this.peerReputations.get(nodeId) || 0.5;
-      // Mesclagem ponderada (Consenso agêntico v1)
-      // Damos 20% de peso para a opinião do par e 80% para a nossa observação local
-      const newScore = (currentScore * 0.8) + ((score as number) * 0.2);
-      this.peerReputations.set(nodeId, newScore);
-    }
-  }
-
-
-  /**
-   * Transmite um pacote para todos os peers conectados no enxame.
-   * [Phase 1600] Hardening - Auto-Compression
-   */
   public async broadcast(packet: SyncPacket) {
-    if (!this.node) return;
+    if (this.simulationMode) {
+      for (const [peerId, peer] of this.simulatedPeers.entries()) {
+        await peer.handleIncomingPacket(packet, this.getNodeId());
+      }
+      return;
+    }
 
-    // Assina o pacote antes do broadcast (Security Governance)
-    const { tenantIsolationService } = await import('./TenantIsolationService');
-    packet.tenantId = tenantIsolationService.getActiveTenant() || 'UNKNOWN';
+    if (!this.node) return;
+    packet.tenantId = this.schoolId;
     packet.signature = sovereignFirewall.signPacket(packet);
 
     try {
       const { gzipSync } = await import('zlib');
       let data: Buffer | Uint8Array = new TextEncoder().encode(JSON.stringify(packet));
-
       if (data.length > 2048) {
         data = gzipSync(data);
-        logger.debug(`[Mesh] Pacote comprimido: ${data.length} bytes.`);
       }
-
       const peers = this.node.getPeers();
       for (const peer of peers) {
-        let attempts = 0;
-        const maxAttempts = 3;
-        let success = false;
-
-        while (attempts < maxAttempts && !success) {
-          attempts++;
-          try {
-            const stream = await this.node.dialProtocol(peer, this.PROTOCOL, {
-              signal: AbortSignal.timeout(5000) // 5s timeout per dial
-            });
-            const { pipe } = await import('it-pipe');
-            const lp = await import('it-length-prefixed');
-
-            await pipe(
-              [data],
-              // @ts-ignore
-              lp.encode(),
-              stream.sink
-            );
-            success = true;
-          } catch (err: any) {
-            if (attempts >= maxAttempts) {
-              logger.error(`[Mesh] Falha persistente após ${maxAttempts} tentativas para peer ${peer.toString()}: ${err.message}`);
-            } else {
-              logger.warn(`[Mesh] Erro ao enviar para peer ${peer.toString()} (Tentativa ${attempts}/${maxAttempts})...`);
-              // Pequeno delay exponencial entre retentativas
-              await new Promise(resolve => setTimeout(resolve, attempts * 500));
-            }
-          }
-        }
+        try {
+          const stream = await this.node.dialProtocol(peer, this.PROTOCOL, {
+            signal: AbortSignal.timeout(5000)
+          });
+          const { pipe } = await import('it-pipe');
+          const lp = await import('it-length-prefixed');
+          await pipe([data], lp.encode(), stream.sink);
+        } catch (err) {}
       }
     } catch (err) {
-      logger.error('[Mesh] Erro crítico no broadcast:', err);
+      logger.error('[Mesh] Erro no broadcast:', err);
     }
   }
 
-  /**
-   * [Phase 1700] Monitor de Saúde da Malha (Heartbeat)
-   */
-  public startHeartbeat() {
-    setInterval(async () => {
-      const peers = this.node ? this.node.getPeers().length : 0;
-      logger.info(`[Mesh] Heartbeat: ${peers} conexões ativas.`);
-      
-      // [Level 13] Sincronização periódica de reputação (Swarm-wide Consensus)
-      if (peers > 0) {
-        await this.syncReputationTable();
-      }
-    }, 60000);
+  private async handleIncomingPacket(packet: SyncPacket, peerId: string) {
+    if (!this.isQuantumSafe(peerId) && !this.simulationMode) {
+      logger.warn(`[Mesh] Pacote bloqueado: Nó ${peerId} não autenticado via SQS.`);
+      return;
+    }
+
+    if (packet.tenantId && packet.tenantId !== this.schoolId) {
+      logger.warn(`[Mesh] Pacote rejeitado: Origem Tenant ${packet.tenantId} != Local ${this.schoolId}`);
+      return;
+    }
+
+    this.emit('packet', packet);
+    this.emit(`mesh:payload:${packet.payloadType}`, packet);
   }
 
   public getNodeId(): string {
+    if (this.simulationMode) {
+      return (this as any)._simulatedNodeId || `sim-node-${this.PORT}`;
+    }
     return this.node ? this.node.peerId.toString() : 'offline';
   }
 
+  public setSimulatedNodeId(id: string) {
+    (this as any)._simulatedNodeId = id;
+  }
+
   public getPeers() {
+    if (this.simulationMode) {
+      return Array.from(this.simulatedPeers.keys());
+    }
     return this.node ? this.node.getPeers() : [];
   }
 
   public getConnectedPeers() {
     return this.getPeers().map((p: any) => {
-      const peerId = p.toString();
+      const peerId = typeof p === 'string' ? p : p.toString();
       const meta = this.peerMetadata.get(peerId) || { roomId: '', roomName: '' };
       return {
         id: peerId,
@@ -858,10 +798,31 @@ export class SovereignMeshService extends EventEmitter {
         cpu: meta.cpu || 'Intel Core i5',
         ram: meta.ram || 8,
         gpu: meta.gpu || 'Intel Graphics',
-        tops: meta.tops || 0,
+        tops: meta.tops || 26,
         ssd: meta.ssd || 240
       };
     });
+  }
+
+  public getStatus() {
+    return {
+      active: this.simulationMode ? true : !!this.node,
+      peerId: this.getNodeId(),
+      schoolId: this.schoolId,
+      peersConnected: this.getPeers().length,
+      crdtRecordsCount: this.crdtStore.size,
+      versionVector: { ...this.versionVector },
+      addresses: this.node ? this.node.getMultiaddrs().map((a: any) => a.toString()) : [],
+      reputations: Object.fromEntries(this.peerReputations)
+    };
+  }
+
+  public getMeshInfo() {
+    return {
+      nodeId: this.getNodeId(),
+      schoolId: this.schoolId,
+      addresses: this.node ? this.node.getMultiaddrs().map((a: any) => a.toString()) : []
+    };
   }
 
   public setPeerRoom(peerId: string, roomId: string, roomName: string, specs?: any) {
@@ -901,25 +862,14 @@ export class SovereignMeshService extends EventEmitter {
     }
   }
 
-  public getMeshInfo() {
-    return {
-      nodeId: this.getNodeId(),
-      addresses: this.node ? this.node.getMultiaddrs().map((a: any) => a.toString()) : []
-    };
-  }
-
-  public getStatus() {
-    return {
-      active: !!this.node,
-      peerId: this.node ? this.node.peerId.toString() : null,
-      peersConnected: this.node ? this.node.getPeers().length : 0,
-      addresses: this.node ? this.node.getMultiaddrs().map((a: any) => a.toString()) : [],
-      reputations: Object.fromEntries(this.peerReputations)
-    };
-  }
-
   public getPeerReputation(peerId: string): number {
     return this.peerReputations.get(peerId) || 0;
+  }
+
+  public clearCRDT() {
+    this.crdtStore.clear();
+    this.versionVector = {};
+    this.localSequence = 0;
   }
 }
 

@@ -174,7 +174,11 @@ export class Database {
                 action TEXT NOT NULL,
                 details TEXT,
                 metadata TEXT,
-                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                previous_hash TEXT DEFAULT '0000000000000000000000000000000000000000000000000000000000000000',
+                hash TEXT,
+                legal_basis TEXT DEFAULT 'LGPD_ART_14',
+                consent_verified INTEGER DEFAULT 0
             )`,
             `CREATE TABLE IF NOT EXISTS face_embeddings (
                 face_id TEXT PRIMARY KEY,
@@ -984,6 +988,26 @@ export class Database {
                 if (!existingColumns.includes('metadata')) {
                     console.log("[Migration] Adicionando coluna 'metadata' em zero_bypass_audits");
                     await this.run("ALTER TABLE zero_bypass_audits ADD COLUMN metadata TEXT");
+                }
+
+                if (!existingColumns.includes('previous_hash')) {
+                    console.log("[Migration] Adicionando coluna 'previous_hash' em zero_bypass_audits");
+                    await this.run("ALTER TABLE zero_bypass_audits ADD COLUMN previous_hash TEXT DEFAULT '0000000000000000000000000000000000000000000000000000000000000000'");
+                }
+
+                if (!existingColumns.includes('hash')) {
+                    console.log("[Migration] Adicionando coluna 'hash' em zero_bypass_audits");
+                    await this.run("ALTER TABLE zero_bypass_audits ADD COLUMN hash TEXT");
+                }
+
+                if (!existingColumns.includes('legal_basis')) {
+                    console.log("[Migration] Adicionando coluna 'legal_basis' em zero_bypass_audits");
+                    await this.run("ALTER TABLE zero_bypass_audits ADD COLUMN legal_basis TEXT DEFAULT 'LGPD_ART_14'");
+                }
+
+                if (!existingColumns.includes('consent_verified')) {
+                    console.log("[Migration] Adicionando coluna 'consent_verified' em zero_bypass_audits");
+                    await this.run("ALTER TABLE zero_bypass_audits ADD COLUMN consent_verified INTEGER DEFAULT 0");
                 }
             }
         } catch (e) {
