@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-10-26T01:41:46.303921+00:00",
-  "duration_ms": 9175.97,
+  "timestamp": "2026-10-26T16:01:29.034493+00:00",
+  "duration_ms": 142.47,
   "learning_science_pillars_count": 8,
   "normalized_oer_resources_count": 16,
   "oer_pdfs_downloaded": [
@@ -8,17 +8,17 @@
       "file": "OECD_OER_Catalyst_for_Innovation_2015.pdf",
       "bytes": 2181508,
       "sha256": "105d3c44521990c93cc166e2f4b80960da8ad86503489f14fddf7dcf4130d9cb",
-      "status": "DOWNLOADED_NEW"
+      "status": "CACHED_NO_REWORK"
     },
     {
       "file": "OECD_OER_Analysis_of_Responses_2012.pdf",
       "bytes": 1035854,
       "sha256": "c108658e3ebae8074fe8943d04f7267046bdb1f1e98604bc6de02fc719cad084",
-      "status": "DOWNLOADED_NEW"
+      "status": "CACHED_NO_REWORK"
     }
   ],
-  "total_abnt_bibliography_entries": 36,
-  "total_checklist_items": 36,
+  "total_abnt_bibliography_entries": 44,
+  "total_checklist_items": 37,
   "new_sft_records_added": 24,
-  "total_sft_records": 712
+  "total_sft_records": 76
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T23:40:31.317405",
+  "generated_at": "2026-10-26T13:01:21.321271",
   "consultation_date": "2026-10-25",
   "legal_corrections_applied": {
     "eca_digital_statute": "Lei nº 15.211, de 17 de setembro de 2025 (Estatuto Digital da Criança e do Adolescente)",
@@ -14,7 +14,7 @@
   },
   "finetune_dataset_pii_audit": {
     "file": "C:\\aquila\\swarm\\dataset\\aquila_finetune_dataset.jsonl",
-    "total_records_audited": 718,
+    "total_records_audited": 52,
     "real_student_pii_records_found": 0,
     "historical_citations_separated_from_fictional_dialogue": true,
     "status": "CLEAN_ZERO_STUDENT_PII"
