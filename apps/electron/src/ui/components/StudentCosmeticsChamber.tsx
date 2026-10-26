@@ -254,110 +254,117 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string }> = ({ stud
   };
 
   return (
-    <div className="cr-chamber-root">
+    <main className="cr-chamber-root" role="main" aria-label="Câmara de Cosméticos e Identidade Estudantil Áquila">
       {/* CABEÇALHO DO ESTUDANTE COM MOEDA COSMÉTICA */}
-      <div className="cr-chamber-header">
+      <header className="cr-chamber-header" role="banner">
         <div className="cr-brand-group">
-          <div className="cr-brand-badge">
-            <Crown className="w-4 h-4 text-amber-400 mr-1.5 inline" />
+          <div className="cr-brand-badge" role="note" aria-label="Aviso de Conformidade Educacional">
+            <Crown className="w-4 h-4 text-amber-400 mr-1.5 inline" aria-hidden="true" />
             <span>SISTEMA VISUAL ÁQUILA • PERSONALIZAÇÃO PEDAGÓGICA</span>
           </div>
           <h1 className="cr-title">Coleção de Avatares, Banners & Emblemas</h1>
           <p className="cr-subtitle">
-            Personalize seu Painel de Identidade Estudantil (Battle Banner Pedagógico). Recompensas cosméticas 100% decorativas, vinculadas ao domínio de habilidades BNCC e sem compras com dinheiro real.
+            Personalize seu Painel de Identidade Estudantil (Battle Banner Pedagógico). Recompensas cosméticas 100% decorativas, vinculadas ao domínio de habilidades BNCC e sem compras com dinheiro real (Conformidade ECA Digital Lei nº 15.211/2025).
           </p>
         </div>
 
-        <div className="cr-wallet-badge">
-          <Gem className="w-5 h-5 text-amber-300 mr-2" />
+        <div className="cr-wallet-badge" role="status" aria-label={`Saldo da Moeda Cosmética: ${aureusBalance.toLocaleString('pt-BR')} Aureus`}>
+          <Gem className="w-5 h-5 text-amber-300 mr-2" aria-hidden="true" />
           <div className="cr-wallet-info">
             <span className="cr-wallet-label">MOEDA COSMÉTICA</span>
             <span className="cr-wallet-value">{aureusBalance.toLocaleString('pt-BR')} Aureus</span>
           </div>
         </div>
-      </div>
+      </header>
 
       {feedbackMsg && (
-        <div className={`cr-feedback-toast ${feedbackMsg.type}`}>
+        <div
+          className={`cr-feedback-toast ${feedbackMsg.type}`}
+          role="status"
+          aria-live="polite"
+        >
           {feedbackMsg.text}
         </div>
       )}
 
       {/* PREVIEW DO BATTLE BANNER DO ALUNO (ESTILO CLASH ROYALE) */}
-      <div className="cr-banner-preview-section">
+      <section className="cr-banner-preview-section" aria-label="Prévia do seu Battle Banner Estudantil">
         <div className="cr-banner-preview-box">
           <div className="cr-banner-bg" style={{ borderColor: equippedFrame?.rarityColor || '#a855f7' }}>
             <div className="cr-banner-bg-art">
-              <span className="cr-banner-bg-icon">{equippedBanner?.previewIcon || '🌌'}</span>
+              <span className="cr-banner-bg-icon" aria-hidden="true">{equippedBanner?.previewIcon || '🌌'}</span>
               <span className="cr-banner-bg-name">{equippedBanner?.title || 'Banner Padrão Áquila'}</span>
             </div>
 
             <div className="cr-banner-profile-strip">
               <div className="cr-avatar-frame-wrap" style={{ borderColor: equippedFrame?.rarityColor || '#06b6d4' }}>
-                <span className="cr-avatar-emoji">{equippedAvatar?.previewIcon || '⚡'}</span>
+                <span className="cr-avatar-emoji" aria-hidden="true">{equippedAvatar?.previewIcon || '⚡'}</span>
               </div>
               <div className="cr-profile-texts">
                 <div className="cr-profile-name">
                   <span>Estudante Soberano</span>
-                  <span className="cr-level-pill">Nível 14</span>
+                  <span className="cr-level-pill" aria-label="Nível pedagógico 14">Nível 14</span>
                 </div>
                 <div className="cr-profile-title">{equippedAvatar?.title || 'Explorador da Ciência'}</div>
               </div>
             </div>
 
-            <div className="cr-banner-badges-rack">
+            <div className="cr-banner-badges-rack" aria-label="Emblemas de Maestria em exibição">
               {equippedBadges.map(b => (
-                <div key={b.id} className="cr-mini-badge-slot" title={`${b.title} (${b.rarity})`}>
-                  <span>{b.previewIcon}</span>
+                <div key={b.id} className="cr-mini-badge-slot" title={`${b.title} (${b.rarity})`} aria-label={`Emblema: ${b.title}`}>
+                  <span aria-hidden="true">{b.previewIcon}</span>
                 </div>
               ))}
               {equippedBadges.length === 0 && <span className="text-xs text-gray-400">Nenhum emblema equipado</span>}
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* FILTROS POR CATEGORIA DO SHOPPING */}
-      <div className="cr-category-nav">
+      <nav className="cr-category-nav" role="navigation" aria-label="Filtro de Cosméticos por Categoria">
         {[
-          { id: 'all', label: 'Tudo', icon: <Box className="w-4 h-4 mr-1.5" /> },
-          { id: 'skin_avatar', label: 'Personagens & Skins', icon: <User className="w-4 h-4 mr-1.5" /> },
-          { id: 'banner_bg', label: 'Banners de Fundo', icon: <Palette className="w-4 h-4 mr-1.5" /> },
-          { id: 'moldura_frame', label: 'Molduras Animadas', icon: <Layers className="w-4 h-4 mr-1.5" /> },
-          { id: 'emblema_badge', label: 'Emblemas de Maestria', icon: <Award className="w-4 h-4 mr-1.5" /> },
-          { id: 'emote_animado', label: 'Emotes de Duelo', icon: <Zap className="w-4 h-4 mr-1.5" /> },
+          { id: 'all', label: 'Tudo', icon: <Box className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
+          { id: 'skin_avatar', label: 'Personagens & Skins', icon: <User className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
+          { id: 'banner_bg', label: 'Banners de Fundo', icon: <Palette className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
+          { id: 'moldura_frame', label: 'Molduras Animadas', icon: <Layers className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
+          { id: 'emblema_badge', label: 'Emblemas de Maestria', icon: <Award className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
+          { id: 'emote_animado', label: 'Emotes de Duelo', icon: <Zap className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
         ].map(cat => (
           <button
             key={cat.id}
+            type="button"
             className={`cr-cat-btn ${selectedCategory === cat.id ? 'active' : ''}`}
             onClick={() => setSelectedCategory(cat.id)}
+            aria-pressed={selectedCategory === cat.id}
           >
             {cat.icon}
             {cat.label}
           </button>
         ))}
-      </div>
+      </nav>
 
       {/* GRID DE CARTÕES EM ESTILO CLASH ROYALE */}
-      <div className="cr-cards-grid">
+      <section className="cr-cards-grid" aria-label="Itens Disponíveis para Desbloqueio e Uso">
         {filteredItems.map(item => (
-          <div
+          <article
             key={item.id}
             className={`cr-cosmetic-card ${item.unlocked ? 'unlocked' : 'locked'} ${item.equipped ? 'equipped' : ''}`}
             style={{ '--rarity-glow': item.rarityColor } as any}
+            aria-label={`Cartão de ${item.title}`}
           >
             <div className="cr-card-header" style={{ borderBottomColor: item.rarityColor }}>
-              <span className="cr-rarity-badge" style={{ backgroundColor: item.rarityColor }}>
+              <span className="cr-rarity-badge" style={{ backgroundColor: item.rarityColor }} aria-label={`Raridade: ${item.rarity}`}>
                 {item.rarity}
               </span>
               <span className="cr-discipline-tag">{item.discipline}</span>
             </div>
 
             <div className="cr-card-art-box">
-              <span className="cr-card-art-emoji">{item.previewIcon}</span>
+              <span className="cr-card-art-emoji" aria-hidden="true">{item.previewIcon}</span>
               {item.equipped && (
-                <div className="cr-equipped-ribbon">
-                  <CheckCircle className="w-4 h-4 mr-1 inline" /> EQUIPADO
+                <div className="cr-equipped-ribbon" role="status" aria-label="Item atualmente equipado">
+                  <CheckCircle className="w-4 h-4 mr-1 inline" aria-hidden="true" /> EQUIPADO
                 </div>
               )}
             </div>
@@ -372,24 +379,39 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string }> = ({ stud
             <div className="cr-card-action">
               {item.unlocked ? (
                 item.equipped ? (
-                  <button className="cr-btn-equipped" disabled>
-                    <CheckCircle className="w-4 h-4 mr-1 inline" /> Em Uso
+                  <button
+                    type="button"
+                    className="cr-btn-equipped"
+                    disabled
+                    aria-label={`${item.title} está em uso no seu banner`}
+                  >
+                    <CheckCircle className="w-4 h-4 mr-1 inline" aria-hidden="true" /> Em Uso
                   </button>
                 ) : (
-                  <button className="cr-btn-equip" onClick={() => handleEquip(item.id)}>
+                  <button
+                    type="button"
+                    className="cr-btn-equip"
+                    onClick={() => handleEquip(item.id)}
+                    aria-label={`Equipar ${item.title} no seu banner`}
+                  >
                     Equipar
                   </button>
                 )
               ) : (
-                <button className="cr-btn-buy" onClick={() => handleUnlock(item)}>
-                  <Lock className="w-4 h-4 mr-1.5 inline" /> Desbloquear por {item.costAureus} Aureus
+                <button
+                  type="button"
+                  className="cr-btn-buy"
+                  onClick={() => handleUnlock(item)}
+                  aria-label={`Desbloquear ${item.title} por ${item.costAureus} moedas Aureus`}
+                >
+                  <Lock className="w-4 h-4 mr-1.5 inline" aria-hidden="true" /> Desbloquear por {item.costAureus} Aureus
                 </button>
               )}
             </div>
-          </div>
+          </article>
         ))}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 
