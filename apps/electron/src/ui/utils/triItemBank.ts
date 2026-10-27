@@ -7,6 +7,7 @@
 
 export interface TriQuestion {
   id: string;
+  stage?: 'EF_ANOS_INICIAIS' | 'EF_ANOS_FINAIS' | 'ENSINO_MEDIO' | 'VESTIBULAR_MEDICINA';
   area: 'matematica' | 'natureza' | 'linguagens' | 'humanas';
   discipline: string;
   skillCode: string;
@@ -19,6 +20,7 @@ export interface TriQuestion {
   options: { letter: 'A' | 'B' | 'C' | 'D' | 'E'; text: string }[];
   correctAnswer: 'A' | 'B' | 'C' | 'D' | 'E';
   socraticExplanation: string;
+  rubricCriteria?: { criterion: string; weight: number; keyGuideline: string }[];
 }
 
 export interface TriScoreResult {
@@ -33,6 +35,136 @@ export interface TriScoreResult {
 }
 
 export const TRI_ITEM_BANK: TriQuestion[] = [
+  // ==========================================
+  // FUNDAMENTAL I (ANOS INICIAIS — MATIFIC / EDUCADOR)
+  // ==========================================
+  {
+    id: 'TRI-FUND1-MAT-01',
+    stage: 'EF_ANOS_INICIAIS',
+    area: 'matematica',
+    discipline: 'Matemática',
+    skillCode: 'EF03MA06',
+    skillDescription: 'Resolver problemas de adição e agrupamento com números naturais em contexto lúdico.',
+    difficulty: 'facil',
+    paramA: 1.05,
+    paramB: -2.10,
+    paramC: 0.15,
+    text: 'Em uma horta escolar, a turma do 3º ano colheu 4 caixas com 10 cenouras cada uma e mais 7 cenouras soltas. Quantas cenouras foram colhidas ao todo pelos estudantes?',
+    options: [
+      { letter: 'A', text: '37 cenouras' },
+      { letter: 'B', text: '40 cenouras' },
+      { letter: 'C', text: '47 cenouras' },
+      { letter: 'D', text: '54 cenouras' },
+      { letter: 'E', text: '74 cenouras' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'Multiplique as 4 caixas por 10 (4 x 10 = 40) e some com as 7 cenouras soltas (40 + 7 = 47).'
+  },
+  {
+    id: 'TRI-FUND1-LP-01',
+    stage: 'EF_ANOS_INICIAIS',
+    area: 'linguagens',
+    discipline: 'Língua Portuguesa',
+    skillCode: 'EF05LP01',
+    skillDescription: 'Localizar informações explícitas e inferir sentidos em textos narrativos e fábulas.',
+    difficulty: 'facil',
+    paramA: 1.10,
+    paramB: -1.90,
+    paramC: 0.15,
+    text: 'Leia o trecho da fábula: "A cigarra passou o verão cantando, enquanto a formiga juntava grãos no formigueiro para se proteger do inverno rigoroso." Segundo o texto, qual era o objetivo da formiga ao juntar grãos?',
+    options: [
+      { letter: 'A', text: 'Aprender novas canções com a cigarra' },
+      { letter: 'B', text: 'Proteger-se e ter alimento no inverno' },
+      { letter: 'C', text: 'Vender as sementes na feira da floresta' },
+      { letter: 'D', text: 'Apenas brincar com os outros insetos' },
+      { letter: 'E', text: 'Construir uma casa nova para o verão' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'O texto afirma explicitamente que a formiga juntava grãos "para se proteger do inverno rigoroso".'
+  },
+
+  // ==========================================
+  // FUNDAMENTAL II (ANOS FINAIS — INVESTIGAÇÃO & SIMULAÇÕES)
+  // ==========================================
+  {
+    id: 'TRI-FUND2-MAT-01',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'matematica',
+    discipline: 'Matemática',
+    skillCode: 'EF09MA06',
+    skillDescription: 'Reconhecer funções afins e relações de proporcionalidade direta.',
+    difficulty: 'medio',
+    paramA: 1.30,
+    paramB: -0.40,
+    paramC: 0.20,
+    text: 'Um robô educacional move-se em linha reta com velocidade constante de 1,5 metros por segundo. Qual equação representa a distância percorrida d (em metros) em função do tempo t (em segundos)?',
+    options: [
+      { letter: 'A', text: 'd = 1,5 + t' },
+      { letter: 'B', text: 'd = 1,5t' },
+      { letter: 'C', text: 'd = t / 1,5' },
+      { letter: 'D', text: 'd = 1,5t²' },
+      { letter: 'E', text: 'd = 3t - 1,5' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Com velocidade constante de 1,5 m/s, a cada segundo percorrido a distância aumenta em 1,5 m: d = v · t = 1,5t.'
+  },
+
+  // ==========================================
+  // PREPARATÓRIOS PARA MEDICINA & ALTA CONCORRÊNCIA (2ª FASE E DISCURSIVAS)
+  // ==========================================
+  {
+    id: 'TRI-MED-BIO-01',
+    stage: 'VESTIBULAR_MEDICINA',
+    area: 'natureza',
+    discipline: 'Biologia',
+    skillCode: 'MED_BIO_01',
+    skillDescription: 'Análise de herança monogênica e frequência gênica em genética médica.',
+    difficulty: 'dificil',
+    paramA: 1.95,
+    paramB: 1.85,
+    paramC: 0.10,
+    text: 'Em uma população em equilíbrio de Hardy-Weinberg, a frequência de indivíduos afetados por uma doença autossômica recessiva rara é de 1 em 10.000. Qual é a frequência aproximada de indivíduos heterozigotos portadores (carriers) saudáveis nessa população?',
+    options: [
+      { letter: 'A', text: '0,01% (~1 em 10.000)' },
+      { letter: 'B', text: '0,02% (~2 em 10.000)' },
+      { letter: 'C', text: '0,99% (~1 em 100)' },
+      { letter: 'D', text: '1,98% (~1 em 50)' },
+      { letter: 'E', text: '9,90% (~1 em 10)' }
+    ],
+    correctAnswer: 'D',
+    socraticExplanation: 'q² = 1/10000 = 0,0001, logo q = 0,01 e p = 1 - 0,01 = 0,99. A frequência de heterozigotos 2pq = 2 · (0,99) · (0,01) = 0,0198 (1,98% ou ~1 em cada 50 indivíduos).',
+    rubricCriteria: [
+      { criterion: 'Cálculo da frequência do alelo recessivo q', weight: 0.3, keyGuideline: 'Extração correta de q a partir da raiz de q².' },
+      { criterion: 'Determinação do alelo dominante p', weight: 0.2, keyGuideline: 'Aplicação de p + q = 1.' },
+      { criterion: 'Equação de heterozigose 2pq', weight: 0.5, keyGuideline: 'Substituição precisa na fórmula do equilíbrio de Hardy-Weinberg.' }
+    ]
+  },
+  {
+    id: 'TRI-MED-QUI-01',
+    stage: 'VESTIBULAR_MEDICINA',
+    area: 'natureza',
+    discipline: 'Química',
+    skillCode: 'MED_QUI_01',
+    skillDescription: 'Isomeria espacial, quiralidade e farmacodinâmica de compostos bioativos.',
+    difficulty: 'dificil',
+    paramA: 2.10,
+    paramB: 2.05,
+    paramC: 0.08,
+    text: 'A molécula do fármaco ibuprofeno possui um carbono quiral assimétrico. Apenas o enantiômero (S)-(+)-ibuprofeno é farmacologicamente ativo como inibidor da enzima ciclo-oxigenase (COX). Sobre essa relação estereoquímica, assinale a proposição correta:',
+    options: [
+      { letter: 'A', text: 'Os enantiômeros (R) e (S) apresentam pontos de fusão e densidades diferentes em meio aquoso.' },
+      { letter: 'B', text: 'O enantiômero inativo (R) não pode interagir com o sítio ativo tridimensional da enzima devido à estereoquímica geométrica de seus ligantes.' },
+      { letter: 'C', text: 'Uma mistura racêmica de ibuprofeno desvia o plano da luz polarizada para o sentido dextrógiro.' },
+      { letter: 'D', text: 'A separação de enantiômeros pode ser realizada diretamente por destilação fracionada simples sem agentes quirais.' },
+      { letter: 'E', text: 'O carbono quiral do ibuprofeno está ligado a dois radicais metil idênticos.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Enantiômeros possuem propriedades físicas aquirais idênticas (ponto de fusão, densidade), mas interagem de maneira estéreo-específica com receptores biológicos quirais (enzimas e proteínas). Apenas a conformação (S) encaixa adequadamente no sítio catalítico.',
+    rubricCriteria: [
+      { criterion: 'Conceito de quiralidade e enantiômeros', weight: 0.4, keyGuideline: 'Identificação do carbono assimétrico com 4 ligantes distintos.' },
+      { criterion: 'Interação droga-receptor quiral', weight: 0.6, keyGuideline: 'Reconhecimento da assimetria do sítio ativo enzimático e conformação tridimensional.' }
+    ]
+  },
   // ==========================================
   // MATEMÁTICA E SUAS TECNOLOGIAS
   // ==========================================

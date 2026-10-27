@@ -16,7 +16,11 @@
 export const TRI_SCALING_CONSTANT_D = 1.7;
 
 export type KnowledgeArea = 'matematica' | 'linguagens' | 'natureza' | 'humanas';
-export type EducationStage = 'EF_ANOS_FINAIS' | 'ENSINO_MEDIO';
+export type EducationStage =
+  | 'EF_ANOS_INICIAIS'
+  | 'EF_ANOS_FINAIS'
+  | 'ENSINO_MEDIO'
+  | 'VESTIBULAR_MEDICINA';
 export type MasteryLevel = 'abaixo_do_basico' | 'basico' | 'proficiente' | 'avancado';
 
 export interface SaebDescriptor {
@@ -270,6 +274,50 @@ export const OFFICIAL_SAEB_DESCRIPTORS: Record<string, SaebDescriptor> = {
     stage: 'ENSINO_MEDIO',
     correlatedBnccCodes: ['EM13CHS102', 'EM13CHS301'],
   },
+
+  // FUNDAMENTAL I (ANOS INICIAIS - SAEB 5º ANO)
+  'D01_EF5_MAT': {
+    code: 'D01_EF5_MAT',
+    area: 'matematica',
+    topic: 'I - Espaço e Forma',
+    description: 'Identificar a localização/movimentação de objeto em mapas, croquis e outras representações gráficas.',
+    stage: 'EF_ANOS_INICIAIS',
+    correlatedBnccCodes: ['EF05MA14', 'EF03MA12'],
+  },
+  'D14_EF5_MAT': {
+    code: 'D14_EF5_MAT',
+    area: 'matematica',
+    topic: 'III - Números e Operações',
+    description: 'Resolver problema envolvendo adição ou subtração com números naturais.',
+    stage: 'EF_ANOS_INICIAIS',
+    correlatedBnccCodes: ['EF05MA07', 'EF03MA06'],
+  },
+  'D01_EF5_LP': {
+    code: 'D01_EF5_LP',
+    area: 'linguagens',
+    topic: 'I - Procedimentos de Leitura',
+    description: 'Localizar informações explícitas em textos infantis e fábulas.',
+    stage: 'EF_ANOS_INICIAIS',
+    correlatedBnccCodes: ['EF05LP01', 'EF01LP01'],
+  },
+
+  // PREPARATÓRIOS PARA MEDICINA & ALTA EXIGÊNCIA (2ª FASE E DISCURSIVAS)
+  'D_MED_BIO': {
+    code: 'D_MED_BIO',
+    area: 'natureza',
+    topic: 'Biologia Molecular & Genética',
+    description: 'Mecanismos moleculares de replicação, síntese proteica, regulação gênica e herança quantitativa.',
+    stage: 'VESTIBULAR_MEDICINA',
+    correlatedBnccCodes: ['EM13CNT202', 'MED_BIO_01'],
+  },
+  'D_MED_QUI': {
+    code: 'D_MED_QUI',
+    area: 'natureza',
+    topic: 'Química Orgânica & Termodinâmica',
+    description: 'Mecanismos de reações orgânicas, síntese de fármacos, equilíbrios iônicos e termoquímica avançada.',
+    stage: 'VESTIBULAR_MEDICINA',
+    correlatedBnccCodes: ['EM13CNT101', 'MED_QUI_01'],
+  },
 };
 
 /**
@@ -338,6 +386,45 @@ export const OFFICIAL_BNCC_SKILLS: Record<string, BnccSkill> = {
     component: 'História / Sociologia',
     description: 'Identificar, analisar e comparar diferentes fontes e narrativas históricas sobre a sociedade contemporânea.',
     stage: 'ENSINO_MEDIO',
+  },
+
+  // FUNDAMENTAL I (ANOS INICIAIS)
+  'EF01LP01': {
+    code: 'EF01LP01',
+    area: 'linguagens',
+    component: 'Língua Portuguesa',
+    description: 'Reconhecer que textos são lidos e escritos da esquerda para a direita e de cima para baixo.',
+    stage: 'EF_ANOS_INICIAIS',
+  },
+  'EF03MA06': {
+    code: 'EF03MA06',
+    area: 'matematica',
+    component: 'Matemática',
+    description: 'Resolver e elaborar problemas de adição e subtração com os significados de juntar, acrescentar, separar e retirar.',
+    stage: 'EF_ANOS_INICIAIS',
+  },
+  'EF05MA08': {
+    code: 'EF05MA08',
+    area: 'matematica',
+    component: 'Matemática',
+    description: 'Resolver e elaborar problemas de multiplicação e divisão com números naturais e decimais.',
+    stage: 'EF_ANOS_INICIAIS',
+  },
+
+  // PREPARATÓRIOS MEDICINA & ALTA CONCORRÊNCIA
+  'MED_BIO_01': {
+    code: 'MED_BIO_01',
+    area: 'natureza',
+    component: 'Biologia Celular e Molecular',
+    description: 'Genética clássica e molecular, biotecnologia recombinante, imunologia e fisiologia médica comparada.',
+    stage: 'VESTIBULAR_MEDICINA',
+  },
+  'MED_QUI_01': {
+    code: 'MED_QUI_01',
+    area: 'natureza',
+    component: 'Química Avançada',
+    description: 'Mecanismos de isomeria espacial, cinética de ordem mista, equilíbrios ácido-base e reações orgânicas aplicadas à farmacologia.',
+    stage: 'VESTIBULAR_MEDICINA',
   },
 };
 

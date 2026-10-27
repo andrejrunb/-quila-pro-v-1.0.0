@@ -11,6 +11,8 @@ Documento vivo de continuidade operacional da dupla de desenvolvimento (Tech Lea
 - **Branch Ativa:** `fix/portals-stability-v2.1` (sincronizada localmente com `clean-release-v1`)
 - **Pull Request:** [PR #5](https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5)
 - **Últimos Commits:**
+  - eat(edtech-benchmark): *pesquisa profunda de benchmark edtech (59 plataformas), expansao de EducationStage para Fundamental I e Medicina no motor TRI e banco de itens calibrados com rubricas analiticas*
+  - 9423a27: *feat(ui-layout): organize toolbar spaces, prioritize content with category filters, and enable native zoom in/out with shortcuts across all portals*
   - `4a210dcb`: *feat(secretariat): enhance student registration with copyable credentials and enrich boletim manager with offline student catalog and AI analysis action*
   - `8b17fafe`: *feat(ui-portals): add back-navigation to ExamPaperFoundry and OmrScannerUI across Teacher and Coordination portals*
   - `7ae11e8d`: *feat(ui-portals): register 16 missing routes in RouteRegistry, harmonize portal back-navigation, and add procedural Web Audio sfx*
