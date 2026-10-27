@@ -11,10 +11,10 @@ Documento vivo de continuidade operacional da dupla de desenvolvimento (Tech Lea
 - **Branch Ativa:** `fix/portals-stability-v2.1` (sincronizada localmente com `clean-release-v1`)
 - **Pull Request:** [PR #5](https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5)
 - **Últimos Commits:**
+  - `8b17fafe`: *feat(ui-portals): add back-navigation to ExamPaperFoundry and OmrScannerUI across Teacher and Coordination portals*
   - `7ae11e8d`: *feat(ui-portals): register 16 missing routes in RouteRegistry, harmonize portal back-navigation, and add procedural Web Audio sfx*
   - `fc5ea74d`: *test(pilot): ensure idempotent test isolation with dynamic task suffix*
   - `7d88da79`: *feat(colab-eval): complete code model benchmark comparing Flint vs Qwen vs DeepSeek*
-  - `c7b4d805`: *feat(colab-eval): complete 100-task model evaluation harness and layout OCR benchmarking*
 
 ---
 
@@ -32,6 +32,8 @@ Documento vivo de continuidade operacional da dupla de desenvolvimento (Tech Lea
 | **Agentes de Crescimento** | `SchoolGrowthAgentSuite.tsx` | Suporte a `onBack?: () => void;` e botão `← Voltar` integrado na barra de título | ✅ Concluído |
 | **Portal da Direção** | `AdminPortal.tsx` | Passagem de `onBack={onBack}` para `SchoolGrowthAgentSuite` | ✅ Concluído |
 | **Câmara de Cosméticos** | `StudentCosmeticsChamber.tsx` | Áudio procedural nativo via Web Audio API (chime de equip, fanfarra de unlock e buzz de alerta sem arquivos de áudio externos) + auto-dismiss de toast | ✅ Concluído |
+| **Secretaria: Matrícula** | `SecretariatRegistrationManager.tsx` | Fallback robusto para simulação offline, geração e botão "Copiar Credenciais" com feedback instantâneo | ✅ Concluído |
+| **Secretaria: Boletins** | `SecretariatBoletimManager.tsx` | Integração com acervo local `STUDENTS`, feedback para exportação em PDF e botão "Análise AI" com diagnóstico neuro-pedagógico ao vivo | ✅ Concluído |
 | **RAG da Codebase** | `dev_codebase_graph.json` | Re-indexação completa da árvore UI: 367 componentes, 156 rotas e 47 alvos de navegação mapeados | ✅ Concluído |
 
 ---
