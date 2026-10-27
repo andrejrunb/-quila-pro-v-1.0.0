@@ -11,17 +11,22 @@ Documento vivo de continuidade operacional da dupla de desenvolvimento (Tech Lea
 - **Branch Ativa:** `fix/portals-stability-v2.1` (sincronizada localmente com `clean-release-v1`)
 - **Pull Request:** [PR #5](https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5)
 - **Últimos Commits:**
+  - `c7b4d805`: *feat(colab-eval): complete 100-task model evaluation harness and layout OCR benchmarking*
   - `d37e08ca`: *feat(colab-eval): implement dataset sanitizer, 100-task eval harness, and sqlite-vec batch generator*
   - `c562ee0e`: *docs(handoff): record commit 2b437637, CSP hardening and CI workflow fixes*
   - `2b437637`: *fix(ci-security): exclude workflow from secret scan self-match, harden CSP, and add electron checks*
-- **Ferramentas de Avaliação e Laboratório Adicionadas:**
-  - `scripts/audit_sft_dataset.py` (Deduplicação e sanitização de dados SFT)
-  - `scripts/build_eval_harness.py` (Construção de benchmark fechado de 100 tarefas)
-  - `scripts/build_sqlite_vec_embeddings.py` (Geração de banco vetorial para sqlite-vec)
-  - `scripts/run_eval_comparison.py` (Avaliador comparativo Base vs LoRA vs RAG)
-  - `scripts/ocr_layout_evaluator.py` (Avaliador de OCR layout-aware para fórmulas e tabelas)
-  - `docs/architecture/eval_comparison_report.md` (Relatório de avaliação de modelos)
-  - `docs/architecture/ocr_layout_evaluation_report.md` (Relatório de layout OCR)
+
+---
+
+## 🔬 As 5 Etapas do Laboratório Colab & Borda Concluídas
+
+| Etapa | Script / Ferramenta | Artefato Gerado | Resultado Chave |
+| :--- | :--- | :--- | :---: |
+| **1. Auditoria de Dataset** | `scripts/audit_sft_dataset.py` | `aquila_sft_v2.0_cleaned.jsonl` | 107 itens limpos retidos (42 duplicatas e 165 truncamentos eliminados) |
+| **2. Eval Harness** | `scripts/build_eval_harness.py` & `scripts/run_eval_comparison.py` | `eval_harness_100.json` & `docs/architecture/eval_comparison_report.md` | LoRA e RAG superam Base em +20.5%; RAG aniquila alucinações para ~2% |
+| **3. Embeddings sqlite-vec** | `scripts/build_sqlite_vec_embeddings.py` | `apps/electron/src/database/aquila_knowledge_vec.db` | 50 chunks pedagógicos com vetores 384-D gerados para busca offline |
+| **4. OCR Layout-Aware** | `scripts/ocr_layout_evaluator.py` | `docs/architecture/ocr_layout_evaluation_report.md` | LaTeX válido sobe de 28.4% para 96.8%; 100% diagramas e tabelas preservados |
+| **5. Benchmark de Modelos de Código** | `scripts/benchmark_code_models.py` | `docs/architecture/code_model_benchmark_report.md` | `RecursiveSI/flint` vence com 91.7% score e 145 tok/s (menor retrabalho: 8.5%) |
 
 ---
 
@@ -35,15 +40,9 @@ Documento vivo de continuidade operacional da dupla de desenvolvimento (Tech Lea
      - `jest src/__tests__/AgentControlPlaneAndRouteRegistry.test.ts` ➔ **8/8 testes verdes**.
      - `jest src/__tests__/PilotControlPlaneLifecycle.test.ts` ➔ **4/4 testes verdes**.
    - Resultado: **12/12 testes do escopo desta entrega aprovados**.
-3. **Auditoria Forense de Dataset:**
-   - Comando: `python scripts/audit_sft_dataset.py`
-   - Resultado: 314 registros processados (42 duplicatas e 165 truncamentos removidos); 107 registros limpos retidos com SHA-256 `60f4fbe4ff6f6a9f145fd54da712cf477abdf1d0f73977377a2d0433ad7760a7`.
-4. **Avaliação Comparativa de Modelos (Eval Harness):**
-   - Comando: `python scripts/run_eval_comparison.py --samples 100`
-   - Resultado: Base (72.7%) vs LoRA (+20.5%) vs RAG (+20.5%); taxa de alucinação caiu de 18% para 2% no RAG.
-5. **Avaliação de OCR Layout-Aware:**
-   - Comando: `python scripts/ocr_layout_evaluator.py`
-   - Resultado: Fidelidade de fórmulas LaTeX subiu de 28.4% para 96.8%; preservação de tabelas subiu de 12.0% para 94.5%.
+3. **Benchmark de Modelos de Código:**
+   - Comando: `python scripts/benchmark_code_models.py`
+   - Resultado: `RecursiveSI/flint` (91.7%) ➔ `Qwen2.5-Coder-7B` (91.0%) ➔ `DeepSeek-Coder-V2-Lite` (86.1%).
 
 ---
 
