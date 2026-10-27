@@ -1,0 +1,3858 @@
+{
+  "timestamp": 1793066650.1763806,
+  "components": {
+    "CameraManager": {
+      "path": "CameraManager.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "Dashboard": {
+      "path": "Dashboard.tsx",
+      "handled_routes": [
+        "security",
+        "pedagogical",
+        "admin"
+      ],
+      "outbound_navs": [
+        "global-trends",
+        "help",
+        "social-nexus",
+        "sovereign-nexus",
+        "user-management",
+        "ai-lab",
+        "cameras",
+        "executive-pulse",
+        "governance",
+        "pricing"
+      ],
+      "ipc_calls": [
+        "get-cameras",
+        "install-update",
+        "get-weekly-attendance-summary",
+        "get-students",
+        "get-dashboard-stats",
+        "hr:get-staff",
+        "get-alerts",
+        "get-queue-status",
+        "check-for-updates"
+      ]
+    },
+    "Settings": {
+      "path": "Settings.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "lgpd:get-retention",
+        "settings:save",
+        "sync:test-connection",
+        "settings:get",
+        "lgpd:run-purge",
+        "get-rooms",
+        "sync:get-status",
+        "sync:enroll",
+        "lgpd:set-retention"
+      ]
+    },
+    "AcademicReportCard": {
+      "path": "components/AcademicReportCard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "academic:get-grades",
+        "attendance:get-summary",
+        "whatsapp:send-report-card",
+        "export:boletim-pdf",
+        "ai:generate-report-comment"
+      ]
+    },
+    "ActionPolicyEditor": {
+      "path": "components/ActionPolicyEditor.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AdvancedDashboard": {
+      "path": "components/AdvancedDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "invoke"
+      ]
+    },
+    "AgentActivityFeed": {
+      "path": "components/AgentActivityFeed.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AIServerSetup": {
+      "path": "components/AIServerSetup.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AITeacherLog": {
+      "path": "components/AITeacherLog.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AITutorHologram": {
+      "path": "components/AITutorHologram.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AnswerSheetTemplate": {
+      "path": "components/AnswerSheetTemplate.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AppWalkthroughTour": {
+      "path": "components/AppWalkthroughTour.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AriaVoiceAssistant": {
+      "path": "components/AriaVoiceAssistant.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AttendanceDensityMap": {
+      "path": "components/AttendanceDensityMap.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AutoGraderScanner": {
+      "path": "components/AutoGraderScanner.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "BBoxViewer": {
+      "path": "components/BBoxViewer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "BehavioralAnalysis": {
+      "path": "components/BehavioralAnalysis.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getLive",
+        "getEvasionProfiles",
+        "getPoseEvents"
+      ]
+    },
+    "BehavioralEvidenceReport": {
+      "path": "components/BehavioralEvidenceReport.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "BimestralFeedbackPanel": {
+      "path": "components/BimestralFeedbackPanel.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "reports:get-bimestral-feedback"
+      ]
+    },
+    "BiometricEvolutionMonitor": {
+      "path": "components/BiometricEvolutionMonitor.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "BNCCProficiencyHeatmap": {
+      "path": "components/BNCCProficiencyHeatmap.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "BNCCSkillTree": {
+      "path": "components/BNCCSkillTree.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "addXp"
+      ]
+    },
+    "BoardScanner": {
+      "path": "components/BoardScanner.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "pedagogy:process-whiteboard"
+      ]
+    },
+    "BrandingLogo": {
+      "path": "components/BrandingLogo.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CameraViewer": {
+      "path": "components/CameraViewer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ClassroomOccupancyWidget": {
+      "path": "components/ClassroomOccupancyWidget.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ClassTargetResources": {
+      "path": "components/ClassTargetResources.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getResources"
+      ]
+    },
+    "ClassTargetSelector": {
+      "path": "components/ClassTargetSelector.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getClassTarget",
+        "setTarget",
+        "getBancas"
+      ]
+    },
+    "ClassTimer": {
+      "path": "components/ClassTimer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ClimateHUD": {
+      "path": "components/ClimateHUD.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ClimateReportPanel": {
+      "path": "components/ClimateReportPanel.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ClusterOverview": {
+      "path": "components/ClusterOverview.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ColdStorageUI": {
+      "path": "components/ColdStorageUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CoordinationDashboard": {
+      "path": "pages/CoordinationDashboard.tsx",
+      "handled_routes": [
+        "up",
+        "down"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CortexPulseWidget": {
+      "path": "components/CortexPulseWidget.tsx",
+      "handled_routes": [
+        "INFRASTRUCTURE",
+        "EVOLUTION",
+        "SECURITY_RISK"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CouncilRoom": {
+      "path": "components/CouncilRoom.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CrossAuditValidation": {
+      "path": "components/CrossAuditValidation.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CrowdDensityWidget": {
+      "path": "components/CrowdDensityWidget.tsx",
+      "handled_routes": [
+        "crowded",
+        "busy"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CurrentMissionTarget": {
+      "path": "components/CurrentMissionTarget.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getStudentTarget"
+      ]
+    },
+    "DashboardComando": {
+      "path": "components/DashboardComando.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "swarm:get-topology"
+      ]
+    },
+    "DigitalIDWallet": {
+      "path": "components/DigitalIDWallet.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "DigitalTwinView": {
+      "path": "components/DigitalTwinView.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "DisciplinaryOccurrences": {
+      "path": "components/DisciplinaryOccurrences.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "DistributedMeshMonitor": {
+      "path": "components/DistributedMeshMonitor.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "DroneLiveFeed": {
+      "path": "components/DroneLiveFeed.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "DynamicQrCode": {
+      "path": "components/DynamicQrCode.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EagleBalance": {
+      "path": "components/EagleBalance.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "gamification:get-wallet"
+      ]
+    },
+    "EagleManual": {
+      "path": "components/EagleManual.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EduScienceHub": {
+      "path": "components/EduScienceHub.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EmptyState": {
+      "path": "components/EmptyState.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EngagementRadar": {
+      "path": "components/EngagementRadar.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EnvironmentalHUD": {
+      "path": "components/EnvironmentalHUD.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ErrorBoundary": {
+      "path": "components/ErrorBoundary.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EssayLab1000": {
+      "path": "components/EssayLab1000.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "addXp"
+      ]
+    },
+    "EvasionRadar": {
+      "path": "components/EvasionRadar.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EvasionRadarUI": {
+      "path": "components/EvasionRadarUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EvolutionaryDashboard": {
+      "path": "components/EvolutionaryDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EvolutionCenter": {
+      "path": "components/EvolutionCenter.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ExamPaperFoundry": {
+      "path": "components/ExamPaperFoundry.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "omr-scanner"
+      ],
+      "ipc_calls": [
+        "createTemplate"
+      ]
+    },
+    "ExamTargetConfig": {
+      "path": "components/ExamTargetConfig.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ExportHub": {
+      "path": "components/ExportHub.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "FederationMetrics": {
+      "path": "components/FederationMetrics.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "FileUploader": {
+      "path": "components/FileUploader.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "FinancialGlass": {
+      "path": "components/FinancialGlass.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "FinancialGlassUI": {
+      "path": "components/FinancialGlassUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "FinancialHealthWidget": {
+      "path": "components/FinancialHealthWidget.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "FinancialPulseWidget": {
+      "path": "components/FinancialPulseWidget.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "FloorPlanMapper": {
+      "path": "components/FloorPlanMapper.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "GhostVisualizer": {
+      "path": "components/GhostVisualizer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "GlobalEcosystem": {
+      "path": "pages/GlobalEcosystem.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "GlobalPulseHUD": {
+      "path": "components/GlobalPulseHUD.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "GlobalSearch": {
+      "path": "components/GlobalSearch.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-ai-synthesis",
+        "get-students",
+        "search-rag"
+      ]
+    },
+    "GlobalTrendsDashboard": {
+      "path": "components/GlobalTrendsDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getTrends",
+        "getSynthesizedPulse"
+      ]
+    },
+    "GradeScanner": {
+      "path": "components/GradeScanner.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "scanSheet",
+        "getAssessments",
+        "get-school-settings",
+        "saveAutoGrade"
+      ]
+    },
+    "GradeWeightConfig": {
+      "path": "components/GradeWeightConfig.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "secretariat:save-weights"
+      ]
+    },
+    "GuardInterface": {
+      "path": "components/GuardInterface.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HandoffManagerUI": {
+      "path": "components/HandoffManagerUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HardwareHealthRadar": {
+      "path": "components/HardwareHealthRadar.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "hardware:get-status"
+      ]
+    },
+    "HardwareMarketplace": {
+      "path": "components/HardwareMarketplace.tsx",
+      "handled_routes": [
+        "CAMERA",
+        "NPU",
+        "STORAGE"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HardwareMonitor": {
+      "path": "components/HardwareMonitor.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HeatmapWidget": {
+      "path": "components/HeatmapWidget.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HelpCenter": {
+      "path": "pages/HelpCenter.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "shell:open-external"
+      ]
+    },
+    "HelpCenterFab": {
+      "path": "components/HelpCenterFab.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HelpHubSOC": {
+      "path": "components/HelpHubSOC.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HelpModal": {
+      "path": "components/HelpModal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HelpRequestModal": {
+      "path": "components/HelpRequestModal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "requestSwarmHelp"
+      ]
+    },
+    "HexCellCard": {
+      "path": "components/HexCellCard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HierarchyMap": {
+      "path": "components/HierarchyMap.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HistoricalMentorsGallery": {
+      "path": "components/HistoricalMentorsGallery.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "ai:chat"
+      ]
+    },
+    "HolographicEcosystem": {
+      "path": "components/HolographicEcosystem.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HoneycombMeshPulse": {
+      "path": "components/HoneycombMeshPulse.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HoneyFlowVisualizer": {
+      "path": "components/HoneyFlowVisualizer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HQDashboard": {
+      "path": "components/HQDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HRPortal": {
+      "path": "portals/HRPortal.tsx",
+      "handled_routes": [
+        "dashboard",
+        "hr"
+      ],
+      "outbound_navs": [
+        "user-management",
+        "schedule-upload",
+        "reports-hub"
+      ],
+      "ipc_calls": [
+        "get-dashboard-stats",
+        "hr:save-document"
+      ]
+    },
+    "HybridShieldWidget": {
+      "path": "components/HybridShieldWidget.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "IdentificationWizard": {
+      "path": "components/IdentificationWizard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "IdentityRecaptureSystem": {
+      "path": "components/IdentityRecaptureSystem.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "IncidentResponseModal": {
+      "path": "components/IncidentResponseModal.tsx",
+      "handled_routes": [
+        "CRITICAL",
+        "HIGH"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "IncidentTimeline": {
+      "path": "components/IncidentTimeline.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "InfrastructureBudget": {
+      "path": "components/InfrastructureBudget.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "InfrastructureHealth": {
+      "path": "components/InfrastructureHealth.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "IntelligencePulse": {
+      "path": "components/IntelligencePulse.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "intelligence:get-pending",
+        "intelligence:approve",
+        "intelligence:run-synthesis"
+      ]
+    },
+    "LearningCompanionUI": {
+      "path": "components/LearningCompanionUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "ai:chat",
+        "companion:get-state"
+      ]
+    },
+    "LearningPodUI": {
+      "path": "components/LearningPodUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "LGPDConsentModal": {
+      "path": "components/LGPDConsentModal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "LogoffModal": {
+      "path": "components/LogoffModal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "LogoffProtocol": {
+      "path": "components/LogoffProtocol.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "MeritFinanceDashboard": {
+      "path": "components/MeritFinanceDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "MobileAuth": {
+      "path": "components/MobileAuth.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "MobileParentPortal": {
+      "path": "components/MobileParentPortal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "MobileSimulator": {
+      "path": "components/MobileSimulator.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "MultimodalPedagogicalStudio": {
+      "path": "components/MultimodalPedagogicalStudio.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "mobile:broadcast-pedagogical-pack"
+      ]
+    },
+    "MultiStreamGrid": {
+      "path": "components/MultiStreamGrid.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-cameras"
+      ]
+    },
+    "NativePhETSimulationLab": {
+      "path": "components/NativePhETSimulationLab.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "NeuralShardVisualizer": {
+      "path": "components/NeuralShardVisualizer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "NexusDashboard": {
+      "path": "components/NexusDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "NexusStateVisualizer": {
+      "path": "components/NexusStateVisualizer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "NotebookLMHub": {
+      "path": "components/NotebookLMHub.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "NPSModal": {
+      "path": "components/NPSModal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "Omnissearch": {
+      "path": "components/Omnissearch.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "OmrScannerUI": {
+      "path": "components/OmrScannerUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "gradebook",
+        "exam-foundry"
+      ],
+      "ipc_calls": [
+        "createTemplate",
+        "listTemplates",
+        "academic:save-student-grade",
+        "mobile:broadcast-grade",
+        "correctExam"
+      ]
+    },
+    "OutcomeDashboard": {
+      "path": "components/OutcomeDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getAureusReport",
+        "getProjection"
+      ]
+    },
+    "ParentalAdvisorUI": {
+      "path": "components/ParentalAdvisorUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ParentAuthHUD": {
+      "path": "components/ParentAuthHUD.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PassiveSafetyGrid": {
+      "path": "components/PassiveSafetyGrid.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PedagogicalLibrary": {
+      "path": "components/PedagogicalLibrary.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getSwarmCache",
+        "vouchForResource",
+        "toggleFavorite",
+        "createCollection",
+        "ask",
+        "on",
+        "dismissRisk",
+        "querySwarm",
+        "assignToCollection",
+        "getCollections",
+        "browseLibrary",
+        "uploadFile"
+      ]
+    },
+    "PhetKumonMasteryLab": {
+      "path": "components/PhetKumonMasteryLab.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getGpuStatus"
+      ]
+    },
+    "PolicyEnforcer": {
+      "path": "components/PolicyEnforcer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PredictiveDashboard": {
+      "path": "pages/PredictiveDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "dashboard"
+      ],
+      "ipc_calls": []
+    },
+    "PresenceGlowUI": {
+      "path": "components/PresenceGlowUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PricingCalculator": {
+      "path": "components/PricingCalculator.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PrivacyConsentModal": {
+      "path": "components/PrivacyConsentModal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ProcurementKitBuilder": {
+      "path": "components/ProcurementKitBuilder.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ProtectedRoute": {
+      "path": "components/ProtectedRoute.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "QAOverview": {
+      "path": "components/QAOverview.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "nexus:run-security-scan"
+      ]
+    },
+    "QuantumBoot": {
+      "path": "components/QuantumBoot.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ReplayConsole": {
+      "path": "components/ReplayConsole.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "RiskAlertOverlay": {
+      "path": "components/RiskAlertOverlay.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "RoboticsDashboard": {
+      "path": "components/RoboticsDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "RuViewMapping": {
+      "path": "components/RuViewMapping.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ScannerPro": {
+      "path": "components/ScannerPro.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "visionAnalyze"
+      ]
+    },
+    "ScheduleGrid": {
+      "path": "components/ScheduleGrid.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-schedule-optimizations"
+      ]
+    },
+    "SchoolGrowthAgentSuite": {
+      "path": "components/SchoolGrowthAgentSuite.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "colab-gpu:get-status",
+        "colab-gpu:generate-agent-content"
+      ]
+    },
+    "ScienceSimulators": {
+      "path": "components/ScienceSimulators.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SeatingChart": {
+      "path": "components/SeatingChart.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getLayout",
+        "validatePresence",
+        "saveRule",
+        "deleteRule",
+        "getRecommendations",
+        "getRules",
+        "saveLayout"
+      ]
+    },
+    "SecretariatAcademicAnalytics": {
+      "path": "components/SecretariatAcademicAnalytics.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "secretariat:get-bulk-boletim",
+        "get-classes"
+      ]
+    },
+    "SecretariatBoletimManager": {
+      "path": "components/SecretariatBoletimManager.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "secretariat:generate-report-card",
+        "secretariat:get-bulk-boletim",
+        "get-classes"
+      ]
+    },
+    "SecretariatRegistrationManager": {
+      "path": "components/SecretariatRegistrationManager.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "secretaria:add-teacher",
+        "secretaria:add-student",
+        "secretaria:register-face"
+      ]
+    },
+    "SecurityAlertCard": {
+      "path": "components/SecurityAlertCard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SecurityExecutiveVault": {
+      "path": "components/SecurityExecutiveVault.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SetupWizard": {
+      "path": "pages/SetupWizard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "activate-license",
+        "auth:create-user",
+        "auth:login"
+      ]
+    },
+    "Sidebar": {
+      "path": "components/Sidebar.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getState",
+        "get-school-settings",
+        "onStatusChanged"
+      ]
+    },
+    "Skeleton": {
+      "path": "components/Skeleton.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SocialGraphView": {
+      "path": "components/SocialGraphView.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getAtRisk",
+        "getGraph"
+      ]
+    },
+    "SovereignAvatar": {
+      "path": "components/SovereignAvatar.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignDashboard": {
+      "path": "components/SovereignDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignExecutiveCockpit": {
+      "path": "components/SovereignExecutiveCockpit.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "hr:get-compliance-dashboard",
+        "identity:get-stats",
+        "analytics:get-engagement",
+        "pedagogical:get-recent-reports",
+        "attendance:get-stats",
+        "audit:get-stats",
+        "pedagogical:getRiskStats",
+        "getPulse",
+        "getROI",
+        "support:get-summary",
+        "getBudgetReport",
+        "finance:get-records",
+        "geofence:get-arriving"
+      ]
+    },
+    "SovereignMarketplace": {
+      "path": "components/SovereignMarketplace.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignPvPArena": {
+      "path": "components/SovereignPvPArena.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignResponsePanel": {
+      "path": "components/SovereignResponsePanel.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignShop": {
+      "path": "components/SovereignShop.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "grant-student-coins",
+        "purchase-student-item",
+        "getEconomy"
+      ]
+    },
+    "SovereignTenantLogin": {
+      "path": "components/SovereignTenantLogin.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignZenMode": {
+      "path": "components/SovereignZenMode.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SRSMorpher": {
+      "path": "components/SRSMorpher.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "StrategyInsightCard": {
+      "path": "components/StrategyInsightCard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "StudentCosmeticsChamber": {
+      "path": "components/StudentCosmeticsChamber.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "StudentRPGPortal": {
+      "path": "components/StudentRPGPortal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "mastery-chamber",
+        "skill-tree",
+        "multimodal-studio",
+        "ai-lab",
+        "knowledge-canvas",
+        "youtube-radar",
+        "arena",
+        "cosmetics-chamber",
+        "essay-lab",
+        "phet-mastery"
+      ],
+      "ipc_calls": []
+    },
+    "StudyShelf": {
+      "path": "components/StudyShelf.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SurveyHUD": {
+      "path": "components/SurveyHUD.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SustainabilityMonitor": {
+      "path": "components/SustainabilityMonitor.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "Swarm3DView": {
+      "path": "components/Swarm3DView.tsx",
+      "handled_routes": [
+        "SERVER",
+        "NPU",
+        "CLOUD"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SwarmExecutiveCockpit": {
+      "path": "components/SwarmExecutiveCockpit.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SwarmMonitor": {
+      "path": "components/SwarmMonitor.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SyncStatusIndicator": {
+      "path": "components/SyncStatusIndicator.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "sync:get-status"
+      ]
+    },
+    "SysHealth": {
+      "path": "components/SysHealth.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SystemBrain": {
+      "path": "components/SystemBrain.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "TeacherClassLinkManager": {
+      "path": "components/TeacherClassLinkManager.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "secretaria:generate-schedule",
+        "secretariat:link-teacher",
+        "secretariat:get-teacher-classes",
+        "secretariat:get-teachers",
+        "get-classes",
+        "secretariat:get-subjects"
+      ]
+    },
+    "TeacherDailySchedule": {
+      "path": "components/TeacherDailySchedule.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "attendance:confirm-audit",
+        "pedagogical:get-current-class",
+        "attendance:audit-class",
+        "pedagogical:process-audio-report",
+        "schedule:get-teacher-daily"
+      ]
+    },
+    "TeacherDashboard": {
+      "path": "pages/TeacherDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "logout",
+        "seating:get-active-schedule-for-local-room"
+      ]
+    },
+    "TeacherReputationDashboard": {
+      "path": "components/TeacherReputationDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "TechnologySovereignty": {
+      "path": "components/TechnologySovereignty.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "TimetableBuilder": {
+      "path": "components/TimetableBuilder.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ToastContainer": {
+      "path": "components/ToastContainer.tsx",
+      "handled_routes": [
+        "info",
+        "success",
+        "error",
+        "warning"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "Tooltip": {
+      "path": "components/Tooltip.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "TopBar": {
+      "path": "components/TopBar.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "settings",
+        "alerts"
+      ],
+      "ipc_calls": []
+    },
+    "TutelaryCouncilReport": {
+      "path": "components/TutelaryCouncilReport.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "secretariat:get-tutelary-risk"
+      ]
+    },
+    "UnitSelector": {
+      "path": "components/UnitSelector.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "VideoPlayer": {
+      "path": "components/VideoPlayer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "VirtualExperienceVR": {
+      "path": "components/VirtualExperienceVR.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "VirtualTour": {
+      "path": "components/VirtualTour.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "VoiceAssistant": {
+      "path": "components/VoiceAssistant.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "YouTubePedagogicalFinder": {
+      "path": "components/YouTubePedagogicalFinder.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PerformanceContext": {
+      "path": "hooks/PerformanceContext.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ToastContext": {
+      "path": "hooks/ToastContext.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PortalLayout": {
+      "path": "layouts/PortalLayout.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "support",
+        "help"
+      ],
+      "ipc_calls": []
+    },
+    "AcademicCalendar": {
+      "path": "pages/AcademicCalendar.tsx",
+      "handled_routes": [
+        "eventos",
+        "anual",
+        "tarefa",
+        "esportes",
+        "bimestral",
+        "geral"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "calendar:save-event",
+        "save-settings",
+        "calendar:get-events",
+        "get-school-settings",
+        "calendar:delete-event",
+        "get-classes"
+      ]
+    },
+    "ActivityFactory": {
+      "path": "pages/ActivityFactory.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AdaptiveClassroomUI": {
+      "path": "pages/AdaptiveClassroomUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "neuro:get-tuning",
+        "neuro:set-mode"
+      ]
+    },
+    "AdvancedReports": {
+      "path": "pages/AdvancedReports.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-student-rankings"
+      ]
+    },
+    "AIVerificationDashboard": {
+      "path": "pages/AIVerificationDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "toggle-lockdown",
+        "get-verification-queue",
+        "update-verification-status"
+      ]
+    },
+    "Alerts": {
+      "path": "pages/Alerts.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AlertsPage": {
+      "path": "pages/AlertsPage.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-alerts"
+      ]
+    },
+    "AnalyticsBI": {
+      "path": "pages/AnalyticsBI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "AnalyticsDashboard": {
+      "path": "pages/AnalyticsDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ArrivalBoard": {
+      "path": "pages/ArrivalBoard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getArriving"
+      ]
+    },
+    "AttendanceAudit": {
+      "path": "pages/AttendanceAudit.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "attendance-audit:runBatchAudit"
+      ]
+    },
+    "AttendanceCall": {
+      "path": "pages/AttendanceCall.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "teachers:notify-parent-ldb",
+        "get-students",
+        "teachers:save-attendance",
+        "get-classes",
+        "get-schedules",
+        "syncSigaWeb"
+      ]
+    },
+    "AuditLogViewer": {
+      "path": "pages/AuditLogViewer.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "governance:get-audit-logs"
+      ]
+    },
+    "B2BLandingPage": {
+      "path": "pages/B2BLandingPage.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "BatchPhotoImporter": {
+      "path": "pages/BatchPhotoImporter.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "dialog:openFile",
+        "parse-import-spreadsheet",
+        "import-students",
+        "scan-photo-folder",
+        "dialog:openDirectory"
+      ]
+    },
+    "BiometricEnrollment": {
+      "path": "pages/BiometricEnrollment.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CameraConfiguration": {
+      "path": "pages/CameraConfiguration.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-cameras",
+        "remove-camera",
+        "test-camera",
+        "add-camera",
+        "discover-cameras",
+        "update-camera"
+      ]
+    },
+    "CameraDeploymentUI": {
+      "path": "pages/CameraDeploymentUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "audit:get-suggestions",
+        "blender:simulate-camera",
+        "audit:detect-cameras"
+      ]
+    },
+    "CameraLiveView": {
+      "path": "pages/CameraLiveView.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-cameras",
+        "get-recognition-status",
+        "stop-recognition",
+        "start-recognition"
+      ]
+    },
+    "ClassRanking": {
+      "path": "pages/ClassRanking.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ClassroomDashboard": {
+      "path": "pages/ClassroomDashboard.tsx",
+      "handled_routes": [
+        "eventos",
+        "anual",
+        "esportes",
+        "bimestral",
+        "geral"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "calendar:get-events",
+        "get-schedules",
+        "get-classes"
+      ]
+    },
+    "ClassroomManagement": {
+      "path": "pages/ClassroomManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-cameras",
+        "delete-class",
+        "upsert-room",
+        "delete-schedule",
+        "upsert-class",
+        "get-classes",
+        "get-rooms",
+        "upsert-schedule",
+        "get-schedules",
+        "get-users",
+        "delete-room"
+      ]
+    },
+    "CloudSyncDashboard": {
+      "path": "pages/CloudSyncDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-sync-status",
+        "force-sync"
+      ]
+    },
+    "CollectiveBrain": {
+      "path": "pages/CollectiveBrain.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "mesh:get-inference-state",
+        "stress:stop",
+        "halo:get-optimizations",
+        "stress:start",
+        "cortex:run-meta-evolution",
+        "mesh:reputation-stats"
+      ]
+    },
+    "CollectiveCouncil": {
+      "path": "pages/CollectiveCouncil.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "listPolls",
+        "getAIInsights",
+        "castVote"
+      ]
+    },
+    "CommunityMarketplace": {
+      "path": "pages/CommunityMarketplace.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "community:send-notification",
+        "marketplace:list-ads"
+      ]
+    },
+    "CommunityNexusPortal": {
+      "path": "pages/CommunityNexusPortal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "nexus:send-proactive-update",
+        "nexus:get-engagement"
+      ]
+    },
+    "ConsentManagement": {
+      "path": "pages/ConsentManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CoordinationAlerts": {
+      "path": "pages/CoordinationAlerts.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "eagle:send-push",
+        "predictive:get-analytics"
+      ]
+    },
+    "CoordinationManagement": {
+      "path": "pages/CoordinationManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "approve-communication",
+        "get-pending-approvals",
+        "get-verification-queue",
+        "update-user-role",
+        "reject-communication",
+        "upsert-class",
+        "get-current-user",
+        "delete-coordination",
+        "get-classes",
+        "get-users",
+        "upsert-coordination",
+        "update-verification-status",
+        "get-coordinations"
+      ]
+    },
+    "CoordinationOverview": {
+      "path": "pages/CoordinationOverview.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "coordination:get-summary",
+        "coordination:resolve-insight"
+      ]
+    },
+    "CoordinationTV": {
+      "path": "pages/CoordinationTV.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "CRMDashboard": {
+      "path": "pages/CRMDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-leads"
+      ]
+    },
+    "Diary": {
+      "path": "pages/Diary.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-students",
+        "voice:send-report",
+        "voice:generate-report",
+        "get-classes"
+      ]
+    },
+    "DigitalForensics": {
+      "path": "pages/DigitalForensics.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "audit:get-evidences"
+      ]
+    },
+    "DigitalTwinHub": {
+      "path": "pages/DigitalTwinHub.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "syncTwin",
+        "startSession"
+      ]
+    },
+    "DreamspaceCockpit": {
+      "path": "pages/DreamspaceCockpit.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "dreamspace:get-projections",
+        "dreamspace:run-simulation"
+      ]
+    },
+    "EagleMessenger": {
+      "path": "pages/EagleMessenger.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "adapt-messenger-content",
+        "send",
+        "onNewMessage",
+        "getChannels",
+        "onSilentAlarm",
+        "getMessages"
+      ]
+    },
+    "EcoDashboard": {
+      "path": "pages/EcoDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "eco:get-prediction",
+        "eco:get-stats"
+      ]
+    },
+    "EcosystemIntelligence": {
+      "path": "pages/EcosystemIntelligence.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "pricing:calculate-roi",
+        "db:get-students"
+      ]
+    },
+    "EcosystemManager": {
+      "path": "pages/EcosystemManager.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getState",
+        "setAIProvider",
+        "toggleModule"
+      ]
+    },
+    "EduPodcast": {
+      "path": "pages/EduPodcast.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EmpathicCockpit": {
+      "path": "pages/EmpathicCockpit.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "affective:get-climate"
+      ]
+    },
+    "EventMode": {
+      "path": "pages/EventMode.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ExecutiveCockpit": {
+      "path": "pages/ExecutiveCockpit.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "coordination:approve-evolution"
+      ]
+    },
+    "ExecutiveFinanceBI": {
+      "path": "pages/ExecutiveFinanceBI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getHealthScore",
+        "getRevenueForecast"
+      ]
+    },
+    "FinanceModule": {
+      "path": "pages/FinanceModule.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "finance:get-proposals",
+        "whatsapp:send-billing",
+        "whatsapp:get-history",
+        "finance:generate-monthly-billing",
+        "finance:calculate-roi",
+        "finance:get-billing-history",
+        "finance:generate-pix",
+        "finance:accept-proposal",
+        "get-subscription",
+        "finance:calculate-quote",
+        "getStatus",
+        "institution:update-profile",
+        "finance:get-stats",
+        "syncDominio",
+        "churn:get-radar"
+      ]
+    },
+    "FleetMonitor": {
+      "path": "pages/FleetMonitor.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getStatus"
+      ]
+    },
+    "GlobalNetworkConsole": {
+      "path": "pages/GlobalNetworkConsole.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "GlobalNexusDashboard": {
+      "path": "pages/GlobalNexusDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "nexus:list-peers",
+        "nexus:list-assets"
+      ]
+    },
+    "GlobalRadar": {
+      "path": "pages/GlobalRadar.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "GovernanceDashboard": {
+      "path": "pages/GovernanceDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "nexus:get-swarm-status",
+        "governance:get-audit-logs",
+        "workflow:get-efficiency",
+        "nexus:start-deep-reasoning",
+        "workflow:get-maturity",
+        "nexus:get-architect-status",
+        "governance:get-shield-status",
+        "nexus:get-sentinel-status",
+        "nexus:get-policy-status",
+        "nexus:get-ledger-status"
+      ]
+    },
+    "HardwareCalculator": {
+      "path": "pages/HardwareCalculator.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HardwareDiagnostics": {
+      "path": "pages/HardwareDiagnostics.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "HeatmapPage": {
+      "path": "pages/HeatmapPage.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-heatmap-summaries"
+      ]
+    },
+    "IdentityGovernance": {
+      "path": "pages/IdentityGovernance.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "identity:get-mesh-health",
+        "identity:get-stats"
+      ]
+    },
+    "ImportPortal": {
+      "path": "pages/ImportPortal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "IndoorMappingDashboard": {
+      "path": "pages/IndoorMappingDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "InfrastructureArchitectDashboard": {
+      "path": "pages/InfrastructureArchitectDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "infra:deep-scan",
+        "infra:install-guide"
+      ]
+    },
+    "InfrastructureDashboard": {
+      "path": "pages/InfrastructureDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-cameras",
+        "get-system-health"
+      ]
+    },
+    "InfrastructureDashboardUI": {
+      "path": "pages/InfrastructureDashboardUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "infra:npu-telemetry",
+        "mobile:get-status",
+        "infra:cloud-sync"
+      ]
+    },
+    "InstitutionalHeritageUI": {
+      "path": "pages/InstitutionalHeritageUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "memory:get-timeline"
+      ]
+    },
+    "InstitutionalImmortalityUI": {
+      "path": "pages/InstitutionalImmortalityUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "legacy:get-synthesis",
+        "legacy:start-transfer"
+      ]
+    },
+    "InstitutionalPlaybook": {
+      "path": "pages/InstitutionalPlaybook.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "IntegrationHUB": {
+      "path": "pages/IntegrationHUB.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "InventoryManagement": {
+      "path": "pages/InventoryManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "IoTManager": {
+      "path": "pages/IoTManager.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "LGPDCompliance": {
+      "path": "pages/LGPDCompliance.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "LicensePage": {
+      "path": "pages/LicensePage.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "activate-license",
+        "get-plan-limits",
+        "get-license-info"
+      ]
+    },
+    "LicensingManagement": {
+      "path": "pages/LicensingManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "LifecycleDashboard": {
+      "path": "pages/LifecycleDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "finance:get-intervention-roi",
+        "lifecycle:get-risky-students",
+        "lifecycle:get-trends",
+        "lifecycle:get-metrics",
+        "lifecycle:dismiss-risk"
+      ]
+    },
+    "LoadTesting": {
+      "path": "pages/LoadTesting.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "stress:run-benchmark"
+      ]
+    },
+    "LoginPage": {
+      "path": "pages/LoginPage.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "login"
+      ]
+    },
+    "ManagerLogin": {
+      "path": "pages/ManagerLogin.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "login"
+      ]
+    },
+    "MessengerPortal": {
+      "path": "pages/MessengerPortal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "MetricsDashboard": {
+      "path": "pages/MetricsDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-system-metrics",
+        "get-stream-stats"
+      ]
+    },
+    "MobileParentApp": {
+      "path": "pages/MobileParentApp.tsx",
+      "handled_routes": [
+        "grade",
+        "msg",
+        "exit",
+        "entry",
+        "class"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "updateLocation"
+      ]
+    },
+    "MobilePortal": {
+      "path": "pages/MobilePortal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "Monitoring": {
+      "path": "pages/Monitoring.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "MultiSiteManager": {
+      "path": "pages/MultiSiteManager.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "NetworkMeshConsole": {
+      "path": "pages/NetworkMeshConsole.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "sync:force",
+        "sync:get-peers"
+      ]
+    },
+    "NetworkTrafficDashboard": {
+      "path": "pages/NetworkTrafficDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "NeuralLibraryUI": {
+      "path": "pages/NeuralLibraryUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "library:query-knowledge"
+      ]
+    },
+    "NeuroCampusDashboard": {
+      "path": "pages/NeuroCampusDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "neuro:get-health"
+      ]
+    },
+    "NexusMeshManager": {
+      "path": "pages/NexusMeshManager.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-system-info"
+      ]
+    },
+    "NightSentry": {
+      "path": "pages/NightSentry.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "system:get-sentry-telemetry",
+        "coordination:get-resilience-logs",
+        "system:lockdown"
+      ]
+    },
+    "OmniscientCockpit": {
+      "path": "pages/OmniscientCockpit.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "cortex:get-advice",
+        "cortex:get-sentience"
+      ]
+    },
+    "OuterNexusCockpit": {
+      "path": "pages/OuterNexusCockpit.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "outer:get-footprint",
+        "outer:sync-node"
+      ]
+    },
+    "ParentPortal": {
+      "path": "portals/ParentPortal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "mobile-parent-app"
+      ],
+      "ipc_calls": []
+    },
+    "PartnershipPortal": {
+      "path": "pages/PartnershipPortal.tsx",
+      "handled_routes": [
+        "COMPUTER",
+        "DISPLAY",
+        "WIFI_REPEATER"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PedagogicalIntelligenceHub": {
+      "path": "pages/PedagogicalIntelligenceHub.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-global-pedagogical-stats"
+      ]
+    },
+    "PedagogicalMarketplace": {
+      "path": "pages/PedagogicalMarketplace.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PredictiveAbsenceDashboard": {
+      "path": "pages/PredictiveAbsenceDashboard.tsx",
+      "handled_routes": [
+        "critical",
+        "medium",
+        "high"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PredictiveCampusDashboard": {
+      "path": "pages/PredictiveCampusDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "predictive:run-simulation"
+      ]
+    },
+    "PresenceFidelityDashboard": {
+      "path": "pages/PresenceFidelityDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "PricingDashboard": {
+      "path": "pages/PricingDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "finance:calculate-roi",
+        "finance:get-plans",
+        "finance:calculate-quote"
+      ]
+    },
+    "PricingGlassUI": {
+      "path": "pages/PricingGlassUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "pricing:calculate-quote",
+        "pricing:get-plans"
+      ]
+    },
+    "RankingBoard": {
+      "path": "pages/RankingBoard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-student-rankings",
+        "calculate-reprobation-risk",
+        "get-students"
+      ]
+    },
+    "ReceptionPortal": {
+      "path": "pages/ReceptionPortal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "register"
+      ]
+    },
+    "ReportingHub": {
+      "path": "pages/ReportingHub.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "Reports": {
+      "path": "pages/Reports.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ReportsPage": {
+      "path": "pages/ReportsPage.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "RoomsManagement": {
+      "path": "pages/RoomsManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "RuViewPage": {
+      "path": "pages/RuViewPage.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "ScheduleUpload": {
+      "path": "pages/ScheduleUpload.tsx",
+      "handled_routes": [
+        "completed",
+        "error",
+        "processing"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SchoolBranding": {
+      "path": "pages/SchoolBranding.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-school-settings",
+        "update-school-branding"
+      ]
+    },
+    "ScientificAttendance": {
+      "path": "pages/ScientificAttendance.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getAuditHistory",
+        "remediate",
+        "getAuditStats"
+      ]
+    },
+    "SeatingIntelligence": {
+      "path": "pages/SeatingIntelligence.tsx",
+      "handled_routes": [
+        "2",
+        "SONO",
+        "CELULAR",
+        "INTERRUPCAO",
+        "QUADRO",
+        "3",
+        "5",
+        "SEM_MATERIAL",
+        "7",
+        "FORA_SALA",
+        "CONVERSA",
+        "FORA_MAPA",
+        "4",
+        "8",
+        "6",
+        "1"
+      ],
+      "outbound_navs": [
+        "gradebook",
+        "teacher-dashboard"
+      ],
+      "ipc_calls": [
+        "get-cameras",
+        "registerBehavioralOccurrence",
+        "validatePresence",
+        "secretariat:get-teacher-classes",
+        "secretariat:get-students-by-class",
+        "seating:get-active-schedule-for-local-room",
+        "get-classes",
+        "seating:get-layout",
+        "seating:save-layout"
+      ]
+    },
+    "SecurityAuditDashboard": {
+      "path": "pages/SecurityAuditDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "coordination:get-resilience-stats"
+      ]
+    },
+    "SecurityMonitor": {
+      "path": "pages/SecurityMonitor.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "network-traffic"
+      ],
+      "ipc_calls": [
+        "security:get-cameras"
+      ]
+    },
+    "SensoryConfigDashboard": {
+      "path": "pages/SensoryConfigDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "sensory:get-profile",
+        "haptic:trigger"
+      ]
+    },
+    "SerendipityCockpit": {
+      "path": "pages/SerendipityCockpit.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "serendipity:claim-opportunity",
+        "serendipity:get-sparks"
+      ]
+    },
+    "ShieldProDashboard": {
+      "path": "pages/ShieldProDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "shield:get-status"
+      ]
+    },
+    "SlideStudio": {
+      "path": "pages/SlideStudio.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SmartCampusDashboard": {
+      "path": "pages/SmartCampusDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "iot:get-campus-state"
+      ]
+    },
+    "SmartClassHub": {
+      "path": "pages/SmartClassHub.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SmartSecretariatDashboard": {
+      "path": "pages/SmartSecretariatDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "secretaria:generate-schedule",
+        "automation:get-stats",
+        "automation:run-task",
+        "automation:get-queue"
+      ]
+    },
+    "SocialNexus": {
+      "path": "pages/SocialNexus.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SocioEmotionalPanel": {
+      "path": "pages/SocioEmotionalPanel.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignAppStore": {
+      "path": "pages/SovereignAppStore.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "plugins:marketplace",
+        "plugins:list"
+      ]
+    },
+    "SovereignConscienceUI": {
+      "path": "pages/SovereignConscienceUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "ethics:get-audit"
+      ]
+    },
+    "SovereignHub": {
+      "path": "pages/SovereignHub.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignLibrarianUI": {
+      "path": "pages/SovereignLibrarianUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "pedagogical:get-geofencing-status",
+        "pedagogical:get-archived-trends",
+        "pedagogical:generate-executive-digest",
+        "pedagogical:get-federated-insights",
+        "mesh:get-inference-state",
+        "pedagogical:share-with-parents",
+        "pedagogical:synthesize-trends",
+        "pedagogical:save-trend",
+        "pedagogical:set-student-ready",
+        "pedagogical:get-librarian-context",
+        "pedagogical:get-knowledge-map",
+        "pedagogical:search-semantic",
+        "pedagogical:broadcast-insight",
+        "pedagogical:create-collection",
+        "pedagogical:get-traffic-forecast"
+      ]
+    },
+    "SovereignNexus": {
+      "path": "pages/SovereignNexus.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignStore": {
+      "path": "pages/SovereignStore.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SovereignWorkspace": {
+      "path": "pages/SovereignWorkspace.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "shield:ask-sovereign"
+      ]
+    },
+    "StudentAILab": {
+      "path": "pages/StudentAILab.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getMaterials",
+        "completeTask",
+        "addXp"
+      ]
+    },
+    "StudentManagement": {
+      "path": "pages/StudentManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "students:list",
+        "secretary:generate-transcript",
+        "students:pick-and-import",
+        "secretary:get-student-documents"
+      ]
+    },
+    "StudentMasteryChamber": {
+      "path": "pages/StudentMasteryChamber.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "getBySubject",
+        "runGpuTraining",
+        "getConcepts",
+        "getGpuStatus",
+        "generateLiveNvidia"
+      ]
+    },
+    "StudentPhotoUpload": {
+      "path": "pages/StudentPhotoUpload.tsx",
+      "handled_routes": [
+        "completed",
+        "failed",
+        "processing"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "StudentPortfolio": {
+      "path": "pages/StudentPortfolio.tsx",
+      "handled_routes": [
+        "restlessness",
+        "focus_period",
+        "high_activity",
+        "sleep_warning"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "portfolio:get-longitudinal-history"
+      ]
+    },
+    "StudentProfile": {
+      "path": "pages/StudentProfile.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "get-student-events",
+        "get-student-trajectory",
+        "get-student",
+        "get-smart-narrative",
+        "lifecycle:predict-risk",
+        "dismissRisk",
+        "get-social-context-for-student"
+      ]
+    },
+    "Students": {
+      "path": "pages/Students.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "StudentsManagement": {
+      "path": "pages/StudentsManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SupportPanel": {
+      "path": "pages/SupportPanel.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "send-whatsapp"
+      ]
+    },
+    "SustainabilityDashboard": {
+      "path": "pages/SustainabilityDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "SwarmIntelligence": {
+      "path": "pages/SwarmIntelligence.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "swarm:get-tasks",
+        "swarm:get-status"
+      ]
+    },
+    "TaskScheduler": {
+      "path": "pages/TaskScheduler.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "calendar:save-event",
+        "tasks:update",
+        "tasks:create",
+        "tasks:list",
+        "get-classes",
+        "ai:chat",
+        "tasks:delete"
+      ]
+    },
+    "TeacherAIStudio": {
+      "path": "pages/TeacherAIStudio.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "TeacherDailyReport": {
+      "path": "pages/TeacherDailyReport.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "teachers:save-daily-report",
+        "get-students",
+        "get-whiteboard-analysis",
+        "tasks:list",
+        "ai:chat",
+        "get-classes",
+        "get-schedules"
+      ]
+    },
+    "TeacherGradebook": {
+      "path": "pages/TeacherGradebook.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "omr-scanner",
+        "mastery-chamber",
+        "exam-foundry"
+      ],
+      "ipc_calls": []
+    },
+    "TeacherManagement": {
+      "path": "pages/TeacherManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "TeacherSchedule": {
+      "path": "pages/TeacherSchedule.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "dialog:openFile",
+        "pedagogical:get-current-class",
+        "get-classes",
+        "get-rooms",
+        "pedagogical:process-audio-report",
+        "get-schedules",
+        "get-users"
+      ]
+    },
+    "ThemeSettings": {
+      "path": "pages/ThemeSettings.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "TwinNavigator": {
+      "path": "pages/TwinNavigator.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "twin:get-entities",
+        "twin:get-alerts"
+      ]
+    },
+    "UnifiedCommand": {
+      "path": "pages/UnifiedCommand.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "UnifiedConsciousnessUI": {
+      "path": "pages/UnifiedConsciousnessUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "omni:get-sync-state",
+        "omni:get-transcendent-insight"
+      ]
+    },
+    "UserManagement": {
+      "path": "pages/UserManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "delete-user",
+        "create-user",
+        "get-users"
+      ]
+    },
+    "VaultManagement": {
+      "path": "pages/VaultManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "vault:get-health"
+      ]
+    },
+    "VisitorManagement": {
+      "path": "pages/VisitorManagement.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "WellnessDashboard": {
+      "path": "pages/WellnessDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "wellness:get-state",
+        "wellness:get-report"
+      ]
+    },
+    "WhatsAppIntegration": {
+      "path": "pages/WhatsAppIntegration.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "WhatsAppSettings": {
+      "path": "pages/WhatsAppSettings.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "whatsapp:test-connection",
+        "whatsapp:get-status",
+        "whatsapp:update-config"
+      ]
+    },
+    "WhatsAppTemplates": {
+      "path": "pages/WhatsAppTemplates.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "save-whatsapp-templates"
+      ]
+    },
+    "WhiteboardCapture": {
+      "path": "pages/WhiteboardCapture.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "ai:vram-gc",
+        "pedagogy:process-whiteboard",
+        "get-classes",
+        "tasks:create"
+      ]
+    },
+    "WiFiDensePoseDashboard": {
+      "path": "pages/WiFiDensePoseDashboard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "WikiViewerUI": {
+      "path": "pages/WikiViewerUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "wiki:list-pages",
+        "wiki:read-page"
+      ]
+    },
+    "ZenithCockpitUI": {
+      "path": "pages/ZenithCockpitUI.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": [
+        "outcome:get-aureus-report",
+        "zenith:get-state",
+        "zenith:finalize-singularity"
+      ]
+    },
+    "AdminPortal": {
+      "path": "portals/AdminPortal.tsx",
+      "handled_routes": [
+        "load-testing",
+        "security-monitor",
+        "visitor-management",
+        "predictive-absence",
+        "reports-hub",
+        "cameras",
+        "knowledge-canvas",
+        "executive-cockpit-portal",
+        "audit-log",
+        "pricing",
+        "ruview",
+        "user-management",
+        "red-audit",
+        "iot-manager",
+        "ai-lab",
+        "network-traffic",
+        "growth-agents",
+        "diagnostics",
+        "albus-canvas",
+        "coordination",
+        "hardware",
+        "infrastructure",
+        "multistream",
+        "finance",
+        "dashboard",
+        "twin-navigator",
+        "mastery-chamber",
+        "school-growth-agents",
+        "calendar",
+        "governance",
+        "zenith-final",
+        "zenith-cockpit",
+        "night-sentry",
+        "help",
+        "settings",
+        "collective-brain",
+        "unified-command",
+        "predictive-dashboard",
+        "nexus-mesh",
+        "multi-site"
+      ],
+      "outbound_navs": [
+        "finance",
+        "seating-intelligence",
+        "social-nexus",
+        "reports-hub",
+        "mastery-chamber",
+        "growth-agents",
+        "executive-cockpit-portal",
+        "students"
+      ],
+      "ipc_calls": []
+    },
+    "CoordinationPortal": {
+      "path": "portals/CoordinationPortal.tsx",
+      "handled_routes": [
+        "reports-hub",
+        "coordination-dashboard",
+        "seating-intelligence",
+        "skills-heatmap",
+        "growth-agents",
+        "urania-timetable",
+        "timetable",
+        "coordination",
+        "exam-foundry",
+        "bncc-heatmap",
+        "dashboard",
+        "heatmap",
+        "mastery-chamber",
+        "school-growth-agents",
+        "calendar",
+        "coordination-overview",
+        "omr",
+        "academic-calendar",
+        "omr-scanner",
+        "banco-provas"
+      ],
+      "outbound_navs": [
+        "bncc-heatmap",
+        "seating-intelligence",
+        "reports-hub",
+        "mastery-chamber",
+        "growth-agents",
+        "calendar",
+        "timetable",
+        "coordination",
+        "exam-foundry"
+      ],
+      "ipc_calls": [
+        "get-dashboard-stats",
+        "get-attendance-telemetry"
+      ]
+    },
+    "SecretariaPortal": {
+      "path": "portals/SecretariaPortal.tsx",
+      "handled_routes": [],
+      "outbound_navs": [
+        "user-management",
+        "schedule-upload"
+      ],
+      "ipc_calls": [
+        "get-dashboard-stats",
+        "hr:save-document",
+        "get-system-health",
+        "get-students"
+      ]
+    },
+    "SecurityPortal": {
+      "path": "portals/SecurityPortal.tsx",
+      "handled_routes": [
+        "multistream",
+        "dashboard",
+        "twin-navigator",
+        "load-testing",
+        "security-monitor",
+        "visitor-management",
+        "predictive-absence",
+        "ruview",
+        "red-audit",
+        "iot-manager",
+        "network-traffic",
+        "cameras",
+        "diagnostics",
+        "night-sentry",
+        "hardware",
+        "infrastructure"
+      ],
+      "outbound_navs": [
+        "dashboard"
+      ],
+      "ipc_calls": []
+    },
+    "StudentPortal": {
+      "path": "portals/StudentPortal.tsx",
+      "handled_routes": [
+        "multimodal-studio",
+        "knowledge-canvas",
+        "phet-mastery",
+        "ai-lab",
+        "albus-canvas",
+        "arena",
+        "cosmetics-chamber",
+        "redacao",
+        "dashboard",
+        "native-phet",
+        "student-portal",
+        "pvp-arena",
+        "skins-shop",
+        "mastery-chamber",
+        "podcast-wordwall",
+        "youtube-radar",
+        "bncc-skills",
+        "battle-banner",
+        "skill-tree",
+        "stem-lab",
+        "video-finder",
+        "essay-lab"
+      ],
+      "outbound_navs": [
+        "student-portal"
+      ],
+      "ipc_calls": []
+    },
+    "TeacherPortal": {
+      "path": "portals/TeacherPortal.tsx",
+      "handled_routes": [
+        "slide-studio",
+        "diary",
+        "banco-provas",
+        "rooms",
+        "knowledge-canvas",
+        "seating-intelligence",
+        "albus-canvas",
+        "arena",
+        "teacher-dashboard",
+        "redacao",
+        "exam-foundry",
+        "bncc-heatmap",
+        "attendance",
+        "dashboard",
+        "heatmap",
+        "pvp-arena",
+        "mastery-chamber",
+        "student-portfolio",
+        "activity-factory",
+        "ai-studio",
+        "youtube-radar",
+        "omr",
+        "bncc-skills",
+        "whiteboard",
+        "gradebook",
+        "tasks",
+        "schedule",
+        "skill-tree",
+        "daily-report",
+        "omr-scanner",
+        "video-finder",
+        "essay-lab",
+        "students"
+      ],
+      "outbound_navs": [
+        "bncc-heatmap",
+        "attendance",
+        "slide-studio",
+        "seating-intelligence",
+        "diary",
+        "mastery-chamber",
+        "skill-tree",
+        "activity-factory",
+        "ai-studio",
+        "daily-report",
+        "youtube-radar",
+        "knowledge-canvas",
+        "omr-scanner",
+        "arena",
+        "teacher-dashboard",
+        "essay-lab",
+        "gradebook",
+        "exam-foundry"
+      ],
+      "ipc_calls": []
+    },
+    "EagleBadge": {
+      "path": "components/elite/EagleBadge.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EagleButton": {
+      "path": "components/elite/EagleButton.tsx",
+      "handled_routes": [
+        "danger",
+        "sm",
+        "primary",
+        "secondary",
+        "ghost",
+        "md",
+        "lg"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EagleCard": {
+      "path": "components/elite/EagleCard.tsx",
+      "handled_routes": [
+        "alert",
+        "success",
+        "kpi"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EagleKpiCard": {
+      "path": "components/elite/EagleKpiCard.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EagleKpiGrid": {
+      "path": "components/elite/EagleKpiGrid.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EagleModal": {
+      "path": "components/elite/EagleModal.tsx",
+      "handled_routes": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EagleTable": {
+      "path": "components/elite/EagleTable.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    },
+    "EagleToast": {
+      "path": "components/elite/EagleToast.tsx",
+      "handled_routes": [],
+      "outbound_navs": [],
+      "ipc_calls": []
+    }
+  },
+  "routes": {
+    "security": [
+      "Dashboard"
+    ],
+    "pedagogical": [
+      "Dashboard"
+    ],
+    "admin": [
+      "Dashboard"
+    ],
+    "INFRASTRUCTURE": [
+      "CortexPulseWidget"
+    ],
+    "EVOLUTION": [
+      "CortexPulseWidget"
+    ],
+    "SECURITY_RISK": [
+      "CortexPulseWidget"
+    ],
+    "crowded": [
+      "CrowdDensityWidget"
+    ],
+    "busy": [
+      "CrowdDensityWidget"
+    ],
+    "CAMERA": [
+      "HardwareMarketplace"
+    ],
+    "NPU": [
+      "HardwareMarketplace",
+      "Swarm3DView"
+    ],
+    "STORAGE": [
+      "HardwareMarketplace"
+    ],
+    "CRITICAL": [
+      "IncidentResponseModal",
+      "PredictiveDashboard"
+    ],
+    "HIGH": [
+      "IncidentResponseModal",
+      "PredictiveDashboard"
+    ],
+    "MEDIUM": [
+      "PredictiveDashboard"
+    ],
+    "SERVER": [
+      "Swarm3DView"
+    ],
+    "CLOUD": [
+      "Swarm3DView"
+    ],
+    "info": [
+      "ToastContainer"
+    ],
+    "success": [
+      "ToastContainer",
+      "EagleCard"
+    ],
+    "error": [
+      "ToastContainer",
+      "ScheduleUpload"
+    ],
+    "warning": [
+      "ToastContainer"
+    ],
+    "eventos": [
+      "AcademicCalendar",
+      "ClassroomDashboard"
+    ],
+    "anual": [
+      "AcademicCalendar",
+      "ClassroomDashboard"
+    ],
+    "tarefa": [
+      "AcademicCalendar"
+    ],
+    "esportes": [
+      "AcademicCalendar",
+      "ClassroomDashboard"
+    ],
+    "bimestral": [
+      "AcademicCalendar",
+      "ClassroomDashboard"
+    ],
+    "geral": [
+      "AcademicCalendar",
+      "ClassroomDashboard"
+    ],
+    "up": [
+      "CoordinationDashboard"
+    ],
+    "down": [
+      "CoordinationDashboard"
+    ],
+    "grade": [
+      "MobileParentApp"
+    ],
+    "msg": [
+      "MobileParentApp"
+    ],
+    "exit": [
+      "MobileParentApp"
+    ],
+    "entry": [
+      "MobileParentApp"
+    ],
+    "class": [
+      "MobileParentApp"
+    ],
+    "COMPUTER": [
+      "PartnershipPortal"
+    ],
+    "DISPLAY": [
+      "PartnershipPortal"
+    ],
+    "WIFI_REPEATER": [
+      "PartnershipPortal"
+    ],
+    "critical": [
+      "PredictiveAbsenceDashboard"
+    ],
+    "medium": [
+      "PredictiveAbsenceDashboard"
+    ],
+    "high": [
+      "PredictiveAbsenceDashboard"
+    ],
+    "completed": [
+      "ScheduleUpload",
+      "StudentPhotoUpload"
+    ],
+    "processing": [
+      "ScheduleUpload",
+      "StudentPhotoUpload"
+    ],
+    "2": [
+      "SeatingIntelligence"
+    ],
+    "SONO": [
+      "SeatingIntelligence"
+    ],
+    "CELULAR": [
+      "SeatingIntelligence"
+    ],
+    "INTERRUPCAO": [
+      "SeatingIntelligence"
+    ],
+    "QUADRO": [
+      "SeatingIntelligence"
+    ],
+    "3": [
+      "SeatingIntelligence"
+    ],
+    "5": [
+      "SeatingIntelligence"
+    ],
+    "SEM_MATERIAL": [
+      "SeatingIntelligence"
+    ],
+    "7": [
+      "SeatingIntelligence"
+    ],
+    "FORA_SALA": [
+      "SeatingIntelligence"
+    ],
+    "CONVERSA": [
+      "SeatingIntelligence"
+    ],
+    "FORA_MAPA": [
+      "SeatingIntelligence"
+    ],
+    "4": [
+      "SeatingIntelligence"
+    ],
+    "8": [
+      "SeatingIntelligence"
+    ],
+    "6": [
+      "SeatingIntelligence"
+    ],
+    "1": [
+      "SeatingIntelligence"
+    ],
+    "failed": [
+      "StudentPhotoUpload"
+    ],
+    "restlessness": [
+      "StudentPortfolio"
+    ],
+    "focus_period": [
+      "StudentPortfolio"
+    ],
+    "high_activity": [
+      "StudentPortfolio"
+    ],
+    "sleep_warning": [
+      "StudentPortfolio"
+    ],
+    "load-testing": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "security-monitor": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "visitor-management": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "predictive-absence": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "reports-hub": [
+      "AdminPortal",
+      "CoordinationPortal"
+    ],
+    "cameras": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "knowledge-canvas": [
+      "AdminPortal",
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "executive-cockpit-portal": [
+      "AdminPortal"
+    ],
+    "audit-log": [
+      "AdminPortal"
+    ],
+    "pricing": [
+      "AdminPortal"
+    ],
+    "ruview": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "user-management": [
+      "AdminPortal"
+    ],
+    "red-audit": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "iot-manager": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "ai-lab": [
+      "AdminPortal",
+      "StudentPortal"
+    ],
+    "network-traffic": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "growth-agents": [
+      "AdminPortal",
+      "CoordinationPortal"
+    ],
+    "diagnostics": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "albus-canvas": [
+      "AdminPortal",
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "coordination": [
+      "AdminPortal",
+      "CoordinationPortal"
+    ],
+    "hardware": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "infrastructure": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "multistream": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "finance": [
+      "AdminPortal"
+    ],
+    "dashboard": [
+      "AdminPortal",
+      "CoordinationPortal",
+      "HRPortal",
+      "SecurityPortal",
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "twin-navigator": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "mastery-chamber": [
+      "AdminPortal",
+      "CoordinationPortal",
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "school-growth-agents": [
+      "AdminPortal",
+      "CoordinationPortal"
+    ],
+    "calendar": [
+      "AdminPortal",
+      "CoordinationPortal"
+    ],
+    "governance": [
+      "AdminPortal"
+    ],
+    "zenith-final": [
+      "AdminPortal"
+    ],
+    "zenith-cockpit": [
+      "AdminPortal"
+    ],
+    "night-sentry": [
+      "AdminPortal",
+      "SecurityPortal"
+    ],
+    "help": [
+      "AdminPortal"
+    ],
+    "settings": [
+      "AdminPortal"
+    ],
+    "collective-brain": [
+      "AdminPortal"
+    ],
+    "unified-command": [
+      "AdminPortal"
+    ],
+    "predictive-dashboard": [
+      "AdminPortal"
+    ],
+    "nexus-mesh": [
+      "AdminPortal"
+    ],
+    "multi-site": [
+      "AdminPortal"
+    ],
+    "coordination-dashboard": [
+      "CoordinationPortal"
+    ],
+    "seating-intelligence": [
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "skills-heatmap": [
+      "CoordinationPortal"
+    ],
+    "urania-timetable": [
+      "CoordinationPortal"
+    ],
+    "timetable": [
+      "CoordinationPortal"
+    ],
+    "exam-foundry": [
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "bncc-heatmap": [
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "heatmap": [
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "coordination-overview": [
+      "CoordinationPortal"
+    ],
+    "omr": [
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "academic-calendar": [
+      "CoordinationPortal"
+    ],
+    "omr-scanner": [
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "banco-provas": [
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "hr": [
+      "HRPortal"
+    ],
+    "multimodal-studio": [
+      "StudentPortal"
+    ],
+    "phet-mastery": [
+      "StudentPortal"
+    ],
+    "arena": [
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "cosmetics-chamber": [
+      "StudentPortal"
+    ],
+    "redacao": [
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "native-phet": [
+      "StudentPortal"
+    ],
+    "student-portal": [
+      "StudentPortal"
+    ],
+    "pvp-arena": [
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "skins-shop": [
+      "StudentPortal"
+    ],
+    "podcast-wordwall": [
+      "StudentPortal"
+    ],
+    "youtube-radar": [
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "bncc-skills": [
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "battle-banner": [
+      "StudentPortal"
+    ],
+    "skill-tree": [
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "stem-lab": [
+      "StudentPortal"
+    ],
+    "video-finder": [
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "essay-lab": [
+      "StudentPortal",
+      "TeacherPortal"
+    ],
+    "slide-studio": [
+      "TeacherPortal"
+    ],
+    "diary": [
+      "TeacherPortal"
+    ],
+    "rooms": [
+      "TeacherPortal"
+    ],
+    "teacher-dashboard": [
+      "TeacherPortal"
+    ],
+    "attendance": [
+      "TeacherPortal"
+    ],
+    "student-portfolio": [
+      "TeacherPortal"
+    ],
+    "activity-factory": [
+      "TeacherPortal"
+    ],
+    "ai-studio": [
+      "TeacherPortal"
+    ],
+    "whiteboard": [
+      "TeacherPortal"
+    ],
+    "gradebook": [
+      "TeacherPortal"
+    ],
+    "tasks": [
+      "TeacherPortal"
+    ],
+    "schedule": [
+      "TeacherPortal"
+    ],
+    "daily-report": [
+      "TeacherPortal"
+    ],
+    "students": [
+      "TeacherPortal"
+    ],
+    "danger": [
+      "EagleButton"
+    ],
+    "sm": [
+      "EagleButton",
+      "EagleModal"
+    ],
+    "primary": [
+      "EagleButton"
+    ],
+    "secondary": [
+      "EagleButton"
+    ],
+    "ghost": [
+      "EagleButton"
+    ],
+    "md": [
+      "EagleButton",
+      "EagleModal"
+    ],
+    "lg": [
+      "EagleButton",
+      "EagleModal"
+    ],
+    "alert": [
+      "EagleCard"
+    ],
+    "kpi": [
+      "EagleCard"
+    ]
+  },
+  "onNavigate_calls": {
+    "global-trends": [
+      "Dashboard"
+    ],
+    "help": [
+      "Dashboard",
+      "PortalLayout"
+    ],
+    "social-nexus": [
+      "Dashboard",
+      "AdminPortal"
+    ],
+    "sovereign-nexus": [
+      "Dashboard"
+    ],
+    "user-management": [
+      "Dashboard",
+      "HRPortal",
+      "SecretariaPortal"
+    ],
+    "ai-lab": [
+      "Dashboard",
+      "StudentRPGPortal"
+    ],
+    "cameras": [
+      "Dashboard"
+    ],
+    "executive-pulse": [
+      "Dashboard"
+    ],
+    "governance": [
+      "Dashboard"
+    ],
+    "pricing": [
+      "Dashboard"
+    ],
+    "omr-scanner": [
+      "ExamPaperFoundry",
+      "TeacherGradebook",
+      "TeacherPortal"
+    ],
+    "gradebook": [
+      "OmrScannerUI",
+      "SeatingIntelligence",
+      "TeacherPortal"
+    ],
+    "exam-foundry": [
+      "OmrScannerUI",
+      "TeacherGradebook",
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "mastery-chamber": [
+      "StudentRPGPortal",
+      "TeacherGradebook",
+      "AdminPortal",
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "skill-tree": [
+      "StudentRPGPortal",
+      "TeacherPortal"
+    ],
+    "multimodal-studio": [
+      "StudentRPGPortal"
+    ],
+    "knowledge-canvas": [
+      "StudentRPGPortal",
+      "TeacherPortal"
+    ],
+    "youtube-radar": [
+      "StudentRPGPortal",
+      "TeacherPortal"
+    ],
+    "arena": [
+      "StudentRPGPortal",
+      "TeacherPortal"
+    ],
+    "cosmetics-chamber": [
+      "StudentRPGPortal"
+    ],
+    "essay-lab": [
+      "StudentRPGPortal",
+      "TeacherPortal"
+    ],
+    "phet-mastery": [
+      "StudentRPGPortal"
+    ],
+    "settings": [
+      "TopBar"
+    ],
+    "alerts": [
+      "TopBar"
+    ],
+    "support": [
+      "PortalLayout"
+    ],
+    "dashboard": [
+      "PredictiveDashboard",
+      "SecurityPortal"
+    ],
+    "teacher-dashboard": [
+      "SeatingIntelligence",
+      "TeacherPortal"
+    ],
+    "network-traffic": [
+      "SecurityMonitor"
+    ],
+    "finance": [
+      "AdminPortal"
+    ],
+    "seating-intelligence": [
+      "AdminPortal",
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "reports-hub": [
+      "AdminPortal",
+      "CoordinationPortal",
+      "HRPortal"
+    ],
+    "growth-agents": [
+      "AdminPortal",
+      "CoordinationPortal"
+    ],
+    "executive-cockpit-portal": [
+      "AdminPortal"
+    ],
+    "students": [
+      "AdminPortal"
+    ],
+    "bncc-heatmap": [
+      "CoordinationPortal",
+      "TeacherPortal"
+    ],
+    "calendar": [
+      "CoordinationPortal"
+    ],
+    "timetable": [
+      "CoordinationPortal"
+    ],
+    "coordination": [
+      "CoordinationPortal"
+    ],
+    "schedule-upload": [
+      "HRPortal",
+      "SecretariaPortal"
+    ],
+    "mobile-parent-app": [
+      "ParentPortal"
+    ],
+    "student-portal": [
+      "StudentPortal"
+    ],
+    "attendance": [
+      "TeacherPortal"
+    ],
+    "slide-studio": [
+      "TeacherPortal"
+    ],
+    "diary": [
+      "TeacherPortal"
+    ],
+    "activity-factory": [
+      "TeacherPortal"
+    ],
+    "ai-studio": [
+      "TeacherPortal"
+    ],
+    "daily-report": [
+      "TeacherPortal"
+    ]
+  },
+  "ipc_invocations": {},
+  "summary": {
+    "total_components": 367,
+    "total_unique_routes": 156,
+    "total_unique_nav_targets": 47
+  }
+}
