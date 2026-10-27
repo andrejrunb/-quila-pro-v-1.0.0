@@ -229,6 +229,47 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
   const equippedFrame = items.find(i => i.category === 'moldura_frame' && i.equipped);
   const equippedBadges = items.filter(i => i.category === 'emblema_badge' && i.equipped);
 
+  const playSfx = (type: 'equip' | 'unlock' | 'warn') => {
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      if (type === 'equip') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.25);
+      } else if (type === 'unlock') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.4);
+      } else {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(140, ctx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.2);
+      }
+    } catch {
+      // AudioContext unavailable or autoplay blocked
+    }
+  };
+
+
   const handleEquip = (itemId: string) => {
     setItems(prev => {
       const target = prev.find(i => i.id === itemId);
@@ -240,17 +281,23 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
         return item;
       });
     });
+    playSfx('equip');
     setFeedbackMsg({ text: 'Item equipado no seu Battle Banner de Estudante!', type: 'success' });
+    setTimeout(() => setFeedbackMsg(null), 3000);
   };
 
   const handleUnlock = (item: CosmeticCardItem) => {
     if (aureusBalance < item.costAureus) {
+      playSfx('warn');
       setFeedbackMsg({ text: `Saldo insuficiente (${aureusBalance} Aureus). Conclua missões de evidência para receber moedas cosméticas!`, type: 'warn' });
+      setTimeout(() => setFeedbackMsg(null), 3500);
       return;
     }
+    playSfx('unlock');
     setAureusBalance(prev => prev - item.costAureus);
     setItems(prev => prev.map(i => i.id === item.id ? { ...i, unlocked: true } : i));
     setFeedbackMsg({ text: `🎉 Parabéns! Você desbloqueou '${item.title}'!`, type: 'success' });
+    setTimeout(() => setFeedbackMsg(null), 3500);
   };
 
   return (

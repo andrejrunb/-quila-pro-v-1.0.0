@@ -41,6 +41,42 @@ describe('P0 & P1 Architecture Governance — RouteRegistry & AgentControlPlane'
       expect(routeIds).toContain('cosmetics-chamber');
       expect(routeIds).toContain('youtube-radar');
     });
+
+    it('deve validar integralmente as rotas de navegação ampliadas (P0 Coverage)', () => {
+      const expandedRoutes = [
+        'dashboard',
+        'global-trends',
+        'help',
+        'support',
+        'alerts',
+        'social-nexus',
+        'sovereign-nexus',
+        'executive-pulse',
+        'governance',
+        'pricing',
+        'knowledge-canvas',
+        'network-traffic',
+        'students',
+        'mobile-parent-app',
+        'activity-factory',
+        'daily-report'
+      ];
+
+      for (const routeId of expandedRoutes) {
+        const check = validateRoute(routeId);
+        expect(check.valid).toBe(true);
+        expect(check.definition).toBeDefined();
+        expect(check.definition?.id).toBe(routeId);
+      }
+
+      // Verificação específica: mobile-parent-app acessível para responsavel/parent
+      const parentCheck = validateRoute('mobile-parent-app', 'responsavel');
+      expect(parentCheck.valid).toBe(true);
+
+      // Verificação específica: students acessível para professor/teacher
+      const teacherCheck = validateRoute('students', 'teacher');
+      expect(teacherCheck.valid).toBe(true);
+    });
   });
 
   describe('P1: AgentControlPlane (Plano de Controle Durável & Idempotência)', () => {

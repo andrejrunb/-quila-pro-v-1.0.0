@@ -354,7 +354,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
         return <NetworkTrafficDashboard onBack={onBack} />;
       case 'growth-agents':
       case 'school-growth-agents':
-        return <SchoolGrowthAgentSuite />;
+        return <SchoolGrowthAgentSuite onBack={onBack} />;
       default:
         return renderExecutiveDashboard();
     }

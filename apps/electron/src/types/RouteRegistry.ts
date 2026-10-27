@@ -375,6 +375,150 @@ export const SOVEREIGN_ROUTE_REGISTRY: Record<string, RouteDefinition> = {
     allowedRoles: ['admin', 'security'],
     requiresAuth: true,
     category: 'security'
+  },
+
+  // === ROTAS COMPLEMENTARES DE NAVEGACAO & PORTAIS (P0 RESILIENCE) ===
+  'dashboard': {
+    id: 'dashboard',
+    label: 'Dashboard Geral Unificado',
+    primaryPortal: 'admin-portal',
+    secondaryPortals: ['teacher-portal', 'coordination-portal', 'secretaria-portal', 'parent-portal', 'security-portal', 'student-portal'],
+    allowedRoles: ['student', 'aluno', 'teacher', 'docente', 'coordinator', 'secretary', 'hr', 'finance', 'security', 'parent', 'admin', 'director'],
+    requiresAuth: true,
+    category: 'administrative'
+  },
+  'global-trends': {
+    id: 'global-trends',
+    label: 'Radar de Tendências Globais & Inovação',
+    primaryPortal: 'admin-portal',
+    secondaryPortals: ['coordination-portal'],
+    allowedRoles: ['admin', 'director', 'coordinator'],
+    requiresAuth: true,
+    category: 'academic'
+  },
+  'help': {
+    id: 'help',
+    label: 'Central de Ajuda & Base de Conhecimento',
+    primaryPortal: 'admin-portal',
+    secondaryPortals: ['teacher-portal', 'coordination-portal', 'parent-portal', 'student-portal'],
+    allowedRoles: ['student', 'aluno', 'teacher', 'docente', 'coordinator', 'secretary', 'hr', 'finance', 'security', 'parent', 'admin', 'director'],
+    requiresAuth: false,
+    category: 'administrative'
+  },
+  'support': {
+    id: 'support',
+    label: 'Canal de Atendimento & Suporte Técnico',
+    primaryPortal: 'admin-portal',
+    secondaryPortals: ['teacher-portal', 'coordination-portal', 'parent-portal'],
+    allowedRoles: ['student', 'aluno', 'teacher', 'docente', 'coordinator', 'secretary', 'hr', 'finance', 'security', 'parent', 'admin', 'director'],
+    requiresAuth: false,
+    category: 'administrative'
+  },
+  'alerts': {
+    id: 'alerts',
+    label: 'Central de Alertas & Notificações em Tempo Real',
+    primaryPortal: 'security-portal',
+    secondaryPortals: ['admin-portal', 'coordination-portal'],
+    allowedRoles: ['admin', 'security', 'director', 'coordinator'],
+    requiresAuth: true,
+    category: 'security'
+  },
+  'social-nexus': {
+    id: 'social-nexus',
+    label: 'Social Nexus (Comunidade & Interações)',
+    primaryPortal: 'admin-portal',
+    secondaryPortals: ['student-portal', 'teacher-portal'],
+    allowedRoles: ['admin', 'director', 'teacher', 'docente', 'student', 'aluno'],
+    requiresAuth: true,
+    category: 'gamification'
+  },
+  'sovereign-nexus': {
+    id: 'sovereign-nexus',
+    label: 'Sovereign Nexus (Malha P2P & Nós de Borda)',
+    primaryPortal: 'admin-portal',
+    secondaryPortals: ['security-portal'],
+    allowedRoles: ['admin', 'director', 'security'],
+    requiresAuth: true,
+    category: 'security'
+  },
+  'executive-pulse': {
+    id: 'executive-pulse',
+    label: 'Executive Pulse (Métricas Vitais de Governança)',
+    primaryPortal: 'admin-portal',
+    allowedRoles: ['admin', 'director', 'diretoria'],
+    requiresAuth: true,
+    category: 'administrative'
+  },
+  'governance': {
+    id: 'governance',
+    label: 'Governança Institucional & Conformidade LGPD',
+    primaryPortal: 'admin-portal',
+    secondaryPortals: ['security-portal'],
+    allowedRoles: ['admin', 'director', 'security'],
+    requiresAuth: true,
+    category: 'security'
+  },
+  'pricing': {
+    id: 'pricing',
+    label: 'Planos Institucionais & Alocação de Custos',
+    primaryPortal: 'admin-portal',
+    allowedRoles: ['admin', 'director', 'finance'],
+    requiresAuth: true,
+    category: 'financial'
+  },
+  'knowledge-canvas': {
+    id: 'knowledge-canvas',
+    label: 'Knowledge Canvas (Albus Interativo)',
+    primaryPortal: 'student-portal',
+    secondaryPortals: ['teacher-portal', 'coordination-portal'],
+    allowedRoles: ['student', 'aluno', 'teacher', 'docente', 'coordinator', 'admin', 'director'],
+    requiresAuth: true,
+    category: 'pedagogical'
+  },
+  'network-traffic': {
+    id: 'network-traffic',
+    label: 'Monitor de Tráfego de Rede & Firewall',
+    primaryPortal: 'security-portal',
+    secondaryPortals: ['admin-portal'],
+    allowedRoles: ['admin', 'security', 'director'],
+    requiresAuth: true,
+    category: 'security'
+  },
+  'students': {
+    id: 'students',
+    label: 'Gestão de Alunos & Fichas Cadastrais',
+    primaryPortal: 'teacher-portal',
+    secondaryPortals: ['admin-portal', 'coordination-portal', 'secretaria-portal'],
+    allowedRoles: ['teacher', 'docente', 'coordinator', 'secretary', 'admin', 'director'],
+    requiresAuth: true,
+    category: 'academic'
+  },
+  'mobile-parent-app': {
+    id: 'mobile-parent-app',
+    label: 'Simulador do Aplicativo Mobile dos Pais',
+    primaryPortal: 'parent-portal',
+    secondaryPortals: ['admin-portal'],
+    allowedRoles: ['parent', 'responsavel', 'admin', 'director'],
+    requiresAuth: true,
+    category: 'academic'
+  },
+  'activity-factory': {
+    id: 'activity-factory',
+    label: 'Fábrica de Atividades & Gerador IA',
+    primaryPortal: 'teacher-portal',
+    secondaryPortals: ['coordination-portal'],
+    allowedRoles: ['teacher', 'docente', 'coordinator', 'admin', 'director'],
+    requiresAuth: true,
+    category: 'pedagogical'
+  },
+  'daily-report': {
+    id: 'daily-report',
+    label: 'Relatório Diário de Acompanhamento Docente',
+    primaryPortal: 'teacher-portal',
+    secondaryPortals: ['coordination-portal', 'parent-portal'],
+    allowedRoles: ['teacher', 'docente', 'coordinator', 'admin', 'director'],
+    requiresAuth: true,
+    category: 'academic'
   }
 };
 

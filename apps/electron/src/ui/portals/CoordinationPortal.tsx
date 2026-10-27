@@ -38,7 +38,7 @@ export const CoordinationPortal: React.FC<CoordinationPortalProps> = ({ currentP
         );
       case 'timetable':
       case 'urania-timetable':
-        return <TimetableBuilder />;
+        return <TimetableBuilder onBack={onBack} />;
       case 'calendar':
       case 'academic-calendar':
         return <AcademicCalendar onBack={onBack} />;
@@ -53,14 +53,14 @@ export const CoordinationPortal: React.FC<CoordinationPortalProps> = ({ currentP
       case 'heatmap':
         return (
           <div className="coord-portal-shell">
-            <BNCCProficiencyHeatmap />
+            <BNCCProficiencyHeatmap onBack={onBack} />
           </div>
         );
       case 'growth-agents':
       case 'school-growth-agents':
         return (
           <div className="coord-portal-shell">
-            <SchoolGrowthAgentSuite />
+            <SchoolGrowthAgentSuite onBack={onBack} />
           </div>
         );
       case 'exam-foundry':

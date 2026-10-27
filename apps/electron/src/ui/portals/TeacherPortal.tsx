@@ -363,7 +363,14 @@ export const TeacherPortal: React.FC<TeacherPortalProps> = ({ currentPage, onNav
         return <StudentMasteryChamber studentId={studentParams?.studentId} initialMode="canvas" onBack={onBack} />;
       case 'youtube-radar':
       case 'video-finder':
-        return <YouTubePedagogicalFinder />;
+        return (
+          <YouTubePedagogicalFinder
+            onBack={onBack}
+            onSelectVideoForLessonPlan={(video) => {
+              (window as any).showToast?.(`Vídeo "${video.title}" vinculado com sucesso ao seu Plano de Aula!`, 'success');
+            }}
+          />
+        );
       case 'ai-studio':
         return <TeacherAIStudio onBack={onBack} />;
       case 'activity-factory':
@@ -387,7 +394,7 @@ export const TeacherPortal: React.FC<TeacherPortalProps> = ({ currentPage, onNav
         return <OmrScannerUI onNavigate={onNavigate} />;
       case 'bncc-heatmap':
       case 'heatmap':
-        return <BNCCProficiencyHeatmap />;
+        return <BNCCProficiencyHeatmap onBack={onBack} />;
       default:
         return <PremiumDashboard onNavigate={onNavigate} />;
     }
