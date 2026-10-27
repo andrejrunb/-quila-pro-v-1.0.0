@@ -1,0 +1,39 @@
+[
+  {
+    "taskId": "TASK-PILOT-001",
+    "idempotencyKey": "test_idempotency_1793067451434",
+    "responsibleAgent": "Antigravity",
+    "state": "READY_FOR_REVIEW",
+    "title": "Piloto P1: Auditoria de Rotas Órfãs e Validação Estática",
+    "description": "Demonstrar detecção de rota órfã em branch com dados sintéticos e revisão humana.",
+    "acceptanceCriteria": [
+      "Catálogo tipado valida todas as 47 rotas",
+      "Idempotência evita duplicação de PRs",
+      "Nenhum dado real escolar exposto"
+    ],
+    "maxRetries": 3,
+    "currentRetries": 0,
+    "environment": "DEVELOPMENT",
+    "evidences": [
+      {
+        "type": "TYPECHECK",
+        "status": "PASS",
+        "details": "tsc --noEmit concluído com 0 erros.",
+        "timestamp": "2026-10-27T02:17:31.478Z"
+      },
+      {
+        "type": "JEST",
+        "status": "PASS",
+        "details": "70 testes unitários verdes.",
+        "timestamp": "2026-10-27T02:17:31.480Z"
+      }
+    ],
+    "requiresHumanApproval": true,
+    "createdAt": "2026-10-27T02:17:31.465Z",
+    "updatedAt": "2026-10-27T02:17:31.491Z",
+    "branchName": "fix/portals-stability-v2.1",
+    "commitSha": "927b93ae",
+    "pullRequestNumber": 5,
+    "pullRequestUrl": "https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5"
+  }
+]
