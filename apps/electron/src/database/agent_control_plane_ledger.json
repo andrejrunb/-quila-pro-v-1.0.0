@@ -35,5 +35,43 @@
     "commitSha": "927b93ae",
     "pullRequestNumber": 5,
     "pullRequestUrl": "https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5"
+  },
+  {
+    "taskId": "TASK-PILOT-ORPHAN-NAV-001",
+    "idempotencyKey": "idempotent-hash-audit-orphan-route-navigation-2026",
+    "responsibleAgent": "Antigravity-Pilot-Worker",
+    "state": "READY_FOR_REVIEW",
+    "title": "Piloto: Tratamento Automatizado de Rota Órfã na Interface",
+    "description": "Detecção de rota não cadastrada, remediação assistida e validação de CI.",
+    "acceptanceCriteria": [
+      "Identificar componente com rota órfã via AST Indexer",
+      "Mapear no RouteRegistry ou redirecionar para ErrorBoundary",
+      "Evidência de Typecheck e Jest 100% verde",
+      "Revisão humana obrigatória registrada antes do merge"
+    ],
+    "maxRetries": 3,
+    "currentRetries": 0,
+    "environment": "DEVELOPMENT",
+    "evidences": [
+      {
+        "type": "TYPECHECK",
+        "status": "PASS",
+        "details": "TypeScript tsc --noEmit concluído com 0 erros no projeto inteiro.",
+        "timestamp": "2026-10-27T02:20:55.750Z"
+      },
+      {
+        "type": "JEST",
+        "status": "PASS",
+        "details": "Testes de RouteRegistry e ControlPlane 100% aprovados.",
+        "timestamp": "2026-10-27T02:20:55.751Z"
+      }
+    ],
+    "requiresHumanApproval": true,
+    "createdAt": "2026-10-27T02:20:55.744Z",
+    "updatedAt": "2026-10-27T02:20:55.752Z",
+    "branchName": "fix/portals-stability-v2.1",
+    "commitSha": "c9d06a15",
+    "pullRequestNumber": 5,
+    "pullRequestUrl": "https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5"
   }
 ]
