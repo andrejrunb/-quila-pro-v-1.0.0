@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../assets/logo.png';
 import './PortalLayout.css';
 import { SysHealth } from '../components/SysHealth';
-import { HelpCircle, ChevronUp, ChevronDown, GraduationCap, Compass, Shield, Users, Sparkles, FileText, Wifi, Lock } from 'lucide-react';
+import { HelpCircle, ChevronUp, ChevronDown, GraduationCap, Compass, Shield, Users, Sparkles, FileText, Wifi, Lock, ZoomIn, ZoomOut } from 'lucide-react';
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -30,6 +30,27 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
   const [showHelp, setShowHelp] = React.useState(false);
   const [isHeaderCollapsed, setIsHeaderCollapsed] = React.useState(false);
   const [liveTime, setLiveTime] = React.useState('');
+  const [zoomPercent, setZoomPercent] = React.useState<number>(100);
+
+  // Atalhos Globais de Zoom (Ctrl +, Ctrl -, Ctrl 0)
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key === '=' || e.key === '+') {
+          e.preventDefault();
+          setZoomPercent(prev => Math.min(150, prev + 10));
+        } else if (e.key === '-' || e.key === '_') {
+          e.preventDefault();
+          setZoomPercent(prev => Math.max(60, prev - 10));
+        } else if (e.key === '0') {
+          e.preventDefault();
+          setZoomPercent(100);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   React.useEffect(() => {
     const updateTime = () => {
@@ -118,6 +139,38 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
                     <span className="portal-time-text">{liveTime}</span>
                   </div>
                 )}
+
+                {/* Controles Soberanos de Zoom In / Zoom Out */}
+                <div className="portal-zoom-group" role="group" aria-label="Controle de Zoom do Portal">
+                  <button
+                    type="button"
+                    className="portal-zoom-btn"
+                    onClick={() => setZoomPercent(prev => Math.max(60, prev - 10))}
+                    title="Diminuir Zoom (Ctrl -)"
+                    aria-label="Diminuir Zoom"
+                  >
+                    <ZoomOut size={12} />
+                  </button>
+                  <button
+                    type="button"
+                    className="portal-zoom-pill"
+                    onClick={() => setZoomPercent(100)}
+                    title="Redefinir Zoom para 100% (Ctrl 0)"
+                    aria-label="Redefinir Zoom"
+                  >
+                    {zoomPercent}%
+                  </button>
+                  <button
+                    type="button"
+                    className="portal-zoom-btn"
+                    onClick={() => setZoomPercent(prev => Math.min(150, prev + 10))}
+                    title="Aumentar Zoom (Ctrl +)"
+                    aria-label="Aumentar Zoom"
+                  >
+                    <ZoomIn size={12} />
+                  </button>
+                </div>
+
                 <button
                   className="portal-help-btn"
                   title="Ajuda & Suporte"
@@ -152,7 +205,12 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
           </header>
         )}
 
-        <div className="portal-content-area">
+        <div 
+          className="portal-content-area"
+          style={{
+            zoom: `${zoomPercent}%`
+          }}
+        >
           {children}
         </div>
       </div>

@@ -333,3 +333,50 @@
 .portal-content-area::-webkit-scrollbar-thumb:hover {
   background: var(--portal-accent, #00F0FF);
 }
+
+
+/* Controles de Zoom Integrados no Portal */
+.portal-zoom-group {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  height: 24px;
+}
+
+.portal-zoom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.portal-zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.portal-zoom-pill {
+  padding: 0 6px;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: #E2E8F0;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.portal-zoom-pill:hover {
+  color: var(--portal-accent, #00F0FF);
+}

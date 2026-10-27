@@ -23,6 +23,7 @@ import { BNCCProficiencyHeatmap } from '../components/BNCCProficiencyHeatmap';
 import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
 import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder';
 import {
+  Layers,
   Clock, Users, AlertCircle, CheckCircle2, Calendar,
   FileText, ChevronRight, AlertTriangle, LayoutGrid, Sparkles, BookOpen, FileSpreadsheet, Swords, Presentation, Camera, Flame, Printer, Tv
 } from 'lucide-react';
@@ -36,6 +37,7 @@ interface TeacherPortalProps {
 }
 
 const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void }> = ({ onNavigate }) => {
+  const [toolCategory, setToolCategory] = useState<'gestao' | 'aulas' | 'bncc' | 'todos'>('gestao');
   const scheduleData = [
     { id: 1, time: '07:00 - 07:50', subject: 'Matemática', className: '3º A', room: 'SALA 12', current: false },
     { id: 2, time: '07:50 - 08:40', subject: 'Matemática', className: '3º A', room: 'SALA 12', current: false },
@@ -66,81 +68,135 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void }> = ({ on
 
   return (
     <div className="tp-cockpit">
-      {/* Stitch Top Command Bar — Uniform 32px Buttons & Clean Spacing */}
+      {/* Stitch Top Command Bar — Categorized & Prioritizing Content */}
       <div className="tp-command-bar">
-        <div className="tp-command-title-group">
-          <span className="tp-command-badge">COCKPIT DOCENTE</span>
-          <h1 className="tp-command-title">Gestão de Sala & Telemetria Pedagógica</h1>
+        <div className="tp-command-top-row">
+          <div className="tp-command-title-group">
+            <span className="tp-command-badge">COCKPIT DOCENTE</span>
+            <h1 className="tp-command-title">Gestão de Sala & Telemetria Pedagógica</h1>
+          </div>
+
+          {/* Categorias de Ferramentas — Reduz ruído visual */}
+          <div className="tp-category-pills" role="tablist" aria-label="Filtrar ferramentas por categoria">
+            <button
+              type="button"
+              className={`tp-cat-pill ${toolCategory === 'gestao' ? 'active' : ''}`}
+              onClick={() => setToolCategory('gestao')}
+            >
+              <LayoutGrid size={13} />
+              <span>Gestão de Sala (5)</span>
+            </button>
+            <button
+              type="button"
+              className={`tp-cat-pill ${toolCategory === 'aulas' ? 'active' : ''}`}
+              onClick={() => setToolCategory('aulas')}
+            >
+              <BookOpen size={13} />
+              <span>Aulas & Provas (6)</span>
+            </button>
+            <button
+              type="button"
+              className={`tp-cat-pill ${toolCategory === 'bncc' ? 'active' : ''}`}
+              onClick={() => setToolCategory('bncc')}
+            >
+              <Sparkles size={13} />
+              <span>BNCC & Gamificação (6)</span>
+            </button>
+            <button
+              type="button"
+              className={`tp-cat-pill ${toolCategory === 'todos' ? 'active' : ''}`}
+              onClick={() => setToolCategory('todos')}
+            >
+              <Layers size={13} />
+              <span>Todas (17)</span>
+            </button>
+          </div>
         </div>
+
+        {/* Linha Única de Ações Filtradas (Economiza mais de 100px de altura) */}
         <div className="tp-command-actions">
-          <button className="tp-action-btn primary" onClick={() => onNavigate('youtube-radar')}>
-            <Tv size={14} />
-            <span>Radar Videoaulas YouTube</span>
-          </button>
-          <button className="tp-action-btn primary" onClick={() => onNavigate('exam-foundry')}>
-            <Printer size={14} />
-            <span>Gerador de Provas A4</span>
-          </button>
-          <button className="tp-action-btn primary" onClick={() => onNavigate('slide-studio')}>
-            <Presentation size={14} />
-            <span>Estúdio de Slides</span>
-          </button>
-          <button className="tp-action-btn primary" onClick={() => onNavigate('arena')}>
-            <Swords size={14} />
-            <span>Arena Batalha</span>
-          </button>
-          <button className="tp-action-btn primary" onClick={() => onNavigate('knowledge-canvas')}>
-            <Sparkles size={14} />
-            <span>Canvas Áquila</span>
-          </button>
-          <button className="tp-action-btn primary" onClick={() => onNavigate('ai-studio')}>
-            <Sparkles size={14} />
-            <span>Estúdio Pedagógico IA</span>
-          </button>
-          <button className="tp-action-btn primary" onClick={() => onNavigate('activity-factory')}>
-            <Sparkles size={14} />
-            <span>Fábrica de Atividades</span>
-          </button>
-          <button className="tp-action-btn primary" onClick={() => onNavigate('seating-intelligence')}>
-            <LayoutGrid size={14} />
-            <span>Mapa de Sala (IA)</span>
-          </button>
-          <button className="tp-action-btn primary" onClick={() => onNavigate('gradebook')}>
-            <FileSpreadsheet size={14} />
-            <span>Planilha de Notas</span>
-          </button>
-          <button className="tp-action-btn" onClick={() => onNavigate('attendance')}>
-            <Users size={14} />
-            <span>Chamada Digital</span>
-          </button>
-          <button className="tp-action-btn" onClick={() => onNavigate('diary')}>
-            <BookOpen size={14} />
-            <span>Diário de Classe</span>
-          </button>
-          <button className="tp-action-btn" onClick={() => onNavigate('daily-report')}>
-            <FileText size={14} />
-            <span>Relatório IA</span>
-          </button>
-          <button className="tp-action-btn" onClick={() => onNavigate('essay-lab')}>
-            <FileText size={14} />
-            <span>Redação 1000</span>
-          </button>
-          <button className="tp-action-btn" onClick={() => onNavigate('skill-tree')}>
-            <BookOpen size={14} />
-            <span>Árvore BNCC</span>
-          </button>
-          <button className="tp-action-btn" onClick={() => onNavigate('omr-scanner')}>
-            <Camera size={14} />
-            <span>Gabarito OMR</span>
-          </button>
-          <button className="tp-action-btn" onClick={() => onNavigate('bncc-heatmap')}>
-            <Flame size={14} />
-            <span>Mapa de Calor BNCC</span>
-          </button>
-          <button className="tp-action-btn" onClick={() => onNavigate('mastery-chamber')}>
-            <Sparkles size={14} />
-            <span>Câmara de Maestria</span>
-          </button>
+          {(toolCategory === 'gestao' || toolCategory === 'todos') && (
+            <>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('seating-intelligence')}>
+                <LayoutGrid size={14} />
+                <span>Mapa de Sala (IA)</span>
+              </button>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('gradebook')}>
+                <FileSpreadsheet size={14} />
+                <span>Planilha de Notas</span>
+              </button>
+              <button className="tp-action-btn" onClick={() => onNavigate('attendance')}>
+                <Users size={14} />
+                <span>Chamada Digital</span>
+              </button>
+              <button className="tp-action-btn" onClick={() => onNavigate('diary')}>
+                <BookOpen size={14} />
+                <span>Diário de Classe</span>
+              </button>
+              <button className="tp-action-btn" onClick={() => onNavigate('omr-scanner')}>
+                <Camera size={14} />
+                <span>Gabarito OMR</span>
+              </button>
+            </>
+          )}
+
+          {(toolCategory === 'aulas' || toolCategory === 'todos') && (
+            <>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('youtube-radar')}>
+                <Tv size={14} />
+                <span>Radar Videoaulas YouTube</span>
+              </button>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('exam-foundry')}>
+                <Printer size={14} />
+                <span>Gerador de Provas A4</span>
+              </button>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('slide-studio')}>
+                <Presentation size={14} />
+                <span>Estúdio de Slides</span>
+              </button>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('activity-factory')}>
+                <Sparkles size={14} />
+                <span>Fábrica de Atividades</span>
+              </button>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('knowledge-canvas')}>
+                <Sparkles size={14} />
+                <span>Canvas Áquila</span>
+              </button>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('ai-studio')}>
+                <Sparkles size={14} />
+                <span>Estúdio Pedagógico IA</span>
+              </button>
+            </>
+          )}
+
+          {(toolCategory === 'bncc' || toolCategory === 'todos') && (
+            <>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('arena')}>
+                <Swords size={14} />
+                <span>Arena Batalha</span>
+              </button>
+              <button className="tp-action-btn" onClick={() => onNavigate('bncc-heatmap')}>
+                <Flame size={14} />
+                <span>Mapa de Calor BNCC</span>
+              </button>
+              <button className="tp-action-btn" onClick={() => onNavigate('mastery-chamber')}>
+                <Sparkles size={14} />
+                <span>Câmara de Maestria</span>
+              </button>
+              <button className="tp-action-btn" onClick={() => onNavigate('essay-lab')}>
+                <FileText size={14} />
+                <span>Redação 1000</span>
+              </button>
+              <button className="tp-action-btn" onClick={() => onNavigate('skill-tree')}>
+                <BookOpen size={14} />
+                <span>Árvore BNCC</span>
+              </button>
+              <button className="tp-action-btn" onClick={() => onNavigate('daily-report')}>
+                <FileText size={14} />
+                <span>Relatório IA</span>
+              </button>
+            </>
+          )}
         </div>
       </div>
 

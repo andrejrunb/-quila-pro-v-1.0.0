@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
+  ZoomIn,
+  ZoomOut,
   Users, 
   Map as MapIcon, 
   Sparkles, 
@@ -82,6 +84,7 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
   const [draggedStudent, setDraggedStudent] = useState<Student | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [gridZoom, setGridZoom] = useState<number>(100);
   const [isLoading, setIsLoading] = useState(false);
   const [isVocalActive, setIsVocalActive] = useState(false);
   const [feedbackRefreshTrigger, setFeedbackRefreshTrigger] = useState(0);
@@ -1043,82 +1046,121 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
         </div>
 
         <div className="si-actions">
-           <div className="si-view-toggle">
-             <button 
-               className={`si-header-btn ${viewMode === 'grid' ? 'active' : ''}`}
-               onClick={() => setViewMode('grid')}
-               title="Visualização em Mapa de Sala"
+           {/* Cluster 1: Visualização & Zoom das Carteiras */}
+           <div className="si-control-cluster view-zoom-cluster">
+             <div className="si-view-toggle">
+               <button 
+                 className={`si-header-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                 onClick={() => setViewMode('grid')}
+                 title="Visualização em Mapa de Sala"
+               >
+                 <LayoutGrid size={14} />
+                 <span>Mapa</span>
+               </button>
+               <button 
+                 className={`si-header-btn ${viewMode === 'list' ? 'active' : ''}`}
+                 onClick={() => setViewMode('list')}
+                 title="Visualização Tradicional em Lista"
+               >
+                 <List size={14} />
+                 <span>Lista</span>
+               </button>
+             </div>
+
+             {/* Controles de Zoom Dedicados para o Mapa de Carteiras */}
+             <div className="si-zoom-controls" role="group" aria-label="Controle de Zoom do Mapa">
+               <button 
+                 type="button"
+                 className="si-zoom-btn" 
+                 onClick={() => setGridZoom(prev => Math.max(60, prev - 10))} 
+                 title="Diminuir Zoom das Carteiras (Ctrl -)"
+                 aria-label="Diminuir Zoom"
+               >
+                 <ZoomOut size={13} />
+               </button>
+               <button 
+                 type="button"
+                 className="si-zoom-value" 
+                 onClick={() => setGridZoom(100)} 
+                 title="Redefinir Zoom para 100%"
+                 aria-label="Redefinir Zoom"
+               >
+                 {gridZoom}%
+               </button>
+               <button 
+                 type="button"
+                 className="si-zoom-btn" 
+                 onClick={() => setGridZoom(prev => Math.min(150, prev + 10))} 
+                 title="Aumentar Zoom das Carteiras (Ctrl +)"
+                 aria-label="Aumentar Zoom"
+               >
+                 <ZoomIn size={13} />
+               </button>
+             </div>
+           </div>
+
+           {/* Cluster 2: Ferramentas Pedagógicas */}
+           <div className="si-control-cluster tools-cluster">
+             <button
+               className="si-header-btn"
+               onClick={() => {
+                 if (onNavigate) onNavigate('gradebook');
+                 else window.dispatchEvent(new CustomEvent('aquila:navigate', { detail: 'gradebook' }));
+               }}
+               title="Abrir Planilha de Notas do Professor"
              >
-               <LayoutGrid size={15} />
-               <span>Mapa</span>
+               <FileText size={14} />
+               <span>Notas</span>
              </button>
+
+             {showFeedback && (
+               <button 
+                 className={`si-header-btn feedback ${isFeedbackExpanded ? 'active' : ''}`}
+                 onClick={() => setIsFeedbackExpanded(!isFeedbackExpanded)}
+                 title="Relatórios e Ocorrências do Bimestre"
+               >
+                 <FileText size={14} />
+                 <span>Relatórios</span>
+               </button>
+             )}
+
              <button 
-               className={`si-header-btn ${viewMode === 'list' ? 'active' : ''}`}
-               onClick={() => setViewMode('list')}
-               title="Visualização Tradicional em Lista"
+               className={`si-header-btn report ${isReportMode ? 'active' : ''}`} 
+               onClick={() => {
+                 setIsReportMode(!isReportMode);
+                 setSelectedReportStudents([]);
+                 setInteractionGroup([]);
+                 setShowInteractionMenu(false);
+               }}
+               disabled={isLiveMode}
+               title="Relatos em Lote"
              >
-               <List size={15} />
-               <span>Lista</span>
+               <BookOpen size={14} />
+               <span>{isReportMode ? 'Sair Relato' : 'Modo Relatório'}</span>
+             </button>
+
+             <button 
+               className={`si-header-btn live ${isLiveMode ? 'active' : ''}`} 
+               onClick={() => setIsLiveMode(!isLiveMode)}
+               disabled={!pedagogicalCamera}
+               title="Modo Live (Visão Computacional)"
+             >
+               <Camera size={14} />
+               <span>{isLiveMode ? 'Sair Live' : 'Modo Live'}</span>
              </button>
            </div>
 
-           {showFeedback && (
-             <button 
-               className={`si-header-btn feedback ${isFeedbackExpanded ? 'active' : ''}`}
-               onClick={() => setIsFeedbackExpanded(!isFeedbackExpanded)}
-               title="Relatórios e Ocorrências do Bimestre"
-             >
-               <FileText size={15} />
-               <span>Relatórios Bimestre</span>
+           {/* Cluster 3: Sincronização & Persistência */}
+           <div className="si-control-cluster actions-cluster">
+             <button className="si-header-btn sync" onClick={() => loadStudents()} disabled={isLiveMode} title="Atualizar Alunos da Turma">
+               <RefreshCw size={14} />
              </button>
-           )}
-
-           <button
-             className="si-header-btn primary"
-             onClick={() => {
-               if (onNavigate) onNavigate('gradebook');
-               else window.dispatchEvent(new CustomEvent('aquila:navigate', { detail: 'gradebook' }));
-             }}
-             title="Abrir Planilha de Lançamento de Notas (B1, B2, B3, B4, Recuperação)"
-           >
-             <FileText size={15} />
-             <span>Planilha de Notas</span>
-           </button>
-
-           <button 
-             className={`si-header-btn report ${isReportMode ? 'active' : ''}`} 
-             onClick={() => {
-               setIsReportMode(!isReportMode);
-               setSelectedReportStudents([]);
-               setInteractionGroup([]);
-               setShowInteractionMenu(false);
-             }}
-             disabled={isLiveMode}
-             title="Relatos em Lote"
-           >
-             <BookOpen size={15} />
-             <span>{isReportMode ? 'Sair Relato' : 'Modo Relatório'}</span>
-           </button>
-
-           <button 
-             className={`si-header-btn live ${isLiveMode ? 'active' : ''}`} 
-             onClick={() => setIsLiveMode(!isLiveMode)}
-             disabled={!pedagogicalCamera}
-             title="Modo Live (Visão Computacional)"
-           >
-             <Camera size={15} />
-             <span>{isLiveMode ? 'Sair Live' : 'Modo Live'}</span>
-           </button>
-
-           <button className="si-header-btn sync" onClick={() => loadStudents()} disabled={isLiveMode} title="Atualizar Alunos da Turma">
-             <RefreshCw size={15} />
-             <span>Atualizar</span>
-           </button>
-           
-           <button className="si-header-btn save primary" onClick={saveLayout} disabled={isLiveMode} title="Salvar Layout no Banco de Dados">
-             <Save size={15} />
-             <span>Salvar Mapa</span>
-           </button>
+             
+             <button className="si-header-btn save primary" onClick={saveLayout} disabled={isLiveMode} title="Salvar Layout no Banco de Dados">
+               <Save size={14} />
+               <span>Salvar Mapa</span>
+             </button>
+           </div>
         </div>
       </header>
 
@@ -1297,6 +1339,16 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                 ref={viewportRef}
                 className="si-grid-viewport" 
                 onDragOver={(e) => e.preventDefault()}
+                onWheel={(e) => {
+                  if (e.ctrlKey) {
+                    e.preventDefault();
+                    if (e.deltaY < 0) {
+                      setGridZoom(prev => Math.min(150, prev + 5));
+                    } else {
+                      setGridZoom(prev => Math.max(60, prev - 5));
+                    }
+                  }
+                }}
               >
                 {/* Trilho frontal do Quadro e Mesa do Professor (Desliza somente na horizontal X) */}
                 <div className="si-front-board-container" ref={frontRailRef}>
@@ -1326,7 +1378,9 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                   style={{
                     position: 'relative',
                     gridTemplateRows: `repeat(${rows}, minmax(105px, 1fr))`,
-                    gridTemplateColumns: `repeat(${cols}, minmax(88px, 1fr))`
+                    gridTemplateColumns: `repeat(${cols}, minmax(88px, 1fr))`,
+                    zoom: `${gridZoom}%`,
+                    transition: 'zoom 0.15s ease-out'
                   }}
                 >
                   {renderGrid()}

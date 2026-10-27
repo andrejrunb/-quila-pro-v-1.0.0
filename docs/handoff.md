@@ -11,26 +11,26 @@ Documento vivo de continuidade operacional da dupla de desenvolvimento (Tech Lea
 - **Branch Ativa:** `fix/portals-stability-v2.1` (sincronizada localmente com `clean-release-v1`)
 - **Pull Request:** [PR #5](https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5)
 - **Últimos Commits:**
+  - `4a210dcb`: *feat(secretariat): enhance student registration with copyable credentials and enrich boletim manager with offline student catalog and AI analysis action*
   - `8b17fafe`: *feat(ui-portals): add back-navigation to ExamPaperFoundry and OmrScannerUI across Teacher and Coordination portals*
   - `7ae11e8d`: *feat(ui-portals): register 16 missing routes in RouteRegistry, harmonize portal back-navigation, and add procedural Web Audio sfx*
   - `fc5ea74d`: *test(pilot): ensure idempotent test isolation with dynamic task suffix*
-  - `7d88da79`: *feat(colab-eval): complete code model benchmark comparing Flint vs Qwen vs DeepSeek*
 
 ---
 
-## 🎨 Aprimoramentos de UI, Botões, Layouts e Gamificação Concluídos
+## 🎨 Aprimoramentos de UI, Espaços, Zoom e Gamificação Concluídos
 
 | Módulo / Portal | Componente | Aprimoramento Implementado | Status |
 | :--- | :--- | :--- | :---: |
+| **Zoom Global & Layout** | `PortalLayout.tsx` | Controles visuais de Zoom In/Out (`- | 100% | +`) no cabeçalho do portal, atalhos `Ctrl +`, `Ctrl -`, `Ctrl 0` e escalonamento instantâneo do viewport | ✅ Concluído |
+| **Mapa de Sala IA** | `SeatingIntelligence.tsx` | Reorganização dos botões em 3 clusters limpos (Visão & Zoom, Ferramentas, Sincronização), zoom dedicado de carteiras e suporte a `Ctrl + Wheel` | ✅ Concluído |
+| **Cockpit Docente** | `TeacherPortal.tsx` | Categorização das 17 ferramentas em pills de 28px (`Gestão`, `Aulas`, `BNCC`, `Todas`), reduzindo 3 linhas confusas para 1 linha limpa e liberando +100px para o conteúdo | ✅ Concluído |
+| **Cockpit Executivo** | `AdminPortal.css` | Matriz responsiva `auto-fit` dos 5 portais soberanos, eliminando espremimento horizontal e truncamento | ✅ Concluído |
 | **RouteRegistry (P0)** | `RouteRegistry.ts` | Cadastro canônico de 16 rotas antes faltantes (`mobile-parent-app`, `global-trends`, `knowledge-canvas`, `activity-factory`, `students`, `dashboard`, `network-traffic`, etc.) — 53 rotas 100% tipadas | ✅ Concluído |
 | **Portal Docente** | `TeacherPortal.tsx` | Inclusão de navegação `onBack={onBack}` em `YouTubePedagogicalFinder`, `BNCCProficiencyHeatmap`, `ExamPaperFoundry` e `OmrScannerUI`; vinculação direta de vídeos ao plano de aula | ✅ Concluído |
 | **Gerador de Provas A4** | `ExamPaperFoundry.tsx` | Prop `onBack?: () => void;` e botão estilizado `← Voltar` na barra de ações docentes | ✅ Concluído |
 | **Scanner OMR & TRI** | `OmrScannerUI.tsx` | Prop `onBack?: () => void;` e botão `← Voltar` na toolbar principal da central neural | ✅ Concluído |
-| **Mapa Curricular BNCC** | `BNCCProficiencyHeatmap.tsx` | Prop `onBack?: () => void;` e botão estilizado `← Voltar` na barra de ações superior | ✅ Concluído |
 | **Grade Horária Urânia+** | `TimetableBuilder.tsx` | Suporte a `onBack?: () => void;` e botão `← Voltar` para retorno ao painel da Coordenação | ✅ Concluído |
-| **Portal da Coordenação** | `CoordinationPortal.tsx` | Passagem de `onBack` para `TimetableBuilder`, `BNCCProficiencyHeatmap`, `SchoolGrowthAgentSuite`, `ExamPaperFoundry` e `OmrScannerUI` | ✅ Concluído |
-| **Agentes de Crescimento** | `SchoolGrowthAgentSuite.tsx` | Suporte a `onBack?: () => void;` e botão `← Voltar` integrado na barra de título | ✅ Concluído |
-| **Portal da Direção** | `AdminPortal.tsx` | Passagem de `onBack={onBack}` para `SchoolGrowthAgentSuite` | ✅ Concluído |
 | **Câmara de Cosméticos** | `StudentCosmeticsChamber.tsx` | Áudio procedural nativo via Web Audio API (chime de equip, fanfarra de unlock e buzz de alerta sem arquivos de áudio externos) + auto-dismiss de toast | ✅ Concluído |
 | **Secretaria: Matrícula** | `SecretariatRegistrationManager.tsx` | Fallback robusto para simulação offline, geração e botão "Copiar Credenciais" com feedback instantâneo | ✅ Concluído |
 | **Secretaria: Boletins** | `SecretariatBoletimManager.tsx` | Integração com acervo local `STUDENTS`, feedback para exportação em PDF e botão "Análise AI" com diagnóstico neuro-pedagógico ao vivo | ✅ Concluído |
