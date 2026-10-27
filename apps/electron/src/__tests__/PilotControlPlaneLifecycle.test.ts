@@ -17,8 +17,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 describe('Piloto Controlado de Governança Agêntica (P0/P1 Closed Loop)', () => {
-  const PILOT_TASK_ID = 'TASK-PILOT-ORPHAN-NAV-001';
-  const PILOT_IDEMPOTENCY_KEY = 'idempotent-hash-audit-orphan-route-navigation-2026';
+  const runSuffix = Date.now();
+  const PILOT_TASK_ID = `TASK-PILOT-ORPHAN-NAV-${runSuffix}`;
+  const PILOT_IDEMPOTENCY_KEY = `idempotent-hash-audit-orphan-route-navigation-${runSuffix}`;
 
   test('Fase 1: Detecção Determinística de Rotas Órfãs vs Catálogo Oficial', () => {
     // Simula conjunto de navegações disparadas por componentes na UI
