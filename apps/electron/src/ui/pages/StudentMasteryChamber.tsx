@@ -43,6 +43,7 @@ interface MasteryLevel {
 
 interface ScaffoldingTrack {
   question_id: string;
+  stage?: string;
   exam: string;
   year: number;
   decade_span?: string;
@@ -70,6 +71,7 @@ interface ScaffoldingTrack {
     trained_at: string;
   };
   mastery_progressive_levels?: MasteryLevel[];
+  rubricCriteria?: { criterion: string; weight: number; keyGuideline: string }[];
 }
 
 interface VestibularConceptRow {
@@ -111,6 +113,16 @@ interface StudentMasteryChamberProps {
   onBack?: () => void;
   initialMode?: 'simulador' | 'canvas' | 'arena' | 'matriz';
 }
+
+export const EDUCATION_STAGES = [
+  { id: 'ALL', label: 'Todas as Etapas', badge: 'K-12 & Med' },
+  { id: 'EF_ANOS_INICIAIS', label: 'Fundamental I', badge: '1º ao 5º Ano' },
+  { id: 'EF_ANOS_FINAIS', label: 'Fundamental II', badge: '6º ao 9º Ano' },
+  { id: 'ENSINO_MEDIO', label: 'Ensino Médio & ENEM', badge: '1ª a 3ª Série' },
+  { id: 'VESTIBULAR_MEDICINA', label: 'Medicina & 2ª Fase', badge: 'Alta Exigência' }
+] as const;
+
+export type EducationStageFilter = (typeof EDUCATION_STAGES)[number]['id'];
 
 const EXAM_BOARDS = ['TODAS', 'ENEM', 'UEG', 'UniRV', 'UFG', 'UFMG', 'UnB'] as const;
 type ExamBoard = (typeof EXAM_BOARDS)[number];
@@ -224,6 +236,7 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
       setActiveHubMode(initialMode);
     }
   }, [initialMode]);
+  const [selectedStage, setSelectedStage] = useState<EducationStageFilter>('ALL');
   const [selectedExam, setSelectedExam] = useState<ExamBoard>('TODAS');
   const [subject, setSubject] = useState<SubjectName>('Física');
   const [tracks, setTracks] = useState<ScaffoldingTrack[]>([]);
@@ -284,7 +297,7 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
 
   useEffect(() => {
     loadQuestionsAndConcepts();
-  }, [selectedExam, subject]);
+  }, [selectedExam, subject, selectedStage]);
 
   const loadGpuTelemetry = async () => {
     try {
@@ -332,10 +345,12 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
       console.warn('Usando acervo local de contingência');
     }
 
-    // Mapeia questões calibradas do Banco de Itens TRI Soberano
-    const matchingTriQuestions = TRI_ITEM_BANK.filter(
-      q => q.discipline.toLowerCase() === subject.toLowerCase() || (subject as string) === 'TODAS'
-    );
+    // Mapeia questões calibradas do Banco de Itens TRI Soberano considerando etapa e disciplina
+    const matchingTriQuestions = TRI_ITEM_BANK.filter(q => {
+      const matchSubj = (subject as string) === 'TODAS' || q.discipline.toLowerCase() === subject.toLowerCase();
+      const matchStage = selectedStage === 'ALL' || q.stage === selectedStage;
+      return matchSubj && matchStage;
+    });
     const sourceQuestions = matchingTriQuestions.length > 0 ? matchingTriQuestions : TRI_ITEM_BANK;
 
     const mappedTracks: ScaffoldingTrack[] = sourceQuestions.map(q => {
@@ -347,7 +362,8 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
 
       return {
         question_id: q.id,
-        exam: selectedExam === 'TODAS' ? 'ENEM' : selectedExam,
+        stage: q.stage,
+        exam: selectedExam === 'TODAS' ? (q.stage === 'VESTIBULAR_MEDICINA' ? 'FUVEST/UNICAMP' : 'ENEM') : selectedExam,
         year: 2024,
         decade_span: '1998-2025',
         subject: q.discipline,
@@ -357,6 +373,7 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
         original_question: q.text,
         alternatives: altsObj as any,
         correct_answer: q.correctAnswer,
+        rubricCriteria: q.rubricCriteria,
         diagnostic: {
           prerequisite_math: 'Operações e proporções fundamentais da BNCC',
           prerequisite_concept: q.skillDescription
@@ -677,8 +694,22 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
         </button>
       </div>
 
-      {/* Dual Filter Bar: Bancas + Disciplinas */}
+      {/* Triple Filter Bar: Etapa + Bancas + Disciplinas */}
       <div className="mastery-filters-bar">
+        <div className="education-stage-pills">
+          <span className="filter-bar-label">ETAPA / CICLO:</span>
+          {EDUCATION_STAGES.map(st => (
+            <button
+              key={st.id}
+              className={`stage-pill ${selectedStage === st.id ? 'active' : ''}`}
+              onClick={() => setSelectedStage(st.id)}
+            >
+              <span className="stage-pill-title">{st.label}</span>
+              <small className="stage-pill-badge">{st.badge}</small>
+            </button>
+          ))}
+        </div>
+
         <div className="exam-board-pills">
           <span className="filter-bar-label">BANCA:</span>
           {EXAM_BOARDS.map(b => {
@@ -1175,6 +1206,27 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
             )}
 
             <p className="question-statement">{currentTrack.original_question}</p>
+
+            {/* Espelho Oficial de Correção e Rubricas Analíticas (Medicina & 2ª Fase) */}
+            {currentTrack.rubricCriteria && currentTrack.rubricCriteria.length > 0 && (
+              <div className="rubric-criteria-drawer">
+                <div className="rubric-criteria-header">
+                  <Award size={15} />
+                  <span>Espelho Analítico da Banca & Rubricas de 2ª Fase</span>
+                </div>
+                <div className="rubric-criteria-list">
+                  {currentTrack.rubricCriteria.map((rc, idx) => (
+                    <div key={idx} className="rubric-criterion-card">
+                      <div className="rc-top">
+                        <span className="rc-title">{rc.criterion}</span>
+                        <span className="rc-weight">Peso {(rc.weight * 100).toFixed(0)}%</span>
+                      </div>
+                      <p className="rc-guideline">{rc.keyGuideline}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Dicas Socráticas Passo a Passo Áquila */}
             <div className="socratic-hint-bar">
