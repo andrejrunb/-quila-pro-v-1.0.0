@@ -1,7 +1,7 @@
 [
   {
     "taskId": "TASK-PILOT-001",
-    "idempotencyKey": "test_idempotency_1793096114944",
+    "idempotencyKey": "test_idempotency_1793117498743",
     "responsibleAgent": "Antigravity",
     "state": "READY_FOR_REVIEW",
     "title": "Piloto P1: Auditoria de Rotas Órfãs e Validação Estática",
@@ -19,18 +19,18 @@
         "type": "TYPECHECK",
         "status": "PASS",
         "details": "tsc --noEmit concluído com 0 erros.",
-        "timestamp": "2026-10-27T10:15:14.986Z"
+        "timestamp": "2026-10-27T16:11:38.775Z"
       },
       {
         "type": "JEST",
         "status": "PASS",
         "details": "70 testes unitários verdes.",
-        "timestamp": "2026-10-27T10:15:14.987Z"
+        "timestamp": "2026-10-27T16:11:38.776Z"
       }
     ],
     "requiresHumanApproval": true,
-    "createdAt": "2026-10-27T10:15:14.967Z",
-    "updatedAt": "2026-10-27T10:15:14.992Z",
+    "createdAt": "2026-10-27T16:11:38.766Z",
+    "updatedAt": "2026-10-27T16:11:38.781Z",
     "branchName": "fix/portals-stability-v2.1",
     "commitSha": "927b93ae",
     "pullRequestNumber": 5,

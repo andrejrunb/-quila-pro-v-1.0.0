@@ -67,14 +67,14 @@ export const CoordinationPortal: React.FC<CoordinationPortalProps> = ({ currentP
       case 'banco-provas':
         return (
           <div className="coord-portal-shell">
-            <ExamPaperFoundry onNavigate={onNavigate} />
+            <ExamPaperFoundry onNavigate={onNavigate} onBack={onBack} />
           </div>
         );
       case 'omr':
       case 'omr-scanner':
         return (
           <div className="coord-portal-shell">
-            <OmrScannerUI onNavigate={onNavigate} />
+            <OmrScannerUI onNavigate={onNavigate} onBack={onBack} />
           </div>
         );
       default:

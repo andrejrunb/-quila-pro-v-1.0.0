@@ -402,9 +402,10 @@ const MASTER_EXAM_ITEMS: ExamQuestionItem[] = [
 
 export interface ExamPaperFoundryProps {
   onNavigate?: (page: string) => void;
+  onBack?: () => void;
 }
 
-export const ExamPaperFoundry: React.FC<ExamPaperFoundryProps> = ({ onNavigate }) => {
+export const ExamPaperFoundry: React.FC<ExamPaperFoundryProps> = ({ onNavigate, onBack }) => {
   const [selectedBanca, setSelectedBanca] = useState<string>('all');
   const [selectedSubject, setSelectedSubject] = useState<string>('all');
   const [questionCount, setQuestionCount] = useState<number>(8);
@@ -536,6 +537,17 @@ export const ExamPaperFoundry: React.FC<ExamPaperFoundryProps> = ({ onNavigate }
           </div>
 
           <div className="epf-actions-bar">
+            {onBack && (
+              <button
+                type="button"
+                className="epf-btn-secondary"
+                onClick={onBack}
+                aria-label="Voltar para o portal"
+                style={{ marginRight: '8px' }}
+              >
+                <ArrowLeft size={14} /> Voltar
+              </button>
+            )}
             {/* View Mode Switcher */}
             <div className="epf-view-toggle">
               <button

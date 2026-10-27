@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
+  ArrowLeft,
   Camera,
   CheckCircle,
   XCircle,
@@ -55,9 +56,10 @@ interface FullOmrReport {
 
 export interface OmrScannerUIProps {
   onNavigate?: (page: string) => void;
+  onBack?: () => void;
 }
 
-export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate }) => {
+export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }) => {
   const [activeTab, setActiveTab] = useState<'SCANNER' | 'CRIAR_SIMULADO' | 'IMPRIMIR_GABARITO'>('SCANNER');
   
   // Lista de templates carregados
@@ -434,6 +436,17 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate }) => {
       {/* ── Sub-Header de Navegação das Abas ── */}
       <header className="omr-main-toolbar glass-card">
         <div className="toolbar-left">
+          {onBack && (
+            <button
+              type="button"
+              className="omr-tab-btn"
+              onClick={onBack}
+              style={{ marginRight: '12px', background: 'rgba(255, 255, 255, 0.08)' }}
+              aria-label="Voltar para a página anterior"
+            >
+              <ArrowLeft size={16} /> Voltar
+            </button>
+          )}
           <div className="omr-icon-badge">
             <Camera size={22} className="text-cyan-400" />
           </div>
