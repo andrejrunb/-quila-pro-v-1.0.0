@@ -1,0 +1,15 @@
+{
+  "dataset_name": "aquila_sft_v2.0_cleaned",
+  "original_file": "aquila_finetune_dataset.jsonl",
+  "total_records_before": 314,
+  "total_records_after": 107,
+  "duplicates_removed": 42,
+  "truncated_removed": 165,
+  "contaminated_removed": 0,
+  "sha256": "60f4fbe4ff6f6a9f145fd54da712cf477abdf1d0f73977377a2d0433ad7760a7",
+  "format": "openai_chat_messages",
+  "license": "Educational Sovereign (LGPD Art. 14 Synthetic/Public Domain)",
+  "eval_split_reserved": 0,
+  "timestamp": "2026-10-26T23:36:00-03:00",
+  "responsible_reviewer": "Antigravity & Tech Lead (HITL Approved)"
+}
