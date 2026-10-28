@@ -156,13 +156,19 @@ export const ActivityFactory: React.FC<ActivityFactoryProps> = ({ onBack }) => {
   const [pushedToGradebook, setPushedToGradebook] = useState(false);
 
   const CLASS_OPTIONS = [
-    { id: 'M-EM2A', label: '2º Ano A — Ensino Médio' },
+    { id: 'MED-EXT', label: 'Turma Medicina — Extensivo 2ª Fase' },
     { id: 'M-EM3A', label: '3º Ano A — Ensino Médio' },
+    { id: 'M-EM2A', label: '2º Ano A — Ensino Médio' },
     { id: 'M-EM1A', label: '1º Ano A — Ensino Médio' },
     { id: 'F-EF29A', label: '9º Ano A — Fundamental II' },
     { id: 'F-EF28A', label: '8º Ano A — Fundamental II' },
     { id: 'F-EF27A', label: '7º Ano A — Fundamental II' },
     { id: 'F-EF26A', label: '6º Ano A — Fundamental II' },
+    { id: 'F-EF15A', label: '5º Ano A — Fundamental I' },
+    { id: 'F-EF14A', label: '4º Ano A — Fundamental I' },
+    { id: 'F-EF13A', label: '3º Ano A — Fundamental I' },
+    { id: 'F-EF12A', label: '2º Ano A — Fundamental I' },
+    { id: 'F-EF11A', label: '1º Ano A — Fundamental I (Alfabetização)' },
   ];
 
   const items = useMemo(() => parseSource(source), [source]);

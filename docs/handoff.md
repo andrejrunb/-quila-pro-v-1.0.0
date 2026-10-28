@@ -11,6 +11,7 @@ Documento vivo de continuidade operacional da dupla de desenvolvimento (Tech Lea
 - **Branch Ativa:** `fix/portals-stability-v2.1` (sincronizada localmente com `clean-release-v1`)
 - **Pull Request:** [PR #5](https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5)
 - **Últimos Commits:**
+  - eat(ui-essay): *implement zoom controls in EssayLab1000, add FUVEST/Medicina and Fundamental II themes, and expand ActivityFactory with Fundamental I and Medicina classes*
   - ccb07743: *chore(swarm): sync cycle autofinetune_1793134811 dataset with 326 SFT pairs*
   - 54125d5d: *feat(ui-mastery): implement stage filter and 2nd phase discursive rubric drawer in StudentMasteryChamber*
   - eat(edtech-benchmark): *pesquisa profunda de benchmark edtech (59 plataformas), expansao de EducationStage para Fundamental I e Medicina no motor TRI e banco de itens calibrados com rubricas analiticas*

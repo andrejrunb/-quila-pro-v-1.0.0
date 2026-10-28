@@ -35,6 +35,45 @@ export interface EssayTheme {
 
 export const OFFICIAL_ENEM_THEMES: EssayTheme[] = [
   {
+    id: 'fuvest-medicina-2025',
+    year: 'FUVEST / MEDICINA 2025',
+    title: 'A fronteira ética na edição genética, clonagem e nos transplantes de órgãos na contemporaneidade',
+    area: 'Bioética, Medicina & Biotecnologia',
+    motivationalSummary: 'O aprimoramento da tecnologia CRISPR-Cas9 e a escassez de órgãos humanos tensionam a bioética global. O debate exige ponderação entre a cura de enfermidades hereditárias e o risco da eugenia e da mercantilização de tecidos biológicos.',
+    repertoireSuggestions: [
+      'Hans Jonas (O Princípio Responsabilidade)',
+      'Michael Sandel (Contra a Perfeição: Ética na Era da Engenharia Genética)',
+      'Juramento de Hipócrates e Declaração Universal sobre Bioética e Direitos Humanos (UNESCO)',
+      'Código de Ética Médica (CFM Brasil)'
+    ],
+    sampleModel1000: `Na obra "O Princípio Responsabilidade", o filósofo Hans Jonas adverte que o poderio tecnológico humano atingiu magnitude capaz de comprometer a própria essência da vida futura, exigindo uma ética de autocontenção. No cenário contemporâneo, a rápida evolução da edição genômica e das técnicas de xenotransplante confirma a premonição jonasiana, colocando a bioética no epicentro das decisões médicas. Nesse horizonte desafiador, é imperativo conciliar a busca por terapias avançadas com a preservação irrestrita da dignidade ontológica da humanidade.
+
+Em primeira análise, o domínio de ferramentas de recombinação genética como a CRISPR-Cas9 abre perspectivas promissoras para erradicar patologias monogênicas graves, como a anemia falciforme e a fibrose cística. Entretanto, a fronteira tênue entre a terapia curativa e o aprimoramento eugênico ameaça aprofundar desigualdades abissais. Conforme alerta o filósofo Michael Sandel em "Contra a Perfeição", a busca desmedida pela manipulação de traços fenotípicos desagrega o senso de solidariedade social, transformando a vida em mera mercadoria biológica acessível apenas às elites financeiras.
+
+Ademais, a crise de escassez de órgãos para transplantes no Brasil expõe dilemas distributivos prementes. A despeito de o Sistema Nacional de Transplantes (SNT) ser um dos maiores modelos públicos do mundo, a taxa de recusa familiar e a carência de equipes de captação em hospitais do interior perpetuam filas angustiantes. Sob a perspectiva do utilitarismo ético, a adoção de avanços biotecnológicos deve estar subordinada a protocolos clínicos transparentes que impeçam a precarização dos critérios de morte encefálica e o comércio ilícito de órgãos.
+
+Portanto, faz-se urgente a regulação prudente da prática biotecnológica. Cabe ao Conselho Nacional de Saúde, em sinergia com o Conselho Federal de Medicina e os comitês de bioética hospitalares, instituir diretrizes mandatórias para pesquisas em linhagens germinativas e protocolos de transplante. Tal medida deve ser detalhada por meio de consultas públicas interdisciplinares com juristas, médicos e a sociedade civil, de modo a salvaguardar o juramento hipocrático de não maleficência e assegurar que a ciência permaneça a serviço da vida, e não da segregação humana.`
+  },
+  {
+    id: 'fund2-cidadania-telas',
+    year: 'FUNDAMENTAL II / ANOS FINAIS',
+    title: 'O impacto das telas e das redes sociais na convivência escolar e na infância',
+    area: 'Cidadania Digital, Convivência Escolar & Psicologia',
+    motivationalSummary: 'O tempo excessivo em smartphones durante a infância e adolescência afeta o sono, a atenção nas aulas e as relações presenciais, exigindo equilíbrio entre tecnologia e bem-estar.',
+    repertoireSuggestions: [
+      'ECA - Estatuto da Criança e do Adolescente (Lei nº 8.069/1990)',
+      'Sociedade Brasileira de Pediatria (Manual de Saúde Digital)',
+      'Marco Civil da Internet (Lei nº 12.965/2014)'
+    ],
+    sampleModel1000: `O Estatuto da Criança e do Adolescente preconiza o direito ao desenvolvimento integral, ao brincar e à convivência comunitária como prioridades absolutas. No entanto, o uso desenfreado de smartphones e redes sociais por crianças e adolescentes impõe desafios inéditos à saúde física e emocional dos estudantes. Torna-se indispensável, assim, refletir sobre a perda do convívio afetivo real e a necessidade de uma educação mediática consciente.
+
+Em primeiro lugar, o tempo excessivo diante de dispositivos eletrônicos compromete a capacidade de concentração e estimula o isolamento social. Segundo a Sociedade Brasileira de Pediatria, a exposição desregulada a telas reduz as horas de sono e afeta o rendimento pedagógico, gerando ansiedade e dependência de estímulos visuais instantâneos. Nas escolas, a substituição do diálogo e das brincadeiras coletivas por telas individuais enfraquece o sentimento de pertença e a empatia entre os colegas.
+
+Outrossim, a ausência de mediação parental no acesso a algoritmos predatórios expõe os jovens a conteúdos inadequados e ao cyberbullying. Sem orientação crítica, o ambiente digital deixa de ser um instrumento educativo para se transformar em espaço de comparação social destrutiva e baixa autoestima.
+
+Infere-se, portanto, a necessidade de equilíbrio e orientação. Cabe às escolas, em parceria com as famílias e especialistas em pedagogia, promover campanhas de conscientização digital e espaços livres de celular durante o recreio. Essa ação deve ser complementada por oficinas de letramento digital e esportes ao ar livre, a fim de resgatar o valor do encontro presencial e proteger o pleno desenvolvimento da infância.`
+  },
+  {
     id: 'enem-2023',
     year: 'ENEM 2023',
     title: 'Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil',
@@ -137,6 +176,7 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
   const [isAuditing, setIsAuditing] = useState(false);
   const [hasAudited, setHasAudited] = useState(false);
   const [xpToast, setXpToast] = useState<{ amount: number; message: string } | null>(null);
+  const [zoomPercent, setZoomPercent] = useState<number>(100);
 
   // Carrega rascunho anterior salvo localmente
   useEffect(() => {
@@ -495,6 +535,32 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
             </div>
 
             <div className="editor-actions">
+              <div className="editor-zoom-cluster" title="Zoom da Folha de Redação">
+                <button
+                  type="button"
+                  className="zoom-btn"
+                  onClick={() => setZoomPercent(z => Math.max(70, z - 10))}
+                  title="Diminuir Zoom (70% mín)"
+                >
+                  -
+                </button>
+                <span
+                  className="zoom-label"
+                  onClick={() => setZoomPercent(100)}
+                  title="Clique para redefinir para 100%"
+                >
+                  {zoomPercent}%
+                </span>
+                <button
+                  type="button"
+                  className="zoom-btn"
+                  onClick={() => setZoomPercent(z => Math.min(140, z + 10))}
+                  title="Aumentar Zoom (140% máx)"
+                >
+                  +
+                </button>
+              </div>
+
               <button className="editor-action-btn" onClick={handleClear} title="Limpar folha">
                 <RotateCcw size={13} />
                 <span>Limpar</span>
@@ -510,7 +576,7 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
             </div>
           </div>
 
-          <div className="textarea-wrapper">
+          <div className="textarea-wrapper" style={{ zoom: `${zoomPercent}%` }}>
             <div className="line-numbers-col">
               {Array.from({ length: 30 }, (_, i) => (
                 <span key={i} className={`line-num ${i + 1 <= analysis.estimatedLines ? 'active' : ''}`}>

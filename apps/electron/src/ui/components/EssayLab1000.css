@@ -655,3 +655,51 @@
     line-height: 28px !important;
   }
 }
+
+/* Zoom Cluster & Controles de Visualização */
+.editor-zoom-cluster {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 2px 5px;
+  margin-right: 6px;
+}
+
+.zoom-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 13px;
+  font-weight: 700;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #00F0FF;
+}
+
+.zoom-label {
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+  color: #38BDF8;
+  padding: 0 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.zoom-label:hover {
+  color: #00F0FF;
+  text-decoration: underline;
+}
