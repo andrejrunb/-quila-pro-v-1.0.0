@@ -472,6 +472,115 @@ export const TRI_ITEM_BANK: TriQuestion[] = [
     correctAnswer: 'C',
     socraticExplanation: 'Energia potencial no topo: E = m * g * h = 2 * 10 * 5 = 100 J. Trabalho do atrito na base: W_fat = F_fat * d = (μ * m * g) * d = (0,25 * 2 * 10) * d = 5 * d. Pelo teorema da energia mecânica: 100 = 5 * d => d = 20 metros.'
   },
+  // ==========================================
+  // FÍSICA — ENSINO MÉDIO / ENEM / PLURALL (MÓDULOS 5, 8, 22, 26, 33)
+  // ==========================================
+  {
+    id: 'TRI-FIS-01',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT205',
+    skillDescription: 'Análise analítica e geométrica da formação de imagens em espelhos esféricos côncavos e convexos.',
+    difficulty: 'medio',
+    paramA: 1.55,
+    paramB: 0.30,
+    paramC: 0.20,
+    text: 'Um objeto linear de 10 cm de altura é posicionado perpendicularmente ao eixo principal de um espelho esférico côncavo de raio de curvatura igual a 40 cm, a uma distância de 30 cm do vértice do espelho. A distância da imagem formada em relação ao vértice e a sua natureza são, respectivamente:',
+    options: [
+      { letter: 'A', text: '60 cm; real e invertida.' },
+      { letter: 'B', text: '60 cm; virtual e direita.' },
+      { letter: 'C', text: '30 cm; real e direita.' },
+      { letter: 'D', text: '15 cm; virtual e invertida.' },
+      { letter: 'E', text: '20 cm; real e invertida.' }
+    ],
+    correctAnswer: 'A',
+    socraticExplanation: 'O foco do espelho côncavo é f = R/2 = 40/2 = +20 cm. Pela equação de Gauss 1/f = 1/p + 1/p\': 1/20 = 1/30 + 1/p\' => 1/p\' = 1/20 - 1/30 = 1/60 => p\' = +60 cm. Como p\' > 0, a imagem é real e invertida.'
+  },
+  {
+    id: 'TRI-FIS-02',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT301',
+    skillDescription: 'Cinemática rotacional e transmissão de movimento circular por correias, correntes e engrenagens.',
+    difficulty: 'facil',
+    paramA: 1.35,
+    paramB: -0.60,
+    paramC: 0.20,
+    text: 'Em uma bicicleta esportiva, a coroa dianteira pedalada pelo ciclista tem 48 dentes e está conectada por corrente a uma catraca traseira de 16 dentes, acoplada rigidamente à roda traseira. Se o ciclista pedala a uma frequência constante de 1,5 voltas por segundo (90 rpm), qual é a frequência de rotação da roda traseira?',
+    options: [
+      { letter: 'A', text: '0,5 voltas por segundo (30 rpm)' },
+      { letter: 'B', text: '1,5 voltas por segundo (90 rpm)' },
+      { letter: 'C', text: '3,0 voltas por segundo (180 rpm)' },
+      { letter: 'D', text: '4,5 voltas por segundo (270 rpm)' },
+      { letter: 'E', text: '6,0 voltas por segundo (360 rpm)' }
+    ],
+    correctAnswer: 'D',
+    socraticExplanation: 'Na transmissão por corrente/correia periférica, as velocidades lineares são iguais: v_coroa = v_catraca => f_coroa * N_coroa = f_catraca * N_catraca. Logo: 1,5 * 48 = f_catraca * 16 => f_catraca = 72 / 16 = 4,5 voltas/s.'
+  },
+  {
+    id: 'TRI-FIS-03',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT102',
+    skillDescription: 'Termodinâmica clássica, 2ª Lei e rendimento teórico máximo de Carnot.',
+    difficulty: 'medio',
+    paramA: 1.65,
+    paramB: 0.45,
+    paramC: 0.20,
+    text: 'Uma máquina térmica opera em ciclos segundo o ciclo ideal de Carnot entre duas fontes térmicas: uma fonte quente a 527 °C e uma fonte fria a 127 °C. Se em cada ciclo a máquina recebe 2.000 J de calor da fonte quente, qual é o trabalho mecânico máximo útil que ela pode realizar por ciclo?',
+    options: [
+      { letter: 'A', text: '500 J' },
+      { letter: 'B', text: '800 J' },
+      { letter: 'C', text: '1.000 J' },
+      { letter: 'D', text: '1.200 J' },
+      { letter: 'E', text: '1.500 J' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'As temperaturas devem estar em Kelvin: T_quente = 527 + 273 = 800 K; T_fria = 127 + 273 = 400 K. O rendimento de Carnot é η = 1 - (T_fria / T_quente) = 1 - (400 / 800) = 0,50 (50%). O trabalho útil máximo é W = η * Q_quente = 0,50 * 2.000 J = 1.000 J.'
+  },
+  {
+    id: 'TRI-FIS-04',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT101',
+    skillDescription: 'Princípio de Arquimedes, empuxo e condições de equilíbrio e flutuação em hidrostática.',
+    difficulty: 'medio',
+    paramA: 1.50,
+    paramB: 0.15,
+    paramC: 0.20,
+    text: 'Um cubo de madeira de densidade 0,6 g/cm³ e volume igual a 1.000 cm³ é colocado para flutuar em repouso em um recipiente com água pura (densidade = 1,0 g/cm³). Adotando g = 10 m/s², qual é a fração do volume do cubo que permanece SUBMERSA na água?',
+    options: [
+      { letter: 'A', text: '30%' },
+      { letter: 'B', text: '40%' },
+      { letter: 'C', text: '60%' },
+      { letter: 'D', text: '70%' },
+      { letter: 'E', text: '80%' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'Na flutuação estática em equilíbrio, o Peso equivale ao Empuxo: P = E => d_corpo * V_total * g = d_liquido * V_sub * g => V_sub / V_total = d_corpo / d_liquido = 0,6 / 1,0 = 0,60 (60% do cubo fica submerso).'
+  },
+  {
+    id: 'TRI-FIS-05',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT103',
+    skillDescription: 'Fenômenos ondulatórios, propagação acústica e cálculo do desvio de frequência pelo Efeito Doppler.',
+    difficulty: 'dificil',
+    paramA: 1.85,
+    paramB: 1.40,
+    paramC: 0.20,
+    text: 'Uma ambulância move-se em linha reta a uma velocidade constante de 34 m/s aproximando-se de um observador parado no acostamento. A sirene da ambulância emite um som puro com frequência natural de 900 Hz. Sabendo que a velocidade de propagação do som no ar é de 340 m/s, qual frequência aparente é percebida pelo observador?',
+    options: [
+      { letter: 'A', text: '810 Hz' },
+      { letter: 'B', text: '900 Hz' },
+      { letter: 'C', text: '950 Hz' },
+      { letter: 'D', text: '1.000 Hz' },
+      { letter: 'E', text: '1.080 Hz' }
+    ],
+    correctAnswer: 'D',
+    socraticExplanation: 'Pela equação do Efeito Doppler clássico para aproximação da fonte em relação a observador em repouso: f_aparente = f_real * [v_som / (v_som - v_fonte)] = 900 * [340 / (340 - 34)] = 900 * (340 / 306) = 900 * (10 / 9) = 1.000 Hz.'
+  },
+
 
   // ==========================================
   // LINGUAGENS E SUAS TECNOLOGIAS
