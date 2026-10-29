@@ -1,7 +1,7 @@
 [
   {
     "taskId": "TASK-PILOT-001",
-    "idempotencyKey": "test_idempotency_1793238286188",
+    "idempotencyKey": "test_idempotency_1793272439462",
     "responsibleAgent": "Antigravity",
     "state": "READY_FOR_REVIEW",
     "title": "Piloto P1: Auditoria de Rotas Órfãs e Validação Estática",
@@ -19,18 +19,18 @@
         "type": "TYPECHECK",
         "status": "PASS",
         "details": "tsc --noEmit concluído com 0 erros.",
-        "timestamp": "2026-10-29T01:44:46.199Z"
+        "timestamp": "2026-10-29T11:13:59.504Z"
       },
       {
         "type": "JEST",
         "status": "PASS",
         "details": "70 testes unitários verdes.",
-        "timestamp": "2026-10-29T01:44:46.200Z"
+        "timestamp": "2026-10-29T11:13:59.506Z"
       }
     ],
     "requiresHumanApproval": true,
-    "createdAt": "2026-10-29T01:44:46.197Z",
-    "updatedAt": "2026-10-29T01:44:46.204Z",
+    "createdAt": "2026-10-29T11:13:59.499Z",
+    "updatedAt": "2026-10-29T11:13:59.516Z",
     "branchName": "fix/portals-stability-v2.1",
     "commitSha": "927b93ae",
     "pullRequestNumber": 5,
@@ -233,6 +233,141 @@
     "requiresHumanApproval": true,
     "createdAt": "2026-10-29T01:44:46.047Z",
     "updatedAt": "2026-10-29T01:44:46.054Z",
+    "branchName": "fix/portals-stability-v2.1",
+    "commitSha": "c9d06a15",
+    "pullRequestNumber": 5,
+    "pullRequestUrl": "https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5"
+  },
+  {
+    "taskId": "TASK-PILOT-ORPHAN-NAV-1793272039189",
+    "idempotencyKey": "idempotent-hash-audit-orphan-route-navigation-1793272039189",
+    "responsibleAgent": "Antigravity-Pilot-Worker",
+    "state": "READY_FOR_REVIEW",
+    "title": "Piloto: Tratamento Automatizado de Rota Órfã na Interface",
+    "description": "Detecção de rota não cadastrada, remediação assistida e validação de CI.",
+    "acceptanceCriteria": [
+      "Identificar componente com rota órfã via AST Indexer",
+      "Mapear no RouteRegistry ou redirecionar para ErrorBoundary",
+      "Evidência de Typecheck e Jest 100% verde",
+      "Revisão humana obrigatória registrada antes do merge"
+    ],
+    "maxRetries": 3,
+    "currentRetries": 0,
+    "environment": "DEVELOPMENT",
+    "evidences": [
+      {
+        "type": "TYPECHECK",
+        "status": "PASS",
+        "details": "TypeScript tsc --noEmit concluído com 0 erros no projeto inteiro.",
+        "timestamp": "2026-10-29T11:07:19.226Z"
+      },
+      {
+        "type": "JEST",
+        "status": "PASS",
+        "details": "Testes de RouteRegistry e ControlPlane 100% aprovados.",
+        "timestamp": "2026-10-29T11:07:19.244Z"
+      }
+    ],
+    "requiresHumanApproval": true,
+    "createdAt": "2026-10-29T11:07:19.198Z",
+    "updatedAt": "2026-10-29T11:07:19.262Z",
+    "branchName": "fix/portals-stability-v2.1",
+    "commitSha": "c9d06a15",
+    "pullRequestNumber": 5,
+    "pullRequestUrl": "https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5"
+  },
+  {
+    "taskId": "TASK-PILOT-ORPHAN-NAV-1793272249276",
+    "idempotencyKey": "idempotent-hash-audit-orphan-route-navigation-1793272249276",
+    "responsibleAgent": "Antigravity-Pilot-Worker",
+    "state": "AUTHORIZED",
+    "title": "Piloto: Tratamento Automatizado de Rota Órfã na Interface",
+    "description": "Detecção de rota não cadastrada, remediação assistida e validação de CI.",
+    "acceptanceCriteria": [
+      "Identificar componente com rota órfã via AST Indexer",
+      "Mapear no RouteRegistry ou redirecionar para ErrorBoundary",
+      "Evidência de Typecheck e Jest 100% verde",
+      "Revisão humana obrigatória registrada antes do merge"
+    ],
+    "maxRetries": 3,
+    "currentRetries": 0,
+    "environment": "DEVELOPMENT",
+    "evidences": [],
+    "requiresHumanApproval": true,
+    "createdAt": "2026-10-29T11:10:49.284Z",
+    "updatedAt": "2026-10-29T11:10:49.284Z"
+  },
+  {
+    "taskId": "TASK-PILOT-ORPHAN-NAV-1793272439382",
+    "idempotencyKey": "idempotent-hash-audit-orphan-route-navigation-1793272439382",
+    "responsibleAgent": "Antigravity-Pilot-Worker",
+    "state": "READY_FOR_REVIEW",
+    "title": "Piloto: Tratamento Automatizado de Rota Órfã na Interface",
+    "description": "Detecção de rota não cadastrada, remediação assistida e validação de CI.",
+    "acceptanceCriteria": [
+      "Identificar componente com rota órfã via AST Indexer",
+      "Mapear no RouteRegistry ou redirecionar para ErrorBoundary",
+      "Evidência de Typecheck e Jest 100% verde",
+      "Revisão humana obrigatória registrada antes do merge"
+    ],
+    "maxRetries": 3,
+    "currentRetries": 0,
+    "environment": "DEVELOPMENT",
+    "evidences": [
+      {
+        "type": "TYPECHECK",
+        "status": "PASS",
+        "details": "TypeScript tsc --noEmit concluído com 0 erros no projeto inteiro.",
+        "timestamp": "2026-10-29T11:13:59.403Z"
+      },
+      {
+        "type": "JEST",
+        "status": "PASS",
+        "details": "Testes de RouteRegistry e ControlPlane 100% aprovados.",
+        "timestamp": "2026-10-29T11:13:59.405Z"
+      }
+    ],
+    "requiresHumanApproval": true,
+    "createdAt": "2026-10-29T11:13:59.392Z",
+    "updatedAt": "2026-10-29T11:13:59.406Z",
+    "branchName": "fix/portals-stability-v2.1",
+    "commitSha": "c9d06a15",
+    "pullRequestNumber": 5,
+    "pullRequestUrl": "https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5"
+  },
+  {
+    "taskId": "TASK-PILOT-ORPHAN-NAV-1793277762032",
+    "idempotencyKey": "idempotent-hash-audit-orphan-route-navigation-1793277762032",
+    "responsibleAgent": "Antigravity-Pilot-Worker",
+    "state": "READY_FOR_REVIEW",
+    "title": "Piloto: Tratamento Automatizado de Rota Órfã na Interface",
+    "description": "Detecção de rota não cadastrada, remediação assistida e validação de CI.",
+    "acceptanceCriteria": [
+      "Identificar componente com rota órfã via AST Indexer",
+      "Mapear no RouteRegistry ou redirecionar para ErrorBoundary",
+      "Evidência de Typecheck e Jest 100% verde",
+      "Revisão humana obrigatória registrada antes do merge"
+    ],
+    "maxRetries": 3,
+    "currentRetries": 0,
+    "environment": "DEVELOPMENT",
+    "evidences": [
+      {
+        "type": "TYPECHECK",
+        "status": "PASS",
+        "details": "TypeScript tsc --noEmit concluído com 0 erros no projeto inteiro.",
+        "timestamp": "2026-10-29T12:42:42.067Z"
+      },
+      {
+        "type": "JEST",
+        "status": "PASS",
+        "details": "Testes de RouteRegistry e ControlPlane 100% aprovados.",
+        "timestamp": "2026-10-29T12:42:42.069Z"
+      }
+    ],
+    "requiresHumanApproval": true,
+    "createdAt": "2026-10-29T12:42:42.040Z",
+    "updatedAt": "2026-10-29T12:42:42.071Z",
     "branchName": "fix/portals-stability-v2.1",
     "commitSha": "c9d06a15",
     "pullRequestNumber": 5,

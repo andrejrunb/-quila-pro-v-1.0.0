@@ -1,14 +1,14 @@
 {
-  "cycle_id": "autofinetune_1793236339",
-  "timestamp": "2026-10-29T01:12:28.343253+00:00",
-  "duration_ms": 8936.52,
+  "cycle_id": "autofinetune_1793281915",
+  "timestamp": "2026-10-29T13:52:17.979288+00:00",
+  "duration_ms": 22679.61,
   "radars_scanned": 15,
   "new_links_discovered": 0,
   "new_pdfs_downloaded": 0,
   "new_sft_pairs_generated": 1,
-  "total_sft_dataset_size": 328,
+  "total_sft_dataset_size": 335,
   "total_catalog_links": 2324,
-  "swarm_gpu_status": "LOCAL_FALLBACK (Todos os modelos Gemini falharam: gemini-flash-latest: HTTP Error 403: Forbidden)",
-  "colab_sync_status": "STANDBY_LOCAL_QUEUE_READY",
+  "swarm_gpu_status": "ONLINE (nvidia/nemotron-3.5-lightning-30b-a3b - 17389 ms)",
+  "colab_sync_status": "COLAB_OFFLINE_BUNDLED_LOCALLY",
   "sample_new_links": []
 }
