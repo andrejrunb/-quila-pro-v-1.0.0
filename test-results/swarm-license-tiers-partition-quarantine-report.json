@@ -1,23 +1,23 @@
 {
-  "timestamp": "2026-10-26T02:53:56.546950+00:00",
+  "timestamp": "2026-10-29T02:31:45.052561+00:00",
   "legal_basis": "Lei nº 9.610/98 (Art. 29) — Autorização prévia e expressa do autor/editora para reprodução e IA",
   "quarantined_records": {
-    "extracted_textbook_questions": 948,
+    "extracted_textbook_questions": 0,
     "downloaded_pdf_corpus_textbooks": 14,
     "research_visual_assets_scipione": 7,
     "checklist_items_updated": 14,
-    "jsonl_sft_quarantined": 91,
-    "total_quarantined_items": 1074
+    "jsonl_sft_quarantined": 96,
+    "total_quarantined_items": 131
   },
   "released_tier1_records": {
     "alvorada_bench_vestibulares": 4484,
-    "official_study_repository_links": 2103,
+    "official_study_repository_links": 2324,
     "official_open_pdfs": 32,
-    "research_visual_assets_tier1": 139,
-    "jsonl_sft_tier1_clean": 627,
-    "total_tier1_training_items": 7385
+    "research_visual_assets_tier1": 232,
+    "jsonl_sft_tier1_clean": 331,
+    "total_tier1_training_items": 7403
   },
   "database_status": "SYNCHRONIZED",
   "colab_notebook_updated": true,
-  "elapsed_seconds": 0.71
+  "elapsed_seconds": 0.43
 }

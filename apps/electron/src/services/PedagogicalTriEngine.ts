@@ -1053,10 +1053,10 @@ export class PedagogicalTriEngine {
 
     descriptorDiagnostics.forEach(d => {
       if (d.masteryLevel === 'avancado' || d.masteryLevel === 'proficiente') {
-        glows.push(`Domínio consolidado no descritor ${d.descriptorId}: ${d.description} (Taxa de acerto: ${d.accuracyPercentage}%).`);
+        glows.push(`Domínio consolidado no descritor ${d.descriptorCode}: ${d.description} (Taxa de acerto: ${d.accuracyPct}%).`);
       } else {
-        grows.push(`Oportunidade de aprofundamento em ${d.descriptorId}: ${d.description} (Taxa de acerto: ${d.accuracyPercentage}%).`);
-        nextSteps.push(`Revisar os conceitos centrais e exercícios resolvidos vinculados a ${d.descriptorId}.`);
+        grows.push(`Oportunidade de aprofundamento em ${d.descriptorCode}: ${d.description} (Taxa de acerto: ${d.accuracyPct}%).`);
+        nextSteps.push(`Revisar os conceitos centrais e exercícios resolvidos vinculados a ${d.descriptorCode}.`);
       }
     });
 

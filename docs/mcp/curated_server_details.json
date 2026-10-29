@@ -1,0 +1,369 @@
+[
+  {
+    "name": "GitHub",
+    "slug": "github",
+    "tagline": "Full GitHub API access: repos, PRs, issues, and code search.",
+    "installCommand": null,
+    "requiredEnv": [
+      "GITHUB_PERSONAL_ACCESS_TOKEN"
+    ],
+    "githubUrl": "https://github.com/github/github-mcp-server",
+    "transports": [
+      "stdio",
+      "streamable-http"
+    ],
+    "complexity": "Low",
+    "pricing": "free",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "Any MCP-compatible client"
+    ]
+  },
+  {
+    "name": "Postgres MCP Pro",
+    "slug": "postgres-mcp-pro",
+    "tagline": "Production-grade Postgres MCP with index advice, EXPLAIN, and health checks.",
+    "installCommand": "uvx postgres-mcp",
+    "requiredEnv": [
+      "DATABASE_URI"
+    ],
+    "githubUrl": "https://github.com/crystaldba/postgres-mcp",
+    "transports": [
+      "stdio"
+    ],
+    "complexity": "Medium",
+    "pricing": "open-source",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "VS Code",
+      "Windsurf",
+      "Any MCP-compatible client",
+      "PostgreSQL 12+"
+    ]
+  },
+  {
+    "name": "Brave Search",
+    "slug": "brave-search",
+    "tagline": "Real-time web search with privacy-focused results.",
+    "installCommand": "npx -y @brave/brave-search-mcp-server",
+    "requiredEnv": [
+      "BRAVE_API_KEY"
+    ],
+    "githubUrl": "https://github.com/brave/brave-search-mcp-server",
+    "transports": [
+      "stdio",
+      "streamable-http"
+    ],
+    "complexity": "Low",
+    "pricing": "freemium",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "Any MCP-compatible client"
+    ]
+  },
+  {
+    "name": "Tavily",
+    "slug": "tavily",
+    "tagline": "AI-optimized web search with cleaned, citation-ready results.",
+    "installCommand": "npx -y tavily-mcp",
+    "requiredEnv": [
+      "TAVILY_API_KEY"
+    ],
+    "githubUrl": "https://github.com/tavily-ai/tavily-mcp",
+    "transports": [
+      "stdio",
+      "streamable-http"
+    ],
+    "complexity": "Low",
+    "pricing": "freemium",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "VS Code",
+      "Windsurf",
+      "ChatGPT",
+      "Any MCP-compatible client"
+    ]
+  },
+  {
+    "name": "Sequential Thinking",
+    "slug": "sequential-thinking",
+    "tagline": "Structured step-by-step reasoning for complex problem solving.",
+    "installCommand": "npx -y @modelcontextprotocol/server-sequential-thinking",
+    "requiredEnv": [],
+    "githubUrl": "https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking",
+    "transports": [
+      "stdio"
+    ],
+    "complexity": "Low",
+    "pricing": "open-source",
+    "compatibleWith": [
+      "Claude",
+      "Any MCP-compatible client"
+    ]
+  },
+  {
+    "name": "Context7",
+    "slug": "context7",
+    "tagline": "Up-to-date library docs pulled directly into your AI context.",
+    "installCommand": "npx -y @upstash/context7-mcp",
+    "requiredEnv": [],
+    "githubUrl": "https://github.com/upstash/context7",
+    "transports": [
+      "stdio",
+      "streamable-http"
+    ],
+    "complexity": "Low",
+    "pricing": "free",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "Zed",
+      "Any MCP-compatible client"
+    ]
+  },
+  {
+    "name": "Supabase",
+    "slug": "supabase",
+    "tagline": "Full Supabase access: database, auth, storage, and edge functions.",
+    "installCommand": "npx @supabase/mcp-server-supabase@latest",
+    "requiredEnv": [
+      "SUPABASE_ACCESS_TOKEN"
+    ],
+    "githubUrl": "https://github.com/supabase/mcp",
+    "transports": [
+      "stdio",
+      "streamable-http"
+    ],
+    "complexity": "Low",
+    "pricing": "free",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "Any MCP-compatible client",
+      "Supabase projects"
+    ]
+  },
+  {
+    "name": "Sentry",
+    "slug": "sentry",
+    "tagline": "Triage errors, inspect traces, and query events from Sentry.",
+    "installCommand": "npx -y @sentry/mcp-server",
+    "requiredEnv": [
+      "SENTRY_AUTH_TOKEN",
+      "SENTRY_ORG"
+    ],
+    "githubUrl": "https://github.com/getsentry/sentry-mcp",
+    "transports": [
+      "stdio",
+      "streamable-http"
+    ],
+    "complexity": "Low",
+    "pricing": "freemium",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "Any MCP-compatible client",
+      "Sentry accounts"
+    ]
+  },
+  {
+    "name": "Hugging Face",
+    "slug": "huggingface",
+    "tagline": "Search, inspect, and run Hugging Face models and datasets from an agent.",
+    "installCommand": "npx -y @llmindset/mcp-hfspace",
+    "requiredEnv": [
+      "HF_TOKEN"
+    ],
+    "githubUrl": "https://github.com/evalstate/mcp-hfspace",
+    "transports": [
+      "stdio"
+    ],
+    "complexity": "Low",
+    "pricing": "freemium",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "Any MCP-compatible client"
+    ]
+  },
+  {
+    "name": "Linear MCP Server",
+    "slug": "linear-mcp-server",
+    "tagline": "Linear MCP Server — official ChatGPT Apps directory listing, verified for 2026.",
+    "installCommand": null,
+    "requiredEnv": [],
+    "githubUrl": null,
+    "transports": [
+      "streamable-http"
+    ],
+    "complexity": "Low",
+    "pricing": "free",
+    "compatibleWith": [
+      "ChatGPT"
+    ]
+  },
+  {
+    "name": "Playwright",
+    "slug": "playwright",
+    "tagline": "Official Microsoft browser automation across Chromium, Firefox, and WebKit.",
+    "installCommand": "npx -y @playwright/mcp@latest",
+    "requiredEnv": [],
+    "githubUrl": "https://github.com/microsoft/playwright-mcp",
+    "transports": [
+      "stdio"
+    ],
+    "complexity": "Medium",
+    "pricing": "open-source",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "VS Code",
+      "Any MCP-compatible client"
+    ]
+  },
+  {
+    "name": "Qdrant",
+    "slug": "qdrant",
+    "tagline": "Open-source vector search with payload filtering, self-hostable or managed.",
+    "installCommand": "uvx mcp-server-qdrant",
+    "requiredEnv": [
+      "QDRANT_URL",
+      "QDRANT_API_KEY"
+    ],
+    "githubUrl": "https://github.com/qdrant/mcp-server-qdrant",
+    "transports": [
+      "stdio"
+    ],
+    "complexity": "Medium",
+    "pricing": "freemium",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "Any MCP-compatible client"
+    ]
+  },
+  {
+    "name": "Basic Memory",
+    "slug": "basic-memory",
+    "tagline": "Local-first agent memory as plain Markdown — a semantic knowledge graph you and the agent can both read.",
+    "installCommand": "uvx basic-memory mcp",
+    "requiredEnv": [
+      "BASIC_MEMORY_PROJECT"
+    ],
+    "githubUrl": "https://github.com/basicmachines-co/basic-memory",
+    "transports": [
+      "stdio"
+    ],
+    "complexity": "Low",
+    "pricing": "open-source",
+    "compatibleWith": [
+      "Claude",
+      "Claude Desktop",
+      "Cursor",
+      "VS Code",
+      "Obsidian",
+      "Any MCP-compatible client"
+    ]
+  },
+  {
+    "name": "Firecrawl",
+    "slug": "firecrawl",
+    "tagline": "Scrape, crawl, extract structured data, and search the web from an AI agent.",
+    "installCommand": "npx -y firecrawl-mcp",
+    "requiredEnv": [
+      "FIRECRAWL_API_KEY",
+      "FIRECRAWL_API_URL"
+    ],
+    "githubUrl": "https://github.com/firecrawl/firecrawl-mcp-server",
+    "transports": [
+      "stdio",
+      "streamable-http",
+      "sse"
+    ],
+    "complexity": "Low",
+    "pricing": "freemium",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "Any MCP-compatible client",
+      "Firecrawl accounts"
+    ]
+  },
+  {
+    "name": "Redis",
+    "slug": "redis",
+    "tagline": "Inspect keys, run commands, and debug Redis from an AI agent.",
+    "installCommand": "uvx --from \"git+https://github.com/redis/mcp-redis\" redis-mcp",
+    "requiredEnv": [
+      "REDIS_URL"
+    ],
+    "githubUrl": "https://github.com/redis/mcp-redis",
+    "transports": [
+      "stdio"
+    ],
+    "complexity": "Low",
+    "pricing": "open-source",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "VS Code",
+      "Windsurf",
+      "Any MCP-compatible client",
+      "Redis 6+",
+      "Redis Stack",
+      "Valkey"
+    ]
+  },
+  {
+    "name": "Chroma",
+    "slug": "chroma",
+    "tagline": "Embedded and hosted vector database for AI agents — open source, zero-ops.",
+    "installCommand": "uvx chroma-mcp",
+    "requiredEnv": [
+      "CHROMA_PATH",
+      "CHROMA_HOST",
+      "CHROMA_API_KEY"
+    ],
+    "githubUrl": "https://github.com/chroma-core/chroma-mcp",
+    "transports": [
+      "stdio"
+    ],
+    "complexity": "Low",
+    "pricing": "open-source",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "VS Code",
+      "Windsurf",
+      "Any MCP-compatible client",
+      "Chroma Cloud",
+      "Local Chroma"
+    ]
+  },
+  {
+    "name": "Kubernetes",
+    "slug": "kubernetes",
+    "tagline": "Inspect and manage Kubernetes clusters through kubectl-equivalent tools, with a non-destructive mode.",
+    "installCommand": "npx mcp-server-kubernetes",
+    "requiredEnv": [
+      "ALLOW_ONLY_NON_DESTRUCTIVE_TOOLS"
+    ],
+    "githubUrl": "https://github.com/Flux159/mcp-server-kubernetes",
+    "transports": [
+      "stdio"
+    ],
+    "complexity": "Medium",
+    "pricing": "open-source",
+    "compatibleWith": [
+      "Claude",
+      "Cursor",
+      "VS Code",
+      "Any MCP-compatible client",
+      "Any kubeconfig cluster"
+    ]
+  }
+]
