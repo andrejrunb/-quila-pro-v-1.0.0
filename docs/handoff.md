@@ -38,6 +38,11 @@ Documento vivo de continuidade operacional da dupla de desenvolvimento (Tech Lea
 | **Scanner OMR & TRI** | `OmrScannerUI.tsx` | Prop `onBack?: () => void;` e botão `← Voltar` na toolbar principal da central neural | ✅ Concluído |
 | **Grade Horária Urânia+** | `TimetableBuilder.tsx` | Suporte a `onBack?: () => void;` e botão `← Voltar` para retorno ao painel da Coordenação | ✅ Concluído |
 | **Câmara de Cosméticos** | `StudentCosmeticsChamber.tsx` | Áudio procedural nativo via Web Audio API (chime de equip, fanfarra de unlock e buzz de alerta sem arquivos de áudio externos) + auto-dismiss de toast | ✅ Concluído |
+| **Câmara de Maestria** | `StudentMasteryChamber.tsx` | Controles de Zoom in/out (`75%` a `135%`), Viewport escalonável com priorização de conteúdo ergonômico | ✅ Concluído |
+| **Material Concreto** | `StudentMasteryChamber.tsx` | Módulo Manipulativo Concreto & Blocos Visuais para Fundamental I (Placas de 100, Barras de 10 e Cubos de 1 com soma e grid interativo) | ✅ Concluído |
+| **Laboratório Virtual** | `StudentMasteryChamber.tsx` | Laboratório de Simulação Interativo (PhET / GeoGebra) para Fundamental II: sliders dinâmicos de taxa de variação ($a$) e intercepto ($b$) com plano cartesiano SVG em tempo real | ✅ Concluído |
+| **Autoavaliação 2ª Fase** | `StudentMasteryChamber.tsx` | Espelho Analítico da Banca & Checklist Discursivo de Medicina com autoavaliação por critério e nota calculada sobre 10.0 | ✅ Concluído |
+| **Impressão OMR Universal** | `OmrScannerUI.tsx` & `studentsData.ts` | Classes Fundamental I (`F-EF11A` a `F-EF15A`) e Medicina (`MED-EXT`) com estudantes sintéticos adicionados aos seletores de lote e avaliação | ✅ Concluído |
 | **Secretaria: Matrícula** | `SecretariatRegistrationManager.tsx` | Fallback robusto para simulação offline, geração e botão "Copiar Credenciais" com feedback instantâneo | ✅ Concluído |
 | **Secretaria: Boletins** | `SecretariatBoletimManager.tsx` | Integração com acervo local `STUDENTS`, feedback para exportação em PDF e botão "Análise AI" com diagnóstico neuro-pedagógico ao vivo | ✅ Concluído |
 | **RAG da Codebase** | `dev_codebase_graph.json` | Re-indexação completa da árvore UI: 367 componentes, 156 rotas e 47 alvos de navegação mapeados | ✅ Concluído |

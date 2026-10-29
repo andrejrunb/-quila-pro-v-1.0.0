@@ -24,6 +24,11 @@ import {
   Shuffle,
   HelpCircle,
   Plus,
+  Minus,
+  ZoomIn,
+  ZoomOut,
+  Sliders,
+  Grid,
   Trophy,
   Timer
 } from 'lucide-react';
@@ -281,6 +286,19 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
   const [canvasCustomQuery, setCanvasCustomQuery] = useState<string>('');
   const [flippedFlashcards, setFlippedFlashcards] = useState<Record<number, boolean>>({});
   const [extraCanvasNodes, setExtraCanvasNodes] = useState<CanvasExtraNode[]>([]);
+
+  // Zoom & Visual Scaffolding States (Fundamental I, II & Medicina)
+  const [zoomLevel, setZoomLevel] = useState<number>(100);
+  const [concreteBlocks, setConcreteBlocks] = useState<{ hundreds: number; tens: number; units: number }>({
+    hundreds: 0,
+    tens: 2,
+    units: 4
+  });
+  const [showManipulativePanel, setShowManipulativePanel] = useState<boolean>(true);
+  const [lineSlope, setLineSlope] = useState<number>(1);
+  const [lineIntercept, setLineIntercept] = useState<number>(2);
+  const [showLabSimulation, setShowLabSimulation] = useState<boolean>(true);
+  const [checkedRubricCriteria, setCheckedRubricCriteria] = useState<Record<number, boolean>>({});
 
   // Estado Arena Gamificada Áquila
   const [arenaTemplate, setArenaTemplate] = useState<ArenaTemplate>('quizshow');
@@ -616,6 +634,33 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
           >
             <Crown size={15} style={{ color: currentAquilaTier.color }} />
             <span>{currentAquilaTier.label}: <strong>{masteryScore}%</strong></span>
+          </div>
+
+          {/* Zoom In / Out Controls */}
+          <div className="mastery-zoom-controls" title="Ajustar Zoom e Escala de Leitura">
+            <button
+              className="mastery-zoom-btn"
+              onClick={() => setZoomLevel(z => Math.max(75, z - 10))}
+              title="Diminuir Zoom"
+              disabled={zoomLevel <= 75}
+            >
+              <ZoomOut size={13} />
+            </button>
+            <button
+              className="mastery-zoom-val"
+              onClick={() => setZoomLevel(100)}
+              title="Redefinir Zoom para 100%"
+            >
+              {zoomLevel}%
+            </button>
+            <button
+              className="mastery-zoom-btn"
+              onClick={() => setZoomLevel(z => Math.min(135, z + 10))}
+              title="Aumentar Zoom"
+              disabled={zoomLevel >= 135}
+            >
+              <ZoomIn size={13} />
+            </button>
           </div>
 
           <button
@@ -1153,6 +1198,7 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
           MODO 1: SIMULADOR OFICIAL + TUTOR SOCRÁTICO ÁQUILA + CÂMARA DE DEGRAUS
          ===================================================================== */}
       {activeHubMode === 'simulador' && (
+        <div className="mastery-scalable-viewport" style={{ zoom: `${zoomLevel}%` }}>
         <div className="mastery-content-grid">
           {/* Lado Esquerdo: Questão Oficial do Vestibular */}
           <section className="exam-question-card">
@@ -1207,23 +1253,258 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
 
             <p className="question-statement">{currentTrack.original_question}</p>
 
+            {/* Módulo Manipulativo Concreto & Blocos Numéricos (Fundamental I - Matific / Educacross) */}
+            {(currentTrack.stage === 'EF_ANOS_INICIAIS' || selectedStage === 'EF_ANOS_INICIAIS') && (
+              <div className="manipulative-concrete-card">
+                <div className="manipulative-header">
+                  <div className="manipulative-title">
+                    <Sparkles size={16} />
+                    <span>Material Concreto & Blocos Numéricos Interativos (Fundamental I)</span>
+                  </div>
+                  <div className="manipulative-actions">
+                    <button
+                      className="manipulative-clear-btn"
+                      onClick={() => setConcreteBlocks({ hundreds: 0, tens: 0, units: 0 })}
+                      title="Zerar Blocos"
+                    >
+                      Zerar
+                    </button>
+                    <button
+                      className="manipulative-toggle-btn"
+                      onClick={() => setShowManipulativePanel(p => !p)}
+                    >
+                      {showManipulativePanel ? 'Ocultar' : 'Expandir Material Concreto'}
+                    </button>
+                  </div>
+                </div>
+
+                {showManipulativePanel && (
+                  <div className="manipulative-body">
+                    <div className="manipulative-controls">
+                      <div className="control-group">
+                        <span className="control-label">Centenas (Placas):</span>
+                        <div className="control-btns">
+                          <button onClick={() => setConcreteBlocks(b => ({ ...b, hundreds: Math.max(0, b.hundreds - 1) }))}>-</button>
+                          <span className="control-val">{concreteBlocks.hundreds}</span>
+                          <button onClick={() => setConcreteBlocks(b => ({ ...b, hundreds: Math.min(9, b.hundreds + 1) }))}>+</button>
+                        </div>
+                      </div>
+                      <div className="control-group">
+                        <span className="control-label">Dezenas (Barras):</span>
+                        <div className="control-btns">
+                          <button onClick={() => setConcreteBlocks(b => ({ ...b, tens: Math.max(0, b.tens - 1) }))}>-</button>
+                          <span className="control-val">{concreteBlocks.tens}</span>
+                          <button onClick={() => setConcreteBlocks(b => ({ ...b, tens: Math.min(19, b.tens + 1) }))}>+</button>
+                        </div>
+                      </div>
+                      <div className="control-group">
+                        <span className="control-label">Unidades (Cubinhos):</span>
+                        <div className="control-btns">
+                          <button onClick={() => setConcreteBlocks(b => ({ ...b, units: Math.max(0, b.units - 1) }))}>-</button>
+                          <span className="control-val">{concreteBlocks.units}</span>
+                          <button onClick={() => setConcreteBlocks(b => ({ ...b, units: Math.min(30, b.units + 1) }))}>+</button>
+                        </div>
+                      </div>
+                      <div className="concrete-total-pill">
+                        Total Representado: <strong>{concreteBlocks.hundreds * 100 + concreteBlocks.tens * 10 + concreteBlocks.units}</strong>
+                      </div>
+                    </div>
+
+                    <div className="manipulative-board">
+                      {concreteBlocks.hundreds > 0 && (
+                        <div className="blocks-column hundreds-column">
+                          <span className="column-title">Centenas ({concreteBlocks.hundreds * 100})</span>
+                          <div className="hundreds-grid">
+                            {Array.from({ length: concreteBlocks.hundreds }).map((_, i) => (
+                              <div key={i} className="hundred-plate" title="Placa de 100">
+                                100
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {concreteBlocks.tens > 0 && (
+                        <div className="blocks-column tens-column">
+                          <span className="column-title">Dezenas ({concreteBlocks.tens * 10})</span>
+                          <div className="tens-grid">
+                            {Array.from({ length: concreteBlocks.tens }).map((_, i) => (
+                              <div key={i} className="ten-rod" title="Barra de 10">
+                                {Array.from({ length: 10 }).map((_, j) => (
+                                  <div key={j} className="unit-segment" />
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {concreteBlocks.units > 0 && (
+                        <div className="blocks-column units-column">
+                          <span className="column-title">Unidades ({concreteBlocks.units})</span>
+                          <div className="units-grid">
+                            {Array.from({ length: concreteBlocks.units }).map((_, i) => (
+                              <div key={i} className="unit-cube" title="1 unidade" />
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {concreteBlocks.hundreds === 0 && concreteBlocks.tens === 0 && concreteBlocks.units === 0 && (
+                        <div className="empty-manipulative-hint">
+                          Clique nos botões acima (+) para adicionar placas, barras ou cubinhos e visualizar a quantidade da questão.
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Laboratório Virtual Interativo (PhET / GeoGebra Sandbox para Fundamental II) */}
+            {(currentTrack.stage === 'EF_ANOS_FINAIS' || selectedStage === 'EF_ANOS_FINAIS') && (
+              <div className="virtual-lab-card">
+                <div className="virtual-lab-header">
+                  <div className="virtual-lab-title">
+                    <Sliders size={16} />
+                    <span>Laboratório Interativo: Plano Cartesiano & Funções Dinâmicas (Fundamental II)</span>
+                  </div>
+                  <button
+                    className="virtual-lab-toggle-btn"
+                    onClick={() => setShowLabSimulation(p => !p)}
+                  >
+                    {showLabSimulation ? 'Ocultar Laboratório' : 'Abrir Laboratório Interativo'}
+                  </button>
+                </div>
+
+                {showLabSimulation && (
+                  <div className="virtual-lab-body">
+                    <div className="lab-controls-panel">
+                      <div className="lab-slider-row">
+                        <label>Inclinação da Reta (Taxa de Variação <strong>a = {lineSlope}</strong>):</label>
+                        <input
+                          type="range"
+                          min="-4"
+                          max="4"
+                          step="0.5"
+                          value={lineSlope}
+                          onChange={(e) => setLineSlope(parseFloat(e.target.value))}
+                          className="lab-range-slider"
+                        />
+                      </div>
+                      <div className="lab-slider-row">
+                        <label>Termo Independente / Ponto de Partida (Intercepto <strong>b = {lineIntercept}</strong>):</label>
+                        <input
+                          type="range"
+                          min="-6"
+                          max="6"
+                          step="1"
+                          value={lineIntercept}
+                          onChange={(e) => setLineIntercept(parseFloat(e.target.value))}
+                          className="lab-range-slider"
+                        />
+                      </div>
+                      <div className="lab-equation-display">
+                        <span>Lei da Função Afim: <code>f(x) = {lineSlope === 0 ? '' : lineSlope === 1 ? 'x' : lineSlope === -1 ? '-x' : `${lineSlope}x`} {lineIntercept > 0 ? `+ ${lineIntercept}` : lineIntercept < 0 ? `- ${Math.abs(lineIntercept)}` : ''}</code></span>
+                        <span className="lab-root-hint">
+                          {lineSlope !== 0
+                            ? `Zero/Raiz: x = ${(-lineIntercept / lineSlope).toFixed(2)}`
+                            : 'Função Constante (sem raiz única)'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="lab-svg-container">
+                      <svg viewBox="-120 -120 240 240" className="lab-coordinate-grid">
+                        {[-100, -80, -60, -40, -20, 20, 40, 60, 80, 100].map(val => (
+                          <g key={val}>
+                            <line x1={val} y1="-115" x2={val} y2="115" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+                            <line x1="-115" y1={val} x2="115" y2={val} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+                          </g>
+                        ))}
+                        <line x1="-115" y1="0" x2="115" y2="0" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" />
+                        <line x1="0" y1="-115" x2="0" y2="115" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" />
+                        <text x="110" y="-4" fill="#94a3b8" fontSize="8" textAnchor="end">X</text>
+                        <text x="6" y="-105" fill="#94a3b8" fontSize="8">Y</text>
+
+                        {(() => {
+                          const scale = 10;
+                          const x1 = -10;
+                          const y1 = lineSlope * x1 + lineIntercept;
+                          const x2 = 10;
+                          const y2 = lineSlope * x2 + lineIntercept;
+                          return (
+                            <line
+                              x1={x1 * scale}
+                              y1={-y1 * scale}
+                              x2={x2 * scale}
+                              y2={-y2 * scale}
+                              stroke="#38bdf8"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                            />
+                          );
+                        })()}
+
+                        <circle
+                          cx="0"
+                          cy={-lineIntercept * 10}
+                          r="4"
+                          fill="#f59e0b"
+                          stroke="#0f172a"
+                          strokeWidth="1.5"
+                        />
+                        <text x="8" y={-lineIntercept * 10 + 3} fill="#f59e0b" fontSize="8" fontWeight="bold">
+                          (0, {lineIntercept})
+                        </text>
+                      </svg>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Espelho Oficial de Correção e Rubricas Analíticas (Medicina & 2ª Fase) */}
             {currentTrack.rubricCriteria && currentTrack.rubricCriteria.length > 0 && (
               <div className="rubric-criteria-drawer">
                 <div className="rubric-criteria-header">
-                  <Award size={15} />
-                  <span>Espelho Analítico da Banca & Rubricas de 2ª Fase</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Award size={15} />
+                    <span>Espelho Analítico da Banca & Autoavaliação de 2ª Fase</span>
+                  </div>
+                  <div className="rubric-score-badge">
+                    Nota Estimada: {Object.keys(checkedRubricCriteria).filter(k => checkedRubricCriteria[parseInt(k)]).reduce((acc, k) => {
+                      const item = currentTrack.rubricCriteria![parseInt(k)];
+                      return acc + (item ? item.weight * 10 : 0);
+                    }, 0).toFixed(1)} / 10.0
+                  </div>
                 </div>
                 <div className="rubric-criteria-list">
-                  {currentTrack.rubricCriteria.map((rc, idx) => (
-                    <div key={idx} className="rubric-criterion-card">
-                      <div className="rc-top">
-                        <span className="rc-title">{rc.criterion}</span>
-                        <span className="rc-weight">Peso {(rc.weight * 100).toFixed(0)}%</span>
+                  {currentTrack.rubricCriteria.map((rc, idx) => {
+                    const isChecked = !!checkedRubricCriteria[idx];
+                    return (
+                      <div
+                        key={idx}
+                        className={`rubric-criterion-card ${isChecked ? 'checked' : ''}`}
+                        onClick={() => setCheckedRubricCriteria(prev => ({ ...prev, [idx]: !prev[idx] }))}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <div className="rc-top">
+                          <div className="rc-title-wrap">
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => {}}
+                              className="rc-checkbox"
+                            />
+                            <span className="rc-title">{rc.criterion}</span>
+                          </div>
+                          <span className="rc-weight">Peso {(rc.weight * 100).toFixed(0)}% ({(rc.weight * 10).toFixed(1)} pts)</span>
+                        </div>
+                        <p className="rc-guideline">{rc.keyGuideline}</p>
                       </div>
-                      <p className="rc-guideline">{rc.keyGuideline}</p>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -1483,6 +1764,7 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
               </div>
             </section>
           )}
+        </div>
         </div>
       )}
     </div>

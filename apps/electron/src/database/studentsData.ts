@@ -29,6 +29,7 @@ const CLASS_ID_TO_NAME: Record<string, string> = {
   'F-EF29A': '9 ANO A', 'F-EF29B': '9 ANO B',
   'F-EM1A': '1 SERIE A', 'F-EM1B': '1 SERIE B',
   'F-EM2A': '2 SERIE A', 'F-EM3A': '3 SERIE A',
+  'MED-EXT': 'TURMA MEDICINA 2 FASE',
 };
 
 const RAW_STUDENTS = [
@@ -2227,7 +2228,24 @@ const RAW_STUDENTS = [
     "name": "GABRIEL PAIVA LOPES",
     "cpf": "",
     "classId": "F-EM3A"
-  }
+  },
+  // --- Fundamental I (1º ao 5º Ano) ---
+  { "registrationNumber": "11001", "name": "ALICE CARVALHO SILVA", "cpf": "", "classId": "F-EF11A" },
+  { "registrationNumber": "11002", "name": "BERNARDO SANTOS LIMA", "cpf": "", "classId": "F-EF11A" },
+  { "registrationNumber": "11003", "name": "CLARA MENDES DIAS", "cpf": "", "classId": "F-EF11A" },
+  { "registrationNumber": "12001", "name": "DAVI OLIVEIRA SOUZA", "cpf": "", "classId": "F-EF12A" },
+  { "registrationNumber": "12002", "name": "ELISA PEREIRA ROCHA", "cpf": "", "classId": "F-EF12A" },
+  { "registrationNumber": "13001", "name": "FELIPE CARDOSO ALMEIDA", "cpf": "", "classId": "F-EF13A" },
+  { "registrationNumber": "13002", "name": "GABRIELA COSTA RIBEIRO", "cpf": "", "classId": "F-EF13A" },
+  { "registrationNumber": "14001", "name": "HEITOR NUNES MARTINS", "cpf": "", "classId": "F-EF14A" },
+  { "registrationNumber": "14002", "name": "ISABELA LOPES TEIXEIRA", "cpf": "", "classId": "F-EF14A" },
+  { "registrationNumber": "15001", "name": "JOAQUIM FERREIRA GOMES", "cpf": "", "classId": "F-EF15A" },
+  { "registrationNumber": "15002", "name": "LAURA PINTO MOREIRA", "cpf": "", "classId": "F-EF15A" },
+  // --- Turma Medicina (Extensivo / Alta Performance) ---
+  { "registrationNumber": "99001", "name": "BEATRIZ ALENCAR RESENDE", "cpf": "", "classId": "MED-EXT" },
+  { "registrationNumber": "99002", "name": "CAIO VINICIUS MEDEIROS", "cpf": "", "classId": "MED-EXT" },
+  { "registrationNumber": "99003", "name": "MARIANA TEIXEIRA CAVALCANTI", "cpf": "", "classId": "MED-EXT" },
+  { "registrationNumber": "99004", "name": "RODRIGO FONTES GUIMARAES", "cpf": "", "classId": "MED-EXT" }
 ];
 
 export const STUDENTS: StudentData[] = RAW_STUDENTS.map((s) => {
