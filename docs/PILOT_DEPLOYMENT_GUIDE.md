@@ -146,13 +146,34 @@ Write-Host "[BACKUP] ✅ Backup concluído em: $TargetDb"
 
 ---
 
-## ✅ 6. Checklist de Validação Final da Implantação
+## ✅ 6. Checklist de Validação Final da Implantação & Protocolo Físico (48h)
 
-Antes de declarar o Colégio Piloto pronto para o primeiro dia de operação:
+Antes de declarar o Colégio Piloto pronto para o primeiro dia de operação oficial, a equipe técnica deve cumprir as fases do protocolo escalonado em consonância com o **Dossiê de Comissionamento Técnico de Bancada** (`docs/DOSSIE_COMISSIONAMENTO_BANCADA_PILOTO_V1.md`) e a **Entrevista Mestra** (`docs/ENTREVISTA_MESTRA_IA_DESENVOLVEDORA_AQUILA_PRO_COMPLETA_AQ001_AQ400.md`):
 
-- [ ] **Aceleração de IA:** O worker de visão detecta rostos em $<150\text{ ms}$ (NPU/GPU) ou $<400\text{ ms}$ (CPU fallback).
-- [ ] **Latência RTSP:** Câmeras da portaria operando com latência de vídeo inferior a $300\text{ ms}$.
-- [ ] **Healthcheck Gateway:** Requisição `GET http://localhost:9000/health` retorna `{"status":"HEALTHY"}`.
-- [ ] **App Mobile Companion:** Pareamento via QR Code concluído com sucesso na rede Wi-Fi da escola.
-- [ ] **Persistência SQLite:** Teste de inserção e consulta de transação financeira PIX gera comprovante SHA-256 íntegro.
-- [ ] **Testes Automatizados:** Bateria de testes E2E do Playwright (`pnpm --filter aquila-pro-school-os exec playwright test e2e/smoke.spec.ts`) validada com 100% de sucesso.
+### Fase T-48h: Infraestrutura de Rede, Elétrica & Segurança Física
+- [ ] **Alimentação Ininterrupta:** No-break senoidal de 1200 VA (ou 2000 VA) instalado, com teste de autonomia em carga real ($\ge 30\text{ min}$).
+- [ ] **Endereçamento IP Estático:** Servidor Edge configurado no IP estático corporativo da escola (`192.168.18.91/24`).
+- [ ] **Segmentação de Câmeras (VLAN):** Feeds de vídeo RTSP das câmeras de portaria e salas de aula isolados em VLAN dedicada sem acesso direto à Internet externa.
+
+### Fase T-24h: Provisionamento do Servidor & Liberação de Portas
+- [ ] **Firewall Local:** Regras de Firewall do Windows executadas para liberação das portas `9000` (Gateway), `8081` (Metro), `8000` (Visão NPU) e `3000` (Portais Web).
+- [ ] **Certificação dos 8 Pilares:** Execução do script `python scripts/hardware_bench_commissioning.py` com resultado de 8/8 PASS registrado no relatório JSON.
+- [ ] **Suíte de Testes Monorepo:** Verificação de 100% de sucesso nos 311 testes unitários (`npm test`).
+- [ ] **Espaço em Disco & Armazenamento:** Mínimo de 100 GB livres no SSD NVMe principal e partição de backup secundária montada.
+
+### Fase T-1h: Pré-Operação Matutina (Cold Start Checklist)
+- [ ] **Healthcheck Gateway:** Requisição `GET http://localhost:9000/health` retornando `{"status":"HEALTHY"}` com latência $<15\text{ ms}$.
+- [ ] **Aceleração de IA Facial:** O worker de visão detecta rostos em $<150\text{ ms}$ (NPU/GPU) ou $<400\text{ ms}$ (CPU fallback).
+- [ ] **Latência RTSP:** Câmeras da portaria operando com latência de vídeo inferior a $300\text{ ms}$ e sem perda de pacotes UDP/TCP.
+- [ ] **App Mobile Companion:** Pareamento de tablets da portaria e coordenação via QR Code concluído com sucesso.
+- [ ] **Persistência SQLite:** Teste de inserção e consulta com integridade `PRAGMA quick_check;` aprovada em modo WAL.
+
+### Fase T+1h: Acolhimento e Operação em Horário de Pico
+- [ ] **Reconhecimento Facial em Fluxo:** Monitoramento visual das passagens de alunos na portaria (limiar de cosseno $S \ge 0.68$).
+- [ ] **Notificações em Tempo Real:** Disparo imediato de confirmação de entrada aos responsáveis pelo aplicativo móvel.
+- [ ] **Monitoramento Térmico:** Temperatura da CPU/NPU operando em faixa segura ($< 70^\circ\text{C}$), sem acionamento de auto-throttling.
+
+### Fase T+30d: Conclusão do Ciclo de Homologação Assistida
+- [ ] **Auditoria Zero-Bypass:** Exportação da trilha de auditoria SHA-256 para o DPO escolar, atestando conformidade com o Art. 14 da LGPD.
+- [ ] **Calibração Psicométrica TRI:** Validação de aderência dos itens simulados às escalas oficiais do SAEB e ENEM.
+- [ ] **Assinatura do Termo de Rollout Definitivo:** Emissão do relatório final conjunto entre a diretoria do colégio e o Córtex Central Áquila Pro.

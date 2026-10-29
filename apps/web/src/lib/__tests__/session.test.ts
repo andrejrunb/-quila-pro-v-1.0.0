@@ -13,7 +13,7 @@ describe('Web Crypto HMAC-SHA256 Session Security', () => {
     const token = await signSession(mockUser);
     expect(token).toBeDefined();
     expect(typeof token).toBe('string');
-    expect(token.split('.')).toHaveLength(2); // payload.signature
+    expect(token.split('.')).toHaveLength(3); // header.payload.signature
 
     const verified = await verifySession(token);
     expect(verified).not.toBeNull();
@@ -23,14 +23,14 @@ describe('Web Crypto HMAC-SHA256 Session Security', () => {
 
   it('deve REJEITAR token com payload adulterado (anti-forging / anti-tampering)', async () => {
     const token = await signSession(mockUser);
-    const [payloadB64, signature] = token.split('.');
+    const [headerB64, payloadB64, signature] = token.split('.');
 
     // Atacante tenta forjar a role de "parent" para "admin"
     const decoded = JSON.parse(Buffer.from(payloadB64, 'base64url').toString('utf-8'));
     decoded.role = 'admin';
     const forgedPayloadB64 = Buffer.from(JSON.stringify(decoded)).toString('base64url');
 
-    const forgedToken = `${forgedPayloadB64}.${signature}`;
+    const forgedToken = `${headerB64}.${forgedPayloadB64}.${signature}`;
     const verified = await verifySession(forgedToken);
 
     // O HMAC-SHA256 deve rejeitar a assinatura mismatch
@@ -39,8 +39,8 @@ describe('Web Crypto HMAC-SHA256 Session Security', () => {
 
   it('deve REJEITAR token com assinatura corrompida', async () => {
     const token = await signSession(mockUser);
-    const [payloadB64] = token.split('.');
-    const corruptedToken = `${payloadB64}.deadbeefinvalidhash1234567890`;
+    const [headerB64, payloadB64] = token.split('.');
+    const corruptedToken = `${headerB64}.${payloadB64}.deadbeefinvalidhash1234567890`;
 
     const verified = await verifySession(corruptedToken);
     expect(verified).toBeNull();

@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-10-29 08:13:39",
+  "environment": "Windows x64 / Áquila Edge Bench",
+  "git_commit": "d382bce5",
+  "checks_passed": 8,
+  "checks_total": 8,
+  "details": [
+    {
+      "pillar": 1,
+      "name": "Integridade Estrutural dos Bancos de Dados & Modo WAL",
+      "status": "PASS",
+      "message": "pedagogical_scaffolding.db: Íntegro (journal_mode=wal); acervo_multimodal_archive.db: Íntegro (journal_mode=wal)",
+      "details": {}
+    },
+    {
+      "pillar": 2,
+      "name": "Criptografia Simétrica & Assinaturas Anti-Tampering (HMAC-SHA256)",
+      "status": "PASS",
+      "message": "Assinatura HMAC-SHA256 validada com sucesso; adulterações são 100% rejeitadas (tag=65cd211c18130746...)",
+      "details": {}
+    },
+    {
+      "pillar": 3,
+      "name": "Biometria One-Way (512-D) & Limiar de Cosseno (Threshold 0.68)",
+      "status": "PASS",
+      "message": "Norma unitária ||v||=1.0 confirmada. Mesma face: S=0.7823 (>=0.68 -> LIBERADO). Face distinta: S=-0.0008 (<0.68 -> BLOQUEADO).",
+      "details": {}
+    },
+    {
+      "pillar": 4,
+      "name": "Motor Psicométrico TRI (3PL, Informação de Fisher & Escalas SAEB/ENEM)",
+      "status": "PASS",
+      "message": "Modelo 3PL validado: P(-2.0)=0.204, P(b)=0.600, P(+2.0)=0.968. Escala ENEM para theta=1.5 -> 650.0 pts; SAEB -> 325.0 pts.",
+      "details": {}
+    },
+    {
+      "pillar": 5,
+      "name": "Resiliência Térmica & Máquina de Estados de Auto-Throttling (NPU/CPU)",
+      "status": "PASS",
+      "message": "Máquina de estados térmicos com histerese aprovada: 65°C -> 30 FPS; 76.5°C -> 10 FPS (Throttling); 67°C -> 30 FPS (Restaurado).",
+      "details": {}
+    },
+    {
+      "pillar": 6,
+      "name": "Trilha de Auditoria Imutável Zero-Bypass (Encadeamento de Hashes SHA-256)",
+      "status": "PASS",
+      "message": "Cadeia SHA-256 de 3 blocos verificada com sucesso. Integridade cronológica 100% inviolada.",
+      "details": {}
+    },
+    {
+      "pillar": 7,
+      "name": "Acervo Multimodal Internet Archive & Quarentena Criptográfica (Lei 9.610/98)",
+      "status": "PASS",
+      "message": "14 obras canônicas homologadas em domínio público com hashes SHA-256 no banco. Amostra: 'Memorial de Ayres [microform]' (Machado de Assis, 1839-1908, 1908), 'Úrsula' (Maria Firmina dos Reis, 1859), 'Dissertatio de generatione et metamorphosibus insectorum Surinamensium : in quâ, praeter vermes & erucas surinamenses, earumque admirandam metamorphosin, plantae, flores & fructus, quibus vescuntur, & in quibus fuerunt inventae, exhibentur ... Accedit appendix transformationum piscium in ranas, & ranarum in pisces' (Merian, Maria Sibylla, 1647-1717, 1719).",
+      "details": {}
+    },
+    {
+      "pillar": 8,
+      "name": "Rotina de Backup Soberano Online (VACUUM INTO Snapshot)",
+      "status": "PASS",
+      "message": "Snapshot de backup online executado via VACUUM INTO com 100% de integridade verificada.",
+      "details": {}
+    }
+  ]
+}
