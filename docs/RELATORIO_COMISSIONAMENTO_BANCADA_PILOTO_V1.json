@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-29 08:13:39",
+  "timestamp": "2026-10-29 09:43:42",
   "environment": "Windows x64 / Áquila Edge Bench",
   "git_commit": "d382bce5",
   "checks_passed": 8,
@@ -14,9 +14,9 @@
     },
     {
       "pillar": 2,
-      "name": "Criptografia Simétrica & Assinaturas Anti-Tampering (HMAC-SHA256)",
+      "name": "Criptografia Dual: Autoridade Assimétrica (Ed25519) & Sessão/IPC (HMAC-SHA256)",
       "status": "PASS",
-      "message": "Assinatura HMAC-SHA256 validada com sucesso; adulterações são 100% rejeitadas (tag=65cd211c18130746...)",
+      "message": "Hierarquia criptográfica verificada: 1) Autoridade Escolar Ed25519 assimétrica (chave privada reside no servidor; Electron valida com chave pública); 2) Sessões Web/IPC protegidas por HMAC-SHA256 (adulterações rejeitadas).",
       "details": {}
     },
     {

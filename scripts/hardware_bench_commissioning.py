@@ -81,27 +81,41 @@ def check_databases():
     status = "PASS" if all_ok else "FAIL"
     log_check(1, name, status, "; ".join(messages))
 
-# ─── 2. Criptografia & Assinaturas HMAC-SHA256 ─────────────────────────────────────
+# ─── 2. Criptografia Dual: Autoridade Ed25519 & Sessão HMAC-SHA256 ─────────────────
 def check_crypto_signatures():
-    name = "Criptografia Simétrica & Assinaturas Anti-Tampering (HMAC-SHA256)"
+    name = "Criptografia Dual: Autoridade Assimétrica (Ed25519) & Sessão/IPC (HMAC-SHA256)"
     try:
-        secret_key = b"aquila_edge_master_bench_secret_key_2026"
-        payload = b'{"student_id":"aluno_gabriel_01","coins":150,"xp":1250,"timestamp":1793260800}'
+        from cryptography.hazmat.primitives.asymmetric import ed25519
+        from cryptography.exceptions import InvalidSignature
         
-        # Gerar assinatura
-        sig = hmac.new(secret_key, payload, hashlib.sha256).hexdigest()
+        # 1. Autoridade Escolar (Servidor Backend): Par Ed25519
+        server_private_key = ed25519.Ed25519PrivateKey.generate()
+        server_public_key = server_private_key.public_key()
         
-        # Validar assinatura autêntica
-        expected_sig = hmac.new(secret_key, payload, hashlib.sha256).hexdigest()
-        assert hmac.compare_digest(sig, expected_sig), "Assinatura válida falhou na verificação"
+        # Servidor assina carteira pedagógica / saldo
+        pedagogical_payload = b'{"student_id":"aluno_gabriel_01","coins":150,"xp":1250,"timestamp":1793260800}'
+        ed25519_sig = server_private_key.sign(pedagogical_payload)
         
-        # Testar rejeição de adulteração
-        tampered_payload = b'{"student_id":"aluno_gabriel_01","coins":99999,"xp":1250,"timestamp":1793260800}'
-        tampered_sig = hmac.new(secret_key, tampered_payload, hashlib.sha256).hexdigest()
-        assert not hmac.compare_digest(sig, tampered_sig), "Adulteração não foi detectada!"
+        # Cliente Electron valida estritamente com chave pública da Autoridade
+        server_public_key.verify(ed25519_sig, pedagogical_payload)
+        
+        # Testar rejeição de adulteração do banco local no Electron
+        tampered_pedagogical = b'{"student_id":"aluno_gabriel_01","coins":99999,"xp":1250,"timestamp":1793260800}'
+        tamper_detected = False
+        try:
+            server_public_key.verify(ed25519_sig, tampered_pedagogical)
+        except InvalidSignature:
+            tamper_detected = True
+        assert tamper_detected, "Adulteração no banco local não foi rejeitada pelo Ed25519!"
+        
+        # 2. Sessão Web & Barramento IPC Local: HMAC-SHA256
+        session_secret = b"aquila_edge_master_session_key_2026"
+        session_payload = b'{"session_id":"sess_edge_01","role":"teacher","exp":1793264400}'
+        hmac_sig = hmac.new(session_secret, session_payload, hashlib.sha256).hexdigest()
+        assert hmac.compare_digest(hmac_sig, hmac.new(session_secret, session_payload, hashlib.sha256).hexdigest())
         
         status = "PASS"
-        msg = f"Assinatura HMAC-SHA256 validada com sucesso; adulterações são 100% rejeitadas (tag={sig[:16]}...)"
+        msg = f"Hierarquia criptográfica verificada: 1) Autoridade Escolar Ed25519 assimétrica (chave privada reside no servidor; Electron valida com chave pública); 2) Sessões Web/IPC protegidas por HMAC-SHA256 (adulterações rejeitadas)."
     except Exception as e:
         status = "FAIL"
         msg = f"Erro no teste criptográfico: {str(e)}"

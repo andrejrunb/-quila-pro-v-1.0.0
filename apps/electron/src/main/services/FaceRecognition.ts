@@ -138,6 +138,10 @@ export class FaceRecognition extends EventEmitter {
       const embedding = await this.extractEmbedding(faceData);
 
       if (!embedding) {
+        this.emit('recognition:unavailable', {
+          reason: 'BIOMETRIC_WORKER_OR_MODEL_UNAVAILABLE',
+          timestamp: new Date(),
+        });
         return null;
       }
 
@@ -223,13 +227,8 @@ export class FaceRecognition extends EventEmitter {
 
       // 2. Tentativa via Worker local Python
       if (!this.workerBridge || !this.workerBridge.isReady()) {
-        console.warn('[FaceRecognition] WorkerBridge não está pronto. Usando fallback de simulação.');
-        // Fallback para fins de desenvolvimento se o worker não estiver rodando
-        const embedding: number[] = [];
-        for (let i = 0; i < 128; i++) {
-          embedding.push(Math.random() * 2 - 1);
-        }
-        return embedding;
+        console.warn('[FaceRecognition] WorkerBridge indisponível ou não inicializado. Extração biométrica rejeitada de forma segura (Fail-Secure). Nenhuma identidade sintética ou fictícia é gerada.');
+        return null;
       }
 
       const result = await this.workerBridge.extractEmbedding(faceData);
