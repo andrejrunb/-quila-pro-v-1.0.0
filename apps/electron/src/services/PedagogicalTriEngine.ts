@@ -98,6 +98,11 @@ export interface StudentPrivateEvaluationResult {
   descriptorDiagnostics: DescriptorDiagnostic[];
   globalMasteryLevel: MasteryLevel;
   formativeFeedback: string;
+  glowsAndGrows?: {
+    glows: string[];
+    grows: string[];
+    nextSteps: string[];
+  };
   evaluatedAt: string;
 }
 
@@ -1041,7 +1046,27 @@ export class PedagogicalTriEngine {
     // 4. Mapeamento e Diagnóstico por Descritor SAEB
     const descriptorDiagnostics = this.diagnoseByDescriptors(items, responses, theta);
 
-    // 5. Feedback Formativo Socrático
+    // 5. Feedback Formativo Socrático (Padrão Brisk Teaching Adaptado à BNCC Brasileira)
+    const glows: string[] = [];
+    const grows: string[] = [];
+    const nextSteps: string[] = [];
+
+    descriptorDiagnostics.forEach(d => {
+      if (d.masteryLevel === 'avancado' || d.masteryLevel === 'proficiente') {
+        glows.push(`Domínio consolidado no descritor ${d.descriptorId}: ${d.description} (Taxa de acerto: ${d.accuracyPercentage}%).`);
+      } else {
+        grows.push(`Oportunidade de aprofundamento em ${d.descriptorId}: ${d.description} (Taxa de acerto: ${d.accuracyPercentage}%).`);
+        nextSteps.push(`Revisar os conceitos centrais e exercícios resolvidos vinculados a ${d.descriptorId}.`);
+      }
+    });
+
+    if (glows.length === 0) {
+      glows.push('Participação ativa e conclusão do ciclo completo de avaliação.');
+    }
+    if (nextSteps.length === 0) {
+      nextSteps.push('Avançar para desafios de nível aprofundado na Câmara de Maestria e Arena PvP.');
+    }
+
     let formativeFeedback = `Parabéns pela dedicação na avaliação! Sua proficiência estimada foi de ${saebScore} pontos no SAEB (Nível ${globalMasteryLevel.toUpperCase()}). `;
     if (coherence.isGuessingDetected) {
       formativeFeedback += `Identificamos uma variação atípica de acertos entre itens de diferentes complexidades. Sugerimos revisar com atenção as justificativas das questões nos próximos simulados para fortalecer a consistência da aprendizagem. `;
@@ -1066,6 +1091,11 @@ export class PedagogicalTriEngine {
       descriptorDiagnostics,
       globalMasteryLevel,
       formativeFeedback,
+      glowsAndGrows: {
+        glows,
+        grows,
+        nextSteps,
+      },
       evaluatedAt: new Date().toISOString(),
     };
   }
