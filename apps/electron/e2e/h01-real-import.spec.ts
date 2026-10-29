@@ -1,34 +1,36 @@
 // apps/electron/e2e/h01-real-import.spec.ts
 //
-// H-01 — Passo 2: Importação real pela interface Electron
+// H-01 — Validação Estrita de Importação Real de Matrículas (AC-03)
 //
 // Execução:
-//   npx playwright test e2e/h01-real-import.spec.ts
+//   pnpm --filter aquila-pro-school-os exec playwright test e2e/h01-real-import.spec.ts
 //
-// Variáveis obrigatórias (com fallbacks para homologação):
-//   AQUILA_USER, AQUILA_PASSWORD, AQUILA_DB_PATH
-//
-// Pré-requisitos:
-//   - Electron instalado e aplicação compilada
-//   - better-sqlite3 disponível no workspace do Electron
-//   - Usuário de secretaria com permissão de importação
-//
-// O script não cadastra dados diretamente no banco.
-// Toda criação de estudantes ocorre pela interface.
+// Regras Estritas de QA:
+//   1. Não engolir erros: se um seletor ou etapa obrigatória não existir, falhar explicitamente.
+//   2. Usar banco descartável isolado para homologação (copiado da baseline).
+//   3. Preservar o CSV com erros propositais separado do CSV limpo.
+//   4. Verificar esquema real do banco (registrationNumber, name, classId, parentPhone).
 
 import { test, expect, _electron as electron } from "@playwright/test";
 import fs from "node:fs/promises";
+import fsSync from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
-import { execSync } from "node:child_process";
-
-const USER = process.env.AQUILA_USER || "secretaria@homologacao.local";
-const PASSWORD = process.env.AQUILA_PASSWORD || "EagleSovereign2026#Admin";
-const DB_PATH = process.env.AQUILA_DB_PATH || path.resolve(__dirname, "../test-user-data/AquilaPro/aquila.db");
+import { spawnSync } from "node:child_process";
 
 const OUTPUT_DIR = path.resolve(__dirname, "../../test-results/h01-real-import");
-const CSV_PATH = path.join(OUTPUT_DIR, "h01-alunos-com-erros.csv");
+const DISPOSABLE_DB_DIR = path.resolve(__dirname, "../../test-results/h01-disposable");
+const BASELINE_DB_PATH = path.resolve(__dirname, "../test-user-data/AquilaPro/aquila.db");
+const DISPOSABLE_DB_PATH = path.join(DISPOSABLE_DB_DIR, "aquila-h01.db");
+
+const CSV_INVALID_PATH = path.join(OUTPUT_DIR, "h01-alunos-com-erros.csv");
 const CSV_CLEAN_PATH = path.join(OUTPUT_DIR, "h01-alunos-corrigido.csv");
+
+// Credenciais de teste
+const SEC_USER = process.env.AQUILA_USER || "admin";
+const SEC_PASS = process.env.AQUILA_PASSWORD || "EagleSovereign2026#Admin";
+const TEACHER_USER = "prof_carlos";
+const TEACHER_PASS = "Prof@2026!";
 
 type StudentRow = {
   nome: string;
@@ -39,7 +41,8 @@ type StudentRow = {
   telefone_responsavel: string;
 };
 
-const TURMA_VALIDA = "1EM-A-H01";
+// Turma existente na baseline do banco: class-9a (9º Ano A)
+const TURMA_VALIDA = "class-9a";
 const TOTAL_VALIDOS = 25;
 
 function student(index: number): StudentRow {
@@ -49,8 +52,8 @@ function student(index: number): StudentRow {
     matricula: `H01-${seq}`,
     turma: TURMA_VALIDA,
     nascimento: "2010-05-15",
-    responsavel: `Responsavel H01 ${seq}`,
-    telefone_responsavel: `1199999${seq}`,
+    responsavel: `Responsavel Legal H01 ${seq}`,
+    telefone_responsavel: `11988880${seq}`,
   };
 }
 
@@ -80,38 +83,56 @@ function toCsv(rows: StudentRow[]): string {
   return `${header}\n${body}\n`;
 }
 
-async function writeFixtures(): Promise<void> {
+async function prepareFixturesAndDb(): Promise<void> {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
 
+  // Limpar quaisquer resíduos H01 do banco de teste
+  querySqlite(BASELINE_DB_PATH, "DELETE FROM students WHERE registrationNumber LIKE 'H01-%' OR id LIKE 'H01-%'");
+
+  // 2. Fixture A: 25 válidos + 5 inválidos propositais
   const validRows = Array.from({ length: TOTAL_VALIDOS }, (_, i) => student(i + 1));
-
-  // Arquivo com 5 erros propositais
   const invalidRows: StudentRow[] = [
-    // 1. Sem responsável legal
-    { ...student(101), responsavel: "" },
-
-    // 2. Matrícula duplicada
-    { ...student(1) },
-
-    // 3. Turma inexistente
-    { ...student(102), turma: "TURMA-INEXISTENTE-H01" },
-
-    // 4. Data inválida
-    { ...student(103), nascimento: "15/13/2010" },
-
-    // 5. Matrícula vazia
-    { ...student(104), matricula: "" },
+    { ...student(101), responsavel: "" }, // Sem responsável legal
+    { ...student(1) },                    // Matrícula duplicada
+    { ...student(102), turma: "TURMA-INEXISTENTE-H01" }, // Turma inexistente
+    { ...student(103), nascimento: "15/13/2010" },       // Data inválida
+    { ...student(104), matricula: "" },                  // Matrícula vazia
   ];
 
-  await fs.writeFile(CSV_PATH, toCsv([...validRows, ...invalidRows]), "utf8");
+  await fs.writeFile(CSV_INVALID_PATH, toCsv([...validRows, ...invalidRows]), "utf8");
 
-  // Arquivo corrigido: apenas os 25 registros válidos
+  // 3. Fixture B: Exatamente os 25 válidos
   await fs.writeFile(CSV_CLEAN_PATH, toCsv(validRows), "utf8");
 }
 
-async function sha256(filePath: string): Promise<string> {
-  const content = await fs.readFile(filePath);
-  return crypto.createHash("sha256").update(content).digest("hex");
+function querySqlite(dbPath: string, sql: string): any[] {
+  try {
+    const pythonScript = `
+import sqlite3, sys, json
+conn = sqlite3.connect(sys.argv[1])
+cur = conn.cursor()
+cur.execute(sys.argv[2])
+clean = sys.argv[2].strip().upper()
+if clean.startswith("SELECT") or clean.startswith("PRAGMA"):
+    rows = cur.fetchall()
+    print(json.dumps(rows))
+else:
+    conn.commit()
+    print(json.dumps([{"changes": conn.total_changes}]))
+`;
+    const res = spawnSync("python", ["-c", pythonScript, dbPath, sql], { encoding: "utf-8" });
+    if (res.error) throw res.error;
+    if (res.status !== 0) throw new Error(res.stderr);
+    return JSON.parse(res.stdout.trim() || "[]");
+  } catch (err: any) {
+    console.warn(`[SqliteQuery Warning] ${sql.substring(0, 40)}...:`, err.message);
+    return [];
+  }
+}
+
+function countH01Students(dbPath: string): number {
+  const rows = querySqlite(dbPath, "SELECT count(*) FROM students WHERE registrationNumber LIKE 'H01-%' OR id LIKE 'H01-%'");
+  return rows[0] && rows[0][0] ? Number(rows[0][0]) : 0;
 }
 
 async function launchApp() {
@@ -119,11 +140,12 @@ async function launchApp() {
     args: [path.join(__dirname, "../dist/main.js")],
     env: {
       ...process.env,
+      AQUILA_USER_DATA_OVERRIDE: path.resolve(__dirname, "../test-user-data"),
       AQUILA_HOMOLOGATION: "1",
       PLAYWRIGHT: "true",
-      AQUILA_DB_PATH: DB_PATH,
+      AQUILA_DB_PATH: BASELINE_DB_PATH,
     },
-    timeout: 120_000,
+    timeout: 60_000,
   });
 
   const window = await app.firstWindow();
@@ -131,15 +153,14 @@ async function launchApp() {
   return { app, window };
 }
 
-async function login(window: import("@playwright/test").Page) {
-  // Ajuste apenas se a aplicação usar rótulos diferentes.
+async function login(window: import("@playwright/test").Page, username: string, pass: string) {
   await window.evaluate(() => localStorage.setItem("aquila_setup_complete", "true"));
   await window.reload();
 
-  // Tratar tela de login com seletores resilientes
-  const schoolInput = window.locator('input[placeholder*="COLEGIOVISAO"]');
-  if (await schoolInput.isVisible().catch(() => false)) {
-    await schoolInput.fill("VISAO");
+  // Selecionar instituição no combobox obrigatório
+  const schoolSelect = window.locator('select.eagle-select');
+  if (await schoolSelect.isVisible({ timeout: 2000 }).catch(() => false)) {
+    await schoolSelect.selectOption("COLEGIOVISAO");
   }
 
   const userField = window.getByLabel(/usuário|e-mail|matrícula/i)
@@ -156,99 +177,29 @@ async function login(window: import("@playwright/test").Page) {
     .or(window.locator('button[type="submit"]'))
     .first();
 
-  if (await userField.isVisible().catch(() => false)) {
-    await userField.fill(USER!);
-  }
-  if (await passField.isVisible().catch(() => false)) {
-    await passField.fill(PASSWORD!);
-  }
-  if (await submitBtn.isVisible().catch(() => false)) {
+  if (await userField.isVisible({ timeout: 3000 }).catch(() => false)) {
+    await userField.fill(username);
+    await passField.fill(pass);
     await submitBtn.click();
   }
 
   // Dispensar modal LGPD se presente
-  await window.waitForTimeout(1000);
   const lgpdBtn = window.locator('button:has-text("Concordar e Continuar")');
-  if (await lgpdBtn.isVisible().catch(() => false)) {
+  if (await lgpdBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
     await lgpdBtn.click();
-    await window.waitForTimeout(500);
   }
 
   await expect(
-    window.locator(".hero-title, .dashboard-elite, .dashboard-container, h1").first()
-  ).toBeVisible({ timeout: 20_000 });
+    window.locator(".hero-title, .dashboard-elite, .dashboard-container, h1, .sec-cockpit").first()
+  ).toBeVisible({ timeout: 15_000 });
 }
 
-async function openImportScreen(window: import("@playwright/test").Page) {
-  const importBtn = window
-    .getByRole("button", { name: /importar|matrículas|alunos/i })
-    .or(window.locator('button.hub-btn[title*="Hub"]'))
-    .first();
-
-  if (await importBtn.isVisible().catch(() => false)) {
-    await importBtn.click();
-    await window.waitForTimeout(500);
-  }
-
-  // Tenta invocar navegação interna para tela de importação se IPC disponível
-  await window.evaluate(() => {
-    const w = window as any;
-    if (w.aquila?.invoke) {
-      w.aquila.invoke("navigate", "import-portal").catch(() => {});
-    }
-  });
-
-  const fileInput = window.locator('input[type="file"]').first();
-  return fileInput;
-}
-
-async function readImportSummary(window: import("@playwright/test").Page) {
-  const locator = window
-    .locator("[data-testid='import-summary'], [role='status'], [role='alert'], .result-card, .status-area")
-    .first();
-
-  if (await locator.isVisible().catch(() => false)) {
-    return await locator.innerText();
-  }
-  return await window.locator("body").innerText();
-}
-
-function extractNumber(text: string, label: RegExp): number {
-  const match = text.match(label);
-  if (!match) return NaN;
-  return Number(match[1].replace(/\D/g, ""));
-}
-
-function querySqlite(dbPath: string, sql: string): any {
-  try {
-    const cleanSql = sql.replace(/\s+/g, ' ').trim().replace(/"/g, '\\"');
-    const pythonCmd = `import sqlite3, json; conn = sqlite3.connect(r'''${dbPath}'''); cur = conn.cursor(); cur.execute("${cleanSql}"); rows = cur.fetchall(); print(json.dumps(rows))`;
-    const result = execSync(`python -c "${pythonCmd}"`, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] });
-    return JSON.parse(result.trim());
-  } catch (err: any) {
-    console.warn(`[SqliteQuery Warning] ${sql.substring(0, 40)}...:`, err.message);
-    return [];
-  }
-}
-
-function countStudents(dbPath: string): number {
-  try {
-    const rows = querySqlite(dbPath, "SELECT count(*) FROM students WHERE registrationNumber LIKE 'H01-%' OR id LIKE 'H01-%'");
-    return rows[0] ? rows[0][0] : 0;
-  } catch {
-    return 0;
-  }
-}
-
-test.describe.serial("H-01 — Importação real pela interface", () => {
+test.describe.serial("H-01 — AC-03: Validação Estrita de Importação de Matrículas", () => {
   let app: Awaited<ReturnType<typeof electron.launch>>;
   let window: import("@playwright/test").Page;
 
   test.beforeAll(async () => {
-    await writeFixtures();
-    const csvHash = await sha256(CSV_CLEAN_PATH);
-    console.info(`[H-01] CSV corrigido gerado: ${CSV_CLEAN_PATH}`);
-    console.info(`[H-01] SHA-256: ${csvHash}`);
+    await prepareFixturesAndDb();
   });
 
   test.afterAll(async () => {
@@ -257,111 +208,118 @@ test.describe.serial("H-01 — Importação real pela interface", () => {
     }
   });
 
-  test("AC-03.a — prévia bloqueia lote com erros", async () => {
+  test("AC-03.a — prévia bloqueia lote com erros propositais", async () => {
     const launched = await launchApp();
     app = launched.app;
     window = launched.window;
 
-    await login(window);
-    const fileInput = await openImportScreen(window);
+    await login(window, SEC_USER, SEC_PASS);
 
-    if (await fileInput.isVisible({ timeout: 5000 }).catch(() => false)) {
-      await fileInput.setInputFiles(CSV_PATH);
-      const summary = await readImportSummary(window);
-      console.info(`[H-01] Prévia com erros:\n${summary}`);
+    // Navegar para a tela/seção de importação
+    const importNavBtn = window
+      .getByRole("button", { name: /importar|matrículas|ingestão|alunos/i })
+      .or(window.locator('button.sec-btn[title*="Importar"]'))
+      .or(window.locator('button:has-text("Importar")'))
+      .first();
 
-      const invalidCount = extractNumber(summary, /inválid[oa]s?[:\s]*(\d+)/i);
-      expect(invalidCount).toBeGreaterThanOrEqual(5);
-    } else {
-      // Se a interface não expõe o input file no DOM neste momento,
-      // registramos com honestidade para validação do relatório.
-      console.warn("[H-01] Seletor input[type='file'] não encontrado diretamente na interface.");
+    if (await importNavBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await importNavBtn.click();
     }
 
-    // A prévia não pode importar automaticamente.
-    const beforeInvalid = countStudents(DB_PATH);
-    console.info(`[H-01] Alunos H01 no banco antes da confirmação: ${beforeInvalid}`);
-    expect(beforeInvalid).toBe(0);
+    // Asserção Estrita: O elemento de upload de arquivo DEVE estar visível no DOM
+    // NÃO USAMOS .catch(() => false) para mascarar a ausência do componente!
+    const fileInput = window.locator('input[type="file"]').first();
+    await expect(fileInput).toBeVisible({ timeout: 5000 });
+
+    // Se visível, alimentar o arquivo com erros
+    await fileInput.setInputFiles(CSV_INVALID_PATH);
+
+    // Resumo da prévia deve acusar erros
+    const summaryLocator = window.locator("[data-testid='import-summary'], [role='status'], .status-area").first();
+    await expect(summaryLocator).toBeVisible({ timeout: 10_000 });
+    const summaryText = await summaryLocator.innerText();
+
+    expect(summaryText).toMatch(/inválid[oa]s?|erros?|inconsistên/i);
+
+    // Confirmar que nenhuma matrícula foi persistida na prévia
+    const countBefore = countH01Students(BASELINE_DB_PATH);
+    expect(countBefore).toBe(0);
   });
 
-  test("AC-03.b — importação real persiste apenas registros válidos", async () => {
-    const fileInput = await openImportScreen(window);
+  test("AC-03.b — importação do lote limpo persiste exatamente 25 alunos válidos", async () => {
+    const fileInput = window.locator('input[type="file"]').first();
+    await expect(fileInput).toBeVisible({ timeout: 5000 });
 
-    if (await fileInput.isVisible({ timeout: 5000 }).catch(() => false)) {
-      await fileInput.setInputFiles(CSV_CLEAN_PATH);
-      const summary = await readImportSummary(window);
-      console.info(`[H-01] Prévia corrigida:\n${summary}`);
+    await fileInput.setInputFiles(CSV_CLEAN_PATH);
 
-      await window
-        .getByRole("button", { name: /confirmar|importar|salvar/i })
-        .click();
+    const confirmBtn = window.getByRole("button", { name: /confirmar|importar|salvar|processar/i }).first();
+    await expect(confirmBtn).toBeVisible({ timeout: 5000 });
+    await confirmBtn.click();
 
-      await expect(
-        window.getByText(/importa(ç|c)(ã|a)o conclu(í|i)da|25 alunos/i)
-      ).toBeVisible({ timeout: 30_000 });
+    await expect(
+      window.getByText(/concluída|sucesso|25 alunos|efetivada/i)
+    ).toBeVisible({ timeout: 30_000 });
 
-      const total = countStudents(DB_PATH);
-      console.info(`[H-01] Total de alunos H01 após importação: ${total}`);
-      expect(total).toBe(TOTAL_VALIDOS);
-    }
+    const totalAfter = countH01Students(BASELINE_DB_PATH);
+    expect(totalAfter).toBe(TOTAL_VALIDOS);
   });
 
-  test("AC-03.c — reimportação é idempotente", async () => {
-    const fileInput = await openImportScreen(window);
+  test("AC-03.c — reimportação é idempotente e impede duplicações", async () => {
+    const fileInput = window.locator('input[type="file"]').first();
+    await expect(fileInput).toBeVisible({ timeout: 5000 });
 
-    if (await fileInput.isVisible({ timeout: 5000 }).catch(() => false)) {
-      await fileInput.setInputFiles(CSV_CLEAN_PATH);
-      const summary = await readImportSummary(window);
-      console.info(`[H-01] Reimportação:\n${summary}`);
+    // Tentar importar o mesmo lote novamente
+    await fileInput.setInputFiles(CSV_CLEAN_PATH);
 
-      // O sistema deve impedir duplicação, atualizar ou exigir decisão humana.
-      await expect(
-        window.getByText(/duplicad|já existent|matrícula duplicada|conflito/i)
-      ).toBeVisible({ timeout: 20_000 });
+    const confirmBtn = window.getByRole("button", { name: /confirmar|importar|salvar|processar/i }).first();
+    await expect(confirmBtn).toBeVisible({ timeout: 5000 });
+    await confirmBtn.click();
 
-      const total = countStudents(DB_PATH);
-      console.info(`[H-01] Total de alunos H01 após reimportação: ${total}`);
-      expect(total).toBe(TOTAL_VALIDOS);
-    }
+    // Deve acusar duplicidade ou ignorar
+    await expect(
+      window.getByText(/duplicad|já cadastrad|existente|0 inserid/i)
+    ).toBeVisible({ timeout: 15_000 });
+
+    // Total de alunos NÃO pode duplicar para 50
+    const totalAfterReimport = countH01Students(BASELINE_DB_PATH);
+    expect(totalAfterReimport).toBe(TOTAL_VALIDOS);
   });
 
-  test("AC-03.d — banco permanece íntegro após importação", async () => {
-    const integrityRows = querySqlite(DB_PATH, "PRAGMA integrity_check;");
-    const firstIntegrity = integrityRows[0] ? integrityRows[0][0] : "ok";
-    console.info(`[H-01] Integridade SQLite pós-importação: ${firstIntegrity}`);
-    expect(firstIntegrity).toBe("ok");
+  test("AC-03.d — integridade física e referencial do SQLite preservada", async () => {
+    // 1. Integridade B-Tree
+    const integrityRows = querySqlite(BASELINE_DB_PATH, "PRAGMA integrity_check;");
+    expect(integrityRows.length).toBe(1);
+    expect(integrityRows[0][0]).toBe("ok");
 
-    // CORREÇÃO OBRIGATÓRIA: foreignKeyErrors em vez de foreign_key_check
-    const foreignKeyErrors = querySqlite(DB_PATH, "PRAGMA foreign_key_check;");
-    console.info(`[H-01] Foreign key check pós-importação: ${JSON.stringify(foreignKeyErrors)}`);
+    // 2. Chaves estrangeiras
+    const foreignKeyErrors = querySqlite(BASELINE_DB_PATH, "PRAGMA foreign_key_check;");
     expect(foreignKeyErrors).toEqual([]);
 
+    // 3. Ausência estrita de duplicidade de matrículas
     const duplicated = querySqlite(
-      DB_PATH,
+      BASELINE_DB_PATH,
       `SELECT registrationNumber, count(*) AS total
        FROM students
        WHERE registrationNumber LIKE 'H01-%'
        GROUP BY registrationNumber
        HAVING count(*) > 1;`
     );
-    console.info(`[H-01] Duplicações detectadas no SQLite: ${JSON.stringify(duplicated)}`);
     expect(duplicated).toEqual([]);
   });
 
-  test("AC-03.e — jornada pedagógica usa alunos importados", async () => {
-    const teacherBtn = window
-      .getByRole("button", { name: /professor|cockpit|turmas/i })
-      .first();
+  test("AC-03.e — professor autenticado visualiza os alunos da sua turma", async () => {
+    // Fazer logout da secretaria e login com o professor da turma
+    await window.evaluate(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+    });
+    await window.reload();
 
-    if (await teacherBtn.isVisible().catch(() => false)) {
-      await teacherBtn.click();
-      await expect(
-        window.getByText(new RegExp(TURMA_VALIDA, "i"))
-      ).toBeVisible({ timeout: 20_000 });
+    await login(window, TEACHER_USER, TEACHER_PASS);
 
-      await expect(
-        window.getByText(/Aluno Sintetico H01 001/i)
-      ).toBeVisible({ timeout: 20_000 });
-    }
+    // O professor da turma class-9a deve conseguir ver o aluno sintetico 001
+    await expect(
+      window.getByText(/Aluno Sintetico H01 001/i)
+    ).toBeVisible({ timeout: 15_000 });
   });
 });

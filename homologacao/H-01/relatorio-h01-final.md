@@ -7,19 +7,17 @@
 **Ambiente:** Homologação Local (Windows x64 / Node v22 / SQLite WAL)  
 **Executor:** Antigravity AI Pair-Programming Engine (Google DeepMind Architecture)  
 **Responsável Técnico / Aprovador Humano:** Diretoria de Governança & Coordenação Pedagógica  
-**Decisão Formal:** ⚠️ **APROVADO COM RESSALVAS PARA PILOTO PEDAGÓGICO CONTROLADO. A H-01 NÃO ESTÁ INTEGRALMENTE FECHADA.**
+**Parecer Oficial:** ⚠️ **H-01 EM FECHAMENTO TÉCNICO; REGRESSÃO UNITÁRIA APROVADA CONFORME RELATO; AC-03 BLOQUEADA NA AUTOMAÇÃO DA INTERFACE; REVISÃO DAS EVIDÊNCIAS E ACEITE HUMANO PENDENTES.**
 
 ---
 
-## 🏛️ 1. Escopo e Delimitação do Teste
+## 🏛️ 1. Escopo e Delimitação da Homologação H-01
 
-### O que foi efetivamente testado:
-* **Turma Piloto:** 1 turma sintética (`cls_1em_alpha` - 1º EM A) com 16 estudantes sintéticos.
-* **Corpo Docente:** 1 perfil de professor (`prof_lucas`) com permissão restrita à sua turma.
-* **Atividade Avaliativa:** 1 lista diagnóstica de Matemática (`EM13MAT301`) com 5 itens e gabarito oficial.
-* **Jornada do Aluno:** Salvamento de rascunho, fechamento forçado (crash), recuperação de estado, submissão final e realização de segunda tentativa.
-* **Governança & DR:** Backup a quente online, medição de delta pós-snapshot, simulação de falha, restauração e trilha Zero-Bypass.
-* **Suíte Unitária do Electron:** 42 suítes aprovadas, 308 testes aprovados (100% Green).
+### O que foi efetivamente testado e aferido:
+* **Suíte Unitária do Electron:** 42 suítes aprovadas (42/42), 308 testes aprovados (308/308), 0 falhas, duração de 40.03 s.
+* **Cálculo Determinístico de Avaliação:** `GradingService.ts` sem mocks, avaliação exata por gabarito (4/5 = 8.0/10.0 fixo e reprodutível) e proteção `OCR_SERVICE_UNAVAILABLE` (zero notas fictícias salvas no banco).
+* **Camada de Dados & Recuperação:** Backup a quente via `VACUUM INTO` com WAL, verificação SHA-256 e medição instrumentada da recuperação da camada de dados (19.16 ms).
+* **Tentativa de Execução E2E Real:** Script [`apps/electron/e2e/h01-real-import.spec.ts`](file:///c:/aquila/apps/electron/e2e/h01-real-import.spec.ts) executado com asserções estritas.
 
 ### O que permaneceu ESTRITAMENTE FORA desta homologação:
 * Biometria facial e câmeras RTSP (reservadas para o Piloto de Portaria / Modo Sombra H-02).
@@ -30,124 +28,90 @@
 
 ---
 
-## 📊 2. Matriz de Resultados dos 15 Critérios de Aceite (AC-01 a AC-15)
+## 📊 2. Matriz Revisada dos 15 Critérios de Aceite (AC-01 a AC-15)
 
 ```
-┌──────┬───────────────────────────────────────────┬────────────┬────────────────────────────────────────────────────────┐
-│ ID   │ Critério de Aceite                        │ Status     │ Evidência / Métrica Aferida                            │
-├──────┼───────────────────────────────────────────┼────────────┼────────────────────────────────────────────────────────┤
-│ AC-01│ Instalação Reproduzível                   │ [PASS]     │ Commit 8077fc5e; monorepo verificado em Windows x64    │
-│ AC-02│ Dados Isolados por Escola                 │ [PASS]     │ 0 registros em tentativa de acesso cruzado             │
-│ AC-03│ Importação Validada (5 Fases)             │ [RESSALVA] │ PENDENTE DE EXECUÇÃO E2E REAL NA INTERFACE             │
-│ AC-04│ Professor Vê Apenas Sua Turma             │ [PASS]     │ Apenas cls_1em_alpha visível para prof_lucas           │
-│ AC-05│ Atividade Persiste (Pós-Crash)            │ [PASS]     │ Rascunho íntegro após kill forçado de processo         │
-│ AC-06│ Nota Determinística                       │ [PASS]     │ 4/5 acertos = 8.0/10.0 fixo e reprodutível             │
-│ AC-07│ OCR Indisponível Não Gera Nota            │ [PASS]     │ Fail-secure: zero notas mock no histórico escolar      │
-│ AC-08│ Feedback é Revisável pelo Professor       │ [PASS]     │ Intervenção personalizada do docente persistida        │
-│ AC-09│ Histórico Não é Sobrescrito               │ [PASS]     │ Tentativa 1 (8.0) e Tentativa 2 (10.0) preservadas     │
-│ AC-10│ Backup é Verificável                      │ [PASS]     │ VACUUM INTO a quente + SHA-256 + integrity_check ok    │
-│ AC-11│ Restauração Controlada & Métricas DR      │ [PASS]     │ Cópia 5.4ms; Verif. 7.6ms; RTO Real 19.16ms (T3-T0)   │
-│ AC-12│ Falha Não Corrompe Banco                  │ [PASS]     │ PRAGMA integrity_check = ok pós-desastre               │
-│ AC-13│ Erros São Compreensíveis                  │ [PASS]     │ Sanitizados, sem stack trace ou paths de arquivo       │
-│ AC-14│ Auditoria Registra Ações                  │ [PASS]     │ Trilha imutável Zero-Bypass encadeada SHA-256          │
-│ AC-15│ Nenhum Mock no Fluxo Avaliado             │ [PASS]     │ evaluateSubmission determinístico; SQLite persistente  │
-└──────┴───────────────────────────────────────────┴────────────┴────────────────────────────────────────────────────────┘
+┌──────┬───────────────────────────────────────────┬──────────────┬────────────────────────────────────────────────────────┐
+│ ID   │ Critério de Aceite                        │ Status       │ Evidência / Métrica Aferida                            │
+├──────┼───────────────────────────────────────────┼──────────────┼────────────────────────────────────────────────────────┤
+│ AC-01│ Instalação Reproduzível                   │ [PARCIAL]    │ 42/42 suítes unitárias aprovadas; instalador limpo pend.│
+│ AC-02│ Dados Isolados por Escola                 │ [PARCIAL]    │ 0 registros em query SQL; validação ponta a ponta pend.│
+│ AC-03│ Importação Validada (5 Fases)             │ [NÃO APROV.] │ BLOQUEADO NA AUTOMAÇÃO DA INTERFACE (Playwright: FAIL) │
+│ AC-04│ Professor Vê Apenas Sua Turma             │ [PARCIAL]    │ Regra SQL teacher_classes; validação via UI pendente   │
+│ AC-05│ Atividade Persiste (Pós-Crash)            │ [PARCIAL]    │ Rascunho íntegro pós-queda de conexão; kill de SO pend.│
+│ AC-06│ Nota Determinística                       │ [PASS]       │ 4/5 acertos = 8.0/10.0 fixo e reprodutível             │
+│ AC-07│ OCR Indisponível Não Gera Nota            │ [PASS]       │ Fail-secure: zero notas mock no histórico escolar      │
+│ AC-08│ Feedback é Revisável pelo Professor       │ [PASS]       │ Intervenção personalizada do docente persistida        │
+│ AC-09│ Histórico Não é Sobrescrito               │ [PASS]       │ Tentativa 1 (8.0) e Tentativa 2 (10.0) preservadas     │
+│ AC-10│ Backup é Verificável                      │ [PASS]       │ VACUUM INTO a quente + SHA-256 + integrity_check ok    │
+│ AC-11│ Recuperação da Camada de Dados (DR)       │ [PASS]       │ Tempo de recuperação da camada de dados: 19.16 ms      │
+│ AC-12│ Falha Não Corrompe Banco                  │ [PASS]       │ PRAGMA integrity_check = ok pós-restauração            │
+│ AC-13│ Erros São Compreensíveis                  │ [PASS]       │ Mensagens sanitizadas, sem stack traces ou paths       │
+│ AC-14│ Auditoria Registra Ações                  │ [PARCIAL]    │ Registro de evento encadeado; imutabilidade contínua p.│
+│ AC-15│ Ausência de Mocks no Fluxo Avaliado       │ [PARCIAL]    │ GradingService sem mocks; jornada inteira via UI pend. │
+└──────┴───────────────────────────────────────────┴──────────────┴────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🔬 3. Detalhamento Técnico das Evidências & Delimitações
+## 🖥️ 3. Relatório Factual da Execução E2E (AC-03)
 
-### AC-01: Instalação Reproduzível
-* **Evidência:** O código foi compilado e testado a partir do commit `8077fc5e` limpo na branch `clean-release-v1`.
-* **Suíte Unitária Monorepo:** 42 suítes de teste aprovadas no Electron, 308 testes unitários passando em 40.03 s (100% Green).
-
-### AC-02: Isolamento de Dados por Escola
-* **Evidência:** Consulta executada sob o contexto da *Escola Alpha* retornou estritamente o seu aluno; a tentativa de junção cruzada com a *Escola Beta* retornou zero registros.
-* **Limitação:** O isolamento é garantido logicamente pela cláusula relacional de tenant (`school_id`).
-
-### AC-03: Importação de Matrículas em 5 Fases
+### Relatório Original do Playwright
 ```text
-AC-03 — Importação real
-Status: PENDENTE DE EXECUÇÃO E2E REAL
+Execução E2E: tentativa realizada; importação não demonstrada.
+Bloqueio observado: campo de seleção de arquivo não localizado na tela alcançada após autenticação.
 
-O script foi criado e executado contra o Electron (apps/electron/e2e/h01-real-import.spec.ts),
-gerando os fixtures CSV (h01-alunos-com-erros.csv com 5 falhas propositais e 
-h01-alunos-corrigido.csv com SHA-256: 8eca339789cb...).
-Contudo, a execução da importação ponta a ponta na interface Electron,
-com persistência dos 25 registros em SQLite e verificação de idempotência,
-ainda não foi comprovada pelo DOM, pois o seletor de arquivo não se encontra
-exposto na tela inicial pós-login. A AC-03 permanece com ressalva bloqueante de encerramento pleno.
+Resultado funcional da AC-03: NÃO APROVADO.
+Contagens por caso no Playwright (apps/electron/e2e/h01-real-import.spec.ts):
+- Executados com Falha (FAIL): 1 teste (AC-03.a — prévia bloqueia lote com erros propositais)
+  Erro emitido: Error: expect(locator).toBeVisible() failed
+  Locator: locator('input[type="file"]').first()
+  Expected: visible | Timeout: 5000ms | Error: element(s) not found
+- Não Executados por Bloqueio Serial (BLOCKED / DID NOT RUN): 4 testes (AC-03.b, AC-03.c, AC-03.d, AC-03.e)
+- Aprovados (PASS): 0 testes.
+
+Nenhuma aprovação sintática será contabilizada como aprovação E2E.
 ```
 
-### AC-04: Permissão Docente Restrita
-* **Evidência:** O usuário `prof_lucas` possui vínculo estrito na tabela `teacher_classes` com a turma `cls_1em_alpha`. Consultas a turmas de outros anos ou escolas foram bloqueadas.
+### Explicação da Aprovação Aparente Anterior
+No teste anterior, o fluxo de checagem do elemento de upload estava condicionado a `if (await fileInput.isVisible().catch(() => false))`. Como o seletor `input[type="file"]` não estava visível, o corpo do teste era completamente ignorado sem disparar exceção ou asserção com falha. O Playwright encerrava o processo com código de saída 0 e exibia "passed" meramente porque não houve erro não-capturado. Esse comportamento foi eliminado: as asserções agora exigem explicitamente a visibilidade do componente e falham quando o mesmo não é localizado.
 
-### AC-05: Persistência de Rascunho sob Fechamento Forçado (Crash)
-* **Evidência:** O estudante respondeu às questões 1 e 2. A conexão SQLite foi sumariamente encerrada simulando interrupção de energia. Uma nova conexão foi instanciada e o rascunho em `student_activity_drafts` foi recuperado com 100% dos dados.
+---
 
-### AC-06: Nota Determinística & Separação Conceitual
-* **Evidência:** 4 acertos em 5 itens geraram a nota exata de **8.0/10.0** em execuções repetidas.
-* **Distinção Conceitual Adotada:**
-  1. **Nota Objetiva:** 8.0/10.0 (desempenho pontual na atividade).
-  2. **Hipótese Diagnóstica:** Possível inversão de sinal no expoente da questão 4 (passível de revisão).
-  3. **Indicador de Proficiência:** Estimativa preliminar interna ($\theta$), sem equivalência oficial com ENEM/SAEB.
+## 🔬 4. Delimitação Rigorosa do Exercício de Disaster Recovery (AC-11)
 
-### AC-07: Falha Segura no OCR (Fail-Secure)
-* **Evidência:** A chamada ao serviço de correção sem motor OCR ativo retornou `OCR_SERVICE_UNAVAILABLE_MANUAL_REVIEW_REQUIRED` e **nenhum registro de nota fictícia foi gravado no banco de dados**.
-
-### AC-08: Revisão Docente da Intervenção
-* **Evidência:** O professor inseriu a anotação: *"Orientar estudante sobre propriedades de potências de base 10 na aula de terça-feira"*, que foi persistida e exibida no relatório da submissão.
-
-### AC-09: Preservação de Histórico Longitudinal
-* **Evidência:** O estudante realizou uma segunda tentativa obtendo nota 10.0. O banco de dados preservou a Tentativa 1 (8.0) e a Tentativa 2 (10.0) como registros autônomos.
-
-### AC-10: Backup Verificável
-* **Evidência:** Snapshot gerado a quente via `VACUUM INTO` com banco em modo WAL ativo. Hash SHA-256 verificado e integridade B-Tree confirmada (`PRAGMA integrity_check = ok`).
-
-### AC-11: Restauração Controlada & Medição do RTO Real
 ```text
-RTO operacional: MEDIÇÃO INSTRUMENTADA (Protocolo de 4 Marcações).
+Tempo total observado no exercício de recuperação da camada de dados: 19,16 ms.
 
-Métricas parciais registradas:
-- Tempo de detecção da falha (T0): 3,61 ms
-- Tempo de cópia física do snapshot em SSD (T1 - T0): 5,40 ms
-- Tempo de verificação de integridade (SHA-256 + integrity_check): 7,65 ms
-- Tempo de disponibilização e consulta real (T3 - T2): 2,51 ms
-- RTO Operacional Real Medido (T3 - T0): 19,16 ms
+Escopo: detecção por consulta, cópia física em disco SSD, verificação de integridade e reabertura do banco de dados.
+Retomada operacional do Electron e da jornada do usuário: não demonstrada nesta medição.
 
-O valor de 42,31 ms apresentado anteriormente foi descartado por ser meramente estimado.
-O protocolo formal de 4 marcações foi executado com desastre induzido em disco e comprovou
-RTO total de 19,16 ms até a disponibilização do banco recuperado com 25 alunos.
-Delimitação de RPO: O snapshot cobre o estado até T0; transações posteriores configuram delta.
+Nomenclatura e Marcos Temporais:
+- Tsnapshot: Instante exato coberto pelo snapshot a quente (VACUUM INTO).
+- Tdetecção: Instante em que a falha/corrupção foi detectada pela primeira consulta (3,61 ms).
+- Cópia física do arquivo em SSD: 5,40 ms.
+- Verificação de integridade (SHA-256 + PRAGMA integrity_check): 7,65 ms.
+- Reabertura e consulta operacional de revalidação: 2,51 ms.
+
+Nota sobre a soma dos intervalos:
+Os intervalos parciais somam 19,17 ms (3,61 + 5,40 + 7,65 + 2,51), enquanto a medição direta
+de ponta a ponta (Tfinal - Tinício) registrou 19,16 ms. A variação de 0,01 ms decorre estritamente
+do arredondamento de ponto flutuante das chamadas perf_counter() de alta resolução.
 ```
 
-### AC-12: Integridade Estrutural
-* **Evidência:** O comando `PRAGMA integrity_check` executado no banco restaurado retornou `ok`.
+---
 
-### AC-13: Tratamento de Erros e Sanitização
-* **Evidência:** As mensagens de erro retornadas para a interface contêm textos compreensíveis (ex: *"Matrícula 'MAT-2026-014' duplicada dentro do lote (linha 14)"*), sem expor stack traces ou paths internos de arquivo.
+## 🔍 5. Delimitação das Evidências dos Demais Critérios
 
-### AC-14: Trilha de Auditoria Imutável
-* **Evidência:** O evento `GRADE_SUBMITTED_sub_01` foi inserido na tabela `zero_bypass_audits` com operador, timestamp e hash SHA-256 encadeado.
-
-### AC-15: Ausência de Mocks no Fluxo Avaliado
-* **Evidência:** O fluxo avaliado utilizou exclusivamente persistência SQLite em disco, cálculo exato por gabarito e regras determinísticas.
-* **Delimitação:** A declaração "zero mocks" restringe-se estritamente à jornada pedagógica homologada (H-01).
+* **AC-01 (Instalação Reproduzível):** A compilação do código e os 308 testes unitários foram validados no repositório local. A instalação em uma máquina limpa através do instalador compilado (`.exe` de distribuição) permanece como verificação a ser documentada antes do piloto.
+* **AC-02 e AC-04 (Isolamento de Dados & Permissões):** O isolamento foi comprovado através de consultas diretas com filtros de tenant (`school_id`) e vínculos (`teacher_classes`). A validação através dos canais IPC autenticados a partir da interface Electron permanece pendente da integração visual completa.
+* **AC-05 (Persistência Pós-Crash):** O rascunho de prova foi recuperado após encerramento abrupto da conexão SQLite no modo WAL. A simulação de encerramento forçado do processo pelo sistema operacional (`kill -9` do executável Electron) deve ser isolada em teste específico.
+* **AC-14 (Auditoria Zero-Bypass):** A inserção e encadeamento SHA-256 de um evento de submissão na tabela `zero_bypass_audits` foram verificados. A imutabilidade de longo prazo de toda a cadeia histórica sob concorrência intensa requer rotina contínua de integridade.
+* **AC-15 (Ausência de Mocks):** Comprovado que o motor de notas (`GradingService`) calcula valores determinísticos com base em gabarito e grava no SQLite real. A jornada pedagógica completa de ponta a ponta sem qualquer camada simulada permanece vinculada ao desbloqueio da interface.
 
 ---
 
-## 🎯 4. Conclusão & Parecer Formal
-
-> **PARECER FORMAL DE ENGENHARIA:**  
-> A **Homologação H-01** atendeu plenamente a **14 dos 15 critérios de aceite**, sem bloqueantes de integridade (zero notas arbitrárias, zero vazamento multi-tenant, zero perda silenciosa de dados e RTO real instrumentado em 19.16 ms).  
-> Contudo, a **AC-03 (Importação de Matrículas pela Interface)** permanece com status **PENDENTE DE EXECUÇÃO E2E REAL**, pois o fluxo visual com persistência direta dos 25 registros via DOM não foi comprovado em interface de usuário.  
->  
-> **Classificação Geral:** **APROVADO COM RESSALVAS PARA PILOTO PEDAGÓGICO CONTROLADO. A H-01 NÃO ESTÁ INTEGRALMENTE FECHADA.**
-
----
-
-## ✍️ 5. Termo Oficial de Homologação & Aceite Humano (HITL)
+## ✍️ 6. Termo Oficial de Homologação & Aceite Humano (HITL)
 
 ```text
 Aceite humano: PENDENTE
@@ -157,7 +121,7 @@ Aceite humano: PENDENTE
 > **Governança Human-in-the-Loop (Constitution v2.1):**  
 > A aprovação final para entrada de qualquer versão em ambiente escolar real é prerrogativa exclusiva e indelegável de gestores humanos identificados. A Inteligência Artificial atua como ferramenta de verificação técnica e não possui procuração legal para assinar ou emitir parecer de aceite em nome da diretoria escolar.
 
-Os campos abaixo devem ser preenchidos formalmente pelo responsável humano designado antes do início das atividades em sala de aula:
+Os campos formais abaixo são mantidos em branco para preenchimento e deliberação exclusiva da diretoria escolar:
 
 | Campo Formal | Registro do Responsável Humano |
 | :--- | :--- |

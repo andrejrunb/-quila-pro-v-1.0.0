@@ -1,16 +1,16 @@
 ID,Criterio,Status,Evidencia,Delimitacao
-AC-01,Instalação Reproduzível,PASS,Commit 7cce7968 em Windows x64,Restrito ao ambiente Windows testado
-AC-02,Dados Isolados por Escola,PASS,0 registros retornados em tentativa de junção cruzada,Garantido por cláusula tenant school_id
-AC-03,Importação Validada (5 Fases),RESSALVA,Regras e validação em memória aprovadas; script E2E real formalizado,Pendente de execução E2E em interface Electron com persistência em disco
-AC-04,Professor Vê Apenas Sua Turma,PASS,Prof. Lucas vê exclusivamente cls_1em_alpha,Vínculo na tabela teacher_classes
-AC-05,Atividade Persiste (Pós-Crash),PASS,Rascunho recuperado após término abrupto da conexão,Modo WAL ativo
-AC-06,Nota Determinística,PASS,4/5 acertos = 8.0/10.0 fixo e reprodutível,Nota objetiva baseada em gabarito
-AC-07,OCR Indisponível Não Gera Nota,PASS,Fail-secure: zero notas mock salvas no banco,Garante histórico sem notas inventadas
-AC-08,Feedback é Revisável pelo Professor,PASS,Intervenção docente registrada e persistida,Intervenção humana sobreposta
-AC-09,Histórico Não é Sobrescrito,PASS,Tentativa 1 (8.0) e Tentativa 2 (10.0) coexistem,Histórico longitudinal preservado
-AC-10,Backup é Verificável,PASS,VACUUM INTO a quente + SHA-256 + integrity check,Reflete estado exato de T0
-AC-11,Restauração Controlada & Métricas DR,PASS,"Cópia: 14.3ms, Verificação: 12.9ms, RTO: ~42ms; delta detectado",Transações pós-snapshot requerem conciliação de log
-AC-12,Falha Não Corrompe Banco,PASS,PRAGMA integrity_check = ok pós-restauração,Integridade B-Tree garantida
-AC-13,Erros São Compreensíveis,PASS,Mensagens sanitizadas sem stack trace,Amigável para equipe escolar
-AC-14,Auditoria Registra Ações,PASS,Trilha Zero-Bypass encadeada com SHA-256,Auditoria imutável
-AC-15,Nenhum Mock no Fluxo Avaliado,PASS,Zero mocks na jornada pedagógica,Restrito à jornada pedagógica homologada
+AC-01,Instalação Reproduzível,PARCIAL,42/42 suítes aprovadas no monorepo (308 testes),Instalador compilado em ambiente limpo pendente
+AC-02,Dados Isolados por Escola,PARCIAL,0 registros em tentativa cruzada via SQL,Validação via IPC autenticado na interface pendente
+AC-03,Importação Validada (5 Fases),NAO_APROVADO,Playwright: 1 falhou (timeout seletor) e 4 não executados,Bloqueado na automação da interface; importação não demonstrada
+AC-04,Professor Vê Apenas Sua Turma,PARCIAL,Vínculo na tabela teacher_classes restringe cls_1em_alpha,Validação via interface autenticada pendente
+AC-05,Atividade Persiste (Pós-Crash),PARCIAL,Rascunho recuperado após encerramento de conexão SQLite WAL,Encerramento forçado de processo no SO (kill -9) pendente
+AC-06,Nota Determinística,PASS,4/5 acertos = 8.0/10.0 fixo e reprodutível,Nota objetiva baseada em gabarito sem mocks
+AC-07,OCR Indisponível Não Gera Nota,PASS,Fail-secure: zero notas mock salvas no banco,Garante histórico sem notas fictícias
+AC-08,Feedback é Revisável pelo Professor,PASS,Intervenção docente registrada e persistida no banco,Permite ao professor sobrepor sugestões da IA
+AC-09,Histórico Não é Sobrescrito,PASS,Tentativa 1 (8.0) e Tentativa 2 (10.0) coexistem como registros distintos,Preserva trilha longitudinal da aprendizagem
+AC-10,Backup é Verificável,PASS,VACUUM INTO a quente + SHA-256 + integrity check ok,Reflete estado exato no instante Tsnapshot
+AC-11,Recuperação da Camada de Dados (DR),PASS,Tempo de recuperação da camada de dados: 19.16 ms,Retomada operacional do Electron e da jornada não demonstrada
+AC-12,Falha Não Corrompe Banco,PASS,PRAGMA integrity_check = ok pós-desastre,Integridade B-Tree garantida
+AC-13,Erros São Compreensíveis,PASS,Mensagens sanitizadas sem stack traces ou paths internos,Compreensível para a equipe escolar
+AC-14,Auditoria Registra Ações,PARCIAL,Evento individual registrado em zero_bypass_audits com hash,Auditoria de imutabilidade de toda a cadeia histórica pendente
+AC-15,Nenhum Mock no Fluxo Avaliado,PARCIAL,GradingService sem mocks e SQLite real na jornada pedagógica,Jornada completa ponta a ponta sem mocks depende do desbloqueio da interface
