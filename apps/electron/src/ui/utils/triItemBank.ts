@@ -108,6 +108,117 @@ export const TRI_ITEM_BANK: TriQuestion[] = [
     correctAnswer: 'B',
     socraticExplanation: 'Com velocidade constante de 1,5 m/s, a cada segundo percorrido a distância aumenta em 1,5 m: d = v · t = 1,5t.'
   },
+  // --- Ciências 7º Ano (Básica SPE / Positivo On - Volumes 1 a 4) ---
+  {
+    id: 'TRI-FUND2-CIEN-01',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI12',
+    skillDescription: 'Demonstrar que o ar é uma mistura de gases, compreender o efeito estufa natural e a umidade transportada pelos rios voadores (Vol. 1).',
+    difficulty: 'facil',
+    paramA: 1.15,
+    paramB: -0.80,
+    paramC: 0.20,
+    text: 'Os "rios voadores" são massas de ar carregadas de vapor de água que se deslocam da Bacia Amazônica até as regiões Centro-Oeste, Sudeste e Sul do Brasil, provocando chuvas fundamentais para o clima e a agricultura. Esse fenômeno depende diretamente de qual processo biológico realizado pelas grandes florestas tropicais?',
+    options: [
+      { letter: 'A', text: 'Respiração anaeróbica dos microorganismos do solo.' },
+      { letter: 'B', text: 'Evapotranspiração pelas copas das árvores florestais.' },
+      { letter: 'C', text: 'Fotossíntese que libera oxigênio gasoso na troposfera.' },
+      { letter: 'D', text: 'Fixação biológica de nitrogênio por bactérias radiculares.' },
+      { letter: 'E', text: 'Combustão espontânea de biomassa na estação seca.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'As árvores da Amazônia bombeiam água do solo para a atmosfera através da transpiração foliar; somada à evaporação dos corpos hídricos, forma-se a evapotranspiração que abastece os rios voadores.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN-02',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI07',
+    skillDescription: 'Caracterizar os ecossistemas e biomas brasileiros (Cerrado, Caatinga, Amazônia) e as adaptações da vegetação (Vol. 2).',
+    difficulty: 'medio',
+    paramA: 1.25,
+    paramB: -0.30,
+    paramC: 0.20,
+    text: 'Ao percorrer uma trilha no Cerrado brasileiro durante a estação seca, um grupo de estudantes do 7º ano observou árvores com troncos tortuosos, cascas espessas e corticosas, além de raízes extremamente profundas. Essas adaptações morfológicas das plantas do Cerrado têm como principais funções:',
+    options: [
+      { letter: 'A', text: 'Reter excesso de água no topo da copa e evitar o congelamento foliar noturno.' },
+      { letter: 'B', text: 'Proteção contra a passagem rápida do fogo periódico e acesso a lençóis freáticos profundos.' },
+      { letter: 'C', text: 'Absorção de radiação ultravioleta prejudicial e aumento da taxa de fecundação por vento.' },
+      { letter: 'D', text: 'Impedir a fixação de epífitas e facilitar a queda precoce de sementes carnosas.' },
+      { letter: 'E', text: 'Facilitar a dispersão de pólen exclusivamente por aves migratórias de grande porte.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'A casca grossa (cortiça) atua como isolante térmico contra queimadas naturais sazonais, enquanto raízes axiais profundas alcançam a água acumulada no lençol freático durante a seca.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN-03',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI10',
+    skillDescription: 'Argumentar sobre a importância da vacinação para a saúde pública e a memória imunológica (Vol. 3).',
+    difficulty: 'facil',
+    paramA: 1.20,
+    paramB: -0.70,
+    paramC: 0.20,
+    text: 'As campanhas de vacinação escolar são estratégias prioritárias de saúde pública para prevenir doenças como poliomielite, sarampo e HPV. Quando uma criança recebe uma vacina, o princípio ativo presente no imunizante atua no organismo:',
+    options: [
+      { letter: 'A', text: 'Injetando antibióticos potentes capazes de destruir vírus no fluxo sanguíneo.' },
+      { letter: 'B', text: 'Substituindo imediatamente as hemácias para aumentar o transporte de oxigênio.' },
+      { letter: 'C', text: 'Apresentando antígenos atenuados ou inativados para estimular a produção de anticorpos e células de memória.' },
+      { letter: 'D', text: 'Destruindo a flora bacteriana intestinal para eliminar competidores do sistema digestório.' },
+      { letter: 'E', text: 'Alterando o código genético nuclear das células epiteliais contra agentes estranhos.' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'A vacina estimula o sistema imune (imunização ativa) através de antígenos atenuados/inativados, gerando linfócitos B de memória e anticorpos específicos antes de uma infecção real.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN-04',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI01',
+    skillDescription: 'Discutir a aplicação pelas máquinas simples das forças para multiplicar ou equilibrar esforços (Vol. 3).',
+    difficulty: 'medio',
+    paramA: 1.35,
+    paramB: 0.10,
+    paramC: 0.20,
+    text: 'Uma tesoura comum utilizada na escola é um exemplo clássico de máquina simples classificada como alavanca interfixa. Nela, o ponto de apoio (eixo) fica localizado entre:',
+    options: [
+      { letter: 'A', text: 'O cabo e a mão do estudante que segura a ferramenta.' },
+      { letter: 'B', text: 'A força potente (onde se aperta o cabo) e a força resistente (onde o papel é cortado pela lâmina).' },
+      { letter: 'C', text: 'A extremidade das duas lâminas cortantes e o ar ambiente.' },
+      { letter: 'D', text: 'O papel a ser cortado e a mesa de trabalho onde ele está apoiado.' },
+      { letter: 'E', text: 'O dedo polegar e os outros quatro dedos da mesma mão.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Na alavanca interfixa, o ponto de apoio (fulcro/eixo giratório) está situado entre a força potente aplicada pelo usuário e a força resistente exercida pelo objeto a ser cortado.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN-05',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI02',
+    skillDescription: 'Diferenciar temperatura e calor, e analisar os processos de propagação térmica (Vol. 4).',
+    difficulty: 'dificil',
+    paramA: 1.40,
+    paramB: 0.50,
+    paramC: 0.20,
+    text: 'Ao colocar uma colher de metal dentro de uma panela com sopa fervente no fogão, uma pessoa percebe que o cabo da colher esquenta rapidamente após alguns minutos, mesmo estando fora do líquido. O principal mecanismo de transferência de calor responsável pelo aquecimento do metal do cabo é a:',
+    options: [
+      { letter: 'A', text: 'Convecção térmica, gerada pela circulação de massas de metal quente para cima.' },
+      { letter: 'B', text: 'Condução térmica, transferida de partícula em partícula ao longo da estrutura cristalina do metal.' },
+      { letter: 'C', text: 'Irradiação térmica exclusiva através de ondas eletromagnéticas visíveis.' },
+      { letter: 'D', text: 'Dilatação anômala da colher que produz energia térmica por atrito interno.' },
+      { letter: 'E', text: 'Fusão nuclear espontânea dos núcleos dos átomos metálicos da colher.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Nos sólidos metálicos, a propagação do calor ocorre predominantemente por condução: a agitação térmica dos átomos aquecidos é transferida por contato aos vizinhos ao longo do corpo.'
+  },
 
   // ==========================================
   // PREPARATÓRIOS PARA MEDICINA & ALTA CONCORRÊNCIA (2ª FASE E DISCURSIVAS)

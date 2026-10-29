@@ -133,6 +133,7 @@ const EXAM_BOARDS = ['TODAS', 'ENEM', 'UEG', 'UniRV', 'UFG', 'UFMG', 'UnB'] as c
 type ExamBoard = (typeof EXAM_BOARDS)[number];
 
 const SUBJECT_LIST = [
+  'Ciências',
   'Física',
   'Química',
   'Matemática',
@@ -155,6 +156,7 @@ const AQUILA_MASTERY_TIERS = [
 ];
 
 const BNCC_CODES_BY_SUBJECT: Record<string, string> = {
+  'Ciências': 'EF07CI01 • EF07CI07 • EF07CI10 • EF07CI12',
   'Física': 'EM13CNT101 • EM13CNT301',
   'Química': 'EM13CNT104 • EM13CNT205',
   'Matemática': 'EM13MAT302 • EM13MAT501',
@@ -165,6 +167,50 @@ const BNCC_CODES_BY_SUBJECT: Record<string, string> = {
 };
 
 const FALLBACK_CONCEPTS: VestibularConceptRow[] = [
+  {
+    concept_id: 'cie_7ano_pos_v1',
+    exam: 'Positivo SPE',
+    decade_span: '2020-2025',
+    subject: 'Ciências',
+    macro_topic: 'Ecossistemas, Rios Voadores e Dinâmica Atmosférica (Vol. 1)',
+    core_concepts: 'Ciclo hidrológico, massas de vapor amazônicas, efeito estufa e biodiversidade',
+    prerequisite_math: 'Proporções e leitura de gráficos de pluviosidade',
+    incidence_pct: 35.0,
+    difficulty_tri: 520
+  },
+  {
+    concept_id: 'cie_7ano_pos_v2',
+    exam: 'Positivo SPE',
+    decade_span: '2020-2025',
+    subject: 'Ciências',
+    macro_topic: 'Morfologia Vegetal, Biomas e Tectônica Global (Vol. 2)',
+    core_concepts: 'Órgãos das angiospermas, fitofisionomias do Cerrado/Caatinga e placas tectônicas',
+    prerequisite_math: 'Relações de escala e leitura cartográfica',
+    incidence_pct: 38.5,
+    difficulty_tri: 540
+  },
+  {
+    concept_id: 'cie_7ano_pos_v3',
+    exam: 'Positivo SPE',
+    decade_span: '2020-2025',
+    subject: 'Ciências',
+    macro_topic: 'Saúde Pública, Imunidade e Máquinas Simples (Vol. 3)',
+    core_concepts: 'Memória imunológica por vacinas, alavancas (interfixa, interpotente) e roldanas',
+    prerequisite_math: 'Equilíbrio estático de forças (P × bP = R × bR)',
+    incidence_pct: 42.0,
+    difficulty_tri: 560
+  },
+  {
+    concept_id: 'cie_7ano_pos_v4',
+    exam: 'Positivo SPE',
+    decade_span: '2020-2025',
+    subject: 'Ciências',
+    macro_topic: 'Termologia, Propagação de Calor e Máquinas Térmicas (Vol. 4)',
+    core_concepts: 'Condução, convecção e radiação térmica, rendimento energético e combustíveis',
+    prerequisite_math: 'Variação de temperatura (ΔT) e balanço de calor',
+    incidence_pct: 40.0,
+    difficulty_tri: 580
+  },
   {
     concept_id: 'enem_fis',
     exam: 'ENEM',

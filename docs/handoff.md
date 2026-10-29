@@ -11,6 +11,7 @@ Documento vivo de continuidade operacional da dupla de desenvolvimento (Tech Lea
 - **Branch Ativa:** `fix/portals-stability-v2.1` (sincronizada localmente com `clean-release-v1`)
 - **Pull Request:** [PR #5](https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5)
 - **Últimos Commits:**
+  - feat(spe-ciencias-7ano): *integrate Sistema Positivo de Ensino (SPE) 7º ano / 7ª série Ciências (Volumes 1 a 4) into triItemBank, BNCC mapping, and StudentMasteryChamber*
   - eat(ui-foundry): *add missing ArrowLeft import to ExamPaperFoundry, validate Vite renderer production build with 3613 modules and 825 precached PWA assets*
   - eat(ui-essay): *implement zoom controls in EssayLab1000, add FUVEST/Medicina and Fundamental II themes, and expand ActivityFactory with Fundamental I and Medicina classes*
   - ccb07743: *chore(swarm): sync cycle autofinetune_1793134811 dataset with 326 SFT pairs*
