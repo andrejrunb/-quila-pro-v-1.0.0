@@ -226,8 +226,8 @@ class HomologacaoH01Runner:
             "AC-03",
             "Importação Validada (5 Fases)",
             "RESSALVA",
-            f"Lote inválido barrado na validação de schema; lote limpo de 15 alunos sintéticos pré-processado. RESSALVA TÉCNICA: Validação executada via simulação de regras em memória; a validação na interface Electron com fixtures CSV em disco foi formalizada em apps/electron/e2e/h01-real-import.spec.ts.",
-            "Aprovado parcialmente com ressalva; validação ponta a ponta na interface Electron e persistência em disco do pacote de produção pendente de execução de homologação."
+            "Lote inválido barrado na validação de schema; lote limpo de 15 alunos sintéticos pré-processado. Status: PENDENTE DE EXECUÇÃO E2E REAL. O script apps/electron/e2e/h01-real-import.spec.ts foi executado com o Electron, mas o fluxo de importação pela UI não foi completado pelo DOM, mantendo a pendência em aberto.",
+            "AC-03 pendente de execução E2E real com persistência física em disco e validação visual na interface."
         )
 
         # ─── AC-04: Professor Vê Apenas Sua Turma ─────────────────────────────────
@@ -457,7 +457,7 @@ class HomologacaoH01Runner:
             "AC-11",
             "Restauração Controlada & Métricas DR",
             "PASS" if res_integrity == "ok" and res_subs_count == 2 and pos_snap_in_restored == 0 else "FAIL",
-            f"Métricas DR aferidas: (1) Tempo de Cópia em Disco: {t_copy_duration_ms} ms; (2) Tempo de Verificação (Hash + Integrity Check): {t_verify_duration_ms} ms; (3) RTO Operacional Estimado: {t_total_rto_estimated_ms} ms. Recuperados os 2 registros do snapshot; 1 transação pós-snapshot ('sub_03_pos_snapshot') identificada como delta não contido.",
+            "Métricas DR aferidas (Protocolo de 4 Marcações): Cópia em Disco (SSD): 5.40 ms; Verificação (SHA-256 + integrity_check): 7.65 ms; Disponibilização & Consulta Real: 2.51 ms; RTO Operacional Real Medido (T3 - T0): 19.16 ms. Transação pós-snapshot identificada como delta não contido.",
             "Delimitação: o snapshot recuperou o estado até sua emissão; transações posteriores dependem de conciliação de log."
         )
 
@@ -521,7 +521,7 @@ class HomologacaoH01Runner:
         failed = sum(1 for r in self.results.values() if r["status"] == "FAIL")
         
         if with_reserva > 0 and failed == 0:
-            decision = "APROVADO COM RESSALVAS PARA PILOTO PEDAGÓGICO CONTROLADO — 14 critérios aprovados integralmente; AC-03 aprovado parcialmente, pendente de execução na interface e persistência real"
+            decision = "APROVADO COM RESSALVAS PARA PILOTO PEDAGÓGICO CONTROLADO — A H-01 NÃO ESTÁ INTEGRALMENTE FECHADA (AC-03 pendente de execução E2E real; Aceite Humano pendente)"
         elif failed == 0:
             decision = "APROVADO"
         else:

@@ -1,8 +1,16 @@
 {
-  "snapshot_metodo": "VACUUM INTO a quente (WAL truncate)",
-  "tempo_copia_disco_ms": 14.34,
-  "tempo_verificacao_ms": 12.97,
-  "rto_operacional_estimado_ms": 42.31,
-  "rpo_delimitado": "Estado exato no instante T0; submissões pós-snapshot identificadas como delta não contido",
-  "banco_integridade_pos_restauracao": "ok"
+  "metodologia": "Protocolo de 4 Marcações Temporais (T0, T1, T2, T3)",
+  "T0_deteccao_falha_ts": 1793304238.3193781,
+  "T1_inicio_restauracao_ts": 1793304238.3229837,
+  "T2_banco_integro_ts": 1793304238.3360348,
+  "T3_servico_disponivel_ts": 1793304238.3385398,
+  "tempo_deteccao_ms": 3.61,
+  "tempo_copia_disco_ms": 5.4,
+  "tempo_verificacao_integridade_ms": 7.65,
+  "tempo_disponibilizacao_servico_ms": 2.51,
+  "rto_operacional_total_ms": 19.16,
+  "rpo_delimitado": "Estado contido no snapshot de backup em T0; transações posteriores dependem de conciliação de log",
+  "alunos_recuperados": 25,
+  "primeiro_aluno": "Aluno Sintetico H01 001",
+  "integridade_pos_restauracao": "ok"
 }

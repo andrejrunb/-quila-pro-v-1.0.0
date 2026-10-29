@@ -1,16 +1,16 @@
 {
   "homologacao": "H-01",
   "versao": "2.2.0-ALIGNED",
-  "commit": "7cce7968",
-  "data": "2026-10-29 13:19:34Z",
-  "decisao": "APROVADO COM RESSALVAS PARA PILOTO PEDAGÓGICO CONTROLADO — 14 critérios aprovados integralmente; AC-03 aprovado parcialmente, pendente de execução na interface e persistência real",
+  "commit": "8077fc5e",
+  "data": "2026-10-29 17:08:19Z",
+  "decisao": "APROVADO COM RESSALVAS PARA PILOTO PEDAGÓGICO CONTROLADO — A H-01 NÃO ESTÁ INTEGRALMENTE FECHADA (AC-03 pendente de execução E2E real; Aceite Humano pendente)",
   "passed": 14,
   "total": 15,
   "criteria": {
     "AC-01": {
       "title": "Instalação Reproduzível",
       "status": "PASS",
-      "evidence": "Commit 7cce7968; monorepo verificado em Windows x64; node v22 / pnpm v12.",
+      "evidence": "Commit 8077fc5e; monorepo verificado em Windows x64; node v22 / pnpm v12.",
       "limitation": "Testado exclusivamente no ambiente Windows de homologação."
     },
     "AC-02": {
@@ -22,8 +22,8 @@
     "AC-03": {
       "title": "Importação Validada (5 Fases)",
       "status": "RESSALVA",
-      "evidence": "Lote inválido barrado na validação de schema; lote limpo de 15 alunos sintéticos pré-processado. RESSALVA TÉCNICA: Validação executada via simulação de regras em memória; a validação na interface Electron com fixtures CSV em disco foi formalizada em apps/electron/e2e/h01-real-import.spec.ts.",
-      "limitation": "Aprovado parcialmente com ressalva; validação ponta a ponta na interface Electron e persistência em disco do pacote de produção pendente de execução de homologação."
+      "evidence": "Lote inválido barrado na validação de schema; lote limpo de 15 alunos sintéticos pré-processado. Status: PENDENTE DE EXECUÇÃO E2E REAL. O script apps/electron/e2e/h01-real-import.spec.ts foi executado com o Electron, mas o fluxo de importação pela UI não foi completado pelo DOM, mantendo a pendência em aberto.",
+      "limitation": "AC-03 pendente de execução E2E real com persistência física em disco e validação visual na interface."
     },
     "AC-04": {
       "title": "Professor Vê Apenas Sua Turma",
@@ -64,13 +64,13 @@
     "AC-10": {
       "title": "Backup é Verificável",
       "status": "PASS",
-      "evidence": "Snapshot gerado via VACUUM INTO com banco ativo; SHA-256: 48c39c5290c6273b...; integrity_check = ok; 2 submissões contidas.",
+      "evidence": "Snapshot gerado via VACUUM INTO com banco ativo; SHA-256: badc11e8ac826967...; integrity_check = ok; 2 submissões contidas.",
       "limitation": "Snapshot reflete o estado exato no momento de sua criação."
     },
     "AC-11": {
       "title": "Restauração Controlada & Métricas DR",
       "status": "PASS",
-      "evidence": "Métricas DR aferidas: (1) Tempo de Cópia em Disco: 14.34 ms; (2) Tempo de Verificação (Hash + Integrity Check): 12.97 ms; (3) RTO Operacional Estimado: 42.31 ms. Recuperados os 2 registros do snapshot; 1 transação pós-snapshot ('sub_03_pos_snapshot') identificada como delta não contido.",
+      "evidence": "Métricas DR aferidas (Protocolo de 4 Marcações): Cópia em Disco (SSD): 5.40 ms; Verificação (SHA-256 + integrity_check): 7.65 ms; Disponibilização & Consulta Real: 2.51 ms; RTO Operacional Real Medido (T3 - T0): 19.16 ms. Transação pós-snapshot identificada como delta não contido.",
       "limitation": "Delimitação: o snapshot recuperou o estado até sua emissão; transações posteriores dependem de conciliação de log."
     },
     "AC-12": {

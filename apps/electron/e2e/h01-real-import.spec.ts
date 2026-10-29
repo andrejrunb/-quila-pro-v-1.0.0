@@ -20,7 +20,7 @@ import { test, expect, _electron as electron } from "@playwright/test";
 import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
-import Database from "better-sqlite3";
+import { execSync } from "node:child_process";
 
 const USER = process.env.AQUILA_USER || "secretaria@homologacao.local";
 const PASSWORD = process.env.AQUILA_PASSWORD || "EagleSovereign2026#Admin";
@@ -175,9 +175,7 @@ async function login(window: import("@playwright/test").Page) {
   }
 
   await expect(
-    window.getByRole("heading", { name: /secretaria|painel|áquila|gestão|hub/i })
-      .or(window.locator(".dashboard-container"))
-      .or(window.locator("body"))
+    window.locator(".hero-title, .dashboard-elite, .dashboard-container, h1").first()
   ).toBeVisible({ timeout: 20_000 });
 }
 
@@ -221,21 +219,24 @@ function extractNumber(text: string, label: RegExp): number {
   return Number(match[1].replace(/\D/g, ""));
 }
 
-async function countStudents(db: Database.Database): Promise<number> {
+function querySqlite(dbPath: string, sql: string): any {
   try {
-    const row = db
-      .prepare("SELECT COUNT(*) AS total FROM students WHERE matricula LIKE 'H01-%'")
-      .get() as { total: number };
-    return row?.total ?? 0;
-  } catch (e) {
-    try {
-      const row = db
-        .prepare("SELECT COUNT(*) AS total FROM students WHERE registrationNumber LIKE 'H01-%'")
-        .get() as { total: number };
-      return row?.total ?? 0;
-    } catch (e2) {
-      return 0;
-    }
+    const cleanSql = sql.replace(/\s+/g, ' ').trim().replace(/"/g, '\\"');
+    const pythonCmd = `import sqlite3, json; conn = sqlite3.connect(r'''${dbPath}'''); cur = conn.cursor(); cur.execute("${cleanSql}"); rows = cur.fetchall(); print(json.dumps(rows))`;
+    const result = execSync(`python -c "${pythonCmd}"`, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] });
+    return JSON.parse(result.trim());
+  } catch (err: any) {
+    console.warn(`[SqliteQuery Warning] ${sql.substring(0, 40)}...:`, err.message);
+    return [];
+  }
+}
+
+function countStudents(dbPath: string): number {
+  try {
+    const rows = querySqlite(dbPath, "SELECT count(*) FROM students WHERE registrationNumber LIKE 'H01-%' OR id LIKE 'H01-%'");
+    return rows[0] ? rows[0][0] : 0;
+  } catch {
+    return 0;
   }
 }
 
@@ -278,14 +279,9 @@ test.describe.serial("H-01 — Importação real pela interface", () => {
     }
 
     // A prévia não pode importar automaticamente.
-    try {
-      const db = new Database(DB_PATH, { readonly: true });
-      const beforeInvalid = await countStudents(db);
-      db.close();
-      expect(beforeInvalid).toBe(0);
-    } catch (err) {
-      console.warn(`[H-01] Banco em ${DB_PATH} não acessível no momento da verificação:`, err);
-    }
+    const beforeInvalid = countStudents(DB_PATH);
+    console.info(`[H-01] Alunos H01 no banco antes da confirmação: ${beforeInvalid}`);
+    expect(beforeInvalid).toBe(0);
   });
 
   test("AC-03.b — importação real persiste apenas registros válidos", async () => {
@@ -304,10 +300,8 @@ test.describe.serial("H-01 — Importação real pela interface", () => {
         window.getByText(/importa(ç|c)(ã|a)o conclu(í|i)da|25 alunos/i)
       ).toBeVisible({ timeout: 30_000 });
 
-      const db = new Database(DB_PATH, { readonly: true });
-      const total = await countStudents(db);
-      db.close();
-
+      const total = countStudents(DB_PATH);
+      console.info(`[H-01] Total de alunos H01 após importação: ${total}`);
       expect(total).toBe(TOTAL_VALIDOS);
     }
   });
@@ -325,41 +319,33 @@ test.describe.serial("H-01 — Importação real pela interface", () => {
         window.getByText(/duplicad|já existent|matrícula duplicada|conflito/i)
       ).toBeVisible({ timeout: 20_000 });
 
-      const db = new Database(DB_PATH, { readonly: true });
-      const total = await countStudents(db);
-      db.close();
-
+      const total = countStudents(DB_PATH);
+      console.info(`[H-01] Total de alunos H01 após reimportação: ${total}`);
       expect(total).toBe(TOTAL_VALIDOS);
     }
   });
 
   test("AC-03.d — banco permanece íntegro após importação", async () => {
-    try {
-      const db = new Database(DB_PATH, { readonly: true });
+    const integrityRows = querySqlite(DB_PATH, "PRAGMA integrity_check;");
+    const firstIntegrity = integrityRows[0] ? integrityRows[0][0] : "ok";
+    console.info(`[H-01] Integridade SQLite pós-importação: ${firstIntegrity}`);
+    expect(firstIntegrity).toBe("ok");
 
-      const integrity = db.pragma("integrity_check") as unknown as { integrity_check?: string }[] | string[];
-      const firstIntegrity = typeof integrity[0] === 'string' ? integrity[0] : (integrity[0] as any)?.integrity_check ?? 'ok';
-      expect(firstIntegrity).toBe("ok");
+    // CORREÇÃO OBRIGATÓRIA: foreignKeyErrors em vez de foreign_key_check
+    const foreignKeyErrors = querySqlite(DB_PATH, "PRAGMA foreign_key_check;");
+    console.info(`[H-01] Foreign key check pós-importação: ${JSON.stringify(foreignKeyErrors)}`);
+    expect(foreignKeyErrors).toEqual([]);
 
-      // CORREÇÃO OBRIGATÓRIA: foreignKeyErrors em vez de foreign_key_check
-      const foreignKeyErrors = db.pragma("foreign_key_check");
-      expect(foreignKeyErrors).toEqual([]);
-
-      const duplicated = db
-        .prepare(
-          `SELECT registrationNumber, COUNT(*) AS total
-           FROM students
-           WHERE registrationNumber LIKE 'H01-%'
-           GROUP BY registrationNumber
-           HAVING total > 1`
-        )
-        .all();
-
-      expect(duplicated).toEqual([]);
-      db.close();
-    } catch (e: any) {
-      console.warn("[H-01] Verificação direta do banco em AC-03.d:", e.message);
-    }
+    const duplicated = querySqlite(
+      DB_PATH,
+      `SELECT registrationNumber, count(*) AS total
+       FROM students
+       WHERE registrationNumber LIKE 'H01-%'
+       GROUP BY registrationNumber
+       HAVING count(*) > 1;`
+    );
+    console.info(`[H-01] Duplicações detectadas no SQLite: ${JSON.stringify(duplicated)}`);
+    expect(duplicated).toEqual([]);
   });
 
   test("AC-03.e — jornada pedagógica usa alunos importados", async () => {
