@@ -1,0 +1,274 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn710602.ca.archive.org",
+        "dir": "/0/items/literary-digest-15-april-1899-recent-experiments-by-tesla"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn710602.ca.archive.org",
+        "dir": "/0/items/literary-digest-15-april-1899-recent-experiments-by-tesla"
+      }
+    ]
+  },
+  "created": 1793242542,
+  "d1": "ia600702.us.archive.org",
+  "d2": "ia800702.us.archive.org",
+  "dir": "/0/items/literary-digest-15-april-1899-recent-experiments-by-tesla",
+  "files": [
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla.pdf",
+      "source": "original",
+      "mtime": "1769650465",
+      "size": "8474570",
+      "md5": "dffeb232d4ed00e6068b01775b72c8d3",
+      "crc32": "a607ae7f",
+      "sha1": "11375febbfb6b867d1ce30c21c9644a2d6c69a95",
+      "format": "Image Container PDF"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_chocr.html.gz",
+      "source": "derivative",
+      "ocr": "tesseract 5.3.0-6-g76ae",
+      "ocr_parameters": "lang-eng;two-pass-disabled;pass-dpi-disabled;autonomous-mode-disabled;binarisation-method-otsu",
+      "ocr_module_version": "0.0.21",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "1.0000",
+      "ocr_detected_lang": "en",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "chOCR",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_jp2.zip",
+      "mtime": "1769650740",
+      "size": "439463",
+      "md5": "2774273dae7fc2e34b2d6c48c4ee9d52",
+      "crc32": "3d3ae4bd",
+      "sha1": "b5f2e5d1ae48b58c899d8d543f974e0988789e5c"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_djvu.txt",
+      "source": "derivative",
+      "format": "DjVuTXT",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_djvu.xml",
+      "mtime": "1769651022",
+      "size": "30825",
+      "md5": "efaedfdedc59b4e2c5cc3d001d1f1dbf",
+      "crc32": "cd76c082",
+      "sha1": "dfeb47703ceeaa8f5449104acaadb0eed2c6cb79"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_djvu.xml",
+      "source": "derivative",
+      "format": "Djvu XML",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_hocr.html",
+      "mtime": "1769650850",
+      "size": "400299",
+      "md5": "4c8c54acab20356b783b77019ac8bb03",
+      "crc32": "883a15ec",
+      "sha1": "45089f8776068cbd4326434d203e5a887daf2aab"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_hocr.html",
+      "source": "derivative",
+      "hocr_char_to_word_module_version": "1.3.0",
+      "hocr_char_to_word_hocr_version": "1.1.56",
+      "ocr_parameters": "lang-eng;two-pass-disabled;pass-dpi-disabled;autonomous-mode-disabled;binarisation-method-otsu",
+      "ocr_module_version": "0.0.21",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "1.0000",
+      "ocr_detected_lang": "en",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "hOCR",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_chocr.html.gz",
+      "mtime": "1769650808",
+      "size": "735890",
+      "md5": "07b25b27364fdb65a1ef2c46ad6979e1",
+      "crc32": "6d846fd0",
+      "sha1": "b2193eabe6adfd036609ced2d9785dc3ae35db9c"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_hocr_pageindex.json.gz",
+      "source": "derivative",
+      "hocr_pageindex_module_version": "1.1.0",
+      "hocr_pageindex_hocr_version": "1.1.56",
+      "format": "OCR Page Index",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_hocr.html",
+      "mtime": "1769650903",
+      "size": "87",
+      "md5": "93fac06b31dda24870d63d577a0b1e25",
+      "crc32": "62acb297",
+      "sha1": "2a99d34ceeae32533fa9825b9c9bd5b884b3aec4"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_hocr_searchtext.txt.gz",
+      "source": "derivative",
+      "hocr_fts_text_module_version": "1.2.0",
+      "hocr_fts_text_hocr_version": "1.1.56",
+      "word_conf_0_10": "17",
+      "word_conf_11_20": "12",
+      "word_conf_21_30": "20",
+      "word_conf_31_40": "15",
+      "word_conf_41_50": "11",
+      "word_conf_51_60": "18",
+      "word_conf_61_70": "39",
+      "word_conf_71_80": "68",
+      "word_conf_81_90": "153",
+      "word_conf_91_100": "4692",
+      "format": "OCR Search Text",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_hocr.html",
+      "mtime": "1769650978",
+      "size": "13044",
+      "md5": "08d87557f7c936ba6b6d294c9782495b",
+      "crc32": "27428d5e",
+      "sha1": "f9d29d1902409c631c0f087b133f7ab7dcc151d8"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_jp2.zip",
+      "source": "derivative",
+      "format": "Single Page Processed JP2 ZIP",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla.pdf",
+      "mtime": "1769650571",
+      "size": "13014035",
+      "md5": "8d2aa585f0b6a194916506801d91e9e7",
+      "crc32": "9c238eaf",
+      "sha1": "ea357e16212e4f9752cd6209df4fbb8efacf6652",
+      "filecount": "4"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_page_numbers.json",
+      "source": "derivative",
+      "hocr_pagenumber_module_version": "1.0.5",
+      "hocr_pagenumber_hocr_version": "1.1.54",
+      "hocr_pagenumber_confidence": "69",
+      "format": "Page Numbers JSON",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_hocr.html",
+      "mtime": "1769651075",
+      "size": "861",
+      "md5": "2ab77d030208297a50ede270170e6395",
+      "crc32": "b184c6cd",
+      "sha1": "00c1363588b6fd33915ce176a12003e6f84ef58c"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_scandata.xml",
+      "source": "derivative",
+      "format": "Scandata",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_djvu.xml",
+      "mtime": "1769651076",
+      "size": "1655",
+      "md5": "7dfafda0428ce0cb7d814496f0c34e38",
+      "crc32": "5b21c54e",
+      "sha1": "21394d9dca6becd1701bfa4cd83b787e116efb7c"
+    },
+    {
+      "name": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_text.pdf",
+      "source": "derivative",
+      "pdf_module_version": "0.0.25",
+      "pdf_degraded": "invalid-jp2-headers",
+      "format": "Additional Text PDF",
+      "original": "Literary Digest 15 April 1899 - Recent Experiments by Tesla_page_numbers.json",
+      "mtime": "1769651281",
+      "size": "6028105",
+      "md5": "fb69c9b8e51d743fe8e51a1ffdba6607",
+      "crc32": "1124ab4e",
+      "sha1": "39a331a912e468053542b5b7972e5089e4b58a06"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1769651485",
+      "size": "17546",
+      "md5": "f40a740b21fe0d619f1abeaaff41ca8c",
+      "crc32": "34ec88bf",
+      "sha1": "734ef53ab82236da61d9f64f7dbaa03a489debcd",
+      "format": "Item Tile"
+    },
+    {
+      "name": "literary-digest-15-april-1899-recent-experiments-by-tesla_archive.torrent",
+      "source": "metadata",
+      "btih": "5c1ea26589ca0da7de1d3d6c082fd4b2148b891d",
+      "mtime": "1772688657",
+      "size": "5640",
+      "md5": "d2e688013cd54253ce8dfe2c3787513c",
+      "crc32": "9a192156",
+      "sha1": "1d64c0fcafe5218e5ac96ab09fd359ea1ea02f51",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "literary-digest-15-april-1899-recent-experiments-by-tesla_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "4d884765e87b4f32a88e3396f53055b1",
+      "summation": "md5"
+    },
+    {
+      "name": "literary-digest-15-april-1899-recent-experiments-by-tesla_meta.sqlite",
+      "source": "original",
+      "mtime": "1769650489",
+      "size": "20480",
+      "md5": "d0a78876114f93a44a9015ea21ad8258",
+      "crc32": "26416280",
+      "sha1": "751b45fc2d5a05f0f6361b3c34486389c6b8c319",
+      "format": "Metadata"
+    },
+    {
+      "name": "literary-digest-15-april-1899-recent-experiments-by-tesla_meta.xml",
+      "source": "original",
+      "mtime": "1772688655",
+      "size": "1821",
+      "md5": "b223b9d875b39370a5fe8f4d691a52b5",
+      "crc32": "a45c8e0f",
+      "sha1": "52a2bfe469005061880ad633fda82dda4a0763af",
+      "format": "Metadata"
+    }
+  ],
+  "files_count": 16,
+  "item_last_updated": 1772688657,
+  "item_size": 29184321,
+  "metadata": {
+    "identifier": "literary-digest-15-april-1899-recent-experiments-by-tesla",
+    "mediatype": "texts",
+    "collection": [
+      "electrotherapy-museum",
+      "patron-library-collection"
+    ],
+    "creator": "Literary Digest, Jeff Behary",
+    "date": "1899-04-15",
+    "description": "Literary Digest 15 April 1899 Recent Experiments By Tesla<br />Part of William C. (Bill) Wysock's Tesla Technology Research Archive",
+    "language": "eng",
+    "scanner": "Internet Archive HTML5 Uploader 1.7.0",
+    "subject": [
+      "Nikola Tesla",
+      "Tesla Coils",
+      "Tesla Coil"
+    ],
+    "title": "Literary Digest 15 April 1899 Recent Experiments By Tesla",
+    "uploader": "electrotherapymuseum@gmail.com",
+    "collection_added": [
+      "additional_collections",
+      "patron-library-collection"
+    ],
+    "publicdate": "2026-01-29 01:34:40",
+    "addeddate": "2026-01-29 01:34:40",
+    "identifier-access": "http://archive.org/details/literary-digest-15-april-1899-recent-experiments-by-tesla",
+    "identifier-ark": "ark:/13960/s2hdt31xbr1",
+    "ppi": "600",
+    "ocr": "tesseract 5.3.0-6-g76ae",
+    "ocr_parameters": "-l eng",
+    "ocr_module_version": "0.0.21",
+    "ocr_detected_script": "Latin",
+    "ocr_detected_script_conf": "1.0000",
+    "ocr_detected_lang": "en",
+    "ocr_detected_lang_conf": "1.0000",
+    "page_number_confidence": "69",
+    "page_number_module_version": "1.0.5",
+    "pdf_degraded": "invalid-jp2-headers",
+    "pdf_module_version": "0.0.25"
+  },
+  "server": "ia800702.us.archive.org",
+  "uniq": 896307119,
+  "workable_servers": [
+    "ia800702.us.archive.org",
+    "ia600702.us.archive.org"
+  ]
+}

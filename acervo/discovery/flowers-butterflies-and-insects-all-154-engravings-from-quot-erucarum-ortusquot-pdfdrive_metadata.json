@@ -1,0 +1,287 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn720005.ca.archive.org",
+        "dir": "/0/items/flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive"
+      },
+      {
+        "server": "dn760108.eu.archive.org",
+        "dir": "/0/items/flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn720005.ca.archive.org",
+        "dir": "/0/items/flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive"
+      },
+      {
+        "server": "dn760108.eu.archive.org",
+        "dir": "/0/items/flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive"
+      }
+    ]
+  },
+  "created": 1793242548,
+  "d1": "ia903205.us.archive.org",
+  "d2": "ia803205.us.archive.org",
+  "dir": "/12/items/flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive",
+  "files": [
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive ).pdf",
+      "source": "original",
+      "mtime": "1651856863",
+      "size": "24223995",
+      "md5": "9d01cd82635514c5c0e863a8b5be9954",
+      "crc32": "aa3b3119",
+      "sha1": "b8718566eb9626eacb2bd55d49445f25da6bd2d1",
+      "format": "Text PDF",
+      "viruscheck": "1651857249"
+    },
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_chocr.html.gz",
+      "source": "derivative",
+      "ocr": "tesseract 5.0.0-1-g862e",
+      "ocr_parameters": "-l que+fas+rus+urd+mon+lat+eng+deu+spa+kir+kaz+srp+chi_sim+Cyrillic+Arabic+Latin",
+      "ocr_module_version": "0.0.15",
+      "ocr_autonomous": "true",
+      "ocr_detected_script": [
+        "Arabic",
+        "Latin",
+        "Cyrillic"
+      ],
+      "ocr_detected_script_conf": [
+        "0.2815",
+        "0.6947",
+        "0.0067"
+      ],
+      "ocr_detected_lang": "la",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "chOCR",
+      "original": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_jp2.zip",
+      "mtime": "1651861368",
+      "size": "160692",
+      "md5": "38a19a17a965d7a679ef28fe0ed288c6",
+      "crc32": "46ed683e",
+      "sha1": "5cbeca794c5485baed4359fbd4e2f36a148870e2"
+    },
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_djvu.txt",
+      "source": "derivative",
+      "format": "DjVuTXT",
+      "original": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_djvu.xml",
+      "mtime": "1651861641",
+      "size": "11551",
+      "md5": "2d5174bf8a80b9614feeed176137379a",
+      "crc32": "0f44a1a2",
+      "sha1": "d0328c2b82d57d9bc116afc02257b05e252b1d13"
+    },
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_djvu.xml",
+      "source": "derivative",
+      "format": "Djvu XML",
+      "original": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_hocr.html",
+      "mtime": "1651861512",
+      "size": "310209",
+      "md5": "0cc026c50292c93267764f81ce5c7ef9",
+      "crc32": "043af728",
+      "sha1": "fe561ea5d588b5fba1cb388dbc8800e8a4afbdab"
+    },
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_hocr.html",
+      "source": "derivative",
+      "hocr_char_to_word_module_version": "1.1.0",
+      "hocr_char_to_word_hocr_version": "1.1.15",
+      "ocr_parameters": "-l que+fas+rus+urd+mon+lat+eng+deu+spa+kir+kaz+srp+chi_sim+Cyrillic+Arabic+Latin",
+      "ocr_module_version": "0.0.15",
+      "ocr_autonomous": "true",
+      "ocr_detected_script": [
+        "Arabic",
+        "Latin",
+        "Cyrillic"
+      ],
+      "ocr_detected_script_conf": [
+        "0.2815",
+        "0.6947",
+        "0.0067"
+      ],
+      "ocr_detected_lang": "la",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "hOCR",
+      "original": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_chocr.html.gz",
+      "mtime": "1651861482",
+      "size": "466598",
+      "md5": "d43b36e2ade6c45f7e78e7ce3f38d515",
+      "crc32": "7ed452c6",
+      "sha1": "bd56741462af9d49393a8f32bba2f24c921485a9"
+    },
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_hocr_pageindex.json.gz",
+      "source": "derivative",
+      "hocr_pageindex_module_version": "1.0.0",
+      "hocr_pageindex_hocr_version": "1.1.15",
+      "format": "OCR Page Index",
+      "original": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_hocr.html",
+      "mtime": "1651861590",
+      "size": "1500",
+      "md5": "8e2c50b1f99d0ce1f66c3c10280ca1f7",
+      "crc32": "68931248",
+      "sha1": "30aa39ee1e4c9c01e9c406e41b17f2924ef6929d"
+    },
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_hocr_searchtext.txt.gz",
+      "source": "derivative",
+      "hocr_fts_text_module_version": "1.1.0",
+      "hocr_fts_text_hocr_version": "1.1.15",
+      "word_conf_0_10": "8",
+      "word_conf_11_20": "12",
+      "word_conf_21_30": "19",
+      "word_conf_31_40": "40",
+      "word_conf_41_50": "73",
+      "word_conf_51_60": "68",
+      "word_conf_61_70": "74",
+      "word_conf_71_80": "68",
+      "word_conf_81_90": "145",
+      "word_conf_91_100": "1435",
+      "format": "OCR Search Text",
+      "original": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_hocr.html",
+      "mtime": "1651861628",
+      "size": "6017",
+      "md5": "5d3fc817b98698de978053183f1c079b",
+      "crc32": "96e59c75",
+      "sha1": "a343622887263dfba8a1edc1da9c82441e6814e2"
+    },
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_jp2.zip",
+      "source": "derivative",
+      "format": "Single Page Processed JP2 ZIP",
+      "original": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive ).pdf",
+      "mtime": "1651858322",
+      "size": "27675267",
+      "md5": "49155d2a49141bd2f948e6fdac2eee97",
+      "crc32": "f5639281",
+      "sha1": "e9fa91653654a77caa8c4e4e35575f2464263d29",
+      "filecount": "163"
+    },
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_page_numbers.json",
+      "source": "derivative",
+      "format": "Page Numbers JSON",
+      "original": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_djvu.xml",
+      "mtime": "1651861851",
+      "size": "23349",
+      "md5": "722f91205b38fce017de2bc1515827ac",
+      "crc32": "c15e747e",
+      "sha1": "40e2536bd339d0e8a20ca88cf5eb66f9df87650c"
+    },
+    {
+      "name": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_scandata.xml",
+      "source": "derivative",
+      "format": "Scandata",
+      "original": "Flowers, Butterflies and Insects_ All 154 Engravings from &quot;Erucarum Ortus&quot; ( PDFDrive )_djvu.xml",
+      "mtime": "1651861844",
+      "size": "52514",
+      "md5": "2125f198de44cff2377589f118ad2b6c",
+      "crc32": "3432b942",
+      "sha1": "969986d6d327dff766d28f2cee0e71fc30b5e968"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1651861867",
+      "size": "19323",
+      "md5": "8fdbfc85ac83c89b359d8e890619f850",
+      "crc32": "4e81070d",
+      "sha1": "93766e064491a473b4c8de795f8894ac4d6987aa",
+      "format": "Item Tile",
+      "rotation": "0"
+    },
+    {
+      "name": "flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive_archive.torrent",
+      "source": "metadata",
+      "btih": "0cc8828d150c9bfd15b47f2c4e42415eeb2e3700",
+      "mtime": "1651861872",
+      "size": "6984",
+      "md5": "24fca229b529153f208862902ebf1ab5",
+      "crc32": "de67baf3",
+      "sha1": "5464faa373087372920aa3aad1720b8723abebff",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "a5e7462b0e0d9871bd492450fdcbf034",
+      "summation": "md5"
+    },
+    {
+      "name": "flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive_meta.sqlite",
+      "source": "original",
+      "mtime": "1651856901",
+      "size": "28672",
+      "md5": "e2cbe8a8905b04e9aaa327a4c6bcacca",
+      "crc32": "95982180",
+      "sha1": "67d96bda60f94bcf97c0607e2a90ff14cfd7e1b5",
+      "format": "Metadata"
+    },
+    {
+      "name": "flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive_meta.xml",
+      "source": "original",
+      "mtime": "1651861628",
+      "size": "3800",
+      "md5": "33b48eef9f78f2339f652df636b7a5d4",
+      "crc32": "99e9450d",
+      "sha1": "127d18604bfcfa1ba1ee9f33b963a7a6387cb7a6",
+      "format": "Metadata"
+    }
+  ],
+  "files_count": 15,
+  "item_last_updated": 1719421376,
+  "item_size": 52990471,
+  "metadata": {
+    "identifier": "flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive",
+    "mediatype": "texts",
+    "collection": [
+      "opensource",
+      "community"
+    ],
+    "description": "<span style=\"color:rgb(15,17,17);font-family:Arial, sans-serif;font-size:14px;background-color:rgb(255,255,255);\">The splendid engravings in this historic book combine beautiful images of roses, butterflies, tulips, caterpillars, and other specimens of plant and insect life in elegant full-page compositions. Representing a notable achievement from a great age of floral painting and the engraver's art, they reach across the centuries to us with undiminished freshness and appeal, revealing the most delicate nuances of natural forms with a scientist's eye for precise detail.<br />These fine works represent not only a high point in the history of botanical and zoological art but also an important advance in scientific knowledge as well. The artist, Maria Sibylla Merian (1647–1717), was one of the first observers to comprehend and record the metamorphoses of insects, most notably the emergence of the butterfly from its caterpillar and chrysalis phases. Her </span><span class=\"a-text-italic\" style=\"color:rgb(15,17,17);font-family:Arial, sans-serif;font-size:14px;background-color:rgb(255,255,255);font-style:italic;\">Erucarum Ortus,</span><span style=\"color:rgb(15,17,17);font-family:Arial, sans-serif;font-size:14px;background-color:rgb(255,255,255);\"> whose engravings were originally published in the years 1679–1717, was a substantial contribution to the science of entomology and helped lay the foundations for Charles Linnaeus's later work in the classification of plant and animal species.<br />This edition combines all 154 original engravings from her three-volume work on the insects of Europe. Students and lovers of the natural sciences as well as those of the arts and crafts will find these dazzling works a rich source of information and delight. Graphic artists, textile designers, and others will find it a versatile and royalty-free design resource that will earn a treasured place on their library shelves.</span>",
+    "scanner": "Internet Archive HTML5 Uploader 1.6.4",
+    "subject": [
+      "flowers",
+      "insects",
+      "butterflies",
+      "art",
+      "nature"
+    ],
+    "title": "Flowers, Butterflies and Insects: All 154 Engravings from \"Erucarum Ortus\"",
+    "uploader": "ayelen.terradillos@hotmail.com",
+    "publicdate": "2022-05-06 17:08:08",
+    "addeddate": "2022-05-06 17:08:08",
+    "curation": "[curator]validator@archive.org[/curator][date]20220506171409[/date][comment]checked for malware[/comment]",
+    "identifier-access": "http://archive.org/details/flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive",
+    "identifier-ark": "ark:/13960/s2t1b64mrh9",
+    "ppi": "300",
+    "ocr": "tesseract 5.0.0-1-g862e",
+    "ocr_parameters": "-l que+fas+rus+urd+mon+lat+eng+deu+spa+kir+kaz+srp+chi_sim+Cyrillic+Arabic+Latin",
+    "ocr_module_version": "0.0.15",
+    "ocr_autonomous": "true",
+    "ocr_detected_script": [
+      "Arabic",
+      "Latin",
+      "Cyrillic"
+    ],
+    "ocr_detected_script_conf": [
+      "0.2815",
+      "0.6947",
+      "0.0067"
+    ],
+    "ocr_detected_lang": "la",
+    "ocr_detected_lang_conf": "1.0000"
+  },
+  "server": "ia803205.us.archive.org",
+  "uniq": 1202063764,
+  "workable_servers": [
+    "ia803205.us.archive.org",
+    "ia903205.us.archive.org"
+  ]
+}

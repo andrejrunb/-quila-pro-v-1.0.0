@@ -1,0 +1,288 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn721500.ca.archive.org",
+        "dir": "/0/items/ursula-2a-edicao"
+      },
+      {
+        "server": "dn760004.eu.archive.org",
+        "dir": "/0/items/ursula-2a-edicao"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn721500.ca.archive.org",
+        "dir": "/0/items/ursula-2a-edicao"
+      },
+      {
+        "server": "dn760004.eu.archive.org",
+        "dir": "/0/items/ursula-2a-edicao"
+      }
+    ]
+  },
+  "created": 1793238740,
+  "d1": "ia902803.us.archive.org",
+  "d2": "ia802803.us.archive.org",
+  "dir": "/22/items/ursula-2a-edicao",
+  "files": [
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro.epub",
+      "source": "derivative",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_hocr.html",
+      "mtime": "1712177876",
+      "size": "418071",
+      "md5": "2347a3cfa3da3e58e5d7eecdc466eeba",
+      "crc32": "c268c7ae",
+      "sha1": "29b24d10b917b7f68d0306629430ac508f0b5aff",
+      "format": "EPUB"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro.pdf",
+      "source": "original",
+      "mtime": "1689036473",
+      "size": "474740",
+      "md5": "f5824f1dcf89da3090c9c14ae03e09dd",
+      "crc32": "1fad54bb",
+      "sha1": "cdbd3287444b462199f6c6c689303206fbc2fb58",
+      "format": "Text PDF",
+      "viruscheck": "1689036826"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_chocr.html.gz",
+      "source": "derivative",
+      "ocr": "tesseract 5.3.0-3-g9920",
+      "ocr_parameters": "lang-por;two-pass-disabled;pass-dpi-disabled;autonomous-mode-disabled;binarisation-method-otsu",
+      "ocr_module_version": "0.0.21",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "1.0000",
+      "ocr_detected_lang": "pt",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "chOCR",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_jp2.zip",
+      "mtime": "1689038476",
+      "size": "3761272",
+      "md5": "955416cc29449a8cba928d298fde80fa",
+      "crc32": "1cd3a7c2",
+      "sha1": "743209971804c4d94eb81baeb457f112d0c9afa9"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_daisy.zip",
+      "source": "derivative",
+      "hocr_epub_module_version": "0.0.1",
+      "hocr_epub_hocr_version": "1.1.66",
+      "format": "Daisy",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_hocr.html",
+      "mtime": "1755951665",
+      "size": "47033",
+      "md5": "19ad8f51fd246954589b21857c32ef8e",
+      "crc32": "d8a92b36",
+      "sha1": "97c9f27fe9f22c2ce48c78a39dd1909789af10aa",
+      "filecount": "9"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_djvu.txt",
+      "source": "derivative",
+      "format": "DjVuTXT",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_djvu.xml",
+      "mtime": "1689041127",
+      "size": "289415",
+      "md5": "afcb5afe09ed4feed9c075ce568ff82d",
+      "crc32": "3d46c3e6",
+      "sha1": "a112f1c0d614dd3eeeab347354fd7665d90ac33e"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_djvu.xml",
+      "source": "derivative",
+      "format": "Djvu XML",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_hocr.html",
+      "mtime": "1689039562",
+      "size": "3814761",
+      "md5": "3a9a6ec6de34d7da01988e4b12f0fea0",
+      "crc32": "9efb2c7a",
+      "sha1": "7bf9bb4501a2a3629247f15702ec7603b7f53a3e"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_hocr.html",
+      "source": "derivative",
+      "hocr_char_to_word_module_version": "1.2.0",
+      "hocr_char_to_word_hocr_version": "1.1.45",
+      "ocr_parameters": "lang-por;two-pass-disabled;pass-dpi-disabled;autonomous-mode-disabled;binarisation-method-otsu",
+      "ocr_module_version": "0.0.21",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "1.0000",
+      "ocr_detected_lang": "pt",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "hOCR",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_chocr.html.gz",
+      "mtime": "1689039174",
+      "size": "7030697",
+      "md5": "02712b46322b21ea6031e7b759b580f5",
+      "crc32": "578f3947",
+      "sha1": "cd0489de21d272b6bb6f2658833cecc6557386e0"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_hocr_pageindex.json.gz",
+      "source": "derivative",
+      "hocr_pageindex_module_version": "1.0.0",
+      "hocr_pageindex_hocr_version": "1.1.15",
+      "format": "OCR Page Index",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_hocr.html",
+      "mtime": "1689041029",
+      "size": "2134",
+      "md5": "fb7df00144d6605f8c8aba5d0fd60eea",
+      "crc32": "e729fe2f",
+      "sha1": "99e8d6443cf25b0535af144fb4c7c5b10b9a1781"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_hocr_searchtext.txt.gz",
+      "source": "derivative",
+      "hocr_fts_text_module_version": "1.1.0",
+      "hocr_fts_text_hocr_version": "1.1.15",
+      "word_conf_0_10": "85",
+      "word_conf_11_20": "57",
+      "word_conf_21_30": "52",
+      "word_conf_31_40": "35",
+      "word_conf_41_50": "45",
+      "word_conf_51_60": "38",
+      "word_conf_61_70": "64",
+      "word_conf_71_80": "114",
+      "word_conf_81_90": "1373",
+      "word_conf_91_100": "46011",
+      "format": "OCR Search Text",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_hocr.html",
+      "mtime": "1689041093",
+      "size": "108887",
+      "md5": "d0bb39c14bfa8a32b888509d45c8376b",
+      "crc32": "267acb81",
+      "sha1": "dfc5fe4ee6c8f758fe4fc4a75204b290efc64d96"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_jp2.zip",
+      "source": "derivative",
+      "format": "Single Page Processed JP2 ZIP",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro.pdf",
+      "mtime": "1689037328",
+      "size": "82269595",
+      "md5": "b834a3582104e94bde4d2cd78f80dac7",
+      "crc32": "45993712",
+      "sha1": "8055a8c60d9e3a1cba82e65bc141e398414a2a89",
+      "filecount": "179"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_page_numbers.json",
+      "source": "derivative",
+      "hocr_pagenumber_module_version": "1.0.3",
+      "hocr_pagenumber_hocr_version": "1.1.48",
+      "hocr_pagenumber_confidence": "90",
+      "format": "Page Numbers JSON",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_hocr.html",
+      "mtime": "1689041200",
+      "size": "29961",
+      "md5": "b67a336253fa83e547baff58015df2f4",
+      "crc32": "a0017504",
+      "sha1": "8a8f3182a8e5500db3171a92f3d39e03568df025"
+    },
+    {
+      "name": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_scandata.xml",
+      "source": "derivative",
+      "format": "Scandata",
+      "original": "Ursula-2a-edicao-Cadernos-do-Mundo-Inteiro_djvu.xml",
+      "mtime": "1689041200",
+      "size": "63444",
+      "md5": "201eee627e5844f98b8c7c4ab0c6195e",
+      "crc32": "d92ce330",
+      "sha1": "ebe2b92c76047895809a0c1c755e64ba57255ea3"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1689041212",
+      "size": "13499",
+      "md5": "2d60db4c291e0d6fb01141eebdc712a6",
+      "crc32": "1ab4eb1d",
+      "sha1": "dd22023627cb587574bd82e6f21a0d7654079c1c",
+      "format": "Item Tile",
+      "rotation": "0"
+    },
+    {
+      "name": "ursula-2a-edicao_archive.torrent",
+      "source": "metadata",
+      "btih": "6e69ec2f020a0082d00bb98f4d29e7c9e4d447b7",
+      "mtime": "1755951806",
+      "size": "7934",
+      "md5": "1ff8cdfc8e6b15873db0b67c67460af5",
+      "crc32": "c99ed2bf",
+      "sha1": "fe50139d9049b5581226b1760ce9a893e418ce5d",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "ursula-2a-edicao_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "455353ddb10a852e8ad04fc94b4a2085",
+      "summation": "md5"
+    },
+    {
+      "name": "ursula-2a-edicao_meta.sqlite",
+      "source": "original",
+      "mtime": "1689036511",
+      "size": "20480",
+      "md5": "10aaf79e92c3f3cb79faa7d988368a62",
+      "crc32": "80c9e24e",
+      "sha1": "319569feade7101fef27ceb7975ee6cf65c52f44",
+      "format": "Metadata"
+    },
+    {
+      "name": "ursula-2a-edicao_meta.xml",
+      "source": "original",
+      "mtime": "1755951804",
+      "size": "2176",
+      "md5": "e85d019160962bd0ce164612849c0f04",
+      "crc32": "3b9714c5",
+      "sha1": "7a9297ffcac415b895942ecc4d5b75fd9e4b2918",
+      "format": "Metadata"
+    }
+  ],
+  "files_count": 17,
+  "item_last_updated": 1755951806,
+  "item_size": 98354099,
+  "metadata": {
+    "identifier": "ursula-2a-edicao",
+    "mediatype": "texts",
+    "collection": [
+      "booksbylanguage_portuguese",
+      "booksbylanguage"
+    ],
+    "creator": "Maria Firmina dos Reis",
+    "date": "1859",
+    "description": "<span style=\"color:rgb(15,17,17);font-family:'Amazon Ember', Arial, sans-serif;font-size:14px;background-color:rgb(255,255,255);\">Publicado originalmente em 1859, Úrsula é considerado o primeiro romance de autoria negra e feminina do Brasil. Livro de estreia da escritora maranhense Maria Firmina dos Reis, mulher negra, professora e militante de causas da educação, a obra é um marco na história da literatura brasileira. A autora lança um novo olhar para a questão da abolição, inédito até então, não do ponto de vista eurocêntrico, como era comum na literatura de seu tempo, mas justamente pela perspectiva dos próprios oprimidos, dando voz às mulheres, aos negros e escravos, além de denunciar a opressão do sistema patriarcal. </span>",
+    "language": "por",
+    "scanner": "Internet Archive HTML5 Uploader 1.7.0",
+    "subject": "Úrsula",
+    "title": "Úrsula",
+    "uploader": "cleiton@grr.la",
+    "publicdate": "2023-07-11 00:48:19",
+    "addeddate": "2023-07-11 00:48:19",
+    "curation": "[curator]validator@archive.org[/curator][date]20230711005346[/date][comment]checked for malware[/comment]",
+    "identifier-access": "http://archive.org/details/ursula-2a-edicao",
+    "identifier-ark": "ark:/13960/s2wr7h9s4jn",
+    "ppi": "300",
+    "ocr": "tesseract 5.3.0-3-g9920",
+    "ocr_parameters": "-l por",
+    "ocr_module_version": "0.0.21",
+    "ocr_detected_script": "Latin",
+    "ocr_detected_script_conf": "1.0000",
+    "ocr_detected_lang": "pt",
+    "ocr_detected_lang_conf": "1.0000",
+    "page_number_confidence": "90",
+    "page_number_module_version": "1.0.3",
+    "collection_added": "booksbylanguage"
+  },
+  "server": "ia902803.us.archive.org",
+  "uniq": 600056132,
+  "workable_servers": [
+    "ia902803.us.archive.org",
+    "ia802803.us.archive.org"
+  ]
+}

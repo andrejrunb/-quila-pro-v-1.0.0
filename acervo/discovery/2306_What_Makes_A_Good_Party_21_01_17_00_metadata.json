@@ -1,0 +1,546 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn790000.ca.archive.org",
+        "dir": "/0/items/2306_What_Makes_A_Good_Party_21_01_17_00"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn790000.ca.archive.org",
+        "dir": "/0/items/2306_What_Makes_A_Good_Party_21_01_17_00"
+      }
+    ]
+  },
+  "created": 1793228204,
+  "d1": "dn600203.us.archive.org",
+  "dir": "/0/items/2306_What_Makes_A_Good_Party_21_01_17_00",
+  "files": [
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.storj-store.log",
+      "source": "derivative",
+      "storj_toolchain": "rclone,uplink",
+      "storj_store_module_version": "1.0.0",
+      "rclone_version": "rclone v1.58.1\n- os/version: alpine 3.15.4 (64 bit)\n- os/kernel: 5.4.0-42-generic (x86_64)\n- os/type: linux\n- os/arch: amd64\n- go/version: go1.18.1\n- go/linking: static\n- go/tags: none",
+      "uplink_version": "With your permission, Storj can automatically collect analytics information from your uplink CLI to help improve the quality and performance of our products. This information is sent only with your consent and is submitted anonymously to Storj Labs: (y/n) Release build\nVersion: v1.48.2\nBuild timestamp: 08 Feb 22 13:16 UTC\nGit commit: ef26ffe4d27d2b4192d07358f64ed65d8913f0dc PATH VERSION\nstorj.io/storj (devel)\nstorj.io/common v0.0.0-20220131120956-e74f624a3d55\nstorj.io/drpc v0.0.29\nstorj.io/monkit-jaeger v0.0.0-20220131130547-dc4cb5a0d97a\nstorj.io/private v0.0.0-20220131131751-c913260b9ec2\nstorj.io/uplink v1.7.2-0.20220131124001-c1db742c840d",
+      "remote_path": "storj-native:archive.org/download/2306_What_Makes_A_Good_Party_21_01_17_00",
+      "format": "Storj Upload Log",
+      "original": "2306_What_Makes_A_Good_Party_21_01_17_00.storj-store.trigger",
+      "mtime": "1691082283",
+      "size": "0",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "crc32": "00000000",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.storj-store.trigger",
+      "source": "original",
+      "mtime": "1643409434",
+      "size": "0",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "crc32": "00000000",
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "format": "Storj Upload Trigger"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000001.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942915",
+      "size": "986",
+      "md5": "a1a71ba759664808dd2ad6d859804725",
+      "crc32": "24d97024",
+      "sha1": "8ba48182d5c63d4933ebcf2e50d19bd59fc89d16"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000045.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942917",
+      "size": "4671",
+      "md5": "1dff7f2b05e32570b1c452bbd2eb975f",
+      "crc32": "7d6b89f5",
+      "sha1": "e2a9d70977c0bf1935af3364583edf4f21d38e07"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000075.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942920",
+      "size": "3877",
+      "md5": "ccb24f578d6b18bc0e9525fb44e0cb5e",
+      "crc32": "54dfb041",
+      "sha1": "573f53c5b957f5b3e237492c386b5ef4282b19fe"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000105.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942922",
+      "size": "4496",
+      "md5": "8907b1d5c65aa0aa30575a66b2de73d7",
+      "crc32": "f9ef86e0",
+      "sha1": "3f2a3ec776105d4034320aad0ba2a47c8c725527"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000135.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942925",
+      "size": "4299",
+      "md5": "2ff44e3b08002688908a6ec127df6c83",
+      "crc32": "e0f75d05",
+      "sha1": "101e0f0adc7b13c38dea3bd552d10bd82969e9a9"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000165.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942928",
+      "size": "5940",
+      "md5": "488725fb67292b4a2c288e564cf6216a",
+      "crc32": "e77fe510",
+      "sha1": "8e4775d356147af1d3d587bc369fa4550040b68c"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000195.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942930",
+      "size": "5529",
+      "md5": "d21c9c3b8647cef2363faf7e23e66375",
+      "crc32": "f740a02b",
+      "sha1": "73f83925dd2dc11f19adc3aa87dd2fbb0413581a"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000225.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942933",
+      "size": "3843",
+      "md5": "69eb2dd52da6dfdf984d339b22f0ff9a",
+      "crc32": "f1580877",
+      "sha1": "c91ece607b5f6523e8da044ab2783ce08da1fb04"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000255.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942936",
+      "size": "6950",
+      "md5": "0010233108e520c01ca1786dd1323084",
+      "crc32": "b3f9ca33",
+      "sha1": "a96039c3c4d999cc081b27f65b1743e72d3f0e1e"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000285.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942938",
+      "size": "3930",
+      "md5": "fc9afc180165cf4c0824b7e27c33e01b",
+      "crc32": "87acfe16",
+      "sha1": "a48ed1d5ab669aaa8c8cde35618df77da53c5d11"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000315.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942941",
+      "size": "4737",
+      "md5": "bd2f01ef485d11cb7de9ea845f03d62c",
+      "crc32": "f813dd3a",
+      "sha1": "75e5da6b7adf5bc5ce72294b8f9b4735b8c84889"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000345.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942944",
+      "size": "4480",
+      "md5": "73a41c439e8d3b663171faae798d5883",
+      "crc32": "d23ad1bc",
+      "sha1": "43b34bfdfb1930bfd4f92fa25b5fe70aafb80213"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000375.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942946",
+      "size": "4427",
+      "md5": "a0a828a8308960e4c4dadf01eef9ddc2",
+      "crc32": "3cdf5d4b",
+      "sha1": "6f321401d0cc728fb07f8eb56d0a0d2ab281fb60"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000405.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942949",
+      "size": "6097",
+      "md5": "a84aad663f86e5b6dfed826bc20063ee",
+      "crc32": "e1d75da1",
+      "sha1": "c99f752ad0fe6b63b023d92efe01845c9b78ae41"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000435.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942951",
+      "size": "5339",
+      "md5": "c90dca2c38f19a17bf4addaeff7eb223",
+      "crc32": "c915fed8",
+      "sha1": "caf1254d839b0c0ad733b8146b11ca0c164bcff5"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000465.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942954",
+      "size": "4722",
+      "md5": "e0a5e1aaf054537fafb99ee94e7407b5",
+      "crc32": "d5bd058e",
+      "sha1": "87d13c766f2105b89a359517690db888932f8b4b"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000495.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942957",
+      "size": "5531",
+      "md5": "8f4a0021f6e8bbc2b25d28076cf4146c",
+      "crc32": "d0e4966c",
+      "sha1": "f683f7a5d25695c7b969256e4d5ae5549cd4704e"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000525.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942960",
+      "size": "6946",
+      "md5": "be1cf75ae507c41105f87bae391e6ff7",
+      "crc32": "c3dddd7d",
+      "sha1": "4d8ea47f7c8b2dccb53d9c3230a0dd0a9671243e"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000555.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942963",
+      "size": "4964",
+      "md5": "8f9bd4961b820775d11b76a82fb16886",
+      "crc32": "2d8a45da",
+      "sha1": "0a989080e9330f8d002540eab4a63339c62c4e24"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000585.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942966",
+      "size": "5325",
+      "md5": "d8fca0e1b70d4ebfecf7461b5a1bd13b",
+      "crc32": "75155f2d",
+      "sha1": "2573506501e47f2f6730d57e47dbdd6fd67fb24d"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00.thumbs/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_000615.jpg",
+      "source": "derivative",
+      "format": "Thumbnail",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942969",
+      "size": "5976",
+      "md5": "5e87eedf500a97e8607eeecb36c63f68",
+      "crc32": "8e311273",
+      "sha1": "4e9a6a5e79bb662b8377dcf76c058d9b6b5aae95"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00_archive.torrent",
+      "source": "metadata",
+      "btih": "d2ff97f7286dcc912f73e02e7b85c97f95f2b94a",
+      "mtime": "1764962298",
+      "size": "19136",
+      "md5": "289b3694d3080d02c092fcc8aa91caaa",
+      "crc32": "d281eb3b",
+      "sha1": "cbd95f81d109a2289243e69c9ac8232823a36e95",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "b9440f57982e0cc4d26f5b3f2c180abe",
+      "summation": "md5"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00_meta.sqlite",
+      "source": "original",
+      "mtime": "1764962295",
+      "size": "20480",
+      "md5": "11399886bd553bbcc66a606b10d6322b",
+      "crc32": "e7e6b571",
+      "sha1": "4ad69df03e821c288cc512758520416c4348bfbd",
+      "format": "Metadata"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00_meta.xml",
+      "source": "original",
+      "format": "Metadata",
+      "mtime": "1691082283",
+      "size": "1180",
+      "md5": "177680f8f60f5736a3064bd5aaa8b558",
+      "crc32": "b6e40855",
+      "sha1": "d160c3327fe9e005db9e5585b771e262df15ebb8"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_21_01_17_00_reviews.xml",
+      "source": "original",
+      "mtime": "1531955177",
+      "size": "1934",
+      "format": "Metadata",
+      "md5": "3a06794bdf668263c75a5bd5789595ef",
+      "crc32": "0f2f81d5",
+      "sha1": "616bc3c95d77674b2153b668963b5cb165a670fb"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.asr.js",
+      "source": "original",
+      "format": "Unknown",
+      "mtime": "1472399257",
+      "size": "73005",
+      "md5": "e36f5a644b5c634675401e5a86c434bc",
+      "crc32": "68dc68a0",
+      "sha1": "82a26a38070620b62584497daf8b4277c9b884c8"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.asr.srt",
+      "source": "original",
+      "format": "SubRip",
+      "mtime": "1472399256",
+      "size": "9243",
+      "md5": "9626c45663abaac612803a3561c6c357",
+      "crc32": "63dc3bcb",
+      "sha1": "79983cd653196771bc3b39d1a116be29fd065cc4"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.asr.vtt",
+      "source": "derivative",
+      "format": "Web Video Text Tracks",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00_intermediate_asr.json",
+      "mtime": "1691082579",
+      "size": "12333",
+      "md5": "6da13b65c307f8d3ae845191ddcb175c",
+      "crc32": "dfc609cc",
+      "sha1": "60fbcb30ad8f7d1f014bf7a0fe6a9bea76c406db"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.gif",
+      "source": "derivative",
+      "format": "Animated GIF",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376942913",
+      "size": "236567",
+      "md5": "56b08196b757d460d7d209ec72f49858",
+      "crc32": "0da10684",
+      "sha1": "517f8727a7218eb1a55ec98830585ee3f44f2f72"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "source": "original",
+      "format": "MPEG4",
+      "length": "642.14",
+      "height": "480",
+      "width": "640",
+      "mtime": "1375179711",
+      "size": "254381877",
+      "md5": "e7e7b3c9d7240c9f97f550cef077b42b",
+      "crc32": "e7aa49a4",
+      "sha1": "c765c6d74be314f19aed4c16cd566935372c9530"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.mp3",
+      "source": "derivative",
+      "bitrate": "64",
+      "length": "10:42",
+      "format": "MP3",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1472140331",
+      "size": "5138432",
+      "md5": "26a30900a37a60a6eb638a5775cd2844",
+      "crc32": "498991d1",
+      "sha1": "4c639fdf6b0afde11a2ec424e20809eb905ac954",
+      "height": "0",
+      "width": "0"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.mp4",
+      "source": "derivative",
+      "format": "h.264",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376943397",
+      "size": "66791073",
+      "md5": "557a6b1ecacea784a6600ba851964dcc",
+      "crc32": "36beaef3",
+      "sha1": "35aacfeb92a273b692219638ebb1b618e18a9400",
+      "length": "642.16",
+      "height": "480",
+      "width": "640"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.ogv",
+      "source": "derivative",
+      "format": "Ogg Video",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.m4v",
+      "mtime": "1376943936",
+      "size": "47927822",
+      "md5": "f3c4657e394c897c170c0c89b4983e0e",
+      "crc32": "ba2f68f5",
+      "sha1": "df000cc68e718b4566b01d1103162df81b4e3a1c",
+      "length": "642.14",
+      "height": "300",
+      "width": "400"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.png",
+      "source": "derivative",
+      "format": "PNG",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.mp3",
+      "mtime": "1472140360",
+      "size": "11288",
+      "md5": "2d01b6e1c4e43b672e9aefe709e5662a",
+      "crc32": "8a2f6750",
+      "sha1": "d3825d1079c8403742d0f2ae7312ee02d3c28160"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00_intermediate_asr.json",
+      "source": "derivative",
+      "format": "Intermediate ASR JSON",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00_whisper_asr.json",
+      "mtime": "1691082404",
+      "size": "16815",
+      "md5": "607338a6a2e9fb1c87b22e23335be15e",
+      "crc32": "a3bcc604",
+      "sha1": "170077c794193110c5e2b082df53ef6d0eb0588e"
+    },
+    {
+      "name": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00_whisper_asr.json",
+      "source": "derivative",
+      "whisper_asr_module_version": "20230731.02",
+      "whisper_version": "20230314",
+      "whisper_model_name": "small.en",
+      "whisper_model_hash": "sha256:f953ad0fd29cacd07d5a9eda5624af0f6bcf2258be67c92b79389873d91e0872",
+      "asr_detected_lang": "en",
+      "asr_detected_lang_conf": "0.95974171161652",
+      "asr_transcribed_lang": "en",
+      "format": "Whisper ASR JSON",
+      "original": "2306_What_Makes_A_Good_Party_E01661_21_01_17_00.mp4",
+      "mtime": "1691082194",
+      "size": "177501",
+      "md5": "478b53c89514a42387554cf3a6df1f31",
+      "crc32": "e2c8bceb",
+      "sha1": "eaa0ae59744cc09dd194dbfb13e11fa00cf5b513"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1764962284",
+      "size": "7309",
+      "md5": "1fed74e288c001c124c5055f80218bab",
+      "crc32": "d46522dd",
+      "sha1": "ea7520ce7ee22e3e10f3a42d1a92d27d76c9c4e1",
+      "format": "Item Tile",
+      "rotation": "0"
+    },
+    {
+      "name": "history/files/2306_What_Makes_A_Good_Party_E01661_21_01_17_00_meta.xml.~1~",
+      "source": "original",
+      "format": "Metadata",
+      "mtime": "1376881181",
+      "size": "874",
+      "md5": "0502a4693e4e80c45b7bf7a1853c3c25",
+      "crc32": "36749e92",
+      "sha1": "1da526730d9e2d2e7fe9c5378ae9f698bd22b511",
+      "old_version": "true"
+    }
+  ],
+  "files_count": 41,
+  "item_last_updated": 1764962298,
+  "item_size": 374929934,
+  "metadata": {
+    "identifier": "2306_What_Makes_A_Good_Party_21_01_17_00",
+    "uploader": "skip@avgeeks.com",
+    "addeddate": "2013-08-19 20:04:41",
+    "title": "What Makes A Good Party?",
+    "creator": "Coronet Instructional Films",
+    "mediatype": "movies",
+    "collection": "prelinger",
+    "description": "Shows how to plan a party. Illustrates the skills which enable the guests to have fun together.",
+    "date": "1950",
+    "year": "1950",
+    "sound": "sound",
+    "color": "color",
+    "credits": "DIRECTOR: Ted Peshak; CAMERA: Dale Sharkey; WRITER: Hartley Pfeil; EDITOR: George Wilbern; NARRATOR: George Stone; AUTHORITY: Mary E. Weathersby, Head, Homemaking Education Department, Mississippi State College",
+    "publicdate": "2013-08-19 20:25:43",
+    "backup_location": "ia905705_6",
+    "whisper_asr_module_version": "20230731.02",
+    "closed_captioning": "yes",
+    "ccnum": "asr",
+    "identifier-storj": "jvc6zshoj6yhytvagxcktq5akt4a/archive.org/download/2306_What_Makes_A_Good_Party_21_01_17_00"
+  },
+  "reviews": [
+    {
+      "reviewbody": "Jean phones her friends with the most amazing news. Her brother and his roommate from college are coming to town for a visit! Jean and her friends think this calls for a celebration of the highest magnitude, so they put together a humdinger of a party. They plan it.. Invitations! Refreshments! (because, as Jean enthuses, 'we have to feed the MEN!\" And Jean also ends this conversation with this, 'Well, we want something to eat and something to drink.. Refreshments!'. and Entertainment is also discussed, 'We want to show Steve a good time, but we don't know what he really likes!' one of the girls says, pawing her teddy bear. The girls all decide to play mixer games! Soon, the party is underway! They have hat designing contests, guessing games, rhythym games and charades! Now, again, these are COLLEGE students we're talking about here, not 6 year old kids. Soon the whole thing gets out of control when the narrator states that one of the guests has some spontaneous unplanned fun, and plays 'Jimmy Crack Corn' on the piano! Oh! The kids of today! Such rebelness!!! (runs from room)\n\n\n(Oh right this is a MUST SEE on this site!!)",
+      "reviewtitle": "I don't care!",
+      "reviewer": "Spuzz",
+      "reviewdate": "2016-08-21 05:16:27",
+      "createdate": "2016-08-21 05:16:27",
+      "stars": "5"
+    },
+    {
+      "reviewbody": "Plenty of Anal-Ezze",
+      "reviewtitle": "This makes a great party",
+      "reviewer": "Deco53rybrook",
+      "reviewer_itemname": "@deco53rybrook",
+      "reviewdate": "2018-07-18 23:06:00",
+      "createdate": "2018-07-18 18:50:27",
+      "stars": "4"
+    }
+  ],
+  "server": "dn600203.us.archive.org",
+  "simplelists": {
+    "solo_manifest": {
+      "solo_manifest_dn600203": {
+        "sys_changed_by": {
+          "source": "task",
+          "task_id": "5423686273"
+        },
+        "sys_last_changed": "2026-06-07 20:57:03.034902"
+      }
+    }
+  },
+  "solo": true,
+  "uniq": 1616803704,
+  "workable_servers": [
+    "dn600203.us.archive.org"
+  ]
+}

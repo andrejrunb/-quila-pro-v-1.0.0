@@ -1,0 +1,493 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn760101.eu.archive.org",
+        "dir": "/0/items/einsteinswhowhat00eins"
+      },
+      {
+        "server": "dn790009.ca.archive.org",
+        "dir": "/0/items/einsteinswhowhat00eins"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn760101.eu.archive.org",
+        "dir": "/0/items/einsteinswhowhat00eins"
+      },
+      {
+        "server": "dn790009.ca.archive.org",
+        "dir": "/0/items/einsteinswhowhat00eins"
+      }
+    ]
+  },
+  "created": 1793242586,
+  "d1": "ia903102.us.archive.org",
+  "d2": "ia803102.us.archive.org",
+  "dir": "/1/items/einsteinswhowhat00eins",
+  "files": [
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1659920153",
+      "size": "19401",
+      "format": "Item Tile",
+      "rotation": "0",
+      "md5": "cb3e290e2d6cad8ffebbf30d947183ca",
+      "crc32": "75135ee8",
+      "sha1": "b8f198769ec64aaed08f272b94c6df93f8c78bae"
+    },
+    {
+      "name": "einsteinswhowhat00eins.epub",
+      "source": "derivative",
+      "hocr_epub_module_version": "0.0.1",
+      "hocr_epub_hocr_version": "1.1.62",
+      "format": "EPUB",
+      "original": "einsteinswhowhat00eins_hocr.html",
+      "mtime": "1753266346",
+      "size": "7377670",
+      "private": "true",
+      "md5": "2826ac894f717ae82437c1f58cf8e7c8",
+      "crc32": "132bf544",
+      "sha1": "346fe7fd7ae55ad86ec7dfd8bc803c80ec0e8eb3"
+    },
+    {
+      "name": "einsteinswhowhat00eins.gif",
+      "source": "derivative",
+      "format": "Animated GIF",
+      "original": "einsteinswhowhat00eins_jp2.zip",
+      "mtime": "1316605438",
+      "size": "267908",
+      "md5": "0a0f10c56e3a527a4e1fbb912dbcda5a",
+      "crc32": "880a6536",
+      "sha1": "ef4b966015ed66c7c841aef3ca54b076d7c67062"
+    },
+    {
+      "name": "einsteinswhowhat00eins.lcpdf",
+      "source": "derivative",
+      "format": "LCP Encrypted PDF",
+      "original": "einsteinswhowhat00eins.pdf",
+      "mtime": "1753266271",
+      "size": "9883089",
+      "md5": "24beaae976760c55f28c1eb706a015f0",
+      "crc32": "8d7151fb",
+      "sha1": "97c15c3264b285738f9bc8e30fb388302de82bd5"
+    },
+    {
+      "name": "einsteinswhowhat00eins.pdf",
+      "source": "derivative",
+      "pdf_module_version": "0.0.25",
+      "pdf_degraded": "invalid-jp2-headers",
+      "format": "Text PDF",
+      "original": "einsteinswhowhat00eins_page_numbers.json",
+      "mtime": "1719462169",
+      "size": "9525137",
+      "md5": "56565209e520c643494892ec2943024d",
+      "crc32": "ff0f937c",
+      "sha1": "c5712c3cc8d554a3259057a118f0e9642f19a7af",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_abbyy.gz",
+      "source": "derivative",
+      "format": "Abbyy GZ",
+      "original": "einsteinswhowhat00eins_jp2.zip",
+      "mtime": "1316612038",
+      "size": "2933679",
+      "md5": "85af97144c74b0224ab79d8f3f0ae8fd",
+      "crc32": "34efcc8f",
+      "sha1": "2456e766784918803878357251481230e39e8ccb",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_chocr.html.gz",
+      "source": "derivative",
+      "ocr_module_version": "0.0.17",
+      "ocr_converted": "abbyy-to-hocr 1.1.20",
+      "format": "chOCR",
+      "original": "einsteinswhowhat00eins_abbyy.gz",
+      "mtime": "1659920080",
+      "size": "2495637",
+      "md5": "a40394e633619a6b64884b2fe581661a",
+      "crc32": "3ca5e1ea",
+      "sha1": "d9829a819390b61dac0c580c0b1128764d6e0982",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_cloth_detection.log",
+      "source": "derivative",
+      "cloth_cover_detection_module_version": "1.2",
+      "format": "Cloth Cover Detection Log",
+      "original": "einsteinswhowhat00eins_scandata.xml",
+      "mtime": "1669856585",
+      "size": "781",
+      "md5": "5ae6f387229b17b0107c697711f9652e",
+      "crc32": "953a841c",
+      "sha1": "99bcff7df2d709d992b790ca84652a7ee334637a",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_dc.xml",
+      "source": "original",
+      "format": "Dublin Core",
+      "mtime": "1291318243",
+      "size": "1802",
+      "md5": "7fa70dc79dbf69c559635a5d8c3c2eb1",
+      "crc32": "cbca146c",
+      "sha1": "485d765a5f0ad73501fab4d4b99bdb584a410409"
+    },
+    {
+      "name": "einsteinswhowhat00eins_djvu.txt",
+      "source": "derivative",
+      "format": "DjVuTXT",
+      "original": "einsteinswhowhat00eins_djvu.xml",
+      "mtime": "1719462531",
+      "size": "240757",
+      "md5": "90b16fca185cd02140f4533372e610a2",
+      "crc32": "84f7950b",
+      "sha1": "83fcbdb84a22859e3d852145c0f1146273108d8f",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_djvu.xml",
+      "source": "derivative",
+      "format": "Djvu XML",
+      "original": "einsteinswhowhat00eins_hocr.html",
+      "mtime": "1719459334",
+      "size": "2876928",
+      "md5": "1ee25a88034dbfef82c925a70290ee15",
+      "crc32": "47ef0a99",
+      "sha1": "25c11460ac36aa2285af1da9a063049f17b8f4b3",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_encrypted.pdf",
+      "source": "derivative",
+      "format": "ACS Encrypted PDF",
+      "original": "einsteinswhowhat00eins.pdf",
+      "mtime": "1719462534",
+      "size": "9479402",
+      "md5": "7e756397f184fdfe2ceee3e41269f65c",
+      "crc32": "a0c63933",
+      "sha1": "a70c326804213005a652ceb8edd6af4c43491385"
+    },
+    {
+      "name": "einsteinswhowhat00eins_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "a4e32dc1642af345a1a1ce16afda57d5",
+      "summation": "md5"
+    },
+    {
+      "name": "einsteinswhowhat00eins_hocr.html",
+      "source": "derivative",
+      "hocr_char_to_word_module_version": "1.1.0",
+      "hocr_char_to_word_hocr_version": "1.1.15",
+      "ocr_module_version": "0.0.17",
+      "ocr_converted": "abbyy-to-hocr 1.1.20",
+      "format": "hOCR",
+      "original": "einsteinswhowhat00eins_chocr.html.gz",
+      "mtime": "1659920111",
+      "size": "5261909",
+      "md5": "01ec87ade10de2f30d07a386b18b6956",
+      "crc32": "53320eb4",
+      "sha1": "25ec7b353fb001b0d8318302fcf70a4c535bd4ab",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_hocr_pageindex.json.gz",
+      "source": "derivative",
+      "hocr_pageindex_module_version": "1.0.0",
+      "hocr_pageindex_hocr_version": "1.1.15",
+      "format": "OCR Page Index",
+      "original": "einsteinswhowhat00eins_hocr.html",
+      "mtime": "1659920129",
+      "size": "2067",
+      "md5": "664656bb8d1143c6da3bed3a8b478ffc",
+      "crc32": "f1250545",
+      "sha1": "5e512cc34a7c2d2fad98f0ec06862d4751810048",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_hocr_searchtext.txt.gz",
+      "source": "derivative",
+      "hocr_fts_text_module_version": "1.1.0",
+      "hocr_fts_text_hocr_version": "1.1.15",
+      "word_conf_0_10": "865",
+      "word_conf_11_20": "435",
+      "word_conf_21_30": "1597",
+      "word_conf_31_40": "1132",
+      "word_conf_41_50": "5628",
+      "word_conf_51_60": "7298",
+      "word_conf_61_70": "8922",
+      "word_conf_71_80": "5708",
+      "word_conf_81_90": "1777",
+      "word_conf_91_100": "2109",
+      "format": "OCR Search Text",
+      "original": "einsteinswhowhat00eins_hocr.html",
+      "mtime": "1659920139",
+      "size": "75047",
+      "md5": "b2c34b76575f2935a0f306442248cc1c",
+      "crc32": "a3afb3a5",
+      "sha1": "15a3e5a992c811568d71789dcc9089ef48dc54cf",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_jp2.zip",
+      "source": "derivative",
+      "format": "Single Page Processed JP2 ZIP",
+      "original": "einsteinswhowhat00eins_orig_jp2.tar",
+      "mtime": "1316605392",
+      "size": "56831654",
+      "md5": "561996f823f406ec3ce86c77dfa97415",
+      "crc32": "18cec6ca",
+      "sha1": "1496a699357dec7bfb1da7038165c833c73248ce",
+      "private": "true",
+      "filecount": "182"
+    },
+    {
+      "name": "einsteinswhowhat00eins_lcp.epub",
+      "source": "derivative",
+      "format": "LCP Encrypted EPUB",
+      "original": "einsteinswhowhat00eins.epub",
+      "mtime": "1753266550",
+      "size": "7540912",
+      "md5": "31ecee61ce7fb11d40e318e6a2097c76",
+      "crc32": "86f07b4f",
+      "sha1": "a19aaae62fd10b5321b7c2db2b04292e16ba7006"
+    },
+    {
+      "name": "einsteinswhowhat00eins_loans.json",
+      "source": "original",
+      "mtime": "1593614828",
+      "size": "3811",
+      "format": "JSON",
+      "private": "true",
+      "md5": "07ebeb85e1cd87ff548b6d9783f0bb8f",
+      "crc32": "e831dbda",
+      "sha1": "be4534d4db738d1c524b63497053fbb7a4b4431e"
+    },
+    {
+      "name": "einsteinswhowhat00eins_marc.xml",
+      "source": "original",
+      "format": "MARC",
+      "mtime": "1291318243",
+      "size": "3702",
+      "md5": "0c24b0da1b950cea1442bf62112909ab",
+      "crc32": "7673440a",
+      "sha1": "479d77427689c9d544b64fa930245b008e51a2bf"
+    },
+    {
+      "name": "einsteinswhowhat00eins_meta.log",
+      "source": "derivative",
+      "format": "Metadata Log",
+      "original": "einsteinswhowhat00eins_xisbn.json",
+      "mtime": "1454265287",
+      "size": "301",
+      "md5": "7c65791a551eb8a07f1fe0591223bb97",
+      "crc32": "a94fb1bd",
+      "sha1": "1ab8fbb674cb1b5be09fe390ccf677baccf04ea8",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_meta.mrc",
+      "source": "original",
+      "format": "MARC Binary",
+      "mtime": "1291318243",
+      "size": "1842",
+      "md5": "960925e72308831e351d9e363b012dad",
+      "crc32": "144d5831",
+      "sha1": "115350982e196ec7818e8d99839da40052e2f0a0"
+    },
+    {
+      "name": "einsteinswhowhat00eins_meta.sqlite",
+      "source": "original",
+      "mtime": "1464915624",
+      "size": "6144",
+      "format": "Metadata",
+      "md5": "70f718fbebd9db0eb2cdb61546d3bb23",
+      "crc32": "7a578bd3",
+      "sha1": "aca81131430543ebb29cf3793718bb093e47b86c"
+    },
+    {
+      "name": "einsteinswhowhat00eins_meta.xml",
+      "source": "original",
+      "format": "Metadata",
+      "mtime": "1753266550",
+      "size": "4022",
+      "md5": "53e34663acf66cfdd1c25d217cfb1605",
+      "crc32": "a5579e06",
+      "sha1": "22c9cc6365980ec9261063851262caf69a9d935e"
+    },
+    {
+      "name": "einsteinswhowhat00eins_metasource.xml",
+      "source": "original",
+      "format": "MARC Source",
+      "mtime": "1291318243",
+      "size": "400",
+      "md5": "df188a59b393e242eb6fe7a815a869fa",
+      "crc32": "a8463c76",
+      "sha1": "e810488f47c9aba857ff02bc2b28a3dd7bbac00b"
+    },
+    {
+      "name": "einsteinswhowhat00eins_orig_jp2.tar",
+      "source": "original",
+      "format": "Single Page Original JP2 Tar",
+      "mtime": "1316581434",
+      "size": "100167680",
+      "md5": "6340b5254c0ef5ea9b97a8c0849d5237",
+      "crc32": "09cc51db",
+      "sha1": "ec7f4e7747550fa73bca2b6c1a02ebcc8783142f",
+      "private": "true",
+      "filecount": "182"
+    },
+    {
+      "name": "einsteinswhowhat00eins_page_numbers.json",
+      "source": "derivative",
+      "hocr_pagenumber_module_version": "1.0.5",
+      "hocr_pagenumber_hocr_version": "1.1.54",
+      "hocr_pagenumber_confidence": "0",
+      "format": "Page Numbers JSON",
+      "original": "einsteinswhowhat00eins_hocr.html",
+      "mtime": "1719459545",
+      "size": "30651",
+      "md5": "efde9bfb73d9bc28c5c2acb9b9e31757",
+      "crc32": "2964fe6e",
+      "sha1": "5e0029d531d400abfb57d94d144562046233d9c9",
+      "private": "true"
+    },
+    {
+      "name": "einsteinswhowhat00eins_scandata.xml",
+      "source": "original",
+      "format": "Scandata",
+      "mtime": "1669856585",
+      "size": "182304",
+      "md5": "601a15ef11da76b2533048ef7c33f098",
+      "crc32": "bb2cc991",
+      "sha1": "686ebbd1f216c2d042eaa1bdd70b3da20b4149ca"
+    },
+    {
+      "name": "einsteinswhowhat00eins_xisbn.json",
+      "source": "original",
+      "mtime": "1454247857",
+      "size": "328",
+      "md5": "c00a6a65bf025047c0d38586e5053f71",
+      "crc32": "f4cc409b",
+      "sha1": "9eb69a4137f40a0954f18bd552801a7bfdd9bfa0",
+      "format": "OCLC xISBN JSON"
+    }
+  ],
+  "files_count": 29,
+  "item_last_updated": 1753266578,
+  "item_size": 215214965,
+  "metadata": {
+    "title": "Einstein's who, what, and where",
+    "creator": "Einstein, Carol",
+    "subject": "Reading comprehension",
+    "description": [
+      "Book 1. The Empire State Building -- Conquering Mount Everest -- Queen Elizabeth I -- The Great Wall of China -- Banning DDT -- Ludwig van Beethoven -- The Great Barrier Reef -- The Salem Witch trials -- Father Miguel Hidalgo -- The Louvre -- Printing the Gutenberg Bible -- Dr. Helen Taussig -- Machu Picchu -- Women workers of World War II -- Justice Thurgood Marshall -- Book 2. The Nazca lines.-- The publication of Uncle Tom's Cabin.--Winston Churchill.-- The Silk road.-- Birmingham, a battle to end segregation. --Marie Sklodowska Curie.-- Easter Island.--The capture of Quebec.--Louis Armstrong.-- Saint Petersburg.--Ferdinand Magellan.--Writing the Universal Declaration of Human Rights. --The Death of Julius Casesar.-- Maria Sibylla Merian.--Building transcontinental railroad",
+      "This book features 15 stories about people, places, and events from around the world ranging from ancient to modern times. Students build language skills with study of similes, suffixes, analogies, idioms, and synonyms",
+      "Grade 4-7"
+    ],
+    "publisher": "Cambridge, MA : Educators Pub. Service",
+    "date": "2002",
+    "language": "eng",
+    "isbn": [
+      "0838826512",
+      "9780838826515",
+      "0838826520",
+      "9780838826522"
+    ],
+    "page-progression": "lr",
+    "boxid": "IA135012",
+    "sponsor": "Internet Archive",
+    "contributor": "Internet Archive",
+    "scanningcenter": "shenzhen",
+    "mediatype": "texts",
+    "repub_state": "4",
+    "updatedate": "2010-12-02 19:30:43",
+    "updater": "AltheaB",
+    "identifier": "einsteinswhowhat00eins",
+    "uploader": "althea@archive.org",
+    "addeddate": "2010-12-02 19:30:45",
+    "publicdate": "2010-12-02 19:30:55",
+    "scanner": "scribe3.shenzhen.archive.org",
+    "repub_seconds": "111",
+    "ppi": "300",
+    "camera": "Canon EOS 5D Mark II",
+    "operator": "scanner-shenzhen-lina@archive.org",
+    "scandate": "20110921050352",
+    "imagecount": "182",
+    "foldoutcount": "0",
+    "identifier-access": "http://www.archive.org/details/einsteinswhowhat00eins",
+    "identifier-ark": "ark:/13960/t37091s0x",
+    "scanfee": "100",
+    "sponsordate": "sent20111010",
+    "donor": "bostonpubliclibrary",
+    "external-identifier": [
+      "urn:acs6:einsteinswhowhat00eins:pdf:e344f038-4a89-447e-8583-3f12c79c4ee5",
+      "urn:acs6:einsteinswhowhat00eins:epub:3841e0be-9f7a-43b2-8a34-c834a69b86f3",
+      "urn:oclc:record:1033587104",
+      "urn:lcp:einsteinswhowhat00eins:lcpdf:ecc67f35-55ed-4213-b0be-e7b7e7de379f",
+      "urn:lcp:einsteinswhowhat00eins:epub:f8a9b1db-5fbb-4a61-86b9-08509dad2e61"
+    ],
+    "city": "Cambridge, MA",
+    "oclc-id": [
+      "123916478",
+      "317818516",
+      "52769349"
+    ],
+    "backup_location": "ia903607_22",
+    "openlibrary_edition": "OL24961684M",
+    "openlibrary_work": "OL16063275W",
+    "access-restricted-item": "true",
+    "filesxml": [
+      "Thu Dec 24 3:39:56 UTC 2020",
+      "Wed Apr 3 1:38:49 UTC 2024"
+    ],
+    "ocr_module_version": "0.0.17",
+    "ocr_converted": "abbyy-to-hocr 1.1.20",
+    "collection": [
+      "internetarchivebooks",
+      "inlibrary",
+      "printdisabled"
+    ],
+    "page_number_confidence": "0",
+    "page_number_module_version": "1.0.5",
+    "pdf_degraded": "invalid-jp2-headers",
+    "pdf_module_version": "0.0.25"
+  },
+  "server": "ia903102.us.archive.org",
+  "uniq": 1479862656,
+  "workable_servers": [
+    "ia903102.us.archive.org",
+    "ia803102.us.archive.org"
+  ],
+  "xisbn": {
+    "stat": "ok",
+    "list": [
+      {
+        "url": [
+          "http://www.worldcat.org/oclc/123916478?referer=xid"
+        ],
+        "publisher": "Educators Pub. Service",
+        "form": [
+          "BC"
+        ],
+        "lang": "eng",
+        "city": "Cambridge, MA",
+        "author": "Carol Einstein.",
+        "year": "2002",
+        "isbn": [
+          "0838826512"
+        ],
+        "title": "Einstein's who, what, and where",
+        "oclcnum": [
+          "123916478",
+          "317818516",
+          "52769349"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,268 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn721701.ca.archive.org",
+        "dir": "/0/items/quincas-borba"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn721701.ca.archive.org",
+        "dir": "/0/items/quincas-borba"
+      }
+    ]
+  },
+  "created": 1793242523,
+  "d1": "ia600807.us.archive.org",
+  "d2": "ia800807.us.archive.org",
+  "dir": "/29/items/quincas-borba",
+  "files": [
+    {
+      "name": "Quincas Borba.epub",
+      "source": "derivative",
+      "hocr_epub_module_version": "0.0.1",
+      "hocr_epub_hocr_version": "1.1.66",
+      "format": "EPUB",
+      "original": "Quincas Borba_hocr.html",
+      "mtime": "1762560663",
+      "size": "300201",
+      "md5": "35fdae35e5bf02fc10fd30d75bd8b992",
+      "crc32": "55c886fa",
+      "sha1": "773d66f5cd3b4385c703c8646648d7ded5e9a6c3"
+    },
+    {
+      "name": "Quincas Borba.pdf",
+      "source": "original",
+      "mtime": "1741283006",
+      "size": "686947",
+      "md5": "a585e522931435f12abf300e0b0416fb",
+      "crc32": "2ff45396",
+      "sha1": "f3ffcef36fdbadcadbbc7043ba4e5dd6046d96aa",
+      "format": "Text PDF",
+      "viruscheck": "1741283349"
+    },
+    {
+      "name": "Quincas Borba_chocr.html.gz",
+      "source": "derivative",
+      "ocr": "tesseract 5.3.0-6-g76ae",
+      "ocr_parameters": "lang-por;two-pass-disabled;pass-dpi-disabled;autonomous-mode-disabled;binarisation-method-otsu",
+      "ocr_module_version": "0.0.21",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "1.0000",
+      "ocr_detected_lang": "pt",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "chOCR",
+      "original": "Quincas Borba_jp2.zip",
+      "mtime": "1741284328",
+      "size": "6000821",
+      "md5": "2dbde8912732883f8425c37f7b1e3aa5",
+      "crc32": "3269f9c6",
+      "sha1": "74d766d9644fb49837b3ef73bd22b60514e857a7"
+    },
+    {
+      "name": "Quincas Borba_djvu.txt",
+      "source": "derivative",
+      "format": "DjVuTXT",
+      "original": "Quincas Borba_djvu.xml",
+      "mtime": "1741284379",
+      "size": "469416",
+      "md5": "2aa49d9710bc35f7e65068b7c3d1a148",
+      "crc32": "4b7d2cdc",
+      "sha1": "285949611dbe73fb9c445c6041be139dd1e1bb4c"
+    },
+    {
+      "name": "Quincas Borba_djvu.xml",
+      "source": "derivative",
+      "format": "Djvu XML",
+      "original": "Quincas Borba_hocr.html",
+      "mtime": "1741284355",
+      "size": "6064139",
+      "md5": "7849aeee4a72fc7501925e6b7494ec95",
+      "crc32": "c9aaf217",
+      "sha1": "d66571fd9016aecf9e1eafb5854326e6ff76a24c"
+    },
+    {
+      "name": "Quincas Borba_hocr.html",
+      "source": "derivative",
+      "hocr_char_to_word_module_version": "1.3.0",
+      "hocr_char_to_word_hocr_version": "1.1.56",
+      "ocr_parameters": "lang-por;two-pass-disabled;pass-dpi-disabled;autonomous-mode-disabled;binarisation-method-otsu",
+      "ocr_module_version": "0.0.21",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "1.0000",
+      "ocr_detected_lang": "pt",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "hOCR",
+      "original": "Quincas Borba_chocr.html.gz",
+      "mtime": "1741284344",
+      "size": "10984826",
+      "md5": "796c91cea104d2d8ac2bb3694d70a323",
+      "crc32": "9c05b778",
+      "sha1": "2ce613b230c6a394a454e2f621c25e646f8ea3c3"
+    },
+    {
+      "name": "Quincas Borba_hocr_pageindex.json.gz",
+      "source": "derivative",
+      "hocr_pageindex_module_version": "1.1.0",
+      "hocr_pageindex_hocr_version": "1.1.56",
+      "format": "OCR Page Index",
+      "original": "Quincas Borba_hocr.html",
+      "mtime": "1741284360",
+      "size": "1931",
+      "md5": "73a2fc15cb5573df08154a0aa3759c90",
+      "crc32": "21e299e1",
+      "sha1": "546f5e12b49ada9d4f5ca5acf2f746c452643cfb"
+    },
+    {
+      "name": "Quincas Borba_hocr_searchtext.txt.gz",
+      "source": "derivative",
+      "hocr_fts_text_module_version": "1.2.0",
+      "hocr_fts_text_hocr_version": "1.1.56",
+      "word_conf_0_10": "8",
+      "word_conf_11_20": "6",
+      "word_conf_21_30": "7",
+      "word_conf_31_40": "12",
+      "word_conf_41_50": "12",
+      "word_conf_51_60": "26",
+      "word_conf_61_70": "48",
+      "word_conf_71_80": "94",
+      "word_conf_81_90": "1454",
+      "word_conf_91_100": "75752",
+      "format": "OCR Search Text",
+      "original": "Quincas Borba_hocr.html",
+      "mtime": "1741284370",
+      "size": "175871",
+      "md5": "e8b2a27b578e44266baf22307f3ded5a",
+      "crc32": "e1627868",
+      "sha1": "75a6f59a05b9e41b751aa1841ed0d712bcd34fe0"
+    },
+    {
+      "name": "Quincas Borba_jp2.zip",
+      "source": "derivative",
+      "format": "Single Page Processed JP2 ZIP",
+      "original": "Quincas Borba.pdf",
+      "mtime": "1741283690",
+      "size": "97634056",
+      "md5": "4fa718295a6840e8bd171734694c082c",
+      "crc32": "7d1c8122",
+      "sha1": "f027c6af0767ba969e11b89c6c1921b52e5fa210",
+      "filecount": "158"
+    },
+    {
+      "name": "Quincas Borba_page_numbers.json",
+      "source": "derivative",
+      "hocr_pagenumber_module_version": "1.0.5",
+      "hocr_pagenumber_hocr_version": "1.1.54",
+      "hocr_pagenumber_confidence": "39",
+      "format": "Page Numbers JSON",
+      "original": "Quincas Borba_hocr.html",
+      "mtime": "1741284442",
+      "size": "27134",
+      "md5": "8d35936ac0e354a59555b8094786c9a8",
+      "crc32": "5ffd8d72",
+      "sha1": "836fc42f5e80edcff6cd622e9b0d5d906f37dd07"
+    },
+    {
+      "name": "Quincas Borba_scandata.xml",
+      "source": "derivative",
+      "format": "Scandata",
+      "original": "Quincas Borba_djvu.xml",
+      "mtime": "1741284442",
+      "size": "56340",
+      "md5": "227c80cd67cb9762c44fb63227007824",
+      "crc32": "427f8e5a",
+      "sha1": "bb3a88ac674a57cf5b46a0cbb11e16cd7fdf1377"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1741284459",
+      "size": "8802",
+      "md5": "3114e11d52d8c0c09767eb3f664ec815",
+      "crc32": "6b1d3bd9",
+      "sha1": "c7e53a00aa5d9769187bbd51a7db9396e8a68644",
+      "format": "Item Tile"
+    },
+    {
+      "name": "quincas-borba_archive.torrent",
+      "source": "metadata",
+      "btih": "3fada334abfd1dd5355973485e4ea16aaf876c88",
+      "mtime": "1762560711",
+      "size": "8304",
+      "md5": "56da11b1498a955d730ff5ae97e1fcbf",
+      "crc32": "27a7ca7e",
+      "sha1": "9e378525bf170320fc1425fa52aecef170dfc1ba",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "quincas-borba_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "8e9322b896c141e0831b2435c2fdbb03",
+      "summation": "md5"
+    },
+    {
+      "name": "quincas-borba_meta.sqlite",
+      "source": "original",
+      "mtime": "1741283035",
+      "size": "20480",
+      "md5": "4f886e5925f4ca34c0723ea984d0ea4e",
+      "crc32": "4272b9a9",
+      "sha1": "0be7e4c60936a9efac508e7b0baa50e5a704a192",
+      "format": "Metadata"
+    },
+    {
+      "name": "quincas-borba_meta.xml",
+      "source": "original",
+      "mtime": "1762560708",
+      "size": "1914",
+      "md5": "5e7dccf7e95b05d83f170f316e846ff4",
+      "crc32": "7734c9fd",
+      "sha1": "9a65829e730b54c2ec9267223078151fdba164c9",
+      "format": "Metadata"
+    }
+  ],
+  "files_count": 16,
+  "item_last_updated": 1762560712,
+  "item_size": 122441182,
+  "metadata": {
+    "identifier": "quincas-borba",
+    "mediatype": "texts",
+    "collection": [
+      "booksbylanguage_portuguese",
+      "booksbylanguage"
+    ],
+    "creator": "Machado de Assis",
+    "date": "1891",
+    "description": "<p class=\"MsoNormal\" style=\"text-align:justify;\"><span style=\"font-size:12pt;line-height:115%;font-family:Arial, 'sans-serif';\">Publicado pela primeira vez\nem livro em 1891, depois portanto de Memórias póstumas de Brás Cubas (1881) e\nantes de Dom Casmurro (1899), Quincas Borba é uma das obras mais marcantes da\nfase realista de Machado de Assis.</span></p><p></p>",
+    "language": "por",
+    "licenseurl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "scanner": "Internet Archive HTML5 Uploader 1.7.0",
+    "subject": "Literatura Brasileira",
+    "title": "Quincas Borba",
+    "uploader": "lucasgabrieladvocacia17@gmail.com",
+    "publicdate": "2025-03-06 17:43:45",
+    "addeddate": "2025-03-06 17:43:45",
+    "curation": "[curator]validator@archive.org[/curator][date]20250306174909[/date][comment]checked for malware[/comment]",
+    "identifier-access": "http://archive.org/details/quincas-borba",
+    "identifier-ark": "ark:/13960/s2qj904x2g4",
+    "ppi": "300",
+    "ocr": "tesseract 5.3.0-6-g76ae",
+    "ocr_parameters": "-l por",
+    "ocr_module_version": "0.0.21",
+    "ocr_detected_script": "Latin",
+    "ocr_detected_script_conf": "1.0000",
+    "ocr_detected_lang": "pt",
+    "ocr_detected_lang_conf": "1.0000",
+    "page_number_confidence": "39",
+    "page_number_module_version": "1.0.5",
+    "collection_added": "booksbylanguage"
+  },
+  "server": "ia800807.us.archive.org",
+  "uniq": 1733709307,
+  "workable_servers": [
+    "ia800807.us.archive.org",
+    "ia600807.us.archive.org"
+  ]
+}

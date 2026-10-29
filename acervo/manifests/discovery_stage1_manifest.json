@@ -1,0 +1,82 @@
+[
+  {
+    "query": "mediatype:texts AND language:por AND \"Machado de Assis\"",
+    "collection": "Vozes da Literatura Brasileira",
+    "found": 15,
+    "sample_identifiers": [
+      "3438833",
+      "salomaorovedoablserounaosereisaquestao",
+      "salomaorovedosinfoniamemorial"
+    ]
+  },
+  {
+    "query": "mediatype:texts AND \"Maria Firmina dos Reis\"",
+    "collection": "Vozes da Literatura Brasileira",
+    "found": 7,
+    "sample_identifiers": [
+      "fcd349ab-1b52-4b33-ad69-ad84b683446a",
+      "mariafirminafragmentosdeumavida",
+      "ursula-2a-edicao"
+    ]
+  },
+  {
+    "query": "mediatype:texts AND \"Nikola Tesla\"",
+    "collection": "Oficinas da Ciência",
+    "found": 15,
+    "sample_identifiers": [
+      "greatimmigrants00neid",
+      "UN1976WeatherWeaponTreaty_201903",
+      "mc-ckln-fm-mind-control-series"
+    ]
+  },
+  {
+    "query": "mediatype:texts AND \"Maria Sibylla Merian\"",
+    "collection": "Jardim dos Naturalistas",
+    "found": 15,
+    "sample_identifiers": [
+      "isbn_9780820347264",
+      "dissertatiodege00meri",
+      "70Yolculuk"
+    ]
+  },
+  {
+    "query": "mediatype:texts AND \"geometria\"",
+    "collection": "Matemática em Construção",
+    "found": 15,
+    "sample_identifiers": [
+      "bub_gb_BdiUq8-GzZQC",
+      "ita-bnc-mag-00001347-001",
+      "ita-bnc-mag-00001357-001"
+    ]
+  },
+  {
+    "query": "mediatype:image AND \"Brazil\"",
+    "collection": "Brasil em Mapas e Fontes",
+    "found": 15,
+    "sample_identifiers": [
+      "brazil-r-difusora-de-aquidauana-92-04-04-3",
+      "brazil-r-anhanguera-84-04-24",
+      "brazil-r-difusora-de-aquidauana-92-04-04-card"
+    ]
+  },
+  {
+    "query": "mediatype:audio AND \"portuguese\"",
+    "collection": "Biblioteca Multimodal",
+    "found": 15,
+    "sample_identifiers": [
+      "sd9q9jpxuegas07jx4qxp9cdcan8bm67amqxoadu",
+      "0wgfvigprx4p4tn92gxgjhkclgj86fueidwdkfb3",
+      "antivirus-perusak-akidah-3"
+    ]
+  },
+  {
+    "query": "mediatype:movies AND \"educational\"",
+    "collection": "Biblioteca Multimodal",
+    "found": 10,
+    "sample_identifiers": [
+      "msdme-Madawaska_Holiday_Summary",
+      "newslin-One_Dead_Following_Shooting_on_Muncie_s_Southside",
+      "npsva-Chesterfield_Academy_5th_Grade_Promotion_2020"
+    ]
+  }
+]

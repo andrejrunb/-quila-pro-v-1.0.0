@@ -1,0 +1,135 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn721607.ca.archive.org",
+        "dir": "/0/items/dr_carte-generale-delle-coste-del-brasile-del-rio-del-plata-al-para--no-2-13048005"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn721607.ca.archive.org",
+        "dir": "/0/items/dr_carte-generale-delle-coste-del-brasile-del-rio-del-plata-al-para--no-2-13048005"
+      }
+    ]
+  },
+  "created": 1793242566,
+  "d1": "ia601509.us.archive.org",
+  "d2": "ia801509.us.archive.org",
+  "dir": "/15/items/dr_carte-generale-delle-coste-del-brasile-del-rio-del-plata-al-para--no-2-13048005",
+  "files": [
+    {
+      "name": "13048005.jp2",
+      "source": "original",
+      "mtime": "1648886919",
+      "size": "18778883",
+      "md5": "27067b83fe2b2f631506a7ee23867f42",
+      "crc32": "d44725e2",
+      "sha1": "10b766353004fa1977609e0cedf8cba8344c8814",
+      "format": "JPEG 2000"
+    },
+    {
+      "name": "13048005.jpg",
+      "source": "original",
+      "mtime": "1648886906",
+      "size": "605096",
+      "md5": "2c399bbf3c499422bc0aaa19df5d0b0a",
+      "crc32": "c6908a63",
+      "sha1": "0f249a674340d8a4327ca46af4147fabb522bb0c",
+      "format": "JPEG",
+      "rotation": "0"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1648886955",
+      "size": "13479",
+      "md5": "eab2dc059418c177547f43096a4b423c",
+      "crc32": "e77ed5cf",
+      "sha1": "03755ea6a23e62d0995dc797a04f902058399e70",
+      "format": "Item Tile",
+      "rotation": "0"
+    },
+    {
+      "name": "dr_carte-generale-delle-coste-del-brasile-del-rio-del-plata-al-para--no-2-13048005_archive.torrent",
+      "source": "metadata",
+      "btih": "12687e534c62bfb57f1410dcc4dd12e2c098fdd3",
+      "mtime": "1649182378",
+      "size": "3325",
+      "md5": "6147f690fe6d04fd92767a2d01de308b",
+      "crc32": "7ca7090a",
+      "sha1": "bd8ed6c9f173787948b04e7492e2a3f6990b4894",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "dr_carte-generale-delle-coste-del-brasile-del-rio-del-plata-al-para--no-2-13048005_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "64826059b126f27b37d385b19448ee49",
+      "summation": "md5"
+    },
+    {
+      "name": "dr_carte-generale-delle-coste-del-brasile-del-rio-del-plata-al-para--no-2-13048005_meta.sqlite",
+      "source": "original",
+      "mtime": "1648886922",
+      "size": "32768",
+      "md5": "1297c661a9d48cb4daa46135c7093cab",
+      "crc32": "a4eefa50",
+      "sha1": "54dac7163af129e77fbadca9541bbfcda3a99617",
+      "format": "Metadata"
+    },
+    {
+      "name": "dr_carte-generale-delle-coste-del-brasile-del-rio-del-plata-al-para--no-2-13048005_meta.xml",
+      "source": "original",
+      "mtime": "1772904400",
+      "size": "3202",
+      "md5": "e269f06fbe358fdc7fc9cf2d85308c5a",
+      "crc32": "250186f9",
+      "sha1": "c1b68c1ca72202e3da5b7f93dfd766130c6f3f6d",
+      "format": "Metadata"
+    }
+  ],
+  "files_count": 7,
+  "item_last_updated": 1772904400,
+  "item_size": 19436753,
+  "metadata": {
+    "identifier": "dr_carte-generale-delle-coste-del-brasile-del-rio-del-plata-al-para--no-2-13048005",
+    "call_number": "13048.005",
+    "collection": "david-rumsey-map-collection",
+    "coverage": [
+      "Brazil",
+      "Rio de la Plata"
+    ],
+    "creator": [
+      "Rodriguez, Eugenio",
+      "Roussin, Albin-Reine, baron de"
+    ],
+    "date": "1857",
+    "description": "<p>Zoomable full resolution image available at <a href=\"https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~309507~90079417\" rel=\"ugc nofollow\">davidrumsey.com</a>.</p><p>This image <a href=\"//www.davidrumsey.com/luna/servlet/view/search?q=list_no=%2213048.005%22\" rel=\"ugc nofollow\">13048.005</a> is a part of image group <a href=\"https://www.davidrumsey.com/luna/servlet/view/search?q=pub_list_no=%2213048.000%22\" rel=\"ugc nofollow\">13048.000</a>.</p><p>Folded nautical chart of the coasts of Brazil, from River Plate to Para. Relief shown by hachures. Depth shown by isolines and soundings. Includes legend and explanation.</p><p>Detailed maritime atlas of Brazil and the Atlantic coast of South America, compiled by Eugenio Rodriguez, a Sicilian naval officer. This is the first edition of Atlas volume, published with 2 text volumes (Lacking text volumes). Includes lithographed title and index pages, 28 lithographed charts and maps, some folding, and 7 views, in black cloth covered boards with title \"Guida general\" on spine in gilt. Maps prepared by hydrographers and navigators of Baron Roussin for Eugenio Rodriquez. Rodriguez accompanied Empress Tereza Cristina to Brazil to meet her husband Pedro II of Brazil.</p>",
+    "external-identifier": [
+      "urn:davidrumsey:list-no:13048.005",
+      "urn:davidrumsey:pub-list-no:13048.000"
+    ],
+    "map-type": [
+      "Regional Atlas",
+      "Chart Map"
+    ],
+    "mediatype": "image",
+    "publisher": "Richter e C. Napoli., Napoli",
+    "rights": "Images may be downloaded and used following Creative Commons CC BY-NC-SA 3.0 license. Image credit should be given to \"David Rumsey Map Collection, David Rumsey Map Center, Stanford Libraries.\"  Please contact the David Rumsey Map Collection for commercial use. <a href=\"https://www.davidrumsey.com/about/copyright-and-permissions\" rel=\"ugc nofollow\">https://www.davidrumsey.com/about/copyright-and-permissions</a>",
+    "scanner": "Internet Archive Python library 3.0.0",
+    "size": "75x46cm",
+    "source": "https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~309507~90079417",
+    "subject": "Nautical Charts",
+    "title": "Carte generale delle coste del Brasile Del Rio del Plata al Para ... No. 2. Anno 1857. Lit. Richter e C. Napoli. (to accompany) Atlante Della Guida Generale Per La Navigazione Delle Coste Settentrionali Ed Orientali dell'America del Sud ... per Eugenio Rodriguez ..., Napoli 1857.",
+    "uploader": "jake@archive.org",
+    "publicdate": "2022-04-02 08:08:37",
+    "addeddate": "2022-04-02 08:08:37"
+  },
+  "server": "ia801509.us.archive.org",
+  "uniq": 1135571351,
+  "workable_servers": [
+    "ia801509.us.archive.org",
+    "ia601509.us.archive.org"
+  ]
+}
