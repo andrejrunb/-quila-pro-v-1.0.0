@@ -1,0 +1,26 @@
+{
+  "id": "WW-EM-FIS-OPTICA-05",
+  "title": "Imagem com Legenda: Espelhos Côncavos e Convexos",
+  "templateType": "diagram_labeling",
+  "discipline": "Física",
+  "grade": "3ª Série EM",
+  "bnccSkillCode": "EM13CNT205",
+  "summary": "Identificação geométrica dos pontos notáveis dos espelhos de Gauss.",
+  "payload": {
+    "diagram": "optica_espelho_esferico",
+    "pins": [
+      {
+        "name": "Vértice (V)",
+        "desc": "Interseção do espelho com o eixo principal"
+      },
+      {
+        "name": "Foco (F)",
+        "desc": "Ponto médio: f = R/2"
+      },
+      {
+        "name": "Centro de Curvatura (C)",
+        "desc": "Centro da esfera que originou o espelho"
+      }
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "pipeline": "Aquila Sovereign Vector Embedding Batcher v2.0",
+  "timestamp": "2026-10-29T02:35:45Z",
+  "total_items": 369,
+  "total_batches": 12,
+  "batch_size": 32,
+  "embedding_dimensions": 512,
+  "embedding_model": "BAAI/bge-m3-dense-512",
+  "norm": "L2_unit_sphere",
+  "target_gpu": "NVIDIA A100-SXM4-80GB",
+  "exam_distribution": {
+    "ENEM": 223,
+    "UFG": 15,
+    "UFMG": 16,
+    "UnB": 20,
+    "UEG": 16,
+    "UniRV": 16,
+    "FUVEST": 19,
+    "UNICAMP": 8,
+    "ITA": 18,
+    "IME": 6,
+    "UNESP": 7,
+    "UFU": 1,
+    "UFV": 1,
+    "PUC-GO": 1,
+    "IFG": 1,
+    "OBMEP": 1
+  },
+  "batches_summary": [
+    {
+      "batch_id": 1,
+      "count": 32,
+      "sample_ids": [
+        "Q-ENEM-0001",
+        "Q-ENEM-0002",
+        "Q-ENEM-0003"
+      ]
+    },
+    {
+      "batch_id": 2,
+      "count": 32,
+      "sample_ids": [
+        "Q-UnB-0033",
+        "Q-UFMG-0034",
+        "Q-ENEM-0035"
+      ]
+    },
+    {
+      "batch_id": 3,
+      "count": 32,
+      "sample_ids": [
+        "Q-ENEM-0065",
+        "Q-ENEM-0066",
+        "Q-ENEM-0067"
+      ]
+    },
+    {
+      "batch_id": 4,
+      "count": 32,
+      "sample_ids": [
+        "Q-ENEM-0097",
+        "Q-UnB-0098",
+        "Q-UFMG-0099"
+      ]
+    },
+    {
+      "batch_id": 5,
+      "count": 32,
+      "sample_ids": [
+        "Q-ENEM-0129",
+        "Q-ENEM-0130",
+        "Q-ENEM-0131"
+      ]
+    },
+    {
+      "batch_id": 6,
+      "count": 32,
+      "sample_ids": [
+        "Q-ENEM-0161",
+        "Q-ENEM-0162",
+        "Q-ENEM-0163"
+      ]
+    },
+    {
+      "batch_id": 7,
+      "count": 32,
+      "sample_ids": [
+        "Q-UnB-0193",
+        "Q-ENEM-0194",
+        "Q-ENEM-0195"
+      ]
+    },
+    {
+      "batch_id": 8,
+      "count": 32,
+      "sample_ids": [
+        "Q-ENEM-0225",
+        "Q-ENEM-0226",
+        "Q-ENEM-0227"
+      ]
+    },
+    {
+      "batch_id": 9,
+      "count": 32,
+      "sample_ids": [
+        "Q-ENEM-0257",
+        "Q-ENEM-0258",
+        "Q-ENEM-0259"
+      ]
+    },
+    {
+      "batch_id": 10,
+      "count": 32,
+      "sample_ids": [
+        "Q-UNICAMP-0289",
+        "Q-ENEM-0290",
+        "Q-ITA-0291"
+      ]
+    },
+    {
+      "batch_id": 11,
+      "count": 32,
+      "sample_ids": [
+        "Q-ITA-0321",
+        "Q-ITA-0322",
+        "Q-ITA-0323"
+      ]
+    },
+    {
+      "batch_id": 12,
+      "count": 17,
+      "sample_ids": [
+        "BANK-IFG-0022",
+        "BANK-UnB-0023",
+        "BANK-UFMG-0024"
+      ]
+    }
+  ]
+}

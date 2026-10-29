@@ -1,0 +1,63 @@
+{
+  "id": "WW-CIEN7-ALAVANCAS-01",
+  "title": "Classificação de Alavancas & Máquinas Simples",
+  "templateType": "group_sort",
+  "discipline": "Ciências",
+  "grade": "7º Ano",
+  "bnccSkillCode": "EF07CI01",
+  "summary": "Separação de ferramentas em alavancas interfixas, inter-resistentes e interpotentes.",
+  "payload": {
+    "groups": [
+      {
+        "id": "interfixa",
+        "title": "Alavanca Interfixa (Apoio no meio)"
+      },
+      {
+        "id": "inter_resistente",
+        "title": "Alavanca Inter-resistente (Resistência no meio)"
+      },
+      {
+        "id": "interpotente",
+        "title": "Alavanca Interpotente (Potência no meio)"
+      }
+    ],
+    "items": [
+      {
+        "text": "Tesoura escolar",
+        "groupId": "interfixa"
+      },
+      {
+        "text": "Gangorra",
+        "groupId": "interfixa"
+      },
+      {
+        "text": "Alicate",
+        "groupId": "interfixa"
+      },
+      {
+        "text": "Carrinho de mão",
+        "groupId": "inter_resistente"
+      },
+      {
+        "text": "Quebra-nozes",
+        "groupId": "inter_resistente"
+      },
+      {
+        "text": "Abridor de garrafas",
+        "groupId": "inter_resistente"
+      },
+      {
+        "text": "Pinça",
+        "groupId": "interpotente"
+      },
+      {
+        "text": "Vara de pescar",
+        "groupId": "interpotente"
+      },
+      {
+        "text": "Cortador de unha",
+        "groupId": "interpotente"
+      }
+    ]
+  }
+}

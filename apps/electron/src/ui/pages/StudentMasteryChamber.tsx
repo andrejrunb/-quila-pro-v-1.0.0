@@ -33,6 +33,7 @@ import {
   Timer
 } from 'lucide-react';
 import './StudentMasteryChamber.css';
+import { WordwallInteractivePlayer } from '../components/WordwallInteractivePlayer';
 
 interface Exercise {
   drill: string;
@@ -145,7 +146,7 @@ const SUBJECT_LIST = [
 type SubjectName = (typeof SUBJECT_LIST)[number];
 
 type HubMode = 'simulador' | 'canvas' | 'arena' | 'matriz';
-type ArenaTemplate = 'quizshow' | 'matchup' | 'wheel';
+type ArenaTemplate = 'quizshow' | 'matchup' | 'wheel' | 'wordwall_games';
 
 const AQUILA_MASTERY_TIERS = [
   { id: 'unstarted', label: 'Não Iniciado', minScore: 0, color: '#64748b' },
@@ -1034,22 +1035,28 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
             <div className="aquila-arena-template-switcher">
               <span className="filter-bar-label">TROCAR MODELO DE DESAFIO:</span>
               <button
-                className={`arena-template-btn ${arenaTemplate === 'quizshow' ? 'active' : ''}`}
-                onClick={() => setArenaTemplate('quizshow')}
+                className={`arena-template-btn ${arenaTemplate === "quizshow" ? "active" : ""}`}
+                onClick={() => setArenaTemplate("quizshow")}
               >
                 <Trophy size={15} /> Quiz Show (Arena)
               </button>
               <button
-                className={`arena-template-btn ${arenaTemplate === 'matchup' ? 'active' : ''}`}
-                onClick={() => setArenaTemplate('matchup')}
+                className={`arena-template-btn ${arenaTemplate === "matchup" ? "active" : ""}`}
+                onClick={() => setArenaTemplate("matchup")}
               >
                 <Layers size={15} /> Pares Combinados (Match Up)
               </button>
               <button
-                className={`arena-template-btn ${arenaTemplate === 'wheel' ? 'active' : ''}`}
-                onClick={() => setArenaTemplate('wheel')}
+                className={`arena-template-btn ${arenaTemplate === "wheel" ? "active" : ""}`}
+                onClick={() => setArenaTemplate("wheel")}
               >
                 <Shuffle size={15} /> Roleta da Sala (Sorteio Ativo)
+              </button>
+              <button
+                className={`arena-template-btn ${arenaTemplate === "wordwall_games" ? "active" : ""}`}
+                onClick={() => setArenaTemplate("wordwall_games")}
+              >
+                <Gamepad2 size={15} /> Jogos Wordwall (28 Dinâmicas)
               </button>
             </div>
 
@@ -1235,6 +1242,16 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
                   </div>
                 )}
               </div>
+            </div>
+          )}
+
+          {arenaTemplate === 'wordwall_games' && (
+            <div className="arena-wordwall-stage mt-4">
+              <WordwallInteractivePlayer
+                onFinish={(earnedScore) => {
+                  setQuizScore((prev) => prev + earnedScore);
+                }}
+              />
             </div>
           )}
         </section>

@@ -1,0 +1,31 @@
+{
+  "id": "WW-CIEN8-ELETRICIDADE-03",
+  "title": "Aviãozinho da Energia Elétrica & Consumo",
+  "templateType": "airplane",
+  "discipline": "Ciências",
+  "grade": "8º Ano",
+  "bnccSkillCode": "EF08CI04",
+  "summary": "Voando pelas nuvens com cálculos corretos de potência e kWh.",
+  "payload": {
+    "targets": [
+      {
+        "prompt": "Chuveiro 5.000 W ligado por 1 hora consome:",
+        "correct": "5,0 kWh",
+        "distractors": [
+          "50 kWh",
+          "500 kWh",
+          "0,5 kWh"
+        ]
+      },
+      {
+        "prompt": "Dispositivo de segurança que desarma em sobrecarga:",
+        "correct": "Disjuntor termomagnético",
+        "distractors": [
+          "Resistor ôhmico",
+          "Voltímetro",
+          "Interruptor simples"
+        ]
+      }
+    ]
+  }
+}

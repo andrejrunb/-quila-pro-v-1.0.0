@@ -1,0 +1,23 @@
+{
+  "id": "WW-EM-FIS-GAMESHOW-06",
+  "title": "Game Show dos Vestibulares: Ondulatória e Doppler",
+  "templateType": "gameshow_quiz",
+  "discipline": "Física",
+  "grade": "3ª Série EM",
+  "bnccSkillCode": "EM13CNT103",
+  "summary": "Quiz de alta performance com cronômetro e cartas de ajuda.",
+  "payload": {
+    "questions": [
+      {
+        "text": "Ao aproximar-se de uma fonte sonora fixa, a frequência ouvida pelo observador:",
+        "correct": "É maior que a frequência real emitida (som mais agudo).",
+        "distractor": "É menor que a frequência real (som mais grave)."
+      },
+      {
+        "text": "O fenômeno exclusivo das ondas transversais que não ocorre com o som é a:",
+        "correct": "Polarização.",
+        "distractor": "Refração."
+      }
+    ]
+  }
+}
