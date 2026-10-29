@@ -219,6 +219,120 @@ export const TRI_ITEM_BANK: TriQuestion[] = [
     correctAnswer: 'B',
     socraticExplanation: 'Nos sólidos metálicos, a propagação do calor ocorre predominantemente por condução: a agitação térmica dos átomos aquecidos é transferida por contato aos vizinhos ao longo do corpo.'
   },
+  // ==========================================
+  // CIÊNCIAS — 8º ANO ENSINO FUNDAMENTAL (SPE / BNCC VOLS 1 A 4)
+  // ==========================================
+  {
+    id: 'TRI-FUND2-CIEN8-01',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI12',
+    skillDescription: 'Justificar os movimentos cíclicos da Lua e da Terra explicando a ocorrência dos eclipses e fases lunares (Vol. 1).',
+    difficulty: 'facil',
+    paramA: 1.25,
+    paramB: -0.80,
+    paramC: 0.20,
+    text: 'Um eclipse solar total é um espetáculo astronômico que ocorre quando a Lua se posiciona exatamente entre a Terra e o Sol. Para que esse fenômeno astronômico possa ser observado em determinada faixa da superfície terrestre, a Lua deve estar obrigatoriamente na fase:',
+    options: [
+      { letter: 'A', text: 'Cheia.' },
+      { letter: 'B', text: 'Nova.' },
+      { letter: 'C', text: 'Quarto Crescente.' },
+      { letter: 'D', text: 'Quarto Minguante.' },
+      { letter: 'E', text: 'Gibosa iluminada.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'No eclipse solar, a Lua está alinhada entre a Terra e o Sol, projetando sua sombra sobre a Terra. Essa configuração geométrica de conjunção ocorre exclusivamente na fase de Lua Nova.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN8-02',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI15',
+    skillDescription: 'Identificar as variáveis que influenciam a previsão do tempo e analisar o avanço de massas de ar (Vol. 1).',
+    difficulty: 'medio',
+    paramA: 1.45,
+    paramB: 0.20,
+    paramC: 0.20,
+    text: 'Ao analisar um mapa meteorológico sinótico, um estudante observa o avanço rápido de uma massa de ar frio e denso que empurra e eleva forçadamente uma massa de ar quente e úmido pré-existente. Esse encontro de frentes meteorológicas costuma provocar na região afetada:',
+    options: [
+      { letter: 'A', text: 'Período prolongado de estiagem, céu limpo e aumento brusco da pressão atmosférica no solo.' },
+      { letter: 'B', text: 'Formação rápida de nuvens cumulonimbus, chuvas intensas acompanhadas de rajadas de vento e queda de temperatura.' },
+      { letter: 'C', text: 'Aquecimento adiabático generalizado com dissipação total de qualquer nebulosidade.' },
+      { letter: 'D', text: 'Inversão térmica permanente que impede qualquer condensação de vapor de água.' },
+      { letter: 'E', text: 'Ocorrência de nevoeiro de radiação restrito exclusivamente ao período vespertino.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'A frente fria atua como uma cunha densa que força o ar quente e úmido a subir rapidamente. A convecção severa gera condensação rápida em nuvens cumulonimbus, trazendo tempestades e queda de temperatura.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN8-03',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI04',
+    skillDescription: 'Calcular o consumo de eletrodomésticos a partir da potência e do tempo de uso em kWh (Vol. 2).',
+    difficulty: 'medio',
+    paramA: 1.60,
+    paramB: 0.35,
+    paramC: 0.20,
+    text: 'Em uma residência, um chuveiro elétrico de potência 5.000 W (5 kW) é utilizado pelos membros da família durante um total acumulado de 1 hora por dia ao longo de um mês de 30 dias. Sabendo que a tarifa cobrada pela concessionária de energia elétrica é de R$ 0,80 por cada quilowatt-hora (kWh) consumido, qual é o valor em reais referente exclusivamente ao uso do chuveiro nessa fatura?',
+    options: [
+      { letter: 'A', text: 'R$ 40,00' },
+      { letter: 'B', text: 'R$ 80,00' },
+      { letter: 'C', text: 'R$ 120,00' },
+      { letter: 'D', text: 'R$ 150,00' },
+      { letter: 'E', text: 'R$ 200,00' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'Energia mensal consumida: E = Potência (kW) * Tempo diário (h) * Dias = 5 kW * 1 h/dia * 30 dias = 150 kWh. Custo na fatura: 150 kWh * R$ 0,80 = R$ 120,00.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN8-04',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI08',
+    skillDescription: 'Analisar e comparar métodos contraceptivos e estratégias de prevenção de ISTs na saúde pública (Vol. 3).',
+    difficulty: 'facil',
+    paramA: 1.30,
+    paramB: -0.50,
+    paramC: 0.20,
+    text: 'Dentre as diversas estratégias contraceptivas disponíveis na rede pública de saúde, qual é o único método que oferece proteção simultânea e eficaz tanto contra a gravidez não planejada quanto contra a transmissão de Infecções Sexualmente Transmissíveis (ISTs, como HIV, HPV e sífilis)?',
+    options: [
+      { letter: 'A', text: 'Pílula anticoncepcional oral combinada.' },
+      { letter: 'B', text: 'Preservativo (camisinha masculina ou feminina).' },
+      { letter: 'C', text: 'Dispositivo Intrauterino (DIU de cobre ou hormonal).' },
+      { letter: 'D', text: 'Método da tabelinha comportamental (ogino-knaus).' },
+      { letter: 'E', text: 'Cirurgia de laqueadura tubária ou vasectomia.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Os métodos de barreira física, especificamente os preservativos (camisinha externa ou interna), são os únicos métodos com eficácia comprovada de dupla proteção (previne gestação e impede a transmissão de patógenos por contato sexual).'
+  },
+  {
+    id: 'TRI-FUND2-CIEN8-05',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI07',
+    skillDescription: 'Comparar a anatomia e a fisiologia dos animais vertebrados e suas adaptações ecológicas (Vol. 4).',
+    difficulty: 'dificil',
+    paramA: 1.70,
+    paramB: 1.10,
+    paramC: 0.20,
+    text: 'A conquista definitiva do ambiente terrestre pelos répteis e a posterior irradiação adaptativa de aves e mamíferos foram viabilizadas por um conjunto de inovações evolutivas cruciais. A característica embrionária compartilhada por esses três grupos de vertebrados (amniotas) que garantiu independência da água para o desenvolvimento do embrião é a presença de:',
+    options: [
+      { letter: 'A', text: 'Fecundação externa em ambientes lênticos rasos.' },
+      { letter: 'B', text: 'Ovo amniótico dotado de casca protetora e anexos embrionários (âmnio, cório e alantoide).' },
+      { letter: 'C', text: 'Respiração cutânea auxiliar associada a glândulas mucosas dérmicas.' },
+      { letter: 'D', text: 'Circulação sanguínea simples e incompleta com coração de duas cavidades.' },
+      { letter: 'E', text: 'Excreção predominante de amônia de alta toxicidade.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'O surgimento do ovo amniótico (com âmnio para hidratação e proteção mecânica, alantoide para trocas gasosas/excreção e cório) permitiu aos amniotas (répteis, aves e mamíferos) reproduzirem-se plenamente em terra firme.'
+  },
+
 
   // ==========================================
   // PREPARATÓRIOS PARA MEDICINA & ALTA CONCORRÊNCIA (2ª FASE E DISCURSIVAS)
