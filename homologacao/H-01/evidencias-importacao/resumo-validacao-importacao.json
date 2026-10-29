@@ -1,0 +1,33 @@
+{
+  "total_validos": 25,
+  "total_invalidos": 5,
+  "hash_csv_corrigido": "180bc277f1a5cecc186a5b2bc8b1164e8d197629c2b0a4f577d878e357642d96",
+  "hash_csv_com_erros": "8e40d36a963c3e2f7881187f8db14d1634f35e0b10d1ced89565772b35678865",
+  "inconsistencias_detectadas": [
+    {
+      "linha": 26,
+      "campo": "responsavel_legal",
+      "motivo": "Ausência de responsável (LGPD Art. 14)"
+    },
+    {
+      "linha": 27,
+      "campo": "matricula",
+      "motivo": "Matrícula duplicada no lote"
+    },
+    {
+      "linha": 28,
+      "campo": "turma",
+      "motivo": "Turma inexistente no cadastro"
+    },
+    {
+      "linha": 29,
+      "campo": "data_nascimento",
+      "motivo": "Mês 13 inválido"
+    },
+    {
+      "linha": 30,
+      "campo": "matricula",
+      "motivo": "Matrícula obrigatória vazia"
+    }
+  ]
+}

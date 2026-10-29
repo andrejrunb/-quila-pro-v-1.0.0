@@ -1,0 +1,8 @@
+{
+  "snapshot_metodo": "VACUUM INTO a quente (WAL truncate)",
+  "tempo_copia_disco_ms": 14.34,
+  "tempo_verificacao_ms": 12.97,
+  "rto_operacional_estimado_ms": 42.31,
+  "rpo_delimitado": "Estado exato no instante T0; submissões pós-snapshot identificadas como delta não contido",
+  "banco_integridade_pos_restauracao": "ok"
+}
