@@ -1,6 +1,7 @@
 import React from 'react';
 import { PortalLayout } from '../layouts/PortalLayout';
 import { SecurityMonitor } from '../pages/SecurityMonitor';
+import { TurnstileShadowConsole } from '../components/TurnstileShadowConsole';
 import MultiStreamGrid from '../components/MultiStreamGrid';
 import { IoTManager } from '../pages/IoTManager';
 import HardwareDiagnostics from '../pages/HardwareDiagnostics';
@@ -30,6 +31,10 @@ export const SecurityPortal: React.FC<SecurityPortalProps> = ({ currentPage, onN
       case 'security-monitor':
       case 'dashboard':
         return <SecurityMonitor />;
+      case 'turnstile-shadow':
+      case 'turnstile-pilot':
+      case 'gatekeeper-shadow':
+        return <TurnstileShadowConsole onBack={onBack} />;
       case 'multistream':
         return <MultiStreamGrid />;
       case 'iot-manager':

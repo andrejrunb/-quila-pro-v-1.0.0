@@ -1570,7 +1570,7 @@ const aquilaAPI = {
 
       'seating:get-active-schedule-for-local-room', 'secretariat:get-students-by-class', 'seating:apply-layout', 'reports:get-bimestral-feedback',
 
-      'batch-import:preview', 'batch-import:confirm', 'playlists:list', 'playlists:save', 'playlists:delete', 'gamemaker:list-templates', 'gamemaker:save-template', 'gamemaker:delete-template', 'essay:submit-and-audit', 'essay:list-by-student', 'essay:get-detail', 'essay:delete', 'applet:get-catalog', 'applet:save-progress', 'applet:get-student-progress'
+      'batch-import:preview', 'batch-import:confirm', 'playlists:list', 'playlists:save', 'playlists:delete', 'gamemaker:list-templates', 'gamemaker:save-template', 'gamemaker:delete-template', 'essay:submit-and-audit', 'essay:list-by-student', 'essay:get-detail', 'essay:delete', 'applet:get-catalog', 'applet:save-progress', 'applet:get-student-progress', 'turnstile:get-status', 'turnstile:evaluate-access', 'turnstile:manual-bypass', 'turnstile:run-bench-test', 'turnstile:get-telemetry', 'turnstile:set-mode'
 
     ];
 
@@ -1767,6 +1767,22 @@ const aquilaAPI = {
     saveProgress: (data: any) => ipcRenderer.invoke('applet:save-progress', data),
 
     getStudentProgress: (studentId: string) => ipcRenderer.invoke('applet:get-student-progress', studentId),
+
+  },
+
+  turnstile: {
+
+    getStatus: () => ipcRenderer.invoke('turnstile:get-status'),
+
+    evaluateAccess: (payload: any) => ipcRenderer.invoke('turnstile:evaluate-access', payload),
+
+    manualBypass: (operatorId: string, studentName: string, reason: string) => ipcRenderer.invoke('turnstile:manual-bypass', operatorId, studentName, reason),
+
+    runBenchTest: (deviceId?: string) => ipcRenderer.invoke('turnstile:run-bench-test', deviceId),
+
+    getTelemetry: (limit?: number) => ipcRenderer.invoke('turnstile:get-telemetry', limit),
+
+    setMode: (mode: any) => ipcRenderer.invoke('turnstile:set-mode', mode),
 
   },
 

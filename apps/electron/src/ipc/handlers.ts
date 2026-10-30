@@ -9896,6 +9896,56 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
 
   });
 
+  // --- Piloto 2: Catracas & Portaria em Modo Sombra ---
+
+  protectedHandle('turnstile:get-status', async () => {
+
+    const { turnstileShadowService } = require('../main/services/TurnstileShadowService');
+
+    return turnstileShadowService.getGatekeeperStatus();
+
+  });
+
+  protectedHandle('turnstile:evaluate-access', async (_event, payload: any) => {
+
+    const { turnstileShadowService } = require('../main/services/TurnstileShadowService');
+
+    return await turnstileShadowService.evaluateAccess(payload);
+
+  });
+
+  protectedHandle('turnstile:manual-bypass', async (_event, operatorId: string, studentName: string, reason: string) => {
+
+    const { turnstileShadowService } = require('../main/services/TurnstileShadowService');
+
+    return await turnstileShadowService.triggerOperatorManualPassage(operatorId, studentName, reason);
+
+  });
+
+  protectedHandle('turnstile:run-bench-test', async (_event, deviceId?: string) => {
+
+    const { turnstileShadowService } = require('../main/services/TurnstileShadowService');
+
+    return await turnstileShadowService.runBenchTest(deviceId);
+
+  });
+
+  protectedHandle('turnstile:get-telemetry', async (_event, limit?: number) => {
+
+    const { turnstileShadowService } = require('../main/services/TurnstileShadowService');
+
+    return turnstileShadowService.getTelemetryHistory(limit);
+
+  });
+
+  protectedHandle('turnstile:set-mode', async (_event, mode: any) => {
+
+    const { turnstileShadowService } = require('../main/services/TurnstileShadowService');
+
+    return turnstileShadowService.setOperatingMode(mode);
+
+  });
+
 
 
   // --- Nivelamento por Maestria & IA Local Socrática ---
