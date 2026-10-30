@@ -1718,6 +1718,36 @@ export class Database {
 
                 FOREIGN KEY (studentId) REFERENCES students(id)
 
+            )`,
+
+            `CREATE TABLE IF NOT EXISTS student_applet_progress (
+
+                id TEXT PRIMARY KEY,
+
+                studentId TEXT NOT NULL,
+
+                appletId TEXT NOT NULL,
+
+                appletType TEXT NOT NULL,
+
+                category TEXT DEFAULT 'STEM',
+
+                score INTEGER NOT NULL,
+
+                maxScore INTEGER NOT NULL,
+
+                hintsUsed INTEGER DEFAULT 0,
+
+                timeSpentSeconds INTEGER DEFAULT 0,
+
+                coinsAwarded INTEGER DEFAULT 0,
+
+                completedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+                metadata TEXT DEFAULT '{}',
+
+                FOREIGN KEY (studentId) REFERENCES students(id)
+
             )`
 
         ];
@@ -1743,6 +1773,7 @@ export class Database {
             'CREATE INDEX IF NOT EXISTS idx_students_classId ON students(classId)',
 
             'CREATE INDEX IF NOT EXISTS idx_student_essays_studentId ON student_essays(studentId)',
+            'CREATE INDEX IF NOT EXISTS idx_student_applet_progress_studentId ON student_applet_progress(studentId)',
 
             'CREATE INDEX IF NOT EXISTS idx_events_studentId ON events(studentId)',
 
@@ -5865,6 +5896,53 @@ export class Database {
 
         return { success: true };
 
+    }
+
+    async saveAppletProgress(data: {
+        id?: string;
+        studentId: string;
+        appletId: string;
+        appletType: string;
+        category?: string;
+        score: number;
+        maxScore: number;
+        hintsUsed?: number;
+        timeSpentSeconds?: number;
+        coinsAwarded?: number;
+        metadata?: any;
+    }) {
+        const id = data.id || `applet-prog-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+        const hintsUsed = data.hintsUsed || 0;
+        const timeSpent = data.timeSpentSeconds || 0;
+        const coins = data.coinsAwarded || 0;
+        const category = data.category || 'STEM';
+        const metaStr = typeof data.metadata === 'object' ? JSON.stringify(data.metadata) : (data.metadata || '{}');
+
+        await this.run(`
+            INSERT INTO student_applet_progress (
+                id, studentId, appletId, appletType, category,
+                score, maxScore, hintsUsed, timeSpentSeconds, coinsAwarded,
+                completedAt, metadata
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?)
+        `, [
+            id, data.studentId, data.appletId, data.appletType, category,
+            data.score, data.maxScore, hintsUsed, timeSpent, coins,
+            metaStr
+        ]);
+
+        if (coins > 0) {
+            await this.addStudentCoins(data.studentId, coins);
+        }
+
+        return { id, success: true, coinsAwarded: coins };
+    }
+
+    async getStudentAppletProgress(studentId: string) {
+        return await this.all(`
+            SELECT * FROM student_applet_progress 
+            WHERE studentId = ? 
+            ORDER BY completedAt DESC
+        `, [studentId]);
     }
 
 }

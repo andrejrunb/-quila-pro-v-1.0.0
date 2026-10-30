@@ -472,7 +472,7 @@ export const App: React.FC = () => {
           const isCoordinationPage = ['coordination', 'academic-calendar', 'curriculum', 'coordination-dashboard', 'coordination-overview', 'bncc-heatmap', 'skills-heatmap', 'heatmap', 'timetable', 'urania-timetable', 'growth-agents', 'school-growth-agents', 'calendar', 'reports-hub', 'seating-intelligence', 'mastery-chamber', 'exam-foundry', 'banco-provas', 'omr', 'omr-scanner', 'students'].includes(currentPage);
           const isSecretaryPage = ['secretaria-portal', 'hr-portal', 'hr', 'schedule-upload'].includes(currentPage);
           const isParentPage = ['parent-portal'].includes(currentPage);
-          const isStudentPage = ['student-portal', 'mastery-chamber', 'ai-lab', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'knowledge-canvas', 'albus-canvas', 'cosmetics-chamber', 'battle-banner', 'skins-shop', 'phet-mastery', 'stem-lab', 'multimodal-studio', 'podcast-wordwall', 'native-phet', 'youtube-radar', 'video-finder'].includes(currentPage);
+          const isStudentPage = ['student-portal', 'mastery-chamber', 'ai-lab', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'knowledge-canvas', 'albus-canvas', 'cosmetics-chamber', 'battle-banner', 'skins-shop', 'phet-mastery', 'stem-lab', 'multimodal-studio', 'podcast-wordwall', 'native-phet', 'youtube-radar', 'video-finder', 'playlists-live', 'pedagogical-playlists', 'game-maker-play', 'h5p-perseus-lab', 'interactive-applets', 'perseus-lab', 'h5p-lab'].includes(currentPage);
 
           const isSustainabilityPage = ['sustainability', 'analytics-bi', 'event-mode', 'consent'].includes(currentPage);
 
