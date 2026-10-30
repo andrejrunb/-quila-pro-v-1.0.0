@@ -23,11 +23,11 @@ export type CosmeticCategory =
   | 'arena_theme';
 
 export type CosmeticRarity =
-  | 'comum'
-  | 'raro'
-  | 'epico'
-  | 'lendario'
-  | 'campeao';
+  | 'common'
+  | 'rare'
+  | 'epic'
+  | 'legendary'
+  | 'champion';
 
 export type AcquisitionType = 'achievement' | 'coins';
 
@@ -38,6 +38,7 @@ export interface CosmeticItemRecord {
   rarity: CosmeticRarity;
   acquisitionType: AcquisitionType;
   priceCoins: number;
+  purchaseAllowed: boolean;
   schoolId: string;
   subject: string | null;
   visualAssetHash: string;
@@ -127,7 +128,7 @@ export class CosmeticGrantService {
   }
 
   /**
-   * Validação estrita de compliance de cada item contra o schema e ECA Digital.
+   * Validação estrita de compliance de cada item contra o schema e governança escolar.
    */
   public validateCatalogItem(item: CosmeticItemRecord): void {
     if (!item.itemId || typeof item.itemId !== 'string') {
@@ -136,17 +137,38 @@ export class CosmeticGrantService {
     if (!item.name || typeof item.name !== 'string') {
       throw new Error(`INVALID_ITEM: name obrigatório para ${item.itemId}`);
     }
+    const validRarities: CosmeticRarity[] = ['common', 'rare', 'epic', 'legendary', 'champion'];
+    if (!validRarities.includes(item.rarity)) {
+      throw new Error(`INVALID_ITEM: Rarity '${item.rarity}' inválida para ${item.itemId}. Valores permitidos: ${validRarities.join(', ')}`);
+    }
     if (item.effects && item.effects.length > 0) {
       throw new Error(`COMPLIANCE_VIOLATION (Zero Pay-to-Win): Item '${item.itemId}' não pode conter efeitos mecânicos ou avaliativos.`);
     }
     if (item.expiresAt !== null) {
       throw new Error(`COMPLIANCE_VIOLATION (Propriedade Permanente): Item '${item.itemId}' não pode expirar.`);
     }
-    if (item.acquisitionType === 'coins' && (item.priceCoins === undefined || item.priceCoins < 0)) {
-      throw new Error(`INVALID_ITEM: priceCoins inválido para ${item.itemId}`);
+    if (item.tradeable !== false || item.refundable !== false) {
+      throw new Error(`COMPLIANCE_VIOLATION: Item '${item.itemId}' não pode ser negociável ou reembolsável.`);
     }
-    if (item.acquisitionType === 'achievement' && !item.requiredAchievement) {
-      throw new Error(`INVALID_ITEM: requiredAchievement obrigatório para itens conquistáveis em ${item.itemId}`);
+    if (item.acquisitionType === 'achievement') {
+      if (!item.requiredAchievement) {
+        throw new Error(`INVALID_ITEM: requiredAchievement obrigatório para itens conquistáveis em ${item.itemId}`);
+      }
+      if (item.priceCoins !== 0) {
+        throw new Error(`COMPLIANCE_VIOLATION: Item de conquista '${item.itemId}' deve ter priceCoins === 0.`);
+      }
+      if (item.purchaseAllowed !== false) {
+        throw new Error(`COMPLIANCE_VIOLATION: Item de conquista '${item.itemId}' deve ter purchaseAllowed === false.`);
+      }
+    } else if (item.acquisitionType === 'coins') {
+      if (item.priceCoins === undefined || item.priceCoins <= 0) {
+        throw new Error(`INVALID_ITEM: priceCoins deve ser maior que zero para itens compráveis em ${item.itemId}`);
+      }
+      if (item.purchaseAllowed !== true) {
+        throw new Error(`COMPLIANCE_VIOLATION: Item comprável por moeda '${item.itemId}' deve ter purchaseAllowed === true.`);
+      }
+    } else {
+      throw new Error(`INVALID_ITEM: acquisitionType '${item.acquisitionType}' desconhecido para ${item.itemId}`);
     }
   }
 
@@ -251,7 +273,7 @@ export class CosmeticGrantService {
       return { success: false, newBalance: currentBalance, error: 'ITEM_NOT_FOUND' };
     }
 
-    if (item.acquisitionType !== 'coins') {
+    if (item.acquisitionType !== 'coins' || !item.purchaseAllowed) {
       return {
         success: false,
         newBalance: currentBalance,

@@ -240,6 +240,11 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
               arena_theme: 'banner_bg'
             };
             const rarityMap: Record<string, any> = {
+              common: 'Comum',
+              rare: 'Rara',
+              epic: 'Épica',
+              legendary: 'Lendária',
+              champion: 'Campeão',
               comum: 'Comum',
               raro: 'Rara',
               epico: 'Épica',
@@ -247,6 +252,11 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
               campeao: 'Campeão'
             };
             const rarityColors: Record<string, string> = {
+              common: '#9ca3af',
+              rare: '#3b82f6',
+              epic: '#a855f7',
+              legendary: '#eab308',
+              champion: '#06b6d4',
               comum: '#9ca3af',
               raro: '#3b82f6',
               epico: '#a855f7',

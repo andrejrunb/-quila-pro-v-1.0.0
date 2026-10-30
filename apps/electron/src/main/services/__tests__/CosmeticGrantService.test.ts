@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { CosmeticGrantService } from '../CosmeticGrantService';
+import { CosmeticGrantService, CosmeticItemRecord } from '../CosmeticGrantService';
 
 jest.mock('../ZeroBypassAuditService', () => ({
   ZeroBypassAuditService: {
@@ -17,41 +17,103 @@ describe('CosmeticGrantService — Serviço Determinístico de Concessão de Cos
     service = new CosmeticGrantService({}, catalogPath);
   });
 
-  describe('Validação do Catálogo Canônico (cosmetics.catalog.json)', () => {
+  describe('Validação Contínua de Schema & Compliance (cosmetics.catalog.json)', () => {
     test('Carrega com sucesso todos os 24 itens do catálogo', () => {
       const catalog = service.getCatalog();
       expect(catalog.length).toBe(24);
     });
 
-    test('REGRA ZERO PAY-TO-WIN: Nenhum cosmético concede efeitos mecânicos ou pontuação', () => {
+    test('REGRA ZERO PAY-TO-WIN (Schema CI): Nenhum cosmético concede efeitos mecânicos, nota ou pontuação', () => {
       const catalog = service.getCatalog();
       for (const item of catalog) {
-        expect(item.effects).toEqual([]);
+        expect(Array.isArray(item.effects)).toBe(true);
+        expect(item.effects).toHaveLength(0);
       }
     });
 
-    test('REGRA PROPRIEDADE PERMANENTE: Nenhum cosmético possui data de expiração', () => {
+    test('REGRA PROPRIEDADE PERMANENTE: Nenhum cosmético expira ou pode ser perdido por ausência', () => {
       const catalog = service.getCatalog();
       for (const item of catalog) {
         expect(item.expiresAt).toBeNull();
       }
     });
 
-    test('REGRA DETERMINÍSTICA: Todo item de conquista possui código de conquista obrigatório', () => {
+    test('REGRA NÃO-MERCANTILIZAÇÃO: Nenhum item é negociável (tradeable: false) ou reembolsável (refundable: false)', () => {
+      const catalog = service.getCatalog();
+      for (const item of catalog) {
+        expect(item.tradeable).toBe(false);
+        expect(item.refundable).toBe(false);
+      }
+    });
+
+    test('PADRONIZAÇÃO DE RARIDADE: Todas as raridades utilizam enums estritos em inglês', () => {
+      const catalog = service.getCatalog();
+      const validRarities = ['common', 'rare', 'epic', 'legendary', 'champion'];
+      for (const item of catalog) {
+        expect(validRarities).toContain(item.rarity);
+      }
+    });
+
+    test('SEPARAÇÃO PREÇO E REQUISITO: Itens de conquista têm priceCoins === 0 e purchaseAllowed === false', () => {
       const achievementItems = service.getCatalog().filter(i => i.acquisitionType === 'achievement');
       expect(achievementItems.length).toBeGreaterThan(0);
       for (const item of achievementItems) {
+        expect(item.priceCoins).toBe(0);
+        expect(item.purchaseAllowed).toBe(false);
         expect(typeof item.requiredAchievement).toBe('string');
         expect(item.requiredAchievement!.length).toBeGreaterThan(0);
       }
     });
 
-    test('REGRA ECONÔMICA: Itens de compra por moeda possuem preço válido maior que zero', () => {
+    test('REGRA DE COMPRA POR MOEDA: Itens de compra têm priceCoins > 0 e purchaseAllowed === true', () => {
       const coinItems = service.getCatalog().filter(i => i.acquisitionType === 'coins');
       expect(coinItems.length).toBeGreaterThan(0);
       for (const item of coinItems) {
         expect(item.priceCoins).toBeGreaterThan(0);
+        expect(item.purchaseAllowed).toBe(true);
+        expect(item.requiredAchievement).toBeNull();
       }
+    });
+
+    test('REJEIÇÃO DE SCHEMA: validateCatalogItem rejeita itens com efeitos ou negociáveis', () => {
+      const invalidItemEffects: CosmeticItemRecord = {
+        itemId: 'invalid_item_1',
+        name: 'Item com Vantagem',
+        category: 'avatar_skin',
+        rarity: 'epic',
+        acquisitionType: 'coins',
+        priceCoins: 100,
+        purchaseAllowed: true,
+        schoolId: 'escola_matriz',
+        subject: null,
+        visualAssetHash: 'abc',
+        effects: ['+10% tempo na prova'],
+        tradeable: false,
+        refundable: false,
+        expiresAt: null,
+        requiredAchievement: null,
+        audit: { createdBy: 'test', createdAt: 'now', grantPolicy: 'test' }
+      };
+
+      expect(() => service.validateCatalogItem(invalidItemEffects)).toThrow(/Zero Pay-to-Win/);
+
+      const invalidItemTradeable: CosmeticItemRecord = {
+        ...invalidItemEffects,
+        effects: [],
+        tradeable: true as any
+      };
+      expect(() => service.validateCatalogItem(invalidItemTradeable)).toThrow(/não pode ser negociável/);
+
+      const invalidAchievementWithPrice: CosmeticItemRecord = {
+        ...invalidItemEffects,
+        effects: [],
+        tradeable: false,
+        acquisitionType: 'achievement',
+        priceCoins: 500,
+        purchaseAllowed: false,
+        requiredAchievement: 'conquista_x'
+      };
+      expect(() => service.validateCatalogItem(invalidAchievementWithPrice)).toThrow(/deve ter priceCoins === 0/);
     });
   });
 
@@ -62,6 +124,8 @@ describe('CosmeticGrantService — Serviço Determinístico de Concessão de Cos
       expect(res.alreadyOwned).toBe(false);
       expect(res.grantedItems).toHaveLength(1);
       expect(res.grantedItems[0].itemId).toBe('skin_guardiao_escola');
+      expect(res.grantedItems[0].priceCoins).toBe(0);
+      expect(res.grantedItems[0].purchaseAllowed).toBe(false);
       expect(res.auditRecords).toHaveLength(1);
       expect(res.auditRecords[0].origin).toBe('achievement');
       expect(res.auditRecords[0].coinsSpent).toBe(0);
@@ -97,6 +161,7 @@ describe('CosmeticGrantService — Serviço Determinístico de Concessão de Cos
       expect(res.success).toBe(true);
       expect(res.newBalance).toBe(800); // 1000 - 200
       expect(res.item?.itemId).toBe('emote_tesla_eureca');
+      expect(res.item?.purchaseAllowed).toBe(true);
       expect(res.auditRecord?.coinsSpent).toBe(200);
       expect(res.auditRecord?.origin).toBe('purchase');
 
@@ -144,7 +209,7 @@ describe('CosmeticGrantService — Serviço Determinístico de Concessão de Cos
   });
 
   describe('Trilha de Auditoria Criptográfica (Zero-Bypass)', () => {
-    test('Registra auditoria com assinatura HMAC-SHA256 para cada concessão', () => {
+    test('Registra auditoria com assinatura HMAC-SHA256 para cada concessão e compra', () => {
       service.grantByAchievement('aluno_audit', 'presenca_90_dias', 'diretor_escola');
       service.purchaseByCoins('aluno_audit', 'emote_tesla_eureca', 500);
 
@@ -155,6 +220,7 @@ describe('CosmeticGrantService — Serviço Determinístico de Concessão de Cos
         expect(entry.signature).toMatch(/^[a-f0-9]{64}$/); // HMAC SHA-256 hex
         expect(entry.timestamp).toBeDefined();
         expect(entry.studentId).toBe('aluno_audit');
+        expect(typeof entry.coinsSpent).toBe('number');
       }
     });
   });

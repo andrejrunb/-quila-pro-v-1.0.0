@@ -3,7 +3,7 @@
   "updatedAt": "2026-10-30T19:15:00-03:00",
   "schoolId": "escola_matriz",
   "compliance": {
-    "ecaDigitalLaw": "Lei nº 15.211/2025 e Decreto nº 12.880/2026",
+    "ecaDigitalLaw": "Diretrizes de Proteção Digital à Infância e Adolescência, LGPD (Art. 14) e Governança Ética Escolar",
     "lootBoxesProhibited": true,
     "screenTimeRewardProhibited": true,
     "biometricGpsCameraIsolated": true,
@@ -26,9 +26,9 @@
       "itemId": "skin_tesla_mestre_raios",
       "name": "Nikola Tesla — Mestre dos Raios",
       "category": "avatar_skin",
-      "rarity": "lendario",
+      "rarity": "legendary",
       "acquisitionType": "achievement",
-      "priceCoins": 650,
+      "priceCoins": 0,
       "schoolId": "escola_matriz",
       "subject": "Física",
       "visualAssetHash": "2439d2107d1a3f498868eea2d506942ebc4835b8b807ed38547c259128d66c41",
@@ -42,15 +42,16 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "bncc_alinhada_em13cnt308"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "skin_marie_curie_nucleo",
       "name": "Marie Curie — Soberana do Núcleo",
       "category": "avatar_skin",
-      "rarity": "lendario",
+      "rarity": "legendary",
       "acquisitionType": "achievement",
-      "priceCoins": 700,
+      "priceCoins": 0,
       "schoolId": "escola_matriz",
       "subject": "Química",
       "visualAssetHash": "1cbacc15dac11b2a4cbd172bd55c6ce27a9098ef97ea166c32b9655597fa1c6d",
@@ -64,15 +65,16 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "bncc_alinhada_em13cnt104"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "skin_machado_assis_bruxo",
       "name": "Machado de Assis — O Bruxo do Cosme Velho",
       "category": "avatar_skin",
-      "rarity": "epico",
+      "rarity": "epic",
       "acquisitionType": "achievement",
-      "priceCoins": 500,
+      "priceCoins": 0,
       "schoolId": "escola_matriz",
       "subject": "Português",
       "visualAssetHash": "b732249ce3147d0c7e1dfdd4f38169b94ba563993a779968e5f94b80e9d765df",
@@ -86,13 +88,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "bncc_alinhada_em13lp48"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "skin_guardiao_escola",
       "name": "Guardião da Escola",
       "category": "avatar_skin",
-      "rarity": "raro",
+      "rarity": "rare",
       "acquisitionType": "achievement",
       "priceCoins": 0,
       "schoolId": "escola_matriz",
@@ -108,13 +111,14 @@
         "createdBy": "diretoria_escolar",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "engajamento_sem_ranqueamento"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "skin_hipatia_matematica",
       "name": "Hipátia de Alexandria — Astrônoma da Luz",
       "category": "avatar_skin",
-      "rarity": "epico",
+      "rarity": "epic",
       "acquisitionType": "coins",
       "priceCoins": 450,
       "schoolId": "escola_matriz",
@@ -130,15 +134,16 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "skin_ada_lovelace_algoritmo",
       "name": "Ada Lovelace — Pioneira dos Algoritmos",
       "category": "avatar_skin",
-      "rarity": "lendario",
+      "rarity": "legendary",
       "acquisitionType": "achievement",
-      "priceCoins": 600,
+      "priceCoins": 0,
       "schoolId": "escola_matriz",
       "subject": "Tecnologia",
       "visualAssetHash": "b9534d075c93fd80c6a8905492338a0d579117e7d8fdd544fb594b47f0ce3dcd",
@@ -152,13 +157,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "bncc_alinhada_em13mat202"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "moldura_arco_plasma",
       "name": "Moldura Arco de Plasma Trifásico",
       "category": "avatar_frame",
-      "rarity": "campeao",
+      "rarity": "champion",
       "acquisitionType": "coins",
       "priceCoins": 900,
       "schoolId": "escola_matriz",
@@ -174,13 +180,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "moldura_louros_dourados",
       "name": "Moldura Ramos de Louro Dourado",
       "category": "avatar_frame",
-      "rarity": "raro",
+      "rarity": "rare",
       "acquisitionType": "coins",
       "priceCoins": 350,
       "schoolId": "escola_matriz",
@@ -196,15 +203,16 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "moldura_prisma_newtoniano",
       "name": "Moldura Prisma Espectral Newtoniano",
       "category": "avatar_frame",
-      "rarity": "epico",
+      "rarity": "epic",
       "acquisitionType": "achievement",
-      "priceCoins": 450,
+      "priceCoins": 0,
       "schoolId": "escola_matriz",
       "subject": "Física",
       "visualAssetHash": "c48e02ab404d2e96ffc249e377a8bccb772ea8f2a9f56e12dd27b4ee206bb285",
@@ -218,13 +226,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "bncc_alinhada_em13cnt204"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "moldura_dna_helice",
       "name": "Moldura Dupla Hélice da Vida",
       "category": "avatar_frame",
-      "rarity": "raro",
+      "rarity": "rare",
       "acquisitionType": "coins",
       "priceCoins": 380,
       "schoolId": "escola_matriz",
@@ -240,13 +249,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "moldura_edicao_escolar",
       "name": "Moldura Brasão Escolar da Turma",
       "category": "avatar_frame",
-      "rarity": "comum",
+      "rarity": "common",
       "acquisitionType": "achievement",
       "priceCoins": 0,
       "schoolId": "escola_matriz",
@@ -262,13 +272,14 @@
         "createdBy": "sistema",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "onboarding_estudante"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "banner_wardenclyffe_noite",
       "name": "Banner Torre de Wardenclyffe Noturna",
       "category": "profile_theme",
-      "rarity": "lendario",
+      "rarity": "legendary",
       "acquisitionType": "coins",
       "priceCoins": 650,
       "schoolId": "escola_matriz",
@@ -284,13 +295,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "banner_expedicao_suriname",
       "name": "Banner Expedição Botânica do Suriname",
       "category": "profile_theme",
-      "rarity": "epico",
+      "rarity": "epic",
       "acquisitionType": "coins",
       "priceCoins": 600,
       "schoolId": "escola_matriz",
@@ -306,15 +318,16 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "banner_biblioteca_alexandria",
       "name": "Banner Salão dos Rolos de Alexandria",
       "category": "profile_theme",
-      "rarity": "epico",
+      "rarity": "epic",
       "acquisitionType": "achievement",
-      "priceCoins": 550,
+      "priceCoins": 0,
       "schoolId": "escola_matriz",
       "subject": "História",
       "visualAssetHash": "01ec898e872c2a3f0d026fb0f9d8baa7c9e2924a17c3c40aa28e297e6a81f9b1",
@@ -328,13 +341,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "bncc_alinhada_em13chs101"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "banner_observatorio_galileano",
       "name": "Banner Observatório Noturno de Florença",
       "category": "profile_theme",
-      "rarity": "raro",
+      "rarity": "rare",
       "acquisitionType": "coins",
       "priceCoins": 400,
       "schoolId": "escola_matriz",
@@ -350,13 +364,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "titulo_guardiao_newton",
       "name": "Guardião da Gravitação",
       "category": "title",
-      "rarity": "epico",
+      "rarity": "epic",
       "acquisitionType": "achievement",
       "priceCoins": 0,
       "schoolId": "escola_matriz",
@@ -372,13 +387,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "merito_estritamente_formativo"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "titulo_leitor_voraz_machado",
       "name": "Leitor Voraz do Realismo",
       "category": "title",
-      "rarity": "raro",
+      "rarity": "rare",
       "acquisitionType": "achievement",
       "priceCoins": 0,
       "schoolId": "escola_matriz",
@@ -394,13 +410,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "merito_estritamente_formativo"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "titulo_decifrador_genetico",
       "name": "Decifrador de Hereditariedade",
       "category": "title",
-      "rarity": "epico",
+      "rarity": "epic",
       "acquisitionType": "achievement",
       "priceCoins": 0,
       "schoolId": "escola_matriz",
@@ -416,13 +433,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "merito_estritamente_formativo"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "titulo_campeao_arena_pvp",
       "name": "Mestre da Arena da Física",
       "category": "title",
-      "rarity": "campeao",
+      "rarity": "champion",
       "acquisitionType": "achievement",
       "priceCoins": 0,
       "schoolId": "escola_matriz",
@@ -438,13 +456,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "conquista_cooperativa_arena"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "emote_tesla_eureca",
       "name": "Emote Tesla Eureca! (Relâmpago na Lâmpada)",
       "category": "emote",
-      "rarity": "comum",
+      "rarity": "common",
       "acquisitionType": "coins",
       "priceCoins": 200,
       "schoolId": "escola_matriz",
@@ -460,13 +479,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "emote_machado_ironia",
       "name": "Emote Machado da Piscadela Irônica",
       "category": "emote",
-      "rarity": "epico",
+      "rarity": "epic",
       "acquisitionType": "coins",
       "priceCoins": 500,
       "schoolId": "escola_matriz",
@@ -482,13 +502,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "emote_arquimedes_eureka",
       "name": "Emote Arquimedes Eureka! (Splash na Banheira)",
       "category": "emote",
-      "rarity": "raro",
+      "rarity": "rare",
       "acquisitionType": "coins",
       "priceCoins": 300,
       "schoolId": "escola_matriz",
@@ -504,13 +525,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "loja_moedas_pedagogicas"
-      }
+      },
+      "purchaseAllowed": true
     },
     {
       "itemId": "arena_ringue_eletromagnetico",
       "name": "Ringue da Guerra das Correntes",
       "category": "arena_theme",
-      "rarity": "campeao",
+      "rarity": "champion",
       "acquisitionType": "achievement",
       "priceCoins": 0,
       "schoolId": "escola_matriz",
@@ -526,13 +548,14 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "evento_pedagogico_arena"
-      }
+      },
+      "purchaseAllowed": false
     },
     {
       "itemId": "arena_placar_pesos_pesados",
       "name": "Placar Clássica vs. Moderna",
       "category": "arena_theme",
-      "rarity": "epico",
+      "rarity": "epic",
       "acquisitionType": "achievement",
       "priceCoins": 0,
       "schoolId": "escola_matriz",
@@ -548,7 +571,8 @@
         "createdBy": "coordenação_pedagogica",
         "createdAt": "2026-10-30T19:00:00-03:00",
         "grantPolicy": "evento_pedagogico_arena"
-      }
+      },
+      "purchaseAllowed": false
     }
   ]
 }
