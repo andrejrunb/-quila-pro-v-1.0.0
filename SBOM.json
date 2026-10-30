@@ -1,0 +1,253 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "Aquila-Pro-School-OS-SBOM",
+  "documentNamespace": "https://aquilapro.org/spdxdocs/aquila-pro-v2.1.0-rc.32-1793388872592",
+  "creationInfo": {
+    "creators": [
+      "Organization: Áquila Pro Sovereign Systems",
+      "Tool: generate_sbom_and_notices.ts"
+    ],
+    "created": "2026-10-30T19:34:32.592Z"
+  },
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Package-AquilaPro",
+      "name": "aquila-pro-school-os",
+      "versionInfo": "2.1.0-rc.32",
+      "downloadLocation": "git+https://github.com/andrejrunb/-quila-pro-v-1.0.0.git@clean-release-v1",
+      "licenseConcluded": "LicenseRef-BSL-1.1",
+      "licenseDeclared": "LicenseRef-BSL-1.1",
+      "copyrightText": "Copyright (c) 2026 Áquila Pro Development Team / André Jr",
+      "description": "Áquila Pro School OS — Sovereign Edge Ecosystem for K-12 Schools"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-1-electron",
+      "name": "electron",
+      "versionInfo": "28.2.0",
+      "downloadLocation": "https://github.com/electron/electron",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Framework de Desktop Nativo Soberano"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-2-react",
+      "name": "react",
+      "versionInfo": "18.2.0",
+      "downloadLocation": "https://github.com/facebook/react",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Biblioteca de Interface Reativa"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-3-react-dom",
+      "name": "react-dom",
+      "versionInfo": "18.2.0",
+      "downloadLocation": "https://github.com/facebook/react",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Renderizador DOM para React"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-4-better-sqlite3",
+      "name": "better-sqlite3",
+      "versionInfo": "9.4.1",
+      "downloadLocation": "https://github.com/WiseLibs/better-sqlite3",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Driver Síncrono SQLite de Alta Performance"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-5-sqlite3",
+      "name": "sqlite3",
+      "versionInfo": "3.45.1 (embedded)",
+      "downloadLocation": "https://sqlite.org",
+      "licenseConcluded": "Public Domain",
+      "licenseDeclared": "Public Domain",
+      "copyrightText": "NOASSERTION",
+      "comment": "Motor Relacional Local WAL Modo Soberano"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-6-lucide-react",
+      "name": "lucide-react",
+      "versionInfo": "0.344.0",
+      "downloadLocation": "https://github.com/lucide-icons/lucide",
+      "licenseConcluded": "ISC",
+      "licenseDeclared": "ISC",
+      "copyrightText": "NOASSERTION",
+      "comment": "Ícones Vetoriais da Interface Hexagonal"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-7-vite",
+      "name": "vite",
+      "versionInfo": "5.4.21",
+      "downloadLocation": "https://github.com/vitejs/vite",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Bundler e Motor de Build de Produção"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-8-typescript",
+      "name": "typescript",
+      "versionInfo": "5.3.3",
+      "downloadLocation": "https://github.com/microsoft/TypeScript",
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "Apache-2.0",
+      "copyrightText": "NOASSERTION",
+      "comment": "Compilador e Tipagem Estática"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-9-uuid",
+      "name": "uuid",
+      "versionInfo": "9.0.1",
+      "downloadLocation": "https://github.com/uuidjs/uuid",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Gerador Criptográfico de Identificadores Únicos"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-10-canvas",
+      "name": "canvas",
+      "versionInfo": "2.11.2",
+      "downloadLocation": "https://github.com/Automattic/node-canvas",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Renderização 2D Local e Tratamento de Gabaritos OMR"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-11-ws",
+      "name": "ws",
+      "versionInfo": "8.16.0",
+      "downloadLocation": "https://github.com/websockets/ws",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Servidor WebSocket TLS 1.3 Local (Porta 9000)"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-12-pdf-lib",
+      "name": "pdf-lib",
+      "versionInfo": "1.17.1",
+      "downloadLocation": "https://github.com/Hopding/pdf-lib",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Composição e Impressão de Cadernos de Prova A4"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-13-p-limit",
+      "name": "p-limit",
+      "versionInfo": "3.1.0",
+      "downloadLocation": "https://github.com/sindresorhus/p-limit",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Controle de Concorrência de Leitura OMR"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-14-jest",
+      "name": "jest",
+      "versionInfo": "29.7.0",
+      "downloadLocation": "https://github.com/jestjs/jest",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "comment": "Suíte de Testes Automatizados Unitários"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Dep-15-playwright",
+      "name": "playwright",
+      "versionInfo": "1.42.1",
+      "downloadLocation": "https://github.com/microsoft/playwright",
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "Apache-2.0",
+      "copyrightText": "NOASSERTION",
+      "comment": "Framework de Testes E2E e Automação de Interface"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-1-electron",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-2-react",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-3-react-dom",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-4-better-sqlite3",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-5-sqlite3",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-6-lucide-react",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-7-vite",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-8-typescript",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-9-uuid",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-10-canvas",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-11-ws",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-12-pdf-lib",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-13-p-limit",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-14-jest",
+      "relationshipType": "DEPENDS_ON"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-AquilaPro",
+      "relatedSpdxElement": "SPDXRef-Package-Dep-15-playwright",
+      "relationshipType": "DEPENDS_ON"
+    }
+  ]
+}
