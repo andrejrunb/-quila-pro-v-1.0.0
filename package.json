@@ -23,6 +23,8 @@
     "test:stress:hostile": "node scripts/stress_test_pilot_hostile_env.cjs"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^11.5.0",
     "typescript": "^5.3.3"
   }
 }

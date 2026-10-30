@@ -11,7 +11,7 @@ jobs:
   # JOB 1: Security & Secrets Scan
   # ──────────────────────────────────────────
   security-audit:
-    name: 🛡️ Security & Secret Audit
+    name: Security and Secret Audit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -38,7 +38,7 @@ jobs:
   # JOB 2: Monorepo Type Check & Lint
   # ──────────────────────────────────────────
   typecheck-and-lint:
-    name: 🔍 TypeScript Strict Check & ESLint
+    name: TypeScript Strict Check and ESLint
     runs-on: ubuntu-latest
     needs: [security-audit]
     steps:
@@ -71,7 +71,7 @@ jobs:
   # JOB 3: Unit Tests, Security & LGPD Integrity
   # ──────────────────────────────────────────
   test:
-    name: 🧪 Automated Test Suite & LGPD Integrity
+    name: Automated Test Suite and LGPD Integrity
     runs-on: ubuntu-latest
     needs: [security-audit]
     steps:
@@ -102,10 +102,10 @@ jobs:
         run: pnpm dlx tsx scripts/test_omr_calibration.ts
 
       - name: Run SQLite Edge Backup & DR Security Suite
-        run: node scripts/test_backup_dr_suite.cjs
+        run: pnpm --filter aquila-pro-school-os exec node ../../scripts/test_backup_dr_suite.cjs
 
       - name: Run E2E Critical Operational Flows Suite
-        run: node scripts/test_e2e_critical_flow.cjs
+        run: pnpm --filter aquila-pro-school-os exec node ../../scripts/test_e2e_critical_flow.cjs
 
       - name: Run Electron Jest Test Suite
         run: pnpm --filter aquila-pro-school-os exec jest src/__tests__/AgentControlPlaneAndRouteRegistry.test.ts src/__tests__/PilotControlPlaneLifecycle.test.ts --forceExit
@@ -125,7 +125,7 @@ jobs:
   # JOB 4: Monorepo Build Verification
   # ──────────────────────────────────────────
   build:
-    name: 🏗️ Production Build Verification
+    name: Production Build Verification
     runs-on: ubuntu-latest
     needs: [typecheck-and-lint, test]
     steps:

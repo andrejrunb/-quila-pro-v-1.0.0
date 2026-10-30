@@ -25,7 +25,20 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var fs = __toESM(require("fs"));
 var path = __toESM(require("path"));
 var crypto2 = __toESM(require("crypto"));
-var import_better_sqlite3 = __toESM(require("better-sqlite3"));
+function loadBetterSqlite3() {
+  try {
+    return require("better-sqlite3");
+  } catch (e) {
+    try {
+      const candidate = require.resolve("better-sqlite3", { paths: [path.resolve(__dirname, "../apps/electron")] });
+      return require(candidate);
+    } catch (e2) {
+      throw e;
+    }
+  }
+}
+
+var import_better_sqlite3 = __toESM(loadBetterSqlite3());
 
 // apps/electron/src/main/services/NotificationOutboxService.ts
 var NotificationOutboxService = class {
