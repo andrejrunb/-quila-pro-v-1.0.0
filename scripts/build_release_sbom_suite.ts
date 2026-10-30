@@ -300,10 +300,11 @@ ${pythonPackages.map(p => `| **${p.name}** | \`${p.version}\` | \`${p.license}\`
 `;
   fs.writeFileSync(noticesPath, noticesMd, 'utf-8');
 
-  // 5.1 Copiar Registros de Conteúdo, Modelos e Política de Provas para o pacote SBOM
+  // 5.1 Copiar Registros de Conteúdo, Modelos e Políticas de Governança para o pacote SBOM
   const contentRegSource = path.join(rootDir, 'content-rights-register.json');
   const modelLicSource = path.join(rootDir, 'model-licenses.json');
   const examPolicySource = path.join(rootDir, 'docs/compliance/POLITICA_USO_DADOS_PROVAS.md');
+  const retentionPolicySource = path.join(rootDir, 'docs/compliance/POLITICA_RETENCAO_DESCARTE_DADOS.md');
 
   if (fs.existsSync(contentRegSource)) {
     fs.copyFileSync(contentRegSource, path.join(targetDir, 'content-rights-register.json'));
@@ -313,6 +314,9 @@ ${pythonPackages.map(p => `| **${p.name}** | \`${p.version}\` | \`${p.license}\`
   }
   if (fs.existsSync(examPolicySource)) {
     fs.copyFileSync(examPolicySource, path.join(targetDir, 'POLITICA_USO_DADOS_PROVAS.md'));
+  }
+  if (fs.existsSync(retentionPolicySource)) {
+    fs.copyFileSync(retentionPolicySource, path.join(targetDir, 'POLITICA_RETENCAO_DESCARTE_DADOS.md'));
   }
 
   // 6. Calcular Hashes SHA-256 e Gravar sbom-verification.txt
@@ -324,6 +328,7 @@ ${pythonPackages.map(p => `| **${p.name}** | \`${p.version}\` | \`${p.license}\`
     'content-rights-register.json',
     'model-licenses.json',
     'POLITICA_USO_DADOS_PROVAS.md',
+    'POLITICA_RETENCAO_DESCARTE_DADOS.md',
     'third-party-notices.md'
   ];
 

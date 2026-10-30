@@ -307,6 +307,41 @@ function auditExamDataPolicy(): void {
   });
 }
 
+// 9. Verificação da Política de Retenção e Descarte de Dados (LGPD & LAW-801)
+function auditDataRetentionPolicy(): void {
+  const policyPath = path.join(ROOT_DIR, 'docs', 'compliance', 'POLITICA_RETENCAO_DESCARTE_DADOS.md');
+  const servicePath = path.join(ELECTRON_DIR, 'src', 'main', 'services', 'DataRetentionService.ts');
+  const exists = fs.existsSync(policyPath) && fs.existsSync(servicePath);
+  let valid = false;
+  let details = '';
+
+  if (exists) {
+    const content = fs.readFileSync(policyPath, 'utf-8');
+    const has20Categories = content.includes('Tabela Mestra de Retenção e Descarte (20 Categorias)');
+    const hasQuarantine = content.includes('QUARENTENA_JURIDICA');
+    const hasTombstone = content.includes('retention_tombstones');
+    const hasKAnonymity = content.includes('k-Anonimato');
+    const has24hBio = content.includes('24 horas');
+    const has90dOmr = content.includes('90 dias');
+    const has24mLeads = content.includes('24 meses');
+
+    valid = has20Categories && hasQuarantine && hasTombstone && hasKAnonymity && has24hBio && has90dOmr && has24mLeads;
+    details = valid
+      ? 'Política v1.0 e DataRetentionService homologados (20 categorias, Quarentena, 24h bio, 90d OMR, 24m leads e tombstones).'
+      : 'Política de retenção incompleta ou desacoplada do DataRetentionService.';
+  } else {
+    details = 'POLITICA_RETENCAO_DESCARTE_DADOS.md ou DataRetentionService.ts não localizados no repositório.';
+  }
+
+  results.push({
+    check: 'Política de Retenção e Descarte de Dados (LGPD/ECA/LAW-801)',
+    category: 'PRIVACY',
+    passed: valid,
+    severity: 'CRITICAL',
+    details
+  });
+}
+
 // Execução
 auditSourceMaps();
 auditTestArtifacts();
@@ -316,6 +351,7 @@ auditLegalCompliance();
 auditSingleLockfile();
 auditContentAndModelRegistries();
 auditExamDataPolicy();
+auditDataRetentionPolicy();
 
 // Relatório Terminal
 console.log('\n=========================================================================');

@@ -5,18 +5,18 @@ Baseline de Auditoria:  v2.1.0-rc.30
 Commit de Referência:   59b2233af8a6370853b298750014d885ca09ee65
 Gerenciador Oficial:    pnpm (pnpm-lock.yaml)
 Padrão do Manifesto:    CycloneDX 1.5 JSON & SPDX Attribution
-Data da Geração:        2026-10-30T19:54:04.382Z
+Data da Geração:        2026-10-30T20:13:18.770Z
 ========================================================================================
 
 HASHES SHA-256 DOS ARTEFATOS AUDITADOS:
 
 Arquivo:  sbom-node-cyclonedx.json
 Tamanho:  75971 bytes
-SHA-256:  EC91BE0B05C110A6586C65D22FE76DE3628F2DA0ACF51D952D4690A55F4C0EC1
+SHA-256:  412078E02E08A6CC9ED328015E2EC2C6ACFF50BA215A68D705D652FCF939D39C
 ----------------------------------------------------------------------------------------
 Arquivo:  sbom-python-cyclonedx.json
 Tamanho:  5944 bytes
-SHA-256:  38E3430ADD2125111CDBF96AC83C74BC3A1193ACE09342BAE0D7CA6DC3C8C4B2
+SHA-256:  20C82722C566A3BBF53CF2F76F0AE031FA4655A32AA10334944D3D20A8F6C8E8
 ----------------------------------------------------------------------------------------
 Arquivo:  license-inventory-node.json
 Tamanho:  29365 bytes
@@ -37,6 +37,10 @@ SHA-256:  7D872B29F02DBF6609D1E8605A40B7A46CD6301DA427297ACC9BBB940520457D
 Arquivo:  POLITICA_USO_DADOS_PROVAS.md
 Tamanho:  18990 bytes
 SHA-256:  B0E522CDCE2A9E186B2D5FDE6A431957FC2D05DE0B236A5CB7D57B30295153A1
+----------------------------------------------------------------------------------------
+Arquivo:  POLITICA_RETENCAO_DESCARTE_DADOS.md
+Tamanho:  18615 bytes
+SHA-256:  01A840F235B16DB0DE8C95A71A40919AC1B429685B9958A71AD1187E906D6202
 ----------------------------------------------------------------------------------------
 Arquivo:  third-party-notices.md
 Tamanho:  8581 bytes
