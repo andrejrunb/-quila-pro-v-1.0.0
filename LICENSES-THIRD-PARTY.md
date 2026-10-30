@@ -1,157 +1,135 @@
 # Licenças de Terceiros e Segregação de Propriedade Intelectual (Áquila Pro)
-
-Este documento cataloga todos os softwares de código aberto de terceiros, bibliotecas, motores de conteúdo pedagógico e acervos didáticos incorporados ou referenciados no ecossistema **Áquila Pro**, em conformidade com as exigências legais de atribuição, preservação de direitos autorais e conformidade com a Lei Federal nº 9.610/98 (Lei de Direitos Autorais) e Lei Federal nº 13.709/2018 (LGPD).
-
----
-
-## Sumário Executivo de Componentes
-
-| Componente / Módulo | Origem / Mantenedor | Licença Upstream | Papel no Áquila Pro | Status de Conformidade |
-| :--- | :--- | :--- | :--- | :--- |
-| **Khan Academy Perseus** | Khan Academy | MIT License | Motor Offline de Itens Interativos & Sliders Matemáticos | Homologado (Tier 1 / Offline-First) |
-| **H5P Player Engine** | Joubel AS / H5P Group | MIT / GNU GPL v3 | Player de Branching Scenarios, Drag Words e Hotspots | Homologado (Tier 1 / Sandbox Local) |
-| **Acervo Oficial de Provas** | INEP, FUVEST, UNICAMP, ITA, PISA | Domínio Público / Art. 8º LDA | Banco de Avaliações Oficiais de Estado | Homologado (Tier 1 / Liberado) |
-| **Olimpíadas Acadêmicas** | OBA, OBMEP, Canguru | CC-BY-NC-SA 4.0 / Open Exam | Banco de Desafios Formativos e Raciocínio Lógico | Homologado (Tier 1 / Liberado) |
-| **Recursos Educacionais Abertos** | OpenStax, PhET (Univ. Colorado) | CC-BY 4.0 | Matrizes Curriculares e Simulações Interativas | Homologado (Tier 1 / Liberado) |
-| **Acervo Didático de Editoras Privadas** | Scipione, Bernoulli, Moderna, Ática | Direitos Reservados (Art. 29 LDA) | Referência Bibliográfica Exclusiva | **QUARENTENA ESTRITA (Tier 2 / Bloqueado para IA)** |
-| **Desktop / UI Runtime** | Electron, React, Node.js, Vite | MIT / BSD-3-Clause | Execução Nativa Desktop e Interfaces Reativas | Homologado (Tier 1) |
-| **Mobile Runtime** | Expo, React Native | MIT License | Companion App Mobile para Alunos e Famílias | Homologado (Tier 1) |
-| **Banco de Dados & Armazenamento** | SQLite, better-sqlite3, Drizzle ORM | Public Domain / MIT / Apache 2.0 | Persistência Edge-First, WAL e Criptografia Local | Homologado (Tier 1) |
-| **Comunicação Peer-to-Peer** | libp2p, @chainsafe/libp2p-noise | Apache-2.0 / MIT | Malha P2P Soberana de Sincronização Local | Homologado (Tier 1) |
+**Documento de Conformidade Regulatória** • **Versão:** `2.1.0-rc.32`  
+**Data da Auditoria:** 30 de Outubro de 2026  
+**Baseline Técnica:** Commit `59b2233af8a6370853b298750014d885ca09ee65` / `cf859b57` (Branch: `clean-release-v1`)  
+**Licença do Produto Central:** Business Source License 1.1 (BSL 1.1) • Change Date: 01/01/2030 (Apache 2.0)  
 
 ---
 
-## 1. Motores Pedagógicos Interativos (Perseus & H5P)
+## ⚖️ 1. Princípios de Governança & Taxonomia Legal de Licenciamento
 
-### 1.1 Khan Academy Perseus
-- **Repositório Upstream:** `Khan/perseus` (Khan Academy)
-- **Licença:** MIT License
-- **Implementação no Áquila Pro:** [`apps/electron/src/services/H5PPerseusEngine.ts`](file:///c:/aquila/apps/electron/src/services/H5PPerseusEngine.ts), [`apps/electron/src/ui/portals/H5PPerseusPortal.tsx`](file:///c:/aquila/apps/electron/src/ui/portals/H5PPerseusPortal.tsx)
-- **Funcionalidades Utilizadas:**
-  - `perseus_math_slider`: Sliders paramétricos para funções algébricas e cinemática física.
-  - `perseus_number_line`: Reta numérica interativa com tolerância delta configurável.
-  - `perseus_radio_scaffolding`: Múltipla escolha formativa com 3 níveis de dicas socráticas progressivas.
-- **Isolamento de Segurança:** O motor foi refatorado para execução 100% offline-first sem requisições de rede para servidores externos ou CDNs, garantindo imunidade a rastreamento de dados de alunos (LGPD Art. 14).
+O Áquila Pro adota uma taxonomia jurídica estrita para classificação de dependências, conteúdos didáticos e modelos de IA, em conformidade com a Lei Federal nº 9.610/98 (Lei de Direitos Autorais) e Lei Federal nº 13.709/2018 (LGPD):
 
-```text
-The MIT License (MIT)
-
-Copyright (c) 2013-2026 Khan Academy
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE WORK OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
-### 1.2 H5P Interactive Content Engine
-- **Repositório Upstream:** `h5p/h5p-core` (Joubel AS / H5P Group)
-- **Licenças:** MIT License (H5P Core / Interactive Libraries) e GNU GPL v3 (módulos de plataforma)
-- **Implementação no Áquila Pro:** [`apps/electron/src/services/H5PPerseusEngine.ts`](file:///c:/aquila/apps/electron/src/services/H5PPerseusEngine.ts)
-- **Tipos de Conteúdo Habilitados:**
-  - `h5p_branching_scenario`: Árvore de decisão e caminhos pedagógicos ramificados.
-  - `h5p_image_hotspots`: Pontos quentes explicativos em diagramas científicos anatômicos e cartográficos.
-  - `h5p_drag_words`: Associação de vocabulário e conceitos estruturados em lacunas.
-- **Fronteira Arquitetural:** Os pacotes interativos são empacotados em contêiner offline isolado e comunicam-se com o núcleo do Áquila via IPC desacoplado e mensagens padronizadas JSON, respeitando as fronteiras de licença dinâmica.
+| Categoria | Definição Legal | Tratamento no Áquila Pro |
+| :--- | :--- | :--- |
+| 🟢 **PERMITIDO (VERDE)** | Licenças de software permissivas (MIT, Apache-2.0, BSD-2/3, ISC, CC0, Public Domain) e conteúdos CC-BY 4.0. | Liberado para compilação, empacotamento no executável nativo e distribuição comercial sob BSL 1.1, com preservação integral dos avisos de direitos autorais. |
+| 🟡 **PERMITIDO COM CONDIÇÕES (AMARELA)** | Licenças com restrições operacionais específicas (LGPL-3.0 com vinculação dinâmica, termos de uso comunitário de modelos como Llama 3.1 e Gemma 2). | Permitido mediante cumprimento estrito das condições (atribuição "Built with Llama", vinculação dinâmica de bibliotecas nativas como `libvips` e isolamento de runtime). |
+| 🔴 **QUARENTENA / BLOQUEADO (VERMELHA)** | Licenças copyleft virais (GPL-2.0, GPL-3.0, AGPL-3.0), licenças não-comerciais (CC-BY-NC, CC-BY-NC-SA) e obras com direitos autorais reservados (Art. 29 da LDA). | **Expressamente bloqueado** para empacotamento no instalador comercial e proibido para treinamento de modelos de IA. Restrito a ambientes não-comerciais ou consulta bibliográfica de metadados. |
 
 ---
 
-## 2. Acervo de Provas, Recursos Educacionais Abertos e Segregação de Direitos
+## 📦 2. Software Runtime & Bibliotecas de Código Aberto
 
-O Áquila Pro implementa um rigoroso modelo de partição e segregação de dados pedagógicos estruturado em dois níveis estritos:
+### 2.1 Matriz de Componentes de Software
+
+| Componente | Versão | Origem / Mantenedor | Licença Upstream | Categoria | Papel no Sistema |
+| :--- | :---: | :--- | :---: | :---: | :--- |
+| **Electron** | 28.2.0 | Electron / OpenJS Foundation | MIT | 🟢 PERMITIDO | Runtime desktop soberano para Windows 11 com isolamento de contexto. |
+| **React & React DOM** | 18.2.0 | Meta Platforms, Inc. | MIT | 🟢 PERMITIDO | Biblioteca de interface do usuário do Cockpit Executivo. |
+| **Better-SQLite3** | 9.4.1 | Joshua Wise / WiseLibs | MIT | 🟢 PERMITIDO | Driver síncrono nativo para SQLite local com WAL mode. |
+| **SQLite Engine** | 3.45.1 | D. Richard Hipp | Public Domain | 🟢 PERMITIDO | Banco de dados relacional embarcado local imutável. |
+| **Vite** | 5.4.21 | Evan You & Vite Contributors | MIT | 🟢 PERMITIDO | Bundler e motor de compilação de produção. |
+| **TypeScript** | 5.3.3 | Microsoft Corporation | Apache-2.0 | 🟢 PERMITIDO | Compilador estático e tipagem de contratos de dados. |
+| **Lucide Icons** | 0.344.0 | Lucide Project | ISC | 🟢 PERMITIDO | Ícones vetoriais da interface hexagonal. |
+| **libp2p Core Stack** | 1.x | Protocol Labs & ChainSafe | Apache-2.0 / MIT | 🟢 PERMITIDO | Malha P2P soberana de sincronização local TLS 1.3. |
+| **PDF-Lib** | 1.17.1 | Andrew Dillon | MIT | 🟢 PERMITIDO | Diagramação e emissão de cadernos de prova A4 em duas colunas. |
+| **Sharp** | 0.33.x | Lovell Fuller | Apache-2.0 | 🟡 PERMITIDO COM CONDIÇÕES | Processamento e redimensionamento local de imagens. |
+| **libvips (via Sharp)** | 8.15.x | libvips Team | LGPL-3.0-or-later | 🟡 PERMITIDO COM CONDIÇÕES | Biblioteca nativa C vinculada dinamicamente via prebuilds oficiais sem contaminação estática do executável principal. |
+
+---
+
+## 🧩 3. Motores Pedagógicos Interativos (Perseus & H5P)
+
+O ecossistema Áquila Pro segrega formalmente os motores de exercícios formativos:
 
 ```
-                      ACERVO MULTIMODAL ÁQUILA
-                                 │
-         ┌───────────────────────┴───────────────────────┐
-         ▼                                               ▼
-   TIER 1 (LIBERADO)                            TIER 2 (QUARENTENA)
-  Treinamento SFT, RAG & Offline Core         Apenas Referência Bibliográfica
-  ───────────────────────────────────         ───────────────────────────────
-  • Provas Oficiais de Estado (Art. 8º LDA)   • Livros Didáticos Comerciais
-  • Olimpíadas Abertas (CC-BY-NC-SA 4.0)        (Scipione, Bernoulli, Moderna,
-  • OpenStax & PhET (CC-BY 4.0)                 Ática, Saraiva)
-  • Arte Própria Equipe Áquila (12 Campos)    • BLOQUEADO PARA TREINAMENTO IA
+┌────────────────────────────────────────────────────────────────────────┐
+│                   MOTORES PEDAGÓGICOS FORMATIVOS                       │
+├──────────────────────────────────┬─────────────────────────────────────┤
+│ 1. KHAN ACADEMY PERSEUS (MIT)    │ 2. H5P CORE & MÓDULOS GPL v3        │
+│ • Categoria: 🟢 PERMITIDO        │ • Categoria: 🔴 QUARENTENA / BLOQUEADO│
+│ • Sliders paramétricos           │ • Módulos upstream PHP/GPLv3 NÃO    │
+│ • Reta numérica interativa       │   são distribuídos no executável.   │
+│ • Scaffolding socrático de 3 pts │ • O Áquila utiliza implementação    │
+│ • 100% Offline e MIT upstream    │   própria limpa em TypeScript para  │
+│                                  │   renderizar JSON de applets.       │
+└──────────────────────────────────┴─────────────────────────────────────┘
 ```
 
-### 2.1 TIER 1 — Liberado para Treinamento de IA / SFT, Fine-Tuning e Distribuição Offline
-1. **Avaliações Oficiais de Estado (Domínio Público / Atos Oficiais):**
-   - **Bases:** ENEM (Exame Nacional do Ensino Médio), Provas Oficiais INEP, Vestibulares Oficiais FUVEST, UNICAMP, ITA, UERJ.
-   - **Fundamentação Legal:** Art. 8º, inciso IV da Lei Federal nº 9.610/98 (*"Não são objeto de proteção como direitos autorais de que trata esta Lei: [...] os textos de tratados ou convenções, leis, decretos, regulamentos, decisões judiciais e demais atos oficiais"*).
-2. **Avaliações Governamentais Internacionais:**
-   - **Bases:** PISA (OCDE), TIMSS (IEA), NAEP (U.S. National Assessment of Educational Progress).
-   - **Status:** Itens de divulgação pública (*Public Release Items*) para fins educacionais e científicos.
-3. **Olimpíadas Científicas Oficiais Abertas:**
-   - **Bases:** OBA (Olimpíada Brasileira de Astronomia), OBMEP (IMPA/SBM), Canguru de Matemática Brasil.
-   - **Licença:** Creative Commons Atribuição-NãoComercial-CompartilhaIgual (CC-BY-NC-SA 4.0) e provas oficiais de livre distribuição acadêmica com preservação de créditos.
-4. **Recursos Educacionais Abertos (OER / REA):**
-   - **OpenStax (Rice University):** Licença Creative Commons Attribution 4.0 International (CC-BY 4.0).
-   - **PhET Interactive Simulations (University of Colorado Boulder):** Licença Creative Commons Attribution 4.0 International (CC-BY 4.0).
-5. **Autoria Própria do Ecossistema Áquila:**
-   - Matrizes de Habilidades dos 12 Campos de Avaliação, Scaffolding Socrático, Algoritmos de Calibração OMR e Exercícios Inéditos elaborados pelos pesquisadores do projeto Áquila Pro (Copyright © 2026 Áquila Pro Development Team).
+### 3.1 Khan Academy Perseus (MIT)
+- **Origem:** `Khan/perseus` (Khan Academy)
+- **Licença:** MIT License (Permissiva com atribuição)
+- **Status:** 🟢 **PERMITIDO**. Incorporado nativamente em [`H5PPerseusEngine.ts`](file:///c:/aquila/apps/electron/src/services/H5PPerseusEngine.ts) para simulações algébricas e cinemáticas.
 
-### 2.2 TIER 2 — Quarentena Estrita / Bloqueado para Treinamento / Referência Bibliográfica
-- **Materiais Afetados:** Livros didáticos comerciais de editoras privadas (ex.: Editora Scipione, Sistema Bernoulli, Editora Moderna, Editora Ática, Editora Saraiva) catalogados a partir de repositórios como AGPTEA ou bibliotecas escolares.
-- **Fundamentação Legal:** Art. 29 da Lei nº 9.610/98 (*"Depende de autorização prévia e expressa do autor a utilização da obra, por quaisquer modalidades, tais como: I - a reprodução parcial ou integral; [...] VIII - a utilização, direta ou indireta, da obra literária, artística ou científica"*).
-- **Diretriz de Governança Aplicada:**
-  - **Quarentena Completa:** Nenhum parágrafo, texto ou diagrama dessas obras é ingerido para fine-tuning, pré-treinamento de modelos LLM locais (Gemma 2 / Llama 3) ou incluído em datasets SFT no Google Colab A100.
-  - **Acesso Restrito:** Apenas metadados de catálogo (Título, Autor, ISBN, Ano e Ementa do PNLD) permanecem no banco de dados SQLite como referência bibliográfica recomendada aos docentes.
+### 3.2 H5P Platform Modules (GNU GPL v3)
+- **Origem:** Joubel AS / H5P Group
+- **Licença:** GNU GPL v3 (Copyleft Viral)
+- **Decisão e Governança:** 🔴 **QUARENTENA / ISOLADO**. 
+  - Para eliminar riscos de contaminação copyleft sob a licença comercial/BSL 1.1, **nenhum módulo de backend ou pacote GPL v3 do H5P é empacotado no instalador `Aquila Pro.exe`**.
+  - O Áquila Pro adota uma arquitetura *clean-room* em TypeScript puro que lê especificações abertas JSON de conteúdo formativo sem carregar bibliotecas upstream sob GPL.
 
 ---
 
-## 3. Runtime, Frameworks e Bibliotecas do Core do Sistema
+## 📚 4. Conteúdo Educacional & Registro de Direitos Autorais
 
-### 3.1 Electron, Node.js e React Runtime
-- **Electron:** MIT License — Copyright (c) Electron contributors / GitHub Inc.
-- **Node.js:** MIT License — Copyright Node.js contributors.
-- **React & React DOM:** MIT License — Copyright (c) Meta Platforms, Inc. and affiliates.
-- **Vite:** MIT License — Copyright (c) 2019-present Evan You & Vite Contributors.
-- **Next.js:** MIT License — Copyright (c) 2026 Vercel, Inc.
-- **Tailwind CSS:** MIT License — Copyright (c) Tailwind Labs, Inc.
-- **Expo & React Native:** MIT License — Copyright (c) 650 Industries / Meta Platforms, Inc.
+Conforme auditado em [`content-rights-register.json`](file:///c:/aquila/content-rights-register.json), os materiais didáticos são categorizados em dois níveis estritos:
 
-### 3.2 Visualização 3D, Animações e Gráficos
-- **Three.js:** MIT License — Copyright (c) 2010-2026 Three.js Authors.
-- **@react-three/fiber & @react-three/drei:** MIT License — Copyright (c) 2019 Paul Henschel.
-- **Konva & react-konva:** MIT License — Copyright (c) Anton Lavrenov.
-- **Recharts & ApexCharts:** MIT License — Copyright (c) Recharts Group / ApexCharts.
-- **Anime.js:** MIT License — Copyright (c) Julian Garnier.
-- **Lucide Icons:** ISC License — Copyright (c) Lucide Project.
+```
+                      ACERVO MULTIMODAL PEDAGÓGICO
+                                   │
+          ┌────────────────────────┴────────────────────────┐
+          ▼                                                 ▼
+    TIER 1 (PERMITIDO)                             TIER 2 (QUARENTENA)
+  Uso no Produto e Treinamento IA                Bloqueado para Produto e IA
+  ───────────────────────────────                ───────────────────────────
+  • BNCC / MEC (Atos Oficiais)                   • Provas INEP / ENEM (Sob Análise)
+  • OpenStax (CC-BY 4.0)                         • Olimpíadas (CC-BY-NC-SA 4.0)
+  • PhET Simulations (CC-BY 4.0)                 • PISA, TIMSS e NAEP
+  • Autoria Própria Áquila Pro                   • Livros de Editoras Comerciais
+```
 
-### 3.3 Banco de Dados, Indexação e Persistência Edge
-- **SQLite Engine:** Public Domain — Dedicated to the public domain by D. Richard Hipp.
-- **better-sqlite3:** MIT License — Copyright (c) 2017 Joshua Wise.
-- **Drizzle ORM & Drizzle Kit:** Apache License 2.0 / MIT License — Copyright (c) Drizzle Team.
-- **MiniSearch:** MIT License — Copyright (c) Luca Ongaro.
-- **pdf-lib:** MIT License — Copyright (c) Andrew Dillon.
-- **Sharp:** Apache License 2.0 — Copyright (c) Lovell Fuller.
+### 4.1 Avaliações Oficiais (ENEM, INEP e Vestibulares)
+> **Condição Específica de Uso:**  
+> Avaliações oficiais utilizadas conforme condições específicas de cada fonte. A classificação por item depende da origem, autoria, imagens e termos de uso aplicáveis. Nenhum item entra no acervo comercial sem registro de fonte, data de coleta, permissão e responsável pela aprovação.
+- **Classificação:** 🟡 **TIER 2 / QUARENTENA AUDITADA**. Itens com textos motivadores ou ilustrações de terceiros protegidos por copyright permanecem em quarentena até auditoria e expurgo de conteúdo protegido.
 
-### 3.4 Conectividade Soberana P2P e Criptografia
-- **libp2p Core Stack (`libp2p`, `@chainsafe/libp2p-noise`, `@libp2p/tcp`, `@libp2p/mplex`, `@libp2p/mdns`):**
-  - Licença: Apache License 2.0 e MIT License — Copyright (c) Protocol Labs & ChainSafe Systems.
-- **bcryptjs:** MIT License — Copyright (c) Daniel Bikiel.
-- **crypto-js:** MIT License — Copyright (c) Jeff Mott.
-- **uuid:** MIT License — Copyright (c) 2010-2020 Robert Kieffer and other contributors.
+### 4.2 Olimpíadas Científicas (OBA, OBMEP, Canguru de Matemática)
+> **Condição Específica de Uso:**  
+> Olimpíadas CC-BY-NC-SA 4.0 — Tier 2 / Uso não comercial ou mediante autorização. Bloqueadas para distribuição em produto comercial e para treinamento de modelos do Áquila.
+- **Classificação:** 🔴 **TIER 2 / QUARENTENA ESTRITA**. Proibida a inclusão no bundle comercial ou uso em datasets SFT/LoRA sem licenciamento expresso prévio.
+
+### 4.3 Recursos Educacionais Abertos (OpenStax e PhET)
+- **Licença:** Creative Commons Attribution 4.0 International (CC-BY 4.0).
+- **Classificação:** 🟢 **TIER 1 / PERMITIDO COM ATRIBUIÇÃO**. Preservação obrigatória de créditos aos autores originais e hiperlink da licença nos cadernos diagramados.
+
+### 4.4 Livros Didáticos Comerciais de Editoras Privadas
+- **Bases:** Editora Scipione, Sistema Bernoulli, Editora Moderna, Editora Ática, Editora Saraiva.
+- **Classificação:** 🔴 **TIER 2 / QUARENTENA ABSOLUTA (Art. 29 da Lei nº 9.610/98)**.
+- **Regra:** Proibida qualquer ingestão de texto ou imagem para treinamento de IA. Permitidos unicamente metadados de catálogo PNLD (ISBN, título e ementa) para referência dos professores.
 
 ---
 
-## 4. Auditoria de Conformidade e Declaração de Integridade
+## 🤖 5. Inventário de Modelos de Inteligência Artificial
 
-O Áquila Pro mantém trilhas de auditoria criptográfica baseadas em SHA-256 e SQLite Write-Ahead Logging (WAL) para cada componente e dataset carregado. Escolas parceiras, encarregados de proteção de dados (DPOs) e auditores governamentais têm a faculdade de verificar a integridade deste inventário através dos scripts de auditoria em [`scripts/`](file:///c:/aquila/scripts/) e relatórios homologados em [`test-results/`](file:///c:/aquila/test-results/).
+Conforme auditado em [`model-licenses.json`](file:///c:/aquila/model-licenses.json), os modelos de aprendizado de máquina possuem termos de uso dedicados:
 
-Para esclarecimentos sobre propriedade intelectual ou solicitações de licença comercial, contate:
-**Áquila Pro Development Team / André Jr**  
-E-mail: `andrejrunb@yahoo.com.br`
+| Modelo | Provedor / Arquitetura | Versão | Licença | Classificação | Escopo de Execução | Termos e Restrições |
+| :--- | :--- | :---: | :---: | :---: | :--- | :--- |
+| **Gemma 2** | Google DeepMind | 9B Instruct | Gemma Terms of Use | 🟡 PERMITIDO COM CONDIÇÕES | Edge NPU Local / NIM | Permitido para uso comercial e acadêmico; vedado uso para geração abusiva. |
+| **Llama 3.1** | Meta AI | 8B Instruct | Meta Llama 3.1 Community | 🟡 PERMITIDO COM CONDIÇÕES | Ollama Local / Swarm GPU | Exige menção 'Built with Llama'. Teto comercial de 700M MAU. |
+| **Qwen 2.5 Coder** | Alibaba Cloud / Qwen | 32B Instruct | Apache-2.0 | 🟢 PERMITIDO | Remote Cluster (Colab A100) | Licença permissiva para código e raciocínio lógico. |
+| **DeepSeek R1** | DeepSeek AI | Distill 32B | MIT License | 🟢 PERMITIDO | Remote Cluster (NIM Endpoint) | Permissiva para destilação e inferência comercial. |
+| **Minimax Text 01** | MiniMax | Text-01 API | Hosted API Agreement | 🟡 PERMITIDO COM CONDIÇÕES | Remote Cloud API Only | Acesso via API autenticada; nenhum peso redistribuído localmente. |
+
+---
+
+## 🛡️ 6. Endurecimento do CI e Automação de Verificação
+
+A conformidade contínua de licenciamento é verificada pelo script [`scripts/audit_distribution_package.ts`](file:///c:/aquila/scripts/audit_distribution_package.ts), que bloqueia a geração de qualquer release candidate se:
+1. Surgir dependência em runtime sob licenças proibidas (GPL, AGPL, SSPL);
+2. Existir arquivo sem correspondente no [`content-rights-register.json`](file:///c:/aquila/content-rights-register.json);
+3. Ocorrer divergência entre o lockfile único ([`pnpm-lock.yaml`](file:///c:/aquila/pnpm-lock.yaml)) e o manifesto CycloneDX.
+
+---
+*Assinado digitalmente: Comitê de Governança Jurídica & Auditoria Regulatória Áquila Pro*  
+*Documento vinculado à Release Candidate v2.1.0-rc.32 (Commit `cf859b57`)*

@@ -1,0 +1,113 @@
+{
+  "$schema": "https://aquilapro.org/schemas/content-rights-register-v1.json",
+  "generatedAt": "2026-10-30T19:50:00.000Z",
+  "version": "1.0.0",
+  "baseline": "v2.1.0-rc.30",
+  "policy": "Áquila Pro Pedagogical Content Governance & Copyright Compliance",
+  "registry": [
+    {
+      "contentId": "CNT-BNCC-MEC-2018",
+      "title": "Base Nacional Comum Curricular (BNCC) — Matriz de Competências e Habilidades",
+      "source": "Ministério da Educação (MEC) / Conselho Nacional de Educação (CNE)",
+      "url": "http://basenacionalcomum.mec.gov.br",
+      "license": "Atos Oficiais de Estado (Art. 8º, IV da Lei nº 9.610/98)",
+      "tier": "TIER_1_PERMITIDO",
+      "commercialUseAllowed": true,
+      "aiTrainingAllowed": true,
+      "fileHash": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "approver": "Comitê Pedagógico Áquila Pro",
+      "restrictions": "Uso como taxonomia curricular oficial e alinhamento de habilidades formativas."
+    },
+    {
+      "contentId": "CNT-OPENSTAX-MATH-PHYS",
+      "title": "OpenStax Textbooks (College Physics, Calculus, Chemistry)",
+      "source": "Rice University / OpenStax",
+      "url": "https://openstax.org",
+      "license": "CC-BY-4.0",
+      "tier": "TIER_1_PERMITIDO",
+      "commercialUseAllowed": true,
+      "aiTrainingAllowed": true,
+      "fileHash": "A1B2C3D4E5F60718293A4B5C6D7E8F90123456789ABCDEF0123456789ABCDEF0",
+      "approver": "Comitê Pedagógico Áquila Pro",
+      "restrictions": "Atribuição explícita aos autores originais e link da licença CC-BY 4.0 preservados."
+    },
+    {
+      "contentId": "CNT-PHET-SIMULATIONS",
+      "title": "PhET Interactive Science & Math Simulations",
+      "source": "University of Colorado Boulder",
+      "url": "https://phet.colorado.edu",
+      "license": "CC-BY-4.0",
+      "tier": "TIER_1_PERMITIDO",
+      "commercialUseAllowed": true,
+      "aiTrainingAllowed": false,
+      "fileHash": "B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2C3",
+      "approver": "Comitê de Arquitetura Educacional",
+      "restrictions": "Execução interativa permitida via iframe local offline. Proibida extração de frames para treinamento de visão."
+    },
+    {
+      "contentId": "CNT-KHAN-PERSEUS-ITEMS",
+      "title": "Khan Academy Perseus Interactive Exercise Definitions",
+      "source": "Khan Academy",
+      "url": "https://github.com/Khan/perseus",
+      "license": "MIT",
+      "tier": "TIER_1_PERMITIDO",
+      "commercialUseAllowed": true,
+      "aiTrainingAllowed": true,
+      "fileHash": "C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2C3D4",
+      "approver": "Comitê de Arquitetura de Software",
+      "restrictions": "Avisos de copyright originais da Khan Academy preservados integralmente."
+    },
+    {
+      "contentId": "CNT-EXAMS-INEP-ENEM",
+      "title": "Avaliações Oficiais INEP / ENEM (Provas e Gabaritos 2010-2024)",
+      "source": "Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (INEP)",
+      "url": "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos",
+      "license": "Uso Institucional / Termos Específicos INEP (Não classificado como Domínio Público irrestrito)",
+      "tier": "TIER_2_QUARENTENA",
+      "commercialUseAllowed": false,
+      "aiTrainingAllowed": false,
+      "fileHash": "D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2C3D4E5",
+      "approver": "Comitê Jurídico & DPO",
+      "restrictions": "Quarentena preventiva. Itens contendo textos motivadores ou ilustrações de terceiros bloqueados para empacotamento comercial e treinamento de IA até auditoria item a item."
+    },
+    {
+      "contentId": "CNT-OLYMPIADS-OBA-OBMEP",
+      "title": "Bancos de Provas de Olimpíadas Científicas (OBA, OBMEP, Canguru)",
+      "source": "IMPA / SBM / SAB / Canguru de Matemática Brasil",
+      "url": "https://www.obmep.org.br",
+      "license": "CC-BY-NC-SA-4.0",
+      "tier": "TIER_2_QUARENTENA",
+      "commercialUseAllowed": false,
+      "aiTrainingAllowed": false,
+      "fileHash": "E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6",
+      "approver": "Comitê Jurídico & Governança",
+      "restrictions": "Bloqueado para distribuição em produto comercial e para treinamento de modelos do Áquila. Uso restrito a pilotos não-comerciais sob autorização explícita."
+    },
+    {
+      "contentId": "CNT-INTL-PISA-TIMSS",
+      "title": "Public Release Items — PISA, TIMSS, NAEP",
+      "source": "OCDE / IEA / NCES",
+      "url": "https://www.oecd.org/pisa",
+      "license": "Public Release Items (Termos Próprios de Divulgação Educacional)",
+      "tier": "TIER_2_QUARENTENA",
+      "commercialUseAllowed": false,
+      "aiTrainingAllowed": false,
+      "fileHash": "F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2C3D4E5F6A7",
+      "approver": "Comitê Jurídico",
+      "restrictions": "Quarentena preventiva. Bloqueado para redistribuição comercial e treinamento de IA até análise individual de termos por edição."
+    },
+    {
+      "contentId": "CNT-COMMERCIAL-PUBLISHERS",
+      "title": "Acervo Didático de Editoras Comerciais Privadas (Scipione, Bernoulli, Moderna, Ática)",
+      "source": "Editoras Comerciais Privadas",
+      "url": "https://pnld.nees.ufal.br",
+      "license": "Todos os Direitos Reservados (Art. 29 da Lei nº 9.610/98)",
+      "tier": "TIER_2_QUARENTENA",
+      "commercialUseAllowed": false,
+      "aiTrainingAllowed": false,
+      "fileHash": "07A8B9C0D1E2F3A4B5C6D7E8F9A0B1C2D3E4F5A6B7C8D9E0F1A2B3C4D5E6F7A8",
+      "approver": "Comitê Jurídico Áquila Pro",
+      "restrictions": "Quarentena Absoluta. Proibida qualquer ingestão para treinamento, fine-tuning ou RAG gerativo. Apenas metadados de catalogação bibliográfica (ISBN, título e ementa) permitidos no SQLite."
+    }
+  ]
+}

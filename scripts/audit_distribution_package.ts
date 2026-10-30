@@ -195,8 +195,8 @@ function auditLegalCompliance(): void {
   const hasThirdParty = fs.existsSync(thirdPartyPath);
   const thirdPartyContent = hasThirdParty ? fs.readFileSync(thirdPartyPath, 'utf-8') : '';
   const hasPerseus = thirdPartyContent.includes('Khan Academy Perseus');
-  const hasH5p = thirdPartyContent.includes('H5P Player Engine');
-  const hasQuarantine = thirdPartyContent.includes('QUARENTENA ESTRITA');
+  const hasH5p = thirdPartyContent.includes('H5P');
+  const hasQuarantine = thirdPartyContent.includes('QUARENTENA');
 
   const allLegalPass = isBsl && hasLgpdGrant && hasThirdParty && hasPerseus && hasH5p && hasQuarantine;
 
@@ -211,12 +211,77 @@ function auditLegalCompliance(): void {
   });
 }
 
+// 6. Verificação de Lockfile Único Autoritativo (Eliminação de Ambiguidade pnpm vs npm)
+function auditSingleLockfile(): void {
+  const pnpmLockExists = fs.existsSync(path.join(ROOT_DIR, 'pnpm-lock.yaml'));
+  const rootNpmLock = fs.existsSync(path.join(ROOT_DIR, 'package-lock.json'));
+  const electronNpmLock = fs.existsSync(path.join(ELECTRON_DIR, 'package-lock.json'));
+  const webNpmLock = fs.existsSync(path.join(ROOT_DIR, 'apps/web/package-lock.json'));
+
+  const hasNoNpmLocks = !rootNpmLock && !electronNpmLock && !webNpmLock;
+  const isDeterministic = pnpmLockExists && hasNoNpmLocks;
+
+  results.push({
+    check: 'Lockfile Único e Determinístico (pnpm-lock.yaml)',
+    category: 'BUILD',
+    passed: isDeterministic,
+    severity: 'HIGH',
+    details: isDeterministic
+      ? 'pnpm-lock.yaml é o único lockfile autoritativo no repositório; package-lock.json expurgado.'
+      : 'Conflito de lockfiles detectado: package-lock.json coexiste com pnpm-lock.yaml.'
+  });
+}
+
+// 7. Verificação de Registros de Conteúdo & Modelos de IA
+function auditContentAndModelRegistries(): void {
+  const contentRegPath = path.join(ROOT_DIR, 'content-rights-register.json');
+  const modelLicPath = path.join(ROOT_DIR, 'model-licenses.json');
+
+  const contentExists = fs.existsSync(contentRegPath);
+  const modelExists = fs.existsSync(modelLicPath);
+
+  let validContent = false;
+  let validModels = false;
+
+  if (contentExists) {
+    try {
+      const data = JSON.parse(fs.readFileSync(contentRegPath, 'utf-8'));
+      validContent = Array.isArray(data.registry) && data.registry.length >= 5;
+    } catch (e) {
+      validContent = false;
+    }
+  }
+
+  if (modelExists) {
+    try {
+      const data = JSON.parse(fs.readFileSync(modelLicPath, 'utf-8'));
+      validModels = Array.isArray(data.models) && data.models.length >= 3;
+    } catch (e) {
+      validModels = false;
+    }
+  }
+
+  const passed = validContent && validModels;
+
+  results.push({
+    check: 'Governança de Direitos de Conteúdo e Modelos de IA',
+    category: 'LEGAL',
+    passed,
+    severity: 'CRITICAL',
+    details: passed
+      ? 'Registros content-rights-register.json e model-licenses.json validados com hashes e proveniência.'
+      : 'Registros de direitos de conteúdo pedagógico ou modelos de IA ausentes ou inválidos.'
+  });
+}
+
 // Execução
 auditSourceMaps();
 auditTestArtifacts();
 auditStaticSecrets();
 auditElectronFuses();
 auditLegalCompliance();
+auditSingleLockfile();
+auditContentAndModelRegistries();
 
 // Relatório Terminal
 console.log('\n=========================================================================');

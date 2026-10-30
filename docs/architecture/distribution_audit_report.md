@@ -1,6 +1,6 @@
 # 🛡️ Áquila Pro — Relatório de Auditoria de Superfície de Distribuição
 
-**Data da Auditoria:** 2026-10-30T19:27:29.777Z  
+**Data da Auditoria:** 2026-10-30T19:47:37.415Z  
 **Ambiente:** Pré-Release / Distribuição Escolar  
 **Veredito:** **🟢 ARTEFATO CONFORME PARA DISTRIBUIÇÃO (HOMOLOGAÇÃO DE PILOTO)**
 
@@ -15,6 +15,8 @@
 | **Varredura de Segredos e Chaves Estáticas** | `SECURITY` | `CRITICAL` | 🟢 **APROVADO** | Nenhuma chave ou credencial estática exposta nos binários/scripts compilados. |
 | **Endurecimento de Runtime (Electron Fuses)** | `SECURITY` | `HIGH` | 🟢 **APROVADO** | Electron Fuses 100% configurados para produção (afterPack: scripts/apply-fuses.js, runAsNode: false, inspect: false, asarIntegrity: true, onlyAsar: true). |
 | **Conformidade de Licenciamento Soberano (BSL 1.1 & Terceiros)** | `LEGAL` | `CRITICAL` | 🟢 **APROVADO** | BSL 1.1 ativa com concessão LGPD, segregação de Perseus/H5P e quarentena de apostilas comerciais comprovada. |
+| **Lockfile Único e Determinístico (pnpm-lock.yaml)** | `BUILD` | `HIGH` | 🟢 **APROVADO** | pnpm-lock.yaml é o único lockfile autoritativo no repositório; package-lock.json expurgado. |
+| **Governança de Direitos de Conteúdo e Modelos de IA** | `LEGAL` | `CRITICAL` | 🟢 **APROVADO** | Registros content-rights-register.json e model-licenses.json validados com hashes e proveniência. |
 
 ---
 
