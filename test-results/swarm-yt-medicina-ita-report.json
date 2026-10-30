@@ -1,0 +1,166 @@
+{
+  "timestamp": "2026-10-26T00:57:09.147899+00:00",
+  "duration_ms": 39060.48,
+  "youtube_feeds": [
+    {
+      "channel": "Crash Course (@crashcourse)",
+      "channel_id": "crashcourse",
+      "status": "LIVE_VIDEOS_EXTRACTED (10 vídeos)",
+      "recent_videos": [
+        {
+          "video_id": "OoO5d5P0Jn4",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=OoO5d5P0Jn4"
+        },
+        {
+          "video_id": "uVFCOfSuPTo",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=uVFCOfSuPTo"
+        },
+        {
+          "video_id": "bSMx0NS0XfY",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=bSMx0NS0XfY"
+        },
+        {
+          "video_id": "PWGBqskV1UQ",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=PWGBqskV1UQ"
+        },
+        {
+          "video_id": "pVkUCrgQCCc",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=pVkUCrgQCCc"
+        },
+        {
+          "video_id": "P3wP8v84uqs",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=P3wP8v84uqs"
+        },
+        {
+          "video_id": "zouPoc49xbk",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=zouPoc49xbk"
+        },
+        {
+          "video_id": "Yocja_N5s1I",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=Yocja_N5s1I"
+        },
+        {
+          "video_id": "BNYJQaZUDrI",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=BNYJQaZUDrI"
+        },
+        {
+          "video_id": "sViAwfeMjV0",
+          "title": "Descrição",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=sViAwfeMjV0"
+        }
+      ]
+    },
+    {
+      "channel": "Descomplica (@descomplica)",
+      "channel_id": "descomplica",
+      "status": "LIVE_VIDEOS_EXTRACTED (8 vídeos)",
+      "recent_videos": [
+        {
+          "video_id": "_Rk7yRwrpQA",
+          "title": "Atalhos do teclado",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=_Rk7yRwrpQA"
+        },
+        {
+          "video_id": "HQcTZa_HQk8",
+          "title": "Atalhos do teclado",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=HQcTZa_HQk8"
+        },
+        {
+          "video_id": "SwM0XqNXF88",
+          "title": "Gabarito ITA 1ª Fase 2026: correção de prova ao vivo",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=SwM0XqNXF88"
+        },
+        {
+          "video_id": "8oToVBark1U",
+          "title": "Gabarito ITA 2ª Fase 2026: correção de prova ao vivo - Matemática",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=8oToVBark1U"
+        },
+        {
+          "video_id": "0GG0KYlohRM",
+          "title": "Gabarito ITA 2ª Fase 2026: correção de prova ao vivo. Física",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=0GG0KYlohRM"
+        },
+        {
+          "video_id": "f9GPgOIL7dU",
+          "title": "Gabarito ITA 2ª Fase 2026: correção de prova ao vivo. Química",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=f9GPgOIL7dU"
+        },
+        {
+          "video_id": "glAQQ5j_bsk",
+          "title": "Projeto Medicina Particular - Resolução de provas Estácio 2009",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=glAQQ5j_bsk"
+        },
+        {
+          "video_id": "iLttZjnqki8",
+          "title": "Filtros de pesquisa",
+          "published": "2025/2026",
+          "url": "https://www.youtube.com/watch?v=iLttZjnqki8"
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "youtube_structured_courses": 16,
+    "projeto_medicina_and_ita_modules": 35,
+    "total_scaffolding_tracks_db": 131,
+    "total_official_links_catalog": 1404,
+    "total_sft_finetune_records": 510,
+    "new_sft_records_added": 4
+  },
+  "swarm_gpu_syntheses": [
+    {
+      "role": "architect",
+      "title": "Crash Course Physics, Chemistry, Organic Chemistry & Anatomy",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "latency_ms": 8455,
+      "status": "ONLINE_VERIFIED"
+    },
+    {
+      "role": "coder",
+      "title": "Descomplica ENEM (Matemática, Natureza, Humanas e Redação Nota 1000)",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "latency_ms": 9321,
+      "status": "ONLINE_VERIFIED"
+    },
+    {
+      "role": "vision",
+      "title": "Preparatório Turma ITA / IME (Mecânica de Vínculos, Termodinâmica Politrópica, Nernst e Raízes da Unidade)",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "latency_ms": 10181,
+      "status": "ONLINE_VERIFIED"
+    },
+    {
+      "role": "qa",
+      "title": "Projeto Medicina (FUVEST, UNICAMP, UNIFESP, FAMERP, ENEM, UFG, UnB, UniRV)",
+      "model": "local_fallback",
+      "latency_ms": 0,
+      "status": "FALLBACK (Todos os modelos Gemini falharam: gemini-flash-latest: HTTP Error 503: Service Unavailable)"
+    }
+  ]
+}

@@ -25,6 +25,24 @@ Este documento define as diretrizes técnicas, éticas e operacionais para todos
 4. **Resiliência Térmica & Auto-Throttling de Hardware**:
    - Monitoramento contínuo da temperatura do hardware Edge via `SovereignResilienceService`. Se a temperatura da CPU/NPU ultrapassar 75ºC, os workers de visão computacional reduzem automaticamente a taxa de quadros (FPS throttling) de 30 para 10 FPS até a estabilização térmica.
 
+
+6. **Triagem Obrigatória de Créditos & Protocolo GPU-First (Zero-Token-Waste):**
+   - **Análise Prévia de Custo:** Diante de qualquer solicitação de processamento em massa (leitura de dezenas de conversas, centenas de arquivos, bancos inteiros, transcrição ou sumarização pesada), o agente DEVE avaliar a necessidade real de uso de créditos de IA.
+   - **Veto a Leituras Massivas no Chat:** É expressamente PROIBIDO carregar dezenas de megabytes de texto bruto no contexto da LLM central ou criar subagentes encadeados para tarefas mecânicas que esgotam quotas e créditos da usuária.
+   - **Offload Imediato para GPU / Batch Engine:** Os dados brutos devem ser compilados em lotes e despachados para a GPU (NVIDIA local / Google Colab A100) ou processador de dados local em background, retornando ao agente apenas os metadados, vetores e relatórios executivos condensados.
+
+---
+
+
+
+
+5. **Distribuição Obrigatória de Tarefas & Potencial Máximo de Hardware (Multi-Agent & Multi-GPU Sovereign Rule)**:
+   - **Proibição de Processamento Monolítico:** O agente orquestrador NUNCA deve concentrar cargas computacionais pesadas (auditorias massivas de banco, particionamento de grandes datasets, extração de texto/PDF, benchmarks e treinamentos/SFT) em si próprio.
+   - **Delegação Imediata para Agentes Especialistas:** Toda tarefa analítica, de segregação de dados, direitos autorais, testes e governança DEVE ser distribuída a subagentes autônomos dedicados (ex: license_partitioner, gpu_worker_colab, qa_expert, security_review).
+   - **Potencial Máximo de GPUs NVIDIA & Google Colab Pro (A100-SXM4-80GB):** Cargas intensivas de aprendizado profundo, visão computacional, transformações matriciais pesadas e treino de adaptadores (LoRA BF16) DEVEM ser obrigatoriamente despachadas para aceleração por hardware (GPUs NVIDIA locais via CUDA/TensorRT ou instâncias remotas Colab Pro A100 via colab-mcp e endpoints REST).
+   - **Ativação Extensiva de Skills & MCPs:** Utilização proativa das skills instaladas (colab_offload, 
+pu_optimizer, ision_worker, qa_expert, security_review, pi_anything) e dos servidores MCP disponíveis (colab-mcp, ilesystem, chrome-devtools-mcp).
+
 ---
 
 ## 🛠️ 2. Matriz de Permissões por Agente

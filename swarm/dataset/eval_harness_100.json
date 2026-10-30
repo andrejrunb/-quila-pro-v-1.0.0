@@ -1,0 +1,1418 @@
+{
+  "benchmark_name": "aquila_eval_harness_100",
+  "version": "1.0.0",
+  "total_tasks": 100,
+  "split": "heldout_test",
+  "categories": {
+    "STEM": 40,
+    "Humanities": 30,
+    "Code": 30
+  },
+  "models_evaluated": [
+    "base_llama_3_8b",
+    "lora_aquila_v2",
+    "base_rag_sqlite_vec"
+  ],
+  "tasks": [
+    {
+      "task_id": "EVAL-STEM-001",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 1: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=10 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-002",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 2: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=20 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-003",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 3: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=30 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-004",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 4: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=40 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-005",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 5: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=50 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-006",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 6: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=60 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-007",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 7: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=70 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-008",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 8: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=80 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-009",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 9: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=90 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-010",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 10: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=100 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-011",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 11: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=110 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-012",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 12: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=120 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-013",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 13: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=130 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-014",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 14: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=140 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-015",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 15: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=150 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-016",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 16: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=160 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-017",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 17: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=170 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-018",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 18: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=180 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-019",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 19: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=190 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-020",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 20: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=200 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-021",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 21: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=210 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-022",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 22: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=220 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-023",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 23: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=230 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-024",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "medium",
+      "prompt": "Problema STEM 24: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=240 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-025",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 25: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=250 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-026",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 26: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=260 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-027",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 27: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=270 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-028",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 28: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=280 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-029",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 29: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=290 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-030",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 30: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=300 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-031",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 31: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=310 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-032",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 32: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=320 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-033",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 33: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=330 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-034",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 34: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=340 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-035",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 35: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=350 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-036",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 36: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=360 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-037",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 37: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=370 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-038",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 38: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=380 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-039",
+      "category": "STEM",
+      "bncc": "EM13CNT301",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 39: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=390 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-STEM-040",
+      "category": "STEM",
+      "bncc": "EM13MAT101",
+      "difficulty": "hard",
+      "prompt": "Problema STEM 40: Demonstre passo a passo a resolução física e matemática com equações completas para equilíbrio estático com torque resultante nulo sob ação de força F=400 N.",
+      "expected_answer": "A condição fundamental de equilíbrio exige tanto a força resultante nula quanto o torque resultante nulo: $\\sum \\vec{F} = 0$ e $\\sum \\vec{\\tau} = 0$.",
+      "rubric": [
+        "correctness",
+        "reasoning_steps",
+        "latex_validity",
+        "no_hallucinated_constants"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-001",
+      "category": "Humanities",
+      "bncc": "EM13LGG101",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 1: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-002",
+      "category": "Humanities",
+      "bncc": "EM13LGG102",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 2: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-003",
+      "category": "Humanities",
+      "bncc": "EM13LGG103",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 3: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-004",
+      "category": "Humanities",
+      "bncc": "EM13LGG104",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 4: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-005",
+      "category": "Humanities",
+      "bncc": "EM13LGG105",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 5: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-006",
+      "category": "Humanities",
+      "bncc": "EM13LGG106",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 6: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-007",
+      "category": "Humanities",
+      "bncc": "EM13LGG107",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 7: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-008",
+      "category": "Humanities",
+      "bncc": "EM13LGG108",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 8: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-009",
+      "category": "Humanities",
+      "bncc": "EM13LGG109",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 9: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-010",
+      "category": "Humanities",
+      "bncc": "EM13LGG110",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 10: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-011",
+      "category": "Humanities",
+      "bncc": "EM13LGG111",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 11: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-012",
+      "category": "Humanities",
+      "bncc": "EM13LGG112",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 12: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-013",
+      "category": "Humanities",
+      "bncc": "EM13LGG113",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 13: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-014",
+      "category": "Humanities",
+      "bncc": "EM13LGG114",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 14: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-015",
+      "category": "Humanities",
+      "bncc": "EM13LGG115",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 15: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-016",
+      "category": "Humanities",
+      "bncc": "EM13LGG116",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 16: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-017",
+      "category": "Humanities",
+      "bncc": "EM13LGG117",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 17: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-018",
+      "category": "Humanities",
+      "bncc": "EM13LGG118",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 18: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-019",
+      "category": "Humanities",
+      "bncc": "EM13LGG119",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 19: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-020",
+      "category": "Humanities",
+      "bncc": "EM13LGG120",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 20: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-021",
+      "category": "Humanities",
+      "bncc": "EM13LGG121",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 21: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-022",
+      "category": "Humanities",
+      "bncc": "EM13LGG122",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 22: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-023",
+      "category": "Humanities",
+      "bncc": "EM13LGG123",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 23: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-024",
+      "category": "Humanities",
+      "bncc": "EM13LGG124",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 24: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-025",
+      "category": "Humanities",
+      "bncc": "EM13LGG125",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 25: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-026",
+      "category": "Humanities",
+      "bncc": "EM13LGG126",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 26: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-027",
+      "category": "Humanities",
+      "bncc": "EM13LGG127",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 27: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-028",
+      "category": "Humanities",
+      "bncc": "EM13LGG128",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 28: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-029",
+      "category": "Humanities",
+      "bncc": "EM13LGG129",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 29: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-HUMANITIES-030",
+      "category": "Humanities",
+      "bncc": "EM13LGG130",
+      "difficulty": "medium",
+      "prompt": "Análise BNCC 30: Avalie a coerência argumentativa, o repertório sociocultural legítimo e a proposta de intervenção social com os 5 elementos formais.",
+      "expected_answer": "A proposta de intervenção deve apresentar os 5 elementos: agente, ação, meio/modo, efeito e detalhamento, respeitando integralmente os direitos humanos.",
+      "rubric": [
+        "bncc_alignment",
+        "rubric_adherence",
+        "absence_of_anachronism",
+        "clarity"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-001",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 1: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-002",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 2: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-003",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 3: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-004",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 4: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-005",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 5: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-006",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 6: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-007",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 7: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-008",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 8: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-009",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 9: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-010",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 10: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-011",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 11: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-012",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 12: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-013",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 13: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-014",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 14: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-015",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 15: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-016",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 16: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-017",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 17: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-018",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 18: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-019",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 19: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-020",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 20: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-021",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 21: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-022",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 22: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-023",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 23: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-024",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 24: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-025",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 25: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-026",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 26: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-027",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 27: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-028",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 28: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-029",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 29: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    },
+    {
+      "task_id": "EVAL-CODE-030",
+      "category": "Code",
+      "bncc": "DEV-ARCH-001",
+      "difficulty": "hard",
+      "prompt": "Engenharia de Código 30: Implemente a validação estrita de tipos para canal IPC Electron evitando memory leak com canal de retorno tipado e tratamento no ErrorBoundary.",
+      "expected_answer": "ipcMain.handle com tipagem forte e remoção de listeners em componentWillUnmount ou useEffect cleanup.",
+      "rubric": [
+        "typescript_strictness",
+        "error_boundary_safety",
+        "no_memory_leak",
+        "ipc_contract"
+      ]
+    }
+  ]
+}

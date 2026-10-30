@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg_set_03_merian_mendel_biodiversidade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="920" height="460" rx="18" fill="url(#bg_set_03_merian_mendel_biodiversidade)" stroke="#10b981" stroke-width="3"/>
+  <rect x="24" y="20" width="872" height="68" rx="12" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+  <text x="44" y="48" fill="#10b981" font-family="Segoe UI, sans-serif" font-size="17" font-weight="bold">🦅 ÁQUILA PRO MVP — Investigação Naturalista — Charles Darwin, Gregor Mendel & Maria Sibylla Merian</text>
+  <text x="44" y="72" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="12">Álbum: Vida e biodiversidade | Disciplina: Biologia | Regra: biologia_biodiversidade_merian_mendel_01 (Lei nº 15.211/2025 &amp; Decreto nº 12.880/2026)</text>
+
+  <!-- 3 Modalidades Visuais Equivalentes -->
+  <rect x="24" y="102" width="278" height="145" rx="12" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+  <text x="40" y="128" fill="#38bdf8" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold">1. Modalidade Personagem</text>
+  <text x="40" y="152" fill="#e2e8f0" font-family="Segoe UI, sans-serif" font-size="12">Charles Darwin, Gregor Mendel, Maria Sibyl</text>
+  <text x="40" y="176" fill="#94a3b8" font-family="Segoe UI, sans-serif" font-size="11">Representação original de Maria Sibylla Merian...</text>
+  <text x="40" y="225" fill="#22c55e" font-family="Consolas, monospace" font-size="11">✓ Cadastro Interno 12 Campos (Art. 29 LDA)</text>
+
+  <rect x="321" y="102" width="278" height="145" rx="12" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+  <text x="337" y="128" fill="#f59e0b" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold">2. Modalidade Traje Inspirado</text>
+  <text x="337" y="152" fill="#e2e8f0" font-family="Segoe UI, sans-serif" font-size="12">Mantém Identidade do Aluno</text>
+  <text x="337" y="176" fill="#94a3b8" font-family="Segoe UI, sans-serif" font-size="11">Vestimenta de campo naturalista para o avatar ...</text>
+  <text x="337" y="225" fill="#22c55e" font-family="Consolas, monospace" font-size="11">✓ Escolha Equivalente Sem Desigualdade</text>
+
+  <rect x="618" y="102" width="278" height="145" rx="12" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+  <text x="634" y="128" fill="#10b981" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold">3. Modalidade Ambiente</text>
+  <text x="634" y="152" fill="#e2e8f0" font-family="Segoe UI, sans-serif" font-size="12">Espaço Virtual Personalizável</text>
+  <text x="634" y="176" fill="#94a3b8" font-family="Segoe UI, sans-serif" font-size="11">Jardim virtual personalizável....</text>
+  <text x="634" y="225" fill="#22c55e" font-family="Consolas, monospace" font-size="11">✓ Sem Perda por Ausência</text>
+
+  <!-- 5 Etapas da Missão Baseada em Evidências -->
+  <rect x="24" y="262" width="872" height="136" rx="12" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+  <text x="42" y="288" fill="#f8fafc" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold">Trilha Determinística de Evidências (Conhecer → Compreender → Aplicar → Investigar → Retomar):</text>
+  <text x="42" y="312" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="12">• Conhecer: Card biográfico original | Compreender: Caderno de campo naturalista</text>
+  <text x="42" y="336" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="12">• Aplicar: Traje de investigação biológica | Investigar: Jardim virtual e espécimes</text>
+  <text x="42" y="360" fill="#38bdf8" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold">• Retomar: Variante visual do Jardim virtual (Retrieval Practice — Agarwal et al., 2021)</text>
+  <text x="42" y="384" fill="#a7f3d0" font-family="Segoe UI, sans-serif" font-size="11">Política de Privacidade Áquila (LGPD &amp; ANPD Enunciado nº 1) + ECA Digital (Lei 15.211/2025, art. 20; Decreto 12.880/2026, arts. 11, 22 e 23).</text>
+
+  <rect x="24" y="408" width="872" height="34" rx="8" fill="#020617"/>
+  <text x="40" y="430" fill="#94a3b8" font-family="Segoe UI, sans-serif" font-size="11">ID: set_03_merian_mendel::set_03_merian_mendel_biodiversidade.svg | Autoria: Equipe Interna Áquila Pro | Cadastro Interno de Diligência (12 Campos - Baseado no art. 29 da Lei 9.610/98)</text>
+</svg>

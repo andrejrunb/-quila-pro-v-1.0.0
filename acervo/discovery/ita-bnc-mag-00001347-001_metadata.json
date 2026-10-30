@@ -1,0 +1,219 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn760000.eu.archive.org",
+        "dir": "/0/items/ita-bnc-mag-00001347-001"
+      },
+      {
+        "server": "dn790000.ca.archive.org",
+        "dir": "/0/items/ita-bnc-mag-00001347-001"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn760000.eu.archive.org",
+        "dir": "/0/items/ita-bnc-mag-00001347-001"
+      },
+      {
+        "server": "dn790000.ca.archive.org",
+        "dir": "/0/items/ita-bnc-mag-00001347-001"
+      }
+    ]
+  },
+  "created": 1793242555,
+  "d1": "ia601600.us.archive.org",
+  "d2": "ia801600.us.archive.org",
+  "dir": "/30/items/ita-bnc-mag-00001347-001",
+  "files": [
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1772320964",
+      "size": "10144",
+      "md5": "c2f35e6eaf5800479d7c6bbde9c16b3a",
+      "crc32": "20e9de0d",
+      "sha1": "ddcd2e739b3f501ccc867daedf25369504bb7cb8",
+      "format": "Item Tile",
+      "rotation": "0"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001.djvu",
+      "source": "derivative",
+      "format": "DjVu",
+      "original": "ita-bnc-mag-00001347-001_djvu.xml",
+      "mtime": "1414397013",
+      "size": "14460021",
+      "md5": "63cdff6631be8e51a26821c7d92a2f93",
+      "crc32": "d270aef7",
+      "sha1": "73fa3a95b708a2e65f593aa560eb9161be2d8b04"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001.gif",
+      "source": "derivative",
+      "format": "Animated GIF",
+      "original": "ita-bnc-mag-00001347-001_jp2.zip",
+      "mtime": "1414385741",
+      "size": "238757",
+      "md5": "5da41b02e4a2250ac804db3eab287b77",
+      "crc32": "96792a89",
+      "sha1": "196f3eea46238dc11ca08ea7ee3cfccc9a0a8668"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001.pdf",
+      "source": "original",
+      "mtime": "1414384733",
+      "size": "121690896",
+      "md5": "b539df1525c82f4506fa88fb6e8dcb31",
+      "crc32": "4327a980",
+      "sha1": "19f70eaa9b81122da32896c7ad9631d23282cb23",
+      "format": "Image Container PDF"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_abbyy.gz",
+      "source": "derivative",
+      "format": "Abbyy GZ",
+      "original": "ita-bnc-mag-00001347-001_jp2.zip",
+      "mtime": "1414391941",
+      "size": "2670730",
+      "md5": "d218ce6e9fb559c21c40c4bf1a543500",
+      "crc32": "9c76847f",
+      "sha1": "35f208dd705d621c1e0748e423001c14c20b59a4"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_archive.torrent",
+      "source": "metadata",
+      "btih": "2f1b3ec302af5c48ca8116e0d30227122c770b99",
+      "mtime": "1772320965",
+      "size": "13831",
+      "md5": "439818b6cbda080f233161aef65eb16a",
+      "crc32": "02e38139",
+      "sha1": "47f897c642c85249fb0c8b029317a76f6cba1408",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_djvu.txt",
+      "source": "derivative",
+      "format": "DjVuTXT",
+      "original": "ita-bnc-mag-00001347-001.djvu",
+      "mtime": "1414400078",
+      "size": "157936",
+      "md5": "8c3445551e9dac522316cdee67e44ca2",
+      "crc32": "11d32cf0",
+      "sha1": "62072cf23cfc3eb9f3ca7966b7c12d45e8f30cae"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_djvu.xml",
+      "source": "derivative",
+      "format": "Djvu XML",
+      "original": "ita-bnc-mag-00001347-001_abbyy.gz",
+      "mtime": "1414392007",
+      "size": "1350646",
+      "md5": "3fb2a44422e4cc162dce6959852657b6",
+      "crc32": "84d3f0a0",
+      "sha1": "095b1d3162fb617304c0ef99fde60e8e831bf8be"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "637746e2dfee0de90ef3b7de956fb706",
+      "summation": "md5"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_jp2.zip",
+      "source": "derivative",
+      "format": "Single Page Processed JP2 ZIP",
+      "original": "ita-bnc-mag-00001347-001.pdf",
+      "mtime": "1414385638",
+      "size": "114947718",
+      "md5": "a04b6bbafcb59de71b8ebdae1b5134bd",
+      "crc32": "eaf1d181",
+      "sha1": "8bfc414bb75ce3ede9d9b36f060949f70ddbe0c2",
+      "filecount": "136"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_meta.sqlite",
+      "source": "original",
+      "mtime": "1462521694",
+      "size": "11264",
+      "format": "Metadata",
+      "md5": "b9aa801b2d34c14ccacb6453e5627538",
+      "crc32": "20611752",
+      "sha1": "5ab9b2c5e7b6df3cdbb87a73bb1fa09abbf1893a"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_meta.xml",
+      "source": "original",
+      "mtime": "1772320963",
+      "size": "1747",
+      "format": "Metadata",
+      "md5": "8e6a44b622b93ad2df87959600765e5c",
+      "crc32": "91056a76",
+      "sha1": "d0e53769bdaad6904153bd85e194c8943bff722f"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_scandata.xml",
+      "source": "derivative",
+      "format": "Scandata",
+      "original": "ita-bnc-mag-00001347-001_djvu.xml",
+      "mtime": "1414397112",
+      "size": "40927",
+      "md5": "b9a2d8dcf3f62aab4edfe95ecfb14637",
+      "crc32": "49a37b3b",
+      "sha1": "1b998e00cf2f7cfe0e0291feb963885de3c207c8"
+    },
+    {
+      "name": "ita-bnc-mag-00001347-001_text.pdf",
+      "source": "derivative",
+      "format": "Additional Text PDF",
+      "original": "ita-bnc-mag-00001347-001_djvu.xml",
+      "mtime": "1414400011",
+      "size": "16948259",
+      "md5": "ef121b1a0a79e9b95bdb7384d15029e6",
+      "crc32": "9f1f2931",
+      "sha1": "e1a0ff97645c8f2862307b36f6dc746d803ee9c4"
+    }
+  ],
+  "files_count": 14,
+  "item_last_updated": 1772320966,
+  "item_size": 272542876,
+  "metadata": {
+    "identifier": "ita-bnc-mag-00001347-001",
+    "contributor": "Biblioteca Nazionale Centrale di Firenze",
+    "coverage": "Italy\nBologna",
+    "creator": "Ceva, Giovanni",
+    "date": "1692",
+    "description": "4º. [4], 95, [1] p., VIII c. di tav., [2] c. di tav. doppie",
+    "external-identifier": "proquest:ita-bnc-mag-00001347-001",
+    "imprint": "Bononiae: typis HH. Antonij Pisarij, 1692",
+    "language": "lat",
+    "mediatype": "texts",
+    "notes": "Illuminated lettering\nIllustration\nPrinted marginalia\nRubricated text\nBologna\nSegn.: Ï€² A-Mâ´\nIll. calcogr\nL'ill. VIIII su c. di tav. doppia.\nFINGERPRINT: e-em m-o- c.B, adSI (3) 1692 (R)",
+    "scanner": "Internet Archive Python library 0.7.2",
+    "shelfmark": "CFMAGL. 1.7.138",
+    "subject": "Geometria motus opusculum geometricum, a Ioanne Ceva Mediolanensi ...",
+    "title": "Geometria motus opusculum geometricum, a Ioanne Ceua Mediolanensi in gratiam aquarum excogitatum. Continet duos libros primum de simplici motu, alterum de composito",
+    "publicdate": "2014-10-27 04:38:53",
+    "uploader": "archive@sonntag.fr",
+    "addeddate": "2014-10-27 04:38:53",
+    "identifier-access": "http://archive.org/details/ita-bnc-mag-00001347-001",
+    "identifier-ark": "ark:/13960/t90895d78",
+    "imagecount": "136",
+    "ppi": "600",
+    "ocr": "ABBYY FineReader 9.0",
+    "repub_state": "4",
+    "backup_location": "ia905905_35",
+    "collection": [
+      "early-european-books",
+      "europeanlibraries"
+    ],
+    "collection_added": "europeanlibraries"
+  },
+  "server": "ia801600.us.archive.org",
+  "uniq": 1938284751,
+  "workable_servers": [
+    "ia801600.us.archive.org",
+    "ia601600.us.archive.org"
+  ]
+}

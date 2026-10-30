@@ -211,7 +211,11 @@ Contamos com o apoio irrestrito dos senhores pais para que essa cultura de prese
   }
 ];
 
-export const SchoolGrowthAgentSuite: React.FC = () => {
+interface SchoolGrowthAgentSuiteProps {
+  onBack?: () => void;
+}
+
+export const SchoolGrowthAgentSuite: React.FC<SchoolGrowthAgentSuiteProps> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState<GrowthAgentTab>('storyteller');
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -276,6 +280,17 @@ export const SchoolGrowthAgentSuite: React.FC = () => {
     <div className="growth-suite-container">
       {/* Top Banner Header */}
       <div className="growth-header-strip">
+        {onBack && (
+          <button
+            onClick={onBack}
+            className="ai-gen-btn"
+            style={{ marginRight: '16px', background: 'rgba(255, 255, 255, 0.08)' }}
+            aria-label="Voltar para a página anterior"
+          >
+            <ArrowLeft size={14} />
+            <span>Voltar</span>
+          </button>
+        )}
         <div className="growth-title-box">
           <div className="growth-badge">
             <Sparkles size={13} className="text-amber-400" />

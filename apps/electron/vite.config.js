@@ -44,6 +44,8 @@ module.exports = defineConfig(async () => {
   build: {
     outDir: path.resolve(__dirname, 'dist'),
     emptyOutDir: false,
+    cssCodeSplit: false,
+    modulePreload: false,
     rollupOptions: {
       output: {
         // Deixar o Vite gerenciar chunks com ordem topológica segura para evitar ReferenceError em Electron

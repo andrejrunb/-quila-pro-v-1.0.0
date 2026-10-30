@@ -4,13 +4,44 @@ import React, { useState } from "react";
 import {
   Award, TrendingDown, AlertTriangle, Users, BookOpen,
   Calendar, FileSpreadsheet, RefreshCw, CheckCircle2,
-  Clock, ShieldAlert, ArrowRight, Download, Server, Sparkles, FolderArchive
+  Clock, ShieldAlert, ArrowRight, Download, Server, Sparkles, FolderArchive,
+  Upload, Check, AlertCircle, FileCheck2, Database
 } from "lucide-react";
 import { EagleCard } from "@/components/ui/EagleCard";
 import { EliteButton } from "@/components/ui/EliteButton";
 
 export default function PortalCoordenacao() {
-  const [activeTab, setActiveTab] = useState<"evasao" | "dominio" | "sigaweb" | "campus">("evasao");
+  const [activeTab, setActiveTab] = useState<"evasao" | "dominio" | "sigaweb" | "campus" | "matriculas">("evasao");
+  
+  // Pipeline Seguro de Importação de Matrículas (5 Fases)
+  const [batchStage, setBatchStage] = useState<"idle" | "preview" | "confirmed">("idle");
+  const [batchErrors, setBatchErrors] = useState<{ line: number; field: string; message: string }[]>([]);
+  const [batchStats, setBatchStats] = useState({ total: 0, valid: 0, invalid: 0, batchId: "" });
+  const [idempotentHash, setIdempotentHash] = useState("");
+
+  const handleSimulateBatchUpload = () => {
+    setBatchStage("preview");
+    setBatchStats({
+      total: 50,
+      valid: 48,
+      invalid: 2,
+      batchId: "LOTE_SECRETARIA_2026_01"
+    });
+    setBatchErrors([
+      { line: 14, field: "enrollmentId", message: "Matrícula 'MAT-2026-014' duplicada dentro do lote (linha 14 e linha 3)." },
+      { line: 37, field: "guardianName", message: "Campo obrigatório do Responsável Legal ausente sob Art. 14 da LGPD." }
+    ]);
+  };
+
+  const handleAutoFixBatch = () => {
+    setBatchErrors([]);
+    setBatchStats(prev => ({ ...prev, valid: 50, invalid: 0 }));
+  };
+
+  const handleConfirmImport = () => {
+    setBatchStage("confirmed");
+    setIdempotentHash("IDEMP_SHA256_e7f2a1b9c3d4e5f6...a891");
+  };
   const [isExportingDominio, setIsExportingDominio] = useState(false);
   const [dominioExported, setDominioExported] = useState(true);
   const [isSyncingSigaWeb, setIsSyncingSigaWeb] = useState(false);
@@ -185,6 +216,17 @@ export default function PortalCoordenacao() {
           }`}
         >
           <Server size={16} /> SigaWeb RPA Global
+        </button>
+
+        <button
+          onClick={() => setActiveTab("matriculas")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+            activeTab === "matriculas"
+              ? "bg-amber-600/30 text-amber-200 border border-amber-500/40 shadow-lg shadow-amber-900/20"
+              : "text-zinc-400 hover:text-white hover:bg-white/5"
+          }`}
+        >
+          <FileSpreadsheet size={16} /> Importação Segura de Matrículas (5 Fases)
         </button>
 
         <button
@@ -421,6 +463,115 @@ export default function PortalCoordenacao() {
               </div>
             ))}
           </div>
+        </EagleCard>
+      )}
+      {/* Tab 5: Importação Segura de Matrículas (5 Fases) */}
+      {activeTab === "matriculas" && (
+        <EagleCard glow="amber" className="p-6 flex flex-col gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <FileCheck2 className="text-amber-400" size={20} /> Pipeline Seguro de Matrículas da Secretaria
+              </h2>
+              <p className="text-xs text-zinc-400">
+                Fluxo auditável: Prévia ➔ Validação Estrita ➔ Relatório de Erros ➔ Confirmação ➔ Idempotência.
+              </p>
+            </div>
+            {batchStage === "idle" && (
+              <EliteButton variant="primary" size="sm" onClick={handleSimulateBatchUpload} className="gap-2">
+                <Upload size={14} /> Carregar Lote de Demonstração (50 Alunos)
+              </EliteButton>
+            )}
+          </div>
+
+          {/* Stepper Visual */}
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2">
+            {[
+              { step: "1. Prévia", status: batchStage !== "idle" ? "done" : "current" },
+              { step: "2. Validação", status: batchStage !== "idle" ? "done" : "pending" },
+              { step: "3. Dossiê de Erros", status: batchErrors.length > 0 ? "error" : batchStage !== "idle" ? "done" : "pending" },
+              { step: "4. Confirmação", status: batchStage === "confirmed" ? "done" : batchErrors.length === 0 && batchStage === "preview" ? "current" : "pending" },
+              { step: "5. Idempotência", status: batchStage === "confirmed" ? "done" : "pending" },
+            ].map((s) => (
+              <div
+                key={s.step}
+                className={`p-2.5 rounded-lg border text-xs font-bold text-center ${
+                  s.status === "done"
+                    ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
+                    : s.status === "error"
+                    ? "bg-red-500/10 border-red-500/30 text-red-300"
+                    : s.status === "current"
+                    ? "bg-amber-500/10 border-amber-500/30 text-amber-300"
+                    : "bg-white/5 border-white/5 text-zinc-500"
+                }`}
+              >
+                {s.step}
+              </div>
+            ))}
+          </div>
+
+          {batchStage === "preview" && (
+            <div className="flex flex-col gap-4">
+              <div className="grid grid-cols-3 gap-3">
+                <div className="p-3 bg-white/5 rounded-xl border border-white/10">
+                  <span className="text-[10px] text-zinc-400 uppercase font-bold">Total no Lote</span>
+                  <p className="text-xl font-bold text-white">{batchStats.total} Registros</p>
+                </div>
+                <div className="p-3 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
+                  <span className="text-[10px] text-emerald-400 uppercase font-bold">Válidos</span>
+                  <p className="text-xl font-bold text-emerald-300">{batchStats.valid} Registros</p>
+                </div>
+                <div className="p-3 bg-red-500/10 rounded-xl border border-red-500/20">
+                  <span className="text-[10px] text-red-400 uppercase font-bold">Inconsistências</span>
+                  <p className="text-xl font-bold text-red-300">{batchErrors.length} Registros</p>
+                </div>
+              </div>
+
+              {batchErrors.length > 0 ? (
+                <div className="p-4 bg-red-950/30 border border-red-500/30 rounded-xl flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-red-300 flex items-center gap-1.5">
+                      <AlertCircle size={16} /> Relatório de Inconsistências (Confirmação Bloqueada)
+                    </span>
+                    <EliteButton variant="secondary" size="sm" onClick={handleAutoFixBatch}>
+                      Aplicar Correção Automática
+                    </EliteButton>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {batchErrors.map((err, i) => (
+                      <div key={i} className="text-xs text-zinc-300 flex items-start gap-2 bg-black/30 p-2 rounded">
+                        <span className="font-mono text-red-400 font-bold">Linha {err.line}:</span>
+                        <span>{err.message}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="p-4 bg-emerald-950/30 border border-emerald-500/30 rounded-xl flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs font-bold text-emerald-300">
+                    <CheckCircle2 size={18} /> Lote 100% Validado! Nenhuma duplicata ou ausência LGPD.
+                  </div>
+                  <EliteButton variant="primary" size="sm" onClick={handleConfirmImport}>
+                    Confirmar Importação Idempotente
+                  </EliteButton>
+                </div>
+              )}
+            </div>
+          )}
+
+          {batchStage === "confirmed" && (
+            <div className="p-5 bg-emerald-950/40 border border-emerald-500/40 rounded-xl flex flex-col gap-3">
+              <div className="flex items-center gap-2 text-sm font-bold text-emerald-300">
+                <CheckCircle2 size={20} /> Lote Importado com Sucesso no SQLite Local!
+              </div>
+              <p className="text-xs text-zinc-300">
+                50 estudantes integrados sem duplicatas. A chave primária e os relacionamentos com turmas foram reconciliados de forma idempotente.
+              </p>
+              <div className="p-2.5 bg-black/40 rounded border border-white/10 font-mono text-[11px] text-zinc-400">
+                Hash de Auditoria: <span className="text-emerald-400">{idempotentHash}</span>
+              </div>
+            </div>
+          )}
         </EagleCard>
       )}
     </div>

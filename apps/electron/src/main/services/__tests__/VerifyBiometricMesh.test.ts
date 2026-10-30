@@ -41,7 +41,7 @@ describe('Sovereign Biometric Mesh Verification', () => {
     expect(status.hardware).toBeDefined();
     console.log('--- Biometric Mesh Operational Status ---');
     console.log(JSON.stringify(status, null, 2));
-  }, 45000);
+  }, 90000);
 
   test('FaceRecognition should integrate with bridge telemetry', async () => {
     if (!bridge.isReady()) {

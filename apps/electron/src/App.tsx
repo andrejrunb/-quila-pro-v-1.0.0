@@ -62,6 +62,7 @@ import { PerformanceProvider } from './ui/hooks/PerformanceContext';
 import { ToastProvider } from './ui/hooks/ToastContext';
 import { ToastContainer } from './ui/components/ToastContainer';
 import { HelpCenterFab } from './ui/components/HelpCenterFab';
+import { ErrorBoundary } from './ui/components/ErrorBoundary';
 import { StudentAILab } from './ui/pages/StudentAILab';
 import { ClassroomDashboard } from './ui/pages/ClassroomDashboard';
 import { CoordinationDashboard } from './ui/pages/CoordinationDashboard';
@@ -79,6 +80,8 @@ const CoordinationPortal = React.lazy(() => import('./ui/portals/CoordinationPor
 const SecretariaPortal = React.lazy(() => import('./ui/portals/SecretariaPortal'));
 const ParentPortal = React.lazy(() => import('./ui/portals/ParentPortal'));
 const StudentPortal = React.lazy(() => import('./ui/portals/StudentPortal'));
+const StudentCosmeticsChamber = React.lazy(() => import('./ui/components/StudentCosmeticsChamber').then(m => ({ default: m.StudentCosmeticsChamber })));
+const YouTubePedagogicalFinder = React.lazy(() => import('./ui/components/YouTubePedagogicalFinder').then(m => ({ default: m.YouTubePedagogicalFinder })));
 import { PortalLayout } from './ui/layouts/PortalLayout';
 
 import { SocialNexus } from './ui/pages/SocialNexus';
@@ -453,32 +456,47 @@ export const App: React.FC = () => {
             'nexus-mesh', 'zenith-cockpit', 'zenith-final', 'collective-brain', 
             'predictive-dashboard', 'help', 'mastery-chamber', 'knowledge-canvas', 'albus-canvas',
             // Security pages relocated to AdminPortal:
-            'security-monitor', 'multistream', 'iot-manager', 'diagnostics', 
+            'turnstile-shadow', 'turnstile-pilot', 'gatekeeper-shadow', 'security-monitor', 'multistream', 'iot-manager', 'diagnostics', 
             'infrastructure', 'hardware', 'predictive-absence', 'visitor-management', 
             'cameras', 'ruview', 'red-audit', 'twin-navigator', 'night-sentry', 
-            'load-testing', 'network-traffic'
+            'load-testing', 'network-traffic', 'growth-agents', 'school-growth-agents', 'students', 'pricing', 'social-nexus', 'executive-pulse', 'seating-intelligence'
           ].includes(currentPage);
           
           const isTeacherPage = [
             'teacher-dashboard', 'rooms', 'schedule', 'diary', 'gradebook', 'student-portfolio', 
             'attendance', 'students', 'photos', 'ranking-board', 'seating-intelligence',
             'tasks', 'whiteboard', 'daily-report', 'mastery-chamber', 'ai-studio', 'activity-factory',
-            'slide-studio', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'omr-scanner', 'bncc-heatmap', 'knowledge-canvas', 'albus-canvas'
+            'slide-studio', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'omr-scanner', 'bncc-heatmap', 'knowledge-canvas', 'albus-canvas', 'exam-foundry', 'banco-provas', 'youtube-radar', 'video-finder', 'omr'
           ].includes(currentPage);
           
-          const isCoordinationPage = ['coordination', 'academic-calendar', 'curriculum', 'coordination-dashboard', 'coordination-overview', 'bncc-heatmap', 'skills-heatmap', 'heatmap'].includes(currentPage);
-          const isSecretaryPage = ['secretaria-portal'].includes(currentPage);
+          const isCoordinationPage = ['coordination', 'academic-calendar', 'curriculum', 'coordination-dashboard', 'coordination-overview', 'bncc-heatmap', 'skills-heatmap', 'heatmap', 'timetable', 'urania-timetable', 'growth-agents', 'school-growth-agents', 'calendar', 'reports-hub', 'seating-intelligence', 'mastery-chamber', 'exam-foundry', 'banco-provas', 'omr', 'omr-scanner', 'students'].includes(currentPage);
+          const isSecretaryPage = ['secretaria-portal', 'hr-portal', 'hr', 'schedule-upload'].includes(currentPage);
           const isParentPage = ['parent-portal'].includes(currentPage);
-          const isStudentPage = ['student-portal', 'mastery-chamber', 'ai-lab', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'knowledge-canvas', 'albus-canvas'].includes(currentPage);
+          const isStudentPage = ['student-portal', 'mastery-chamber', 'ai-lab', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'knowledge-canvas', 'albus-canvas', 'cosmetics-chamber', 'battle-banner', 'skins-shop', 'phet-mastery', 'stem-lab', 'multimodal-studio', 'podcast-wordwall', 'native-phet', 'youtube-radar', 'video-finder', 'playlists-live', 'pedagogical-playlists', 'game-maker-play', 'h5p-perseus-lab', 'interactive-applets', 'perseus-lab', 'h5p-lab'].includes(currentPage);
 
           const isSustainabilityPage = ['sustainability', 'analytics-bi', 'event-mode', 'consent'].includes(currentPage);
 
-          if (isParentPage) return <ParentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={currentUser?.studentId || currentUser?.id} />;
+          const userRole = (currentUser?.role || '').toLowerCase();
+          const isStudentUser = userRole === 'student' || userRole === 'aluno';
+          const isTeacherUser = userRole === 'teacher' || userRole === 'docente';
+          const isCoordUser = userRole === 'coordinator' || userRole === 'coordenacao';
+          const isSecUser = userRole === 'secretary' || userRole === 'secretaria' || userRole === 'hr' || userRole === 'rh';
+          const isParentUser = userRole === 'parent' || userRole === 'responsavel';
+          const isAdminUser = userRole === 'admin' || userRole === 'director' || !userRole;
+
+          // 1. Resolução por Perfil Logado (evita que professor caia em tela de aluno em rotas compartilhadas)
+          if (isParentUser || isParentPage) return <ParentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={currentUser?.studentId || currentUser?.id} />;
+          if (isCoordUser && isCoordinationPage) return <CoordinationPortal currentPage={currentPage} onNavigate={handleNavigate} />;
+          if (isTeacherUser && isTeacherPage) return <TeacherPortal currentPage={currentPage} onNavigate={handleNavigate} studentParams={searchParams} user={currentUser} />;
+          if (isSecUser && isSecretaryPage) return <SecretariaPortal currentPage={currentPage} onNavigate={handleNavigate} user={currentUser} />;
+          if (isStudentUser && isStudentPage) return <StudentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={currentUser?.id} />;
+
+          // 2. Resolução Geral / Inter-Portais (Admin inspecionando ou atalhos transversais)
+          if (isCoordinationPage && !isTeacherUser && !isStudentUser) return <CoordinationPortal currentPage={currentPage} onNavigate={handleNavigate} />;
+          if (isTeacherPage && !isStudentUser) return <TeacherPortal currentPage={currentPage} onNavigate={handleNavigate} studentParams={searchParams} user={currentUser} />;
           if (isStudentPage) return <StudentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={currentUser?.id} />;
-          if (isCoordinationPage) return <CoordinationPortal currentPage={currentPage} onNavigate={handleNavigate} />;
-          if (isTeacherPage) return <TeacherPortal currentPage={currentPage} onNavigate={handleNavigate} studentParams={searchParams} user={currentUser} />;
           if (isSecretaryPage) return <SecretariaPortal currentPage={currentPage} onNavigate={handleNavigate} user={currentUser} />;
-          if (isAdminPage) return <AdminPortal currentPage={currentPage} onNavigate={handleNavigate} userRole={currentUser?.role || ''} activeHub={currentHub} onLogout={handleLogout} />;
+          if (isAdminPage || isAdminUser) return <AdminPortal currentPage={currentPage} onNavigate={handleNavigate} userRole={currentUser?.role || ''} activeHub={currentHub} onLogout={handleLogout} />;
           
           // Adicionar portal de sustentabilidade/BI futuro
           if (isSustainabilityPage) return (
@@ -513,6 +531,23 @@ export const App: React.FC = () => {
               return <ExecutiveCockpit onBack={onBack} />;
             case 'ai-lab':
               return <StudentAILab studentId={currentUser?.id} onBack={onBack} />;
+            case 'cosmetics-chamber':
+            case 'battle-banner':
+            case 'skins-shop':
+              return <StudentCosmeticsChamber studentId={currentUser?.id} onBack={onBack} />;
+            case 'youtube-radar':
+            case 'video-finder':
+              return <YouTubePedagogicalFinder onBack={onBack} />;
+            case 'timetable':
+            case 'urania-timetable':
+              return <CoordinationPortal currentPage="timetable" onNavigate={handleNavigate} />;
+            case 'growth-agents':
+            case 'school-growth-agents':
+              return <CoordinationPortal currentPage="growth-agents" onNavigate={handleNavigate} />;
+            case 'executive-pulse':
+              return <AdminPortal currentPage="executive-cockpit-portal" onNavigate={handleNavigate} userRole={currentUser?.role || ''} activeHub={currentHub} onLogout={handleLogout} />;
+            case 'pricing':
+              return <AdminPortal currentPage="pricing" onNavigate={handleNavigate} userRole={currentUser?.role || ''} activeHub={currentHub} onLogout={handleLogout} />;
             case 'coordination-dashboard':
               return <CoordinationDashboard />;
             case 'coordination-overview':
@@ -709,7 +744,9 @@ export const App: React.FC = () => {
         />
         
         <div className="page-content animate-fade-in">
-          {renderPage()}
+          <ErrorBoundary onNavigateHome={() => setCurrentPage('dashboard')}>
+            {renderPage()}
+          </ErrorBoundary>
         </div>
 
         {/* Global HUD and Help FAB removed per user request */}

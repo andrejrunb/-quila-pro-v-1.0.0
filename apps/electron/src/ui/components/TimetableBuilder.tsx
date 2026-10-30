@@ -10,6 +10,7 @@ import {
   Lock,
   Unlock,
   ArrowLeftRight,
+  ArrowLeft,
   BarChart3,
   Grid,
   Sparkles,
@@ -158,7 +159,11 @@ function buildRealVisaoScheduleFromJson(): {
   return { schedules, classes };
 }
 
-export const TimetableBuilder: React.FC = () => {
+interface TimetableBuilderProps {
+  onBack?: () => void;
+}
+
+export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) => {
   const initialVisaoData = useMemo(() => buildRealVisaoScheduleFromJson(), []);
 
   const [viewMode, setViewMode] = useState<UraniaViewMode>('by_class');
@@ -486,6 +491,17 @@ export const TimetableBuilder: React.FC = () => {
       {/* Top Header Urânia+ */}
       <header className="builder-header urania-header">
         <div className="title-section">
+          {onBack && (
+            <button
+              onClick={onBack}
+              className="btn-setup"
+              style={{ marginRight: '16px', background: 'rgba(255, 255, 255, 0.08)' }}
+              title="Voltar ao Painel da Coordenação"
+              aria-label="Voltar para a coordenação"
+            >
+              <ArrowLeft size={16} /> Voltar
+            </button>
+          )}
           <Calendar size={30} className="text-emerald-400" />
           <div>
             <div className="urania-badge-row">

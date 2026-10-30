@@ -1,0 +1,46 @@
+{
+  "turma": "1º Ano EM A (cls_1em_alpha)",
+  "professor": "Lucas Silva (prof_lucas)",
+  "atividade": {
+    "codigo_bncc": "EM13MAT301",
+    "titulo": "Lista Diagnóstica 01 - Potenciação e Notação Científica",
+    "total_itens": 5,
+    "gabarito_oficial": {
+      "1": "B",
+      "2": "C",
+      "3": "A",
+      "4": "D",
+      "5": "B"
+    }
+  },
+  "submissoes_aluno_std_h01_01": [
+    {
+      "tentativa": 1,
+      "respostas": {
+        "1": "B",
+        "2": "C",
+        "3": "A",
+        "4": "B",
+        "5": "B"
+      },
+      "acertos": 4,
+      "nota_objetiva": 8.0,
+      "hipotese_diagnostica": "Possível inversão de sinal no expoente da questão 4.",
+      "intervencao_professor": "Orientar estudante sobre propriedades de potências de base 10 na aula de terça-feira."
+    },
+    {
+      "tentativa": 2,
+      "respostas": {
+        "1": "B",
+        "2": "C",
+        "3": "A",
+        "4": "D",
+        "5": "B"
+      },
+      "acertos": 5,
+      "nota_objetiva": 10.0,
+      "hipotese_diagnostica": "Habilidade consolidada.",
+      "intervencao_professor": null
+    }
+  ]
+}

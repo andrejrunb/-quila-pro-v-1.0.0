@@ -1,0 +1,101 @@
+{
+  "homologacao": "H-01",
+  "versao": "2.2.0-ALIGNED",
+  "commit": "8077fc5e",
+  "data": "2026-10-29 17:08:19Z",
+  "decisao": "APROVADO COM RESSALVAS PARA PILOTO PEDAGÓGICO CONTROLADO — A H-01 NÃO ESTÁ INTEGRALMENTE FECHADA (AC-03 pendente de execução E2E real; Aceite Humano pendente)",
+  "passed": 14,
+  "total": 15,
+  "criteria": {
+    "AC-01": {
+      "title": "Instalação Reproduzível",
+      "status": "PASS",
+      "evidence": "Commit 8077fc5e; monorepo verificado em Windows x64; node v22 / pnpm v12.",
+      "limitation": "Testado exclusivamente no ambiente Windows de homologação."
+    },
+    "AC-02": {
+      "title": "Dados Isolados por Escola",
+      "status": "PASS",
+      "evidence": "Escola Alpha acessa 1 aluno próprio; tentativa de acesso cruzado à Escola Beta retornou 0 registros.",
+      "limitation": "O isolamento no banco SQLite local é garantido por cláusula relacional de tenant (school_id/class_id)."
+    },
+    "AC-03": {
+      "title": "Importação Validada (5 Fases)",
+      "status": "RESSALVA",
+      "evidence": "Lote inválido barrado na validação de schema; lote limpo de 15 alunos sintéticos pré-processado. Status: PENDENTE DE EXECUÇÃO E2E REAL. O script apps/electron/e2e/h01-real-import.spec.ts foi executado com o Electron, mas o fluxo de importação pela UI não foi completado pelo DOM, mantendo a pendência em aberto.",
+      "limitation": "AC-03 pendente de execução E2E real com persistência física em disco e validação visual na interface."
+    },
+    "AC-04": {
+      "title": "Professor Vê Apenas Sua Turma",
+      "status": "PASS",
+      "evidence": "Prof. Lucas possui vínculo estrito com 'cls_1em_alpha' (retornadas: ['cls_1em_alpha']); 'cls_1em_beta' bloqueada.",
+      "limitation": "Permissão baseada na tabela teacher_classes."
+    },
+    "AC-05": {
+      "title": "Atividade Persiste (Rascunho pós-crash)",
+      "status": "PASS",
+      "evidence": "Rascunho das questões 1 e 2 salvo em student_activity_drafts permaneceu íntegro após encerramento forçado da sessão.",
+      "limitation": "Testado via persistência em disco do banco SQLite com encerramento forçado da conexão."
+    },
+    "AC-06": {
+      "title": "Nota Determinística",
+      "status": "PASS",
+      "evidence": "4 acertos em 5 questões -> Nota calculada exatamente em 8.0/10.0 em execuções repetidas.",
+      "limitation": "Mede estritamente a nota objetiva da atividade."
+    },
+    "AC-07": {
+      "title": "OCR Indisponível Não Gera Nota",
+      "status": "PASS",
+      "evidence": "Worker indisponível retornou OCR_SERVICE_UNAVAILABLE_MANUAL_REVIEW_REQUIRED; nenhuma nota gravada no banco.",
+      "limitation": "Garante proteção contra notas fictícias no histórico escolar."
+    },
+    "AC-08": {
+      "title": "Feedback é Revisável pelo Professor",
+      "status": "PASS",
+      "evidence": "Professor registrou intervenção personalizada: 'Orientar estudante sobre propriedades de potências...'",
+      "limitation": "Permite ao docente sobrepor ou complementar diagnósticos automatizados."
+    },
+    "AC-09": {
+      "title": "Histórico Não é Sobrescrito",
+      "status": "PASS",
+      "evidence": "Tentativa 1 (nota 8.0) e Tentativa 2 (nota 10.0) coexistem como registros distintos no banco.",
+      "limitation": "Preserva a trilha longitudinal de evolução da aprendizagem."
+    },
+    "AC-10": {
+      "title": "Backup é Verificável",
+      "status": "PASS",
+      "evidence": "Snapshot gerado via VACUUM INTO com banco ativo; SHA-256: badc11e8ac826967...; integrity_check = ok; 2 submissões contidas.",
+      "limitation": "Snapshot reflete o estado exato no momento de sua criação."
+    },
+    "AC-11": {
+      "title": "Restauração Controlada & Métricas DR",
+      "status": "PASS",
+      "evidence": "Métricas DR aferidas (Protocolo de 4 Marcações): Cópia em Disco (SSD): 5.40 ms; Verificação (SHA-256 + integrity_check): 7.65 ms; Disponibilização & Consulta Real: 2.51 ms; RTO Operacional Real Medido (T3 - T0): 19.16 ms. Transação pós-snapshot identificada como delta não contido.",
+      "limitation": "Delimitação: o snapshot recuperou o estado até sua emissão; transações posteriores dependem de conciliação de log."
+    },
+    "AC-12": {
+      "title": "Falha Não Corrompe Banco",
+      "status": "PASS",
+      "evidence": "PRAGMA integrity_check pós-restauração retornou 'ok'.",
+      "limitation": "O banco recuperado opera com integridade B-Tree preservada."
+    },
+    "AC-13": {
+      "title": "Erros Compreensíveis",
+      "status": "PASS",
+      "evidence": "Mensagem apresentada na interface: 'Matrícula 'MAT-2026-014' duplicada dentro do lote (linha 14).' (sem stack trace ou caminhos de disco expostos).",
+      "limitation": "Erros são tratados e amigáveis para a equipe escolar."
+    },
+    "AC-14": {
+      "title": "Auditoria Registra Ações",
+      "status": "PASS",
+      "evidence": "Ação do docente 'GRADE_SUBMITTED_sub_01' registrada com timestamp, ID do operador e hash de integridade.",
+      "limitation": "Alimenta a trilha imutável Zero-Bypass da escola."
+    },
+    "AC-15": {
+      "title": "Nenhum Mock no Fluxo Avaliado",
+      "status": "PASS",
+      "evidence": "GradingService utiliza evaluateSubmission determinístico; rascunho persistido em SQLite real; notas calculadas estritamente por gabarito (8.0 e 10.0).",
+      "limitation": "Delimitação: 'Zero-mocks' aplica-se a esta jornada pedagógica avaliada; não afirma ausência de stubs em serviços periféricos de simulação."
+    }
+  }
+}

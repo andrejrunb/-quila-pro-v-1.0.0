@@ -1,0 +1,274 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn720005.ca.archive.org",
+        "dir": "/0/items/nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30"
+      },
+      {
+        "server": "dn760107.eu.archive.org",
+        "dir": "/0/items/nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn720005.ca.archive.org",
+        "dir": "/0/items/nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30"
+      },
+      {
+        "server": "dn760107.eu.archive.org",
+        "dir": "/0/items/nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30"
+      }
+    ]
+  },
+  "created": 1793241821,
+  "d1": "ia601506.us.archive.org",
+  "d2": "ia801506.us.archive.org",
+  "dir": "/35/items/nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30",
+  "files": [
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30.pdf",
+      "source": "original",
+      "mtime": "1644143257",
+      "size": "164173",
+      "md5": "88703d1c10912070c6ecefd0efa972e1",
+      "crc32": "dfa45b86",
+      "sha1": "a86102e48807a0ab4101334e4a31525029d1b128",
+      "format": "Image Container PDF",
+      "viruscheck": "1644143602"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_chocr.html.gz",
+      "source": "derivative",
+      "ocr": "tesseract 5.0.0-1-g862e",
+      "ocr_parameters": "-l eng",
+      "ocr_module_version": "0.0.15",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "0.7250",
+      "ocr_detected_lang": "en",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "chOCR",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_jp2.zip",
+      "mtime": "1644143675",
+      "size": "157502",
+      "md5": "1d42d99e276f0fc92bbeabedd23e7e1b",
+      "crc32": "dafb9857",
+      "sha1": "3a4efb257bc99106032f9b2587774fd69cad2e40"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_djvu.txt",
+      "source": "derivative",
+      "format": "DjVuTXT",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_djvu.xml",
+      "mtime": "1644143719",
+      "size": "10861",
+      "md5": "afda285af47f455de5cbb5991e7afa9a",
+      "crc32": "15111131",
+      "sha1": "2fb5bcb165cd4ce3b015dd15d25a7985ed17946a"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_djvu.xml",
+      "source": "derivative",
+      "format": "Djvu XML",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_hocr.html",
+      "mtime": "1644143698",
+      "size": "147468",
+      "md5": "1e18f77b8e6978e719189510a7b02385",
+      "crc32": "82194cd3",
+      "sha1": "fe904ad6c41ed6246b5832f35c23c15ca5a63932"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_hocr.html",
+      "source": "derivative",
+      "hocr_char_to_word_module_version": "1.0.0",
+      "hocr_char_to_word_hocr_version": "1.1.2",
+      "ocr_parameters": "-l eng",
+      "ocr_module_version": "0.0.15",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "0.7250",
+      "ocr_detected_lang": "en",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "hOCR",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_chocr.html.gz",
+      "mtime": "1644143690",
+      "size": "285689",
+      "md5": "037b507960093672240e544e405d22fe",
+      "crc32": "30331e08",
+      "sha1": "f247aa96b906f67676263eab57dddde5f92159f7"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_hocr_pageindex.json.gz",
+      "source": "derivative",
+      "hocr_pageindex_module_version": "1.0.0",
+      "hocr_pageindex_hocr_version": "1.1.15",
+      "format": "OCR Page Index",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_hocr.html",
+      "mtime": "1644143703",
+      "size": "76",
+      "md5": "131d129afea77d9eb49552cce8227398",
+      "crc32": "08a4178d",
+      "sha1": "ff91e16d159deaa178e1d20a101ef190f143461b"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_hocr_searchtext.txt.gz",
+      "source": "derivative",
+      "hocr_fts_text_module_version": "1.1.0",
+      "hocr_fts_text_hocr_version": "1.1.15",
+      "word_conf_0_10": "45",
+      "word_conf_11_20": "18",
+      "word_conf_21_30": "36",
+      "word_conf_31_40": "37",
+      "word_conf_41_50": "33",
+      "word_conf_51_60": "47",
+      "word_conf_61_70": "55",
+      "word_conf_71_80": "71",
+      "word_conf_81_90": "215",
+      "word_conf_91_100": "1211",
+      "format": "OCR Search Text",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_hocr.html",
+      "mtime": "1644143712",
+      "size": "4584",
+      "md5": "994e748112f64b4883066ede8207cf98",
+      "crc32": "8dff87f5",
+      "sha1": "fa2e20da9ab49a82699f29d564363be5d678ce8b"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_jp2.zip",
+      "source": "derivative",
+      "format": "Single Page Processed JP2 ZIP",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30.pdf",
+      "mtime": "1644143627",
+      "size": "3392796",
+      "md5": "5fadf43b45a556111c9d441434ca38c3",
+      "crc32": "18bc1093",
+      "sha1": "a8301b40e2c40281f6df8d264f0b7a90f9cdbaef",
+      "filecount": "3"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_page_numbers.json",
+      "source": "derivative",
+      "format": "Page Numbers JSON",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_djvu.xml",
+      "mtime": "1644143723",
+      "size": "611",
+      "md5": "26378668f54fcd65c277ccd24744a616",
+      "crc32": "b7f0550f",
+      "sha1": "5d9d47c14fe667378471f879b1f8baadbfa76fcb"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_scandata.xml",
+      "source": "derivative",
+      "format": "Scandata",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_djvu.xml",
+      "mtime": "1644143722",
+      "size": "1238",
+      "md5": "7376c91b5c65e4ae2c230afe3c0a3a38",
+      "crc32": "cb2c96d3",
+      "sha1": "81f6217036709b0237c42808d4a880b5755b844c"
+    },
+    {
+      "name": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_text.pdf",
+      "source": "derivative",
+      "pdf_module_version": "0.0.18",
+      "format": "Additional Text PDF",
+      "original": "Nikola_Tesla_Patent_US-00455069_Electric_Incandescent_Lamp_1891-06-30_page_numbers.json",
+      "mtime": "1644143750",
+      "size": "955770",
+      "md5": "65afd83cb0c72a3daf7e70341926c99b",
+      "crc32": "17d1a3f3",
+      "sha1": "bd6f07fb4e8eb2c2295f7ab28d1325214e40e173"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1644143767",
+      "size": "10460",
+      "md5": "cc1ac223be40a29bb192929c9b078423",
+      "crc32": "71df2f8a",
+      "sha1": "45507231b304b3d88c97e5c21f3cad40a3c758ee",
+      "format": "Item Tile",
+      "rotation": "0"
+    },
+    {
+      "name": "nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30_archive.torrent",
+      "source": "metadata",
+      "btih": "fa33fcbb431f425d41730746c3636f82e3c9693b",
+      "mtime": "1644143768",
+      "size": "4905",
+      "md5": "3787050249a4f61db294b324578aea81",
+      "crc32": "7a5324d3",
+      "sha1": "b816392bb269f6c0472dc69903dc966d592fc51c",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "693be383645dda31d4593b9b7b335b50",
+      "summation": "md5"
+    },
+    {
+      "name": "nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30_meta.sqlite",
+      "source": "original",
+      "mtime": "1644143295",
+      "size": "20480",
+      "md5": "90672916706239643d077f8f5c188078",
+      "crc32": "5d79dd0e",
+      "sha1": "a112532d0fc5497308c5ed2a93a43d32e0eff5da",
+      "format": "Metadata"
+    },
+    {
+      "name": "nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30_meta.xml",
+      "source": "original",
+      "mtime": "1644143756",
+      "size": "1621",
+      "md5": "ae3888bc42e9189a3be3f3beb51e063d",
+      "crc32": "db928241",
+      "sha1": "b7811f9bafc5e06bb6bdd1820aba3a5ff88c7f4f",
+      "format": "Metadata"
+    }
+  ],
+  "files_count": 16,
+  "item_last_updated": 1752392893,
+  "item_size": 5158234,
+  "metadata": {
+    "identifier": "nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30",
+    "mediatype": "texts",
+    "collection": [
+      "opensource",
+      "community"
+    ],
+    "creator": "Nikola Tesla",
+    "date": "1891-06-30",
+    "description": "Nikola Tesla - Patent - US-00455069 - Electric Incandescent Lamp (1891-06-30)<div><br /></div>",
+    "language": "eng",
+    "scanner": "Internet Archive HTML5 Uploader 1.6.4",
+    "subject": [
+      "Nikola Tesla",
+      "Patent",
+      "Incandescent Lamp"
+    ],
+    "title": "Nikola Tesla - Patent - US-00455069 - Electric Incandescent Lamp (1891-06-30)",
+    "uploader": "bburley@incentre.net",
+    "publicdate": "2022-02-06 10:28:05",
+    "addeddate": "2022-02-06 10:28:05",
+    "curation": "[curator]validator@archive.org[/curator][date]20220206103322[/date][comment]checked for malware[/comment]",
+    "identifier-access": "http://archive.org/details/nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30",
+    "identifier-ark": "ark:/13960/s2w1vpsz3sb",
+    "ppi": "600",
+    "ocr": "tesseract 5.0.0-1-g862e",
+    "ocr_parameters": "-l eng",
+    "ocr_module_version": "0.0.15",
+    "ocr_detected_script": "Latin",
+    "ocr_detected_script_conf": "0.7250",
+    "ocr_detected_lang": "en",
+    "ocr_detected_lang_conf": "1.0000",
+    "pdf_module_version": "0.0.18"
+  },
+  "server": "ia801506.us.archive.org",
+  "uniq": 712616135,
+  "workable_servers": [
+    "ia801506.us.archive.org",
+    "ia601506.us.archive.org"
+  ]
+}

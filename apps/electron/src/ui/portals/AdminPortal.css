@@ -253,8 +253,8 @@
 /* 5-Portal Sovereign Matrix inside Executive Cockpit */
 .ap-portals-matrix {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
 }
 
 @media (max-width: 900px) {

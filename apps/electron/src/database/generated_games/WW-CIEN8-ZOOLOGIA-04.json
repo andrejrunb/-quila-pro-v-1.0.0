@@ -1,0 +1,67 @@
+{
+  "id": "WW-CIEN8-ZOOLOGIA-04",
+  "title": "Classificação dos Vertebrados (Peixes a Mamíferos)",
+  "templateType": "group_sort",
+  "discipline": "Ciências",
+  "grade": "8º Ano",
+  "bnccSkillCode": "EF08CI07",
+  "summary": "Separação dos 5 grupos de vertebrados pelas características fisiológicas.",
+  "payload": {
+    "groups": [
+      {
+        "id": "peixes",
+        "title": "Peixes (Brânquias e Nadadeiras)"
+      },
+      {
+        "id": "anfibios",
+        "title": "Anfíbios (Pele úmida e Metamorfose)"
+      },
+      {
+        "id": "repteis",
+        "title": "Répteis (Ovo amniótico e Escamas)"
+      },
+      {
+        "id": "aves",
+        "title": "Aves (Penas, Bico e Ossos pneumáticos)"
+      },
+      {
+        "id": "mamiferos",
+        "title": "Mamíferos (Pelos e Glândulas mamárias)"
+      }
+    ],
+    "items": [
+      {
+        "text": "Tubarão-martelo",
+        "groupId": "peixes"
+      },
+      {
+        "text": "Sapo-cururu",
+        "groupId": "anfibios"
+      },
+      {
+        "text": "Salamandra",
+        "groupId": "anfibios"
+      },
+      {
+        "text": "Jacaré-do-pantanal",
+        "groupId": "repteis"
+      },
+      {
+        "text": "Cascavel",
+        "groupId": "repteis"
+      },
+      {
+        "text": "Tucano-toco",
+        "groupId": "aves"
+      },
+      {
+        "text": "Onça-pintada",
+        "groupId": "mamiferos"
+      },
+      {
+        "text": "Baleia-jubarte",
+        "groupId": "mamiferos"
+      }
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aquila MCP Tooling Presets",
+  "description": "Pre-configured MCP server declarations curated from top-mcps.com (2026) for Áquila Pro developer and agent workflows.",
+  "presets": {
+    "developer_stack": {
+      "context7": {
+        "command": "npx",
+        "args": ["-y", "@upstash/context7-mcp"],
+        "description": "Up-to-date documentation and code samples directly in context."
+      },
+      "sentry": {
+        "command": "npx",
+        "args": ["-y", "@sentry/mcp-server"],
+        "env": ["SENTRY_AUTH_TOKEN", "SENTRY_ORG"],
+        "description": "Error triage and performance monitoring."
+      },
+      "sequential_thinking": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+        "description": "Step-by-step reasoning for deep code debugging."
+      }
+    },
+    "data_and_vectors": {
+      "postgres_pro": {
+        "command": "uvx",
+        "args": ["postgres-mcp"],
+        "env": ["DATABASE_URI"],
+        "description": "Index advisor, EXPLAIN queries, and database health."
+      },
+      "qdrant": {
+        "command": "uvx",
+        "args": ["mcp-server-qdrant"],
+        "env": ["QDRANT_URL", "QDRANT_API_KEY"],
+        "description": "Vector similarity search and embeddings storage."
+      },
+      "basic_memory": {
+        "command": "uvx",
+        "args": ["basic-memory", "mcp"],
+        "env": ["BASIC_MEMORY_PROJECT"],
+        "description": "Markdown-based local knowledge graph."
+      }
+    },
+    "web_and_exam_radar": {
+      "firecrawl": {
+        "command": "npx",
+        "args": ["-y", "firecrawl-mcp"],
+        "env": ["FIRECRAWL_API_KEY"],
+        "description": "Clean Markdown extraction from complex portals and SPAs."
+      },
+      "tavily": {
+        "command": "npx",
+        "args": ["-y", "tavily-mcp"],
+        "env": ["TAVILY_API_KEY"],
+        "description": "Fast AI-optimized web search."
+      },
+      "playwright": {
+        "command": "npx",
+        "args": ["-y", "@playwright/mcp@latest"],
+        "description": "Full browser automation for testing and portal verification."
+      }
+    }
+  }
+}

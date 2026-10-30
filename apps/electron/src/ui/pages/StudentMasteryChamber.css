@@ -1557,3 +1557,562 @@
   color: #cbd5e1;
   margin-bottom: 10px;
 }
+
+/* =========================================================================
+   BARRA DE ETAPAS / CICLOS & RUBRICAS DE 2ª FASE (MEDICINA & FUNDAMENTAL)
+   ========================================================================= */
+
+.education-stage-pills {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.stage-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #94a3b8;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11.5px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.stage-pill:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.stage-pill.active {
+  background: linear-gradient(135deg, #059669, #0d9488);
+  border-color: #34d399;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+}
+
+.stage-pill-title {
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.stage-pill-badge {
+  font-size: 9.5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #a7f3d0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Espelho Oficial de Correção e Rubricas Analíticas (Medicina & 2ª Fase) */
+.rubric-criteria-drawer {
+  margin: 12px 0 16px 0;
+  padding: 12px 14px;
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 8px;
+  animation: fadeInChamber 0.2s ease-out;
+}
+
+.rubric-criteria-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #34d399;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+.rubric-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rubric-criterion-card {
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  border-left: 3px solid #10b981;
+}
+
+.rc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.rc-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.rc-weight {
+  font-size: 10px;
+  font-weight: 700;
+  color: #34d399;
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 1px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.rc-guideline {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.45;
+}
+
+
+/* =====================================================================
+   ZOOM CONTROLS & ERGONOMIC SPACING
+   ===================================================================== */
+.mastery-zoom-controls {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  overflow: hidden;
+  height: 30px;
+}
+
+.mastery-zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mastery-zoom-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #38bdf8;
+}
+
+.mastery-zoom-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.mastery-zoom-val {
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #e2e8f0;
+  background: transparent;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  height: 100%;
+  transition: color 0.15s ease;
+}
+
+.mastery-zoom-val:hover {
+  color: #38bdf8;
+}
+
+.mastery-scalable-viewport {
+  width: 100%;
+  transition: zoom 0.2s ease;
+  transform-origin: top left;
+}
+
+/* =====================================================================
+   MÓDULO MANIPULATIVO CONCRETO (FUNDAMENTAL I - MATIFIC & EDUCATIVO)
+   ===================================================================== */
+.manipulative-concrete-card {
+  margin: 12px 0;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.manipulative-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.manipulative-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.manipulative-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.manipulative-clear-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.manipulative-clear-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.manipulative-toggle-btn {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fde68a;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.manipulative-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.manipulative-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-label {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.control-btns {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.control-btns button {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: #f8fafc;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.control-btns button:hover {
+  background: rgba(245, 158, 11, 0.3);
+  color: #fef08a;
+}
+
+.control-val {
+  min-width: 22px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fbbf24;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.concrete-total-pill {
+  margin-left: auto;
+  font-size: 11.5px;
+  color: #cbd5e1;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.concrete-total-pill strong {
+  color: #fbbf24;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.manipulative-board {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 80px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  border: 1px dashed rgba(245, 158, 11, 0.25);
+  overflow-x: auto;
+}
+
+.blocks-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.column-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #d97706;
+  letter-spacing: 0.05em;
+}
+
+.hundreds-grid, .tens-grid, .units-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.hundred-plate {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #d97706, #b45309);
+  border: 1px solid #fef3c7;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fef3c7;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.ten-rod {
+  display: flex;
+  flex-direction: column;
+  width: 12px;
+  height: 50px;
+  background: #f59e0b;
+  border: 1px solid #fef3c7;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.unit-segment {
+  flex: 1;
+  border-bottom: 0.5px solid rgba(0,0,0,0.25);
+}
+
+.unit-cube {
+  width: 12px;
+  height: 12px;
+  background: #fbbf24;
+  border: 1px solid #fef3c7;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.empty-manipulative-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  font-style: italic;
+  padding: 10px 0;
+}
+
+/* =====================================================================
+   LABORATÓRIO VIRTUAL INTERATIVO (FUNDAMENTAL II - PHET & GEOGEBRA)
+   ===================================================================== */
+.virtual-lab-card {
+  margin: 12px 0;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.virtual-lab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.virtual-lab-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.virtual-lab-toggle-btn {
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  color: #bae6fd;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.virtual-lab-body {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 16px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .virtual-lab-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lab-controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lab-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lab-slider-row label {
+  font-size: 11px;
+  color: #cbd5e1;
+}
+
+.lab-slider-row label strong {
+  color: #38bdf8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.lab-range-slider {
+  width: 100%;
+  accent-color: #06b6d4;
+  cursor: pointer;
+}
+
+.lab-equation-display {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  font-size: 11.5px;
+  color: #e2e8f0;
+}
+
+.lab-equation-display code {
+  color: #38bdf8;
+  font-weight: 700;
+  font-size: 12.5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.lab-root-hint {
+  font-size: 10.5px;
+  color: #94a3b8;
+}
+
+.lab-svg-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #090d16;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.lab-coordinate-grid {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+/* =====================================================================
+   DISCURSIVE SELF-EVALUATION FOR MEDICINA & 2ª FASE
+   ===================================================================== */
+.rubric-score-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.rubric-criterion-card.checked {
+  border-left-color: #34d399;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.rc-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rc-checkbox {
+  accent-color: #10b981;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}

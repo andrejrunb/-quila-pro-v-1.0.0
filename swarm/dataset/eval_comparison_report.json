@@ -1,0 +1,3642 @@
+{
+  "run_id": "RUN-20261027-EVAL-COMP-01",
+  "timestamp": "2026-10-27T09:08:26.647997+00:00",
+  "total_tasks_evaluated": 100,
+  "summary": {
+    "base": {
+      "mean_score": 72.72,
+      "min_score": 72.0,
+      "max_score": 73.2
+    },
+    "lora": {
+      "mean_score": 93.28,
+      "min_score": 92.8,
+      "max_score": 93.6
+    },
+    "base_rag": {
+      "mean_score": 93.28,
+      "min_score": 92.8,
+      "max_score": 93.6
+    }
+  },
+  "details": {
+    "base": {
+      "scores": [
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        72.0,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2,
+        73.2
+      ],
+      "details": [
+        {
+          "task_id": "EVAL-STEM-001",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-002",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-003",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-004",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-005",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-006",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-007",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-008",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-009",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-010",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-011",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-012",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-013",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-014",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-015",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-016",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-017",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-018",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-019",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-020",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-021",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-022",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-023",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-024",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-025",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-026",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-027",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-028",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-029",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-030",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-031",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-032",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-033",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-034",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-035",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-036",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-037",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-038",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-039",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-040",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.72,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 72.0
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-001",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-002",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-003",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-004",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-005",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-006",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-007",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-008",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-009",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-010",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-011",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-012",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-013",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-014",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-015",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-016",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-017",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-018",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-019",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-020",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-021",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-022",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-023",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-024",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-025",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-026",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-027",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-028",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-029",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-030",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-001",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-002",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-003",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-004",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-005",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-006",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-007",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-008",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-009",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-010",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-011",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-012",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-013",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-014",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-015",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-016",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-017",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-018",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-019",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-020",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-021",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-022",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-023",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-024",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-025",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-026",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-027",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-028",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-029",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-030",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.75,
+            "reasoning": 0.6,
+            "latex_validity": 0.85,
+            "hallucination": 0.18,
+            "composite_score": 73.2
+          }
+        }
+      ]
+    },
+    "lora": {
+      "scores": [
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6
+      ],
+      "details": [
+        {
+          "task_id": "EVAL-STEM-001",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-002",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-003",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-004",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-005",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-006",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-007",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-008",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-009",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-010",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-011",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-012",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-013",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-014",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-015",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-016",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-017",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-018",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-019",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-020",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-021",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-022",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-023",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-024",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-025",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-026",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-027",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-028",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-029",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-030",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-031",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-032",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-033",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-034",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-035",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-036",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-037",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-038",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-039",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-040",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.88,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-001",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-002",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-003",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-004",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-005",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-006",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-007",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-008",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-009",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-010",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-011",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-012",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-013",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-014",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-015",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-016",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-017",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-018",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-019",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-020",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-021",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-022",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-023",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-024",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-025",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-026",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-027",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-028",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-029",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-030",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-001",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-002",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-003",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-004",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-005",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-006",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-007",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-008",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-009",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-010",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-011",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-012",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-013",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-014",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-015",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-016",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-017",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-018",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-019",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-020",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-021",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-022",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-023",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-024",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-025",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-026",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-027",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-028",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-029",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-030",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.9,
+            "reasoning": 0.95,
+            "latex_validity": 0.98,
+            "hallucination": 0.05,
+            "composite_score": 93.6
+          }
+        }
+      ]
+    },
+    "base_rag": {
+      "scores": [
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        92.8,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6,
+        93.6
+      ],
+      "details": [
+        {
+          "task_id": "EVAL-STEM-001",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-002",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-003",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-004",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-005",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-006",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-007",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-008",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-009",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-010",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-011",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-012",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-013",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-014",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-015",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-016",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-017",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-018",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-019",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-020",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-021",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-022",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-023",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-024",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-025",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-026",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-027",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-028",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-029",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-030",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-031",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-032",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-033",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-034",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-035",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-036",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-037",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-038",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-039",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-STEM-040",
+          "category": "STEM",
+          "metrics": {
+            "correctness": 0.92,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 92.8
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-001",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-002",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-003",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-004",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-005",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-006",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-007",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-008",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-009",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-010",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-011",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-012",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-013",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-014",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-015",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-016",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-017",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-018",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-019",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-020",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-021",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-022",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-023",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-024",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-025",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-026",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-027",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-028",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-029",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-HUMANITIES-030",
+          "category": "Humanities",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-001",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-002",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-003",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-004",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-005",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-006",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-007",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-008",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-009",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-010",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-011",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-012",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-013",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-014",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-015",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-016",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-017",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-018",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-019",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-020",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-021",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-022",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-023",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-024",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-025",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-026",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-027",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-028",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-029",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        },
+        {
+          "task_id": "EVAL-CODE-030",
+          "category": "Code",
+          "metrics": {
+            "correctness": 0.94,
+            "reasoning": 0.9,
+            "latex_validity": 0.96,
+            "hallucination": 0.02,
+            "composite_score": 93.6
+          }
+        }
+      ]
+    }
+  }
+}

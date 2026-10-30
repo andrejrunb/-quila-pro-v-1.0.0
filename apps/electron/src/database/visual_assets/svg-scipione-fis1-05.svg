@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="100%">
+  <rect width="900" height="480" rx="16" fill="#0b1120" stroke="#1e293b" stroke-width="2"/>
+  <rect x="20" y="18" width="860" height="5" rx="2.5" fill="#38bdf8"/>
+  <text x="36" y="54" fill="#38bdf8" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700">
+    BIBLIOTECA DIGITAL AGPTEA • LIVRO DIDÁTICO CATALOGADO • FÍSICA — ESTÁTICA
+  </text>
+  <text x="36" y="86" fill="#f8fafc" font-family="Segoe UI, sans-serif" font-size="19" font-weight="800">
+    Estática do Ponto Material e Corpo Extenso (Torque / Momento de uma Força e Alavancas)
+  </text>
+  <!-- Quadro Esquemático Vetorial -->
+  <rect x="36" y="115" width="395" height="260" rx="12" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+  <text x="56" y="148" fill="#38bdf8" font-family="Segoe UI, sans-serif" font-size="14" font-weight="700">
+    DIAGRAMA FÍSICO / MATEMÁTICO VETORIAL
+  </text>
+  <line x1="70" y1="330" x2="390" y2="330" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="70" y1="330" x2="70" y2="170" stroke="#94a3b8" stroke-width="2"/>
+  <path d="M 70 330 Q 210 175 375 215" fill="none" stroke="#10b981" stroke-width="3.5"/>
+  <circle cx="215" cy="238" r="6" fill="#f59e0b"/>
+  <text x="230" y="235" fill="#fbbf24" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700">Ponto Crítico / Equilíbrio</text>
+
+  <rect x="460" y="115" width="404" height="260" rx="12" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+  <text x="482" y="148" fill="#c084fc" font-family="Segoe UI, sans-serif" font-size="14" font-weight="700">
+    SÍNTESE DE FÓRMULAS &amp; APLICAÇÃO KUMON
+  </text>
+  <text x="482" y="185" fill="#e2e8f0" font-family="Consolas, monospace" font-size="13">• Nível L1: Leitura de grandezas e unidades SI</text>
+  <text x="482" y="218" fill="#e2e8f0" font-family="Consolas, monospace" font-size="13">• Nível L2: Exercício Resolvido (Scipione/AGPTEA)</text>
+  <text x="482" y="251" fill="#e2e8f0" font-family="Consolas, monospace" font-size="13">• Nível L3: Questão de Vestibular (FUVEST/UNICAMP)</text>
+  <text x="482" y="284" fill="#34d399" font-family="Consolas, monospace" font-size="13">• Status: Deduplicado via SHA-256 (Zero Retrabalho)</text>
+
+  <rect x="36" y="395" width="828" height="60" rx="10" fill="#090d16" stroke="#1e293b"/>
+  <text x="52" y="420" fill="#f1f5f9" font-family="Segoe UI, sans-serif" font-size="12" font-weight="600">
+    REFERÊNCIA BIBLIOGRÁFICA: Editora Scipione (2006) — Física 1º Ano EM (Biblioteca AGPTEA)
+  </text>
+  <text x="52" y="440" fill="#64748b" font-family="Segoe UI, sans-serif" font-size="11">
+    ID: SVG-SCIPIONE-FIS1-05 • Catalogado sem duplicação no Repositório Soberano Áquila Pro
+  </text>
+</svg>

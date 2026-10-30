@@ -13,7 +13,8 @@ import {
   TrendingUp,
   X,
   Target,
-  ArrowRight
+  ArrowRight,
+  ArrowLeft
 } from 'lucide-react';
 import { BNCC_SKILLS_DATA, BNCCSkillNode } from './BNCCSkillTree';
 import { STUDENTS } from '../../database/studentsData';
@@ -22,6 +23,7 @@ import './BNCCProficiencyHeatmap.css';
 interface BNCCProficiencyHeatmapProps {
   initialClassId?: string;
   onNavigateToMastery?: (studentId: string, skillCode: string) => void;
+  onBack?: () => void;
 }
 
 const DEFAULT_CLASSES = [
@@ -39,7 +41,8 @@ const DEFAULT_CLASSES = [
 
 export const BNCCProficiencyHeatmap: React.FC<BNCCProficiencyHeatmapProps> = ({
   initialClassId = 'F-EM3A',
-  onNavigateToMastery
+  onNavigateToMastery,
+  onBack
 }) => {
   const [selectedClassId, setSelectedClassId] = useState<string>(initialClassId);
   const [selectedArea, setSelectedArea] = useState<string>('todas');
@@ -168,6 +171,16 @@ export const BNCCProficiencyHeatmap: React.FC<BNCCProficiencyHeatmapProps> = ({
     <div className="bncc-heatmap-shell animate-fade-in">
       {/* ── Toolbar Superior ── */}
       <header className="heatmap-header-bar">
+        {onBack && (
+          <button
+            className="btn-heatmap-action"
+            onClick={onBack}
+            aria-label="Voltar para a página anterior"
+            style={{ marginRight: '12px', background: 'rgba(255, 255, 255, 0.08)' }}
+          >
+            <ArrowLeft size={15} /> Voltar
+          </button>
+        )}
         <div className="heatmap-title-group">
           <h2>
             <Flame size={22} className="text-amber-400" />

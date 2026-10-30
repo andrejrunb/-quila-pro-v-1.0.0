@@ -459,6 +459,10 @@ export class WebSocketServerManager extends EventEmitter {
     });
   }
 
+  public notifyAlert(alertData: any): void { this.broadcast({ type: 'alert', category: 'DISPATCH', data: alertData, timestamp: new Date() }); }
+
+  public notifyFaceRecognition(faceData: any): void { this.broadcast({ type: 'face_recognition', category: 'DISPATCH', data: faceData, timestamp: new Date() }); }
+
   public getConnectedClientsCount(): number {
     return this.clients.size;
   }

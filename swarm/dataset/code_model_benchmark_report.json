@@ -1,0 +1,87 @@
+{
+  "run_id": "RUN-20261027-CODE-BENCH-01",
+  "timestamp": "2026-10-27T09:16:20.600727+00:00",
+  "total_tasks_evaluated": 5,
+  "tasks": [
+    {
+      "task_id": "CODE-TASK-001",
+      "title": "Refatoração de IPC Seguro em preload.ts",
+      "description": "Expor canal IPC fortemente tipado com remoção de listeners em cleanup.",
+      "difficulty": "medium"
+    },
+    {
+      "task_id": "CODE-TASK-002",
+      "title": "Registro Canônico em RouteRegistry.ts",
+      "description": "Adicionar nova rota com perfis de acesso restritos e fallback seguro.",
+      "difficulty": "easy"
+    },
+    {
+      "task_id": "CODE-TASK-003",
+      "title": "Envoltório de Resiliência com ErrorBoundary",
+      "description": "Isolar renderização de componente React com fallback visual sem derrubar a janela Electron.",
+      "difficulty": "medium"
+    },
+    {
+      "task_id": "CODE-TASK-004",
+      "title": "Teste Unitário Jest com Idempotency Key",
+      "description": "Criar asserção verificando que AgentControlPlane não duplica registros.",
+      "difficulty": "hard"
+    },
+    {
+      "task_id": "CODE-TASK-005",
+      "title": "Sanitização de CSP em HTML de Produção",
+      "description": "Eliminar 'unsafe-inline' e restringir connect-src a domínios estritos.",
+      "difficulty": "medium"
+    }
+  ],
+  "results": {
+    "RecursiveSI/flint": {
+      "profile": {
+        "architecture": "40B A2.5B MoE (2.5B ativos/tok)",
+        "license": "Apache 2.0",
+        "type_safety_score": 91.5,
+        "contract_adherence": 94.0,
+        "security_cleanliness": 95.0,
+        "rework_penalty_pct": 8.5,
+        "speed_npu_edge": "145 tok/s (Q4_K_M)",
+        "speed_a100_gpu": "220 tok/s (BF16)",
+        "memory_footprint": "~18 GB RAM / VRAM",
+        "summary": "Excelente velocidade e baixa latência de resposta. Ideal para autocompletion e geração de testes em tempo real."
+      },
+      "composite_quality_score": 91.72,
+      "evaluated_tasks": 5
+    },
+    "Qwen/Qwen2.5-Coder-7B": {
+      "profile": {
+        "architecture": "Dense 7.6B",
+        "license": "Apache 2.0",
+        "type_safety_score": 93.0,
+        "contract_adherence": 92.5,
+        "security_cleanliness": 93.0,
+        "rework_penalty_pct": 9.0,
+        "speed_npu_edge": "45 tok/s (Q4_K_M)",
+        "speed_a100_gpu": "130 tok/s (FP16)",
+        "memory_footprint": "~5.5 GB RAM / VRAM",
+        "summary": "Altíssima precisão sintática em TypeScript e menor pegada de memória. Muito fácil de executar em hardware edge."
+      },
+      "composite_quality_score": 91.02,
+      "evaluated_tasks": 5
+    },
+    "DeepSeek-Coder-V2-Lite": {
+      "profile": {
+        "architecture": "15.7B A2.4B MoE (2.4B ativos/tok)",
+        "license": "DeepSeek License",
+        "type_safety_score": 89.0,
+        "contract_adherence": 88.0,
+        "security_cleanliness": 90.0,
+        "rework_penalty_pct": 14.0,
+        "speed_npu_edge": "65 tok/s (Q4_K_M)",
+        "speed_a100_gpu": "160 tok/s (BF16)",
+        "memory_footprint": "~11 GB RAM / VRAM",
+        "summary": "Bom raciocínio de código complexo, mas licença personalizada e maior tendência a sugerir dependências externas desnecessárias."
+      },
+      "composite_quality_score": 86.15,
+      "evaluated_tasks": 5
+    }
+  }
+}

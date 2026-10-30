@@ -1,0 +1,4798 @@
+
+nazi^ale 
+
+H. ProvJ 
+
+
+
+200r< 
+
+
+
+l 
+
+
+
+Digitizedby Google 
+
+
+
+
+
+
+
+
+
+
+Digitized by Google 
+
+
+
+
+Digitized by Google 
+
+
+
+OPUSCOLI 
+
+D I 
+
+geometria e balistica 
+
+D I 
+
+LEONARDO SALIMBENI 
+CAPITANO D’ INGEGNERI 
+E Professore di Matematica nelle Scuole 
+
+
+
+Militari di Verona, 
+
+
+
+
+IN VERONA 
+
+
+
+PER GLI EREDI DI MARCO MORONI 
+CON licenza OS* SVPBKIOKI. 
+CIODCCLXXX. 
+
+
+
+
+Dlgitizecj by Google 
+
+
+
+
+Digitized by Google 
+
+
+
+A SUA ECCELLENZA 
+
+IL SIGNOR 
+
+GIOVANNI BATTISTA DA RIVA 
+
+SAVIO DEL CONSIGLIO 
+
+
+
+Leonardo Salimbemi. 
+
+
+
+Uefti due Opufculi , frut- 
+to di quegli ftudj che per 
+dovere e per inclinazione 
+coltivo, oflerifco all* E. V. per dimo- 
+ftrarle almeno con quefto , poiché con 
+altro non pollb , che io fon memore 
+e grato di quel molto , che da lei ri- 
+
+A 2 cono- 
+
+
+
+
+Digitized b^Google 
+
+
+
+
+conofco . So che il dono è ineguale 
+alla grandezza de’benefizj , che ho da 
+lei ricevuto , ma fb altresì eh* egli è 
+talcj quale ho làputo fare maggiore ; 
+ficchè ella non può dolerli fè non le 
+prefento cofa più degna , che varreb- 
+be bensì a provare felicità d’ingegno, 
+ma non intenzione migliore . Degni 
+dunque d’ accettare 1‘ E. V. quella pic- 
+ciola Operetta come un tributo , che 
+l’ è dovuto , e di riguardarla ficcomc 
+cofà fua; certa, che quando anche da 
+quella confiderazione non folli flato 
+moffb, l’avrei però fèmpre all’ E. V. 
+offerta per poterle fignificare quanta 
+riverenza e venerazione io le porti 
+per tutte quelle rare doti, ch’ellapof- 
+fede , e che le hanno conciliato la fli- 
+ma univerfale , e gli alti onori della 
+fua nobiliffima Patria . Intorno alla 
+qual cofa , ficcomc il dire di più fo , 
+
+che 
+
+
+
+Digitized by Google 
+
+
+
+
+che cagionerebbe difpiacere àll* E. V. , 
+che ama più di efTere che di parere , 
+più di meritare che di rifcuotere le 
+lodi 5 così io non aggiungerò parola , 
+ma farò fine col lupplicarla a preda- 
+re all’Opera, e di continuare all’Aù- 
+tore il fuo valevolifllmo patrocinio.' 
+
+* * » * . ■ • 
+
+Verona addi i Giugno 1780 
+
+
+
+
+( 
+
+
+
+
+
+
+OPU- 
+
+
+
+
+
+▼ txt 
+
+
+
+( • : 
+
+
+
+
+
+
+
+
+
+j 
+
+
+
+Digitized by Google 
+
+
+
+OPUSCOLO PRIMO 
+
+GEOMETRICO 
+
+
+
+DOVE SI PROVA 
+
+CHE IL MASSIMO DE’ POLIGONI , DA QUALSIVOGLIA 
+NUMERO DI LINEE RETTE DATE DESCRITTO, 
+
+F QUELLO ly INTORNO A CUI SI PUO 
+CIRCONSCRIVERE UN CERCHIO. 
+
+
+
+Digitized by CoogI( 
+
+
+
+T REFEZIONE. 
+
+
+
+E tutti i Aiatemstici de* pr e- 
+/ènti tempi fi fiudiafiero d* imi-^ 
+tare quel metodo rigoro/o ed 
+efatto j col quale rjenivano dagli Antichi efi- 
+pofie le materie piu difficili ed afirufe , r/«- 
+fcìrebhero certamente le O^ere di molti , che 
+affettano una certa brevità ^ meno ofcure e 
+piu intelligibili , e molto di ^vantaggio tutte 
+ne ritrarrebbero in generale le Matematiche 
+Di/cipline. Imperciocché ninna coffa può piti 
+confondere le menti umane , e rendere atto 
+allo fiudio di quefie ffublimi Scienza un mi- 
+nor numero d* ingegni , quanto il trattarle , 
+in vece , con quel metodo conciffo e compen-* 
+
+B dioffo. 
+
+
+
+
+DigitizedJjy Google 
+
+
+
+diojo 5 che Juppone una faciiità di concepire 
+le idee , la quale poi poche •volte Ji verifica 
+eoi fatto e in pratica . Ognuno , che fia ver~ 
+fato nelle Matematiche , e che abbia proc cu- 
+rato di attignere a* diverfi fonti il buono^ed 
+il migliore ^ può far fede , quanta differen- 
+za pajjl a leggere uri Opera fritta con ifiile 
+veramente Matematico , e un altra con quel- 
+lo pòfiò in ufo da buona' parte de* moderni 
+Scrittori . Nella prima fi fórre velocemente 
+da una all* altra verità fnz>a ritrovare in- 
+toppi , e ^fenz^^' confonder fi ^'mentre'-neila fe- 
+conda conviene ad ogni paffo fermarfi per co- 
+nofere la ragione di qùefia' e di quell* affc'r- 
+iLione 3 e per difcernert il legame , che han- 
+no fra di loro ; coficchì di fovente ' accade , 
+che fenzja /* ajuto di qualche Commentatore , 
+molte co fi non s* intendano . ìn fomma è 
+tanto grande U ofeurita di quefii Autori y 
+'de* quali io parlo , che quantunque fieno le 
+lord dimofirazjioni hrevemente fritte , fono 
+
+però ' 
+
+
+
+Digitized by Google 
+
+
+
+però intejè con maggiore dipcoltà ^ e in ptU 
+tempo delle altre fatte ad imitazjone degli 
+Antichi , nelle quali il difetto della prolijjìtà 
+( fe prolijfa può dir/i quella cofa do've non 
+fi dica , che quanto occorre per farf )^nten-^ 
+dere ) e fu or di mijura compenfato dalla 
+chiareZjZja . . . , , 
+
+Per la qual cofa ho fempre ojfervato con 
+difpiacere , che^ molti Matematici , anche, di 
+quelli 5 che . illujlrano /’ ^rte loro c onorano 
+/’ umanità ^ fe guano di troppo, quel corrotta 
+modo di fcrinjere , e diminuifcono la. gloria 
+propria per non efporre f loro ritrovamenti 
+con quella precifione ed evidenzia , che per-* 
+fitada ed appaghi la mente di chi ne intra- 
+prende lo fiudio . Ne per ifcufare il manca- 
+mento di loro , e convertirlo ad onore , tni f 
+dica quello -, che ajferifce un eloquente Ora-^ 
+tore Francefe nell' Elogio del piu celebre Fi- 
+lofofo della fua Na?L,ione{ cioè che gli uomi- 
+ni fmmiy avveZiZji a fcorrere con indicibile 
+
+B 2 cele- 
+
+
+
+cderità immenfì col loro prontijjìmo in*^. 
+
+gegno , non offerì andò minutamente tutte le, 
+linee che vi fon di mezjz>o , debbono di ne-, 
+Cefftta nelle Opere loro riujcire confuji ^ e 
+quafì agli altri 'inintelligibili ,• mentre quejlo 
+fentimento , che pare a prima vifia Jublime , 
+e ancora "verace , quando lo fi applichi agli^ 
+uomini illuftri (^*) di cui egli favella ^ fi ri- 
+trova poi erroneo e fallace , quando fia con- 
+fiderato piu attentamente , e fenz,a particola- 
+rizjXjare : poiché altro è inventare , altro 
+fcrivere le cofe inventate ; e sé vero , che 
+in prima apparifcano di lancio a grand* In- 
+gegni molte verità fenz^ aver bifogno di paf- 
+fare per le intermedie , c certo altresì , che 
+dappoi pojfono eglino , per dichiararle con chia- 
+reZitja ed evidenzia , u/àre , volendo , del 
+vero metodo Àiatematico . Àie fia pruova /’ 
+
+immor- 
+
+
+
+(*) Newton e Cartefio, 
+
+
+
+Digitized by Googl 
+
+
+
+
+
+
+
+immorule nofiro Galileo j il quale fcppe mae- 
+firevolmente eongiungere infìeme rara felicità, 
+nelle invenziioni , e fomma efatteZjZat nel^ ef- 
+porre le cofe indentate . v 
+
+Un altro genere di (brevità s* è introdotto 
+nelle Opere ' di alcuni Matematici de* nojlri\ 
+tempi , e confifie in adoperare per tutto cal-^ 
+coli e dimoftraz^ioni algebr alche { nel qual nu-^ 
+mero metto anche quelle , che tengono henii 
+un certo fi ile. geometrico , ma do nulla ofian-^ 
+te fon piene di termini :r 'modi proprjall* Al’'\ 
+gebra fola . OjteJle dimofiraztioni però , ad on-*, 
+ta della loro brevità , non fono di natura ta\ 
+li da poter uguagliar fi , non: che preferirfi aU 
+le geometriche ; anzÀ quefie ultime tanto - piu 
+perfuadono e convincono , che non credo vi 
+fia alcuno , il quale voglia altrui dar . a ere» 
+dere poter le une alle altre ejfere indifferen» 
+temente fofiituite . Ideile fole produzjioni dell^ 
+Algebra conviene, valerfi del metodo fuo pro^ 
+prio , ma in tutte le altre parti delle Mate- 
+
+
+
+matìche , dove fi chiamino in foccorfo la Geo-‘ 
+metria e C Algebra , quefia dee appianare la 
+firada alle, invenzioni ,• e quella ha da firvi^ 
+re a ordinare e dimofirare le cofe ritrovate , 
+quando pure le fue forzjC vi aggiungano . Se 
+fi deggiono per tanto evitare le dimofirazjoni 
+algebraiche , quando ve ne pojfano effere di 
+fintetiche ,* quanto mai irregolarmente operano 
+coloro , che trattano con /’ Analifi le fiejfe ma- 
+terie mere Geometriche y de' quali non n e. 
+così fcarjb il numero ? . 
+
+Si ritrova un E fempio di quanto pojfa efi- 
+fere diminuito il pregio di un'Opera , cos) da 
+quella compendio/a maniera di frivere , del- 
+la quale abbiamo in prima ragionato , come 
+da quefio grande prurito d' introdurre /’ Al- 
+gebra j ove ella male vi fiia , in un Opufco- 
+lo pofiumo del Cramer , inferito negli Atti 
+dell' Accademia di 'Berlino dell' anno mille 
+fettecento e cinquanta due , dove quefii cerca 
+di dare una dimofirazjione dell' egregio teo- 
+rema 
+
+
+
+Digitized by Coogle 
+
+
+
+
+rema Geometrico j che il mafllmò de* Po- 
+ligoni , da qùalfivoglia' numero di li- 
+nee rette date defcritto , è quello d’ in% 
+torno a cui fi può circonfcrivere un 
+cerchio .• Quindi è , che la dimofiràzjiont 
+prodotta dal celebre Jlutoré rie/ce imperfetta 
+e mancante , prima perchè fuppone la rifolu* 
+Zjione di uno dt* ptu difficili Problemi di 
+metrìa , che le fer’ve per fondamento , poi per^ 
+che tra/cura gli altri cafi del ‘Teorema confi^ 
+derandone un foto , e finalmente perchè non 
+è puramente geometrica , come può convincer/! 
+col fatto ogni buon Geometra , che voglia con 
+diligenza efaminarla\ • - 
+
+.Mi fembrò per altro si eccellente quefio ‘Teo^ 
+rema , che avendone io ritrovata una dimo- 
+firazjione affatto nuova e geometrica , cosi ho 
+rifoluto di prefentarla al pubblico in queJPO- 
+pufcolo j divifa in molte propofizjioni , e di- 
+chiarata con rigor o/ò fi ile Geometrico • 
+
+uilC Opufcolo ho unito un jìppendice , do- 
+
+
+
+Digitized by Google 
+
+
+
+nje fi 'Vedrà tra le altre cofe , qual ufo pofi 
+fa avere nella Geometria folida ^Elementare 
+quel Problema me de fimo , eh* è fiato ommejfo 
+dal Cramer , a cui lafcio però il merito di 
+*Jftrfi 5 ^^11 prima di ogni altro , dato a ftrive- 
+re intorno a un si generale ed eccellente 
+rema , anzji di averne data una 5 qualunque 
+poi ella fi fila 3 dijno fratone . 
+
+
+
+
+
+/ 
+
+
+
+PRO- 
+
+
+
+Digitized by Googl 
+
+
+
+Problema I. Proposizione I. 
+
+•IF n -ÌK 
+
+*|(_. Ata una linea retta fegata in 
+difuguali legamenti , prolun- 
+garla in modo , che tutta con P ag- 
+giunta all* aggiunta abbia la ftelTa ra- 
+gione , che hanno i fegamenti fra di 
+loro. 
+
+Sia data la linea retta AC 
+fegata in difuguali fegamenti ^ ^ ^ ^ * 
+
+nel punto B , e il fegamento 
+AB fìa maggiore : bifogna prolungare talmente la 
+AC, che tutta la AC con 1’ aggiunta all’aggiunta 
+abbia la ilelTa ragione, che il fegamento AB al fe> 
+gamento BC. 
+
+Si prolunghi la A C dalla parte del fegamento mi- 
+nore BC, e dal fegamento maggiore AB li tolga la 
+BD uguale alla BC j e poi fi faccia come la AD al- 
+
+C la 
+
+
+
+
+Digitized by Coogle 
+
+
+
+i6 
+
+la DB, così la AC alla CE, e la CE fi metta per, 
+diritto alla ÀC. 
+
+E poiché è come la AD alla DB , così la AC 
+alla CE, farà componendo come la AB alla BD, 
+così la A E alla EC ; la BD poi c uguale alla BC, 
+dunque come la AB alla BC , così è la A E alla 
+EC; e però fi è prolungata la AC in E in modo, 
+che tutta la A E alla EC ha la ragione del mag- 
+gior fegamento AB al minore BC; il che fi dove- 
+va fare , 
+
+Teorema I. Proposizione IL 
+
+Se una linea- retta , fegata in difu- 
+guali fegamenti , fia prodotta in mo-' 
+dò ,"che tutta con 1’ aggiunta all’ag- 
+giunta abbia la fìefPa ragione , cnc 
+hanno i fegamenti fra loro ; e fulla 
+linea intercetta fra il punto della fe- 
+zione e Teffrcmità del prolungamen- 
+to fia defcritto un cerchio , alla cui 
+circonferenza vengano prodotte a 
+qualfi voglia pùnto di ella due linee 
+rette dai termini della prima retta li- 
+nea , avranno quelle la proporzione 
+medcfimaj che hanno fra di loro le 
+, parti 
+
+
+
+Digitized by Coogle 
+
+
+
+
+^9 
+
+f )arti di e(Ta linea data , ilcchè omo- 
+oghe fieno quelle , che fi partono dai 
+medefimi termini. 
+
+' La linea retta AB fia re- 
+gata in £ in difugualì fega- 
+menti , de’ quali AE fia mag- 
+giore ; e fi prolunghi la AB 
+in F , coficchc fia il fegamento 
+A E al fegamento EB (Prop.i.) 
+come la AFallaFB, e fopra la EF come diametro 
+fi deferiva il cerchio CEF, nella dì cui’ circonferen- 
+za prefo qualunque punto C fi unifoano le AC CB: 
+dico che come la A E alla EB , cosi è la ’ AC -al- 
+la CB. 
+
+Imperciocché , fi prenda il centro I del cerchio 
+CEF, fi unifea la CI, e fi faccia la IH uguale 
+alla IB. E poiché la EI é uguale alla IF, e la BI 
+alla IH, farà la rimanente FH uguale alla rima- 
+nente EB; e però la BH é 1’ eccelfo , nel quale la 
+FB fupera la EB. In oltre perché la AF alla FB 
+è come la A E alla EB : farà permutando la FA 
+alla A E come la FB alla BE; e dividendo la FE 
+alla E A, come fecceflb nel quale la FB fupera la 
+BE, cioè la BH, alla BE, e invertendo la A E 
+alla EF come la EB alla BH; e prendendo le me- 
+tà de’ confeguenti , la A E alla £1, come la .EB 
+
+C 2 alla 
+
+
+
+
+i6 
+
+alla BI; e componendo la AI alla lE , come la, 
+lE alla IB; ma la lE è uguale alla IC : dunque 
+la AI alla IC come la IC alla IB ; laonde i trian> 
+goli CIA CIB, che hanno l’angolo CIA comu- 
+ne , hanno d’ intorno ad elTo i lati proporzionali ; 
+e però il triangolo C I A è equiangolo al triangolo 
+CIB, e farà la AC alla CB come la AI alla IC, 
+ovvero alla lE . Oltre a ciò cflendofi dimoftrato 
+che la A E alla EI è come la E B alla BI : farà 
+permutando come la A E alla EB , così la EI alla 
+IB, ovvero la AI alla lE; e parimenti eflendofi 
+dimoftrato , che come la A I alla I E , così è la A C 
+alla CB : avrà dunque la AC alla CB la ragione 
+medefima della AE alla EB; il che conveniva di- 
+raoftrare . (*) 
+
+
+
+Teo- • 
+
+
+
+(•) Quantunque quefto Teorema j ficcome ancora il fuffeguente fieno 
+tT invenxjone del celebre Galileo Galilei , e da lui dimofirati 
+nel primo Dialogo delle Sciente Nuove y tuitavolta effendofi 
+qui di necejfttà in diverfo modo enunciati ^ fi è creduto non Ju~ 
+perfino darne differente dimofiroTjone e forfè non inelegante y il 
+che ferviti ancora a maggior comodo di quelli , che leggeranno 
+il prefeute Opufcolo, 
+
+
+
+Dìgitized by Google 
+
+
+
+Teorema IL Proposizione III. 
+
+f 
+
+Se una linea retta fia legata in par- 
+ti difuguali , e fieno fatte le colè ftefi- 
+(è come nell* antecedente propofizio- 
+ne ; non fi potranno condurre dalPe- 
+firemità della linea retta data a qua- 
+lunque altro punto , -che non fia nel- 
+la circonferenza del cerchio delcrit- 
+to , due linee , che abbiano la ftefla 
+proporzione , che hanno fra loro le 
+parti della linea prima legata • 
+
+La linea retta AB fia To- 
+gata in parti difuguali nel 
+punto E, e fia A E la parte 
+maggiore ; e fi prolunghi la 
+AB in F , ficchè fia la A F 
+alla FB come la A E alla 
+EB, e fopra la EF fi deferi- 
+va il cerchio CEF; dico che non fi potranno con- 
+durre da qualunque altro punto , che non fia nella 
+circonferenza CEF, due linee rette ai punti A B, 
+le quali fieno nella ragione della A E alla EB. 
+
+Imperciocché, fe fia pofiibile, fia I un altro pun- 
+to fuori della circonferenza , da cui condotte le A I 
+
+IB 
+
+
+
+
+12 
+
+IB fia la AI alla IB, come la A E alla EB : e fi 
+unifca la AC. 
+
+E poiché è come la A E alla EB , così la AI 
+alla IB ; e come la A E alla EB , così è ancora 
+(Prop.z.) la AC alla CB : farà la AI alla IB come 
+la AC alla CB. Di nuovo perchè la AE è mag- 
+giore della E B, farà anche la AI maggiore della IB, 
+e perciò l’angolo IBA è maggiore dell’ angolo lAB: 
+due angoli poi di un triangolo fono minori di due 
+retti ; dunque 1’ angolo I A B è Tempre acuto . Per 
+la fìefla ragione è acuto f angolo CAB. In confe- 
+guenza lAB CAB fono due triangoli , che hanno 
+un angolo IBA comune, e d’intorno ad altro ed 
+altro angolo hanno i lati AI IB proporzionali ai 
+lati AC GB, c gli angoli rimanenti al punto A 
+della lìefla fpezie , cioè amendue acuti : dunque i 
+triangoli faranno equiangoli , e faranno uguali que- 
+gli angoli , che fono fottefi ai lati omologhi ; e per- 
+ciò r angolo I A B è uguale all’ angolo CAB, il mag- 
+giore al minore , il che non può darfi ; laonde non 
+è come la A I alla I B , così la A E alla E B . Si- 
+milmente fi dimoftrerà di qualunque altro punto , 
+che non fia nella circonferenza del cerchio CEF; 
+come era da dimolìrarfì. 
+
+
+
+Pro- 
+
+
+
+Digitized by Google 
+
+
+
+*3 
+
+
+
+Problema II. Proposizione IV. 
+
+
+
+Dato un cerchio e due punti di 
+pofizicne, comunque fi voglia, ritro- 
+vare , fe nella circonferenza del cer- 
+chio vi fia un punto , da cui condot-* 
+te linee rette ai punti dati , fieno que- 
+lle in una data ragione . 
+
+Sia dato il cerchio CGH 
+e i due punti di ^pofizione A 
+B, e la ragione data fì a quel- 
+la della O alla P : ritrovare 
+fe nel cerchio C G H . vi fia 
+un punto , da cui condotte 
+linee rette ai punti A B , fie- 
+no quelle in ragione della O 
+alla P. 
+
+Si unifca la AB , e fi feghi in E in ragione 
+della O alla P, e fia la A E omologa alla O : Sia ^ 
+poi la O maggiore della P ; farà anche la A E mag- 
+giore della £B. Si prolunghi pertanto la AB nel 
+punto F in modo, che come la A E alla EB, {Prop.i.) 
+così Ila la AF alla FB, e fopra la EF fi deferiva 
+il cerchio CEF, il quale primieramente feghi il cer- 
+chio CGH nel punto C, e fi tirino le AC CB. 
+
+E poi- 
+
+
+
+
+Digitized by Google 
+
+
+
+*4 
+
+E poiché la retta linea AB fegata nel punto E 
+in parti difuguali , fi è prolungata in F talmente, 
+che la AF alla FB è come il fegamento A E al fe- 
+gamento EB, e fopra la EF fi è defcritto il cer- 
+chio CEF, nella cui circonferenza prefo il punto 
+C , fi fono da clTo ai punti A B condotte le rette 
+linee A C GB: faranno quefte in ragione del- 
+
+la A E alla EB; come poi la A£ alla EB, così è 
+la O alla P; laonde la AG è alla GB come la O 
+alla P ; e perciò, nella circonferenza del cerchio 
+GGH fi è ritrovato il punto G , da cui condotte ai 
+punti dati A B due linee rette , fono in ragione da- 
+ta della O alla P. Ed è manifefio ancora, che i pun- 
+ti G fono due ; perchè il cerchio fega il cerchio in 
+due punti '* 
+
+Se poi il cerchio GEF 
+tocchi il cerchio GGH, come 
+in quella figura , e fi condu- 
+cano al punto G del tocca- 
+mento le rette AG GB , fi 
+dimoftrerà come prima , che 
+avranno elTe la ragione della 
+O alla P, e il punto G farà 
+un folo. 
+
+I « • , . 
+
+
+
+Ma 
+
+
+
+
+Digitized by Google 
+
+
+
+Ma è vero altresì j che 
+fc la pofizione de* punti A B 
+folTe tale , che la linea , la 
+quale gli unifce , paflaflfe per 
+amendue i centri de’ cerch] , 
+e il punto E cadefle nella 
+circonferenza del cerchio da- 
+to, come nella terza figura, in quello cafo , dopo^ 
+chè i due cerch) fi toccherebbono nel punto £, le 
+rette linee , che dal punto E fodero tirate ai punti 
+A B farebbono effe medefime le A E EB , come 
+quelle , che hanno fra di loro la ragione della O 
+alla P. 
+
+Se finalmente il cerchio CEF non feghi , nè 
+tocchi il cerchio CGH , è manifefto che 
+
+nella circonferenza CGH non può «flière alcun pun- 
+to, a cui pervengano dai punti dati A B due linee 
+rette nella data ragione di O a P. 
+
+C0B.0LX.A&10: 
+
+Da tutto ciò ne fegue , che fe de’ due punti dati ^ 
+qualunque fia la pofizione del punto , 
+
+la pofizione del punto B fia fuori del cercio dato CGH ; 
+e regata la A B in E , onde fia il fegamento A E 
+al fegamento EB come la maggiore O alla minore 
+P, cada il punto E dentro al cerchiò medefimo ; in 
+
+D quefto 
+
+
+
+
+x6 
+
+quefto cafo ficcome ancora il punto F cadrà fuori 
+del cerchio CGH, così il cerchio CEF, defcrittq 
+fui diametro EF, fegherà il cerchio CGH; in cui 
+per confegùenza farà polfibile ritrovare.il punto C, 
+dal quale ai punti A B tirate le AC CB fieno in 
+ragione delia O alla - ; 
+
+I '1 j 
+
+Teorema III. Proposizione V. 
+
+i , ^ , l .. f * >" 
+
+’ Tre Iati di un quadrflatcro , prefi 
+in qualfi voglia modo , . fono maggio- 
+ri del rimanentè. \ - 
+
+• Sia il4)uadrilat£K>'ABCf)f 
+dico , che tre lati dei quadri* 
+latero AB CD, prefì in qual* 
+lìvoglia modo , fono maggio* 
+ri del rimanente.. Si uhifea 
+la AC. ' ’ 
+
+E poiché dal triangolo ADC i due lati DC 
+DA fono maggiori del rimanente AC; fi ponga co- 
+mune la AB, faranno le tre' CD DA AB mag- 
+giori delle CA AB; ma le CA AB Ibno maggiori 
+della CB;' molto più dunque le CD DA AB fono 
+maggiori della GB . In modo, limile fi proverà , che 
+le rette DA AB B C fono' maggiori della CD, le 
+AB BC CD maggiori delia ADj e le BC CD DA' 
+
+maggio- 
+
+
+
+
+Digitize j by Google 
+
+
+
+*7 
+
+maggiori della rimanente AB; e perciò tre lati dì 
+un quadrilatero , prefi in qualfivoglia modo , fono 
+maggiori del rimanente. ' ‘ . 
+
+- • . - . , , i 
+
+PROBLEMA III. PftOFOSIZIOKE VI. ‘ 
+
+. -J 
+
+Da quattro Cnee rette , uguali a 
+quattro linee date , coftruire un qua- 
+drilatero a cui fi polTa circonfcriverc 
+un . cerchio j ma bifogna , che tre di 
+effe prefè in qualfivoglia modo fieno 
+maggiori della rimanente , perchè tre 
+lati di un quadrilatero pren in qual- 
+fi voglia modo fono maggiori del ri- 
+manente . 
+
+Sìeno date le quattro lìnee 
+rette L M N O , tre delle 
+quali prefe in qualfivoglia 
+modo fieno maggiori della 
+rimanente ; e fieno difpofte in 
+modo che la L fia maggiore 
+di tutte , la M non minore 
+della M , e la N della O : bifogna da quattro linee 
+rette uguali alle L M N O coftruire un quadrila- 
+tero , d’ intorno a cui fi pofla circonfcrivcre un 
+cerchio « . , 
+
+D i Si 
+
+
+
+
+
+
+
+Digitized by Google 
+
+
+
+>8 
+
+; 1 'Si efponga una retta linea AB uguale alla mag> 
+glore L, e fi tolga da ella la AD uguale alla 
+conda M ; e col centro A ed intervallo A D defcrit- 
+to il cerchio CDH, il punto B cadrà manifefta- 
+mente fuori di elfo ; e prolungata la B A in F , fi 
+faccia come la N alla O,,così la DA alla AF; 
+anche la DA non farà minore della AF, e il pun- 
+to F non cadrà fuori del cerchio . Di poi tutta la 
+FB fi leghi nel punto G , coficchè la FG alla GB 
+abbia la ragione della M alla N ; e pel Lemma in- 
+frafcritto fi dimofirerà , che il punto G cade dentro 
+al cerchio CDH: sè poi veduto, che; il punto B 
+cade fuori: del medefimo : dunque fi potrà ( Cor. della 
+
+4 *) nella circonferenza del cerchio CDH ritro- 
+vare ’Un -punto , da' cui condotte la F C C B , fieno 
+in ragione dlFGaGB o di M a hT. Ritrovili , 
+e fia il punto Ci e unita la AC, fopra*la CB fi 
+coftituifca il triangolo CEB fimile al triangolo 
+CAF, ficchè il lato CB fia omologo al lato CF, 
+il lato C E al lato C A , e il lato B E al lato A F : 
+farà 1* angolo CEB uguale all’angolo CAF. 
+
+ElTendo pertanto , per la fimilitudine de’ trian- 
+goli , come FC a CB,.cosl AC aCE; e come FC 
+a CB, così c M a N farà come A C a CE così 
+la M alla N; ma la AC, ovvero la AD, è uguale 
+alla M : dunque la C E è uguale alla N . Di nuovo 
+perchè come la CA alla AF, cosi è la C E alla EB; 
+
+e per 
+
+
+
+Dìgitized by Coogl 
+
+
+
+*p 
+
+e per coftruzione la A C ovvero la A D alia AF ha 
+la ragione della N alla O: farà la CE alla E B, co- 
+me la N alla O ; ma la C E è uguale alla N : laon- 
+de ancora la £B farà uguale alla ; e perciò le 
+. quattro’ B A AC CE £B fono uguali alle quattro 
+L M N O. E perchè 'gli angoli CAF CAB fono 
+uguali a due retti, e f angolo CEB è uguale all’an- 
+golo CAP ; faranno ancora uguali a due retti gii 
+angoli CEB CAB, e confeguentemente anche li 
+rimanenti ACE ABE del quadrilatero ACEB. Se 
+dunque d’intorno ai triangolo ACB fi circonfcriva 
+un cerchio , paflerà anche pei punto £ , e il quadri- 
+latero ACEB farkipfcritto in un cerchio ; e però 
+da quattro linee rette BA AC CE E B uguali alle 
+quattro linee date L M N O fi è coilruito il qua- 
+drilatero ACEB d’ intorno a cui fi può defcriverc 
+un cerchio, il che Wfognav»' fare ; (•*•) : 
+
+Lemma 
+
+
+
+( • ) Il CeM. Cramer , , carne ba nelU Prefm^one dichiarata , è 
+
+flato il prima a ver fare fulF Eccellente Teorema , che forma il 
+Principal oggetto di qttefl' Opufcolo , fuppeue ritrovata la rifa- 
+Itrgiane del Probi, fopra enunciato j il che , oltre di e[fere con- 
+trario a quel rigorofa metodo , che debbono feguire li Geometri , 
+efclude ancora cefa per fe flejfa interefsante , e che può avere 
+qualche ufo negli Elementi della Geometria , come dimoflrerò 
+neir Appendice. , 
+
+
+
+3 © 
+
+
+
+Lemma. 
+
+Che .poi il punto G cada dentro 
+del cerchio CDH fi dimoftra nel fè- 
+guente modo . 
+
+EfTendo la FG alla GB come la M alla N* , e 
+la M non è minore della N : ancora la FG non 
+farà minore della GB,, e neppur farà minore della 
+metà della F B . Si è poi dimoftrato , che ancora la 
+AD non è minore della AF,elaAB è maggiore 
+della DA: dunque la AB farà maggiore della FA; 
+laonde la F A è minore della metà della F B ; e la 
+FG non è minore della metà della F B ; e però la FG 
+è maggiore della FA, e il punto G cadrà di là dal 
+punto A verfo D . Oltre a ciò elTendo la D A , o fta 
+la M , alla A F , come la N alla O : farà permutan- 
+do .come la M alla N, così la AF alla O; ma co- 
+me la M alla N, cosi è la FG alla GB ; dunque 
+come la F G alla GB, cosi la A F alla O ; e in- 
+vertendo, e componendo come la BF alla FG, co- 
+si la O con la AF alla AF . Di nuovo perchè in- 
+vertendo come la N alla M , così fta la O alla AF, 
+farà componendo come la N con la M alla M , co- * 
+si la O con la AF alla AF; e come uno degli an- 
+tecedenti ad uno de’ confeguenti , così tutti gli an- 
+
+tece- 
+
+
+
+Dìgitized by Coogle 
+
+
+
+tecedenti a tutti li confeguenti : farà come la O con 
+la AF alla AF, così le O N M AF, alle M AF, 
+o fia alla DF ; ma come la O con la AF alla 
+AF, così se dimoftrato- la BF alla FG dunque 
+come la, BF alla FG, cod fono le O N M AF al- 
+la DF; ma fe la prima fta minora della terza , Cr 
+ziandio la feconda è minor della quarta ; e la pri- 
+ma BF è minore della terza O M N AF ( avve- 
+gnaché tolta la comune AF , la rimanente AB, 
+cioè la L, fia minore delle O M’N <) : dùnque an- 
+cora la FG farà minore della 'FD; e tolta la co- 
+mune FA, la rimanente A G farà minore dèlia ri- 
+manente AD ; per la qual -cofa il* punto G cadrà ' 
+dentro del cerchio; il che occorreva dimoftrarè. '! 
+
+Te«*.emi. IV.' P«o»hsLxx'oMK,VIL \ 
+
+Se dà rette linee , quante fi vo-» 
+éliano , fia deferitto un -poligono, 
+d’intorno a cui poflàfi circonfcrivere- 
+un cerchio in > qualunque modo fi 
+rifpondano efle fra di loro, lafuper- 
+ficie del proligono farà fempre la 
+ftefla. • • 
+
+
+
+Da 
+
+
+
+Oigitized by Google 
+
+
+
+5 » 
+
+< Da quattro linee rette da- * 
+te fieno defcrìtti i due qua- 
+drilateri ABCD FGHI ta- 
+li, che d'intorno a ciafcu- 
+no di eflì polTafi circonfcri- 
+vere un cerchio , e fia la 
+AB uguale alla FG, la AD alla GH, la DC alla 
+FI, è la GB alla IH : dico che il quadrilatero 
+ABCD è uguale al quadrilatero FGHI. 
+
+Imperciocché all’ uno e all’ altro di eflì fì circon- 
+fcrivano i cerchi ABCD FGHI; e prefi di quelli 
+ì'centri'EL fi unifcano la £A EB £C ED, LF 
+LG LH LI. ' 
+
+, I^co primieramente, che li raggi' AE FL de' 
+cerchi fono uguali . Poiché fe non "é così , uno di 
+elfi farà maggiore . Sia' maggiore lo A E , e dalli 
+punti £ L fi conducano le EM LN perpendicolari 
+alle AB FG le quali faranno divife per mezzo ne* 
+punti M N, onde' la AB farà doppia della AM, 9 
+la FG della FN ; la AB poi è uguale* alla FG; 
+dunque anche la AM è uguale alla FN . Di nuovo 
+perché la AE é maggiore della FL farà il quadra- 
+to della A E maggiore del quadrato della FL; ma 
+al quadrato della A E fono uguali li quadrati delle 
+AM ME, e al quadrato della FL fono uguali li 
+quadrati delle FN NL: dunque li quadrati delle 
+AM ME fono maggiori delli quadrati delle FN NL, 
+
+dc'qua- 
+
+
+
+
+Digitized by Google 
+
+
+
+33 
+
+de’ quali il quadrato della AM d uguale al quadra* 
+to della F N ; dunque il quadrato rimanente della 
+ME è maggiore del quadrato rimanente della NL, e 
+perciò la ME maggiore dellaNL. Si tolga dalla M E 
+la MO uguale alla NL, e fi unifca la AO. . 
+
+E poiché le AM MO fono uguali alle FN NL’ 
+e l’angolo retto AMO è uguale all’angolo retto 
+FNL, farà il triangolo AMO uguale al triàngolo 
+FNL, e perciò l’angolo AOM farà uguale all’an- 
+golo FLN; ma l’angolo AOM efteriore è maggio- 
+re dell’interiore ed oppofto AEM , dunque anche 
+l’angolo FLN è maggiore dell’angolo AEM; è in 
+confeguenza l’angolo pure FLG, eh’ è doppio del 
+primo, farà maggiore dell’angolo AEB doppio del 
+fecondo. Alio ftelTo modo fi dimoftrerà l’angolo FLI 
+maggiore dell’angolo DEC, l’angolo ILH maggio- 
+re dell’ angolo BEC, e T"arigòlo"GLH' “deir angolo 
+A ED; laonde i quattro angoli FLG FLI ILH 
+GLH fono maggiori dei quattro AEB AED DEC 
+CEB ; ma quelli fono uguali a quattro retti ^'dun- 
+que gli angoli AEB AED DEC CEB fono mi- 
+nori di quattro retti ; e fono ancora uguali , il che 
+non può elfere : non è dunque la A E difuguale del- 
+la FL, e perciò le farà uguale. Perchè, poi ancora 
+la EB è uguale alla LG, e la bafe AB alla bafe 
+FG , il triangolo AEB farà uguale al triangolo 
+FLG ; Similmente fi dimoftrerà il triangolo ^aED 
+' E ugua- 
+
+
+
+uguale al triangolo .GL H , il triangolo DEC al 
+triangolo FLIj C- il triangolo BEC al triangolo 
+HLI; laonde tutto il quadrilatero AB CD è ugua- 
+le al quadrilatero FGHIi-il che fi doveva dimo- 
+ftrare'. - 
+
+Problema. V. Proposizione .Vili. 
+
+Se in un femicerchio fieno con- 
+dotte due linee rette perpendicolari al 
+diametro , ve difugualmente diftanti 
+dal centro'; la diflerenza delle loro 
+diftanzè dal centro , alla . differenza 
+di effe linee rette 5> avrà ‘ maggior ra- 
+gione della ^ liriéa retta- minore alla 
+lua diftanza"; e' miiìor ragione della 
+linea maggiore alla lìià diftanza; eòr- 
+rupondente . . , , ... 
+
+V . sieno- nel" ftmicerchio f • , ‘ ^ 
+
+•AEFB, il cui centro è il ' ^ ' 
+
+' ^ùntó C e la AB il diame- . 'j- • 
+
+■tpo , condotte le linee rette ^ 
+
+ED FG perpendicolari al dia- * ' 
+
+metro, e difugualmente diftanti dal centro, e pe^ 
+F fi conduca la FH parallela alla AB, coficchè fia 
+EH la diflèrenza delle linee ED FG, ficcome DG 
+•i, . è la 
+
+
+
+Digitized by Googl 
+
+
+
+35 
+
+è la differenza delle loro diffanze CO CD dal cen«' 
+tro : dico primieramente, che HF ad HE «ha magw 
+gìor' ragione della linea retta minore FG alla fua 
+corrifpondehte dillanza GC. ' . ì 
+
+Imperciocché fi unifeano le CF EF e fi.pro^ 
+lunghi la EF fino a che concorri in L col diame- 
+tro AB pure prolungato , e per F ’fi conduca la 
+MFI ad angoli retti alla CF, la quale toccherà 
+‘il femicerchio nel punto F. • - 
+
+: Pertanto poiché 1’ angolo CFM è retto, farà 
+
+minor del retto l’angolo EFC , laonde farà, mag- 
+gior del retto l’angolo CFL che ailìeme con CFE 
+è uguale a due tétti; per confeguenza l’angolo CFL 
+è maggiore dell’angolo CFI, e il punto I, ove con*-' 
+corre la tangente col diametro prolungato , cadrà 
+tra.i punti B L, ficché la GL farà maggiore della 
+Gl . Perchè dunque la GL "e magare dèna^GI, 
+avrà la GL alla GF 'maggiore ragióne della Gl' alta 
+fteffa GF; ma come GL a GF, ’cò^i é la'FH alla 
+HE per la fomiglianza de’ triangoli FGL EHF; 
+€ come la Gl alla GF, così è la GF alla GC, av- 
+vegnaché dal vertice F dell' angolo retto CFl fiali 
+condotta la FG perpendicolare alla bafe : dunque 
+ancora la FH alla HE ha maggiore ragione della 
+FGallaGC. 
+
+
+
+3<5 
+
+^ , Dico in oltre che la F H 
+alla HE ha' minor ragione 
+della linea maggiore ED al- 
+la fua corrifpondente diftan- 
+za CD. 
+
+, Poiché nella feconda Figura fi unificano le CE 
+EF, e la EF fi prolunghi fino in I come prima, 
+e dal punto E fi conduca ad angoli ' retti' alia 'CE 
+la EL, che toccherà il femicerchio. E perchè fi an- 
+golo GEL è retto, ed è minor del retto l’angolo 
+CEI, cadrà il punto L oltre il punto I , e perciò' 
+farà la DI minore della DL; laonde la DI alla' 
+DE avrà minor ragione della LD alia DE; ma co- 
+me la DI alla DE, cosi per la fiomiglianza de’ trian- 
+goli IDE FHE, è la retta FH alla HE ; e come 
+la LD alla DE, così è la DE alla DC; dunque 
+ancora la FH alla HE ha minor ragione della ED 
+alla DC. ‘ 
+
+Ma una delle linee ED fiada una parte del cen-‘ 
+tro , e la PQ dall’ altra (come nell’ una, e nell’ al- 
+•tra Figura ) e fiatta la CG uguale alla CP, e con- 
+dotta la GF perpendicolare e la FH parallela al 
+diametro AB, anche la GFfiarà uguale allaPQ,e la 
+FH farà la differenza delle diftanze CD CP dal cen- 
+^ tro , come la E H la differenza delle perpendicolari • 
+ED PQ; e in modo filmile di prima fi dimoftrerà 
+che la FH alia HE ha maggior ragione della FG 
+• alla 
+
+
+
+
+Digitized by Googlc 
+
+
+
+37 
+
+alla GC, o fia della Q.P alta PC, e minore deir 
+la ED alla DC; il che era da dimoftrarfi. 
+
+* r 
+
+, Teorema, VI; Proposizione IX.-* ’ * ' 
+
+» . « «■ * 
+
+Se vi fieno due quantità quali fi 
+vogliano 5 * e ad. una fi tolga . manco 
+dì quello, che all’altra fi aggiunge; 
+,farà la fòmma delle prime quantità 
+minore della fòmma delle quantità 
+feconde. 
+
+La dìmojiraZiione di quefio eorema , non 
+meno che quella del fHjfegHenté ^ per fe jléf*’ 
+fa manifepal ' ' ’ ' ■/ ' , . 
+
+.Teorema VII. Proposizione X. 
+
+
+
+Se vi fieno due quantità quali fi 
+vogliano, e ad’ una fi tolga più di 
+, quello, che all’altra fi aggiugne fa- 
+rà la fomma delle prime quantità 
+maggiore della fomma delle quantità 
+feconde . .. 
+
+
+
+Teo- 
+
+
+
+Digitized by Google 
+
+
+
+3 » 
+
+
+
+. <• i 
+
+
+
+Problema Vili. Proposizioné XI- 
+
+
+
+
+• * ‘ 
+
+Il niafllmo de* quadrilateri . da 
+quattro .linee iiette, date defcritto , è 
+
+? [uelIo , .d’ intorno a cui fi può circon- 
+crivere un cerchio. - 
+
+~ Sieno le quattro, linee rette ^ " 
+
+date AB BC CD DA e da 
+effe fi deferiva il . quadrilatero f 
+AB CD d’ intorno a cui. pof- 
+fafi circonfcrivere un cerchiò 
+
+: .^dico* che il quadrilatero ABCD è maggio- 
+re di tutti quelli ,, che, dalle medefìme, linee retto 
+poffono effere défcrltti . 
+
+.. Imperciocché Yi coffruifca qualunque altro qua- 
+drilatero FGHIi'd’ intorno^ a cui. non ^ffafi cir- 
+confcrivere un cerchio,; e Tia,là FG' uguale alla 
+AB, la GH alla BC,'.la HI alla CD, e la FI 
+alla AD. .. 
+
+E poiché ABCD é un quadrilatero, d’intorno 
+à cui fi. può circonfcrivere un cérchio , gli . angoli 
+oppofti ABC A DC faranno uguali a due retti ; fe 
+dunque f angolo ABC é retto ( come nella figura 
+prima ), farà, retto anche 1’ àngolo AD'C, e le ÀB 
+ÀD faranno perpendicolari alle BC CD: dùnque 
+
+le 
+
+
+
+Digitized by Cooglc 
+
+
+
+
+39 
+
+le FG FI non fono perpendicolari alle GH 
+Poiché, fe ha polTibile , la.FG Ga perpendicolare 
+alla GH; e fi tirino le rette AG FH. Perche dun- 
+que le due AB BC fono uguali alle due FG GH, 
+e 1’ angolo ABC retto è uguale al retto F G H ; fa- 
+rà la bafe A C uguale alla bafe F H . Di nuovo 'ef- 
+fendo le due AD DC uguali alle* due 'FI IH , e 
+la bafe AC uguale alla bafe FH : farà 1* angolo 
+ADC uguale all’angolo FIH; ma l’angolo ADC 
+è retto : laonde è retto ancora l’angolo FIH . Pet 
+la qual cofa il cerchio defcritto fui diametro FH 
+pafferà per gli punti G I ; e però il quadrilatero 
+FGHI-farà defcritto in, un cerchio ; il che non fi 
+pone. Niuno adunque degli àngoli FGH'FIH è 
+retto, e confeguentemente niuna delle rette FG FI 
+'è perpendicolare alle GH IH. Si tirino dal punto 
+F le FL FT perpendicolari" àlTé' alle GH IH: e 
+perchè ài maggior angolo è fottopofto il mag- 
+gior lato , le FG FI, ovvero le AB AD fa- 
+ranno maggiori delle FL FT. Li triangoli dunque 
+ABC ADC avendo le bafi BC CD uguali alle 
+bafi GH HI, e le altezze AB AD maggiori delle 
+'altezze FL ET delli triangoU FGH FIH; faran- 
+no quelli maggiori di quelli. Ma li trian^li ABC 
+ADC coftituifcono il quadrilatero ABCD , e U 
+‘triangoli FGH FIH coftituifcono il quadrilatero 
+FGHI : dunque il quadrilàtero ABCD é maggiore 
+
+del 
+
+
+
+40 
+
+del quadrilatero FGHI. Lo fteflb riproverà, fe fie- 
+no retti amendue gli angoli BAD BCD. 
+
+Ma non fieno retti gli angoli ABC ADC: 
+necefiariamente uno farà ottufo, e l'altro acuto. 
+Sia ottufo l’angolo ABC, e prolungata la BC in 
+E, dal punto A fi tirino le A E AP perpendicolari 
+alle C B E CD; e fia primieramente retto 1’ angolo 
+FGH, come nella feguente figura. 
+
+E polche le due AB 
+BC fono uguali alle 
+due FG GH, e l’ango- 
+lo ottufo ABC è mag- 
+giore del retto FGH; 
+farà la bafe A C mag- 
+giore Uella bafe FH : 
+ma le due AD DC 
+fono uguali alle due FI IH; e perciò l’angolo ADC 
+è maggiore dell’angolo FIH; l’angolo poi ADC è 
+acuto : dunque farà acuto anche 1’ angolo FIH, e 
+la perpendicolare FT cadrà fotto l’angolo FIH. 
+E perchè gli angoli PDA PAD fono uguali ad un 
+retto , e fono uguali ad un retto ancora gli angoli 
+TIF TFI ' r angolo poi PDA fi è dimoftrato 
+maggiore dell’ angolo' TIF : farà il rimanente PAD 
+'minore del rimanente TFI. Pertanto alla data ret- 
+ta linea AP e al punto A dato in elTa fi coftruifca 
+J’ angolo FAQ. uguale all’angolo TFl, e fi faccia 
+
+la 
+
+
+
+Digitized by Google 
+
+
+
+
+4t 
+
+la ÀQ uguale alla 'AD, e col centro A e cogrinter- 
+valli delle AD' AB defcrìtti i femicerch] ZQX 
+VBM, fi prolunghino le* AP A È ne’ punti' X Z', 
+M V ; e pel punto ’ Q fi conduca la Q,R parallela 
+alla DC, e per D la DS parallela alla AX. 
+
+£' perchè l’angolo Q,AR è uguale all’angolo 
+IFT, e il retto ARQ è uguale al retto FTI, ed 
+in oltre il lato AQ è uguale al lato FI; farà il 
+triangolo QAR uguale al triangolo IFT , e perciò 
+la AR uguale alla FT, e la QR alla IT. Di nuo- 
+vo perchè fono uguali a due retti gli angoli ABC 
+ABEi non • meno che gli angoli ABC ADC, fa- 
+ranno i primi uguali a’ fecondi , e tolto il comune 
+ABC reitera l’angolo A B£ uguale all’ angolo* ADC; 
+il retto poi A£B è uguale al retto APD : dunque 
+il triangolo AEB è fimlle .aL tr i a n golo A P D ; . e pe- 
+rò come là B£ alla £A; cosi è la DP alla PA. 
+Di nuovo ancora, elTendò come M£ ad £B , cosi 
+B£ ad'EV, e B£ ad £V ha minor ragione della 
+B£ alla £A‘(perchè la £V è maggiore della £ A), 
+avrà altresi la M£ alla £B minor ragione della BE 
+alla' £A, ovvero della DP alla PA. Ed eifendofi 
+nel femicerchio ZQX condotte le QR DP perpen- 
+dicolari al diametro ZX e difugualmente diitanti dal 
+centro {Prop.s .) , la D S ( differenza delle - diltanze ) 
+avrà alla QS ('differenza dèlie lìnee. perpendicolari ) 
+maggior ragioni della perpendicolare minore DP al- 
+
+F la fua 
+
+
+
+4 » 
+
+la fua corrifpondente diftanza PA; c perciò la DP 
+alla PA avrà minor ragione della DS alla Q_S : ma 
+fi è diraoftrato che la M E alla E B ha minor ragion 
+ne della DP alla PA; laonde la ME alla EB avrà 
+molto minor ragione della DS alla QS , e permu- 
+tando la ME alla DS , ovvero alla RP , avrà mi- 
+nor ragione della E B alla QS . E poiché , per la 
+Propofìzione XII del fecondo degli Elementi , il qua- 
+drato della A C è uguale ai quadrati delle AB BC 
+infieme col doppio rettaAgolo comprefo dalle CB 
+BE ; e il quadrato della FH è uguale' ai quadrati 
+delle FG GH; i quadrati poi delle AB BC fono 
+uguali ai quadrati delle FG GH ; dunque il qua- 
+drato . della A C farà maggior del quadrato della 
+F H , quanto è il doppio rettangolo comprefo dalle 
+C B B E . In modo fimile , per là XIII del medefìr 
+mo, fi dimoftrerà , cheli quadrato della AC è mag: 
+giore del quadrato della FH, quanto il doppiò ret- 
+tangolo comprefo delle HI IT è maggiore del dop- 
+pio rettangolo comprefo dalle CD DP : la HI poi 
+è uguale alla CD e la IT alla QR; dunque il qua- 
+drato della AC è. maggiore del quadrato della FH, 
+quanto il doppio rettangolo comprefo dalle C D QR 
+è maggiore del doppio rettangolo comprefo dalle 
+CD DP , ovvero del doppio rettangolo comprefo 
+dalle CD QS (ellèndo QS la differenza fra le QR. 
+DP); fi è poi fuperiormente dimofirato, che il qua-' 
+
+drato 
+
+
+
+Digitized by Googl 
+
+
+
+
+43 
+
+drato della A C è ancora maggiore del quadrato del* 
+la FH, quanto è il doppio rettangolo comprefo dal- 
+le CB BE; laonde il doppio rettangolo dalle CB 
+BE comprefo è uguale al doppio rettangolo com- 
+prefo dalle CD QS , e il femplice al femplice : e 
+perciò la EB alla Q,S ha la ftelTa ragione della CD 
+alla CB: ma fi è provato che la ME alla R P ha 
+minor ragione della EB alla QS ; dunque la ME 
+alla RP ha altresì minor ragione della CD alla CB, 
+onde il rettangolo comprefo dalle ME CB è mino- 
+re del rettangolo comprefo dalle RP CD . Per la 
+qual cofa fe fi prendano due quantità , cioè il ret- 
+tangolo comprefo dalle AM CB infieme coi rettan- 
+golo comprefo dalle A R CD, e alla prima , cioè 
+al rettangolo comprefo dalle AM CB fi tolga il 
+rettangolo minore comprefo dalla ME nella fielTa 
+CB; e alla feconda^, cioè" aT ' rettangolo comprefo 
+dalle AR CD, fi aggiunga il rettangolo maggiore 
+comprefo dalla R P nella fielTa CD, ficcome il ret- 
+tangolo comprefo dalle AE CB è uguale alla diffe- 
+renza .de* primi , e il rettangolo di AP in CD alla 
+fumma de’ fecondi ,* farà iP^op-9‘) il rettangolo com- 
+prefo dalle AM CB infieme col rettangolo compre- 
+fo dalle AR CD, minore della fomma de’ rettan- 
+goli comprefi dalle A E CB, e dalle AP CO ; le 
+AM CB AR CD fono poi uguali alle FG GH 
+FT HI: dunque la fomma de’ rettangoli comprefi 
+
+F 2 dalle 
+
+
+
+44 
+
+dalle FG GH , e dalle FT HI d minore della 
+fomma de’ rettangoli comprefi dalle A E GB, e dalle 
+AP CD; e per confeguenza il quadrilatero FGHI, 
+eh’ è la metà della fumma de’ primi rettangoli , farà 
+minore del quadrilatero ABCD, ch’è la metà della 
+fumma de’ rettangoli fecondi ; laonde il quadrilatero 
+ABCD è maggiore del quadrilatero FGHI. 
+
+Ma fia retto l’an- 
+golo F I H , e in con- 
+feguenza maggiore dell* 
+angolo ADC , com® 
+in quella figura ; farà 
+la FH maggiore della 
+AC, e l’angolo FGH maggiore dell’angolo ABC: 
+ma l’angolo 'ABC è ottufo ; dunque farà ottufo an- 
+che l’angolo FGH. Perchè poi gli angoli FGH 
+FGL fono uguali agli angoli ABC ABE, de’ quali 
+l’angolo FGH è maggiore dell’angolo ABC', farà 
+r angolo rimanente FGL minore del rimanente 
+ABE ; e però l’angolo LFG farà maggiore dell’ an- 
+golo E AB. Pertanto alla data linea retta MA e al 
+punto A dato in e(Ta fi coftruifea 1’ angolo MAK 
+uguale all’angolo LFG, e col centro A e cogl’inter- 
+valli delle AB AD fi deferivano li femicerchj VBM 
+ZDX, e fi conduca per KlaKN paralclla alla EC, 
+c per B la BQ paralella alla A M. 
+
+Si proverà come prima, che le A M NK fono 
+
+ugua- 
+
+
+
+
+Digitized by Googlc 
+
+
+
+45 
+
+uguali alle FL LG, e che nel femicerchio ZDX 
+la XP alla PD ha minor ragione della DP allaPA. 
+Ed effendofì nell’ altro femicerchio VKM condotte le 
+BE KN perpendicolari al diametro, la BOallaOK 
+avrà maggior ragione delia BEallaEA, ovvero del- 
+la DP alla PA; ma la XP alla DP ha minor ra- 
+gione della DP alla PA, e però la DP alia PA ha 
+maggior ragione della XP alla DP; laonde la BO 
+alla OK ha molto maggior ragione della XP alla 
+DP , e permutando la BO alla XP ha maggior ra- 
+gione della OK alla DP. In modo fimile all’ ante- 
+cedente cafo dimoltrato , fi farà vedere , che la dif- 
+ferenza de’ quadrati delle FH AC è uguale , tanto 
+alla differenza de’ doppi rettangoli comprefi dalle 
+NK CB e dalle NO CB, cioè al doppio rettango- 
+lo delle OK CB, quanto al doppio rettangolo com- 
+prefo dalla CD D P ; dunque U rettangolo compre- 
+fo dalle OK CB è uguale al rettangolo comprefo 
+dalle CD DP, e perciò la OK alia DP avrà la 
+ragione medefima della CD alla CB; ma la BO 
+alla X P fi è dimoftrato aver maggior ragione della 
+OK alla DP: laonde la BO alla XP avrà altresì 
+maggior ragione della CD alla CB ; e il rettango- 
+lo comprefo dalla BO, cioè NE, nella CB farà 
+maggiore del rettangolo comprefo dalle XP CD. 
+Onde fe fi prendano due quantità , cioè il rettango- 
+lo comprefo dalle A E CB e il rettangolo compre- 
+fo 
+
+
+
+
+4 ^ 
+
+10 dalle A P C D , e dalla prima , cioè dai rettan- 
+golo comprefo dalle A E CB, fi tolga il rettangolo 
+maggiore comprefo dalle NE CB, e alla feconda, 
+cioè al rettangolo comprefo dalle AP CD, G ag- 
+giunga il rettangolo minore comprefo dal^e XP CD, 
+farà {Prep.io,) la fumma delle prime quantità , cioè 
+de’ rettangoli comprefì dalle A E CB, e dalle AP 
+CD, maggiore della fumma de’ rettangoli comprefì 
+dalle AN CB é dalle AX CD; ma leAN CB AX 
+CD fono uguali alle FL GH FI IH: dunque la 
+fumma de’ rettangoli comprefì dalle A E CB e. 
+dalle AP CD è maggiore della fumma de’ rettango-i 
+
+11 comprefì dalle FL GH e dalle FI IH; e in con-- 
+feguenza il quadrilatero ABCD è maggiore del qua- 
+drilatero FGHI. Similmente G dimoGrerà il quadri- 
+latero ABCD maggiore del quadrilatero FGHI quan- . 
+do fia retto uno degli angoli GFl GHI. 
+
+S’ è Gn qui provato la .verità .della propoGa 
+quando uno degli angoli de’ due quadrilateri ABCD. 
+FGHI fia retto. Ma Geno ora tutti gli angoli mag- 
+giori o minori del retto. Per tanto la perpendicola- 
+re A E o è uguale , o maggiore , ovvero minore 
+della perpendicolare FL: dico però in primo luogo,., 
+che non può eifere uguale quando Ga ottufo anche» 
+
+
+
+fan- 
+
+
+
+Digitized by Googli 
+
+
+
+47 
+
+
+
+r angolo F G H . Imperciocché b 
+
+eflèndo la AB uguale alla FG, 
+
+farà il quadrato della AB u- \ \ 
+
+guale al quadrato della FG, [\\J ^ 
+
+c i quadrati delle A E EB u- ® i: 
+
+guali a’ quadrati delle FL LG, 
+
+de quali il quadrato della A E eflèndo uguale al qua- 
+drato della FL, perchè la A E fi pone uguale alla 
+FL, farà il quadrato rimanente della EB uguale 
+al quadrato rimanente della LG ; c perciò la EB 
+uguale alla L G j è poi ancora la A E uguale alla 
+FL, e 1. angolo retto AEB uguale all’. angolo ret- 
+FLGj dunque 1 angolo ABE larà uguale all’an- 
+golo FGL, e in confeguenza l’angolo ABC ugua- 
+le all’angolo FGH . Di nuovo eflèndo le AB. BC 
+uguali alle FG GH, e g oni pre n dono nugoli uguali^ 
+farà la bafe ÀC uguale alla baie FH, e il triango- 
+lo ABC uguale al triangolo FGH , come pure il 
+triangolo ADC al triangolo FIH; ficchè tutto il 
+quadrilatero AB CD farà uguale e fimile al quadri- 
+latero FGHI ; e perciò d’intorno al quadrilatero 
+FGHI fi potrà circonfcrivere un cerchio , il che è 
+contro la luppofizione ,'Per la qual cofa non può 
+la 'perpendicolare A E edere uguale alla perpendico- 
+lare FL eflèndo ottufo anche l’angolo FGH. 
+
+
+
+Sia 
+
+
+
+Digitized by Google 
+
+
+
+48 - 
+
+Sia dunque la A E ugua> 
+le alla FL elTendo acuto 1’ 
+angolo FGH : dico che' il 
+quadrilatero AB CD è mag- 
+giore del quadrilatero FGHI . 
+
+Poiché avendo i due trian- 
+goli ABC FGH uguali bali 
+ed altezze, farà il triangolo ABC uguale al triango- 
+lo FGH. Di' nuovo" perchè le A B BC fono uguali 
+alle FG'GH, e l’angolo ABC è maggiore dell’an- 
+golo FGH, farà la bafe AG maggiore della bafe 
+FH : le AD DC fono poi uguali alle FI IH; dun- 
+que r angolo ADC è maggiore dell’ angolo FIH;' 
+ma r angolo ADC è acuto ; laonde farà acuto an- 
+che l’angolo FIH, e la perpendicolare FT dee ’ne- 
+celTariamente cadere fotto l’ angolo FIH ; e per con- 
+feguenza 1’ angolo DAP , rimanente ad un retto 
+dell’angolo ADPj farà minore dell’angolo IFT, 
+rimanente ad un retto dell’angolo FIT . Si faccia 
+perciò l’angolo PAQ uguale all’ angolo IFT« e col 
+centro A ed intervallo A D fi deferiva 1’ arco QX , 
+che incontri la A P prodotta in X , e dal punto Q 
+fi tiri' la QR parallela alla CD. £' manifefio che 
+la AR farà uguale alla FT; ma la retta AP è mag- 
+giore delia A R ; dunque ancora farà maggiore del- 
+la FT, e il triangolo ADC del triangolo FIH: fi 
+è dimoftrato poi, che il triangolo ABC è uguale al 
+
+trian- 
+
+
+
+
+Dìgitized by Coogle 
+
+
+
+49 
+
+triangolo FIH: tutto dunque il quadrilatero AB CD 
+è maggiore del quadrilatero FGHI. 
+
+Ma fuppongafi la perpen- P 
+
+dicolare A E maggiore della 
+perpendicolare F L . Se 1’ an- 1' 
+
+golo FGH fia acuto, come \^xl 
+nella prefente figura , è chia> *' 
+
+ro, che il triangolo ABC farà maggiore del triango^ 
+lo FGH; e fimilmente di prima fi dimoftrerà il 
+triangolo ADC maggiore del triangolo FIH: tutto 
+dunque il quadrilatero ABCD è maggiore del qua« 
+drilatero FGHI. Ma 1’ angolo FGH fia ottufo , e 
+fatta la AN uguale alla FL, dal punto N fi con- 
+duca la NK ad angoli 
+retti alla AN ed ugua- 
+le alla LG ; iodi fi u- 
+nifea la AK : farà la 
+AK uguale alla FG, 
+e l’angolo NAK ugua- 
+le all’ angolo L F G : e per fine col centro A ed in- 
+tervallo di una di efie AB AK fi deferiva il femi- 
+cerchio VBM. 
+
+£ perchè 1' angolo £ A K , cioè L F G , è mag- 
+giore dell’angolo £AB, farà l'angolo FGL minore 
+dell’angolo AB£, e l’angolo FGH maggiore dell’ 
+angolo ABC; e perciò la bafe FH è maggiore del- 
+
+G la ba- 
+
+
+
+
+
+Digitized by Google 
+
+
+
+la bafc A C ; e in con-' 
+fcguenza 1’ angolo FIH’ 
+maggiore dell* angolo 
+ADC. •' 
+
+Pertanto 1’ angolo 
+FI H o è acuto, ovvero 
+ottufo: fi ponga prima acuto, come lo è l’angolo ADC 
+di quella figura (*), che del cafo in cui fia óttufo fl 
+l>arierà di poi ; onde la perpendicolare F T cadrà fotto 
+l’angolo FlH; e perciò farà l’angolo IFT mino- 
+re dell’ angolo DAP. Coftruifcafi l’angolo QAR 
+uguale all’angolo IFT, e col centro A ed interval- 
+lo della AD fi deferiva il femicerchio ZDX, e per 
+Q fi conduca la QR parallela alla G D , € la QS 
+parallela alla* AXT farà dunque la AR uguale -alla 
+FT, e la QR alla IT . E perchè nel femicerchio 
+"VEM fi fono condotte le due N K EB perpendico- 
+lari al diametro MV c difuguahnénte diftanti dai 
+centro , avrà la BO alla OK , per U Propofitiene 
+Vili, t maggior ragione della linea minore BE alla 
+fua diftanta corrifpondente E A; la BE poi alla E A 
+ha la fiefia ragione della D P alla P A ; dunque la 
+BO alla OK ha maggior ragione della DP alla P A: 
+ma per la Propofizione medefima la QS alla SD ha 
+^ ■ ■ . . ' . . minor 
+
+«« IM I Il4— • I ■*^' , 
+
+• (*) Que/F i il foto cafo con fiderato nelP Opv/colo del Cramert 
+gli altri tatti fimo trafeurati , bencbì molti di quejii ricerchino una 
+portico lare d imo/ir ai^ ione . 
+
+
+
+
+Digitized by Googl 
+
+
+
+il 
+
+ibiaor ragione della DP alla PAt e la DPallaPA 
+ha maggior ragione della Q.S alla SP ; laonde, la 
+BO alla OK ha molto maggior ragione della Q.S 
+alla SD,' e permutando la BO alla Q.S ha maggior 
+ragione della OK alla SD. Di nuovo fi dimoftrerà, 
+come in principio , che tanto il doppio rettangolo 
+comprefo dalle GB OK è uguale all’ ecceflb, in cui 
+il quadrato della FH fupera il quadrato della AG, 
+quanto il doppio rettangolo comprefo dalle G D S D : 
+onde il doppio rettangolo comprefo dalle GD SD 
+farà uguale al doppio rettangolo comprefo dalle GB 
+OK, e il femplice alferaplicc : ficchè farà come GD 
+a GB, cosi la OK alla SD;, ma fi è fatto vedere,- 
+che la B O alla QS ha maggior ragione della O K- 
+alla SD ; e però BO a Q.S, ovvero NE a PR, a- 
+vrà ancora maggior ragione della GD alla GB, e it 
+rettangolo comprefo dalle NE GB farà maggiore 
+del rettangolo comprefo dalle P R G D . Per il che 
+fe fi prendano due quantità , cioè il rettangolo com-. 
+prefo dalle A E GB, e il rettangolo comprefo dalle 
+AP CD; e dalla prima, cioè dal rettangolo com- 
+prefo dalle A E GB, fi tolga il rettangolo maggio- 
+re comprefo dalle NE GB, ed alla feconda , cioè 
+al rettangolo comprefo dalle A P G D , fi aggiunga il 
+rettangolo minore comprefo dalle PR GD, fara la 
+fumma delle quantità prime {Prep.io.) , cioè de’ trian-, 
+goli comprefi dalle AE GB e dalle* A P GD, mag-. 
+
+G 2 giore 
+
+
+
+s* 
+
+giore della furàttia de’ rettangoli comprefi dalle AM 
+CB e dalle AR CD: le AN CB AR CD fono 
+poi uguali alle FL GH FT IH: dunque la futnma 
+de’ rettangoli comprefi dalle A£ CB, e dalle AP 
+CD è maggiore della fumma de’ rettangoli comprefi 
+dalle FL GH e dalle FT IH, e il quadrilatero 
+ABCD farà maggiore del quadrilatero FGHI. 
+
+Ora per provare f affunto, 
+quando la perpendicolare A E 
+lia maggiore della perpendicola- 
+re FL, e eflendo ottufo l’ango- 
+lo FGH fia ottufo anche l’an- 
+golo oppofio FIH, olferveremo 
+che fe la FT, condotta perpen- 
+dicolare alla Hr prolungata ,. fta 
+minore della AP come nella 'Fi- 
+gura I. è evidente, eh’ elfendo il 
+triangolo ADC maggiore ‘del 
+triangolo FIH, ficcome ancora il triangolo ABC è 
+maggiore del triangolo FGH, farà tutto il quadri- 
+latero ABCD maggiore del quadrilatero FGHI; 
+ma fe la perpendicolare FT fia maggiore della per- 
+pendicolare AP, come nella Figurali., fattala AR 
+uguale alla FT, e la RQ parallela alla CD e ugua- 
+le alla TI, e coftruita la figura; fi dimofirerà, co- 
+me avanti, che la BO alla QS ha maggior ragione- 
+della OK alla SD. £ perchè il quadrato della >FH 
+
+c ugua- 
+
+
+
+
+Digitized by Googl 
+
+
+
+s? 
+
+è uguale ai quadrati delle FI IH col doppio rettan- 
+golo di HI in IT, cioè ai quadrati delle AD DC 
+col doppio rettangolo di CD in.QR, aggiugnendo 
+dall’ una e dall’ altra parte il doppio rettangolo di 
+CD in DP, farà il quadrato della FH infieme col 
+doppio rettangolo di CD in DP uguale ai quadrati 
+delle AD DC coi doppi Rettangoli di CD in DP e 
+di CD in Q.R; il quadrato poi della AC col dop- 
+pio rettangolo di CD in DP, è uguale ai quadrati 
+delle AD DC: laonde il quadrato della FH fupera 
+il quadrato della AC, quanto è la fumma de’ doppj 
+rettangoli di CD in DP e di CD in QR . Di nuo- 
+vo, perchè il quadrato -della FH fupera il quadrato 
+della AC anche del doppio rettangolo di OK in C6: 
+farà il doppio rettangolo di OK in CB uguale ai 
+doppi rettangoli di CD in DP e di CD in QR ; e 
+però il rettangolo femplìce di OK rìT'CB" è mag- 
+giore del rettangolo femplìce di CD in DP, e mól- 
+to più del rettangolo di CD in DS; e per confe-^ 
+guenza la OK alla SD ha maggior ragione della 
+CD alla CB; ma fi è in prima detto , che la BO 
+alla QS ha maggior ragione della OK alla SD;- 
+dunque la BO alla QS , ovvero la NE alla PR, 
+ha molto maggior ragione della CD allaCB; eper-^ 
+ciò il rettangolo di NE in CB è maggiore del ret- 
+tangolo di PR in CD; e il refto fi proverà come 
+nel cafo antecedente ... 
+
+
+
+Final 
+
+
+
+
+54 
+
+Finalmente fii la perpen* 
+dicolare A £ minore della per> 
+pendicolare FL, eifendo acu- 
+to o ottufo r angolo FGH, 
+come in quelle figure . E chia- 
+ro, che la LG farà minore 
+della EB : fi faccia la AN 
+uguale alla FL , e fi tiri la 
+NK ad angoli retti alla AN 
+ed uguale alla LG , e unifcafi 
+la A K , la quale farà ugua- 
+le air una e air altra delle FG AB, e T angolo NAK- 
+farà uguale all’angolo LFG : di poi col centro A 
+ed intervallo di una di effe AB AK: fi deferiva il 
+femicerchio VBM, e per K fi conducano Ma KN* 
+KO parallele alle BE AM. 
+
+Ed eflendo l’angolo E AB maggiore, dell’ angolo 
+NAK, .-cioè LFG della Figura L i farà l’angolo. 
+AB E. minore dell’angolo FGL, onde fempre l’an-i 
+golo ABC io amendue le Figure farà maggiore dell’ 
+angolo FGH; e le AB BC fono uguali alle F G.' 
+GH; dunque la bafe AC è maggiore della bafeFH, 
+c per confeguente l’angolo ADC è maggiore dell’, 
+angolo FIH ; ma l’angolo ADC è acuto; dunque' 
+farà acuto anche 1’ angolo FIH; e perciò il puntot 
+T cadrà fotto .1’ angolo FIH, e l’angolo DAP fa-; 
+rà minore dell’ angolo IFT . Si coftruìfea l’r angolo. 
+
+QAP 
+
+
+
+Digitized by Googlc 
+
+
+
+is 
+
+Q.AP uguale ’aU’angólo IFT', e fattala AQ ugua- 
+le ad una di effe AD FI fi compia la figura. 
+
+E poiché nel femicerchio MBV fi fono con- 
+dotte le K.N BE difugualmehte diftanti dal centro, 
+la KO alla OB avrà minor ragione della BE alla 
+E A (Pr»f>.8.) j o fia della D P alla P A : parimenti la' 
+DS alla SQ avrà-maggior ragione della DP alla 
+PA, e però la DP alla PA avrà minor ragione del- 
+la DS alla SQj laonde la KO alla OB avrà molto 
+minor ragione della DS alla SQ , e permutando 
+la KO alla DS ha minor ragione della OB alla 
+SQ. Si dimoftrera poi allo fteflb modo di prima, 
+che come la OB alla SQ, così è la- CD alla GB;' 
+e perciò là KO 'alla DS, ovvero la NE alla PR ,* 
+avrà minor ragione della CD alla CB y e per cpn- 
+feguenza il rettangolo comprefo dalle NE ;,CB è' 
+minore del rettangolo comprefo dalle PR CD? Per 
+la qual cofa, fe dal rettangolo di AN in CB fi tol- 
+ga il rettangolo minore di NE in CB, ed . al ret- 
+tangolo delle AR CD fi aggiunga il rettangolo mag- 
+giore delle RP CD,' ne rifulterà la fomma de ret- 
+tangoli comprefi (Pr»p-9-) dalle -AN CB e dalle AR 
+C D , minore della fomma de’ rettangoli comprefi dal- 
+le AE CB e dalle AP CD; ma le AN CB AR 
+CD fono uguali alle FL GH FT IH; dunque la 
+fomma de’ rettangoli comprefi dalle FL GH e dal- 
+le FT IH c minore della fomma de’ rettangoli cora- 
+' prefi 
+
+
+
+
+prefi dalle A E CB e dalle AP CD, coficchè il 
+quadrilatero FGHI farà minore del quadrilatero 
+AB CD, e per fine il quadrilatero AB CD maggio- 
+re del quadrilatero FGHI. Onde generalmente farà 
+vero, che il maflìmo de’ quadrilateri , da quattro li- 
+nee rette date deferitto , è quello d intorno a cui 
+fi può circonfcrivere un cerchio , come bifognava 
+dimoftrare . ' ' * 
+
+r-'- • • . . • T 
+
+\ Teorema IX. Proposieione XII. 
+
+f 
+
+li Maflìmo de* poligoni 5 da qual- 
+jG voglia.. nu mero m linee rette datò 
+deferitto, è quello d’intorno a eui 
+fi può circonfcrivere un cerchio . 
+
+Imperciocché fe non e w ’ 
+
+è così, fra ACFDBE* ^ 
+
+il maifimo poligono i \ /® \ / ' 
+
+che fi poffa da linee • * 
+ugualialleAC CF FD ^ 
+
+DB BE deferivere, e 
+
+li punti ACFDBE non fieno tutti nella ftefla 
+circonferenza di cerchio. ‘ ‘ 
+
+E poiché i punti ACFDBE non fono tut- 
+ti nella ftefla circonferenza di cerchio, vi faranno 
+
+certa- 
+
+
+
+Digitized by Googl 
+
+
+
+57 
+
+certamente quattro di efld punti, pe’ quali non po- 
+trà paflare un cerchio . Sieno quelli punti li A C 
+D B , e unite le A B CD, da quattro linee rette 
+GH HI IL LG uguali alle AC CD DB BA 
+(Pre>p.ó.) fi deferiva il quadrilatero GHIL, d’intorno 
+a cui pofTafi circonfcrivere un cerchio , in modo 
+che la GH fia uguale alla AC, la HI alla CD, la 
+IL alla DB, e la GL uguale alla BA ; indi dalia 
+GL li deferiva la figura GML uguale e fimile alla 
+figura A ED, e dalla HI fi deferiva la figura HNI 
+uguale e limile alla figura CFD ; dunque le linee 
+AC CF FD DB BE EA, che comprendono il po- 
+ligono ACFDBE, fono uguali alle GH HN NI IL 
+LM MG, che comprendono il poligono G HNI LM; 
+e per la fuppofìzione il poligono ACFDBE è mag- 
+giore del poligono GHNILM. ' 
+
+Pertanto poiché i' quadrilateri ACDB JGHIL 
+fono comprefi da linee rette uguali, e d’intorno al 
+quadrilatero GHIL fi può circonfcrivere un cerchio, 
+ma non cosi d’intorno al quadrilatero ACDB; fa- 
+rà il quadrilatero GHIL maggiore del quadrilatero 
+ACDB: e la figura G M L è uguale alla figura AEB , 
+e la figura HNI alla CFD; dunque tutto il poli- 
+gono GHNILM è maggiore del poligono ACFDBE, 
+c però Io ACFDBE è minore di GHNILM , 
+ed è anche maggiore ; il che non può eflere . 
+Non è dunque il poligono ACFDBE il maf- 
+
+H fimo, 
+
+
+
+fimo , che fi pofTa defcrivere da linee uguali al-> 
+le AC CF FD DB BE £A : lìmilmente fi diino* 
+ftrerà di qualfi voglia altro poligono, d’ intorno a cui 
+non poflafi circonfcrivere un cerchio ; laonde il maf* 
+fimo de’ poligoni, da qualfivoglia numero di linee 
+rette date defcritto , è quello d’ intorno a cui fi può 
+circonfcrivere un cerchio ; come bifognava dime* 
+ftrare. 
+
+
+
+
+Il Fine dtlf Opufcolo primo Geometrìto* 
+
+
+
+
+
+
+Digitized by Coogli 
+
+
+
+
+APPENDICE 
+
+ALL’ OPUSCOLO PRIMO. 
+
+
+
+D Opo di avere geometricamente dimoftrató 
+il Teorema generale , che forma il fugget< 
+to deir Opufcolo antecedente , mi è palTato per 
+la mente di ricercare la rifoluzione di quello Pro- 
+blema . Dati i lati di un quadrilatero , intorno a cui 
+pojjafi circonfcrivere un cerchio , fi ricerca la fuperficie 
+del quadrilatero , e il raggio ^del cerchio circonfcritto , 
+Ma prima di efporre quanto mi venne fatto di ri- 
+trovare , è necelTario, che richiami alla memoria di 
+chi legge due verità dimollrate dagli Analilti. 
+
+La prima è , che fe dicati <r ^ « i tre lati di 
+un triangolo farà la fua area uguale a 
+
+J ib'u' ^ M «♦ 
+
+
+
+”■ ♦ y a -*-b u . a -^b— u , a •+ u >— b . h -i-u— a 
+
+e però farà uguale alla quarta parte della radice 
+quadrata del prodotto . nato dalla moltiplicazione 
+
+Ha della 
+
+
+
+Digitized by Google 
+
+
+
+I 
+
+
+
+6o 
+
+della fotnma de’ tre Iati, colle fumme di due a due 
+diminuite del terzo lato . 
+
+La feconda verità provata dagli Anallfti è , che fc 
+dlcanfi a b u ì lati di un triangolo, farà il raggio 
+del cerchio a detto triangolo circonfcritto uguale a 
+
+a b u 
+
+2a'b^ +- 2a*«* + 2b\u' ^ * 
+
+ma ^ V la'b* •*" la'u' *• ib'u' ^ a* ^ b* ^ u* 
+
+* 
+
+c uguale' air area del triangolo ; dunque il raggio 
+circonfcritto è uguale al prodotto de’ tre lati divifo 
+per la quadrupla area del triangolo . Ciò fuppollo 
+paiTumo alla rifoluzione del Problema citato , che 
+per maggior chiarezza divideremo in due . 
+
+Problema I. 
+
+* * t 
+
+Dati i lati di un quadrilatero , 
+
+d’ intorno a cui fi polTa circonfcriv’e- 
+
+re un cerchio , ritrovare la di lui 
+area . 
+
+Sia AB CD il quadrilate- 
+ro, d’intorno a cui fi poflà 
+circonfcrivere un cerchio, co- 
+iicchc gli angoli di eilb op- 
+
+polli 
+
+
+
+
+Digitized by Google 
+
+
+
+Ól 
+
+pofti fieno uguali a due retti ; e fiaABs4, BC 
+=5 ì,CD= 3 f,DA=: d bifogna ritrovare T a- 
+rea del quadrilatero AB CD. ' 
+
+Si unifcano le AC BD, e fi faccia la AC=: v,' 
+e la A E : come poi la AB alla AD, così 
+fia la'DC alla BO ; e la BO fi metta per diritto 
+allaCB, e fi tirì la AO : farà il rettangolo comprefo 
+dalle AB 60 uguale al rettangolo di AD in DC. 
+
+E perchè T angolo A B O è uguale all’ angolo 
+ADC, e il rettangolo comprefo dalle AB BO è 
+uguale al rettangolo comprefo dalle AD DC , farà 
+il triangolo ABO uguale al triangolo ADC ; e pe> 
+rò come il triangolo ABC ai triangolo ABO , co> 
+si il triangolo ABC al triangolo ADC; ma come 
+il triangolo ABC al triangolo' A BO, cosl.'è la CB 
+alla BO; e come la CB alla BO, così è il rettan- 
+golo di CB in BA al rettàngolo di OB in BA: 
+laonde come il rettangolo di CB in BA al rettan- 
+golo di OB in BA, ovvero al rettangolo di AD in 
+DC, così è il triangolo ABC al triangolo ADC; 
+è in confeguenza foftituendo le lettere per avere il 
+valore de’ rettangoli , farà : cd : : ABC : ADC; 
+
+ficchè ^ ABC Zi ADC, onde tutto il quadrilatero 
+
+a b 
+
+ABCD =5 ABC H- -f ABC a ABC . Elfendo 
+
+' ab ab \ 
+
+poi a b u il valore de’ lati AB BC AC del trian- 
+
+. .. golo 
+
+
+
+62 
+
+solo ABC) la Tua area farà uguale a 
+
+j 2l>'u* a* ^ b* u * , dunque l’area 
+
+del quadrilatero AB CD 
+
+^ a b c d ,1 - 
+
+^ ^ *^‘“*"* b* ^ u*. 
+
+Di nuovo perchè il triangolo BAE è fìmile al 
+triangolo EDC , farà come BA : EA : : CD : 
+
+DE , ovvero « ; 7 : : c : =s ED ; e parimenti, 
+
+per la fimilitudine de* triangoli E AD EBC, ftaDA: 
+
+AE ; : GB : BE, ovvero d : y : : b : s: BE; 
+
+a 
+
+come poi A E : B E : i E D : E C , o fia ^ : : 
+
+a 
+
+t I 
+
+« ; EC, dunque EC ; laonde tutta la AC 
+
+a . ad 
+
+. — _ _ ‘ bey ■ ad-*- bc 
+
+S3 AE EC c: — f =: . y , e tutta 
+
+ad ad 
+
+la BD 3 BE 4. ED =5 ^ {= ìLL 1 £ . y, 
+
+da ad ' 
+
+Perchè poi il rettangolo comprefo dalle AB CD in- 
+fieme col rettangolo comprefo dalle BC AD è ugua- 
+le al rettangolo comprefo dalle AC BD, farà folti- 
+
+* j it a d ■+ b c . a b -*-cd , 
+
+tuendo.tfc-*- oa s , . . — •> , e pero 
+
+
+
+y =3 
+
+
+
+Dìgitized by Google 
+
+
+
+
+=3 aà^ z 
+
+
+
+ac -t-bd 
+
+
+
+la A C =3 
+
+
+
+ad* bc ab* cd 
+ad * bc 
+
+
+
+, e per conlèguenza 
+
+
+
+ad 
+
+
+
+• y S3 \ f ac * bd , ad-t- bc 
+ab-*- cd 
+
+
+
+33 U. 
+
+
+
+Ora elTendofi dimoftrato il quadrilatero ABCO 
+
+33 ^ — - \/ za'b* +• m ‘«’ + ib'u' a* b* 9 
+
+4ab V 
+
+farà, foftituendo in luogo di u il valore ritrovato, 
+il quadrilatero ABCD 
+
+^ ab ^ cd 
+4ab~ 
+
+
+
+ac-t- bd , ad* bc 
+
+
+
+. /•/' ... r ac* oa ,aa- 
+
+
+
+b* 
+
+
+
+bd 
+
+
+
+. ad-* bc ^ 
+
+
+
+ab 4- cd 
+
+
+
+^ — ^-r \f C 2a*b^ -* a!* —• b^ • tib-*- cd-*-2a*+- ib* * 
+
+? »N 
+
+ab* cd ,ac-*- bd,ad-*-bc—*(ac* bd m ad-*- bc J 
+-5 Sabcd + 2s*b* -*■ 2tfV* 4- 2a'd* -*- 2b*c* * 2b*d* 
+
+2c'd^ ^ 0^ ^b* c* d*^ 
+
+-3 I ^^^a-*b-t- c--*d • a •*• b •*• d *• c • a* c-*d**b» 
+
+b*d*c'~<a ^ ^ come fperlmcntando fi ritroverà; 
+
+In 
+
+
+
+Ó4 
+
+
+
+In altro modo.' 
+
+Eflèndo il lato AB=s<», BC=i A, e ACav,' 
+farà il triangolo ABC=: 
+
+■; sfza^b^-*- ztfV+ — i*— «♦ , c parimenti 
+
+cflendo AD d, CD =3 f, AC=j « farà il trian- 
+golo ACD =s •; xf 2 c*d‘ t- 2 c*«* +• 2 d*«* — r* -• d* — «♦ , 
+e però il quadrilatero ABCD 
+
+s3 -j zb'^u*—a*’^ b*^u* 
+
++ j Vic’d*-*- • Ma, pfr 
+
+/(I pro^oji'zìone X. del frecedente Opufcolo , il qua- 
+drilatero ABCD, d’intorno a cui fi può circon- 
+fcrivere un cerchio, èilmaflìmo, che fi polla delcri- 
+vere da linee uguali alle AB BC CD DA; dunque 
+
+” V »«’«** +■ zb*u* u* ^ b* tf* . 
+
+^ Z ^ 2f*d* -t- 2f*«* 2d*«* — f ♦ — ‘ 
+
+è un maflìmo ; e differenziando farà 
+za*udu +• li^udu ’-» 2 u^du 
+2fl*^* «♦ 
+
+ic*udu *• zd*udu —t 2u^du . 
+
+^ — 33 0 ,* e divi- 
+
+V 2c*d* zc‘»»* z4*«‘ c* — d* 
+
+dendo 
+
+
+
+Digitized by Cooglc 
+
+
+
+dendo tutto per 2«dw e trafportando farà 
+
+
+
+4* 
+
+
+
+^ I»* 
+
+
+
+V 24’«* ^ a* ^ h* ^ u* 
+
+
+
+— ( C* 4- d* — 
+
+
+
+2c’d* 4- 2C’«’ •*- 2d‘«* >- C* — ♦ d* 
+
+la qual’ equazione dicafi (B); e quadrando farà 
+
+24’^* — . 24*«* — 2A‘«* + a* ■*■ b* -*• u* 
+la'b^ -*- 24*M* 2^*«* — a* ^ b* 
+
+
+
+ic’d*— 2c’«* — 2</‘«* ^ f* +d* -+-«♦ 
+
+
+
+; o> fìa 
+
+
+
+2f ‘J* ■ 2C‘tt’ + 2d*«* — 
+
+» * 
+
+44 * 24’^‘ — < 24*«‘ -M 2^*«* -t- a* -i-b* -t-U* 
+
+2a*b^:i- 24*»* «4-2^*»*— • a* -‘b*^ u* 
+4c*</* 2c’d* — 2c’«*— * ad*»* -4 -c*-»- d*-f »* . 
+
+
+
+2c*d' *■ 2C*»* •*> ad*»* c* d*^i^ 
+44*^»' ~ .V 
+
+24* A* + 24*»* 2^*»* a*’^ b* 
+
+
+
+, ovvero 
+
+
+
+^ X 
+
+
+
+■ 'V-*- - . ; 
+
+• 2f’d*H- 2C*»*+ 2d*»*-<f**^d*— •»* . . * 
+
+■ , : : 4^*^* . 
+
+24*i*+ 24*«*-«- 2b'u* ^ 0* b* u* 
+
+J . ^ 4.. ■ * 
+
+I =a 
+
+
+
+Digitized by Google 
+
+
+
+66 
+
+
+
+4C* d' 
+
+
+
+^ 1 C*U* +■ 
+
+onde eftraendo la radice quadrata, farà 
+
+a b 
+
+V 2^*»* — a* — b^^u' 
+
+
+
+
+V 2f*</* 2f *»* •*• 2(f'u^ — ' C* -H </♦ <—lt* 
+
+
+
+(C): 
+
+
+
+e in confeguenza V 2c*«* 2 «/‘«* 
+
+Cd ' ^ ; 
+
+y 2a*b* + za^u* ■*■ zb'u' ^ a* b* ^ u* * 
+ab 
+
+laonde il quadrilatero AB CD 
+
+ss “ Vatf’A* -!- za'u' •*• ib'u' ^ a* ^ b* ^ u* 
+
+
+
+cd 
+
+
+
+ti. — - y 2(»*«* + 2^‘ii’ »♦ 
+
+
+
+ab-i- c d 
+
+
+
+^2a*b^+- 2(l’«’+ 2b'u*-^0*^ b*-* u* (D). 
+
+
+
+^ 4<7À 
+
+Di nuovo dall’equazione (C) fi ricava , che come 
+
+
+
+2 a‘bf * 4 - H- 2 ^*«‘ ^ : 
+
+zr’i/* 2f’«’ 2i/*«* c*^d* •— «♦ : ; ab : cd; 
+
+e dall’equazione (B), che come 
+
+•? V 
+
+
+
+Digitized by Goo^le 
+
+
+
+
+^ 6 ^ 
+
+
+
+, * • *. * ! * 
+
+Vzfii* ■►• ac*«‘ •*■ 2<i*»*- c* - </♦ - »♦ : : 4* 4- i* + tt* ; 
+
+
+
+*'“ (c* + </*—' «’' ; e però come abxcdwa' h-A* — «* : 
+
+)> 
+
+►“ , e moltiplicando le quantità eftre- 
+
+me e le medie della proporzione , «* c d •♦- b*cd^ cdt^ 
+tr.’-abc'—t abd* -*abu*, e però «, 
+
+^ a*cd-*-b^cd*-abc'’*- ab d* a c •*• b d « od'** ^ 
+
+^ JTTa "* 4^H-fd 
+
+Si foftituifca ora .quello ritroTato valore di u nell’ fri 
+quazione (D) > e s’avrà il quadrilatero AB CD 
+
+
+
+ab cd 
+/^ab 
+
+
+
+^ a* b*^ 
+
+
+
+^ ^a* t- 2Ì‘ 
+
+1 » 
+
+ac -*• bd . a d-tr b c 
+
+
+
+ac bd , ad-i- bc 
+
+
+
+ab"*" cd 
+
+
+
+) 
+
+
+
+ab•^‘ cd 
+
+
+
+= i V(- ■♦-^4. c—*d • a*- b-^d’-*Cttì+C'*-d^bt 
+
+b*d*-c—a ^ , come prima : dal che fi ricava il fe« 
+guente 
+
+
+
+I 2 
+
+
+
+C 0 R O" 
+
+
+
+Digitized by Google 
+
+
+
+^8 
+
+
+
+Corollario. 
+
+^ • 
+
+• . » _ 
+
+La Tuperficie di un quadrilatero, 
+d’intorno a cui fi pofia circonfcrive- 
+re un cerchio , c uguale alla quarta 
+parte della , radice quadrata del pro^ 
+dotto nato dalla moltiplicaziqne del- 
+le fomme de* lati prefi a tre a tre di- 
+minuite del quarto lato. 
+
+• ■ • 1 . Ji • 
+
+ESEMPIO. 
+
+, I 
+
+Sia AB =1 K 77, BC — A =; 175, CD c: 
+f =5 xip,DA=: d s=35, farà a* 
+
+335 , a-*- b-*- d-^ c=s i 58 , d+ c -*-d bzi ^6 , 
+
+b-\- </ -*. f — « =5 232 , e però a b-*- d . • 
+
+a-*- b-^ d c.a-*-c-t-d’^b.b-*-d-t-c^a^ 33 ^» 
+Ì 68 . 55 . 232 s= 7 p( 5 $p 4 i 7 d, da cui eftratta la ra- 
+dice quadrata , e prcfane la quarta parte , fi confe- 
+guirà il numero 7055, per 1’ arca del quadrilatero 
+ABCD. 
+
+
+
+Pro- 
+
+
+
+/ 
+
+
+
+Digitized by Google 
+
+
+
+
+Dati i Iati di un quadrilatero , 
+d’intorno a cui fi pofla circonfcri ve- 
+re un cerchio , ritrovare il. raggio 
+del cerchio circonfcritto . 
+
+Sia ABC D un quadrila- 
+tero d’ intorno a cui fì polTa 
+cìrconfcrivere un cerchio , e 
+fiaAB=3tf, BCr; CD 
+=s f, DA =3 d: bifogna ritrovare il raggio del cer- 
+chio circonfcritto . 
+
+Facciafi AC =3 «. Sarà il raggio del.. cerchio 
+circonfcritto al triangolo ABC, c però anche quel- 
+lo circonfcritto al quadrilatero AB CD uguale alla 
+quantità 
+
+a b V • • • • 
+
+\f 4- 2a*U* + 2A*«‘ — te. i ‘ 
+
+Perchè poi ài quadrilatero ABCD fi può circoafcri- 
+vere un cerchio , fi ritroverà fimilmente come nell* 
+antecedente Problema la 
+
+AC =3 . <^à^bc- .j ' 
+
+ab-^cd 
+
+. *7 
+
+. Jk 
+
+
+
+
+tuito 
+
+
+
+70 
+
+tuito in luogo di u nell’ efprefUone del raggio , che 
+dicafi R, s’ avrà 
+
+
+
+R ^ 
+
+
+
+ac-i- hd . ad-*- bc 
+ab-h cd 
+
+
+
+^ (^a'b* . 
+
+
+
+za'- 
+
+
+
+ac-*- bd . ad-t- bc 
+ab-*- ed 
+
+
+
+« a^^ b*^ 
+
+
+
+
+
+
+ac-*- bd . 
+
+
+ad-*-bc \ 
+
+
+ab -*• 
+
+
+_» J ’ 
+
+cd 
+
+
+b W ac-*- 
+
+
+bd . ad-*- bc 
+
+
+^ (za' b' 
+
+% 
+
+
+‘ Ztf* zb' « 
+
+t 
+
+
+a c •*- bd . 
+
+
+ad-* bc \ 
+
+
+
+ac+bd . ad^bc 
+ab-*- cd 
+
+
+
+ab 4- cd 
+
+
+
+e moltiplicando tanto il numeratore, che il denow 
+minatore del fecondo membro dell’ equazione per 
+
+
+
+^ ab -*- cd 
+' 4ab 
+
+
+
+s’ avrà 
+
+
+
+
+R K 
+
+
+
+Digitized by Goo^l 
+
+
+
+7 * 
+
+
+
+R =3 7 ^ ac bd . ad-*- bc . ab cd : 
+ab ^ cd , // TTZTd . ad-*- b e- 
+
+
+
+’b ■* ca 4 /•/ 
+
+\ab ^a*■ 2é‘ • 
+
+
+
+ab -*- cd 
+
+
+
+—• a*^ • 
+
+
+
+ac t- b d , ad-*- bc 
+
+
+
+) 
+
+
+
+ab ■*• c d 
+
+jna nel Problema antecedente fi è dimoftrato che 
+
+
+
+■ ab -*-cd 4/^ — — _ ac-*-bd . ad-*bc 
+
+
+
+ab -* ed 
+
+
+
+<»♦— i*— * 
+
+
+
+ac -* bd . ad-* bc 
+
+
+
+) 
+
+
+
+è uguale al quadrilatero AB CD ; dunque 
+
+r 
+
+_ ; ■ idVb't ■ y 
+
+ABCD 
+
+gnava ritrovare . 
+
+Ma tralafciando ora mai quelle Analìtiche con- 
+fiderazioni, paffiamo a far vedere, come il Problema 
+III. della Propofiyone VI. dell Opufcolo precedente 
+polTa avere un ufo non inelegante nel libro undeci- 
+ano degli Elementi della Geometria ; il che faremo 
+iopo di aver premelTi i due feguenti Teoremi* 
+
+
+
+T E o- 
+
+
+
+Digitized by Google 
+
+
+
+7 » 
+
+
+
+T E O R e' M a' 
+
+
+
+r. 
+
+
+
+Se fieno quanti angoli piani fi 
+vogliano , de* quali tutti gli altri fie- 
+no mggiori , che uno , prefi ' in qua- 
+lunque modo; e fieno contenuti da 
+linee rette uguali: da quelle rette che 
+fono fbttopolle a detti angoli fi po- 
+trà coftruire una figura di molti la- 
+ti ; cioè di eflè linee , tutte . le altre 
+fono maggiori di una, prefe ip qua- 
+lunque modo. j ’ 
+
+T " dorema è fista dimofirato 4^/ 
+Commendino ne* fuoi CommentAr 'i al • Ithro 
+undectpeo di Euelide ^ onde ne ommetteremo 
+la dimojlraz^ione , ' ’ 
+
+
+
+Teorema li. 
+
+
+
+Se un angolo folido fia comprefb 
+da quanti angoli piani fi vogliano , 
+tutti gli altri fono maggiori di uno, 
+prefì in qualunque modo. 
+
+
+
+Sia 
+
+
+
+Digitized by Cooglc 
+
+
+
+
+lì 
+
+Sia l'angolo folido al pun> 
+to A comprefo da* quattro 
+angoli piani BAC CAD DAE 
+EAB : dico che tre di e(Ti 
+prefi in qualfi voglia modo fono maggiori del rima» 
+sente . 
+
+Imperciocché fé gli angoli BAC CAD DAE 
+EAB fono uguali fra di loro, è manifefto , che tre 
+di efli prefi in qualfivoglia modo fono maggiori del 
+rimanente : ma fé non fono uguali fia CAD il mag- 
+giore di tutti . 
+
+£ poiché dell’ angolo (elido al punto A com- 
+prefo dai tre angoli piani BAE £AD DAB , li due 
+BAE EAD fono maggiori del rimanente DAB , fi 
+ponga comune l’angolo CAB; faranno li tre angoli 
+CAB BAE EAD maggiori delll <iue angoli DAB 
+BAC . Di nuovo perché evvi ai punto A un altro 
+angolo folido comprefo dagli angoli piani CAB BAD 
+DAC, faranno i due angoli DAB BAC maggiori del 
+rimanente CAD ; ma ancora gli angoli CAB BAE 
+EAD fi fono dimoftrati maggiori delli due angoli 
+DAB BAC; molto più dunque gli angoli CAB BAE 
+EAD fono maggiori dell’ angolo CAD ; e perciò ec. 
+
+
+
+
+74 
+
+P & O B L K M A III. 
+
+Da quattro angoli piani coftruird 
+on angmo folido : ma conviene, che 
+U quattro angoli piani fieno niinori 
+di quattro retti ; e che tre di effi 
+preu in qualfivoglia modo fieno mag- 
+giori del rimanente* 
+
+Sìeno dati li quat> 
+tro aitgoli piabi ^ - 
+BAC DEF CHI A 
+KLM, i quaU fie- /' \ 
+
+00 minori di qua*- ^ 
+tro retti , e tre di 
+eflì prefi io qualfir 
+tógHa modo fieno 
+maggiori del rlma> 
+
+Mente bìfogna da - 
+angoli nguaQ alli 
+BAC DEF GHl K.LM coftruire un àn^la 
+iblido. 
+
+Si prendano uguali le BA AC DE EF GH HI 
+RL LM, eù unifeano le BC DF Gl KM : dunque' 
+delle linee BC DF Gl KM tre, prefe in qualfivoglia 
+modo , fono maggiori della rimanente . Si coftruifea ‘ 
+
+pertan- 
+
+
+
+
+Digitized by Googic 
+
+
+
+75 
+
+pertanto da linee uguali alle BC DF Gl KM il qua- 
+drilatero NOPQ {Prop.6.dMopufc.\.) d’ intorno a cui 
+pofTaQ circonfcrivere un cerchio, e fìa la NO ugua- 
+le alla BC , la OP uguale alla DF , la PQ alla Gl , 
+c la QN alla KM ; poi al quadrilatero NOPQ fi 
+circonfcriva il cerchio NOPQ., di cui prefo il cen- 
+tro R fi tirino le RN RO RP RQ . Si dimoftrcrà 
+fimilmente come ntlla Propojixjone XXIIL dtl libro 
+undecima degli Elementi, che la BA è maggiore del- 
+la RN. 
+
+Si conduca dal punto R la RX perpendicolare 
+al piano del cerchio NOPQ, e fi faccia il quadrato 
+della RX uguale aU’ecceiro, in cui il quadrato del- 
+la BA fupera il quadrato della RN ; e fi congiun- 
+gano le NX OX PX QX. 
+
+E perchè la RX é perpendicolare al piano del 
+cerchio NOPQ, faranno retti gli angoli XRN XRO 
+XRP XRQ ; ficchè eOendo le RN RO RP RQ fra 
+di loro uguali , e la RN comune e ad angoli retti , 
+faranno uguali fra di loro anche le bafi XN XO 
+XP XQ. Di nuovo efiendo il quadrato della RX u- 
+guale all’ecceflb, in cui il quadrato della BA fupera 
+il quadrato della RN, faranno li quadrati delle RX 
+RN uguali al quadrato della BA : ma i quadrati 
+delle RX RN fono anche uguali al quadrato della 
+XN; dunque il quadrato della BA è uguale al ^qua- 
+drato della XN ; e perciò la BA è uguale alla XNj 
+
+K 2 la 
+
+
+
+Digitized by Google 
+
+
+
+7<J 
+
+la BA poi è uguale a clafcuna di elTe AC DE - EF 
+GH HI KI/LM, e la XN è uguale a ciafcuna di 
+effe XO XP XQ ; laonde ciafcuna di effe BA AC 
+DE EF GH HI KL LM è uguale a ciafcuna di effe 
+NX XO XP X<i . E perchè le BA AC fono uguali 
+alle NX XO, e la bafe BC è uguale alla bafe NO, 
+farà l’angolo BAC uguale all’ angelo NXO': allo ftef- 
+fo modo fi dimoftrerà f angolo OXP uguale all’ an- 
+golo DEF, r angolo PXQ_ all’ angolo GHI , e l’an- 
+golo NXQ. all’ angolo KLM ; dunque da quattro an- 
+goli piani NXO OXQ PXQ Q.XN uguali ai quattro 
+angoli dati BAC DEF GHI KLM fi ccoftruito l’an-' 
+golo folido al punto X ; il che bifognava fare . 
+
+•'--GoROLl.ARrO. 
+
+Da quanto fi è detto ne fegue , 
+che la rilòluzione del Problèma Ge- 
+nerale , Cofirutre un angolo folido da quan- 
+ti angoli piani fi •vogliano minori di quat- 
+tro ritti , e de* quali tutti gli altri fieno 
+maggiori di uno , pr 'efi in qualunque modo , 
+dipende dalla rifoluzione di queft’al- 
+tro . Date quante linee rette fi •vogliano , 
+delle quali tutte le altre fieno maggiori di una j 
+prefe in qualunque modo i cofiruire da linee 
+
+ugua- 
+
+
+
+Digitized by Coogle 
+
+
+
+77 
+
+uguali alle mede/ìme un poligono ^ ’d^ inPorno 
+a cui pojfafi circonfcrivere un cerchio . 
+
+Siccome però, quando le linee rette fieno più 
+di quattro, forpaffa il Problema le forze della Geo> 
+metria , così io farò fine a quelle ricerche , ballan» 
+domi di aver efpollo il modo di coflruire un ango> 
+lo folido da quattro angoli piani dati, il che, per 
+quanto è a mia cognizione , non è accaduto ad al- 
+cun altro di ritrovare . Solo il Commandino ne’ fuoi 
+commentar) al libro undecimo di Euclide pretende 
+di dare una rifoluzione non meno di quello cafo , 
+che del Problema generalmente prefo : ma a chi la 
+legge con attenzione, chiaramente apparifce, ch’e- 
+gli fuppone , tacitamente , ritrovato il Problema fe- 
+condo menzionato nel Corollario, eh’ è lo ftelTo di 
+dire, che ha folo fimplificata la . rifoluzione , non 
+però del tutto efaurita. 
+
+
+
+Il Fine deir jippendice alP Opufcolo primo . 
+
+
+
+OPU- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Digitized by Google 
+
+
+
+OPUSCOLO SECONDO 
+
+SUL GETTO DELLE BOMBE 
+
+E SPEZIALMENTE 
+
+
+
+NE’ PIANI INCLINATI. 
+
+
+
+Digitized by Google 
+
+
+
+TRE F: \A Z t 0 N E. 
+
+
+
+
+
+
+\Ssendomi provenuto di fare al- 
+cune rifefftoni fui fetfo delle 
+bombe y e di ritrovare un nuo- 
+vo metodo di tirarle /opra i piani inclinati 
+
+
+
+/ 
+
+
+
+un pò più fìcuro , a mio credere , di quelli 
+fno ad ora praticati ; così al primo ho ag- 
+giunto quefto fecondo Opujcolo 3 in cui colla 
+maggior diligenz^a ho e/pojlo i miei divifa- 
+menti . Sommetto per altro ogni cofa all* ef s- 
+me degli eruditi Artiglieri , di cui oggi mai 
+fono piene tutte le Nazjioni di Europa y co- 
+me a* foli Giudici competenti in quefia mx* 
+
+L teria^ 
+
+
+
+Digitized by Google 
+
+
+
+teri4 y U quale quantunque fi foglia trattare 
+'fftatem'aficamenU t dò nulla ofiante } tanto 
+implicata colla pratica , che fenz^a il pojfedi’- 
+mento di quefia non fi può dar giudizjio ret- 
+to della riufeita di cofe propofie teoricamen- 
+te y e in afiratto* 
+
+
+
+
+^ I. 
+
+
+
+Digitized by Google 
+
+
+
+§. L 
+
+
+
+
+Arti tutte cangiarono d’ afpetto , c da rozze e fer- 
+vili divennero colte e inventrici , ricercando in o- 
+gni cofa ordine ed efattezza • Quindi fu , che anche 
+l’Arte della Guerra ne ritraife utili immenfi , e le 
+Matematiche Scienze furono in fuo prò sì felice- 
+mente impiegate, che fiamo pervenuti a fuperare 
+in alcune di lei parti gli Antichi , benché in mol- 
+te altre, e forfè nelle più elTenziali , non abbiamo 
+potuto ancora uguagliarli . Ma fe in alcuna fi fono 
+fatti de’ progreffì , fi è certamente in quella delle 
+Fortificazioni, per cui l’Arte di coftruire., di attac» 
+
+La care, 
+
+
+
+Digìlized by Google 
+
+
+
+^«4 
+
+c&re, e di difendere le Piazze, è ridotta à regole 
+ficure e coftanti , e fuori di ogni dubbio fuperiori 
+a. quelle degli Antichi , che lafciò giugnere fino a 
+noi r ignoranza de’ tempi , e de’ fecoli prolfimi paf< 
+fati. Le rimanenti parti della Guerra non fono pe> 
+rò arrivate al fegno fublime , come altri crede , e 
+fpezialmente nella coftruzione e nell’ ufo delle Arti- 
+glierie ci reftano molte cole da ritrovare , che fono 
+sfuggite alle ricerche degli eruditi Militanti , e alla 
+meditazione de’ più profondi Filofofi . E parlando 
+del getto delle bombe, chi è, che non fappia in 
+quanta difficoltà fia ancora involta quella ' materia-; 
+e quanto inutilmente fi affatichino gli Artiglieri per 
+ottenere l’intento loro? 
+
+; ' f I L ' . 
+
+Sembrava , che H ritrovati deli’ immortale Ga^ 
+eleo , e de’ celebri Matematici che lo fegnirono , 
+veffero appianata ogni difficoltà , dimoftrando , che 
+la curva deferitta da un projetto fpinto con una di- 
+rezione qualunque debbe effere parabolica ; e che 
+ne’ piani orizzontali le ampiezze , o fia le lunghez- 
+ze de’ tiri ( reffando invariabile la fi^rza motrice ) 
+fono come i feni de’ doppj angoli d’ inclinazione .’ 
+Ma la irregolarità nella forza della polvere , e la 
+renitenza dell’Aria, prefeindendo da altre 'minori 
+ragtoni, fonò si confiderabili , eh’ è forza confeffare 
+.1.. - non 
+
+
+
+Digitized by Google 
+
+
+
+8 ^ 
+
+non eflcre quelli ritrovamenti troppo alla pratica 
+adattabili , e atti a farci confeguire quell’ efattezza ^ 
+a cui afpiriamo. 
+
+§. III. 
+
+Per togliere quella ineguaglianza ne’ tiri , che 
+viene prodotta dalla irregolarità nella forza della 
+polvere , venne in penfiero all’ illuftre Commentato- 
+re di Polibio di proporre , pel getto delle bombe, l’u- 
+fo delle Catapulte degli Antichi in luogo de' noftri 
+morta). La qual’ idea quantunque pa)a felice ve fie- 
+no da fperarlì immenfi vantaggi > regga alla 
+
+pratica , nulladimeno non fi trovò ancora chi po- 
+tefle , o volefie fare in grande quelle fperienze, che 
+ad autorizzare valefièro il cambiamento di una mac- 
+china per r altra . E pure è così grande quella iiv 
+regolarità, di cui parliamo, che fi dovrebbe feria- 
+mente cercare, s’è vero, che una forza d’Elafticità, 
+colla quale fi raccoglie dalle Antiche Storie efiere 
+fiati modi pefi meravigliofi , pofia con profitto fur- 
+rogarfi a quella della polvere da guerra nel getto 
+delle bombe . 
+
+$. I V. 
+
+L’ aria poi è da alcuni creduta poter poco o 
+niente influire fui moto de* proietti , mentre da al- 
+tri vien pretefo , che fia efia una refiftenza capace ,' 
+
+piu 
+
+
+
+«6 
+
+più dì ogni qualunque, a ritardare i loro movimen* 
+tì ed a cangiarne la natura : di maniera che quella 
+differenza di opinione ha prodotto fra gli Artiglieri 
+difparità di modo nel gittare le bombe. Gli uni fpe- 
+rando , che ad onta della refillenza dell’ aria , polTa- 
+no le leggi del moto de’ projetti , dimollrate sì fot- 
+tilmente da’ Meccanici , adattarfi alla pratica , fo- 
+gliono dopo un tiro di pruova regolare l’ inclinazio- 
+ne del mortaio fecondo la dillanza e 1’ altezza del 
+luogo in cui dee mandarli la bomba ; mentre gli al- 
+tri affatto rigettandole , perchè le vedono non reg- 
+gere per la maffìma parte al confronto co’ fatti , li 
+fono mefli a graduare fempre il mortajo ad un an- 
+golo collante , eh’ è di ordinario il femiretto , e a 
+fòrza di pura pratica determinano la quantità di 
+polvere necellarìa a fpignere la bomba fino allo 
+feopo ; fra i quali vi fono anche gli Artiglieri della 
+Repubblica Sereniffìma, per cui ho 1’ onore di mi- 
+litare (*) . V. 
+
+(*) Fra gli altri, che fegumo qutfta ftconda opimotte , fi trova it Sig. 
+Cavaliere Aleftaadro Papacino d" Anton) , Soggetto celebre e noto 
+per molte eccellenti fue Opere , a cui domando ia pormi Jfione di 
+citare per autorità il nome fui , Quejii ia una Memoria fui propofito 
+nofiro ,che , ricercatone , ebbe la gentilegga di farmi avere, dopo 
+di aver dichiarato alcune injìrtigioni generali , che fi danno a’ Bota- 
+c. àardieri diel Re , chiaramente efprime H proprio fonti mento , diceu- 
+do t La fperienza dimolìra affatto ìnTuffiliente la Teoria de’ prC'^ 
+jetti nel vuoto, e quindi riefee vano 1' ufo delle Tavole de’ fe- 
+- " ni ec. Un parlare si afsoluto di perfona verfatijfima rteìP Ar- 
+tiglieria mi fomminifira una nuova ragione per meltermi fra h 
+fognaci di queflo fecondo partito. 
+
+
+
+Digitized by Google , 
+
+
+
+Rifpettando T autorità de' primi , e della colta 
+Nazione che ha queft’ ufo , io credo più ficuro ^ e 
+meno foggetto^ a’ confìderabili errori il metodo pra» 
+tico de’ fecondi , quando pure i tiri fi facciano ne*^ 
+piani orizzontali; avvegnaché con facilità e fenza 
+molto difpendio fi poffa unire in alcune Tavole 
+( come farò vedere in appreflb ) Una ferie di efpe- 
+rienze a comune benefizio degli Artiglieri , median- 
+te le quali ognuno, anche non fornito di lunga pra- 
+tica e di molte cognizioni, farà in iftato di fare 
+ne’ fopraddecti plani de’ tiri , che non andranno cer- 
+tamente guari lontani dall’ oggetto prelb di mira ' 
+
+' . . X , ;; 
+
+■- $. .V I. 
+
+La diflfìcoltà maggiore per gli feguaci di quello 
+metodo pratico confille , allora che lì debba tirar di 
+bomba ne’ piani inclinati; nel qual cafo.itccome po- 
+co vale la fperienza , perchè infinito è il numero 
+degli angoli d’ inclinazione , che può avere un pia- 
+no coir Orizzonte , così elfì non hanno, regola di 
+forte per determinate la carica del mortaio . Per la 
+qual cofa dopo di aver, parlato della coftruzione e 
+dell’ ufo di quelle Tavole, che abbiamo detto dover 
+facilitare -i tiri ne* piani Orizzontali , ci Radieremo 
+
+• di 
+
+
+
+88 
+
+di fuggerire in queft’ Opufcola un metodo per tirare 
+ne' piani inclinati , che conduca alla verità un po« 
+co più ficuramente di quello dedotto dalla fola Teo* 
+ria , a cui non Tappiamo aderire , per le ragioni me* 
+defime, neppure in quell’ultimo cafo. 
+
+^ » 
+
+T VII., 
+
+Quafi ogni Nazione ufa morta) differenti da 
+quelli deir altre o nel diametro della bocca , o nel- 
+la lunghezza dell’ anima , o nella forma e grandez- 
+za della Camera , ovvero finalmente per tutte que- 
+^e cofe infieme . £| necelfario per tanto , che in 
+tutte quelle parti , dove li voglia Ilare al metodo 
+pratico foprammentovato , infiituifcanfi da’ Bombar- 
+dierì un certo numero. di fperienze fu tutti li mor- 
+ta) che maneggiano ) anche quando uno non variar- 
+le dall’ altro , che nella qualità della camera ; elTen- 
+do noto , quanta ineguaglianza nella lunghezza de’ 
+tiri produca quello folo divario . Quelle fperienze 
+per ogni, mortaio avrebbero però ad elTere efeguite 
+colla polvere più ordinaria , cioè con quella che 
+comunemente s adopra ne’ cannoni e morta) , e fu 
+una compagna orizzontale , onde potere poi . da ef< 
+fe comporre una Tavola , il cui femplice ufo farà 
+di.fervire per far de’ tiri con quel dato morta)o fo- 
+pra i piani orì:tzontali ; ma io mollrerò in progref- 
+
+fo , 
+
+
+
+Digitized by Googlf 
+
+
+
+fo, cotn’ella pofTa valere per tirare anche fopra un 
+piano comunque coll’ orizzonte inclinato . 
+
+§. V 1 1 L 
+
+Ora paflando a dichiarare il modo col quale (i 
+dovrebbero compilare quelle Tavole per ogni mor-. 
+ta)o; li_fupponga, per efempio , che vogliafi quella 
+del Mortaio da 50. Veneto, che ha la fua camera 
+a cono tronco. Pollo perciò il mortaio fopra una 
+pianura , fi mettano prima nella camera 4. Oncie 
+di polvere, e fi finifca di caricare il mortaio, met- 
+tendovi però dentro la bomba ridotta al pelo , che 
+ha d' avere quando è carica di polvere , e fpola : 
+e poi s inclini il pezzo in modo , che l’ alfe dell’ a- 
+nima faccia un angolo femi retto coll’ orizzonte , la 
+qual inclinazione avrà da eifere collantemente man> 
+tenuta anche ne’ tiri , che fi dovranno fare in ap- 
+prelTo; indi dato fuoco al mortaio fi efamini a che 
+dillanza farà arrivata la bomba . Quella (lelTa fpe- 
+rienza fia replicata alquante volte , ufando di tutte 
+quelle diligenze nel caricare il mortaio , che poffa- 
+no procurare tiri preflb che uguali ; dopo di che fi 
+prenda , fecondo il folito , un medio fra quefii tiri , 
+che fia di Palli geometrici 95 , e in una Tavola li- 
+mile a quella , eh’ è qui fotto regillrata , fi feriva 
+nella prima Colonna , dove dee fegnarfi la quantità 
+
+M di 
+
+
+
+SIO 
+
+di polvere impiegata nel tiro, il numero 4, e nel- 
+la feconda -colonna a fianco al numero ileflTo fi feri- 
+va il p5 , ampiezza media ritrovata . Dopo quq^a 
+prima fperienza , fe ne faccia una fìmile , impiegan- 
+do 5 Oncie di polvere in vece di 4 per la carica 
+del Mortajo, e fiafi ritrovato per ampiezza media 
+Paflì 115, che ft fcriveranno fotto al numero p5 
+della feconda colonna, come il 5 fotto al 4 della 
+prima; e vorrà dire , che con 5 Oncie di polvere 
+un Mortajo da 50 Veneto (pigne la bomba a una 
+diftanza orizzontale di circa Paflì 115. Si continui 
+a far lo fteffo , mettendo nel mortajo 5,7,8 ec. 
+Oncie di Polvere fino a Oncie 18, eh’ è la quanti- 
+tà maggiore di cui la camera fia capace ; - e per o- 
+gnuna di quefle cariche fi determini 1’ ampiezza me- 
+dia corrifpondente , cd ella fi noti nella Tavola, co- 
+me fi vede qui folto efpreflb . E quefta farà appun- 
+to quella Tavola, colla di cui feorta potrà ogni Ar- 
+tigliere» per rozzo che fia ,• purché fufficientemente 
+inftrutto nell’ Aritmetica , far de’ tiri col mortajo da 
+50 ne’ piani orizzontali con quanta cfattezza balìa 
+in sì fatte cofe , fenza aver bifogno di cognizio- 
+ni , che fono d’ ordinario fuperiori alla portata de 
+fuoi lumi < 
+
+
+
+Ta- 
+
+
+
+Digitìzed by GooqJp 
+
+
+
+91 
+
+
+
+Tavola pel Mortajo 
+Veneto della portata di 50. 
+
+
+
+Onde di polvere 
+. per la Carica 
+
+
+Ampiezze in 
+Palli Geometrici 
+
+
+4 
+
+
+95 
+
+
+S 
+
+
+“5 
+
+
+6 
+
+
+
+
+7 
+
+
+-155 
+
+
+8 
+
+
+177 
+
+
+9 
+
+
+* - ipp 
+
+
+IO 
+
+
+221 
+
+
+II 
+
+
+244 
+
+
+12 
+
+
+267 
+
+
+
+
+2po 
+
+
+14 
+
+
+3^4 
+
+
+iS 
+
+
+338 
+
+
+i5 
+
+
+161 
+
+
+17 
+
+
+387 
+
+
+
+18 I 4^2 
+
+
+
+M 1 Qucfta 
+
+
+
+Digitized by Google 
+
+
+
+
+pi 
+
+Qucfta Tavola però è da me propofta in for- 
+ma d’eremplo, nè vorrei, che alcuno credelTe po- 
+terfcne valere pel mortajo da 50 Veneto ; mentre 
+non elTendo io in iftato di poter &r efperienze di 
+quella natura, hommi dovuto contentare di prefen- 
+tare ai pubblico una Tavola, eh’ è fittizia, in vece 
+di una vera , come n aveva deliderio . 
+
+IX. 
+
+E per venire alla fpiegazione dell’ ufo di quella 
+Tavola, fuppongafi, che s’abbia a gittare una bom- 
+ba fopra un piano orizzontale alla dillanza di 290 
+Palli con un mortajo della portata di 50; ridoman- 
+da la. quantità della carica. 
+
+Si offervi prima di ogni altra cofa , fe la pol- 
+vere, che fi ha da adoprare fia della ftefla attività 
+di quella, colla quale fi fon fatte le fperienze regi- 
+ftrate nella Tavola ;.c quello fi otterrà caricando il 
+mortajo ( fempre inclinato fecondo un angolo femi- 
+retto ) con una data quantità di polvere , come 
+con Onde 7 , e ricercando l' ampiezza media a que- 
+fta carica corrifpondente ; imperciocché fe farà di 
+Palli 156 , come fi ritrova nella Tavola a fianco 
+alle Onde 7 , farà fegno , che la polvere è della 
+forza medefima di quella delle fperienze ; fe mag- 
+giore, di maggiore attività farà pure la polvere ; c 
+- - - di 
+
+
+
+Digitized by Google 
+
+
+
+
+93 
+
+di minore, ie la lunghezza del tiro farà. minore di 
+i $6 Palli Geometrici. ‘ 
+
+Ma fia prima della ftefla attività : e nella no*' 
+lira Tavola fi cerchi, fe v’ha nella feconda colon* 
+na il numero zpo , e qual quantità di polvere gli 
+fia corrifpondente ; e fi troverà che in fatti vi c ,' 
+e che al fuo fianco nella prima colonna v’ha il 13; 
+e quello vorrà dire, che colla carica di Oncie 13 
+fi manderà la bomba alla dillanza propolla di Palli 
+2po . Che fe la lunghezza del tiro non folTe ilata 
+di pafli 2po, ma in vece di 325, numero, il quale 
+non fi trova nella feconda colonna delia Tavola ; 
+allora farà d’ uopo olTervace ira quali numeri della 
+colonna medelima egli abbia luogo, che farà tra n 
+314 e il 338, differenti uno dall’ altro Palli 24,' 
+lìccome il minore di elli n^eri cioè il 314 dalla 
+lunghezza 325 differiice di Pafli iz . Si farà dunque 
+la fcguente regola aurea , fe Pafli 24 di differenza 
+nella lunghezza di due tiri fono (lati prodotti dalla 
+differenza di Oncie i nella quantità della carica, Paf- 
+fi 12 di differenza fra due altri tiri da qual differen* 
+za di carica poflbno effere prodotti ; e s’ avrà per 
+quarto proporzionale un mezzo d’ Oncia , che ag- 
+giunto a Oncie 14, corrifpondenti al minore di eflì 
+numeri 314 , darà in tutto Oncie 14 1 per la cari- 
+ca neceffaria a fpignere la bomba alla data dillanza 
+di 325 Pafli. 
+
+Ma 
+
+
+
+Digilized by Google 
+
+
+
+94 
+
+Ma fé la polvere non fia della ftefla attirità di 
+quella delle fperienze, ma di maggiore, come le con 
+Oncie 7 folTe andata la bomba ne' tiri di pruova al> 
+la didanza media di Padi i 58 in luogo di 
+che fono nella Tavola adegnati alla carica di 7 
+Oncie di polvere ; in quedo cafo per approdima- 
+zione d potrà dire, che la forza della polvere delle 
+fperienze regidrate nella Tavola , da alla forza di 
+quella, che fi ha per le mani, come il 15^ al id8, 
+ovvero il 13 al 14; fìcchè ritrovato, come prima, 
+xdie per cacciare la bomba alla didanza di Pad! 
+prefid per efempio, vi vorrebbe una carica di On- 
+cie' 14 i., quando la polvere folfe della deda attivi- 
+tà di quella della Tavola , fi dovrà iodi diminuire 
+di un quattordicefimo queda quantità di Oncie 14 
+^ , ovvero fare una regola aurea inverfa , dicendo , 
+come 14 forza della polvere che fi ha da adoprare, 
+al ig forza di quella delle fperienze ; così inverfa- 
+mente le Oncie 14 1 , colle quali fi dovrebbe cari- 
+care il Mortaio, fe non vi fode varietà nella forza 
+delle polveri, ad un quarto proporzionale, che farà 
+di Oncie 13 cioè poco meno di Oncie ig i ; e 
+queda farà la quantità di polvere con cui fi ha a 
+caricare il mortajo da 50 , affinchè vada la bomba 
+alla didanza data di gz 5 Padì . 
+
+' 'Quello, che ho detto per regola di chi avedb 
+a fervirfi ne’ tiri di polvere più attiva di quella a* 
+
+dopra- 
+
+
+
+Digilized by GoogL 
+
+
+
+9S 
+
+doprata nella coftruzione della. Tavola , fi dovrà 
+praticare nel cafo,,che fofle di attività minore con 
+accrefcere la carica fecondo la proporzione del man- 
+camento nella forza. 
+
+§. X. 
+
+Quefto metodo del paragrafo antecedente per 
+ritrovare la carica di un mortajo , quando la pol- 
+vere fia di attività differente di quella delle fpericn- 
+ze , fuppone due cofe . L’ una , che la forza di due 
+diverfe qualità di polvere fia proporzionale alle am- 
+piezze medie ottenute colla .fieffa quantità j e f al- 
+tra fi è, che le ampiezze medie fatte con polvere 
+della fteffa qualità fieno proporzionali alle cariche. 
+E quanto alla prima fuppofizione ognun vede , che 
+non può edere molto lontana dal vero , trattandoli 
+di una differenza nell’attività delle polveri, eh’ è 
+fempre leggiera : ma riguardo alla feconda , benché 
+non fia realmente vero, che le ampiezze medie fat- 
+te colla fteffa qualità di polvere fieno proporzionali 
+alle cariche ; tuttavolta nelle cariche difierenti fra 
+loro di una fola Oncia al più , può aver luogo la 
+fuppofizione, al modo ftefib come ne’ calcoli . trigo- 
+nometrici fogliono praticare i Matematici, prendenr 
+do le differenze de’ feni, cofeni ec. proponùonali al- 
+le differenze degli angoli, fe quefti non difièrifeano 
+
+fra 
+
+
+
+96 
+
+fra di loro più di un minutò primo ^ quantunque 
+dimoftrino efll medefimi non vera quella propor> 
+zione . j ' 
+
+§. XI. 
+
+Se non fi dovelTe tirar di bomba che ne’ piani 
+orizzontali, dopo la formazione delle Tavole di cui 
+abbiamo parlato, non vi farebbe difficoltà di forte, 
+lui getto delle bombe ; ma di rado accade che fiad 
+in tale clrcoftanza , mentre il più delle volte con- 
+viene gittar bombe fopra piani fuperiori o inferiori 
+all’ orizzonte del mortaio . Di quello fi prendono 
+poco penderò coloro, che inclinano più o meno il 
+Mortaio a norma della lunghezza del tiro , e delia 
+inclinazione del piano fu cui d tira ; poiché una 
+volta ammelfì i principi teorici del getto de’ proiet- 
+ti , con non molta difficoltà d -alfegna l’angolo d’ 
+inclinazione da dard al mortaio anche allora che la 
+bomba debba andare fu un piano fuperiore o infe- 
+riore : e' fe quelle verità , che fono infallibili in 
+teoria , reggelTero poi in pratica , e non vi fodero 
+circollanze , che ne cangiadero i rifultati, con que- 
+Ao mezzo fi confeguirebbe una precidone inarriva- 
+bile per altra ilrada . Ma la >ragione della redllen- 
+za del mezzo, e altre cofe minori, per cui gli Ar- 
+tiglieri di molte Nazioni hanno abbandonato inte- 
+
+ramente 
+
+
+
+Digitized by Googli 
+
+
+
+#7 
+
+ramente il metodo foprammentovato ne* piani oriz- 
+zontali, li hanno anche obbligati a non feguirlo ne* 
+piani inclinati . Quelli però fìccome ne’ piani oriz- 
+zontali hanno furrogato alla Teoria le loro proprie 
+fperienze , che ho moflrato ne paragrafi antecedenti 
+come fi potrebbero per maggiore utilità ridurre in 
+Tavole, così negl’inclinati non hanno faputo cofa 
+follituire , perchè , come abbiamo detto nel Faragra* 
+fo VI , infiniti elTendo gli angoli d’ inclinazione che 
+può avere un piano coll’orizzonte', non è polfìbile 
+farne per ogni angolo, e farebbe anche difficiiilfimo ^ 
+fe non fi volelTero fare che per un certo numero ; 
+Se dunque non fi può unire una ferie di fperienze^ 
+che fervano di norma per tirare di bomba ne’ pia- 
+ni comunque coll’orizzonte inclinati, e fe il meto- 
+do dedotto dalla fola Teorìa fi crede molto lonta- 
+no dal vero ; refta folo il rifugio di cercarne^ uno j’ 
+il quale fi appoggi bensì in qualche parte alla Teo- 
+ria , ma tenti nel tempo ftelTo di combinarìa colla 
+pratica , onde fomminifirare un’ efaCtezza maggiore 
+de’ praticati . Quello è quello che ho procurato di 
+rinvenire , e eh’ efpongo all’ efame de’ pratici Arti- 
+glieri perchè pollano conofeere fe vi fono riu- 
+feito . • 
+
+
+
+N XII. 
+
+
+
+Digilized by Google 
+
+
+
+>8 
+
+
+
+5. XII. 
+
+Ma ficcome prima di far un tiro in un piano 
+inclinato è necellàrio determinare la diftaoza oriz> 
+zontale del mortajo dallo fcopo , eh’ è inaccefllbile 
+nell’ azioni vive ; non meno che 1’ altezza dì quello 
+fopra o fotto l’orizzonte di quello, le quali due mi- 
+furé deggiono fervir di guida in tutto il corfo dell’ 
+operazione ; cosi non farà fuori di propofito dimo- 
+ilrare innanzi , come fi polTa ottenere la diftanza o- 
+rizzontale , non valendoli di altro Stromento che 
+(iella Pertica , e l’ altezza , col folo mezzo della Squa- 
+dra de’ Bombardieri , fenza ricorrere ad altri Stru- 
+menti,, che, bene fpeflb non polTono averfi in pron- 
+to. E per confeguire la prima fervirà la rifoluzione 
+del feguente Problema . , 
+
+
+
+
+§. XIIL 
+
+
+
+- -ProhUma • Mifurarc la diftanza 
+"di tm‘ punto dccefllbilc a un* pùnto 
+inaccefnbile col mezzo della ‘fola 
+pertica . . . ' 
+
+
+
+
+
+
+Sia 
+
+
+
+I 
+
+
+
+Digitized by Goo^Ic 
+
+
+
+
+
+■99 
+
+Sia dato il punto A acceflS* 
+bile, e il punto B inaccefllbile : 
+bifogna ritrovare la. dlftanza dal 
+punto A al punto B . Dal punto 
+A in una direzione, qualunque 
+AD verfo cui , non trovinfi ofta- 
+coli nel terreno, che impedifca- 
+no r operazione , fi mifuri un certo numero di Per*' 
+tiche come di 30 , e fi fegni con un paletto il pun- 
+to C , che determina tale lunghezza ; poi feguendo 
+in detta direzione a contare fino al numero di 4$ 
+Pertiche , prefc dal principio , fi fegni il punto G , 
+e finalmente il punto D dopo averne nunieratc do : 
+Sarà dunque la GD di Pertiche 15 , mentre la AG 
+è di 45 ; laonde la AG farà tripla della GD . Nella 
+direzione poi de* punti .A B fi metta , comunque fi 
+voglia, il paletto E, e mifurata la difianza fra i 
+punti E C , fi ponga nella direzione di effi punti 
+dopo C tante pertiche , piedi , ec. di quanti fi farà 
+effa trovata , fegnando così il punto H ; e per fine 
+fi fegni un altro punto F, che fia tanto nella dlre<« 
+zlone de’ punti B G, che in quella de’ punti D H j 
+e mifurata la difianza DF tra i punti D F, dico 
+che il triplo di effa DF farà uguale alla AB difianza 
+ricercata. i . 
+
+Imperciocché s’ intendano condotte le linee ret. 
+c AD AB DH ECH BGF . 
+
+N a E 
+
+
+
+Digitized by Google 
+
+
+
+lOO 
+
+E poiché la AC c uguale alla CD i elTeado 
+inendue dì Pertiche 30 , e parimenti la EC è ugua- 
+le alla CH , e r angolo al vertice EGA è uguale 
+all'angolo al vertice DCH, farà il triangolo EGA 
+uguale al triangolo DGH, e l’angolo AEG farà ugua- 
+le all’ angolo GHD ; e fono alterni : dunque la AB 
+è parallela alla DH , e in confeguenza il triangolo 
+ABG è limile al triangolo DGF, e come la AG al- 
+la GD , così farà la AB alla DF ; ma la AG è tri- 
+pla della GD ; laonde anche la AB farà tripla della 
+DF. Si triplichi pertanto la mifura ritrovata tra i 
+punti D F , e s’ avrà la diltanza AB dal punto ac- 
+celfìbile A all’ inaccellibile B ; il che bifognava 
+fare . 
+
+. §. XIV. 
+
+) La Ibpraccennata rifoluzione è limile a quella 
+che pel Problema medefimo viene fuggerita da Vau- 
+ban nell’ eccellente fuo Trattato delP j 4 ttacco, e Difefa 
+delle Pialle : anzi tutta la differenza conltfte in ciò , 
+che a me balla di condurre le AB DH folamente 
+parallele fra loro , laddove egli prefcrive che fieno 
+tirate amendue perpendicolari alla direzione AD , 
+per la qual cofa bifogna , come intende l’ Autore , 
+fervirfi di corde , che non fempre fi polTono avere 
+
+alle . 
+
+
+
+Digitized by Google 
+
+
+
+toi 
+
+
+
+alle mani ^ e con cui , quando non fòflero eftre<i 
+mamente lunghe, non fi potrà mai ottenere che la 
+AB fia parallela alla DH con quell’ efattezza come 
+nel metodo , che ho defcritto E fé anche col mez- 
+zo di foli paletti fi tiraflero amen'due le AB DH 
+perpendicolari alla AD ( il che è pure ’poflibile ) ; 
+tuttavolta ficcome l’operazione riufcirebbe lunga e 
+tediofa, còsi credo, che la rifoluzione propofi'a me- 
+riti di elTere preferita a quella del celebre Autore . 
+
+§. XV, t 
+
+-Quantunque paja a primo afpetto, che nella ri- 
+foluzione di quello Problema fi fia fuppollo orizzon- 
+tale il terreno fu cui vien fatta 1’ operazione j nul- 
+ladimeno dopo un poco di jùfleilione ognun vedrà , 
+che fi può efeguirla ugualmente anche fopra piani 
+inclinati , purché i raggi vifuali tra i punti , che fi 
+vanno di mano in mano fegnando , fieno liberi : fo- 
+lo in quello cafo converrebbe mifurare le dillanze 
+orrizzontalmente , come fi fa da’ Periti e Agrimen- 
+fori nel rilevare Difegnì di Poflelfioni polle fopra 
+colline , o monti . Parimenti è facile a conofcere, 
+che in luogo di prendere la AG tripla della GD 
+come fi è fatto , puoflì prenderla moltiplice comun- 
+que , e allora la AB farà ugualmente moltiplico 
+della DF. 
+
+§. XVI. 
+
+
+
+Digilized by Google 
+
+
+
+loi 
+
+
+
+: . ‘ XVI. 
+
+Faflìamo ora a-dìmoftrare il modo col quale fi 
+può , allora che lo fcopo fu cui dee fpignerfi la 
+bomba e il luogo ov’ è meffo il mortajo non fieno 
+nello ftelTo piano orizzontale , mifurare la differen* 
+za de’ livelli . Per ottenere la qual cofa benché val- 
+gano molti Strumenti adoprati dagl’ Ingegneri ; nulla 
+oftante mi fìa permeflò ricordare , ' come colla ftelTa 
+fquadra di cui fanno ufo gli Artiglieri , altri per gra- 
+duare più o meno il moruio , ed altri per inclinar- 
+lo Tempre ad un angolo femiretto coll’orizzonte, fi 
+polTa confeguire l’intento medefimò. 
+
+' Solo - btfognerebbe alla < 
+
+Squadra ABD aggiungere una 
+riga CD , e dividete < amen- 
+due le BD DC in parti ugua- 
+li e della maggior poffìbile 
+moltitudine, come in izoo ^ 
+parti , fe ognuna delle BD 
+DC fofle di Onde 1 8 , e fi- 
+nalmente collocare la nume- 
+razione nella BD da B verfo D, e da C verfo D ' 
+nella CD , Con quella fcmplice aggiunta vale la 
+fquadra fopraddctta a • mifurare qualunque altezza, 
+come può renderfi manifeilo a chiunque fìa fìifficien-* 
+
+’ . temen- 
+
+
+
+
+Digitized by Google 
+
+
+
+iói 
+
+temente verfato nelle Matematiche Scienze r pure per 
+facilitarne l’ufo nella ballltica. ai meno efperti , fi 
+metterà qui per diftefo il modo di fervirfene per de- 
+terminare la difièrenza de* livelli fra due ■ punti po- 
+di non nello fteflb piano orizzontale , uno de* quali 
+fia folo acceinbile , e 1* altro comunque fi voglia. 
+
+- XVII. 
+
+i 
+
+I ■ - . 
+
+Dati due punti pofti non nello 
+(lefTo piano orizzontale , uno de* quar 
+ii 'fìa folamcnte acceflibile : lì ricerca 
+la differenza de* loro livelli . 
+
+Sieno I F li due punti dati podi non nello ftef- 
+fo piano orizzontale , fi* “folb àcceflìbile': 
+^ifogna trovare la differenza de’ livelli dei punti 1 F. 
+' ■ Prima di tutto fi -determini pel ’ y-g 
+§. XF. la diftanza orizzontale fra i • ‘ >/ 
+punti I F , cioè la IL ; e fia di Pie- V ^ 
+di-8z5v: poi fi congegni fu qualche ^ 
+
+foftegno la -fquadra per modo, che b | * 
+
+il centro A fia nella fteffa direzione 
+verticale col punto I ; e indi s’ incli- 
+ni la fquadra più o meno fino a che 
+traguardando per la direzione AB,' fi 
+; trovi coll* occhio r altro punto F , c ‘ ' 
+
+. ^ lafcia- 
+
+
+
+
+IÒ4 
+
+
+
+lafciata alcun poco la fquadra in 
+quiete, ficchè pofTa fermarfi il pen- 
+dolo, oflervifi fe il filo feghi la BD,' 
+ovvero cada nel punto D , ovvero 
+/ìnalniente fe feghi la linea retta CD. 
+
+Seghi primieramente la BD, co- 
+me in quelle due ligure, nella prima 
+delle quali fi fuppoqe il punto F fo- 
+pra r orizzonte del punto I , e vice- 
+verfa nella feconda figura, ma elfen-, 
+do affatto fimile la rifoluzione di quelli due cali , 
+fi fono unite le figure, e quello che vien detto per 
+una può ugualmente applicarli anche all’ altra . Di 
+poi fi noti di quante parti è la BE ; e fiafi trovata 
+
+
+
+
+di ZIO» : • finalmente fi faccia come la BE alla 
+BA, così la dillanza orizzontale IL ad un quarto 
+proporzionale, ovvero follituendo, come iioo a 
+1200 , co» Piedi 825 a Piedi poo : e dico di tal 
+mifura elTere la differenza de’ livelli de’ punti A F • 
+Imperciocché pel punto A fi conduca 1 * orizzon- 
+tale A G : farà dunque retto 1 ’ angolo HAG , la AG 
+farà uguale alla IL ; e la GF farà la differenza de’ 
+livelli de’ punti A F * 
+
+£ perchè la AH è parallela alla GF farà 1 ’ an« 
+golo BAE uguale all’angolo AFG ; il retto poi ABE 
+è uguale al retto AGF : dunque il triangolo ABE 
+è fimile al triangolo AGF, e come la BE all^ BA, 
+
+. • : cosi 
+
+
+
+Digilized by Google 
+
+
+
+ros 
+
+còsi farà Ta AG alla GF ; il che li . era propofto di 
+diraoftrare. Pertanto fé alla retta FG, ritrovata col- 
+la fopraccennata regola aurea , s’ aggiunga nella fi- 
+gura prima, o fi tolga nella feconda, l’altezza del, 
+punto A fopra I, che può. mifurarfi. agevolmente 
+con un piombino, s’avrà la FL o fia la differenza 
+de’ livelli de’ punti J F; la quale farà per confeguen- 
+za di Piedi ^04 nella prima figura , e di piedi 8 pS 
+nella feconda, quando fia l’altezza AI di Piedi 4. 
+
+Ed è chiaro , che fe il filo della fquadra cada lui 
+punto D, allora riufcirà la AG. uguale alla GF ; e 
+però alla AG , eh’ é di Piedi 825 , aggiunta o tolta 
+r altezza AI di Piedi 4. fi conferirà 1 ’ altezza rìcetr 
+cata FL. . 
+
+Ma il filo AH interfechila CD • 
+
+in E, come in quelle due altre, figu: 
+re, c fia CE di partì 800 . È fi “ 
+
+eia come la AC alla CE, così la "V 
+IL o fia. la AG ad un quarto prò- 
+porzionale , che farà , foftituendo i 
+
+valori numerici, di Piedi 550; e di- , 
+
+co, che di quella mifurajaràla FG. 
+
+Poiché cflèndo uguali gli angoli retti FACiHAG,’ 
+tolto il comune CAG nella prima . figura e BAE 
+nella feconda , rellerà l’ angolo EAC uguale all’ an- 
+golo FAG j ma il retto ACE pure uguale :al retto 
+AGF j laonde il triangolo ACE ifacà-fimile al ltrian« 
+
+O golo 
+
+
+
+io6 
+
+golo AGF ; e perciò come la AC alla CE j cosi è 
+la AG alla GF. Se dunque alla GF fi aggiunga o lì 
+tolga la GL, eh' è di Piedi 4, s’avrà l’altezza ri- 
+cercata FL di Piedi $$4 nella figura fuperiore , e 
+di Piedi 545 nella inferiore. 
+
+\ 
+
+5. XVIII. 
+
+' Nelle prime due figure del Paragrafo anteceden- 
+te elTendo come BE a BA , cosi la AG alla GF ; e 
+la BE è minore della BA ; farà ancora la AG mi- 
+nore della GF . E nelle due fulfeguenti elTendo co- 
+me la AC alla CE , così la AG alla GF ; e la AC 
+è maggiore della CE ; farà pure la AG maggiore 
+della GF : e finalmente nel cafo in cui il filo del 
+pendolo cada fui punto D, del quale non li è fatta 
+la figura per non moltiplicarne il numero fuori di 
+propofito , farà la AG uguale alla GF . Ne’ tiri pe- 
+rò di bomba fatti fopra piani inclinati , riufeendo 
+Tempre la dillanza orizzontale IL maggiore dell’ al- 
+tezza FL e di molte pertiche , farà anche la AG 
+Tempre maggiore della GF , avvegnaché la GL non 
+lìa che di pochi piedi : laonde per miTurare T altez- 
+za dello Tcopo Topra o Totto il piano orizzontale 
+del mortaio, faremo mai Tempre nel cafo legnato 
+dalle due ultime figure , cioè in quello dove il filo 
+Tega la CD ^ Per il che era inutile Tegnare nella 
+
+Squa- 
+
+
+
+Digifized by Googte 
+
+
+
+IO? 
+
+Squadra le diyifionl della BD , ballando folo quelle 
+della CD per 1’ ufo , che ci eravamo propello di con- 
+feguire: tuttavolta per rendere univerfale lo Stru- 
+mento ho fuggerito di notare anche le diviGoni fo- 
+praddette nella BD. 
+
+
+
+§. XIX. 
+
+Ma è tempo, che venghiamo a dichiarare cok 
+me fervendoci delle Tavole fatte pe’ piani orizzon- 
+tali , di cui abbiamo a lungo parlato , polTanfi an- 
+cora far de’ tiri ne’ piani inclinati , come mi fono 
+fino da bel principio propofto di fare . E prima di 
+tutto fi richiami alla mente quello , che ho detto 
+nel §. XI . , cioè che fenza ricorrere alla Teoria 
+difficilmente o non mai fi.i>otrà .llabilire qualche 
+regola per tirare ne’ piani inclinati ; perchè in que- 
+lli , per la loro moltitudine , non fi poiTono fare 
+fperienze come negli orizzontali . Effendo dunque 
+ncceflario di ammettere , a guifa di fuppofizione , 
+qualcuna delle leggi del moto de’ proietti per cerca- 
+re un metodo di tirare di bomba ne’ piani inclina- 
+ti , io ne affumerò una delle più femplici, che fup- 
+porrò corrifpondere , fe non precifamente , alla pra- 
+tica, almeno quanto bada per poterfi contentare in 
+una materia, dove non fi tratta di una fcrupolofa 
+efattezza. Ma vi farà forfè alcuno, che mi dirà. 
+
+O 2 Se 
+
+
+
+
+io8 - 
+
+Se volete che io vi conceda come ficurà, o non 
+molto lontana dal vero una • delle leggi del moto 
+de’ proietti ; ficcome da quella ne deriveranno per 
+confeguenza anche altre ed altre , ed in fine tutta 
+la Teoria dimollrata da Meccanici, tanto fa, che 
+io fegua il metodo d’inclinare più o meno il Mor- 
+taio , dovendo tirare di bomba fopra piani orizzon- 
+tali o inclinati , fenza aver bifogno di Tavole pe’ 
+primi , e di ulteriori ritrovamenti per gli altri . Ed 
+
+10 rifpondo , che febbcne quella obbiezione fembri 
+a primo afpctto avere tutta la Tua forza , apparirà 
+nulla ollante chiaramente, dopo che avrò mollrato 
+
+11 nuovo metodo di tirare fu piani inclinati , quan- 
+
+to ei debba condurre alla verità più dell’altro, co- 
+me quello, che fi appoggia alle Tavole fatte pe’ pia- 
+ni orizzontali , della di cui accuratezza non occor- 
+re dubitare , le quali valgono a rettificare , per efpri- 
+mermi così , gli errori che per conto della fuppoft- 
+zione potrebbero infinuarli nel corfo dell’ opera- 
+zione . ■ • ' 
+
+• ' ^ ■ X X. ‘ ! 
+
+La fuppofizione adunque , che io fo è la feguen^ 
+te . Una bomba tirata fecondo l’ angolo femiretto 
+EAD coir orizzonte , deferive una parabola ABD, 
+a cui la direzione AE è tangente, e per alfe ha la 
+
+retta 
+
+
+
+Digitized by Google 
+
+
+
+• 
+
+109 
+
+retta 6C condotta ad angoli 
+retti all* ampiezza AD dal pun> 
+tp C della metà;, dalla qual ì- 
+potefi ne deriva , che tirata qua- 
+lunque retta FG parallela all’ af- 
+fé BC, farà come la BC alla FG, così il quadrato 
+della AC al rettangolo di AG in GD ; e di più, che la 
+£C, cioè la AC, farà doppia della BC. 
+
+§. XXI. 
+
+Sia dunque propofto di- tirare una bomba in un 
+luogo collocato fopra o fotto l’ orizzonte di un da- 
+to mortaio , ovvero fia da rifolverfi il feguenté Pro^ 
+blema . ' • 
+
+Dato il fito K òvè'fì"debbe pian^ 
+tare un mortajo di una data portata, 
+c il fito F ove fi ha a gittate una 
+bomba , non porti- amcndue- nello 
+rtefTo piano orizzontale : fi ricerca 
+quanta polvere abbiali a mettere nel- 
+la camera di un dato mortajo , che fi 
+vuole fèmpre inclinato fecondo un 
+angolo femiretto coll* orizzonte , per- 
+chè la bomba giunga in F ; : 
+
+Si 
+
+
+
+
+Digitized by Google 
+
+
+
+no 
+
+Si fup^nga avanti di ogni altra cofa, che s’ab^' 
+bia in pronto la Tavola , che ferve pe’ tiri orizzon- 
+tali del dato mortajo , e di cui fi farà ufo anche 
+pe* tiri inclinati coll’ orizzonte . Il punto F pertanto 
+o è fopra l’ orizzonte del punto A , o fotto . 
+
+Sia in primo luogo di fo- 
+pra : e fi mifuri , come fi è in- 
+fegnato nel XF. V orizzonta- 
+le AG ( che fi dirà orizzonta- 
+le dello fcopo per non confon- 
+derla coir altre ") col §. Xyjl. fi determini 1’ al- 
+tezza GF fopra l’orizzonte AD del mortajo ( che 
+farà detta fimilmente verticale dello fcopo medefì- 
+mo ) j e fia AG = a, GF ^ b'^ poi AFD la pa- 
+rabola j che ha da defcrivere la bomba tirata fecon- 
+do r angolo femiretto EAD per pervenire allo fco- 
+po F : e fe quello non vi fofle , ne altri oftacoli in- 
+contraflfe per cammino la bomba fi ponga, ch’ella 
+andalTe a cadere in fui piano orrizzontale AD , 
+di modo che farebbe AD 1’ ampiezza orizzontale del 
+tiro , fe poteffe la bomba feguitare il fuo corfo fi- 
+no all’ orizzonte predetto. Indi fatta AD =; x, farà 
+
+AG pel XX. uguale a ~ , la GB =: », la 
+
+2 4 
+
+GD s X — ' 
+
+t 
+
+f perchè è come la BG alla FG , cosi il qua- 
+drato della AG al rettangolo di AG in GD, faràfo- 
+
+llituen- 
+
+
+
+
+
+•E 
+
+s 
+
+
+p 
+
+tx - 
+
+
+c c 
+
+
+r D 
+
+
+
+Digitized by Goo<?l(’ 
+
+
+
+ftituendo , - e moltiplican- 
+
+4 4 
+
+do fra di loro i termini eftremi e i med) della pro- 
+porzione , levando le frazioni e riducendo , s’ avrà 
+
+r equazione -< e però x s • — - , per 
+
+avere dunque T ampiezza orizzontale AD , che de- 
+fcrìverebbe la bomba fe non folTe trattenuta dallo 
+fcopo F, non Ci ha che a fare il quadrato della li- 
+nea orizzontale AG dello fcopo, e poi dividerlo per 
+recceflTo in cui l’orizzontale AG fupera la vertica- 
+le GF dello fcopo medefìmo , mentre nel quoziente 
+s’avrà 1’ ampiezza orizzontale ricercata , che rifponr 
+de al tiro inclinato. 
+
+Ritrovata adunque quella sì fatta ampiezza o- 
+rizzontale con la regola fbpra elpreflà , non fì 'ha 
+che a vedere quanta polvere le corrifponda nella 
+Tavola de' tiri orizzontali del mortajo , che fi ha 
+d' adoperare ; imperciocché appunto quella quantità 
+dovrà fervire di càrica^ affinché la bómba perven- 
+ga allo fcopo F pollo fopra l’orizzonte del mortajQ 
+medelimo. , 
+
+Ma lo fcopo F fia fotto T orizzonte del punto 
+A , e occorra di nuovo determinare la carica del 
+mortaio , perchè la bomba vada in F . 
+
+
+
+Ili 
+
+
+
+Sia(i come prima mifura* 
+fa r orizzontale dello fcòpo 
+AG = e r altezza GF= 
+e fia ABF la parabola , che 
+)ia da delbrìverc la bomba ti- 
+rata fecondo l’angolo fcmiretto EAC per pervenire 
+In F, e AD fia 1’ ampiezza orizzontale di elTa pa- 
+
+rabola. Si chiami poiAD ::»x, farà BC a * , e 
+
+Perchè poi fta come BC aGF, co-' 
+si il quadrato della AG al rettangolo di AG in GD, 
+
+farà foftituendo - ; i ; ; 2.* : a* ^ax; laonde farà 
+4 4 ^ 
+
+^ ^ ampiezza dun- 
+
+que orizzontale AD, che rifponde al tiro ' inclinato 
+è uguale al quoziente della divifionc , che abbia per 
+dividendo il quadrato della linea orizzontale dello 
+fcopo AG, c per divifore la fumma dell’ orizzonta- 
+le AG e della verticale GF dello fcopo . Determina- 
+ta la quale, nella Tavola de’ tiri orizzontali fi rac- 
+coglierà la carica ricercata,. ' 
+
+
+
+
+i. XXIL 
+
+
+
+Digitized by Google 
+
+
+
+f. XXII. . 
+
+
+
+Sia per efempio .propofto. dì fpignere con un 
+mortaio Veneto della portata di 50 , una bomba ad 
+uno feopo alw Piedi 30 fopra T orizzonte del mor- 
+taio ; e fia l’ orizzontale ddio feopo di Piedi poo : 
+farà il quadrato di poo uguale a Stoooo, e f eccef- 
+fo di poo fopra go farà 870 , pel quale divifo il 
+numero jSioooo , s’ avrà per quoziente Piedi p gì cir- 
+ca, ovvero Paflì i8tf : x , o fempHcemente i8($.per 
+fcanfare le frazioni . Quell’ ampiezza di i8<f Palli , 
+ftccome nella Tavola ficl lì ^ova ellere fra 
+
+lì numeri 177, jpp, ebe corrifpondono , il primo 
+alla carica di 8 Onde di polvere , e *1 fecondo a 
+quella di -p^ così fi cerc h er à -col- metodo infognato 
+nel Par^^ràjo JX. <ìvaptii polvere fia neceflTaria . per 
+gittare la. bomba alla dillanza media. di x 85 PafG;-,e 
+li ritroverà , fbe debbe elTerc dì^tKÌe 8 i cioè 
+Oncie 8 , e poco più di un terzo . Sicché caricato 
+il mortajo da 50 co.B quella quantità di polvere , lì 
+potrà mandare la bomba allo feopo dillante orizzon- 
+talmente Piedi- poo , e innalzato Piedi jo! dal luo* 
+go, oy’ è collocato il pezzo, . / 1 
+
+-•i -V ’ . ^ ^ 
+
+\ • I . • . . . . } 
+
+. . ^ ‘ ^ 
+
+P §. XXIII. 
+
+
+
+*14 
+
+
+
+f . XXIII. 
+
+Per an fecondo efempio fi cerchi la carica da 
+inetterfi nel fuddetto mortaio per trafmettere la bom- 
+ba ad uno fcopo diftante Piedi xp^o , e deprelTo di 
+Piedi 50. Sarà il quadrato di IP50 uguale a 3802500, 
+e la fumma della orizzontale e verticale dello ico- 
+po‘farà di' Piedi aooo, pei qual numero divifo il 
+quadrato 380x500, fi confeguirà per quoziente Pie- 
+di ipoi i , ovvero Palli 380 circa • Nella Tavola 
+pertanto fi troverà , che T ampiezza orizzontale 380 
+è di mezzo fra i numeri 352, 387, il primo corriA 
+pondente alla Carica di id'Oncie, e l’altro a quel- 
+la di Onde 17; onde ccf iX. fi verrà a determi- 
+nare la carica di Onde 16 c poco^piìi di due terzi 
+necelTaria al nortajo da 50 , perchè arrivi la bom- 
+ba allo fcopo dittante orizzontalmente Piedi tp50, 
+c depreflb Piedi 50 dal fito, ov’ è pofto il mortaio. 
+
+§. XXIV. 
+
+Ed è per Ih fteflb roanifefto, che fe famiMezza 
+orizzontale , che corrifponde al tiro inclinato^ ' fi 
+trovi maggiore di quella , che nella Tavola dì un 
+dato mortaio , fta a fianco alla maffima carica di 
+cui fia egli capace , farà quello un fegno ficuro , 
+
+che 
+
+
+
+Digitized by Googic 
+
+
+
+che con quel sì £itto pezzo non potrà mai la bom- 
+ba giugnere nel luogo propofto: ficchè converrà a- 
+dopraroe altro di portata maggiore. 
+
+XXV. 
+
+" • . ■ t ■ ■ . * 
+
+Si oflSrrvi per tanto , che quello metodo di ti- 
+rare ne’ piani inclinati , dipende bensì io parte da 
+una Suppofiziooe tolta dalle leggi dei moto de* pro- 
+ietti, ma li appoggia principalmente alle Tavole co- 
+ftruite cogli efperimenti pc’ piani orizzontali « E fic- 
+come conviene confelTare , che fe fodero fatte una 
+volta per fempre con fomma diligenza e accuratez- 
+za , renderebbero quelle facile e ficuro ( per quan- 
+to è podìbile ) il getto delle bombe fu i piani Oriz- 
+zontali; così ancora fi dovrà concedere, che un me- 
+todo per tirare fopra gf- i n cli —t i v xt quale riduce i 
+tiri come fi aveflero a far fempre in un. piano oriz- 
+zontale, per determinare poi col mezzo, delle Ta- 
+vole la quantità di polvere da metterfi nel mortaio j 
+merita di eflere antepollo a quel medefimo , eh’ ef* 
+fendo fomminillrato dalla fola Teoria dà de’ rifulta- 
+ti , i quali a detta de’ più efperimentati Artiglieri , 
+particolarmente ne’ piani inclinati, molto dal .vero 
+fi difcollano , e fono colla pratica difeordi . E quello 
+fia per togliere quelf obbiezione, che nel XIX, mi 
+venne fatto dì propormi. l 
+
+p a ^ xxvr. . 
+
+
+
+: : : ■ • ; f XX VL' • • ' •' 
+
+Quanto fi è detto nel defcrivere il nuovo ^ mò^ 
+do di tirare ne* piani inclinati, e negli efemp) , che 
+fervono a renderne chiara la pratica, fuppone, che 
+la polvere di cui fi debba far ufo, fia della fteflTa 
+attività di quella delle Tavole : ma fe 'fi voglia ef- 
+perimentare fe in fatti fia così, bada fare uno o' più 
+tiri orizzontali di pruova , come fi è veduto nel §. 
+•JX. Non elTendo però fempre in nodra ' balìa fare 
+quedi tiri ' di ' pruova fopra un piano orizzontale , 
+così dimo non riufcirà difcaro, che io dimodri in 
+qual maniera fi polTa riconofcere , fe la polvere , 
+che fi ha d’adoprare fia della defla attività di quel- 
+la delle Tavole, o di differente, anche quando i ti- 
+ri di pruuva fi-efeguifcano fopra un piano comun- 
+que coir orizzonte inclinato: imperciocché, quando 
+fi trovi qualche divario, convenga poi fare nella ca- 
+rica' del mortaio que’ cangiamenti, che fieno propor- 
+zionati alla differenza nell’ attività. . 
+
+S. XXVII. 
+
+, ' . Si elèguifcano dunque più tiri di pruova fopra 
+un piano comunque coll’ orizzonte inclinato e Tem- 
+pre colla deffa quantità di polvere, e di quedi tiri 
+prefo un medio, fe ne fegni il luogo corrifpondente 
+fui plano inclinato col mezzo di un paletto; e indi 
+
+fi mi- 
+
+
+
+Digitized by Google 
+
+
+
+fi mìfurì la diftanza orizzontale del paletto dal mor> 
+tajo, e la fua altezza fopra o folto 1’ orizzonte di 
+quello ; e fiafi ritrovato , per efempio, che con On- 
+de 12 di polvere un Mortaio da 50 abbia fpinto là 
+bomba a un punto diftante orizzontalmente Piedi 
+Z250, e alto Piedi 50 fopra 'il pezzo : fi domanda 
+r attività della polvere adoprata. * ■ ■ ~ 
+
+Col metodo infegnato nel §. XXI. fi rinvenga 
+r ampiezza orizzontale rifpondente al tiro inclinato 
+fegnato dal paletto ; il che fi otterrà fiicendo il qua- 
+drato di raro e dividendolo per 1200 differenza fra' 
+il 1250 e il 50; e s’avrà per quoziente Piedi Z302 
+1 , ovvero Paflì z6o ~ circa , la quale ampiezza fìc- 
+come è differente dal numero 2^7, che, nella .Tavo- 
+la del §. Vili, corrifponde a Onde .1 2 di polvere ,* 
+cosi farà fegno, che la polvere adoprata è di attivi- 
+tà minore di quella -deibr- Ts -roi» j c che (la l’atti- 
+vità di una a quella dell’- altra come z6o ~ : 2^7 . 
+Se r ampiezza ritrovata foffe (lata maggiore diPaffi 
+257, l’attività della polver^de’ tiri di pruova fareb- 
+be (lata maggiore ; e uguale a quella della Tavola 
+fe il calcolo avelie dato precifamente Palli 2^7 per. 
+r ampiezza medefima . Similmente fi determinerà» 1 ’* 
+attività rifpetciva della polvere , quando i tiri di 
+■pruova fieno fatti in un piano fotto l’orizzonte dei- 
+mortaio. . , - 
+
+§. XXVIII. 
+
+
+
+f. ZXVIIL 
+
+
+
+2Xft 
+
+
+
+Allorché però fia la fòrza della polvere ; che (ì 
+debbe adoprare difTerente da quella delle Tavole, 
+conviene ricorrere anche ne* tiri inclinaci a quel fuf> 
+fragio di coi ci fiamo valuti nr/ §. IX. per gli oriz« 
+zone ali . Ma per rendere più chiaro e intelligibile 
+quanto fi è detto fino ad ora , proporremo la rifo> 
+iurione del Tegnente Efempìo compofto. ' 
+
+Debbafi con un mortajo da 50 tirare una bom> 
+ba fopra un piano inclinato; e fia' la diftanza oriz- 
+zontale dello Scopo dal mortaio di Piedi 1550, e 
+r altezza di quello fopra l’orizzonte di quello fia di 
+Piedi 20 : fi ricerca la quantità della carica ; (tante 
+che con Oncie ix di Polvere fi è fatto un tiro me- 
+dio dipntov*, per cut la bomba è arrivata ad un 
+punto diftante dal mortaio Piedi 1280 prefi orriz- 
+zontalmente, e all’altezza di Piedi 80 fopra il Tuo 
+orizzonte. 
+
+Per avere , prima di tutto , la forza rifpetti- 
+va della polvere adoprata nella pruova , fi fiiccia 
+il quadrato di Piedi 1280, e s avrà 16^8400, il 
+quale divifo per 1200 differenza fra 1280 e 80, da- 
+rà per quoziente Piedi 13^5 , ovvero Paflì 27 j 
+
+circa , in luogo di 244 , che nella Tavola del 
+Vili, corrifponde alla carica di Oncie ii . L’ at- 
+tività dunque della polvere adoprata è maggiore 
+
+di 
+
+
+
+Digitized by GoogK 
+
+
+
+11 ^ 
+
+di quella della Tavola, e la prima fta alla fecon- 
+da come 27g : 244, o prollimamente come io : p. 
+
+Ora dÌYÌfo il quadrato 2722500 di Piedi 1650, 
+diftanza orizzontaie dallo Scopo, peritf^ differenza 
+fra la detta orizzontale e f altezza ao dello fcopo 
+medeGmo , s’ avrà per quoziente Piedi 1570 JS , ov- 
+vero Palli 334 per 1 ’ ampiezza orizzontele , che rif- 
+ponde al tiro inclinato da farfi . Si cerchi ora nel- 
+la Tavola del mortaio da 50 fra quali numeri (ia 
+quelli’ ampiezza, e li ritroverà eflere fra U ^14 C"H 
+3g8 , che fono l’ ampiezze fpettanti una alla xarìca 
+di 14 Onde, e f altra affa carica di Oncie 15. La 
+differenza tra quelle ampiezze è 24, e la differen- 
+za fra la minore 314 e la noftra ampiezza di 334 
+è 20 : onde £icciafi guefta «nrea j come 24 
+
+a I Onda di Polvere così 20 ad un quarto pro- 
+porzionale , che farà ^ d’ Onda ; di modo che la 
+polvere da metterfi nel mortajo dovrebbe elTere di 
+Onde 14 2 -, ^ella ibfle della fteffa atdvlfà d? quel- 
+la della Tavola ; ma eflèndo £ maggiore ve ne 
+vorrà una quantità minore ; = e fi iàprà agevolmen- 
+te quanto debba eflere, dicendo ( iMggsfi il IX ), 
+come il IO forza della polvere che fi dee adoprare , 
+al p forza di quella delle Tavole, cod inverfamen- 
+te le Oncie 14 i ad un quarto proporzionale 13^,' 
+ovvero poco più di Oncie 13 e un terzo per la ca-. 
+nca neceflaria all’ uopo. 
+
+f xm. 
+
+
+
+Digitized by Google 
+
+
+
+
+X20 
+
+f. XXIX. 
+
+• : • J 
+
+Spero, che non riufcirà difaggradevole quella mia 
+tenue fatica a quegli Artiglieri , che non vogliono 
+fidarli del metodo dedotto dalla fola Teoria ma 
+amano di attenerli , per quanto è polfibiie , alla 
+pratica, pe’ quali unicamente ella può valere. Elfi, 
+che per gli tiri ne* piani inclinati fono collretti di 
+andare a tentone nel determinare la carica, non do- 
+vrebbero ricufare il nuovo metodo , che loro pre- 
+fento , il quale fe non fomminiftrerà precifamente 
+quello . che conduce al vero , fervirà almeno per ot- 
+tenere una baftevole approlllmazione , e farà ad o- 
+gni modq^^referibile all’ incertezza prefente . Mon 
+jK>trà negarli almeno a quella Operetta , comunque 
+ila ella dal Pubblico accolta , il merito di eflere fia- 
+to intraprefa fpezialmente , per vantaggio degli Arti- 
+glieri della Repubblica Serenifiima , al cui fervigiq 
+ho r onore di efiere , i quali fono del genere anzU 
+dettp, e non hanno fino adefib, avuto regola di for<« 
+te per tirare di. bomba fu i piani inclinati, . 
+
+F/fie dtlF Opufcolo Secondo fui gettQ 
+delle Bombe, 
+
+■■ I ■ I 
+
+
+
+I 
+
+
+
+rr,^9r.i\ 
+
+
+
+
+Digitized'by Coogle 
+
+
+
+
+
+Digitized by Google 
+
+
+
+
+Digitizect by Google 
+
+
+
+

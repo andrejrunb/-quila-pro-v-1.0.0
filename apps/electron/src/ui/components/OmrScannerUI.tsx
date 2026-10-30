@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
+  ArrowLeft,
   Camera,
   CheckCircle,
   XCircle,
@@ -55,9 +56,10 @@ interface FullOmrReport {
 
 export interface OmrScannerUIProps {
   onNavigate?: (page: string) => void;
+  onBack?: () => void;
 }
 
-export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate }) => {
+export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }) => {
   const [activeTab, setActiveTab] = useState<'SCANNER' | 'CRIAR_SIMULADO' | 'IMPRIMIR_GABARITO'>('SCANNER');
   
   // Lista de templates carregados
@@ -434,6 +436,17 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate }) => {
       {/* ── Sub-Header de Navegação das Abas ── */}
       <header className="omr-main-toolbar glass-card">
         <div className="toolbar-left">
+          {onBack && (
+            <button
+              type="button"
+              className="omr-tab-btn"
+              onClick={onBack}
+              style={{ marginRight: '12px', background: 'rgba(255, 255, 255, 0.08)' }}
+              aria-label="Voltar para a página anterior"
+            >
+              <ArrowLeft size={16} /> Voltar
+            </button>
+          )}
           <div className="omr-icon-badge">
             <Camera size={22} className="text-cyan-400" />
           </div>
@@ -516,13 +529,30 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate }) => {
                 disabled={isScanning || isProcessing}
                 aria-label="Turma Selecionada"
               >
-                <option value="F-EF26A">6º Ano A — Colégio Áquila Modelo</option>
-                <option value="F-EF26B">6º Ano B — Colégio Áquila Modelo</option>
-                <option value="F-EF27A">7º Ano A — Colégio Áquila Modelo</option>
-                <option value="F-EF27B">7º Ano B — Colégio Áquila Modelo</option>
-                <option value="F-EM1A">1ª Série A (EM) — Colégio Áquila Modelo</option>
-                <option value="F-EM2A">2ª Série A (EM) — Colégio Áquila Modelo</option>
-                <option value="F-EM3A">3ª Série A (EM) — Colégio Áquila Modelo</option>
+                <optgroup label="Preparatório & Alta Performance">
+                  <option value="MED-EXT">Turma Medicina — Extensivo 2ª Fase</option>
+                </optgroup>
+                <optgroup label="Ensino Médio & ENEM">
+                  <option value="F-EM3A">3ª Série A (EM) — Colégio Áquila Modelo</option>
+                  <option value="F-EM2A">2ª Série A (EM) — Colégio Áquila Modelo</option>
+                  <option value="F-EM1A">1ª Série A (EM) — Colégio Áquila Modelo</option>
+                  <option value="F-EM1B">1ª Série B (EM) — Colégio Áquila Modelo</option>
+                </optgroup>
+                <optgroup label="Fundamental II (6º ao 9º Ano)">
+                  <option value="F-EF29A">9º Ano A — Colégio Áquila Modelo</option>
+                  <option value="F-EF28A">8º Ano A — Colégio Áquila Modelo</option>
+                  <option value="F-EF27A">7º Ano A — Colégio Áquila Modelo</option>
+                  <option value="F-EF27B">7º Ano B — Colégio Áquila Modelo</option>
+                  <option value="F-EF26A">6º Ano A — Colégio Áquila Modelo</option>
+                  <option value="F-EF26B">6º Ano B — Colégio Áquila Modelo</option>
+                </optgroup>
+                <optgroup label="Fundamental I (1º ao 5º Ano)">
+                  <option value="F-EF15A">5º Ano A — Fundamental I</option>
+                  <option value="F-EF14A">4º Ano A — Fundamental I</option>
+                  <option value="F-EF13A">3º Ano A — Fundamental I</option>
+                  <option value="F-EF12A">2º Ano A — Fundamental I</option>
+                  <option value="F-EF11A">1º Ano A — Fundamental I (Alfabetização)</option>
+                </optgroup>
               </select>
             </div>
 
@@ -962,13 +992,30 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate }) => {
                   aria-label="Turma para Impressão em Lote"
                   style={{ minWidth: '150px' }}
                 >
-                  <option value="F-EF26A">6º Ano A</option>
-                  <option value="F-EF26B">6º Ano B</option>
-                  <option value="F-EF27A">7º Ano A</option>
-                  <option value="F-EF27B">7º Ano B</option>
-                  <option value="F-EM1A">1ª Série A (EM)</option>
-                  <option value="F-EM2A">2ª Série A (EM)</option>
-                  <option value="F-EM3A">3ª Série A (EM)</option>
+                  <optgroup label="Preparatório & Alta Performance">
+                    <option value="MED-EXT">Turma Medicina (Extensivo)</option>
+                  </optgroup>
+                  <optgroup label="Ensino Médio & ENEM">
+                    <option value="F-EM3A">3ª Série A (EM)</option>
+                    <option value="F-EM2A">2ª Série A (EM)</option>
+                    <option value="F-EM1A">1ª Série A (EM)</option>
+                    <option value="F-EM1B">1ª Série B (EM)</option>
+                  </optgroup>
+                  <optgroup label="Fundamental II">
+                    <option value="F-EF29A">9º Ano A</option>
+                    <option value="F-EF28A">8º Ano A</option>
+                    <option value="F-EF27A">7º Ano A</option>
+                    <option value="F-EF27B">7º Ano B</option>
+                    <option value="F-EF26A">6º Ano A</option>
+                    <option value="F-EF26B">6º Ano B</option>
+                  </optgroup>
+                  <optgroup label="Fundamental I">
+                    <option value="F-EF15A">5º Ano A</option>
+                    <option value="F-EF14A">4º Ano A</option>
+                    <option value="F-EF13A">3º Ano A</option>
+                    <option value="F-EF12A">2º Ano A</option>
+                    <option value="F-EF11A">1º Ano A (Alfabetização)</option>
+                  </optgroup>
                 </select>
               )}
 

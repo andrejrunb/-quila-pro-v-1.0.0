@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: file:; font-src 'self' data:; connect-src 'self' ws://localhost:9000 http://localhost:9000 http://localhost:3001;" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: file: https://i.ytimg.com https://img.youtube.com https://avatars.githubusercontent.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' ws://localhost:9000 http://localhost:9000 http://localhost:3001 https://www.googleapis.com https://youtube.googleapis.com;" />
   <title>Áquila Pro - Sistema de Segurança e Engajamento Escolar</title>
   <style>
     * {
@@ -77,7 +77,7 @@
     window.onerror = function(msg, url, line, col, error) {
       var errorMsg = "ERRO NO RENDERER:\n" + msg + "\nURL: " + url + "\nLinha: " + line;
       console.error(errorMsg, error);
-      alert(errorMsg);
+      // alert(errorMsg);
     };
   </script>
   <script type="module" src="/src/index.tsx"></script>

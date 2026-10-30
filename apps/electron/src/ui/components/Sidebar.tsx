@@ -3,7 +3,7 @@ import {
   LayoutDashboard, BarChart3, Bell, Users, BookOpen,
   Camera, Map, FileText, Settings, ShieldCheck, 
   Search, ChevronRight, LogOut, CreditCard, Globe, UserPlus, Box, Radio, Activity, Sparkles, ScanFace, DoorOpen, ShoppingBag, Brain, Moon, Command, TrendingUp,
-  Cctv, Leaf, Infinity, Clock, Share2, Cpu, Eye, FileCheck, LayoutGrid, Key, Shield, Wind, Briefcase, Heart, History, Library, Zap, User
+  Cctv, Leaf, Infinity, Clock, Share2, Cpu, Eye, FileCheck, LayoutGrid, Key, Shield, Wind, Briefcase, Heart, History, Library, Zap, User, Crown, Tv
 } from 'lucide-react';
 import { LogoffProtocol } from './LogoffProtocol';
 import './Sidebar.css';
@@ -114,6 +114,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'reports-hub', label: 'Relatórios & Laudos', icon: <FileText size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director', 'secretary'] },
     { id: 'diary', label: 'Diário de Classe', icon: <BookOpen size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher'] },
     { id: 'ai-lab', label: 'Córtex AI Lab', icon: <Sparkles size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student'] },
+    { id: 'cosmetics-chamber', label: 'Banners & Cosméticos', icon: <Crown size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student', 'aluno'] },
+    { id: 'youtube-radar', label: 'Videoaulas YouTube', icon: <Tv size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student', 'aluno', 'director'] },
     { id: 'predictive-dashboard', label: 'Radar de Evasão', icon: <Activity size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director'] },
     { id: 'sovereign-library', label: 'Biblioteca Pedagógica', icon: <Library size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student', 'director'] },
     { id: 'classroom-dashboard', label: 'Painel da Sala', icon: <Clock size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'docente', 'secretary'] },

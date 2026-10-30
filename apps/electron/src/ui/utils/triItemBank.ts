@@ -7,6 +7,7 @@
 
 export interface TriQuestion {
   id: string;
+  stage?: 'EF_ANOS_INICIAIS' | 'EF_ANOS_FINAIS' | 'ENSINO_MEDIO' | 'VESTIBULAR_MEDICINA';
   area: 'matematica' | 'natureza' | 'linguagens' | 'humanas';
   discipline: string;
   skillCode: string;
@@ -19,6 +20,7 @@ export interface TriQuestion {
   options: { letter: 'A' | 'B' | 'C' | 'D' | 'E'; text: string }[];
   correctAnswer: 'A' | 'B' | 'C' | 'D' | 'E';
   socraticExplanation: string;
+  rubricCriteria?: { criterion: string; weight: number; keyGuideline: string }[];
 }
 
 export interface TriScoreResult {
@@ -33,6 +35,361 @@ export interface TriScoreResult {
 }
 
 export const TRI_ITEM_BANK: TriQuestion[] = [
+  // ==========================================
+  // FUNDAMENTAL I (ANOS INICIAIS — MATIFIC / EDUCADOR)
+  // ==========================================
+  {
+    id: 'TRI-FUND1-MAT-01',
+    stage: 'EF_ANOS_INICIAIS',
+    area: 'matematica',
+    discipline: 'Matemática',
+    skillCode: 'EF03MA06',
+    skillDescription: 'Resolver problemas de adição e agrupamento com números naturais em contexto lúdico.',
+    difficulty: 'facil',
+    paramA: 1.05,
+    paramB: -2.10,
+    paramC: 0.15,
+    text: 'Em uma horta escolar, a turma do 3º ano colheu 4 caixas com 10 cenouras cada uma e mais 7 cenouras soltas. Quantas cenouras foram colhidas ao todo pelos estudantes?',
+    options: [
+      { letter: 'A', text: '37 cenouras' },
+      { letter: 'B', text: '40 cenouras' },
+      { letter: 'C', text: '47 cenouras' },
+      { letter: 'D', text: '54 cenouras' },
+      { letter: 'E', text: '74 cenouras' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'Multiplique as 4 caixas por 10 (4 x 10 = 40) e some com as 7 cenouras soltas (40 + 7 = 47).'
+  },
+  {
+    id: 'TRI-FUND1-LP-01',
+    stage: 'EF_ANOS_INICIAIS',
+    area: 'linguagens',
+    discipline: 'Língua Portuguesa',
+    skillCode: 'EF05LP01',
+    skillDescription: 'Localizar informações explícitas e inferir sentidos em textos narrativos e fábulas.',
+    difficulty: 'facil',
+    paramA: 1.10,
+    paramB: -1.90,
+    paramC: 0.15,
+    text: 'Leia o trecho da fábula: "A cigarra passou o verão cantando, enquanto a formiga juntava grãos no formigueiro para se proteger do inverno rigoroso." Segundo o texto, qual era o objetivo da formiga ao juntar grãos?',
+    options: [
+      { letter: 'A', text: 'Aprender novas canções com a cigarra' },
+      { letter: 'B', text: 'Proteger-se e ter alimento no inverno' },
+      { letter: 'C', text: 'Vender as sementes na feira da floresta' },
+      { letter: 'D', text: 'Apenas brincar com os outros insetos' },
+      { letter: 'E', text: 'Construir uma casa nova para o verão' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'O texto afirma explicitamente que a formiga juntava grãos "para se proteger do inverno rigoroso".'
+  },
+
+  // ==========================================
+  // FUNDAMENTAL II (ANOS FINAIS — INVESTIGAÇÃO & SIMULAÇÕES)
+  // ==========================================
+  {
+    id: 'TRI-FUND2-MAT-01',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'matematica',
+    discipline: 'Matemática',
+    skillCode: 'EF09MA06',
+    skillDescription: 'Reconhecer funções afins e relações de proporcionalidade direta.',
+    difficulty: 'medio',
+    paramA: 1.30,
+    paramB: -0.40,
+    paramC: 0.20,
+    text: 'Um robô educacional move-se em linha reta com velocidade constante de 1,5 metros por segundo. Qual equação representa a distância percorrida d (em metros) em função do tempo t (em segundos)?',
+    options: [
+      { letter: 'A', text: 'd = 1,5 + t' },
+      { letter: 'B', text: 'd = 1,5t' },
+      { letter: 'C', text: 'd = t / 1,5' },
+      { letter: 'D', text: 'd = 1,5t²' },
+      { letter: 'E', text: 'd = 3t - 1,5' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Com velocidade constante de 1,5 m/s, a cada segundo percorrido a distância aumenta em 1,5 m: d = v · t = 1,5t.'
+  },
+  // --- Ciências 7º Ano (Básica SPE / Positivo On - Volumes 1 a 4) ---
+  {
+    id: 'TRI-FUND2-CIEN-01',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI12',
+    skillDescription: 'Demonstrar que o ar é uma mistura de gases, compreender o efeito estufa natural e a umidade transportada pelos rios voadores (Vol. 1).',
+    difficulty: 'facil',
+    paramA: 1.15,
+    paramB: -0.80,
+    paramC: 0.20,
+    text: 'Os "rios voadores" são massas de ar carregadas de vapor de água que se deslocam da Bacia Amazônica até as regiões Centro-Oeste, Sudeste e Sul do Brasil, provocando chuvas fundamentais para o clima e a agricultura. Esse fenômeno depende diretamente de qual processo biológico realizado pelas grandes florestas tropicais?',
+    options: [
+      { letter: 'A', text: 'Respiração anaeróbica dos microorganismos do solo.' },
+      { letter: 'B', text: 'Evapotranspiração pelas copas das árvores florestais.' },
+      { letter: 'C', text: 'Fotossíntese que libera oxigênio gasoso na troposfera.' },
+      { letter: 'D', text: 'Fixação biológica de nitrogênio por bactérias radiculares.' },
+      { letter: 'E', text: 'Combustão espontânea de biomassa na estação seca.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'As árvores da Amazônia bombeiam água do solo para a atmosfera através da transpiração foliar; somada à evaporação dos corpos hídricos, forma-se a evapotranspiração que abastece os rios voadores.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN-02',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI07',
+    skillDescription: 'Caracterizar os ecossistemas e biomas brasileiros (Cerrado, Caatinga, Amazônia) e as adaptações da vegetação (Vol. 2).',
+    difficulty: 'medio',
+    paramA: 1.25,
+    paramB: -0.30,
+    paramC: 0.20,
+    text: 'Ao percorrer uma trilha no Cerrado brasileiro durante a estação seca, um grupo de estudantes do 7º ano observou árvores com troncos tortuosos, cascas espessas e corticosas, além de raízes extremamente profundas. Essas adaptações morfológicas das plantas do Cerrado têm como principais funções:',
+    options: [
+      { letter: 'A', text: 'Reter excesso de água no topo da copa e evitar o congelamento foliar noturno.' },
+      { letter: 'B', text: 'Proteção contra a passagem rápida do fogo periódico e acesso a lençóis freáticos profundos.' },
+      { letter: 'C', text: 'Absorção de radiação ultravioleta prejudicial e aumento da taxa de fecundação por vento.' },
+      { letter: 'D', text: 'Impedir a fixação de epífitas e facilitar a queda precoce de sementes carnosas.' },
+      { letter: 'E', text: 'Facilitar a dispersão de pólen exclusivamente por aves migratórias de grande porte.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'A casca grossa (cortiça) atua como isolante térmico contra queimadas naturais sazonais, enquanto raízes axiais profundas alcançam a água acumulada no lençol freático durante a seca.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN-03',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI10',
+    skillDescription: 'Argumentar sobre a importância da vacinação para a saúde pública e a memória imunológica (Vol. 3).',
+    difficulty: 'facil',
+    paramA: 1.20,
+    paramB: -0.70,
+    paramC: 0.20,
+    text: 'As campanhas de vacinação escolar são estratégias prioritárias de saúde pública para prevenir doenças como poliomielite, sarampo e HPV. Quando uma criança recebe uma vacina, o princípio ativo presente no imunizante atua no organismo:',
+    options: [
+      { letter: 'A', text: 'Injetando antibióticos potentes capazes de destruir vírus no fluxo sanguíneo.' },
+      { letter: 'B', text: 'Substituindo imediatamente as hemácias para aumentar o transporte de oxigênio.' },
+      { letter: 'C', text: 'Apresentando antígenos atenuados ou inativados para estimular a produção de anticorpos e células de memória.' },
+      { letter: 'D', text: 'Destruindo a flora bacteriana intestinal para eliminar competidores do sistema digestório.' },
+      { letter: 'E', text: 'Alterando o código genético nuclear das células epiteliais contra agentes estranhos.' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'A vacina estimula o sistema imune (imunização ativa) através de antígenos atenuados/inativados, gerando linfócitos B de memória e anticorpos específicos antes de uma infecção real.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN-04',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI01',
+    skillDescription: 'Discutir a aplicação pelas máquinas simples das forças para multiplicar ou equilibrar esforços (Vol. 3).',
+    difficulty: 'medio',
+    paramA: 1.35,
+    paramB: 0.10,
+    paramC: 0.20,
+    text: 'Uma tesoura comum utilizada na escola é um exemplo clássico de máquina simples classificada como alavanca interfixa. Nela, o ponto de apoio (eixo) fica localizado entre:',
+    options: [
+      { letter: 'A', text: 'O cabo e a mão do estudante que segura a ferramenta.' },
+      { letter: 'B', text: 'A força potente (onde se aperta o cabo) e a força resistente (onde o papel é cortado pela lâmina).' },
+      { letter: 'C', text: 'A extremidade das duas lâminas cortantes e o ar ambiente.' },
+      { letter: 'D', text: 'O papel a ser cortado e a mesa de trabalho onde ele está apoiado.' },
+      { letter: 'E', text: 'O dedo polegar e os outros quatro dedos da mesma mão.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Na alavanca interfixa, o ponto de apoio (fulcro/eixo giratório) está situado entre a força potente aplicada pelo usuário e a força resistente exercida pelo objeto a ser cortado.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN-05',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF07CI02',
+    skillDescription: 'Diferenciar temperatura e calor, e analisar os processos de propagação térmica (Vol. 4).',
+    difficulty: 'dificil',
+    paramA: 1.40,
+    paramB: 0.50,
+    paramC: 0.20,
+    text: 'Ao colocar uma colher de metal dentro de uma panela com sopa fervente no fogão, uma pessoa percebe que o cabo da colher esquenta rapidamente após alguns minutos, mesmo estando fora do líquido. O principal mecanismo de transferência de calor responsável pelo aquecimento do metal do cabo é a:',
+    options: [
+      { letter: 'A', text: 'Convecção térmica, gerada pela circulação de massas de metal quente para cima.' },
+      { letter: 'B', text: 'Condução térmica, transferida de partícula em partícula ao longo da estrutura cristalina do metal.' },
+      { letter: 'C', text: 'Irradiação térmica exclusiva através de ondas eletromagnéticas visíveis.' },
+      { letter: 'D', text: 'Dilatação anômala da colher que produz energia térmica por atrito interno.' },
+      { letter: 'E', text: 'Fusão nuclear espontânea dos núcleos dos átomos metálicos da colher.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Nos sólidos metálicos, a propagação do calor ocorre predominantemente por condução: a agitação térmica dos átomos aquecidos é transferida por contato aos vizinhos ao longo do corpo.'
+  },
+  // ==========================================
+  // CIÊNCIAS — 8º ANO ENSINO FUNDAMENTAL (SPE / BNCC VOLS 1 A 4)
+  // ==========================================
+  {
+    id: 'TRI-FUND2-CIEN8-01',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI12',
+    skillDescription: 'Justificar os movimentos cíclicos da Lua e da Terra explicando a ocorrência dos eclipses e fases lunares (Vol. 1).',
+    difficulty: 'facil',
+    paramA: 1.25,
+    paramB: -0.80,
+    paramC: 0.20,
+    text: 'Um eclipse solar total é um espetáculo astronômico que ocorre quando a Lua se posiciona exatamente entre a Terra e o Sol. Para que esse fenômeno astronômico possa ser observado em determinada faixa da superfície terrestre, a Lua deve estar obrigatoriamente na fase:',
+    options: [
+      { letter: 'A', text: 'Cheia.' },
+      { letter: 'B', text: 'Nova.' },
+      { letter: 'C', text: 'Quarto Crescente.' },
+      { letter: 'D', text: 'Quarto Minguante.' },
+      { letter: 'E', text: 'Gibosa iluminada.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'No eclipse solar, a Lua está alinhada entre a Terra e o Sol, projetando sua sombra sobre a Terra. Essa configuração geométrica de conjunção ocorre exclusivamente na fase de Lua Nova.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN8-02',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI15',
+    skillDescription: 'Identificar as variáveis que influenciam a previsão do tempo e analisar o avanço de massas de ar (Vol. 1).',
+    difficulty: 'medio',
+    paramA: 1.45,
+    paramB: 0.20,
+    paramC: 0.20,
+    text: 'Ao analisar um mapa meteorológico sinótico, um estudante observa o avanço rápido de uma massa de ar frio e denso que empurra e eleva forçadamente uma massa de ar quente e úmido pré-existente. Esse encontro de frentes meteorológicas costuma provocar na região afetada:',
+    options: [
+      { letter: 'A', text: 'Período prolongado de estiagem, céu limpo e aumento brusco da pressão atmosférica no solo.' },
+      { letter: 'B', text: 'Formação rápida de nuvens cumulonimbus, chuvas intensas acompanhadas de rajadas de vento e queda de temperatura.' },
+      { letter: 'C', text: 'Aquecimento adiabático generalizado com dissipação total de qualquer nebulosidade.' },
+      { letter: 'D', text: 'Inversão térmica permanente que impede qualquer condensação de vapor de água.' },
+      { letter: 'E', text: 'Ocorrência de nevoeiro de radiação restrito exclusivamente ao período vespertino.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'A frente fria atua como uma cunha densa que força o ar quente e úmido a subir rapidamente. A convecção severa gera condensação rápida em nuvens cumulonimbus, trazendo tempestades e queda de temperatura.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN8-03',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI04',
+    skillDescription: 'Calcular o consumo de eletrodomésticos a partir da potência e do tempo de uso em kWh (Vol. 2).',
+    difficulty: 'medio',
+    paramA: 1.60,
+    paramB: 0.35,
+    paramC: 0.20,
+    text: 'Em uma residência, um chuveiro elétrico de potência 5.000 W (5 kW) é utilizado pelos membros da família durante um total acumulado de 1 hora por dia ao longo de um mês de 30 dias. Sabendo que a tarifa cobrada pela concessionária de energia elétrica é de R$ 0,80 por cada quilowatt-hora (kWh) consumido, qual é o valor em reais referente exclusivamente ao uso do chuveiro nessa fatura?',
+    options: [
+      { letter: 'A', text: 'R$ 40,00' },
+      { letter: 'B', text: 'R$ 80,00' },
+      { letter: 'C', text: 'R$ 120,00' },
+      { letter: 'D', text: 'R$ 150,00' },
+      { letter: 'E', text: 'R$ 200,00' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'Energia mensal consumida: E = Potência (kW) * Tempo diário (h) * Dias = 5 kW * 1 h/dia * 30 dias = 150 kWh. Custo na fatura: 150 kWh * R$ 0,80 = R$ 120,00.'
+  },
+  {
+    id: 'TRI-FUND2-CIEN8-04',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI08',
+    skillDescription: 'Analisar e comparar métodos contraceptivos e estratégias de prevenção de ISTs na saúde pública (Vol. 3).',
+    difficulty: 'facil',
+    paramA: 1.30,
+    paramB: -0.50,
+    paramC: 0.20,
+    text: 'Dentre as diversas estratégias contraceptivas disponíveis na rede pública de saúde, qual é o único método que oferece proteção simultânea e eficaz tanto contra a gravidez não planejada quanto contra a transmissão de Infecções Sexualmente Transmissíveis (ISTs, como HIV, HPV e sífilis)?',
+    options: [
+      { letter: 'A', text: 'Pílula anticoncepcional oral combinada.' },
+      { letter: 'B', text: 'Preservativo (camisinha masculina ou feminina).' },
+      { letter: 'C', text: 'Dispositivo Intrauterino (DIU de cobre ou hormonal).' },
+      { letter: 'D', text: 'Método da tabelinha comportamental (ogino-knaus).' },
+      { letter: 'E', text: 'Cirurgia de laqueadura tubária ou vasectomia.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Os métodos de barreira física, especificamente os preservativos (camisinha externa ou interna), são os únicos métodos com eficácia comprovada de dupla proteção (previne gestação e impede a transmissão de patógenos por contato sexual).'
+  },
+  {
+    id: 'TRI-FUND2-CIEN8-05',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI07',
+    skillDescription: 'Comparar a anatomia e a fisiologia dos animais vertebrados e suas adaptações ecológicas (Vol. 4).',
+    difficulty: 'dificil',
+    paramA: 1.70,
+    paramB: 1.10,
+    paramC: 0.20,
+    text: 'A conquista definitiva do ambiente terrestre pelos répteis e a posterior irradiação adaptativa de aves e mamíferos foram viabilizadas por um conjunto de inovações evolutivas cruciais. A característica embrionária compartilhada por esses três grupos de vertebrados (amniotas) que garantiu independência da água para o desenvolvimento do embrião é a presença de:',
+    options: [
+      { letter: 'A', text: 'Fecundação externa em ambientes lênticos rasos.' },
+      { letter: 'B', text: 'Ovo amniótico dotado de casca protetora e anexos embrionários (âmnio, cório e alantoide).' },
+      { letter: 'C', text: 'Respiração cutânea auxiliar associada a glândulas mucosas dérmicas.' },
+      { letter: 'D', text: 'Circulação sanguínea simples e incompleta com coração de duas cavidades.' },
+      { letter: 'E', text: 'Excreção predominante de amônia de alta toxicidade.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'O surgimento do ovo amniótico (com âmnio para hidratação e proteção mecânica, alantoide para trocas gasosas/excreção e cório) permitiu aos amniotas (répteis, aves e mamíferos) reproduzirem-se plenamente em terra firme.'
+  },
+
+
+  // ==========================================
+  // PREPARATÓRIOS PARA MEDICINA & ALTA CONCORRÊNCIA (2ª FASE E DISCURSIVAS)
+  // ==========================================
+  {
+    id: 'TRI-MED-BIO-01',
+    stage: 'VESTIBULAR_MEDICINA',
+    area: 'natureza',
+    discipline: 'Biologia',
+    skillCode: 'MED_BIO_01',
+    skillDescription: 'Análise de herança monogênica e frequência gênica em genética médica.',
+    difficulty: 'dificil',
+    paramA: 1.95,
+    paramB: 1.85,
+    paramC: 0.10,
+    text: 'Em uma população em equilíbrio de Hardy-Weinberg, a frequência de indivíduos afetados por uma doença autossômica recessiva rara é de 1 em 10.000. Qual é a frequência aproximada de indivíduos heterozigotos portadores (carriers) saudáveis nessa população?',
+    options: [
+      { letter: 'A', text: '0,01% (~1 em 10.000)' },
+      { letter: 'B', text: '0,02% (~2 em 10.000)' },
+      { letter: 'C', text: '0,99% (~1 em 100)' },
+      { letter: 'D', text: '1,98% (~1 em 50)' },
+      { letter: 'E', text: '9,90% (~1 em 10)' }
+    ],
+    correctAnswer: 'D',
+    socraticExplanation: 'q² = 1/10000 = 0,0001, logo q = 0,01 e p = 1 - 0,01 = 0,99. A frequência de heterozigotos 2pq = 2 · (0,99) · (0,01) = 0,0198 (1,98% ou ~1 em cada 50 indivíduos).',
+    rubricCriteria: [
+      { criterion: 'Cálculo da frequência do alelo recessivo q', weight: 0.3, keyGuideline: 'Extração correta de q a partir da raiz de q².' },
+      { criterion: 'Determinação do alelo dominante p', weight: 0.2, keyGuideline: 'Aplicação de p + q = 1.' },
+      { criterion: 'Equação de heterozigose 2pq', weight: 0.5, keyGuideline: 'Substituição precisa na fórmula do equilíbrio de Hardy-Weinberg.' }
+    ]
+  },
+  {
+    id: 'TRI-MED-QUI-01',
+    stage: 'VESTIBULAR_MEDICINA',
+    area: 'natureza',
+    discipline: 'Química',
+    skillCode: 'MED_QUI_01',
+    skillDescription: 'Isomeria espacial, quiralidade e farmacodinâmica de compostos bioativos.',
+    difficulty: 'dificil',
+    paramA: 2.10,
+    paramB: 2.05,
+    paramC: 0.08,
+    text: 'A molécula do fármaco ibuprofeno possui um carbono quiral assimétrico. Apenas o enantiômero (S)-(+)-ibuprofeno é farmacologicamente ativo como inibidor da enzima ciclo-oxigenase (COX). Sobre essa relação estereoquímica, assinale a proposição correta:',
+    options: [
+      { letter: 'A', text: 'Os enantiômeros (R) e (S) apresentam pontos de fusão e densidades diferentes em meio aquoso.' },
+      { letter: 'B', text: 'O enantiômero inativo (R) não pode interagir com o sítio ativo tridimensional da enzima devido à estereoquímica geométrica de seus ligantes.' },
+      { letter: 'C', text: 'Uma mistura racêmica de ibuprofeno desvia o plano da luz polarizada para o sentido dextrógiro.' },
+      { letter: 'D', text: 'A separação de enantiômeros pode ser realizada diretamente por destilação fracionada simples sem agentes quirais.' },
+      { letter: 'E', text: 'O carbono quiral do ibuprofeno está ligado a dois radicais metil idênticos.' }
+    ],
+    correctAnswer: 'B',
+    socraticExplanation: 'Enantiômeros possuem propriedades físicas aquirais idênticas (ponto de fusão, densidade), mas interagem de maneira estéreo-específica com receptores biológicos quirais (enzimas e proteínas). Apenas a conformação (S) encaixa adequadamente no sítio catalítico.',
+    rubricCriteria: [
+      { criterion: 'Conceito de quiralidade e enantiômeros', weight: 0.4, keyGuideline: 'Identificação do carbono assimétrico com 4 ligantes distintos.' },
+      { criterion: 'Interação droga-receptor quiral', weight: 0.6, keyGuideline: 'Reconhecimento da assimetria do sítio ativo enzimático e conformação tridimensional.' }
+    ]
+  },
   // ==========================================
   // MATEMÁTICA E SUAS TECNOLOGIAS
   // ==========================================
@@ -229,6 +586,115 @@ export const TRI_ITEM_BANK: TriQuestion[] = [
     correctAnswer: 'C',
     socraticExplanation: 'Energia potencial no topo: E = m * g * h = 2 * 10 * 5 = 100 J. Trabalho do atrito na base: W_fat = F_fat * d = (μ * m * g) * d = (0,25 * 2 * 10) * d = 5 * d. Pelo teorema da energia mecânica: 100 = 5 * d => d = 20 metros.'
   },
+  // ==========================================
+  // FÍSICA — ENSINO MÉDIO / ENEM / PLURALL (MÓDULOS 5, 8, 22, 26, 33)
+  // ==========================================
+  {
+    id: 'TRI-FIS-01',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT205',
+    skillDescription: 'Análise analítica e geométrica da formação de imagens em espelhos esféricos côncavos e convexos.',
+    difficulty: 'medio',
+    paramA: 1.55,
+    paramB: 0.30,
+    paramC: 0.20,
+    text: 'Um objeto linear de 10 cm de altura é posicionado perpendicularmente ao eixo principal de um espelho esférico côncavo de raio de curvatura igual a 40 cm, a uma distância de 30 cm do vértice do espelho. A distância da imagem formada em relação ao vértice e a sua natureza são, respectivamente:',
+    options: [
+      { letter: 'A', text: '60 cm; real e invertida.' },
+      { letter: 'B', text: '60 cm; virtual e direita.' },
+      { letter: 'C', text: '30 cm; real e direita.' },
+      { letter: 'D', text: '15 cm; virtual e invertida.' },
+      { letter: 'E', text: '20 cm; real e invertida.' }
+    ],
+    correctAnswer: 'A',
+    socraticExplanation: 'O foco do espelho côncavo é f = R/2 = 40/2 = +20 cm. Pela equação de Gauss 1/f = 1/p + 1/p\': 1/20 = 1/30 + 1/p\' => 1/p\' = 1/20 - 1/30 = 1/60 => p\' = +60 cm. Como p\' > 0, a imagem é real e invertida.'
+  },
+  {
+    id: 'TRI-FIS-02',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT301',
+    skillDescription: 'Cinemática rotacional e transmissão de movimento circular por correias, correntes e engrenagens.',
+    difficulty: 'facil',
+    paramA: 1.35,
+    paramB: -0.60,
+    paramC: 0.20,
+    text: 'Em uma bicicleta esportiva, a coroa dianteira pedalada pelo ciclista tem 48 dentes e está conectada por corrente a uma catraca traseira de 16 dentes, acoplada rigidamente à roda traseira. Se o ciclista pedala a uma frequência constante de 1,5 voltas por segundo (90 rpm), qual é a frequência de rotação da roda traseira?',
+    options: [
+      { letter: 'A', text: '0,5 voltas por segundo (30 rpm)' },
+      { letter: 'B', text: '1,5 voltas por segundo (90 rpm)' },
+      { letter: 'C', text: '3,0 voltas por segundo (180 rpm)' },
+      { letter: 'D', text: '4,5 voltas por segundo (270 rpm)' },
+      { letter: 'E', text: '6,0 voltas por segundo (360 rpm)' }
+    ],
+    correctAnswer: 'D',
+    socraticExplanation: 'Na transmissão por corrente/correia periférica, as velocidades lineares são iguais: v_coroa = v_catraca => f_coroa * N_coroa = f_catraca * N_catraca. Logo: 1,5 * 48 = f_catraca * 16 => f_catraca = 72 / 16 = 4,5 voltas/s.'
+  },
+  {
+    id: 'TRI-FIS-03',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT102',
+    skillDescription: 'Termodinâmica clássica, 2ª Lei e rendimento teórico máximo de Carnot.',
+    difficulty: 'medio',
+    paramA: 1.65,
+    paramB: 0.45,
+    paramC: 0.20,
+    text: 'Uma máquina térmica opera em ciclos segundo o ciclo ideal de Carnot entre duas fontes térmicas: uma fonte quente a 527 °C e uma fonte fria a 127 °C. Se em cada ciclo a máquina recebe 2.000 J de calor da fonte quente, qual é o trabalho mecânico máximo útil que ela pode realizar por ciclo?',
+    options: [
+      { letter: 'A', text: '500 J' },
+      { letter: 'B', text: '800 J' },
+      { letter: 'C', text: '1.000 J' },
+      { letter: 'D', text: '1.200 J' },
+      { letter: 'E', text: '1.500 J' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'As temperaturas devem estar em Kelvin: T_quente = 527 + 273 = 800 K; T_fria = 127 + 273 = 400 K. O rendimento de Carnot é η = 1 - (T_fria / T_quente) = 1 - (400 / 800) = 0,50 (50%). O trabalho útil máximo é W = η * Q_quente = 0,50 * 2.000 J = 1.000 J.'
+  },
+  {
+    id: 'TRI-FIS-04',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT101',
+    skillDescription: 'Princípio de Arquimedes, empuxo e condições de equilíbrio e flutuação em hidrostática.',
+    difficulty: 'medio',
+    paramA: 1.50,
+    paramB: 0.15,
+    paramC: 0.20,
+    text: 'Um cubo de madeira de densidade 0,6 g/cm³ e volume igual a 1.000 cm³ é colocado para flutuar em repouso em um recipiente com água pura (densidade = 1,0 g/cm³). Adotando g = 10 m/s², qual é a fração do volume do cubo que permanece SUBMERSA na água?',
+    options: [
+      { letter: 'A', text: '30%' },
+      { letter: 'B', text: '40%' },
+      { letter: 'C', text: '60%' },
+      { letter: 'D', text: '70%' },
+      { letter: 'E', text: '80%' }
+    ],
+    correctAnswer: 'C',
+    socraticExplanation: 'Na flutuação estática em equilíbrio, o Peso equivale ao Empuxo: P = E => d_corpo * V_total * g = d_liquido * V_sub * g => V_sub / V_total = d_corpo / d_liquido = 0,6 / 1,0 = 0,60 (60% do cubo fica submerso).'
+  },
+  {
+    id: 'TRI-FIS-05',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT103',
+    skillDescription: 'Fenômenos ondulatórios, propagação acústica e cálculo do desvio de frequência pelo Efeito Doppler.',
+    difficulty: 'dificil',
+    paramA: 1.85,
+    paramB: 1.40,
+    paramC: 0.20,
+    text: 'Uma ambulância move-se em linha reta a uma velocidade constante de 34 m/s aproximando-se de um observador parado no acostamento. A sirene da ambulância emite um som puro com frequência natural de 900 Hz. Sabendo que a velocidade de propagação do som no ar é de 340 m/s, qual frequência aparente é percebida pelo observador?',
+    options: [
+      { letter: 'A', text: '810 Hz' },
+      { letter: 'B', text: '900 Hz' },
+      { letter: 'C', text: '950 Hz' },
+      { letter: 'D', text: '1.000 Hz' },
+      { letter: 'E', text: '1.080 Hz' }
+    ],
+    correctAnswer: 'D',
+    socraticExplanation: 'Pela equação do Efeito Doppler clássico para aproximação da fonte em relação a observador em repouso: f_aparente = f_real * [v_som / (v_som - v_fonte)] = 900 * [340 / (340 - 34)] = 900 * (340 / 306) = 900 * (10 / 9) = 1.000 Hz.'
+  },
+
 
   // ==========================================
   // LINGUAGENS E SUAS TECNOLOGIAS

@@ -23,6 +23,7 @@ import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 
 // Relocated Security Pages
 import { SecurityMonitor } from '../pages/SecurityMonitor';
+import { TurnstileShadowConsole } from '../components/TurnstileShadowConsole';
 import MultiStreamGrid from '../components/MultiStreamGrid';
 import { IoTManager } from '../pages/IoTManager';
 import HardwareDiagnostics from '../pages/HardwareDiagnostics';
@@ -324,6 +325,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
         return <StudentMasteryChamber studentId="ADMIN_PREVIEW" initialMode="canvas" onBack={onBack} />;
       case 'security-monitor':
         return <SecurityMonitor />;
+      case 'turnstile-shadow':
+      case 'turnstile-pilot':
+      case 'gatekeeper-shadow':
+        return <TurnstileShadowConsole onBack={onBack} />;
       case 'multistream':
         return <MultiStreamGrid />;
       case 'iot-manager':
@@ -354,7 +359,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
         return <NetworkTrafficDashboard onBack={onBack} />;
       case 'growth-agents':
       case 'school-growth-agents':
-        return <SchoolGrowthAgentSuite />;
+        return <SchoolGrowthAgentSuite onBack={onBack} />;
       default:
         return renderExecutiveDashboard();
     }

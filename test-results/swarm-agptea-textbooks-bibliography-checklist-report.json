@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-10-26T01:41:05.397755+00:00",
+  "duration_ms": 600688.67,
+  "agptea_pdfs_discovered": 89,
+  "books_downloaded_and_extracted": 14,
+  "total_pdf_corpus_docs": 44,
+  "total_pdf_corpus_megabytes": 709.44,
+  "new_unique_questions_extracted": 948,
+  "duplicate_questions_blocked": 0,
+  "total_extracted_textbook_questions": 948,
+  "embedded_pdf_images_extracted": 112,
+  "new_svg_diagrams_created": 10,
+  "total_svg_diagrams": 140,
+  "abnt_bibliography_entries": 24,
+  "checklist_verified_items": 24,
+  "new_catalog_links_added": 89,
+  "total_catalog_links": 2103,
+  "new_sft_records_added": 85,
+  "total_sft_records": 688
+}

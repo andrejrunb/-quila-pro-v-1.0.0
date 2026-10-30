@@ -1,0 +1,134 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn721607.ca.archive.org",
+        "dir": "/0/items/dr_l-das-kaiserthum-brasilien-provinz-on-top-margin-sud-amerika-lith-v-8306027"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn721607.ca.archive.org",
+        "dir": "/0/items/dr_l-das-kaiserthum-brasilien-provinz-on-top-margin-sud-amerika-lith-v-8306027"
+      }
+    ]
+  },
+  "created": 1793242559,
+  "d1": "ia600408.us.archive.org",
+  "d2": "ia800408.us.archive.org",
+  "dir": "/2/items/dr_l-das-kaiserthum-brasilien-provinz-on-top-margin-sud-amerika-lith-v-8306027",
+  "files": [
+    {
+      "name": "8306027.jp2",
+      "source": "original",
+      "mtime": "1649074220",
+      "size": "5669034",
+      "md5": "7f61d3d666c43e82cda611f0de6499cd",
+      "crc32": "47054d98",
+      "sha1": "ebf59749843a6c18928daa6356072228cfa10e20",
+      "format": "JPEG 2000"
+    },
+    {
+      "name": "8306027.jpg",
+      "source": "original",
+      "mtime": "1649074209",
+      "size": "918443",
+      "md5": "ce8a4e8a99ec086e7fe3b380a60d8a97",
+      "crc32": "13da94be",
+      "sha1": "2d375482e89f8e5fbcb55a20d6324f591fc34616",
+      "format": "JPEG",
+      "rotation": "0"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1649074260",
+      "size": "14427",
+      "md5": "eb01be08d7b69a326b719e11c07ada75",
+      "crc32": "7aac6435",
+      "sha1": "1ddd1c54806f45877eecfa38c9aacdf46aca6648",
+      "format": "Item Tile",
+      "rotation": "0"
+    },
+    {
+      "name": "dr_l-das-kaiserthum-brasilien-provinz-on-top-margin-sud-amerika-lith-v-8306027_archive.torrent",
+      "source": "metadata",
+      "btih": "e3510765b15f284fae753a62f62278a68cc5a6d4",
+      "mtime": "1649153077",
+      "size": "2786",
+      "md5": "637e3543f5a094fad3b4d1b53ff6a7f6",
+      "crc32": "38d1adba",
+      "sha1": "f16c40bd5d5f18c291f6cd9d8f86fdf17a913d86",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "dr_l-das-kaiserthum-brasilien-provinz-on-top-margin-sud-amerika-lith-v-8306027_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "41343c0cd60513b66ba2b2f084069b2f",
+      "summation": "md5"
+    },
+    {
+      "name": "dr_l-das-kaiserthum-brasilien-provinz-on-top-margin-sud-amerika-lith-v-8306027_meta.sqlite",
+      "source": "original",
+      "mtime": "1649074227",
+      "size": "32768",
+      "md5": "258f0644f2d64da5d7a0790f99f83fb9",
+      "crc32": "06ceb9d3",
+      "sha1": "5b721816622f019abe75f02cd54542066ad854ab",
+      "format": "Metadata"
+    },
+    {
+      "name": "dr_l-das-kaiserthum-brasilien-provinz-on-top-margin-sud-amerika-lith-v-8306027_meta.xml",
+      "source": "original",
+      "mtime": "1649153076",
+      "size": "3034",
+      "md5": "91545baff37cb003c53128b8f6dce731",
+      "crc32": "388fcd88",
+      "sha1": "7a04cb23844258bad438ca61ae6e665ebe640112",
+      "format": "Metadata"
+    }
+  ],
+  "files_count": 7,
+  "item_last_updated": 1649153077,
+  "item_size": 6640492,
+  "metadata": {
+    "identifier": "dr_l-das-kaiserthum-brasilien-provinz-on-top-margin-sud-amerika-lith-v-8306027",
+    "call_number": "8306.027",
+    "collection": "david-rumsey-map-collection",
+    "coverage": [
+      "Brazil",
+      "South America"
+    ],
+    "creator": [
+      "Schlieben, Wilhelm Ernst August von (1781 - 1839)",
+      "Werner, W."
+    ],
+    "date": "1830",
+    "description": "<p>Zoomable full resolution image available at <a href=\"https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~269905~90045188\" rel=\"nofollow\">davidrumsey.com</a>.</p><p>This image <a href=\"//www.davidrumsey.com/luna/servlet/view/search?q=list_no=%228306.027%22\" rel=\"nofollow\">8306.027</a> is a part of image group <a href=\"https://www.davidrumsey.com/luna/servlet/view/search?q=pub_list_no=%228306.000%22\" rel=\"nofollow\">8306.000</a>.</p><p>Early lithographic atlas of America, published at the time of von Schlieben's completion of his Atlas Europa (published in parts, 1825 to 1830). Not in Espenhorst. Atlas of America, with 54 pages of text, index, abbreviations,and outline hand color maps, some folded. Includes Index. Bound in beige cardboard covers with decorative border, 35x26.5, title \" W. E. A. von Schlieben, Atlas von Amerika. Leipzig, bei George Joachim Goschen\".</p><p>Atlas of America, with 54 pages of text, index, abbreviations,and outline hand color maps, some folded. Includes Index. Bound in beige cardboard covers with decorative border, 35x26.5, title \" W. E. A. von Schlieben, Atlas von Amerika. Leipzig, bei George Joachim Goschen\".</p><p>Howes S 169, P11778, Sabin 776454</p>",
+    "external-identifier": [
+      "urn:davidrumsey:list-no:8306.027",
+      "urn:davidrumsey:pub-list-no:8306.000"
+    ],
+    "map-type": [
+      "National Atlas",
+      "Atlas Map"
+    ],
+    "mediatype": "image",
+    "publisher": "George Joachim Goschen, Leipzig",
+    "rights": "Images may be downloaded and used following Creative Commons CC BY-NC-SA 3.0 license. Image credit should be given to \"David Rumsey Map Collection, David Rumsey Map Center, Stanford Libraries.\"  Please contact the David Rumsey Map Collection for commercial use. <a href=\"https://www.davidrumsey.com/about/copyright-and-permissions\" rel=\"nofollow\">https://www.davidrumsey.com/about/copyright-and-permissions</a>",
+    "scanner": "Internet Archive Python library 3.0.0",
+    "size": "27x20cm",
+    "source": "https://www.davidrumsey.com/luna/servlet/detail/RUMSEY~8~1~269905~90045188",
+    "title": "L. Das Kaiserthum Brasilien Provinz. (on top margin) Sud Amerika. Lith. v. W. Werner. (to accompany) Atlas von Amerika in 30 Charten und einem erlauterndem Texte.",
+    "uploader": "jake@archive.org",
+    "publicdate": "2022-04-04 12:10:19",
+    "addeddate": "2022-04-04 12:10:19"
+  },
+  "server": "ia800408.us.archive.org",
+  "uniq": 723756142,
+  "workable_servers": [
+    "ia800408.us.archive.org",
+    "ia600408.us.archive.org"
+  ]
+}

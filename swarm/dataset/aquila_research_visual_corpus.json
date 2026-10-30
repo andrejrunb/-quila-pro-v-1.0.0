@@ -1,0 +1,742 @@
+{
+  "version": "4.1.0",
+  "generated_at": "2026-10-26T16:02:24.978577+00:00",
+  "total_visual_diagrams": 38,
+  "institutions_covered": [
+    "ENEM",
+    "UFG",
+    "UnB",
+    "UFMG",
+    "UniRV",
+    "UEG",
+    "FUVEST",
+    "UNICAMP",
+    "ITA",
+    "IME",
+    "OBMEP"
+  ],
+  "assets": [
+    {
+      "question_id": "AQUILA_MOD_001",
+      "exam_source": "ENEM",
+      "discipline": "Física",
+      "topic": "Eletrodinâmica & Consumo Residencial",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_001.svg",
+      "svg_sha256": "7564d26a1cba66f3543473a689e8026fa57e32259e75793693c6f4630c71bfc1",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.926202+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_002",
+      "exam_source": "UFG",
+      "discipline": "Física",
+      "topic": "Termologia, Calorimetria & Dilatação no Cerrado",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_002.svg",
+      "svg_sha256": "491ecc8e3866d4da20aa18d0b23bffadafd0fb8d1ff26b25c6b7fbb6a842a98a",
+      "authorship": {
+        "institution": "Universidade Federal de Goiás (UFG)",
+        "exam_board": "Instituto Verbena / Centro de Seleção UFG",
+        "original_year": 2024,
+        "scientific_reference": "Cadernos de Provas Físico-Matemáticas e Biológicas UFG",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UFG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.927877+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_003",
+      "exam_source": "UFMG",
+      "discipline": "Física",
+      "topic": "Mecânica Newtoniana, Trabalho & Conservação de Energia",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_003.svg",
+      "svg_sha256": "5ab32410f8fd982a685332e4476a470610a5052b35de00a7de0a0cce88348517",
+      "authorship": {
+        "institution": "Universidade Federal de Minas Gerais (UFMG)",
+        "exam_board": "COPEVE / UFMG",
+        "original_year": 2024,
+        "scientific_reference": "Coleção Provas Analíticas e Discursivas UFMG",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UFMG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.929519+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_004",
+      "exam_source": "UnB",
+      "discipline": "Física",
+      "topic": "Ondulatória, Acústica, Efeito Doppler & MHS (PAS 2/3)",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_004.svg",
+      "svg_sha256": "a9487066cbab2a02bbb23c847f2a2ce55bb4789c3d76ec40cf50efeac355b901",
+      "authorship": {
+        "institution": "Universidade de Brasília (UnB)",
+        "exam_board": "CEBRASPE / CESPE — PAS & Vestibular Tradicional UnB",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Objetos de Avaliação PAS/UnB Subprogramas 1, 2 e 3",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UnB / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.930935+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_005",
+      "exam_source": "UEG",
+      "discipline": "Física",
+      "topic": "Cinemática Vetorial, Lançamento Oblíquo & Hidrostática",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_005.svg",
+      "svg_sha256": "004b68daed1b43ded084eeaa0a133d0272d4969781a92e7570d3906f2484815d",
+      "authorship": {
+        "institution": "Universidade Estadual de Goiás (UEG)",
+        "exam_board": "Núcleo de Seleção da UEG",
+        "original_year": 2024,
+        "scientific_reference": "Provas Objetivas e Discursivas SAS/UEG & Vestibular Medicina",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UEG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.932304+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_006",
+      "exam_source": "UniRV",
+      "discipline": "Física",
+      "topic": "Óptica da Visão, Biofísica da Circulação & Eletrostática",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_006.svg",
+      "svg_sha256": "1cfa2cd57d8097232e6d842f1697902b9f866ad8a6d42cf26168c8787aa5a29f",
+      "authorship": {
+        "institution": "Universidade de Rio Verde (UniRV — Goiás)",
+        "exam_board": "Comissão Permanente de Vestibular (COPEVE/UniRV — Medicina)",
+        "original_year": 2024,
+        "scientific_reference": "Banca de Ciências da Natureza, Anatomofisiologia e Bioquímica UniRV",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Acadêmico UniRV / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.933406+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_007",
+      "exam_source": "ENEM",
+      "discipline": "Química",
+      "topic": "Estequiometria, Pureza, Rendimento & Química Ambiental",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_007.svg",
+      "svg_sha256": "8dd06144b10881c8a4385c8d6c8a0504274a41c123bf2ce2177556d3564839c1",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.934513+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_008",
+      "exam_source": "UniRV",
+      "discipline": "Química",
+      "topic": "Soluções, Diluição, Titulação & Tampão Sanguíneo (pH)",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_008.svg",
+      "svg_sha256": "a234d4d4d5295556b2cb92219caaf990bade0d02681d3d24fbfcfbbbc9cda631",
+      "authorship": {
+        "institution": "Universidade de Rio Verde (UniRV — Goiás)",
+        "exam_board": "Comissão Permanente de Vestibular (COPEVE/UniRV — Medicina)",
+        "original_year": 2024,
+        "scientific_reference": "Banca de Ciências da Natureza, Anatomofisiologia e Bioquímica UniRV",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Acadêmico UniRV / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.935665+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_009",
+      "exam_source": "UEG",
+      "discipline": "Química",
+      "topic": "Funções Orgânicas, Isomeria & Biocombustíveis (Etanol/Biodiesel)",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_009.svg",
+      "svg_sha256": "2532de0334e03cfe086638e8674209508e8a6008127deda98eb119d02f439000",
+      "authorship": {
+        "institution": "Universidade Estadual de Goiás (UEG)",
+        "exam_board": "Núcleo de Seleção da UEG",
+        "original_year": 2024,
+        "scientific_reference": "Provas Objetivas e Discursivas SAS/UEG & Vestibular Medicina",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UEG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.936897+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_010",
+      "exam_source": "UFG",
+      "discipline": "Química",
+      "topic": "Termoquímica, Lei de Hess & Eletroquímica (Pilhas/Eletrólise)",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_010.svg",
+      "svg_sha256": "fb1b7aba78c7734d36c2f39e530d05aa9e286630154d0b23c1ce72ca86279d6b",
+      "authorship": {
+        "institution": "Universidade Federal de Goiás (UFG)",
+        "exam_board": "Instituto Verbena / Centro de Seleção UFG",
+        "original_year": 2024,
+        "scientific_reference": "Cadernos de Provas Físico-Matemáticas e Biológicas UFG",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UFG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.937899+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_011",
+      "exam_source": "ENEM",
+      "discipline": "Matemática",
+      "topic": "Funções Afim/Quadrática, Geometria Espacial & Estatística (Média/Mediana)",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_011.svg",
+      "svg_sha256": "0cdbe2a53aad00a6cc7ee95a8e7689fa69a7c27ff134c406b6388768c55cf219",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.938904+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_012",
+      "exam_source": "UnB",
+      "discipline": "Matemática",
+      "topic": "Análise Combinatória, Probabilidade Condicional, Matrizes & Trigonometria",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_012.svg",
+      "svg_sha256": "3f2c159e59d33ea0ebfb50f3799a03025f33030f8149892a30a4e672411d44b6",
+      "authorship": {
+        "institution": "Universidade de Brasília (UnB)",
+        "exam_board": "CEBRASPE / CESPE — PAS & Vestibular Tradicional UnB",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Objetos de Avaliação PAS/UnB Subprogramas 1, 2 e 3",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UnB / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.939986+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_013",
+      "exam_source": "UFMG",
+      "discipline": "Matemática",
+      "topic": "Geometria Plana/Espacial, Logaritmos & Progressões (PA e PG)",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_013.svg",
+      "svg_sha256": "ebf528abd6fcf2b73b91feaf88d76f6a247c2e37915deb586b8e96ee87dda971",
+      "authorship": {
+        "institution": "Universidade Federal de Minas Gerais (UFMG)",
+        "exam_board": "COPEVE / UFMG",
+        "original_year": 2024,
+        "scientific_reference": "Coleção Provas Analíticas e Discursivas UFMG",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UFMG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.941153+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_014",
+      "exam_source": "UniRV",
+      "discipline": "Biologia",
+      "topic": "Fisiologia Humana, Citologia, Bioenergética & Genética Médica",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_014.svg",
+      "svg_sha256": "ed6eda17c2065ac8a9ba161043c2b68ebf9dac7c00b9c6d97109f785fb983ca5",
+      "authorship": {
+        "institution": "Universidade de Rio Verde (UniRV — Goiás)",
+        "exam_board": "Comissão Permanente de Vestibular (COPEVE/UniRV — Medicina)",
+        "original_year": 2024,
+        "scientific_reference": "Banca de Ciências da Natureza, Anatomofisiologia e Bioquímica UniRV",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Acadêmico UniRV / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.942664+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_015",
+      "exam_source": "ENEM",
+      "discipline": "Biologia",
+      "topic": "Ecologia, Ciclos Biogeoquímicos, Evolução & Biotecnologia",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_015.svg",
+      "svg_sha256": "adf48a39a6e94c6130d17eaae76c5be7306c191ef53eaef9e0427046c88b81d5",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.944070+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_016",
+      "exam_source": "UEG",
+      "discipline": "História",
+      "topic": "História de Goiás: Ciclo do Ouro, Marcha para o Oeste & Construção de Goiânia",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_016.svg",
+      "svg_sha256": "68dd3ef8410a8f790c8e13a155fcc7d52da56660723b61e289c49f75acc8533f",
+      "authorship": {
+        "institution": "Universidade Estadual de Goiás (UEG)",
+        "exam_board": "Núcleo de Seleção da UEG",
+        "original_year": 2024,
+        "scientific_reference": "Provas Objetivas e Discursivas SAS/UEG & Vestibular Medicina",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UEG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.945532+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_017",
+      "exam_source": "UFG",
+      "discipline": "Geografia",
+      "topic": "Domínio Morfoclimático do Cerrado, Hidrografia & Fronteira Agrícola",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_017.svg",
+      "svg_sha256": "b2bafe5370b7674b7dda7f22b9c1c71d26515c5a757501d053537cb3771b7cd5",
+      "authorship": {
+        "institution": "Universidade Federal de Goiás (UFG)",
+        "exam_board": "Instituto Verbena / Centro de Seleção UFG",
+        "original_year": 2024,
+        "scientific_reference": "Cadernos de Provas Físico-Matemáticas e Biológicas UFG",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UFG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.946792+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_018",
+      "exam_source": "UnB",
+      "discipline": "Português",
+      "topic": "Coesão Referencial, Reescritura Sintática Cebraspe & Literatura Brasileira",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_018.svg",
+      "svg_sha256": "3f2c159e59d33ea0ebfb50f3799a03025f33030f8149892a30a4e672411d44b6",
+      "authorship": {
+        "institution": "Universidade de Brasília (UnB)",
+        "exam_board": "CEBRASPE / CESPE — PAS & Vestibular Tradicional UnB",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Objetos de Avaliação PAS/UnB Subprogramas 1, 2 e 3",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UnB / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.948229+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_019",
+      "exam_source": "UFU",
+      "discipline": "Física",
+      "topic": "Eletromagnetismo, Força Magnética de Lorentz & Motores Elétricos",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_019.svg",
+      "svg_sha256": "7564d26a1cba66f3543473a689e8026fa57e32259e75793693c6f4630c71bfc1",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.949571+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_020",
+      "exam_source": "UFV",
+      "discipline": "Biologia",
+      "topic": "Fisiologia Vegetal, Fotossíntese & Relações Hídricas no Campo",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_020.svg",
+      "svg_sha256": "adf48a39a6e94c6130d17eaae76c5be7306c191ef53eaef9e0427046c88b81d5",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.950728+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_021",
+      "exam_source": "PUC-GO",
+      "discipline": "Química",
+      "topic": "Bioquímica Médica, Tampão Bicarbonato & Equilíbrio Ácido-Base",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_021.svg",
+      "svg_sha256": "8dd06144b10881c8a4385c8d6c8a0504274a41c123bf2ce2177556d3564839c1",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.951764+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_022",
+      "exam_source": "IFG",
+      "discipline": "Matemática",
+      "topic": "Matemática Financeira, Juros Compostos & Poder de Compra",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_022.svg",
+      "svg_sha256": "0cdbe2a53aad00a6cc7ee95a8e7689fa69a7c27ff134c406b6388768c55cf219",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.952738+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_023",
+      "exam_source": "UnB",
+      "discipline": "Física",
+      "topic": "Estática do Corpo Rígido, Momento de Força / Torque & Alavancas Biomecânicas (PAS 1)",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_023.svg",
+      "svg_sha256": "a9487066cbab2a02bbb23c847f2a2ce55bb4789c3d76ec40cf50efeac355b901",
+      "authorship": {
+        "institution": "Universidade de Brasília (UnB)",
+        "exam_board": "CEBRASPE / CESPE — PAS & Vestibular Tradicional UnB",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Objetos de Avaliação PAS/UnB Subprogramas 1, 2 e 3",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UnB / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.953813+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_024",
+      "exam_source": "UFMG",
+      "discipline": "Química",
+      "topic": "Cinética Química, Fatores que Alteram a Velocidade & Catalisadores",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_024.svg",
+      "svg_sha256": "a39f848e2b100974382d4c5c92497f9ad1159b16feee2499e2654d5143b9c7d5",
+      "authorship": {
+        "institution": "Universidade Federal de Minas Gerais (UFMG)",
+        "exam_board": "COPEVE / UFMG",
+        "original_year": 2024,
+        "scientific_reference": "Coleção Provas Analíticas e Discursivas UFMG",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UFMG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.954932+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_025",
+      "exam_source": "ENEM",
+      "discipline": "Física",
+      "topic": "Hidrostática, Empuxo de Arquimedes & Teorema de Stevin",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_025.svg",
+      "svg_sha256": "7564d26a1cba66f3543473a689e8026fa57e32259e75793693c6f4630c71bfc1",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.955936+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_026",
+      "exam_source": "UnB",
+      "discipline": "Física",
+      "topic": "Gravitação Universal, Leis de Kepler & Satélites Geoestacionários (PAS 1/3)",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_026.svg",
+      "svg_sha256": "a9487066cbab2a02bbb23c847f2a2ce55bb4789c3d76ec40cf50efeac355b901",
+      "authorship": {
+        "institution": "Universidade de Brasília (UnB)",
+        "exam_board": "CEBRASPE / CESPE — PAS & Vestibular Tradicional UnB",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Objetos de Avaliação PAS/UnB Subprogramas 1, 2 e 3",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UnB / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.956951+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_027",
+      "exam_source": "UFG",
+      "discipline": "Matemática",
+      "topic": "Geometria Analítica: Circunferência, Retas Tangentes & Distância Ponto-Reta",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_027.svg",
+      "svg_sha256": "b2bafe5370b7674b7dda7f22b9c1c71d26515c5a757501d053537cb3771b7cd5",
+      "authorship": {
+        "institution": "Universidade Federal de Goiás (UFG)",
+        "exam_board": "Instituto Verbena / Centro de Seleção UFG",
+        "original_year": 2024,
+        "scientific_reference": "Cadernos de Provas Físico-Matemáticas e Biológicas UFG",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UFG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.958217+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_028",
+      "exam_source": "UniRV",
+      "discipline": "Biologia",
+      "topic": "Imunologia Médica, Vacinas de RNAm, Soros & Resposta Humoral",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_028.svg",
+      "svg_sha256": "ed6eda17c2065ac8a9ba161043c2b68ebf9dac7c00b9c6d97109f785fb983ca5",
+      "authorship": {
+        "institution": "Universidade de Rio Verde (UniRV — Goiás)",
+        "exam_board": "Comissão Permanente de Vestibular (COPEVE/UniRV — Medicina)",
+        "original_year": 2024,
+        "scientific_reference": "Banca de Ciências da Natureza, Anatomofisiologia e Bioquímica UniRV",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Acadêmico UniRV / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.959861+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_029",
+      "exam_source": "UEG",
+      "discipline": "Matemática",
+      "topic": "Geometria Espacial: Cilindros, Cones, Esferas & Troncos de Silos Agrícolas",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_029.svg",
+      "svg_sha256": "68dd3ef8410a8f790c8e13a155fcc7d52da56660723b61e289c49f75acc8533f",
+      "authorship": {
+        "institution": "Universidade Estadual de Goiás (UEG)",
+        "exam_board": "Núcleo de Seleção da UEG",
+        "original_year": 2024,
+        "scientific_reference": "Provas Objetivas e Discursivas SAS/UEG & Vestibular Medicina",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UEG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.961574+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_030",
+      "exam_source": "UFMG",
+      "discipline": "Biologia",
+      "topic": "Divisão Celular (Mitose e Meiose), Ploidia & Variabilidade Genética",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_030.svg",
+      "svg_sha256": "9c5f79b311b95266c74e4f6fbefea136d1525afe0d642b4353c9c68c4c2ec7b1",
+      "authorship": {
+        "institution": "Universidade Federal de Minas Gerais (UFMG)",
+        "exam_board": "COPEVE / UFMG",
+        "original_year": 2024,
+        "scientific_reference": "Coleção Provas Analíticas e Discursivas UFMG",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Acadêmico UFMG / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.962786+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_031",
+      "exam_source": "ENEM",
+      "discipline": "História",
+      "topic": "Brasil República: Era Vargas, Industrialização Substitutiva & Cidadania Trabalhista",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_031.svg",
+      "svg_sha256": "0cdbe2a53aad00a6cc7ee95a8e7689fa69a7c27ff134c406b6388768c55cf219",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.963933+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_032",
+      "exam_source": "ENEM",
+      "discipline": "Geografia",
+      "topic": "Transição Demográfica Brasileira, Urbanização & Matriz Energética Limpa",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_032.svg",
+      "svg_sha256": "0cdbe2a53aad00a6cc7ee95a8e7689fa69a7c27ff134c406b6388768c55cf219",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.965241+00:00"
+      }
+    },
+    {
+      "question_id": "AQUILA_MOD_033",
+      "exam_source": "ENEM",
+      "discipline": "Português",
+      "topic": "Redação Nota 1000: Estrutura Dissertativo-Argumentativa & Competência 5 (Proposta de Intervenção)",
+      "bncc_skill_code": null,
+      "svg_asset_path": "database/visual_assets/AQUILA_MOD_033.svg",
+      "svg_sha256": "0cdbe2a53aad00a6cc7ee95a8e7689fa69a7c27ff134c406b6388768c55cf219",
+      "authorship": {
+        "institution": "INEP / Ministério da Educação (MEC)",
+        "exam_board": "Banco Nacional de Itens (BNI/INEP)",
+        "original_year": 2024,
+        "scientific_reference": "Matriz de Referência ENEM — Eixos Cognitivos & BNCC Ensino Médio",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público / Uso Educacional Soberano (Lei 9.610/98 Art. 46 & CC-BY 4.0)",
+        "verified_timestamp": "2026-10-26T16:02:24.966364+00:00"
+      }
+    },
+    {
+      "question_id": "FUVEST_2025_FIS_GRAVITACAO_KEPLER_01",
+      "exam_source": "FUVEST",
+      "discipline": "Física",
+      "topic": "Gravitação Universal, Leis de Kepler e Velocidade Orbital",
+      "bncc_skill_code": "EM13CNT204",
+      "svg_asset_path": "database/visual_assets/FUVEST_2025_FIS_GRAVITACAO_KEPLER_01.svg",
+      "svg_sha256": "e664aa56a176d047adc2f24f9741f68056a56f478155d38857855e202569c4f1",
+      "authorship": {
+        "institution": "Universidade de São Paulo (USP)",
+        "exam_board": "FUVEST — Fundação Universitária para o Vestibular",
+        "original_year": 2025,
+        "scientific_reference": "Acervo FUVEST 1ª e 2ª Fase — Ciências Exatas e Biológicas",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Acadêmico USP/FUVEST / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.967498+00:00"
+      }
+    },
+    {
+      "question_id": "UNICAMP_2025_QUI_ELETROQUIMICA_FARADAY_01",
+      "exam_source": "UNICAMP",
+      "discipline": "Química",
+      "topic": "Eletroquímica, Eletrólise Ígnea e Leis de Faraday",
+      "bncc_skill_code": "EM13CNT107",
+      "svg_asset_path": "database/visual_assets/UNICAMP_2025_QUI_ELETROQUIMICA_FARADAY_01.svg",
+      "svg_sha256": "447fa8d443480235823e511243914b8d34d11b19f239e0d68ec65d8d1c953f44",
+      "authorship": {
+        "institution": "Universidade Estadual de Campinas (UNICAMP)",
+        "exam_board": "COMVEST — Comissão Permanente para os Vestibulares",
+        "original_year": 2025,
+        "scientific_reference": "Cadernos Interdisciplinares COMVEST/UNICAMP",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Acadêmico UNICAMP / CC-BY 4.0",
+        "verified_timestamp": "2026-10-26T16:02:24.968522+00:00"
+      }
+    },
+    {
+      "question_id": "ITA_2025_FIS_ELETROMAGNETISMO_INDUCAO_01",
+      "exam_source": "ITA",
+      "discipline": "Física (Eletrodinâmica)",
+      "topic": "Lei de Faraday-Lenz, Indução Eletromagnética e Frenagem Magnética",
+      "bncc_skill_code": "EM13CNT106",
+      "svg_asset_path": "database/visual_assets/ITA_2025_FIS_ELETROMAGNETISMO_INDUCAO_01.svg",
+      "svg_sha256": "ae427a2b7d148e2da0e297f23ccd49086e529162c2540c70eedbb05db6669288",
+      "authorship": {
+        "institution": "Instituto Tecnológico de Aeronáutica (ITA / DCTA)",
+        "exam_board": "Divisão de Admissão e Seleção do ITA",
+        "original_year": 2025,
+        "scientific_reference": "Provas de Matemática, Física e Química de Alta Complexidade ITA",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público Militar / Educacional DCTA-ITA",
+        "verified_timestamp": "2026-10-26T16:02:24.969484+00:00"
+      }
+    },
+    {
+      "question_id": "IME_2025_MAT_COMPLEXOS_POLINOMIOS_01",
+      "exam_source": "IME",
+      "discipline": "Matemática",
+      "topic": "Geometria Analítica, Matrizes, Determinantes e Transformações Lineares",
+      "bncc_skill_code": "EM13MAT305",
+      "svg_asset_path": "database/visual_assets/IME_2025_MAT_COMPLEXOS_POLINOMIOS_01.svg",
+      "svg_sha256": "91d1421bec471364e553a43b7d4452eed51bb717e7206d9b9030776e503a4aaf",
+      "authorship": {
+        "institution": "Instituto Militar de Engenharia (IME — Exército Brasileiro)",
+        "exam_board": "Subdivisão de Concurso de Admissão do IME",
+        "original_year": 2025,
+        "scientific_reference": "Acervo CFG/IME — Cálculo, Geometria, Física Clássica e Físico-Química",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Domínio Público Militar / Educacional IME",
+        "verified_timestamp": "2026-10-26T16:02:24.970475+00:00"
+      }
+    },
+    {
+      "question_id": "OBMEP_2025_MAT_COMBINATORIA_GRAFOS_01",
+      "exam_source": "OBMEP",
+      "discipline": "Matemática",
+      "topic": "Análise Combinatória Olímpica, Princípio da Casa dos Pombos e Paridade",
+      "bncc_skill_code": "EM13MAT310",
+      "svg_asset_path": "database/visual_assets/OBMEP_2025_MAT_COMBINATORIA_GRAFOS_01.svg",
+      "svg_sha256": "5ef15a6916a18b400d348cd300783baf3f52ed091a7ff10ca2aa722e1e62ca97",
+      "authorship": {
+        "institution": "Instituto de Matemática Pura e Aplicada (IMPA / SBM)",
+        "exam_board": "Olimpíada Brasileira de Matemática das Escolas Públicas (OBMEP Nível 3)",
+        "original_year": 2025,
+        "scientific_reference": "Banco de Questões Olímpicas e Polos Olímpicos de Treinamento Intensivo (POTI/IMPA)",
+        "simulation_attribution": "PhET Interactive Simulations — University of Colorado Boulder (CC-BY 4.0)",
+        "curation_author": "Córtex Pedagógico Áquila Pro — Swarm Neural v4.1",
+        "license": "Acervo Público Científico IMPA/MCTI",
+        "verified_timestamp": "2026-10-26T16:02:24.971721+00:00"
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { IoTDevice } from '../../services/IotTypes';
+import { IoTDevice } from '../../services/IoTTypes';
 
 const execAsync = promisify(exec);
 

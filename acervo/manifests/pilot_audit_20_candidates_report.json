@@ -1,0 +1,162 @@
+[
+  {
+    "identifier": "quincas-borba",
+    "title": "Quincas Borba",
+    "creator": "Machado de Assis",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1908; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "ursula-2a-edicao",
+    "title": "Úrsula",
+    "creator": "Maria Firmina dos Reis",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1917; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "3438833",
+    "title": "Memorial de Ayres",
+    "creator": "Machado de Assis",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1908; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "nikola-tesla-patent-us-00455069-electric-incandescent-lamp-1891-06-30",
+    "title": "US Patent 00455069: Electric Incandescent Lamp",
+    "creator": "Nikola Tesla",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1943; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "literary-digest-15-april-1899-recent-experiments-by-tesla",
+    "title": "Recent Experiments by Tesla (Literary Digest)",
+    "creator": "Nikola Tesla / Literary Digest",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1943; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "dissertatiodege00meri",
+    "title": "Dissertatio de generatione et metamorphosibus insectorum Surinamensium",
+    "creator": "Maria Sibylla Merian",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1717; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "flowers-butterflies-and-insects-all-154-engravings-from-quot-erucarum-ortusquot-pdfdrive",
+    "title": "Flowers, Butterflies and Insects (Engravings)",
+    "creator": "Maria Sibylla Merian",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1717; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "bub_gb_BdiUq8-GzZQC",
+    "title": "Opuscoli di geometria e balistica",
+    "creator": "Leonardo Salimbeni",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1823; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "ita-bnc-mag-00001347-001",
+    "title": "Geometria motus opusculum geometricum",
+    "creator": "Giovanni Ceva",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1734; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "bub_gb_IRUykq9fSLoC",
+    "title": "Pratica d'arithmetica, e geometria",
+    "creator": "Lorenzo Forestani",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1620; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "dr_l-das-kaiserthum-brasilien-provinz-on-top-margin-sud-amerika-lith-v-8306027",
+    "title": "Das Kaiserthum Brasilien Provinz (Atlas von Amerika)",
+    "creator": "Wilhelm Ernst August von Schlieben (1781-1839)",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1839; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "dr_carte-generale-delle-coste-del-brasile-del-rio-del-plata-al-para--no-2-13048005",
+    "title": "Carte generale delle coste del Brasile Del Rio del Plata al Para",
+    "creator": "Eugenio Rodriguez / Baron Roussin",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1854; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "STS072-738-036",
+    "title": "Earth observations taken from shuttle orbiter Endeavour (Brazil from Space)",
+    "creator": "NASA",
+    "status": "UNDER_REVIEW",
+    "legal_basis": "RESERVED_OR_UNCERTAIN_COPYRIGHT",
+    "is_public_domain_br": false
+  },
+  {
+    "identifier": "o_alienista_0904_librivox",
+    "title": "O Alienista (Audiolivro em Português)",
+    "creator": "Machado de Assis / LibriVox Volunteers",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1908; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "selecao_gregorio_matos_2202_librivox",
+    "title": "Seleção de Obras Poéticas de Gregório de Matos",
+    "creator": "Gregório de Matos (1636-1696) / LibriVox Volunteers",
+    "status": "APPROVED",
+    "legal_basis": "LDA_ART_41_DOMINIO_PUBLICO (Autor faleceu em 1696; > 70 anos)",
+    "is_public_domain_br": true
+  },
+  {
+    "identifier": "2306_What_Makes_A_Good_Party_21_01_17_00",
+    "title": "What Makes A Good Party? (Historical Educational Film)",
+    "creator": "Coronet Instructional Films / Prelinger Archives",
+    "status": "UNDER_REVIEW",
+    "legal_basis": "RESERVED_OR_UNCERTAIN_COPYRIGHT",
+    "is_public_domain_br": false
+  },
+  {
+    "identifier": "oolharobliquodob0000senn",
+    "title": "O olhar oblíquo do bruxo : ensaios machadianos",
+    "creator": "Senna, Marta de",
+    "status": "UNDER_REVIEW",
+    "legal_basis": "RESERVED_OR_UNCERTAIN_COPYRIGHT",
+    "is_public_domain_br": false
+  },
+  {
+    "identifier": "linguisticaaa",
+    "title": "Linguística, letras e artes: Ressonâncias e repercussões",
+    "creator": "Atena Editora",
+    "status": "UNDER_REVIEW",
+    "legal_basis": "RESERVED_OR_UNCERTAIN_COPYRIGHT",
+    "is_public_domain_br": false
+  },
+  {
+    "identifier": "greatimmigrants00neid",
+    "title": "Great immigrants",
+    "creator": "Neidle, Cecyle S",
+    "status": "UNDER_REVIEW",
+    "legal_basis": "RESERVED_OR_UNCERTAIN_COPYRIGHT",
+    "is_public_domain_br": false
+  },
+  {
+    "identifier": "einsteinswhowhat00eins",
+    "title": "Einstein's who, what, and where",
+    "creator": "Einstein, Carol",
+    "status": "UNDER_REVIEW",
+    "legal_basis": "RESERVED_OR_UNCERTAIN_COPYRIGHT",
+    "is_public_domain_br": false
+  }
+]

@@ -3,7 +3,7 @@
  * Encapsula a lógica de comunicação real com hardware via sockets TCP/UDP ou Serial.
  */
 import { EventEmitter } from 'events';
-import { IoTDevice, DeviceConfig } from '../../services/IotTypes';
+import { IoTDevice, DeviceConfig } from '../../services/IoTTypes';
 
 import { networkDiscoveryService } from './NetworkDiscoveryService';
 

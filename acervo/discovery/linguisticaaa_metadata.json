@@ -1,0 +1,258 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn720002.ca.archive.org",
+        "dir": "/0/items/linguisticaaa"
+      },
+      {
+        "server": "dn760008.eu.archive.org",
+        "dir": "/0/items/linguisticaaa"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn720002.ca.archive.org",
+        "dir": "/0/items/linguisticaaa"
+      },
+      {
+        "server": "dn760008.eu.archive.org",
+        "dir": "/0/items/linguisticaaa"
+      }
+    ]
+  },
+  "created": 1793242582,
+  "d1": "ia601806.us.archive.org",
+  "d2": "ia801806.us.archive.org",
+  "dir": "/6/items/linguisticaaa",
+  "files": [
+    {
+      "name": "Linguísticaaa.pdf",
+      "source": "original",
+      "mtime": "1653047927",
+      "size": "3395705",
+      "md5": "d7a4cb1a4b08ed9be6f2a4f6576725b6",
+      "crc32": "4594bab4",
+      "sha1": "3ef7fa94f90480e5eeefc630e1e12326ab15510d",
+      "format": "Text PDF",
+      "viruscheck": "1653048428"
+    },
+    {
+      "name": "Linguísticaaa_chocr.html.gz",
+      "source": "derivative",
+      "ocr": "tesseract 5.0.0-1-g862e",
+      "ocr_parameters": "-l por",
+      "ocr_module_version": "0.0.15",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "1.0000",
+      "ocr_detected_lang": "pt",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "chOCR",
+      "original": "Linguísticaaa_jp2.zip",
+      "mtime": "1653052613",
+      "size": "8110561",
+      "md5": "35ffafc209b816717b2c4c4a11de1812",
+      "crc32": "a66361a5",
+      "sha1": "9fe518e7cccffffdf969bdb47d45bc5cf0c85568"
+    },
+    {
+      "name": "Linguísticaaa_djvu.txt",
+      "source": "derivative",
+      "format": "DjVuTXT",
+      "original": "Linguísticaaa_djvu.xml",
+      "mtime": "1653053406",
+      "size": "646750",
+      "md5": "1a0a1ae6279f1940d6311321f958794d",
+      "crc32": "7e5b6e3d",
+      "sha1": "5846a768d45d2a577a830442290b23a564f1d79c"
+    },
+    {
+      "name": "Linguísticaaa_djvu.xml",
+      "source": "derivative",
+      "format": "Djvu XML",
+      "original": "Linguísticaaa_hocr.html",
+      "mtime": "1653053014",
+      "size": "7584759",
+      "md5": "1e2ce666ba317a46aae6544293b14bcb",
+      "crc32": "8558ebf9",
+      "sha1": "cdf6c4aa82ff221b748d180f13dfeb62ac6981e1"
+    },
+    {
+      "name": "Linguísticaaa_hocr.html",
+      "source": "derivative",
+      "hocr_char_to_word_module_version": "1.1.0",
+      "hocr_char_to_word_hocr_version": "1.1.15",
+      "ocr_parameters": "-l por",
+      "ocr_module_version": "0.0.15",
+      "ocr_detected_script": "Latin",
+      "ocr_detected_script_conf": "1.0000",
+      "ocr_detected_lang": "pt",
+      "ocr_detected_lang_conf": "1.0000",
+      "format": "hOCR",
+      "original": "Linguísticaaa_chocr.html.gz",
+      "mtime": "1653052853",
+      "size": "13761777",
+      "md5": "afece5e30f4d2f2c47d67b9d039a4128",
+      "crc32": "94e94c39",
+      "sha1": "a7d06db6c1976bd69a2330ea266d603a82c9aeed"
+    },
+    {
+      "name": "Linguísticaaa_hocr_pageindex.json.gz",
+      "source": "derivative",
+      "hocr_pageindex_module_version": "1.0.0",
+      "hocr_pageindex_hocr_version": "1.1.15",
+      "format": "OCR Page Index",
+      "original": "Linguísticaaa_hocr.html",
+      "mtime": "1653053115",
+      "size": "2739",
+      "md5": "dd5e8e4a58d7676bc96718b9bc64c12a",
+      "crc32": "bc03d0d6",
+      "sha1": "e924571b3cceeb3ccbb4842e07c4a279e8fe994e"
+    },
+    {
+      "name": "Linguísticaaa_hocr_searchtext.txt.gz",
+      "source": "derivative",
+      "hocr_fts_text_module_version": "1.1.0",
+      "hocr_fts_text_hocr_version": "1.1.15",
+      "word_conf_0_10": "144",
+      "word_conf_11_20": "99",
+      "word_conf_21_30": "156",
+      "word_conf_31_40": "151",
+      "word_conf_41_50": "167",
+      "word_conf_51_60": "148",
+      "word_conf_61_70": "202",
+      "word_conf_71_80": "328",
+      "word_conf_81_90": "1879",
+      "word_conf_91_100": "93879",
+      "format": "OCR Search Text",
+      "original": "Linguísticaaa_hocr.html",
+      "mtime": "1653053236",
+      "size": "228677",
+      "md5": "35e20fa9694318f6864d9eb23570fd2d",
+      "crc32": "c88e13d4",
+      "sha1": "97f566d709d2c85ab7eb1f482c5ebf8444f935cb"
+    },
+    {
+      "name": "Linguísticaaa_jp2.zip",
+      "source": "derivative",
+      "format": "Single Page Processed JP2 ZIP",
+      "original": "Linguísticaaa.pdf",
+      "mtime": "1653049844",
+      "size": "98342421",
+      "md5": "7890e9d88f9cf71a4d947172298c6984",
+      "crc32": "c007634f",
+      "sha1": "fd3687889c5dcb86a61e57b81a72fce6003c2415",
+      "filecount": "225"
+    },
+    {
+      "name": "Linguísticaaa_page_numbers.json",
+      "source": "derivative",
+      "format": "Page Numbers JSON",
+      "original": "Linguísticaaa_djvu.xml",
+      "mtime": "1653053840",
+      "size": "33685",
+      "md5": "9a226ea9b00aaa1b93b724b094b2ca54",
+      "crc32": "f682840d",
+      "sha1": "0f62cb0a8f6491c48007f58a910d46ae57f3e732"
+    },
+    {
+      "name": "Linguísticaaa_scandata.xml",
+      "source": "derivative",
+      "format": "Scandata",
+      "original": "Linguísticaaa_djvu.xml",
+      "mtime": "1653053678",
+      "size": "72341",
+      "md5": "d1686904424d3677eafbabb7109e3be2",
+      "crc32": "94ef2c62",
+      "sha1": "81b1513158d0bd1e9f6c65f007b2492ba45662c0"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1772517030",
+      "size": "18665",
+      "md5": "3e91e7052604e05b0015616d4e3aecd9",
+      "crc32": "7dcb3afc",
+      "sha1": "f784fd554479f65c0a802617dbab4d1875ad0309",
+      "format": "Item Tile",
+      "rotation": "0"
+    },
+    {
+      "name": "linguisticaaa_archive.torrent",
+      "source": "metadata",
+      "btih": "b36c71f299933c752c91264c9e94a5467e3e28fe",
+      "mtime": "1772517031",
+      "size": "8521",
+      "md5": "7342ab53078a89dd89eabefeec0916a4",
+      "crc32": "6b328e19",
+      "sha1": "4fd84dbb42b93661a8f11d2a99e1160eeabcdb1c",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "linguisticaaa_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "8a225beac2e834b6c9b0a52d5379fbc9",
+      "summation": "md5"
+    },
+    {
+      "name": "linguisticaaa_meta.sqlite",
+      "source": "original",
+      "mtime": "1653048222",
+      "size": "28672",
+      "md5": "325243b67802eaba8e71101a7d9c2b6e",
+      "crc32": "fb60f216",
+      "sha1": "3bca20cf92cf6d5ba3016f3c24a585f2dbef0f69",
+      "format": "Metadata"
+    },
+    {
+      "name": "linguisticaaa_meta.xml",
+      "source": "original",
+      "mtime": "1772517029",
+      "size": "3974",
+      "md5": "3ef9b3a03100c5fcb65a59ca5dc721b0",
+      "crc32": "e408cc1a",
+      "sha1": "43803131f431306989e9ae0ea4a8ac5ed5ec329a",
+      "format": "Metadata"
+    }
+  ],
+  "files_count": 15,
+  "item_last_updated": 1772517031,
+  "item_size": 132239247,
+  "metadata": {
+    "identifier": "linguisticaaa",
+    "mediatype": "texts",
+    "collection": [
+      "atenaeditora",
+      "folkscanomy"
+    ],
+    "creator": "Atena Editora",
+    "date": "2022-05-19",
+    "description": "<p style=\"margin:0px 0px 10px;color:rgb(51,51,51);font-family:Roboto;font-size:14px;background-color:rgb(255,255,255);text-align:justify;\">A obra está organizada em dezoito capítulos que ressoam e repercutem nas áreas de Linguística, Letras e Artes. Traz discussões atuais em diversas temáticas, como o papel da mulher, do negro e do indígena e cultura. Tais abordagens foram tratadas com maestria pelos respectivos autores, que relacionaram as questões educacionais, sociais e individuais dos sujeitos sob o viés da própria linguagem artística.</p><p style=\"margin:0px 0px 10px;color:rgb(51,51,51);font-family:Roboto;font-size:14px;background-color:rgb(255,255,255);text-align:justify;\">Outras temáticas abordadas nesta obra nos convidam a refletir sobre situações da atualidade, como a pandemia e a invisibilidade do ser e os depoimentos de educadores acerca do fazer docente em tempos de pandemia sob o viés da análise de discurso. Ainda sobre o processo educacional, discute-se sobre neurociência cognitiva e comportamental e suas influências na educação, destacando os prováveis transtornos de aprendizagem.</p><p style=\"margin:0px 0px 10px;color:rgb(51,51,51);font-family:Roboto;font-size:14px;background-color:rgb(255,255,255);text-align:justify;\">Como manifestação artística, a literatura também se faz presente neste livro, percorrendo distintas realidades escritas por autoras e autores pertencentes a diversos períodos. Temos a contemporânea Adriana Vieira Lomar, a ancestralidade e resistência nas obras de Euclides Neto, os diálogos entre Henriqueta Lisboa e Mário de Andrade, a linguagem estilística de Eva Furnari, entre as leituras e leitores de Machado de Assis e um estudo de caso entre Perón e Wilde. São produções que auxiliam o leitor a explorar os aspectos estilísticos da linguagem poética, das produções narrativas, bem como da dramaturgia.</p><p style=\"margin:0px 0px 10px;color:rgb(51,51,51);font-family:Roboto;font-size:14px;background-color:rgb(255,255,255);text-align:justify;\">Por fim, agradecemos à Atena Editora, por propor a publicação desta obra e às autoras e autores que contribuíram aqui com seus trabalhos. Este livro é um convite às/aos estudantes, docentes, artistas, poetas, musicistas e demais representantes da sociedade civil que se interessam em ressoar e repercutir esses diálogos plurais.</p><p style=\"margin:0px 0px 10px;color:rgb(51,51,51);font-family:Roboto;font-size:14px;background-color:rgb(255,255,255);text-align:justify;\">Boa leitura!</p>",
+    "language": "por",
+    "scanner": "Internet Archive HTML5 Uploader 1.6.4",
+    "subject": "1. LINGUÍSTICA. 2. LETRAS. 3. ARTE",
+    "title": "Linguística, letras e artes: Ressonâncias e repercussões",
+    "uploader": "nataliaoliveira@atenaeditora.com.br",
+    "publicdate": "2022-05-20 11:59:47",
+    "addeddate": "2022-05-20 11:59:47",
+    "curation": "[curator]validator@archive.org[/curator][date]20220520120708[/date][comment]checked for malware[/comment]",
+    "identifier-access": "http://archive.org/details/linguisticaaa",
+    "identifier-ark": "ark:/13960/s24jzwmmwxb",
+    "ppi": "300",
+    "ocr": "tesseract 5.0.0-1-g862e",
+    "ocr_parameters": "-l por",
+    "ocr_module_version": "0.0.15",
+    "ocr_detected_script": "Latin",
+    "ocr_detected_script_conf": "1.0000",
+    "ocr_detected_lang": "pt",
+    "ocr_detected_lang_conf": "1.0000",
+    "collection_added": "folkscanomy"
+  },
+  "server": "ia801806.us.archive.org",
+  "uniq": 282285177,
+  "workable_servers": [
+    "ia801806.us.archive.org",
+    "ia601806.us.archive.org"
+  ]
+}

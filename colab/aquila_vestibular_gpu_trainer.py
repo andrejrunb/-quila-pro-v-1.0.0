@@ -806,6 +806,19 @@ def run_gpu_vestibular_training(db_path: str) -> Dict[str, Any]:
 
     # 1. Criar tabelas de Matriz de Conceitos e Runs de Treinamento GPU
     cur.execute("""
+        CREATE TABLE IF NOT EXISTS pedagogical_scaffolding (
+            question_id TEXT PRIMARY KEY,
+            exam TEXT NOT NULL,
+            year INTEGER NOT NULL,
+            subject TEXT NOT NULL,
+            prereq_math TEXT NOT NULL,
+            prereq_concept TEXT NOT NULL,
+            scaffolding_json TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    cur.execute("""
         CREATE TABLE IF NOT EXISTS vestibular_concept_matrix (
             concept_id TEXT PRIMARY KEY,
             exam TEXT NOT NULL,

@@ -1,0 +1,134 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn710708.ca.archive.org",
+        "dir": "/0/items/STS072-738-036"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn710708.ca.archive.org",
+        "dir": "/0/items/STS072-738-036"
+      }
+    ]
+  },
+  "created": 1793242567,
+  "d1": "ia600505.us.archive.org",
+  "d2": "ia800505.us.archive.org",
+  "dir": "/18/items/STS072-738-036",
+  "files": [
+    {
+      "name": "STS072-738-036.jpg",
+      "source": "derivative",
+      "format": "JPEG",
+      "original": "STS072-738-036.tif",
+      "mtime": "1493081631",
+      "size": "3940461",
+      "md5": "755ad37e70c0b9f74cb797c457ddb3e2",
+      "crc32": "b5c3aea2",
+      "sha1": "a69703bb3838217ab6b6f9cc37a6d23ffc4d717c"
+    },
+    {
+      "name": "STS072-738-036.tif",
+      "source": "original",
+      "format": "TIFF",
+      "mtime": "1305928654",
+      "size": "64011488",
+      "md5": "6552b0f792cc6b834b22a6b879c78126",
+      "crc32": "5c09a1fc",
+      "sha1": "4aeef7cdd8b0aa51eecde3cb2d5944615d984a60"
+    },
+    {
+      "name": "STS072-738-036.tif_meta.txt",
+      "source": "original",
+      "format": "Metadata",
+      "mtime": "1305928655",
+      "size": "931",
+      "md5": "de6202b7594c53e60bde74d9a54f89e7",
+      "crc32": "3ae7cab8",
+      "sha1": "1e9c1995ca97c425406c6175f3ddbdac033537c8"
+    },
+    {
+      "name": "STS072-738-036_archive.torrent",
+      "source": "metadata",
+      "btih": "6cc41ee6e01e0490e857e274cb2086ae94de57e6",
+      "mtime": "1530760094",
+      "size": "4561",
+      "md5": "8e95b5eb8f7f041210f3fbf112de823d",
+      "crc32": "41fc2fdf",
+      "sha1": "45b5a9523568719415624a43d2a033b48179d89e",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "STS072-738-036_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "45b46344600ead66ffccc8757199aa05",
+      "summation": "md5"
+    },
+    {
+      "name": "STS072-738-036_meta.xml",
+      "source": "original",
+      "format": "Metadata",
+      "mtime": "1464542921",
+      "size": "892",
+      "md5": "24d98dd66bd996d2676c5591115f16de",
+      "crc32": "822d958d",
+      "sha1": "ee442460025093a61076c45baa0a25d0cec4e720"
+    },
+    {
+      "name": "STS072-738-036_thumb.jpg",
+      "source": "derivative",
+      "format": "JPEG Thumb",
+      "original": "STS072-738-036.tif",
+      "mtime": "1493081631",
+      "size": "14150",
+      "md5": "e9d2f4679fd7b28f6b6f2776e184135e",
+      "crc32": "2ecfbec4",
+      "sha1": "d41056013b876056c467000a6ec3eb0e37777f87"
+    },
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1530760094",
+      "size": "14272",
+      "md5": "48b9a3ef6a4a12b54dd4a8453f709dfd",
+      "crc32": "cbadda30",
+      "sha1": "3ccb517559ca0d5b046e49658086f73a1276ee9f",
+      "format": "JPEG Thumb",
+      "rotation": "0"
+    }
+  ],
+  "files_count": 8,
+  "item_last_updated": 1694527243,
+  "item_size": 67986755,
+  "metadata": {
+    "identifier": "STS072-738-036",
+    "collection": [
+      "nasa",
+      "johnsonspacecentermediaarchive"
+    ],
+    "creator": "NASA",
+    "date": "1996-01-14",
+    "description": "Earth observations taken from shuttle orbiter Endeavour during STS-72 mission. Ancient shoreline eastern coast, Brazil (019). Loking River, South Africa (036).",
+    "mediatype": "image",
+    "title": "Earth observations taken from shuttle orbiter Endeavour during STS-72 mission",
+    "subject": [
+      "What -- Earth",
+      "What -- STS-72",
+      "Where -- Brazil",
+      "Where -- South Africa"
+    ],
+    "publicdate": "2011-05-20 21:57:24",
+    "uploader": "jake@archive.org",
+    "addeddate": "2011-05-20 21:57:24",
+    "backup_location": "ia903700_7"
+  },
+  "server": "ia800505.us.archive.org",
+  "uniq": 682206803,
+  "workable_servers": [
+    "ia800505.us.archive.org",
+    "ia600505.us.archive.org"
+  ]
+}

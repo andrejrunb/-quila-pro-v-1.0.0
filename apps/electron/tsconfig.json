@@ -2,13 +2,21 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "CommonJS",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@aquila/api": ["../../packages/api/src"]
+      "@/*": [
+        "src/*"
+      ],
+      "@aquila/api": [
+        "../../packages/api/src"
+      ]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -20,13 +28,18 @@
     "emitDecoratorMetadata": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "types": ["node", "jest"],
+    "types": [
+      "node",
+      "jest"
+    ],
     "allowJs": true,
     "checkJs": false,
     "noEmit": false,
     "noEmitOnError": false
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "node_modules",
     "dist",
@@ -38,6 +51,9 @@
     "src/index.tsx",
     "src/App.css",
     "src/index.css",
-    "src/vite-env.d.ts"
+    "src/vite-env.d.ts",
+    "src/**/__tests__",
+    "src/tests",
+    "e2e"
   ]
 }

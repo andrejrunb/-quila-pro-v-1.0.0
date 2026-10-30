@@ -1,0 +1,31 @@
+{
+  "id": "WW-CIEN7-RIOSVOADORES-02",
+  "title": "Perseguição em Labirinto: Rios Voadores da Amazônia",
+  "templateType": "maze_chase",
+  "discipline": "Ciências",
+  "grade": "7º Ano",
+  "bnccSkillCode": "EF07CI13",
+  "summary": "Desafio de agilidade no labirinto atmosférico do ciclo da água.",
+  "payload": {
+    "stages": [
+      {
+        "question": "Motor biótico que bombeia água para a atmosfera:",
+        "correct": "Evapotranspiração florestal amazônica",
+        "distractors": [
+          "Queimadas sazonais",
+          "Erosão fluvial",
+          "Mineração"
+        ]
+      },
+      {
+        "question": "Barreira geográfica que deflete a umidade para o Centro-Oeste:",
+        "correct": "Cordilheira dos Andes",
+        "distractors": [
+          "Chapada dos Guimarães",
+          "Serra do Mar",
+          "Mata Atlântica"
+        ]
+      }
+    ]
+  }
+}

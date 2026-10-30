@@ -83,46 +83,86 @@ export class GradingService {
   }
 
   /**
-   * [SQA-GRD-705] PROCESS ANSWER SHEET (OCR Autopilot)
-   * Processa uma imagem de cartão de resposta, extrai os campos e salva o resultado.
+   * Avalia as respostas do aluno contra um gabarito real e calcula a nota exata.
    */
-  public async processAnswerSheet(imageData: string, studentId: string, templateId: string) {
-    logger.info(`[Grading] Iniciando OCR Autopilot para Aluno: ${studentId}, Template: ${templateId}`);
+  public evaluateSubmission(
+    studentAnswers: Record<string | number, string>,
+    answerKey: Record<string | number, string>,
+    maxScore: number = 10.0
+  ): {
+    totalQuestions: number;
+    correctCount: number;
+    score: number;
+    details: { question: string; expected: string; provided: string; correct: boolean }[];
+  } {
+    const questions = Object.keys(answerKey);
+    if (questions.length === 0) {
+      return { totalQuestions: 0, correctCount: 0, score: 0, details: [] };
+    }
 
-    // v710: Simulação de processamento via worker de visão (SovereignVisionService)
-    // Em um cenário real, enviaríamos o imageData para a NPU/Python Worker
-    const mockOCRResult = {
-      score: Math.floor(Math.random() * 4) + 6, // Nota randômica 6-10
-      detectedAnswers: 10,
-      confidence: 0.985
+    let correctCount = 0;
+    const details = questions.map((q) => {
+      const expected = String(answerKey[q]).trim().toUpperCase();
+      const provided = String(studentAnswers[q] || '').trim().toUpperCase();
+      const correct = expected === provided;
+      if (correct) correctCount++;
+      return { question: String(q), expected, provided, correct };
+    });
+
+    const score = parseFloat(((correctCount / questions.length) * maxScore).toFixed(2));
+    return {
+      totalQuestions: questions.length,
+      correctCount,
+      score,
+      details,
     };
+  }
+
+  /**
+   * [SQA-GRD-705] PROCESS ANSWER SHEET (OCR Autopilot)
+   * Processa uma imagem de cartão de resposta com verificação segura.
+   * Se o worker OCR não estiver configurado, REJEITA de forma segura (Fail-Secure).
+   * NUNCA produz notas arbitrárias ou randômicas.
+   */
+  public async processAnswerSheet(
+    imageData: string,
+    studentId: string,
+    templateId: string,
+    options?: { ocrEngineReady?: boolean; detectedAnswers?: Record<number, string>; answerKey?: Record<number, string> }
+  ) {
+    logger.info(`[Grading] Processando avaliação para Aluno: ${studentId}, Template: ${templateId}`);
+
+    // Fail-Secure: Sem worker OCR ativo, não inventar nota
+    if (!options?.ocrEngineReady || !options?.detectedAnswers || !options?.answerKey) {
+      logger.warn(`[Grading] Worker OCR indisponível ou gabarito ausente. Encaminhado para conferência manual docente.`);
+      return {
+        success: false,
+        reason: 'OCR_SERVICE_UNAVAILABLE_MANUAL_REVIEW_REQUIRED',
+        studentId,
+        templateId,
+      };
+    }
+
+    // Avaliação determinística real contra o gabarito
+    const evaluation = this.evaluateSubmission(options.detectedAnswers, options.answerKey);
 
     const grade: GradeRecord = {
       studentId,
       classId: 'class_auto_detected',
       type: 'Exam_OCR',
-      value: mockOCRResult.score,
+      value: evaluation.score,
       weight: 1.0,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     await this.saveGrade(grade);
 
-    // Notificar Córtex sobre ganho de eficiência (ROI Feed)
-    const { cortexEvolutionService } = await import('./CortexEvolutionService');
-    cortexEvolutionService.learnInsight({
-      id: `roi_exam_${Date.now()}`,
-      category: 'efficiency',
-      title: 'Correção Automática Concluída',
-      content: `O sistema economizou 15 minutos de trabalho docente ao corrigir automaticamente a prova do aluno ${studentId}.`,
-      severity: 'info',
-      tags: ['roi', 'ocr', 'grading']
-    });
-
     return {
       success: true,
-      grade: mockOCRResult.score,
-      confidence: mockOCRResult.confidence
+      grade: evaluation.score,
+      correctCount: evaluation.correctCount,
+      totalQuestions: evaluation.totalQuestions,
+      details: evaluation.details,
     };
   }
 

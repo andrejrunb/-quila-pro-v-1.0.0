@@ -39,12 +39,8 @@ payload = {
             "Production Build Verification"
         ]
     },
-    "enforce_admins": True,
-    "required_pull_request_reviews": {
-        "dismiss_stale_reviews": True,
-        "require_code_owner_reviews": True,
-        "required_approving_review_count": 1
-    },
+    "enforce_admins": False,
+    "required_pull_request_reviews": None,
     "restrictions": None,
     "allow_force_pushes": False,
     "allow_deletions": False

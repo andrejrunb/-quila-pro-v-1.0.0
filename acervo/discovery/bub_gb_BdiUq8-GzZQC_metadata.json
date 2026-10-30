@@ -1,0 +1,215 @@
+{
+  "alternate_locations": {
+    "servers": [
+      {
+        "server": "dn710702.ca.archive.org",
+        "dir": "/0/items/bub_gb_BdiUq8-GzZQC"
+      },
+      {
+        "server": "dn760107.eu.archive.org",
+        "dir": "/0/items/bub_gb_BdiUq8-GzZQC"
+      }
+    ],
+    "workable": [
+      {
+        "server": "dn710702.ca.archive.org",
+        "dir": "/0/items/bub_gb_BdiUq8-GzZQC"
+      },
+      {
+        "server": "dn760107.eu.archive.org",
+        "dir": "/0/items/bub_gb_BdiUq8-GzZQC"
+      }
+    ]
+  },
+  "created": 1793242550,
+  "d1": "ia600700.us.archive.org",
+  "d2": "ia800700.us.archive.org",
+  "dir": "/26/items/bub_gb_BdiUq8-GzZQC",
+  "files": [
+    {
+      "name": "__ia_thumb.jpg",
+      "source": "original",
+      "mtime": "1711796125",
+      "size": "12154",
+      "md5": "14ea252ff127472e53419a2bc5d3aa17",
+      "crc32": "3edb5469",
+      "sha1": "2354a29b4a3d09dccbd637ed8dc78556024498a9",
+      "format": "Item Tile"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC.djvu",
+      "source": "derivative",
+      "format": "DjVu",
+      "original": "bub_gb_BdiUq8-GzZQC_djvu.xml",
+      "mtime": "1454819538",
+      "size": "2192098",
+      "md5": "c3a9a63d694af653be96fdefd7071bb3",
+      "crc32": "3b7126cf",
+      "sha1": "b967ca03c3e11664e020e58f43e3be8d0ec366e1"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC.gif",
+      "source": "derivative",
+      "format": "Animated GIF",
+      "original": "bub_gb_BdiUq8-GzZQC_jp2.zip",
+      "mtime": "1454818344",
+      "size": "134168",
+      "md5": "726e110a9ae2421521008c8862f18e4b",
+      "crc32": "b13e4778",
+      "sha1": "eab1731c6f5d6c338c8071676cdc45e3ca1183b1"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC.pdf",
+      "source": "derivative",
+      "format": "Text PDF",
+      "original": "bub_gb_BdiUq8-GzZQC_djvu.xml",
+      "mtime": "1454819750",
+      "size": "3408173",
+      "md5": "e435e7d891db664c8e87aac8fb713a4a",
+      "crc32": "973bc61d",
+      "sha1": "e2452517f0d2baadb1bf6af32cdd12a993bcb79e"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_abbyy.gz",
+      "source": "derivative",
+      "format": "Abbyy GZ",
+      "original": "bub_gb_BdiUq8-GzZQC_jp2.zip",
+      "mtime": "1454819199",
+      "size": "1908834",
+      "md5": "2ba0cca23afd54d1c5d428632afaf74d",
+      "crc32": "d92fee8a",
+      "sha1": "243329f1282af07605b0e1df59bb7d677c9279c1"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_archive.torrent",
+      "source": "metadata",
+      "btih": "c61d0a3dc842b1af8260358bb46c675c4a69f526",
+      "mtime": "1482793996",
+      "size": "6569",
+      "md5": "31cb8dd0a898722a5a396d61f3e67c52",
+      "crc32": "0b10bd76",
+      "sha1": "2c841b38a5a4338fff77a626f0e32f4f0814c2d5",
+      "format": "Archive BitTorrent"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_djvu.txt",
+      "source": "derivative",
+      "format": "DjVuTXT",
+      "original": "bub_gb_BdiUq8-GzZQC.djvu",
+      "mtime": "1454819803",
+      "size": "123891",
+      "md5": "0ed27ef24d0284963eb42d8577403694",
+      "crc32": "031db663",
+      "sha1": "84e71c79cb6ed6b34d666f9d3a4acaa984ec0dd3"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_djvu.xml",
+      "source": "derivative",
+      "format": "Djvu XML",
+      "original": "bub_gb_BdiUq8-GzZQC_abbyy.gz",
+      "mtime": "1454819249",
+      "size": "1304767",
+      "md5": "4350b9a5581be4eba40a4a91b66cdfea",
+      "crc32": "9b75bca1",
+      "sha1": "7763d66af354c13231f2b72338c3f18d6a25b3cd"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_files.xml",
+      "source": "original",
+      "format": "Metadata",
+      "md5": "060b50d06df96563cdf38194dd8ae8b4",
+      "summation": "md5"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_images.tar",
+      "source": "original",
+      "mtime": "1454818138",
+      "size": "59330560",
+      "md5": "bdd37d6f372ec0602b30bb938210c3f0",
+      "crc32": "3d0184ef",
+      "sha1": "04334e2ed2163da75c873a2d56e5cf540b9e0778",
+      "format": "Generic Raw Book Tar",
+      "filecount": "128"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_jp2.zip",
+      "source": "derivative",
+      "format": "Single Page Processed JP2 ZIP",
+      "original": "bub_gb_BdiUq8-GzZQC_images.tar",
+      "mtime": "1454818318",
+      "size": "20322117",
+      "md5": "35b65f63a54571bfa885639b0d066376",
+      "crc32": "47fc9d88",
+      "sha1": "25acfb91315e9fa59d25ddf76ac8cea83fb0ae11",
+      "filecount": "128"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_meta.sqlite",
+      "source": "original",
+      "mtime": "1463967735",
+      "size": "9216",
+      "format": "Metadata",
+      "md5": "f0c5712dcfa5be1d374e3fe4bad06c34",
+      "crc32": "af5ecc88",
+      "sha1": "bde6cd867d8fe8779739f8bab7fd17f5f55645ad"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_meta.xml",
+      "source": "original",
+      "mtime": "1482793994",
+      "size": "1418",
+      "format": "Metadata",
+      "md5": "e81b61473f9cc3ad2cd787d42206ad5a",
+      "crc32": "688bf01e",
+      "sha1": "1cccc50e396fa60b6a1234ddb126b0dc02b2282f"
+    },
+    {
+      "name": "bub_gb_BdiUq8-GzZQC_scandata.xml",
+      "source": "derivative",
+      "format": "Scandata",
+      "original": "bub_gb_BdiUq8-GzZQC_djvu.xml",
+      "mtime": "1454819540",
+      "size": "38503",
+      "md5": "4abc56d0eb161115f809c2cfb2fed2e8",
+      "crc32": "9e7cb55a",
+      "sha1": "4565a4a2aacf417a99d6cf1c203a6b90ca851bb1"
+    }
+  ],
+  "files_count": 14,
+  "item_last_updated": 1711796125,
+  "item_size": 88792468,
+  "metadata": {
+    "identifier": "bub_gb_BdiUq8-GzZQC",
+    "creator": "Leonardo Salimbeni",
+    "date": "1780",
+    "google-id": "BdiUq8-GzZQC",
+    "language": "Italian",
+    "licenseurl": "http://creativecommons.org/publicdomain/mark/1.0/",
+    "mediatype": "texts",
+    "publisher": "per gli eredi di Marco Moroni",
+    "scanner": "google",
+    "source": "http://books.google.com/books?id=BdiUq8-GzZQC&hl=&source=gbs_api",
+    "sponsor": "Google",
+    "subject": "bub_upload",
+    "title": "Opuscoli di geometria e balistica di Leonardo Salimbeni capitano d'ingegneri e professore di matematica nelle scuole militari di Verona ",
+    "year": "1780",
+    "publicdate": "2016-02-07 04:08:58",
+    "collection": "europeanlibraries",
+    "uploader": "tools.bub@tools.wmflabs.org",
+    "addeddate": "2016-02-07 04:08:58",
+    "curation": "[curator]validator@archive.org[/curator][date]20160207040924[/date][comment]checked for malware[/comment]",
+    "contributor": "National Library of Naples",
+    "identifier-access": "http://archive.org/details/bub_gb_BdiUq8-GzZQC",
+    "identifier-ark": "ark:/13960/t54f5rv41",
+    "imagecount": "129",
+    "ocr": "ABBYY FineReader 11.0",
+    "repub_state": "4",
+    "backup_location": "ia905509_25"
+  },
+  "server": "ia600700.us.archive.org",
+  "uniq": 584730741,
+  "workable_servers": [
+    "ia600700.us.archive.org",
+    "ia800700.us.archive.org"
+  ]
+}
