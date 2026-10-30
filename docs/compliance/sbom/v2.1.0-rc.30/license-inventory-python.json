@@ -1,0 +1,93 @@
+{
+  "baseline": {
+    "manifests": [
+      "requirements.txt",
+      "pyproject.toml"
+    ],
+    "pythonVersion": ">=3.10"
+  },
+  "summary": {
+    "totalComponents": 11,
+    "allGreen": true,
+    "prohibitedLicenses": 0
+  },
+  "components": [
+    {
+      "name": "numpy",
+      "version": "1.26.4",
+      "license": "BSD-3-Clause",
+      "category": "VERDE",
+      "purpose": "Transformações matriciais e vetoriais de embeddings 512-D"
+    },
+    {
+      "name": "opencv-python-headless",
+      "version": "4.9.0.80",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "purpose": "Visão computacional, segmentação e homografia OMR local"
+    },
+    {
+      "name": "pillow",
+      "version": "10.3.0",
+      "license": "HPND",
+      "category": "VERDE",
+      "purpose": "Manipulação gráfica de imagens e gabaritos"
+    },
+    {
+      "name": "requests",
+      "version": "2.31.0",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "purpose": "Comunicação HTTP segura com GPU Colab / NVIDIA REST"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.2.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "purpose": "Pool de conexões TLS 1.3"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.7.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "purpose": "Validação e serialização estrita de dados pedagógicos"
+    },
+    {
+      "name": "cryptography",
+      "version": "42.0.7",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "purpose": "Criptografia em repouso AES-256-GCM"
+    },
+    {
+      "name": "psutil",
+      "version": "5.9.8",
+      "license": "BSD-3-Clause",
+      "category": "VERDE",
+      "purpose": "Monitoramento térmico e auto-throttling de hardware Edge"
+    },
+    {
+      "name": "fastapi",
+      "version": "0.111.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "purpose": "Microserviço local de visão"
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.29.0",
+      "license": "BSD-3-Clause",
+      "category": "VERDE",
+      "purpose": "Servidor ASGI assíncrono para o microserviço"
+    },
+    {
+      "name": "cyclonedx-bom",
+      "version": "4.4.0",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "purpose": "Geração de manifestos SBOM de conformidade"
+    }
+  ]
+}

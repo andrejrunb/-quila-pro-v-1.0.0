@@ -1,0 +1,39 @@
+========================================================================================
+       ÁQUILA PRO — REGISTRO OFICIAL DE INTEGRIDADE & ASSINATURA DE SBOM        
+========================================================================================
+Baseline de Auditoria:  v2.1.0-rc.30
+Commit de Referência:   59b2233af8a6370853b298750014d885ca09ee65
+Gerenciador Oficial:    pnpm (pnpm-lock.yaml)
+Padrão do Manifesto:    CycloneDX 1.5 JSON & SPDX Attribution
+Data da Geração:        2026-10-30T19:41:35.687Z
+========================================================================================
+
+HASHES SHA-256 DOS ARTEFATOS AUDITADOS:
+
+Arquivo:  sbom-node-cyclonedx.json
+Tamanho:  75971 bytes
+SHA-256:  5AD8E7AC23CD6A080FB5807B5128924E8EA4B344E9586F223FB3E1E1E07B4EF2
+----------------------------------------------------------------------------------------
+Arquivo:  sbom-python-cyclonedx.json
+Tamanho:  5944 bytes
+SHA-256:  8111570A6A922562F88F45B2CB3BDFE72AE3B2149C3D09591D30BEB2A373999F
+----------------------------------------------------------------------------------------
+Arquivo:  license-inventory-node.json
+Tamanho:  29365 bytes
+SHA-256:  692AF93CBDB804CD404BA5B4BED9586A791C1F48F2CE3D8A374C34DE1336D8D0
+----------------------------------------------------------------------------------------
+Arquivo:  license-inventory-python.json
+Tamanho:  2331 bytes
+SHA-256:  2B6D59EE9CC76A5FFE5F78DADEC205E5C6D0F85E4C7E8BB204F89ECF7282B295
+----------------------------------------------------------------------------------------
+Arquivo:  third-party-notices.md
+Tamanho:  8581 bytes
+SHA-256:  DF808417C1F40AA81EF0EEDAECA7E926393ECB32791E0A208FDC8E7AF670A174
+----------------------------------------------------------------------------------------
+
+PARECER TÉCNICO DE CONFORMIDADE:
+[PASS] Lockfile único autoritativo (pnpm-lock.yaml).
+[PASS] Monorepo 100% coberto (apps, packages, shared, root).
+[PASS] Componentes Python formalizados em requirements.txt e pyproject.toml.
+[PASS] Zero licenças GPL/AGPL com contaminação em binário BSL 1.1.
+[PASS] Integridade verificada e assinada para distribuição de Release Candidate.

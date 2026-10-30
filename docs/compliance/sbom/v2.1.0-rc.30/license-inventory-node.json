@@ -1,0 +1,1058 @@
+{
+  "baseline": {
+    "tag": "v2.1.0-rc.30",
+    "commit": "59b2233af8a6370853b298750014d885ca09ee65",
+    "packageManager": "pnpm (pnpm-lock.yaml autoritativo único)"
+  },
+  "summary": {
+    "totalComponents": 115,
+    "productionRuntime": 74,
+    "developmentBuild": 41,
+    "categoryDistribution": {
+      "VERDE": 111,
+      "AMARELA": 0,
+      "VERMELHA": 0,
+      "DESCONHECIDA": 4
+    },
+    "prohibitedLicensesInRuntime": 0
+  },
+  "productionComponents": [
+    {
+      "name": "@aquila/api",
+      "version": "workspace:*",
+      "license": "SEE LICENSE IN LICENSE",
+      "category": "DESCONHECIDA",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@chainsafe/libp2p-noise",
+      "version": "15.0.0",
+      "license": "Apache-2.0 OR MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@google/generative-ai",
+      "version": "0.24.1",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@libp2p/mdns",
+      "version": "9.0.0",
+      "license": "Apache-2.0 OR MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@libp2p/mplex",
+      "version": "10.0.0",
+      "license": "Apache-2.0 OR MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@libp2p/tcp",
+      "version": "9.0.0",
+      "license": "Apache-2.0 OR MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@modelcontextprotocol/sdk",
+      "version": "1.29.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@react-three/drei",
+      "version": "9.122.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@react-three/fiber",
+      "version": "8.18.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@supabase/supabase-js",
+      "version": "2.39.4",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@types/better-sqlite3",
+      "version": "7.6.13",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "@types/three",
+      "version": "0.184.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "animejs",
+      "version": "4.3.0-beta.2",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "axios",
+      "version": "1.7.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "bcryptjs",
+      "version": "3.0.3",
+      "license": "BSD-3-Clause",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "better-sqlite3",
+      "version": "11.5.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "crypto-js",
+      "version": "4.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "date-fns",
+      "version": "4.1.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "dotenv",
+      "version": "16.4.0",
+      "license": "BSD-2-Clause",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "drizzle-kit",
+      "version": "0.31.11",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "drizzle-orm",
+      "version": "0.45.3",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "electron-log",
+      "version": "5.1.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "electron-store",
+      "version": "8.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "electron-updater",
+      "version": "6.8.3",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "exceljs",
+      "version": "3.4.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "google-auth-library",
+      "version": "11.1.0",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "googleapis",
+      "version": "183.0.0",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "graphology",
+      "version": "0.26.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "graphology-communities-louvain",
+      "version": "2.0.2",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "graphology-types",
+      "version": "0.24.8",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "inversify",
+      "version": "6.2.2",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "it-length-prefixed",
+      "version": "9.0.0",
+      "license": "Apache-2.0 OR MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "it-pipe",
+      "version": "3.0.0",
+      "license": "Apache-2.0 OR MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "konva",
+      "version": "10.2.3",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "libp2p",
+      "version": "3.3.11",
+      "license": "Apache-2.0 OR MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "lucide-react",
+      "version": "1.7.0",
+      "license": "ISC",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "minisearch",
+      "version": "7.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "next",
+      "version": "16.3.8",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "node-schedule",
+      "version": "2.1.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "nodemailer",
+      "version": "10.0.13",
+      "license": "MIT-0",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "pdf-lib",
+      "version": "1.17.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "qrcode-terminal",
+      "version": "0.12.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "qrcode.react",
+      "version": "4.2.0",
+      "license": "ISC",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "react-is",
+      "version": "19.2.5",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "react-konva",
+      "version": "18.2.10",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "recharts",
+      "version": "3.8.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "reflect-metadata",
+      "version": "0.2.2",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "sharp",
+      "version": "0.35.5",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "three",
+      "version": "0.184.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "uint8arrays",
+      "version": "5.0.0",
+      "license": "Apache-2.0 OR MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "use-image",
+      "version": "1.1.4",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "uuid",
+      "version": "9.0.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "ws",
+      "version": "8.16.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "zod",
+      "version": "4.3.6",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "archiver",
+      "version": "7.0.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/electron",
+      "description": "Dependência de runtime do apps/electron"
+    },
+    {
+      "name": "apexcharts",
+      "version": "5.10.6",
+      "license": "SEE LICENSE IN LICENSE",
+      "category": "DESCONHECIDA",
+      "type": "production",
+      "workspace": "apps/web",
+      "description": "Dependência de runtime do apps/web"
+    },
+    {
+      "name": "clsx",
+      "version": "2.1.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/web",
+      "description": "Dependência de runtime do apps/web"
+    },
+    {
+      "name": "react",
+      "version": "19.2.4",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/web",
+      "description": "Dependência de runtime do apps/web"
+    },
+    {
+      "name": "react-apexcharts",
+      "version": "2.1.0",
+      "license": "SEE LICENSE IN LICENSE",
+      "category": "DESCONHECIDA",
+      "type": "production",
+      "workspace": "apps/web",
+      "description": "Dependência de runtime do apps/web"
+    },
+    {
+      "name": "react-dom",
+      "version": "19.2.4",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/web",
+      "description": "Dependência de runtime do apps/web"
+    },
+    {
+      "name": "tailwind-merge",
+      "version": "3.5.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/web",
+      "description": "Dependência de runtime do apps/web"
+    },
+    {
+      "name": "@expo/metro-runtime",
+      "version": "3.2.3",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "expo",
+      "version": "51.0.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "expo-constants",
+      "version": "16.0.2",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "expo-linking",
+      "version": "6.3.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "expo-router",
+      "version": "3.5.15",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "expo-status-bar",
+      "version": "1.12.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "lucide-react-native",
+      "version": "0.395.0",
+      "license": "ISC",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "react-native",
+      "version": "0.74.2",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "react-native-safe-area-context",
+      "version": "4.10.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "react-native-screens",
+      "version": "3.31.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "react-native-web",
+      "version": "0.19.10",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "apps/mobile",
+      "description": "Dependência de runtime do apps/mobile"
+    },
+    {
+      "name": "@trpc/server",
+      "version": "10.45.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "production",
+      "workspace": "packages/api",
+      "description": "Dependência de runtime do packages/api"
+    },
+    {
+      "name": "@aquila/db",
+      "version": "workspace:*",
+      "license": "SEE LICENSE IN LICENSE",
+      "category": "DESCONHECIDA",
+      "type": "production",
+      "workspace": "packages/api",
+      "description": "Dependência de runtime do packages/api"
+    }
+  ],
+  "developmentComponents": [
+    {
+      "name": "typescript",
+      "version": "5.3.3",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "root",
+      "description": "Ferramenta de build/teste do root"
+    },
+    {
+      "name": "@playwright/test",
+      "version": "1.60.0",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/crypto-js",
+      "version": "4.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/jest",
+      "version": "29.5.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/node",
+      "version": "20.0.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/node-schedule",
+      "version": "2.1.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/nodemailer",
+      "version": "6.4.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/react",
+      "version": "18.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/react-dom",
+      "version": "18.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/uuid",
+      "version": "9.0.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/ws",
+      "version": "8.5.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "version": "4.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "autoprefixer",
+      "version": "10.4.27",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "concurrently",
+      "version": "8.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "electron",
+      "version": "28.3.3",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "electron-builder",
+      "version": "24.13.3",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "jest",
+      "version": "29.7.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "postcss",
+      "version": "8.5.8",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "react",
+      "version": "18.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "react-dom",
+      "version": "18.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "rimraf",
+      "version": "5.0.0",
+      "license": "ISC",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "tailwindcss",
+      "version": "3.4.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "ts-jest",
+      "version": "29.1.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "vite",
+      "version": "5.4.21",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "vite-plugin-node-polyfills",
+      "version": "0.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "vite-plugin-pwa",
+      "version": "1.2.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "workbox-build",
+      "version": "7.4.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@types/archiver",
+      "version": "6.0.2",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@jest/globals",
+      "version": "29.7.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/electron",
+      "description": "Ferramenta de build/teste do apps/electron"
+    },
+    {
+      "name": "@tailwindcss/postcss",
+      "version": "4",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/web",
+      "description": "Ferramenta de build/teste do apps/web"
+    },
+    {
+      "name": "@testing-library/jest-dom",
+      "version": "6.9.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/web",
+      "description": "Ferramenta de build/teste do apps/web"
+    },
+    {
+      "name": "@testing-library/react",
+      "version": "16.3.2",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/web",
+      "description": "Ferramenta de build/teste do apps/web"
+    },
+    {
+      "name": "@testing-library/user-event",
+      "version": "14.6.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/web",
+      "description": "Ferramenta de build/teste do apps/web"
+    },
+    {
+      "name": "eslint",
+      "version": "9",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/web",
+      "description": "Ferramenta de build/teste do apps/web"
+    },
+    {
+      "name": "eslint-config-next",
+      "version": "16.2.1",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/web",
+      "description": "Ferramenta de build/teste do apps/web"
+    },
+    {
+      "name": "jsdom",
+      "version": "29.0.2",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/web",
+      "description": "Ferramenta de build/teste do apps/web"
+    },
+    {
+      "name": "vitest",
+      "version": "4.1.4",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/web",
+      "description": "Ferramenta de build/teste do apps/web"
+    },
+    {
+      "name": "@babel/core",
+      "version": "7.20.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/mobile",
+      "description": "Ferramenta de build/teste do apps/mobile"
+    },
+    {
+      "name": "babel-preset-expo",
+      "version": "11.0.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "apps/mobile",
+      "description": "Ferramenta de build/teste do apps/mobile"
+    },
+    {
+      "name": "@types/better-sqlite3",
+      "version": "7.6.0",
+      "license": "MIT",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "packages/db",
+      "description": "Ferramenta de build/teste do packages/db"
+    },
+    {
+      "name": "drizzle-kit",
+      "version": "0.31.11",
+      "license": "Apache-2.0",
+      "category": "VERDE",
+      "type": "development",
+      "workspace": "packages/db",
+      "description": "Ferramenta de build/teste do packages/db"
+    }
+  ]
+}

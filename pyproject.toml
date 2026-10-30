@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=69.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aquila-pro-edge-python"
+version = "2.1.0"
+description = "Áquila Pro School OS — Edge AI Workers, OMR & GPU Swarm Connectors"
+authors = [
+    { name = "Áquila Pro Development Team / André Jr", email = "andrejrunb@yahoo.com.br" }
+]
+license = { text = "Business Source License 1.1" }
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24.0,<2.0.0",
+    "opencv-python-headless>=4.8.0",
+    "pillow>=10.0.0",
+    "requests>=2.31.0",
+    "urllib3>=2.0.0",
+    "pydantic>=2.5.0",
+    "cryptography>=41.0.0",
+    "psutil>=5.9.0",
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "cyclonedx-bom>=4.0.0",
+]
+gpu = [
+    "torch>=2.1.0",
+    "torchvision>=0.16.0",
+]

@@ -1,0 +1,15 @@
+# Áquila Pro — Edge & AI Worker Python Dependencies
+# Baseline: v2.1.0-rc.30 (Commit: 59b2233af8a6370853b298750014d885ca09ee65)
+# License: Business Source License 1.1
+
+numpy>=1.24.0,<2.0.0
+opencv-python-headless>=4.8.0
+pillow>=10.0.0
+requests>=2.31.0
+urllib3>=2.0.0
+pydantic>=2.5.0
+cryptography>=41.0.0
+psutil>=5.9.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+cyclonedx-bom>=4.0.0

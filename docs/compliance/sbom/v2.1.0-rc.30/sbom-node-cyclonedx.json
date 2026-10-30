@@ -1,0 +1,3369 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:79fa73de-a83a-4be5-961d-e9d9d427f0a1",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-30T19:41:35.669Z",
+    "tools": [
+      {
+        "vendor": "Áquila Pro Sovereign Systems",
+        "name": "build_release_sbom_suite",
+        "version": "2.1.0"
+      }
+    ],
+    "component": {
+      "type": "application",
+      "name": "aquila-pro-school-os",
+      "version": "2.1.0-rc.30",
+      "description": "Áquila Pro School OS — Sovereign Desktop & Edge Operating System",
+      "scope": "required",
+      "licenses": [
+        {
+          "license": {
+            "id": "LicenseRef-BSL-1.1",
+            "name": "Business Source License 1.1"
+          }
+        }
+      ],
+      "purl": "pkg:npm/aquila-pro-school-os@2.1.0-rc.30"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "typescript",
+      "version": "5.3.3",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do root",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/typescript@5.3.3",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "root"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@aquila/api",
+      "version": "workspace:*",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "SEE LICENSE IN LICENSE"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@aquila/api@workspace:*",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "DESCONHECIDA"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@chainsafe/libp2p-noise",
+      "version": "15.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0 OR MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@chainsafe/libp2p-noise@15.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@google/generative-ai",
+      "version": "0.24.1",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@google/generative-ai@0.24.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@libp2p/mdns",
+      "version": "9.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0 OR MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@libp2p/mdns@9.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@libp2p/mplex",
+      "version": "10.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0 OR MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@libp2p/mplex@10.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@libp2p/tcp",
+      "version": "9.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0 OR MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@libp2p/tcp@9.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@modelcontextprotocol/sdk",
+      "version": "1.29.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@modelcontextprotocol/sdk@1.29.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@react-three/drei",
+      "version": "9.122.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@react-three/drei@9.122.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@react-three/fiber",
+      "version": "8.18.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@react-three/fiber@8.18.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@supabase/supabase-js",
+      "version": "2.39.4",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@supabase/supabase-js@2.39.4",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/better-sqlite3",
+      "version": "7.6.13",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/better-sqlite3@7.6.13",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/three",
+      "version": "0.184.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/three@0.184.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "animejs",
+      "version": "4.3.0-beta.2",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/animejs@4.3.0-beta.2",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "axios",
+      "version": "1.7.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/axios@1.7.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "bcryptjs",
+      "version": "3.0.3",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:npm/bcryptjs@3.0.3",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "better-sqlite3",
+      "version": "11.5.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/better-sqlite3@11.5.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "crypto-js",
+      "version": "4.2.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/crypto-js@4.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "date-fns",
+      "version": "4.1.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/date-fns@4.1.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "dotenv",
+      "version": "16.4.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:npm/dotenv@16.4.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "drizzle-kit",
+      "version": "0.31.11",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/drizzle-kit@0.31.11",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "drizzle-orm",
+      "version": "0.45.3",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/drizzle-orm@0.45.3",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron-log",
+      "version": "5.1.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/electron-log@5.1.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron-store",
+      "version": "8.2.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/electron-store@8.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron-updater",
+      "version": "6.8.3",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/electron-updater@6.8.3",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "exceljs",
+      "version": "3.4.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/exceljs@3.4.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "google-auth-library",
+      "version": "11.1.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/google-auth-library@11.1.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "googleapis",
+      "version": "183.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/googleapis@183.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "graphology",
+      "version": "0.26.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/graphology@0.26.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "graphology-communities-louvain",
+      "version": "2.0.2",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/graphology-communities-louvain@2.0.2",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "graphology-types",
+      "version": "0.24.8",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/graphology-types@0.24.8",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "inversify",
+      "version": "6.2.2",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/inversify@6.2.2",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "it-length-prefixed",
+      "version": "9.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0 OR MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/it-length-prefixed@9.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "it-pipe",
+      "version": "3.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0 OR MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/it-pipe@3.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "konva",
+      "version": "10.2.3",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/konva@10.2.3",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "libp2p",
+      "version": "3.3.11",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0 OR MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/libp2p@3.3.11",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lucide-react",
+      "version": "1.7.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lucide-react@1.7.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "minisearch",
+      "version": "7.2.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/minisearch@7.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "next",
+      "version": "16.3.8",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/next@16.3.8",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "node-schedule",
+      "version": "2.1.1",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/node-schedule@2.1.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "nodemailer",
+      "version": "10.0.13",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT-0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/nodemailer@10.0.13",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pdf-lib",
+      "version": "1.17.1",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/pdf-lib@1.17.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "qrcode-terminal",
+      "version": "0.12.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/qrcode-terminal@0.12.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "qrcode.react",
+      "version": "4.2.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/qrcode.react@4.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-is",
+      "version": "19.2.5",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-is@19.2.5",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-konva",
+      "version": "18.2.10",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-konva@18.2.10",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "recharts",
+      "version": "3.8.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/recharts@3.8.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "reflect-metadata",
+      "version": "0.2.2",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/reflect-metadata@0.2.2",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "sharp",
+      "version": "0.35.5",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/sharp@0.35.5",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "three",
+      "version": "0.184.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/three@0.184.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "uint8arrays",
+      "version": "5.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0 OR MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/uint8arrays@5.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "use-image",
+      "version": "1.1.4",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/use-image@1.1.4",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "uuid",
+      "version": "9.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/uuid@9.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ws",
+      "version": "8.16.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/ws@8.16.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "zod",
+      "version": "4.3.6",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/zod@4.3.6",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "archiver",
+      "version": "7.0.1",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/archiver@7.0.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@playwright/test",
+      "version": "1.60.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@playwright/test@1.60.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/crypto-js",
+      "version": "4.2.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/crypto-js@4.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/jest",
+      "version": "29.5.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/jest@29.5.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/node",
+      "version": "20.0.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/node@20.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/node-schedule",
+      "version": "2.1.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/node-schedule@2.1.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/nodemailer",
+      "version": "6.4.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/nodemailer@6.4.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/react",
+      "version": "18.2.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/react@18.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/react-dom",
+      "version": "18.2.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/react-dom@18.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/uuid",
+      "version": "9.0.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/uuid@9.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/ws",
+      "version": "8.5.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/ws@8.5.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@vitejs/plugin-react",
+      "version": "4.2.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@vitejs/plugin-react@4.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "autoprefixer",
+      "version": "10.4.27",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/autoprefixer@10.4.27",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "concurrently",
+      "version": "8.2.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/concurrently@8.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron",
+      "version": "28.3.3",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/electron@28.3.3",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron-builder",
+      "version": "24.13.3",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/electron-builder@24.13.3",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "jest",
+      "version": "29.7.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/jest@29.7.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "postcss",
+      "version": "8.5.8",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/postcss@8.5.8",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react",
+      "version": "18.2.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react@18.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-dom",
+      "version": "18.2.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-dom@18.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "rimraf",
+      "version": "5.0.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/rimraf@5.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tailwindcss",
+      "version": "3.4.1",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/tailwindcss@3.4.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ts-jest",
+      "version": "29.1.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/ts-jest@29.1.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "vite",
+      "version": "5.4.21",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/vite@5.4.21",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "vite-plugin-node-polyfills",
+      "version": "0.2.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/vite-plugin-node-polyfills@0.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "vite-plugin-pwa",
+      "version": "1.2.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/vite-plugin-pwa@1.2.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "workbox-build",
+      "version": "7.4.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/workbox-build@7.4.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/archiver",
+      "version": "6.0.2",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/archiver@6.0.2",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@jest/globals",
+      "version": "29.7.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/electron",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@jest/globals@29.7.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/electron"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "apexcharts",
+      "version": "5.10.6",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "SEE LICENSE IN LICENSE"
+          }
+        }
+      ],
+      "purl": "pkg:npm/apexcharts@5.10.6",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "DESCONHECIDA"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "clsx",
+      "version": "2.1.1",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/clsx@2.1.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react",
+      "version": "19.2.4",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react@19.2.4",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-apexcharts",
+      "version": "2.1.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "SEE LICENSE IN LICENSE"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-apexcharts@2.1.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "DESCONHECIDA"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-dom",
+      "version": "19.2.4",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-dom@19.2.4",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tailwind-merge",
+      "version": "3.5.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/tailwind-merge@3.5.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@tailwindcss/postcss",
+      "version": "4",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@tailwindcss/postcss@4",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@testing-library/jest-dom",
+      "version": "6.9.1",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@testing-library/jest-dom@6.9.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@testing-library/react",
+      "version": "16.3.2",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@testing-library/react@16.3.2",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@testing-library/user-event",
+      "version": "14.6.1",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@testing-library/user-event@14.6.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "eslint",
+      "version": "9",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/eslint@9",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "eslint-config-next",
+      "version": "16.2.1",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/eslint-config-next@16.2.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "jsdom",
+      "version": "29.0.2",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/jsdom@29.0.2",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "vitest",
+      "version": "4.1.4",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/web",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/vitest@4.1.4",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/web"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@expo/metro-runtime",
+      "version": "3.2.3",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@expo/metro-runtime@3.2.3",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "expo",
+      "version": "51.0.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/expo@51.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "expo-constants",
+      "version": "16.0.2",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/expo-constants@16.0.2",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "expo-linking",
+      "version": "6.3.1",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/expo-linking@6.3.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "expo-router",
+      "version": "3.5.15",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/expo-router@3.5.15",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "expo-status-bar",
+      "version": "1.12.1",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/expo-status-bar@1.12.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lucide-react-native",
+      "version": "0.395.0",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/lucide-react-native@0.395.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-native",
+      "version": "0.74.2",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-native@0.74.2",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-native-safe-area-context",
+      "version": "4.10.1",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-native-safe-area-context@4.10.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-native-screens",
+      "version": "3.31.1",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-native-screens@3.31.1",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-native-web",
+      "version": "0.19.10",
+      "scope": "required",
+      "description": "Dependência de runtime do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-native-web@0.19.10",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@babel/core",
+      "version": "7.20.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@babel/core@7.20.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "babel-preset-expo",
+      "version": "11.0.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do apps/mobile",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/babel-preset-expo@11.0.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "apps/mobile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@trpc/server",
+      "version": "10.45.0",
+      "scope": "required",
+      "description": "Dependência de runtime do packages/api",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@trpc/server@10.45.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "packages/api"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@aquila/db",
+      "version": "workspace:*",
+      "scope": "required",
+      "description": "Dependência de runtime do packages/api",
+      "licenses": [
+        {
+          "license": {
+            "id": "SEE LICENSE IN LICENSE"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@aquila/db@workspace:*",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "DESCONHECIDA"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "production"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "packages/api"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@types/better-sqlite3",
+      "version": "7.6.0",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do packages/db",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/@types/better-sqlite3@7.6.0",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "packages/db"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "drizzle-kit",
+      "version": "0.31.11",
+      "scope": "optional",
+      "description": "Ferramenta de build/teste do packages/db",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:npm/drizzle-kit@0.31.11",
+      "properties": [
+        {
+          "name": "aquila:licenseCategory",
+          "value": "VERDE"
+        },
+        {
+          "name": "aquila:dependencyType",
+          "value": "development"
+        },
+        {
+          "name": "aquila:workspace",
+          "value": "packages/db"
+        }
+      ]
+    }
+  ]
+}
