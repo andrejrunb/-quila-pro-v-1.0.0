@@ -5,7 +5,7 @@
   "main": "dist/main.js",
   "homepage": "./",
   "author": "Andre Jr <andrejrunb@yahoo.com.br>",
-  "license": "Proprietary",
+  "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "dev": "concurrently \"pnpm run dev:electron\" \"pnpm run dev:renderer\"",
     "dev:electron": "tsc --project tsconfig.json && powershell -Command \"Start-Sleep -s 5\" && electron .",

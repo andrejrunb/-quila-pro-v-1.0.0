@@ -1,83 +1,54 @@
-CONTRATO DE LICEN«A DE USO DO SOFTWARE ¡QUILA PRO
-==================================================
+CONTRATO DE LICEN√áA DE USO DO SOFTWARE √ÅQUILA PRO (BUSINESS SOURCE LICENSE 1.1)
+================================================================================
 
-Vers„o 1.2.0  MarÁo de 2026
+Vers√£o 2.1.0 ‚Äî Outubro de 2026
+
+Licenciante: Andr√© Jr / √Åquila Pro Development Team (andrejrunb@yahoo.com.br)
+Obra Licenciada: Ecossistema √Åquila Pro (√Åquila Pro School OS, Desktop, Mobile, Core)
 
 LEIA ATENTAMENTE ESTE CONTRATO ANTES DE INSTALAR O SOFTWARE.
 
-1. DEFINI«’ES
-   - "Software": ¡quila Pro  Sistema de SeguranÁa e Engajamento Escolar
-   - "Licenciante": AndrÈ Jr / ¡quila Pro LTDA (andrejrunb@yahoo.com.br)
-   - "Licenciado": A instituiÁ„o de ensino que adquiriu a licenÁa
+1. CONCESS√ÉO DE LICEN√áA (BUSINESS SOURCE LICENSE 1.1 / OPEN-CORE)
+   O Licenciante concede ao Licenciado o direito de auditar, inspecionar o
+   c√≥digo-fonte, compilar e executar o Software para fins de avalia√ß√£o, testes de
+   bancada e opera√ß√£o de pilotos autorizados, sob o modelo Business Source License 1.1.
 
-2. CONCESS√O DE LICEN«A
-   O Licenciante concede ao Licenciado uma licenÁa n„o exclusiva,
-   intransferÌvel e limitada para instalar e usar o Software em um
-   ˙nico servidor/computador por unidade educacional contratada.
+2. CONCESS√ÉO ADICIONAL DE USO (ADDITIONAL USE GRANT)
+   a) AUDITORIA SOBERANA E LGPD: √â expressamente permitido a escolas p√∫blicas e
+      privadas, secretarias de educa√ß√£o e conselhos escolares auditarem o c√≥digo-fonte
+      para verifica√ß√£o de seguran√ßa, transpar√™ncia algor√≠tmica e estrita conformidade
+      com a LGPD (Lei Federal n¬∫ 13.709/2018, Artigos 14, 16 e 18).
+   b) TESTES DE BANCADA E PILOTOS: √â expressamente permitido executar testes de
+      bancada laboratoriais e operar pilotos n√£o comerciais formalmente autorizados
+      pelo Licenciante.
+   c) USO ACAD√äMICO: √â permitido o estudo, pesquisa cient√≠fica e explora√ß√£o did√°tica
+      sem fins lucrativos por professores e discentes.
 
-3. RESTRI«’ES
-   O Licenciado N√O pode:
-   a) Copiar, modificar ou distribuir o Software
-   b) Fazer engenharia reversa ou descompilar o Software
-   c) Sublicenciar, alugar ou emprestar o Software
-   d) Usar o Software em mais de uma instituiÁ„o sem licenÁa adicional
-   e) Remover marcas d'·gua, logotipos ou avisos de direitos autorais
+3. RESTRI√á√ïES COMERCIAIS
+   √â estritamente vedada, sem licen√ßa comercial pr√©via outorgada pelo Licenciante:
+   a) A comercializa√ß√£o concorrente, revenda de c√≥pias ou sublicenciamento do Software;
+   b) A disponibiliza√ß√£o como plataforma comercial de nuvem multitenant (SaaS pago);
+   c) O fornecimento como servi√ßo comercial pago de gest√£o escolar, controle de
+      acesso f√≠sico/catraca ou monitoramento biom√©trico.
 
-4. PROTE«√O DE DADOS PESSOAIS  LGPD (Lei n∫ 13.709/2018)
-   O Software processa dados pessoais sensÌveis de alunos (nome,
-   imagem facial, frequÍncia escolar). O Licenciado compromete-se a:
-   a) Obter consentimento expresso dos pais/respons·veis antes da
-      ativaÁ„o do sistema de reconhecimento facial
-   b) Informar claramente sobre os fins do tratamento de dados
-   c) Garantir que os dados sejam usados exclusivamente para fins
-      educacionais e de seguranÁa escolar
-   d) Atender solicitaÁıes de exclus„o de dados (direito ao esquecimento)
-      em atÈ 15 dias ˙teis
-   e) Manter registro de atividades de tratamento (ROPA)
-   f) Nomear um Encarregado de Dados (DPO) quando exigido por lei
-   g) Notificar o Licenciante e a ANPD em caso de incidente de seguranÁa
+4. TRANSI√á√ÉO AUTOM√ÅTICA PARA C√ìDIGO ABERTO (CHANGE DATE: 01/01/2030)
+   Em 01 de janeiro de 2030, esta vers√£o do Software converter-se-√° automaticamente
+   em Software Livre de C√≥digo Aberto sob a licen√ßa Apache 2.0 (ou GNU GPL v2.0+).
 
-5. PRIVACIDADE E ARMAZENAMENTO
-   - Todos os dados biomÈtricos s„o processados e armazenados LOCALMENTE
-     no servidor da escola  nunca em servidores externos
-   - A sincronizaÁ„o em nuvem È OPCIONAL e requer opt-in explÌcito
-   - Quando ativada, apenas dados agregados e anonimizados s„o enviados
-   - O Licenciante N√O tem acesso aos dados pessoais dos alunos
-   - Backups autom·ticos utilizam criptografia AES-256
+5. PROTE√á√ÉO DE DADOS PESSOAIS ‚Äî LGPD (LEI N¬∫ 13.709/2018)
+   O Software opera em arquitetura 100% offline-first e borda soberana:
+   a) O processamento biom√©trico e de vis√£o computacional ocorre LOCALMENTE;
+   b) Nenhum dado sens√≠vel de crian√ßas ou adolescentes √© enviado para nuvens p√∫blicas;
+   c) A escola atuar√° como Controladora e o Software como ferramenta soberana local;
+   d) √â garantido o direito de exclus√£o e portabilidade em at√© 15 dias √∫teis.
 
-6. SUPORTE T…CNICO
-   O Licenciante oferece suporte conforme o plano contratado:
+6. SUPORTE T√âCNICO E CONTATO
+   - Licenciante: Andr√© Jr / √Åquila Pro Development Team
    - E-mail: andrejrunb@yahoo.com.br
-   - WhatsApp: +55 (61) 99962-3099
-   - Hor·rio: Segunda a Sexta, 8h ‡s 18h (hor·rio de BrasÌlia)
-   - Portal: https://aquilapro.manus.space/suporte
+   - WhatsApp / Suporte T√©cnico: +55 (61) 99962-3099
+   - Foro: Bras√≠lia - Distrito Federal, Brasil.
 
-7. ATUALIZA«’ES AUTOM¡TICAS
-   O Software pode receber atualizaÁıes autom·ticas de seguranÁa.
-   O Licenciado pode desativar atualizaÁıes autom·ticas nas configuraÁıes,
-   porÈm isso pode expor o sistema a vulnerabilidades.
+Ao instalar o Software, o Licenciado declara ter lido, compreendido e concordado
+com os termos da Business Source License 1.1 do √Åquila Pro.
 
-8. GARANTIA LIMITADA
-   O Software È fornecido "como est·". O Licenciante garante que o
-   Software funcionar· substancialmente conforme descrito na documentaÁ„o
-   por um perÌodo de 12 meses a partir da data de instalaÁ„o.
-
-9. LIMITA«√O DE RESPONSABILIDADE
-   O Licenciante n„o ser· respons·vel por danos indiretos, incidentais
-   ou consequenciais decorrentes do uso ou impossibilidade de uso do
-   Software, incluindo perda de dados por falha de hardware.
-
-10. VIG NCIA E RENOVA«√O
-    Esta licenÁa È v·lida pelo perÌodo contratado. A renovaÁ„o È
-    autom·tica salvo cancelamento com 30 dias de antecedÍncia.
-    Em caso de inadimplÍncia, o Software poder· ser desativado remotamente.
-
-11. FORO
-    Fica eleito o foro da comarca de BrasÌlia-DF para dirimir quaisquer
-    questıes oriundas deste contrato, com ren˙ncia a qualquer outro,
-    por mais privilegiado que seja.
-
-Ao instalar o Software, o Licenciado declara ter lido, compreendido
-e concordado integralmente com todos os termos deste contrato.
-
- 2026 AndrÈ Jr / ¡quila Pro LTDA  Todos os direitos reservados.
+¬© 2026 Andr√© Jr / √Åquila Pro Development Team. Todos os direitos reservados sob BSL 1.1.

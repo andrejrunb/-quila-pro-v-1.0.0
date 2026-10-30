@@ -1,21 +1,130 @@
-MIT License
+Business Source License 1.1
 
-Copyright (c) 2026 Áquila Pro Development Team
+Parameters
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Licensor:
+    Áquila Pro Development Team / André Jr (andrejrunb@yahoo.com.br)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Licensed Work:
+    The Áquila Pro Software, architecture, source code, and associated documentation
+    in this repository, including but not limited to:
+    - Desktop Sovereign Operating System (`apps/electron`)
+    - Mobile Family & Student Companion (`apps/mobile`)
+    - Web Portal & Administrative Interface (`apps/web`)
+    - Shared API packages, database schemas, and migration tooling (`packages/api`, `packages/db`, `shared`)
+    - Local cryptographic services, offline sync protocols, and hardware/OMR connectors.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Additional Use Grant:
+    You may use the Licensed Work under the following express authorizations:
+
+    1. Educational Audit & LGPD Compliance:
+       Express, royalty-free permission is granted to public and private educational
+       institutions (including K-12 basic education schools, technical vocational schools,
+       colleges, and universities), municipal and state secretariats of education, and
+       school governance/parental councils to inspect, audit, review, and evaluate the
+       source code for purposes of data privacy, cryptographic integrity, algorithmic
+       transparency, and verification of full compliance with Brazilian legislation,
+       specifically the General Data Protection Law (LGPD - Lei Federal nº 13.709/2018,
+       including Articles 14, 16, and 18 regarding children and adolescents' data).
+
+    2. Bench Testing, Technical Validation & Authorized Pilots:
+       Express permission is granted to execute bench testing, sandbox validation, local
+       interoperability verification, stress benchmarks, and to deploy and operate non-commercial
+       authorized school pilot installations governed by an authorization protocol, memorandum
+       of understanding (MOU), or pilot agreement formalised with the Licensor.
+
+    3. Academic Research & Pedagogical Exploration:
+       Express permission is granted for teachers, academic researchers, pedagogues, and
+       students to examine, evaluate, run in non-production laboratory environments, and
+       modify the Licensed Work strictly for academic research, didactic studies, and non-commercial
+       pedagogical experimentation.
+
+    Commercial / Production Restrictions:
+       Any competitive commercial use, resale of copies, sublicensing, commercial distribution,
+       proprietary re-branding, white-label commercialization, hosting as a paid multi-tenant
+       cloud software-as-a-service (SaaS), or commercial provisioning of the Licensed Work as a
+       for-profit school management system, automated biometric attendance tracker, physical
+       access control/turnstile management platform, or paid AI tutoring platform without a separate
+       commercial license agreement duly executed by the Licensor is strictly prohibited.
+
+Change Date:
+    2030-01-01
+
+Change License:
+    Apache License, Version 2.0 (or GNU General Public License v2.0 or later, at the licensee's election)
+
+--------------------------------------------------------------------------------
+
+Text of the License
+
+The Licensor hereby grants you the right to copy, modify, create derivative works,
+redistribute, and make non-production use of the Licensed Work. The Licensor may
+make an Additional Use Grant, subjecting the grant to conditions, and will specify
+such grant in the Additional Use Grant section above.
+
+To use the Licensed Work in production or in any way not permitted by the Additional
+Use Grant, you must purchase a commercial license from the Licensor or its affiliated
+entities, or obtain written permission from the Licensor.
+
+Effective on the Change Date, or the fourth anniversary of the first publicly
+available distribution of a specific version of the Licensed Work under this
+License, whichever comes first, the Licensor hereby grants to you rights under the
+terms of the Change License, and the rights granted in the original License, including
+the Additional Use Grant, will automatically terminate with respect to said Licensed
+Work and its derivative works. You may use all complete or portions of the Licensed
+Work under the terms of the Change License from the Change Date forward.
+
+Notices
+
+You must reproduce in all copies, modified or unmodified, of the Licensed Work
+the above copyright notice, the name of the Licensor, the Change Date, the Change
+License, this License, and all notices that refer to this License and to the absence
+of any warranty.
+
+Warranty and Liability
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE LICENSOR BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE WORK OR THE USE OR
+OTHER DEALINGS IN THE WORK.
+
+================================================================================
+ANEXO JURÍDICO EM PORTUGUÊS — LEGISLAÇÃO BRASILEIRA (ADENDO EXPLICATIVO)
+================================================================================
+
+Este instrumento rege o uso, auditoria, homologação e distribuição do código-fonte
+e artefatos de software do Áquila Pro, em estrita harmonia com o Direito Brasileiro,
+notadamente:
+- Lei Federal nº 9.609/1998 (Lei do Software);
+- Lei Federal nº 9.610/1998 (Lei de Direitos Autorais);
+- Lei Federal nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais - LGPD);
+- Lei Federal nº 12.965/2014 (Marco Civil da Internet).
+
+1. NATUREZA OPEN-CORE E SOBERANIA EDUCACIONAL
+O modelo Business Source License 1.1 (BSL 1.1) assegura transparência de código-fonte
+aberto ("source-available / open-core") para auditoria soberana, ao mesmo tempo em que
+impede a apropriação predatória e comercialização desautorizada por concorrentes
+comerciais ou plataformas terceirizadas.
+
+2. DIREITO DE AUDITORIA E CONFORMIDADE COM A LGPD
+Em cumprimento aos Arts. 14, 16 e 18 da LGPD, o Licenciante confere a todas as escolas,
+colégios, secretarias de educação e instituições acadêmicas parceiras o direito
+irrestrito de:
+a) Auditar os algoritmos locais de visão computacional, OMR e criptografia edge-first;
+b) Inspecionar os esquemas de persistência local SQLite para assegurar que nenhum dado
+   biométrico ou identificador sensível de crianças e adolescentes seja transmitido
+   para nuvens públicas desautorizadas;
+c) Executar testes de bancada e homologar ambientes de piloto autorizados.
+
+3. RESTRIÇÕES COMERCIAIS
+É expressamente vedada a comercialização concorrente, revenda de licenças, disponibilização
+como serviço de nuvem comercial (SaaS) pago, locação ou exploração lucrativa das
+funcionalidades do Áquila Pro sem contrato de licença comercial previamente celebrado
+com André Jr / Áquila Pro Development Team.
+
+4. TRANSIÇÃO AUTOMÁTICA (CHANGE DATE: 01/01/2030)
+Na data estipulada de 01/01/2030, o código-fonte correspondente a esta versão converter-se-á
+automaticamente em Software Livre de Código Aberto nos termos da Licença Apache 2.0 ou
+GNU GPL v2.0+, consolidando o compromisso de perenidade tecnológica do ecossistema.

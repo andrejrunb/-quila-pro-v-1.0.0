@@ -2,6 +2,7 @@
   "name": "aquila-pro-mobile",
   "version": "2.1.0",
   "description": "Áquila Pro Mobile App — Companion Soberano para Famílias, Alunos e Docentes",
+  "license": "SEE LICENSE IN LICENSE",
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",

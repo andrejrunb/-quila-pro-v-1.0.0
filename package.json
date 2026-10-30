@@ -1,6 +1,7 @@
 {
   "name": "aquila-monorepo",
   "private": true,
+  "license": "SEE LICENSE IN LICENSE",
   "packageManager": "pnpm@12.15.0",
   "workspaces": [
     "apps/*",
