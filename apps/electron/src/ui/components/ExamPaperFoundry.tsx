@@ -3,9 +3,11 @@ import {
   Printer, Camera, Send, Copy, Check, Filter, QrCode, FileText,
   CheckCircle2, BookmarkCheck, Sparkles, Layers, Smartphone,
   BookOpen, Award, CheckSquare, RefreshCw, ArrowLeft,
-  Upload, Cpu, X, Zap, Loader2
+  Upload, Cpu, X, Zap, Loader2, ShieldCheck
 } from 'lucide-react';
 import './ExamPaperFoundry.css';
+
+export type QuestionReviewStatus = 'RASCUNHO_IA' | 'REVISADO_PROFESSOR' | 'APROVADO' | 'PUBLICADO';
 
 export interface ExamQuestionItem {
   id: string;
@@ -20,6 +22,9 @@ export interface ExamQuestionItem {
   phetTitle?: string;
   kumonL1?: string;
   kumonL2?: string;
+  status?: QuestionReviewStatus;
+  reviewedAt?: string;
+  reviewedBy?: string;
 }
 
 const MASTER_EXAM_ITEMS: ExamQuestionItem[] = [
@@ -541,6 +546,12 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
         }
       }
 
+      // Garante estado explícito de ciclo de vida: toda questão gerada por IA inicia como RASCUNHO_IA
+      generatedList = generatedList.map(q => ({
+        ...q,
+        status: 'RASCUNHO_IA'
+      }));
+
       setAllQuestions(prev => [...generatedList, ...prev]);
       setSelectedBanca(inputBanca);
       setSelectedSubject(inputSubject);
@@ -549,8 +560,8 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
       setRawExamInput('');
 
       (window as any).showToast?.(
-        `🎉 ${generatedList.length} questões digitalizadas com sucesso pelo Super Professor Soberano!`,
-        'success'
+        `📝 ${generatedList.length} questões geradas como rascunho! Revise o gabarito antes de publicar.`,
+        'info'
       );
     } catch (err: any) {
       console.error('[ExamPaperFoundry] Erro:', err);
@@ -561,8 +572,40 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
     }
   };
 
+  // Contagem de questões pendentes de revisão docente
+  const pendingReviewCount = useMemo(() => {
+    return filteredQuestions.filter(q => q.status === 'RASCUNHO_IA').length;
+  }, [filteredQuestions]);
+
+  // Handlers de Validação e Aprovação Docente (Human-in-the-Loop)
+  const handleApproveQuestion = (id: string) => {
+    setAllQuestions(prev => prev.map(q => q.id === id ? {
+      ...q,
+      status: 'REVISADO_PROFESSOR',
+      reviewedAt: new Date().toISOString(),
+      reviewedBy: 'Professor Titular'
+    } : q));
+    (window as any).showToast?.('Questão validada e aprovada pelo docente!', 'success');
+  };
+
+  const handleApproveAllQuestions = () => {
+    setAllQuestions(prev => prev.map(q => q.status === 'RASCUNHO_IA' ? {
+      ...q,
+      status: 'REVISADO_PROFESSOR',
+      reviewedAt: new Date().toISOString(),
+      reviewedBy: 'Professor Titular'
+    } : q));
+    (window as any).showToast?.('Todas as questões foram aprovadas pelo docente!', 'success');
+  };
+
   // Handlers
   const handlePrint = () => {
+    if (pendingReviewCount > 0) {
+      (window as any).showToast?.(
+        `Aviso: Existem ${pendingReviewCount} questões em rascunho de IA ainda não validadas pelo docente.`,
+        'warning'
+      );
+    }
     window.print();
   };
 
@@ -859,13 +902,61 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
           <strong>INSTRUÇÕES GERAIS:</strong> 1. Verifique se o caderno contém {filteredQuestions.length} questões objetivas. 2. Utilize caneta esferográfica azul ou preta. 3. Não é permitido o uso de calculadora ou qualquer dispositivo eletrônico. 4. Preencha as respostas na folha óptica sem rasuras. 5. Duração máxima sugerida: {filteredQuestions.length * 4} minutos.
         </div>
 
+        {/* Banner de Validação Docente (Oculto na impressão) */}
+        {pendingReviewCount > 0 && (
+          <div className="epf-review-alert-banner" style={{
+            background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(15, 23, 42, 0.95))',
+            border: '1px solid rgba(245, 158, 11, 0.4)',
+            borderRadius: '8px',
+            padding: '12px 18px',
+            margin: '16px 0',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '12px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <ShieldCheck size={22} color="#F59E0B" />
+              <div>
+                <strong style={{ color: '#FDE047', fontSize: '13px' }}>
+                  {pendingReviewCount} {pendingReviewCount === 1 ? 'questão gerada por IA pendente' : 'questões geradas por IA pendentes'} de validação docente
+                </strong>
+                <p style={{ margin: '2px 0 0 0', fontSize: '11px', color: '#CBD5E1' }}>
+                  Por rigor metodológico e conformidade ética, revise os enunciados e gabaritos antes de aplicar a prova ou gerar o OMR.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="epf-btn"
+              style={{ background: 'rgba(16, 185, 129, 0.2)', borderColor: '#10B981', color: '#34D399' }}
+              onClick={handleApproveAllQuestions}
+            >
+              <CheckCircle2 size={14} />
+              <span>Validar & Aprovar Todas</span>
+            </button>
+          </div>
+        )}
+
         {/* MODO 1: CADERNO DE PROVA A4 EM 2 COLUNAS */}
         {viewMode === 'exam' && (
           <div className="epf-questions-two-col">
             {filteredQuestions.map((q, idx) => (
               <article key={q.id} className="epf-question-block">
                 <div className="epf-q-meta">
-                  <span className="epf-q-num">QUESTÃO {String(idx + 1).padStart(2, '0')}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span className="epf-q-num">QUESTÃO {String(idx + 1).padStart(2, '0')}</span>
+                    {q.status === 'RASCUNHO_IA' ? (
+                      <span style={{ fontSize: '9.5px', background: 'rgba(245, 158, 11, 0.2)', color: '#F59E0B', border: '1px solid rgba(245, 158, 11, 0.4)', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>
+                        ⚠️ Rascunho IA (Pendente)
+                      </span>
+                    ) : (
+                      <span style={{ fontSize: '9.5px', background: 'rgba(16, 185, 129, 0.15)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '1px 6px', borderRadius: '4px', fontWeight: 600 }}>
+                        ✅ Validada pelo Professor
+                      </span>
+                    )}
+                  </div>
                   <span className="epf-q-banca">{q.exam} • {q.subject.toUpperCase()}</span>
                 </div>
 
@@ -941,7 +1032,20 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
               <div key={q.id} className="epf-ans-item">
                 <div className="epf-ans-header">
                   <span className="epf-ans-badge">Questão {idx + 1} • {q.exam} ({q.subject})</span>
-                  <span className="epf-ans-letter">GABARITO: ({q.correct})</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    {q.status === 'RASCUNHO_IA' && (
+                      <button
+                        type="button"
+                        className="epf-btn"
+                        style={{ height: '24px', padding: '0 8px', fontSize: '10.5px', background: 'rgba(16, 185, 129, 0.2)', borderColor: '#10B981', color: '#34D399' }}
+                        onClick={() => handleApproveQuestion(q.id)}
+                      >
+                        <Check size={12} />
+                        <span>Validar Gabarito</span>
+                      </button>
+                    )}
+                    <span className="epf-ans-letter">GABARITO: ({q.correct})</span>
+                  </div>
                 </div>
                 <p style={{ margin: '4px 0 6px 0', fontSize: 12, color: '#334155', lineHeight: 1.4 }}>
                   <strong>Resolução Comentada:</strong> {q.explanation}
@@ -966,11 +1070,11 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
               <div className="epf-modal-header-title">
                 <div className="epf-modal-badge">
                   <Sparkles size={12} />
-                  <span>Cluster Super Professor Soberano • R$ 0,00</span>
+                  <span>Assistente Docente • Rascunho de Avaliações</span>
                 </div>
-                <h3>Digitalizador & Gerador de Questões com GPU</h3>
+                <h3>Super Professor IA — Ingestão de Provas & Rascunhos</h3>
                 <p>
-                  Converta provas antigas em papel, PDFs ou notas brutas em questões formatadas com gabarito, BNCC e passos Kumon.
+                  Gera rascunho de questões estruturadas a partir de provas antigas para validação e refinamento obrigatório do professor.
                 </p>
               </div>
               <button
@@ -1124,7 +1228,7 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
                   disabled={isProcessingAi || !rawExamInput.trim()}
                 >
                   <Sparkles size={16} />
-                  <span>{isProcessingAi ? 'Estruturando Questões...' : 'Digitalizar & Gerar Questões'}</span>
+                  <span>{isProcessingAi ? 'Estruturando Rascunho...' : 'Gerar Rascunho para Revisão'}</span>
                 </button>
               </div>
             </div>

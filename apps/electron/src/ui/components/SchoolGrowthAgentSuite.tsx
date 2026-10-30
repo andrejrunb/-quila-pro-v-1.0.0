@@ -150,11 +150,11 @@ const COMPETITOR_SCHOOLS_RADAR: CompetitorSchoolItem[] = [
     idebOrEnemScore: '638.4 (ENEM 2024)',
     technologyLevel: 'SaaS Externo',
     vulnerabilities: [
-      'Alunos usam celular em sala de aula para exercícios (violação da lei antibelas)',
-      'Dados de desempenho escolar armazenados em servidores na nuvem pública nos EUA',
-      'Atendimento e follow-up comercial demorado (> 4 horas)'
+      'Dependência de dispositivos móveis individuais em sala (atrito com diretrizes de restrição de telas)',
+      'Armazenamento de notas e boletins em infraestrutura de nuvem pública multitenant',
+      'Atendimento e follow-up comercial com tempo de resposta estendido (> 4 horas)'
     ],
-    aquilaCounterStrategy: 'Destacar o Áquila Paper & OMR Soberano (avaliação física sem celulares na sala), Soberania LGPD local e resposta comercial em < 5 minutos.'
+    aquilaCounterStrategy: 'Posicionamento via Áquila Paper & OMR Soberano (avaliação impressa sem dependência de celular em sala), soberania de dados local e resposta comercial em < 5 minutos.'
   },
   {
     id: 'comp-2',
@@ -166,11 +166,11 @@ const COMPETITOR_SCHOOLS_RADAR: CompetitorSchoolItem[] = [
     idebOrEnemScore: '602.1 (ENEM 2024)',
     technologyLevel: 'Analógica / Fichário',
     vulnerabilities: [
-      'Correção de provas 100% manual (demora até 15 dias para publicar boletim)',
-      'Sem acompanhamento contínuo de lacunas (apenas avaliações bimestrais estáticas)',
-      'Controle de portaria com caderneta ou crachá de código de barras suscetível a fraudes'
+      'Processamento de avaliações predominantemente manual (tempo de retorno estendido para os alunos)',
+      'Acompanhamento de aprendizagem por médias bimestrais pontuais sem mapa de maestria contínuo',
+      'Controle de portaria analógico ou com leitor de código de barras (fluxo suscetível a filas e esquecimentos)'
     ],
-    aquilaCounterStrategy: 'Demonstrar a Catraca com Reconhecimento Facial em 100ms e Correção OMR Instantânea com trilha Kumon de recuperação contínua.'
+    aquilaCounterStrategy: 'Apresentar a Catraca com Reconhecimento Facial em 100ms e Correção OMR Rápida com trilha Kumon de recuperação contínua.'
   },
   {
     id: 'comp-3',
@@ -182,11 +182,11 @@ const COMPETITOR_SCHOOLS_RADAR: CompetitorSchoolItem[] = [
     idebOrEnemScore: '614.8 (ENEM 2024)',
     technologyLevel: 'Básica (Portal Web)',
     vulnerabilities: [
-      'Altas taxas de evasão no 1º ano do Ensino Médio sem diagnóstico prévio',
-      'Comunicação com famílias fragmentada em grupos informais de WhatsApp',
-      'Sem simulados específicos com questões das bancas regionais (UFG, UnB/PAS, UFU)'
+      'Acompanhamento de evasão sem alertas preditivos automáticos integrados à frequência',
+      'Comunicação com famílias fragmentada em canais informais sem registro centralizado',
+      'Elaboração de simulados genéricos sem alinhamento às matrizes regionais (UFG, UnB/PAS, UFU)'
     ],
-    aquilaCounterStrategy: 'Vender a Retenção Preditiva com Early Warning de Evasão (Piloto H-02) e Cadernos de Prova personalizados para PAS-UnB e UFG.'
+    aquilaCounterStrategy: 'Apresentar o Radar Preditivo de Evasão (Piloto H-02) e Cadernos de Prova personalizados para PAS-UnB e bancas regionais.'
   }
 ];
 
@@ -976,8 +976,27 @@ export const SchoolGrowthAgentSuite: React.FC<SchoolGrowthAgentSuiteProps> = ({ 
                 </div>
                 <div className="stat-unit">
                   <span className="stat-n">86%</span>
-                  <span className="stat-t">Uso de Telas/Celulares Proibidos</span>
+                  <span className="stat-t">Restrição de Dispositivos Móveis</span>
                 </div>
+              </div>
+
+              {/* Nota de Governança Metodológica INEP */}
+              <div style={{
+                background: 'rgba(234, 179, 8, 0.1)',
+                border: '1px solid rgba(234, 179, 8, 0.3)',
+                borderRadius: '8px',
+                padding: '10px 14px',
+                fontSize: '11px',
+                color: '#FDE047',
+                lineHeight: 1.45,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
+                <ShieldCheck size={18} />
+                <span>
+                  <strong>Nota de Governança de Dados (INEP / Censo Escolar 2024):</strong> Indicadores territoriais compilados a partir de dados públicos agregados e simulações amostrais de mercado. Devem ser tratados como referências estratégicas para apoio à decisão da mantenedora, não como auditoria homologada de instituições terceiras.
+                </span>
               </div>
             </div>
 
@@ -1003,7 +1022,7 @@ export const SchoolGrowthAgentSuite: React.FC<SchoolGrowthAgentSuiteProps> = ({ 
                   </div>
 
                   <div className="comp-vulnerabilities">
-                    <h5>Gargalos & Vulnerabilidades Concorrenciais:</h5>
+                    <h5>Desafios Operacionais e Limitações Reportadas:</h5>
                     <ul>
                       {comp.vulnerabilities.map((v, i) => (
                         <li key={i}>{v}</li>
@@ -1014,7 +1033,7 @@ export const SchoolGrowthAgentSuite: React.FC<SchoolGrowthAgentSuiteProps> = ({ 
                   <div className="comp-counter-strategy">
                     <div className="strategy-title">
                       <Sparkles size={14} color="#38BDF8" />
-                      <span>Contra-Ataque Estratégico do Áquila Pro:</span>
+                      <span>Matriz de Posicionamento & Proposta de Valor:</span>
                     </div>
                     <p>{comp.aquilaCounterStrategy}</p>
                   </div>
