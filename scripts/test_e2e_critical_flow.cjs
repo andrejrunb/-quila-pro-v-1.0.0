@@ -327,7 +327,19 @@ var NotificationOutboxService = class {
 };
 
 // apps/electron/src/main/services/WebSocketServer.ts
-var import_ws = require("ws");
+function loadWs() {
+  try {
+    return require("ws");
+  } catch (e) {
+    try {
+      const candidate = require.resolve("ws", { paths: [path.resolve(__dirname, "../apps/electron")] });
+      return require(candidate);
+    } catch (e2) {
+      throw e;
+    }
+  }
+}
+var import_ws = loadWs();
 var import_events = require("events");
 var crypto = __toESM(require("crypto"));
 var ROLE_RATE_LIMITS = {

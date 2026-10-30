@@ -2,7 +2,7 @@
  * Step 131 — IoTService (Renderer Process)
  * Gerencia a comunicação com hardware físico via IPC.
  */
-import { IoTDevice } from '../../services/IotTypes';
+import { IoTDevice } from '../../services/IoTTypes';
 
 class IoTService {
   private devices: IoTDevice[] = [];
