@@ -57,7 +57,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install Monorepo Dependencies
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Web TypeScript Strict Check
         run: pnpm --filter @aquila/web exec tsc --noEmit
@@ -90,7 +90,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install Monorepo Dependencies
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Run Web Crypto HMAC-SHA256 Security Suite
         run: pnpm dlx tsx scripts/test_session_security.ts
@@ -144,7 +144,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install Monorepo Dependencies
-        run: pnpm install --frozen-lockfile || pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build Web SaaS & Electron Renderer
         run: |
