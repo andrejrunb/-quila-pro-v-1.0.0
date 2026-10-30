@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import './SchoolGrowthAgentSuite.css';
 
-export type GrowthAgentTab = 'storyteller' | 'marketing' | 'authority' | 'funnel';
+export type GrowthAgentTab = 'storyteller' | 'marketing' | 'authority' | 'funnel' | 'radar';
 
 interface StorytellerPreset {
   id: string;
@@ -123,6 +123,70 @@ const FOLLOWUP_STEPS: FollowUpStepItem[] = [
     channel: 'Telefone',
     objective: 'Resolução de objeções financeiras ou de transporte com atendimento humano.',
     script: 'Olá [Nome], sou a Coordenadora Pedagógica do Colégio Visão. Liguei pessoalmente para saber como foi a conversa em família sobre o futuro escolar do [Nome do Aluno] e me colocar à disposição para qualquer ajuste necessário.'
+  }
+];
+
+export interface CompetitorSchoolItem {
+  id: string;
+  name: string;
+  distanceKm: number;
+  type: 'Privada Confessional' | 'Privada Tradicional' | 'Bilingue / Internacional' | 'Franquia Nacional';
+  tuitionRange: string;
+  studentsCount: number;
+  idebOrEnemScore: string;
+  technologyLevel: 'Analógica / Fichário' | 'Básica (Portal Web)' | 'Média (Google/MS)' | 'SaaS Externo';
+  vulnerabilities: string[];
+  aquilaCounterStrategy: string;
+}
+
+const COMPETITOR_SCHOOLS_RADAR: CompetitorSchoolItem[] = [
+  {
+    id: 'comp-1',
+    name: 'Colégio Alpha Elite',
+    distanceKm: 1.4,
+    type: 'Franquia Nacional',
+    tuitionRange: 'R$ 2.400 - R$ 3.100',
+    studentsCount: 850,
+    idebOrEnemScore: '638.4 (ENEM 2024)',
+    technologyLevel: 'SaaS Externo',
+    vulnerabilities: [
+      'Alunos usam celular em sala de aula para exercícios (violação da lei antibelas)',
+      'Dados de desempenho escolar armazenados em servidores na nuvem pública nos EUA',
+      'Atendimento e follow-up comercial demorado (> 4 horas)'
+    ],
+    aquilaCounterStrategy: 'Destacar o Áquila Paper & OMR Soberano (avaliação física sem celulares na sala), Soberania LGPD local e resposta comercial em < 5 minutos.'
+  },
+  {
+    id: 'comp-2',
+    name: 'Instituto Educacional São Bento',
+    distanceKm: 2.8,
+    type: 'Privada Confessional',
+    tuitionRange: 'R$ 1.650 - R$ 2.100',
+    studentsCount: 620,
+    idebOrEnemScore: '602.1 (ENEM 2024)',
+    technologyLevel: 'Analógica / Fichário',
+    vulnerabilities: [
+      'Correção de provas 100% manual (demora até 15 dias para publicar boletim)',
+      'Sem acompanhamento contínuo de lacunas (apenas avaliações bimestrais estáticas)',
+      'Controle de portaria com caderneta ou crachá de código de barras suscetível a fraudes'
+    ],
+    aquilaCounterStrategy: 'Demonstrar a Catraca com Reconhecimento Facial em 100ms e Correção OMR Instantânea com trilha Kumon de recuperação contínua.'
+  },
+  {
+    id: 'comp-3',
+    name: 'Escola Horizonte Moderno',
+    distanceKm: 3.5,
+    type: 'Privada Tradicional',
+    tuitionRange: 'R$ 1.900 - R$ 2.500',
+    studentsCount: 480,
+    idebOrEnemScore: '614.8 (ENEM 2024)',
+    technologyLevel: 'Básica (Portal Web)',
+    vulnerabilities: [
+      'Altas taxas de evasão no 1º ano do Ensino Médio sem diagnóstico prévio',
+      'Comunicação com famílias fragmentada em grupos informais de WhatsApp',
+      'Sem simulados específicos com questões das bancas regionais (UFG, UnB/PAS, UFU)'
+    ],
+    aquilaCounterStrategy: 'Vender a Retenção Preditiva com Early Warning de Evasão (Piloto H-02) e Cadernos de Prova personalizados para PAS-UnB e UFG.'
   }
 ];
 
@@ -302,6 +366,7 @@ interface SchoolGrowthAgentSuiteProps {
 export const SchoolGrowthAgentSuite: React.FC<SchoolGrowthAgentSuiteProps> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState<GrowthAgentTab>('storyteller');
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [copiedScriptIndex, setCopiedScriptIndex] = useState<number | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [colabOnline, setColabOnline] = useState(false);
 
@@ -402,7 +467,7 @@ export const SchoolGrowthAgentSuite: React.FC<SchoolGrowthAgentSuiteProps> = ({ 
         </div>
       </div>
 
-      {/* 3 Main Navigation Tabs */}
+      {/* 5 Main Navigation Tabs */}
       <div className="growth-tabs-nav">
         <button
           className={`tab-btn ${activeTab === 'storyteller' ? 'active storyteller' : ''}`}
@@ -434,6 +499,28 @@ export const SchoolGrowthAgentSuite: React.FC<SchoolGrowthAgentSuiteProps> = ({ 
           <div className="tab-meta">
             <span className="tab-label">3. Autoridade Científica</span>
             <span className="tab-desc">Notas Técnicas, Famílias & DOIs</span>
+          </div>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'funnel' ? 'active funnel' : ''}`}
+          onClick={() => setActiveTab('funnel')}
+        >
+          <Layers size={16} />
+          <div className="tab-meta">
+            <span className="tab-label">4. Captação Previsível</span>
+            <span className="tab-desc">Funil 5 Fases, KPIs & Follow-up</span>
+          </div>
+        </button>
+
+        <button
+          className={`tab-btn ${activeTab === 'radar' ? 'active radar' : ''}`}
+          onClick={() => setActiveTab('radar')}
+        >
+          <Globe size={16} />
+          <div className="tab-meta">
+            <span className="tab-label">5. Radar Competitivo & INEP</span>
+            <span className="tab-desc">Inteligência Local 5km & Censo</span>
           </div>
         </button>
       </div>
@@ -749,6 +836,190 @@ export const SchoolGrowthAgentSuite: React.FC<SchoolGrowthAgentSuiteProps> = ({ 
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB 4: CAPTAÇÃO PREVISÍVEL (CRM & FUNIL ESCOLAR) */}
+        {/* ========================================================================= */}
+        {activeTab === 'funnel' && (
+          <div className="funnel-workspace">
+            {/* 8 KPIs SEMANAIS DE PREVISIBILIDADE */}
+            <div className="funnel-kpi-section">
+              <div className="section-title-row">
+                <div className="title-with-icon">
+                  <Flame size={18} className="text-amber-400" />
+                  <div>
+                    <h3>8 KPIs Semanais de Previsibilidade Comercial</h3>
+                    <p>Metas e SLAs para blindagem do funil de matrículas e eliminação do improviso</p>
+                  </div>
+                </div>
+                <div className="sla-alert-badge">
+                  <ShieldCheck size={14} />
+                  <span>SLA 1º Contato: 3.8 min (Meta: &lt; 5 min)</span>
+                </div>
+              </div>
+
+              <div className="kpi-grid">
+                {COMMERCIAL_KPIS.map((kpi, idx) => (
+                  <div key={idx} className="kpi-card">
+                    <span className="kpi-label">{kpi.label}</span>
+                    <div className="kpi-val-row">
+                      <span className="kpi-value">{kpi.value}</span>
+                      <span className={`kpi-change ${kpi.status}`}>{kpi.change}</span>
+                    </div>
+                    <span className="kpi-target">{kpi.target}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* FUNIL EM 5 FASES */}
+            <div className="funnel-pipeline-section">
+              <div className="pipeline-header">
+                <h3>Pipeline do Funil Comercial Escolar (5 Etapas)</h3>
+                <p>Taxas de conversão reais vs. benchmark de mercado escolar</p>
+              </div>
+
+              <div className="funnel-pipeline">
+                {FUNNEL_STAGES.map((st) => (
+                  <div key={st.step} className="pipeline-stage-card">
+                    <div className="stage-top">
+                      <span className="stage-step-num">ETAPA 0{st.step}</span>
+                      <span className="stage-sla-tag">SLA: {st.sla}</span>
+                    </div>
+                    <h4 className="stage-name">{st.name}</h4>
+                    <div className="stage-numbers">
+                      <span className="stage-count">{st.count} leads</span>
+                      <span className="stage-conv">{st.conversionPct}% conv.</span>
+                    </div>
+                    <span className="stage-bench">Ref: {st.benchmarkPct}</span>
+                    <p className="stage-desc">{st.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* RÉGUA DE 5 PONTOS DE FOLLOW-UP PÓS-VISITA */}
+            <div className="followup-sequence-section">
+              <div className="followup-header">
+                <div>
+                  <h3>Régua Ativa de 5 Pontos de Follow-up Pós-Visita</h3>
+                  <p>Scripts validados para reter o interesse emotivo da família e fechar a matrícula sem desconto destrutivo</p>
+                </div>
+              </div>
+
+              <div className="followup-cards-list">
+                {FOLLOWUP_STEPS.map((step, idx) => (
+                  <div key={idx} className="followup-step-item">
+                    <div className="step-badge-col">
+                      <span className="timing-pill">{step.timing}</span>
+                      <span className="channel-pill">{step.channel}</span>
+                    </div>
+                    <div className="step-content-col">
+                      <h4>{step.title}</h4>
+                      <p className="step-objective"><strong>Objetivo:</strong> {step.objective}</p>
+                      <div className="script-box">
+                        <p>"{step.script}"</p>
+                      </div>
+                    </div>
+                    <div className="step-action-col">
+                      <button
+                        className="btn-copy-script"
+                        onClick={() => {
+                          navigator.clipboard?.writeText(step.script);
+                          setCopiedScriptIndex(idx);
+                          setTimeout(() => setCopiedScriptIndex(null), 2000);
+                        }}
+                      >
+                        {copiedScriptIndex === idx ? <Check size={14} color="#10B981" /> : <Copy size={14} />}
+                        <span>{copiedScriptIndex === idx ? 'Copiado!' : 'Copiar Script'}</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB 5: RADAR DE CONCORRÊNCIA LOCAL & INEP */}
+        {/* ========================================================================= */}
+        {activeTab === 'radar' && (
+          <div className="radar-workspace">
+            {/* Header com Dados do Censo Escolar / INEP */}
+            <div className="inep-benchmark-box">
+              <div className="inep-badge">
+                <Globe size={14} />
+                <span>MICRODADOS CENSO ESCOLAR & INEP 2024 / 2025</span>
+              </div>
+              <div className="inep-content">
+                <h3>Inteligência Geoeconômica do Território Escolar (Raio de 5.0 km)</h3>
+                <p>
+                  Mapeamento tático de escolas privadas concorrentes, faixas de mensalidade, notas médias nas bancas regionais e vulnerabilidades operacionais para posicionamento do Áquila Pro.
+                </p>
+              </div>
+              <div className="inep-stats-bar">
+                <div className="stat-unit">
+                  <span className="stat-n">7</span>
+                  <span className="stat-t">Escolas Mapeadas</span>
+                </div>
+                <div className="stat-unit">
+                  <span className="stat-n">R$ 2.150</span>
+                  <span className="stat-t">Ticket Médio Regional</span>
+                </div>
+                <div className="stat-unit">
+                  <span className="stat-n">618.4</span>
+                  <span className="stat-t">Média ENEM Território</span>
+                </div>
+                <div className="stat-unit">
+                  <span className="stat-n">86%</span>
+                  <span className="stat-t">Uso de Telas/Celulares Proibidos</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Grid dos Concorrentes Mapeados */}
+            <div className="competitors-grid">
+              {COMPETITOR_SCHOOLS_RADAR.map((comp) => (
+                <div key={comp.id} className="competitor-card">
+                  <div className="comp-card-header">
+                    <div>
+                      <span className="comp-dist-badge">{comp.distanceKm} km de distância</span>
+                      <h4 className="comp-name">{comp.name}</h4>
+                      <span className="comp-type-tag">{comp.type}</span>
+                    </div>
+                    <div className="comp-scores">
+                      <span className="comp-tuition">{comp.tuitionRange}</span>
+                      <span className="comp-enem">{comp.idebOrEnemScore}</span>
+                    </div>
+                  </div>
+
+                  <div className="comp-tech-level">
+                    <span className="tech-label">Infraestrutura Tecnológica:</span>
+                    <span className="tech-val">{comp.technologyLevel}</span>
+                  </div>
+
+                  <div className="comp-vulnerabilities">
+                    <h5>Gargalos & Vulnerabilidades Concorrenciais:</h5>
+                    <ul>
+                      {comp.vulnerabilities.map((v, i) => (
+                        <li key={i}>{v}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="comp-counter-strategy">
+                    <div className="strategy-title">
+                      <Sparkles size={14} color="#38BDF8" />
+                      <span>Contra-Ataque Estratégico do Áquila Pro:</span>
+                    </div>
+                    <p>{comp.aquilaCounterStrategy}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

@@ -1137,3 +1137,211 @@
   background: rgba(168, 85, 247, 0.3);
   color: #ffffff;
 }
+
+/* =========================================================================
+   RADAR DE CONCORRÊNCIA & INEP (TAB 5)
+   ========================================================================= */
+
+.radar-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inep-benchmark-box {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.4));
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 14px;
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.inep-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 4px 10px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.inep-content h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.inep-content p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.inep-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stat-unit {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-n {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.stat-t {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.competitors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.competitor-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.2s ease;
+}
+
+.competitor-card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.comp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.comp-dist-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #c084fc;
+  background: rgba(168, 85, 247, 0.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.comp-name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.comp-type-tag {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.comp-scores {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.comp-tuition {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.comp-enem {
+  font-size: 0.72rem;
+  color: #fbbf24;
+}
+
+.comp-tech-level {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.74rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.tech-label {
+  color: #94a3b8;
+}
+
+.tech-val {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+.comp-vulnerabilities h5 {
+  margin: 0 0 6px 0;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #f87171;
+  text-transform: uppercase;
+}
+
+.comp-vulnerabilities ul {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 0.74rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+
+.comp-counter-strategy {
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.15), rgba(15, 23, 42, 0.6));
+  border-left: 3px solid #38bdf8;
+  padding: 10px 12px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.strategy-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.comp-counter-strategy p {
+  margin: 0;
+  font-size: 0.76rem;
+  color: #e2e8f0;
+  line-height: 1.4;
+}
+

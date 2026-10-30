@@ -522,3 +522,220 @@
     display: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   SUPER PROFESSOR SOBERANO — MODAL & INGESTÃO COM IA / GPU
+   ═══════════════════════════════════════════════════════════════════ */
+
+.epf-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 7, 18, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.epf-modal-card {
+  width: 100%;
+  max-width: 820px;
+  background: #0B1120;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.25), 0 20px 40px rgba(0, 0, 0, 0.6);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 90vh;
+}
+
+.epf-modal-header {
+  padding: 18px 24px;
+  background: linear-gradient(135deg, rgba(88, 28, 135, 0.4), rgba(15, 23, 42, 0.9));
+  border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.epf-modal-header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.epf-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #C084FC;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  width: fit-content;
+  text-transform: uppercase;
+}
+
+.epf-modal-header h3 {
+  margin: 6px 0 0 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #F8FAFC;
+}
+
+.epf-modal-header p {
+  margin: 2px 0 0 0;
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.epf-modal-close-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.epf-modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFF;
+}
+
+.epf-modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.epf-modal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.epf-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.epf-modal-field label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #CBD5E1;
+}
+
+.epf-modal-field select,
+.epf-modal-field input,
+.epf-modal-field textarea {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #F8FAFC;
+  padding: 9px 12px;
+  font-size: 12.5px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.epf-modal-field select:focus,
+.epf-modal-field input:focus,
+.epf-modal-field textarea:focus {
+  border-color: #A855F7;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+}
+
+.epf-quick-presets {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.epf-quick-preset-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.epf-quick-preset-btn:hover {
+  background: rgba(168, 85, 247, 0.15);
+  color: #C084FC;
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.epf-modal-footer {
+  padding: 16px 24px;
+  background: #0F172A;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.epf-ai-cost-banner {
+  font-size: 11px;
+  color: #10B981;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.epf-btn-ai-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #7C3AED, #38BDF8);
+  color: #FFF;
+  font-weight: 700;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(124, 58, 237, 0.4);
+  transition: all 0.2s ease;
+}
+
+.epf-btn-ai-submit:hover:not(:disabled) {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 0 22px rgba(124, 58, 237, 0.6);
+}
+
+.epf-btn-ai-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.epf-ai-loading-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #C084FC;
+}
+
