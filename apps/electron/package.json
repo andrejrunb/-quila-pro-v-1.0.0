@@ -202,13 +202,6 @@
       "url": "https://updates.aquilapro.com.br/releases/",
       "channel": "latest"
     },
-    "electronFuses": {
-      "runAsNode": false,
-      "enableCookieEncryption": true,
-      "enableNodeOptionsEnvironmentVariable": false,
-      "enableNodeCliInspectArguments": false,
-      "enableEmbeddedAsarIntegrityValidation": true,
-      "onlyLoadAppFromAsar": true
-    }
+    "afterPack": "scripts/apply-fuses.js"
   }
 }

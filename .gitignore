@@ -11,6 +11,8 @@ __pycache__/
 apps/electron/dist/
 apps/electron/dist_temp/
 apps/electron/release/
+apps/electron/release_v2_2/
+release_v2_2/
 aquilapro_electron/dist/
 aquilapro_electron/release/
 release/

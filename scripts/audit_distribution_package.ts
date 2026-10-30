@@ -136,14 +136,29 @@ function auditStaticSecrets(): void {
 // 4. Verificação de Electron Fuses
 function auditElectronFuses(): void {
   const pkgPath = path.join(ELECTRON_DIR, 'package.json');
+  const fusesConfigPath = path.join(ELECTRON_DIR, 'fuses.config.json');
+  const applyScriptPath = path.join(ELECTRON_DIR, 'scripts/apply-fuses.js');
   let validFuses = false;
   let fuseDetails = '';
 
   if (fs.existsSync(pkgPath)) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
-    const fuses = pkg.build?.electronFuses;
+    const afterPack = pkg.build?.afterPack;
+    
+    // Suporte via fuses.config.json + afterPack hook
+    if (afterPack && fs.existsSync(applyScriptPath) && fs.existsSync(fusesConfigPath)) {
+      const cfg = JSON.parse(fs.readFileSync(fusesConfigPath, 'utf-8'));
+      const fuses = cfg.fuses;
+      const runAsNode = fuses.runAsNode === false;
+      const inspectDisabled = fuses.enableNodeCliInspectArguments === false;
+      const nodeOptionsDisabled = fuses.enableNodeOptionsEnvironmentVariable === false;
+      const asarIntegrity = fuses.enableEmbeddedAsarIntegrityValidation === true;
+      const onlyLoadFromAsar = fuses.onlyLoadAppFromAsar === true;
 
-    if (fuses) {
+      validFuses = runAsNode && inspectDisabled && nodeOptionsDisabled && asarIntegrity && onlyLoadFromAsar;
+      fuseDetails = `afterPack: ${afterPack}, runAsNode: ${fuses.runAsNode}, inspect: ${fuses.enableNodeCliInspectArguments}, asarIntegrity: ${fuses.enableEmbeddedAsarIntegrityValidation}, onlyAsar: ${fuses.onlyLoadAppFromAsar}`;
+    } else if (pkg.build?.electronFuses) {
+      const fuses = pkg.build.electronFuses;
       const runAsNode = fuses.runAsNode === false;
       const inspectDisabled = fuses.enableNodeCliInspectArguments === false;
       const nodeOptionsDisabled = fuses.enableNodeOptionsEnvironmentVariable === false;
@@ -153,7 +168,7 @@ function auditElectronFuses(): void {
       validFuses = runAsNode && inspectDisabled && nodeOptionsDisabled && asarIntegrity && onlyLoadFromAsar;
       fuseDetails = `runAsNode: ${fuses.runAsNode}, inspect: ${fuses.enableNodeCliInspectArguments}, asarIntegrity: ${fuses.enableEmbeddedAsarIntegrityValidation}, onlyAsar: ${fuses.onlyLoadAppFromAsar}`;
     } else {
-      fuseDetails = 'Seção build.electronFuses não encontrada em apps/electron/package.json';
+      fuseDetails = 'Mecanismo de Fuses (afterPack ou electronFuses) não configurado em apps/electron/package.json';
     }
   }
 
