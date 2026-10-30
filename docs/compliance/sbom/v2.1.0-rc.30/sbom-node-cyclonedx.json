@@ -1,10 +1,10 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:79fa73de-a83a-4be5-961d-e9d9d427f0a1",
+  "serialNumber": "urn:uuid:449f5024-8b38-4b2d-bd39-ea3ee0c9cb6c",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-30T19:41:35.669Z",
+    "timestamp": "2026-10-30T19:54:04.304Z",
     "tools": [
       {
         "vendor": "Áquila Pro Sovereign Systems",

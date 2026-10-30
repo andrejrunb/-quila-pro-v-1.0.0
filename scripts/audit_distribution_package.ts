@@ -274,6 +274,39 @@ function auditContentAndModelRegistries(): void {
   });
 }
 
+// 8. Verificação da Política Soberana de Uso de Dados de Provas (LGPD, LDA & ECA)
+function auditExamDataPolicy(): void {
+  const policyPath = path.join(ROOT_DIR, 'docs', 'compliance', 'POLITICA_USO_DADOS_PROVAS.md');
+  const exists = fs.existsSync(policyPath);
+  let valid = false;
+  let details = '';
+
+  if (exists) {
+    const content = fs.readFileSync(policyPath, 'utf-8');
+    const hasLgpd = content.includes('13.709/2018');
+    const hasLda = content.includes('9.610/98');
+    const hasEca = content.includes('8.069/90');
+    const hasAuditLedger = content.includes('zero_bypass_audits');
+    const hasHitl = content.includes('RASCUNHO_IA');
+    const hasAdhesionTerm = content.includes('TERMO DE ADESÃO INSTITUCIONAL');
+
+    valid = hasLgpd && hasLda && hasEca && hasAuditLedger && hasHitl && hasAdhesionTerm;
+    details = valid
+      ? 'Política v1.0 homologada cobrindo LGPD, LDA, ECA, auditoria zero_bypass, HITL e Termo de Adesão.'
+      : 'Política de dados de provas incompleta ou carecendo de cláusulas obrigatórias de governança.';
+  } else {
+    details = 'Arquivo docs/compliance/POLITICA_USO_DADOS_PROVAS.md não encontrado no repositório.';
+  }
+
+  results.push({
+    check: 'Política de Uso de Dados de Provas e Termo de Adesão (LGPD/LDA)',
+    category: 'PRIVACY',
+    passed: valid,
+    severity: 'CRITICAL',
+    details
+  });
+}
+
 // Execução
 auditSourceMaps();
 auditTestArtifacts();
@@ -282,6 +315,7 @@ auditElectronFuses();
 auditLegalCompliance();
 auditSingleLockfile();
 auditContentAndModelRegistries();
+auditExamDataPolicy();
 
 // Relatório Terminal
 console.log('\n=========================================================================');

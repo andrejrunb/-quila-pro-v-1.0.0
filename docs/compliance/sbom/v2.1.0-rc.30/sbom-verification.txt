@@ -5,18 +5,18 @@ Baseline de Auditoria:  v2.1.0-rc.30
 Commit de Referência:   59b2233af8a6370853b298750014d885ca09ee65
 Gerenciador Oficial:    pnpm (pnpm-lock.yaml)
 Padrão do Manifesto:    CycloneDX 1.5 JSON & SPDX Attribution
-Data da Geração:        2026-10-30T19:41:35.687Z
+Data da Geração:        2026-10-30T19:54:04.382Z
 ========================================================================================
 
 HASHES SHA-256 DOS ARTEFATOS AUDITADOS:
 
 Arquivo:  sbom-node-cyclonedx.json
 Tamanho:  75971 bytes
-SHA-256:  5AD8E7AC23CD6A080FB5807B5128924E8EA4B344E9586F223FB3E1E1E07B4EF2
+SHA-256:  EC91BE0B05C110A6586C65D22FE76DE3628F2DA0ACF51D952D4690A55F4C0EC1
 ----------------------------------------------------------------------------------------
 Arquivo:  sbom-python-cyclonedx.json
 Tamanho:  5944 bytes
-SHA-256:  8111570A6A922562F88F45B2CB3BDFE72AE3B2149C3D09591D30BEB2A373999F
+SHA-256:  38E3430ADD2125111CDBF96AC83C74BC3A1193ACE09342BAE0D7CA6DC3C8C4B2
 ----------------------------------------------------------------------------------------
 Arquivo:  license-inventory-node.json
 Tamanho:  29365 bytes
@@ -25,6 +25,18 @@ SHA-256:  692AF93CBDB804CD404BA5B4BED9586A791C1F48F2CE3D8A374C34DE1336D8D0
 Arquivo:  license-inventory-python.json
 Tamanho:  2331 bytes
 SHA-256:  2B6D59EE9CC76A5FFE5F78DADEC205E5C6D0F85E4C7E8BB204F89ECF7282B295
+----------------------------------------------------------------------------------------
+Arquivo:  content-rights-register.json
+Tamanho:  5897 bytes
+SHA-256:  F5B0C48F52D1B7290A8564AA31FA58E5E902DD53EE7ABD70A414025768448AAF
+----------------------------------------------------------------------------------------
+Arquivo:  model-licenses.json
+Tamanho:  3806 bytes
+SHA-256:  7D872B29F02DBF6609D1E8605A40B7A46CD6301DA427297ACC9BBB940520457D
+----------------------------------------------------------------------------------------
+Arquivo:  POLITICA_USO_DADOS_PROVAS.md
+Tamanho:  18990 bytes
+SHA-256:  B0E522CDCE2A9E186B2D5FDE6A431957FC2D05DE0B236A5CB7D57B30295153A1
 ----------------------------------------------------------------------------------------
 Arquivo:  third-party-notices.md
 Tamanho:  8581 bytes

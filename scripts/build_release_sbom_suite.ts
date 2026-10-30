@@ -300,12 +300,30 @@ ${pythonPackages.map(p => `| **${p.name}** | \`${p.version}\` | \`${p.license}\`
 `;
   fs.writeFileSync(noticesPath, noticesMd, 'utf-8');
 
+  // 5.1 Copiar Registros de Conteúdo, Modelos e Política de Provas para o pacote SBOM
+  const contentRegSource = path.join(rootDir, 'content-rights-register.json');
+  const modelLicSource = path.join(rootDir, 'model-licenses.json');
+  const examPolicySource = path.join(rootDir, 'docs/compliance/POLITICA_USO_DADOS_PROVAS.md');
+
+  if (fs.existsSync(contentRegSource)) {
+    fs.copyFileSync(contentRegSource, path.join(targetDir, 'content-rights-register.json'));
+  }
+  if (fs.existsSync(modelLicSource)) {
+    fs.copyFileSync(modelLicSource, path.join(targetDir, 'model-licenses.json'));
+  }
+  if (fs.existsSync(examPolicySource)) {
+    fs.copyFileSync(examPolicySource, path.join(targetDir, 'POLITICA_USO_DADOS_PROVAS.md'));
+  }
+
   // 6. Calcular Hashes SHA-256 e Gravar sbom-verification.txt
   const filesToVerify = [
     'sbom-node-cyclonedx.json',
     'sbom-python-cyclonedx.json',
     'license-inventory-node.json',
     'license-inventory-python.json',
+    'content-rights-register.json',
+    'model-licenses.json',
+    'POLITICA_USO_DADOS_PROVAS.md',
     'third-party-notices.md'
   ];
 

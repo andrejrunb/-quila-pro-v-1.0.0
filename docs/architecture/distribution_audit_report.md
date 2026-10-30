@@ -1,6 +1,6 @@
 # 🛡️ Áquila Pro — Relatório de Auditoria de Superfície de Distribuição
 
-**Data da Auditoria:** 2026-10-30T19:47:37.415Z  
+**Data da Auditoria:** 2026-10-30T19:54:21.987Z  
 **Ambiente:** Pré-Release / Distribuição Escolar  
 **Veredito:** **🟢 ARTEFATO CONFORME PARA DISTRIBUIÇÃO (HOMOLOGAÇÃO DE PILOTO)**
 
@@ -17,6 +17,7 @@
 | **Conformidade de Licenciamento Soberano (BSL 1.1 & Terceiros)** | `LEGAL` | `CRITICAL` | 🟢 **APROVADO** | BSL 1.1 ativa com concessão LGPD, segregação de Perseus/H5P e quarentena de apostilas comerciais comprovada. |
 | **Lockfile Único e Determinístico (pnpm-lock.yaml)** | `BUILD` | `HIGH` | 🟢 **APROVADO** | pnpm-lock.yaml é o único lockfile autoritativo no repositório; package-lock.json expurgado. |
 | **Governança de Direitos de Conteúdo e Modelos de IA** | `LEGAL` | `CRITICAL` | 🟢 **APROVADO** | Registros content-rights-register.json e model-licenses.json validados com hashes e proveniência. |
+| **Política de Uso de Dados de Provas e Termo de Adesão (LGPD/LDA)** | `PRIVACY` | `CRITICAL` | 🟢 **APROVADO** | Política v1.0 homologada cobrindo LGPD, LDA, ECA, auditoria zero_bypass, HITL e Termo de Adesão. |
 
 ---
 
