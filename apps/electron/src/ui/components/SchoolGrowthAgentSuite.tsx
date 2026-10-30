@@ -137,6 +137,12 @@ export interface CompetitorSchoolItem {
   technologyLevel: 'Analógica / Fichário' | 'Básica (Portal Web)' | 'Média (Google/MS)' | 'SaaS Externo';
   vulnerabilities: string[];
   aquilaCounterStrategy: string;
+  dataClassification: {
+    enemSource: 'DADO PÚBLICO OBSERVADO (INEP/ENEM 2024)';
+    studentsSource: 'DADO PÚBLICO OBSERVADO (CENSO ESCOLAR)';
+    tuitionSource: 'ESTIMATIVA AMOSTRAL TERRITORIAL';
+    strategySource: 'SIMULAÇÃO DEMONSTRATIVA (HIPÓTESE TÁTICA)';
+  };
 }
 
 const COMPETITOR_SCHOOLS_RADAR: CompetitorSchoolItem[] = [
@@ -154,7 +160,13 @@ const COMPETITOR_SCHOOLS_RADAR: CompetitorSchoolItem[] = [
       'Armazenamento de notas e boletins em infraestrutura de nuvem pública multitenant',
       'Atendimento e follow-up comercial com tempo de resposta estendido (> 4 horas)'
     ],
-    aquilaCounterStrategy: 'Posicionamento via Áquila Paper & OMR Soberano (avaliação impressa sem dependência de celular em sala), soberania de dados local e resposta comercial em < 5 minutos.'
+    aquilaCounterStrategy: 'Posicionamento via Áquila Paper & OMR Soberano (avaliação impressa sem dependência de celular em sala), soberania de dados local e resposta comercial em < 5 minutos.',
+    dataClassification: {
+      enemSource: 'DADO PÚBLICO OBSERVADO (INEP/ENEM 2024)',
+      studentsSource: 'DADO PÚBLICO OBSERVADO (CENSO ESCOLAR)',
+      tuitionSource: 'ESTIMATIVA AMOSTRAL TERRITORIAL',
+      strategySource: 'SIMULAÇÃO DEMONSTRATIVA (HIPÓTESE TÁTICA)'
+    }
   },
   {
     id: 'comp-2',
@@ -170,7 +182,13 @@ const COMPETITOR_SCHOOLS_RADAR: CompetitorSchoolItem[] = [
       'Acompanhamento de aprendizagem por médias bimestrais pontuais sem mapa de maestria contínuo',
       'Controle de portaria analógico ou com leitor de código de barras (fluxo suscetível a filas e esquecimentos)'
     ],
-    aquilaCounterStrategy: 'Apresentar a Catraca com Reconhecimento Facial em 100ms e Correção OMR Rápida com trilha Kumon de recuperação contínua.'
+    aquilaCounterStrategy: 'Apresentar a Catraca com Reconhecimento Facial em 100ms e Correção OMR Rápida com trilha Kumon de recuperação contínua.',
+    dataClassification: {
+      enemSource: 'DADO PÚBLICO OBSERVADO (INEP/ENEM 2024)',
+      studentsSource: 'DADO PÚBLICO OBSERVADO (CENSO ESCOLAR)',
+      tuitionSource: 'ESTIMATIVA AMOSTRAL TERRITORIAL',
+      strategySource: 'SIMULAÇÃO DEMONSTRATIVA (HIPÓTESE TÁTICA)'
+    }
   },
   {
     id: 'comp-3',
@@ -186,7 +204,13 @@ const COMPETITOR_SCHOOLS_RADAR: CompetitorSchoolItem[] = [
       'Comunicação com famílias fragmentada em canais informais sem registro centralizado',
       'Elaboração de simulados genéricos sem alinhamento às matrizes regionais (UFG, UnB/PAS, UFU)'
     ],
-    aquilaCounterStrategy: 'Apresentar o Radar Preditivo de Evasão (Piloto H-02) e Cadernos de Prova personalizados para PAS-UnB e bancas regionais.'
+    aquilaCounterStrategy: 'Apresentar o Radar Preditivo de Evasão (Piloto H-02) e Cadernos de Prova personalizados para PAS-UnB e bancas regionais.',
+    dataClassification: {
+      enemSource: 'DADO PÚBLICO OBSERVADO (INEP/ENEM 2024)',
+      studentsSource: 'DADO PÚBLICO OBSERVADO (CENSO ESCOLAR)',
+      tuitionSource: 'ESTIMATIVA AMOSTRAL TERRITORIAL',
+      strategySource: 'SIMULAÇÃO DEMONSTRATIVA (HIPÓTESE TÁTICA)'
+    }
   }
 ];
 
@@ -1014,6 +1038,22 @@ export const SchoolGrowthAgentSuite: React.FC<SchoolGrowthAgentSuiteProps> = ({ 
                       <span className="comp-tuition">{comp.tuitionRange}</span>
                       <span className="comp-enem">{comp.idebOrEnemScore}</span>
                     </div>
+                  </div>
+
+                  {/* Classificação Explícita de Governança de Dados */}
+                  <div className="comp-data-classification-strip" style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', margin: '8px 0 12px 0', fontSize: '10px' }}>
+                    <span style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34D399', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '2px 6px', borderRadius: '4px' }}>
+                      {comp.dataClassification.enemSource}
+                    </span>
+                    <span style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38BDF8', border: '1px solid rgba(56, 189, 248, 0.3)', padding: '2px 6px', borderRadius: '4px' }}>
+                      {comp.dataClassification.studentsSource}
+                    </span>
+                    <span style={{ background: 'rgba(234, 179, 8, 0.15)', color: '#FACC15', border: '1px solid rgba(234, 179, 8, 0.3)', padding: '2px 6px', borderRadius: '4px' }}>
+                      {comp.dataClassification.tuitionSource}
+                    </span>
+                    <span style={{ background: 'rgba(168, 85, 247, 0.15)', color: '#C084FC', border: '1px solid rgba(168, 85, 247, 0.3)', padding: '2px 6px', borderRadius: '4px' }}>
+                      {comp.dataClassification.strategySource}
+                    </span>
                   </div>
 
                   <div className="comp-tech-level">

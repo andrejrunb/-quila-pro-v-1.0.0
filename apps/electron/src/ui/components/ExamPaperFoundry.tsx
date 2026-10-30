@@ -642,9 +642,14 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
           totalQuestions: filteredQuestions.length,
           optionsCount: 5,
           answerKey,
-          weights
+          weights,
+          items: filteredQuestions.map(q => ({ id: q.id, status: q.status }))
         });
-        if (res?.success && res.id) templateId = res.id;
+        if (res?.success && res.id) {
+          templateId = res.id;
+        } else if (res?.error) {
+          throw new Error(res.error);
+        }
       }
 
       const activeTemplate = {

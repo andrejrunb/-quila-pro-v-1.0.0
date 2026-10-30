@@ -98,4 +98,59 @@ Para calcular a temperatura final, sabendo que o calor específico da água é 1
     expect(answerKey['1']).toBe('C');
     expect(Object.keys(answerKey).length).toBe(questions.length);
   });
+
+  test('5. Invalidação automática: edição do enunciado ou gabarito revoga REVISADO_PROFESSOR e retorna para RASCUNHO_IA', () => {
+    // 1. Questão inicialmente aprovada pelo professor
+    let question: ExamQuestionItem = {
+      id: 'q-mod-1',
+      exam: 'ENEM',
+      subject: 'Física',
+      topic: 'Cinemática',
+      statement: 'Enunciado original revisado.',
+      alternatives: { A: '10', B: '20', C: '30', D: '40', E: '50' },
+      correct: 'B',
+      explanation: 'Resolução original.',
+      status: 'REVISADO_PROFESSOR',
+      reviewedBy: 'Prof. Carlos',
+      reviewedAt: '2026-10-30T10:00:00Z'
+    };
+
+    // Função de mutação segura que aplica a regra de invalidação
+    const applyContentMutation = (q: ExamQuestionItem, updates: Partial<ExamQuestionItem>): ExamQuestionItem => {
+      const isContentAltered = updates.statement !== undefined || updates.alternatives !== undefined || updates.correct !== undefined;
+      return {
+        ...q,
+        ...updates,
+        status: isContentAltered ? 'RASCUNHO_IA' : (updates.status || q.status),
+        reviewedBy: isContentAltered ? undefined : q.reviewedBy,
+        reviewedAt: isContentAltered ? undefined : q.reviewedAt,
+      };
+    };
+
+    // 2. Modifica o enunciado
+    const editedQuestion = applyContentMutation(question, { statement: 'Novo enunciado modificado pelo usuário.' });
+
+    expect(editedQuestion.status).toBe('RASCUNHO_IA');
+    expect(editedQuestion.reviewedBy).toBeUndefined();
+    expect(editedQuestion.reviewedAt).toBeUndefined();
+  });
+
+  test('6. Bloqueio no backend: OmrCorrectionService recusa criação de gabarito com itens em RASCUNHO_IA', async () => {
+    const { OmrCorrectionService } = require('../OmrCorrectionService');
+    const service = new OmrCorrectionService();
+
+    const unreviewedBatch = [
+      { id: 'q-1', status: 'RASCUNHO_IA' },
+      { id: 'q-2', status: 'REVISADO_PROFESSOR' }
+    ];
+
+    await expect(
+      service.createTemplate({
+        title: 'Simulado Bloqueado',
+        totalQuestions: 2,
+        answerKey: { '1': 'A', '2': 'B' },
+        items: unreviewedBatch
+      })
+    ).rejects.toThrow('Bloqueio de Publicação: 1 questão(ões) em RASCUNHO_IA sem revisão docente');
+  });
 });

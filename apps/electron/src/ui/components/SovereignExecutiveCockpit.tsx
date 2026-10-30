@@ -9,6 +9,7 @@ import { councilService } from '../../services/SovereignCouncilService';
 import { nexusSyncService } from '../../services/NexusSyncService';
 import { institutionalBudgetService, BudgetReport } from '../../services/InstitutionalBudgetService';
 import { OutcomeDashboard } from './OutcomeDashboard';
+import { Sparkles, Download, RefreshCw, FileText, CheckCircle, ShieldCheck } from 'lucide-react';
 import '../styles/CoolmeiaUX.css';
 
 /**
@@ -69,6 +70,51 @@ export const SovereignExecutiveCockpit: React.FC = () => {
 
   const [arrivals, setArrivals] = useState<any[]>([]);
   const [budget, setBudget] = useState<BudgetReport | null>(null);
+  const [narrative, setNarrative] = useState<any | null>(null);
+  const [loadingNarrative, setLoadingNarrative] = useState(false);
+  const [activeNarrativeTab, setActiveNarrativeTab] = useState<'narrative' | 'findings' | 'recommendations' | 'evidence'>('narrative');
+
+  const fetchNarrative = async () => {
+    try {
+      setLoadingNarrative(true);
+      if ((window as any).aquila?.executive?.getNarrative) {
+        const data = await (window as any).aquila.executive.getNarrative('escola-matriz-01');
+        setNarrative(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch executive narrative:', err);
+    } finally {
+      setLoadingNarrative(false);
+    }
+  };
+
+  const handleReviewNarrative = async () => {
+    if (!narrative) return;
+    const reviewer = window.prompt('Assinatura do Revisor Executivo (ex: Coordenação / Mantenedora):', 'Direção Geral');
+    if (!reviewer) return;
+    try {
+      const res = await (window as any).aquila.executive.reviewNarrative(narrative.id, reviewer);
+      if (res?.success) {
+        await fetchNarrative();
+        alert(`Relatório homologado com sucesso por ${reviewer}!`);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleExportNarrative = async () => {
+    if (!narrative) return;
+    try {
+      const res = await (window as any).aquila.executive.exportNarrativeMd(narrative);
+      if (res?.markdown) {
+        await navigator.clipboard.writeText(res.markdown);
+        alert('Relatório Narrativo Executivo em Markdown copiado para a área de transferência!');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
     const updateMetrics = async () => {
@@ -130,6 +176,7 @@ export const SovereignExecutiveCockpit: React.FC = () => {
     };
 
     updateMetrics();
+    fetchNarrative();
     const interval = setInterval(updateMetrics, 5000);
 
     // Subscribe to real-time pulse
@@ -251,6 +298,197 @@ export const SovereignExecutiveCockpit: React.FC = () => {
                    ))}
                 </div>
              </div>
+          </section>
+
+          {/* CONSULTOR EXECUTIVO IA — NARRATIVE REPORTING (PADRÃO ORACLE NETSUITE) */}
+          <section className="executive-narrative-panel" style={{
+            marginTop: '2.5rem',
+            background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(10, 15, 28, 0.95))',
+            border: '1px solid rgba(251, 191, 36, 0.3)',
+            borderRadius: '12px',
+            padding: '1.5rem',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)'
+          }}>
+            <div className="narrative-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: '0.75rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Sparkles size={18} color="#FBBF24" />
+                  <h3 className="hive-title" style={{ margin: 0, fontSize: '1.15rem', color: '#F8FAFC' }}>
+                    CONSULTOR EXECUTIVO IA — NARRATIVE REPORTING & EXCEPTION MANAGEMENT
+                  </h3>
+                </div>
+                <p style={{ margin: '4px 0 0 0', fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.6)' }}>
+                  Arquitetura inspirada no Oracle NetSuite AI • SuiteAnalytics determinístico com redação causal prudente
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {narrative && (
+                  <span style={{
+                    fontSize: '0.7rem',
+                    padding: '3px 8px',
+                    borderRadius: '4px',
+                    background: narrative.generatedBy === 'rules-engine' ? 'rgba(56, 189, 248, 0.15)' : 'rgba(168, 85, 247, 0.15)',
+                    color: narrative.generatedBy === 'rules-engine' ? '#38BDF8' : '#C084FC',
+                    border: '1px solid currentColor'
+                  }}>
+                    Engine: {narrative.generatedBy} • Confiança: {narrative.confidence?.toUpperCase()}
+                  </span>
+                )}
+                {narrative?.reviewedBy ? (
+                  <span style={{ fontSize: '0.7rem', padding: '3px 8px', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.2)', color: '#34D399', border: '1px solid #34D399' }}>
+                    ✓ Homologado: {narrative.reviewedBy}
+                  </span>
+                ) : (
+                  <button
+                    onClick={handleReviewNarrative}
+                    style={{ fontSize: '0.75rem', padding: '4px 10px', background: 'rgba(251, 191, 36, 0.2)', color: '#FBBF24', border: '1px solid #FBBF24', borderRadius: '4px', cursor: 'pointer' }}
+                  >
+                    ⚖️ Homologar (HITL)
+                  </button>
+                )}
+                <button
+                  onClick={handleExportNarrative}
+                  style={{ fontSize: '0.75rem', padding: '4px 10px', background: 'rgba(255, 255, 255, 0.1)', color: '#FFF', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                >
+                  <Download size={12} /> Exportar MD
+                </button>
+                <button
+                  onClick={fetchNarrative}
+                  disabled={loadingNarrative}
+                  style={{ fontSize: '0.75rem', padding: '4px 8px', background: 'transparent', color: 'rgba(255, 255, 255, 0.6)', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: '4px', cursor: 'pointer' }}
+                  title="Atualizar Narrativa"
+                >
+                  <RefreshCw size={12} className={loadingNarrative ? 'animate-spin' : ''} />
+                </button>
+              </div>
+            </div>
+
+            {loadingNarrative && !narrative ? (
+              <div style={{ padding: '2rem', textAlign: 'center', color: 'rgba(255, 255, 255, 0.5)' }}>
+                Sintetizando fatos, evidências e matriz causal determinística...
+              </div>
+            ) : narrative ? (
+              <div>
+                {/* Headline NetSuite */}
+                <div style={{ background: 'rgba(251, 191, 36, 0.08)', borderLeft: '3px solid #FBBF24', padding: '10px 14px', borderRadius: '4px', marginBottom: '1rem' }}>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#FDE047' }}>{narrative.headline}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.75)', marginTop: '4px', lineHeight: 1.45 }}>
+                    {narrative.summaryNarrative}
+                  </div>
+                </div>
+
+                {/* Sub-Abas do Consultor Executivo */}
+                <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: '8px', marginBottom: '1rem' }}>
+                  <button
+                    onClick={() => setActiveNarrativeTab('narrative')}
+                    style={{ background: activeNarrativeTab === 'narrative' ? 'rgba(251, 191, 36, 0.2)' : 'transparent', color: activeNarrativeTab === 'narrative' ? '#FBBF24' : 'rgba(255, 255, 255, 0.6)', border: 'none', padding: '6px 12px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}
+                  >
+                    📊 Métricas Semanais ({narrative.metrics?.length || 0})
+                  </button>
+                  <button
+                    onClick={() => setActiveNarrativeTab('findings')}
+                    style={{ background: activeNarrativeTab === 'findings' ? 'rgba(251, 191, 36, 0.2)' : 'transparent', color: activeNarrativeTab === 'findings' ? '#FBBF24' : 'rgba(255, 255, 255, 0.6)', border: 'none', padding: '6px 12px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}
+                  >
+                    🔍 Análise Causal & Exceções ({narrative.findings?.length || 0})
+                  </button>
+                  <button
+                    onClick={() => setActiveNarrativeTab('recommendations')}
+                    style={{ background: activeNarrativeTab === 'recommendations' ? 'rgba(251, 191, 36, 0.2)' : 'transparent', color: activeNarrativeTab === 'recommendations' ? '#FBBF24' : 'rgba(255, 255, 255, 0.6)', border: 'none', padding: '6px 12px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}
+                  >
+                    🎯 Plano de Ação Prioritário ({narrative.recommendations?.length || 0})
+                  </button>
+                  <button
+                    onClick={() => setActiveNarrativeTab('evidence')}
+                    style={{ background: activeNarrativeTab === 'evidence' ? 'rgba(251, 191, 36, 0.2)' : 'transparent', color: activeNarrativeTab === 'evidence' ? '#FBBF24' : 'rgba(255, 255, 255, 0.6)', border: 'none', padding: '6px 12px', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}
+                  >
+                    🛡️ Trilha de Auditoria & Fontes ({narrative.evidence?.length || 0})
+                  </button>
+                </div>
+
+                {/* ABA 1: MÉTRICAS */}
+                {activeNarrativeTab === 'narrative' && (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px' }}>
+                    {narrative.metrics?.map((m, idx) => (
+                      <div key={idx} style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '6px', padding: '10px' }}>
+                        <div style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.5)', textTransform: 'uppercase' }}>{m.label}</div>
+                        <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#FFF', margin: '4px 0' }}>{m.value}</div>
+                        <div style={{ fontSize: '0.7rem', display: 'flex', justifyContent: 'space-between', color: m.trend === 'up' ? '#34D399' : m.trend === 'down' ? '#F87171' : '#94A3B8' }}>
+                          <span>Meta: {m.benchmark}</span>
+                          <span>{m.deltaPercent !== undefined ? (m.deltaPercent > 0 ? '+' : '') + m.deltaPercent + '%' : ''}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* ABA 2: ACHADOS & ANÁLISE CAUSAL (4 PILARES) */}
+                {activeNarrativeTab === 'findings' && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {narrative.findings?.map((f) => (
+                      <div key={f.id} style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '6px', padding: '12px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: f.severity === 'high' || f.severity === 'critical' ? '#F87171' : '#FBBF24', textTransform: 'uppercase' }}>
+                            [{f.category}] Severidade: {f.severity}
+                          </span>
+                          <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.4)' }}>Ref: {f.sourceRefs?.join(', ')}</span>
+                        </div>
+                        <div style={{ fontSize: '0.8rem', color: '#E2E8F0', marginBottom: '4px' }}>
+                          <strong>Fato:</strong> {f.fact}
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: '#94A3B8', marginBottom: '4px' }}>
+                          <strong>Evidência:</strong> {f.evidence}
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: '#CBD5E1', marginBottom: '4px', fontStyle: 'italic', background: 'rgba(255, 255, 255, 0.02)', padding: '6px', borderRadius: '4px' }}>
+                          <strong>Explicação Sugerida (Sem Presunção Causal):</strong> {f.suggestedExplanation}
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: '#38BDF8' }}>
+                          <strong>Recomendação Acionável:</strong> {f.recommendation}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* ABA 3: RECOMENDAÇÕES */}
+                {activeNarrativeTab === 'recommendations' && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {narrative.recommendations?.map((r) => (
+                      <div key={r.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '6px', padding: '10px 14px', flexWrap: 'wrap', gap: '8px' }}>
+                        <div style={{ flex: 1, minWidth: '240px' }}>
+                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center', marginBottom: '2px' }}>
+                            <span style={{ fontSize: '0.65rem', padding: '2px 6px', borderRadius: '3px', background: r.priority === 'p1_imediata' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(234, 179, 8, 0.2)', color: r.priority === 'p1_imediata' ? '#F87171' : '#FACC15' }}>
+                              {r.priority.toUpperCase()}
+                            </span>
+                            <span style={{ fontSize: '0.7rem', color: 'rgba(255, 255, 255, 0.5)' }}>Responsável: <strong>{r.ownerRole}</strong> • Prazo: {r.deadlineDays}d</span>
+                          </div>
+                          <div style={{ fontSize: '0.8rem', color: '#FFF' }}>{r.action}</div>
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: '#34D399', background: 'rgba(16, 185, 129, 0.1)', padding: '4px 8px', borderRadius: '4px' }}>
+                          {r.expectedImpact}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* ABA 4: EVIDÊNCIAS & FONTES */}
+                {activeNarrativeTab === 'evidence' && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {narrative.evidence?.map((e, idx) => (
+                      <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', background: 'rgba(255, 255, 255, 0.02)', padding: '6px 10px', borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                        <span style={{ color: '#94A3B8' }}><strong>{e.refId}:</strong> {e.sourceTableOrQuery}</span>
+                        <span style={{ color: 'rgba(255, 255, 255, 0.4)' }}>Amostra: {e.sampleSize} reg. • Hash: {e.auditHash?.slice(0, 10)}...</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div style={{ padding: '1rem', color: 'rgba(255, 255, 255, 0.5)', fontSize: '0.8rem' }}>
+                Nenhum relatório narrativo gerado ainda para esta escola. Clique em "Atualizar" para gerar.
+              </div>
+            )}
           </section>
         </main>
 

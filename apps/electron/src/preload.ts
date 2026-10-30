@@ -658,7 +658,13 @@ const aquilaAPI = {
 
     getBudgetReport: () => ipcRenderer.invoke('budget:get-report'),
 
-    getAIInsights: () => ipcRenderer.invoke('executive:get-ai-insights')
+    getAIInsights: () => ipcRenderer.invoke('executive:get-ai-insights'),
+
+    getNarrative: (schoolId?: string) => ipcRenderer.invoke('executive:get-narrative', schoolId),
+
+    reviewNarrative: (narrativeId: string, reviewerName: string) => ipcRenderer.invoke('executive:review-narrative', { narrativeId, reviewerName }),
+
+    exportNarrativeMd: (narrative: any) => ipcRenderer.invoke('executive:export-narrative-md', narrative)
 
   },
 
@@ -1475,6 +1481,7 @@ const aquilaAPI = {
       'pedagogical:getEvasionRadar', 'pedagogical:getRiskStats',
 
       'executive:get-roi', 'executive:get-pulse', 'executive:get-history', 'executive:log-metric', 'executive:get-ai-insights', 'executive:seed-insights',
+      'executive:get-narrative', 'executive:review-narrative', 'executive:export-narrative-md',
 
       'hr:get-staff', 'hr:calculate-payroll', 'hr:get-performance',
 

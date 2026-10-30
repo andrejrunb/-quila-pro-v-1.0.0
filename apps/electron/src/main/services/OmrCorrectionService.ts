@@ -56,7 +56,18 @@ export class OmrCorrectionService extends EventEmitter {
     optionsCount?: number;
     answerKey: Record<string, string>;
     weights?: Record<string, number>;
+    items?: Array<{ id: string; status?: string }>;
   }): Promise<string> {
+    // Governança HITL: bloqueio estrito de publicação se houver questões em RASCUNHO_IA
+    if (params.items && Array.isArray(params.items)) {
+      const unreviewed = params.items.filter(item => item.status === 'RASCUNHO_IA');
+      if (unreviewed.length > 0) {
+        throw new Error(
+          `[OmrCorrectionService] Bloqueio de Publicação: ${unreviewed.length} questão(ões) em RASCUNHO_IA sem revisão docente.`
+        );
+      }
+    }
+
     const templateId = await db.createOmrTemplate({
       title: params.title,
       classId: params.classId,

@@ -7102,6 +7102,21 @@ function registerExecutiveCluster(context: any, protectedHandle: any) {
 
   });
 
+  protectedHandle('executive:get-narrative', async (_e, schoolId = 'escola-matriz-01') => {
+    const { executiveNarrativeService } = await import('../main/services/ExecutiveNarrativeService');
+    return await executiveNarrativeService.generateWeeklyNarrative(schoolId);
+  });
+
+  protectedHandle('executive:review-narrative', async (_e, { narrativeId, reviewerName }: any) => {
+    const { executiveNarrativeService } = await import('../main/services/ExecutiveNarrativeService');
+    return await executiveNarrativeService.reviewNarrative(narrativeId, reviewerName);
+  });
+
+  protectedHandle('executive:export-narrative-md', async (_e, narrative: any) => {
+    const { executiveNarrativeService } = await import('../main/services/ExecutiveNarrativeService');
+    return executiveNarrativeService.exportToMarkdown(narrative);
+  });
+
 }
 
 

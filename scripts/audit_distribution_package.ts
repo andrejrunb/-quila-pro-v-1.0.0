@@ -232,8 +232,10 @@ for (const r of results) {
 }
 
 console.log('=========================================================================');
-const verdict = allPassed ? '🟢 APROVADO PARA PRODUÇÃO E DISTRIBUIÇÃO' : '🔴 REPROVADO (REQUER AÇÕES CORRETIVAS)';
-console.log(`Veredito Final: ${verdict}`);
+const verdict = allPassed ? '🟢 ARTEFATO CONFORME PARA DISTRIBUIÇÃO (HOMOLOGAÇÃO DE PILOTO)' : '🔴 REPROVADO (REQUER AÇÕES CORRETIVAS)';
+console.log(`Veredito de Distribuição: ${verdict}`);
+console.log('Nota: A conformidade do artefato executável atesta integridade técnica, fuses e licenciamento.');
+console.log('      O uso pedagógico em escola permanece sujeito à homologação funcional e aceite humano formal.');
 console.log('=========================================================================\n');
 
 // Geração de Relatório Markdown
