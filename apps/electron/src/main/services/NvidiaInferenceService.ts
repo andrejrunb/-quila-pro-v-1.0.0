@@ -10,7 +10,7 @@ export interface NvidiaChatResponse {
 export class NvidiaInferenceService {
   private static instance: NvidiaInferenceService;
   private apiKey: string = '';
-  private defaultModel: string = 'meta/llama-3.2-90b-vision-instruct';
+  private defaultModel: string = 'minimaxai/minimax-m3.1-flash';
 
   public static getInstance(): NvidiaInferenceService {
     if (!NvidiaInferenceService.instance) {
@@ -40,7 +40,7 @@ export class NvidiaInferenceService {
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt }
       ],
-      max_tokens: 1024,
+      max_tokens: 2048,
       temperature: 0.2
     });
 
@@ -54,7 +54,7 @@ export class NvidiaInferenceService {
           'Content-Type': 'application/json',
           'Content-Length': Buffer.byteLength(payload)
         },
-        timeout: 30000
+        timeout: 35000
       };
 
       const req = https.request(options, (res) => {
@@ -64,7 +64,8 @@ export class NvidiaInferenceService {
           if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
             try {
               const parsed = JSON.parse(data);
-              const content = parsed.choices?.[0]?.message?.content || '';
+              const msg = parsed.choices?.[0]?.message;
+              const content = (msg?.content && msg.content.trim()) || msg?.reasoning_content || '';
               resolve({
                 content,
                 model: targetModel,
@@ -85,7 +86,7 @@ export class NvidiaInferenceService {
 
       req.on('timeout', () => {
         req.destroy();
-        reject(new Error('Timeout de 30s aguardando resposta da NVIDIA'));
+        reject(new Error('Timeout de 35s aguardando resposta da NVIDIA'));
       });
 
       req.write(payload);
@@ -97,7 +98,7 @@ export class NvidiaInferenceService {
    * Desconstrói uma questão e gera a esteira de Maestria cognitiva sob demanda usando a NVIDIA H100
    */
   public async generateMasteryScaffolding(questionStatement: string, subject: string, studentDifficulty: string): Promise<string> {
-    const systemPrompt = `Você é o Tutor Pedagógico Autônomo Áquila Pro.
+    const systemPrompt = `Você é o Tutor Pedagógico Autônomo Áquila Pro operando no cluster DGX H100.
 Sua missão é aplicar a metodologia de Nivelamento por Maestria (Mastery Learning).
 Quando receber uma questão ou dificuldade, gere:
 1. DIAGNÓSTICO: Identifique a operação matemática primária e o conceito físico/químico.

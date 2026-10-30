@@ -25,6 +25,7 @@ import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 import { SecurityMonitor } from '../pages/SecurityMonitor';
 import { TurnstileShadowConsole } from '../components/TurnstileShadowConsole';
 import { PilotReadinessInspector } from '../components/PilotReadinessInspector';
+import { GpuAccelerationCockpit } from '../components/GpuAccelerationCockpit';
 import MultiStreamGrid from '../components/MultiStreamGrid';
 import { IoTManager } from '../pages/IoTManager';
 import HardwareDiagnostics from '../pages/HardwareDiagnostics';
@@ -43,7 +44,7 @@ import NetworkTrafficDashboard from '../pages/NetworkTrafficDashboard';
 import {
   Users, BarChart3, DollarSign, Heart,
   FileText, Send, CreditCard, UserPlus,
-  Clock, TrendingUp, Activity, Sparkles, LayoutGrid, Compass, GraduationCap, Shield
+  Clock, TrendingUp, Activity, Sparkles, LayoutGrid, Compass, GraduationCap, Shield, Cpu
 } from 'lucide-react';
 import './AdminPortal.css';
 
@@ -93,6 +94,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
           <button onClick={() => onNavigate('pilot-readiness')} className="ap-btn primary" style={{ background: 'linear-gradient(135deg, #10B981, #059669)', border: '1px solid #34D399' }}>
             <Shield size={14} />
             <span>Prontidão dos Pilotos (H-01/H-02)</span>
+          </button>
+          <button onClick={() => onNavigate('gpu-acceleration')} className="ap-btn primary" style={{ background: 'linear-gradient(135deg, #7C3AED, #6D28D9)', border: '1px solid #A78BFA' }}>
+            <Cpu size={14} />
+            <span>Aceleração GPU (NVIDIA / Colab)</span>
           </button>
           <button onClick={() => onNavigate('seating-intelligence')} className="ap-btn primary">
             <LayoutGrid size={14} />
@@ -334,6 +339,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
       case 'homologacao-pilotos':
       case 'pilot-cockpit':
         return <PilotReadinessInspector />;
+      case 'gpu-acceleration':
+      case 'hardware-cockpit':
+      case 'gpu-cockpit':
+        return <GpuAccelerationCockpit />;
       case 'turnstile-shadow':
       case 'turnstile-pilot':
       case 'gatekeeper-shadow':

@@ -9614,6 +9614,26 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
 
   });
 
+  // --- Hardware Acceleration & GPU Developer Swarm ---
+  protectedHandle('hardware:get-telemetry', async () => {
+    const { hardwareAccelerationService } = require('../main/services/HardwareAccelerationService');
+    return await hardwareAccelerationService.getTelemetry();
+  });
+
+  protectedHandle('hardware:set-colab-url', async (_e: any, url: string) => {
+    const { hardwareAccelerationService } = require('../main/services/HardwareAccelerationService');
+    const result = await hardwareAccelerationService.setColabUrl(url);
+    if (context.db?.updateSettings) {
+      await context.db.updateSettings({ colab_gpu_url: url }).catch(() => {});
+    }
+    return result;
+  });
+
+  protectedHandle('hardware:dev-task', async (_e: any, { role, prompt }: any) => {
+    const { hardwareAccelerationService } = require('../main/services/HardwareAccelerationService');
+    return await hardwareAccelerationService.executeGpuDevTask(role, prompt);
+  });
+
 
 
   // --- OMR Scanner Cluster (Passos 141-146) ---

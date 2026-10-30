@@ -456,7 +456,7 @@ export const App: React.FC = () => {
             'nexus-mesh', 'zenith-cockpit', 'zenith-final', 'collective-brain', 
             'predictive-dashboard', 'help', 'mastery-chamber', 'knowledge-canvas', 'albus-canvas',
             // Security pages relocated to AdminPortal:
-            'turnstile-shadow', 'turnstile-pilot', 'gatekeeper-shadow', 'pilot-readiness', 'homologacao-pilotos', 'pilot-cockpit', 'security-monitor', 'multistream', 'iot-manager', 'diagnostics', 
+            'turnstile-shadow', 'turnstile-pilot', 'gatekeeper-shadow', 'pilot-readiness', 'homologacao-pilotos', 'pilot-cockpit', 'gpu-acceleration', 'hardware-cockpit', 'gpu-cockpit', 'security-monitor', 'multistream', 'iot-manager', 'diagnostics', 
             'infrastructure', 'hardware', 'predictive-absence', 'visitor-management', 
             'cameras', 'ruview', 'red-audit', 'twin-navigator', 'night-sentry', 
             'load-testing', 'network-traffic', 'growth-agents', 'school-growth-agents', 'students', 'pricing', 'social-nexus', 'executive-pulse', 'seating-intelligence'

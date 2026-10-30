@@ -22,7 +22,13 @@
     "restore:drill": "node scripts/restore_edge.cjs",
     "lint": "pnpm -r run lint",
     "test:stress:hostile": "node scripts/stress_test_pilot_hostile_env.cjs",
-    "audit:package": "pnpm dlx tsx scripts/audit_distribution_package.ts"
+    "audit:package": "pnpm dlx tsx scripts/audit_distribution_package.ts",
+    "gpu:status": "python scripts/gpu_dev_swarm.py --status",
+    "gpu:coder": "python scripts/gpu_dev_swarm.py --role coder",
+    "gpu:qa": "python scripts/gpu_dev_swarm.py --role qa",
+    "gpu:security": "python scripts/gpu_dev_swarm.py --role security",
+    "gpu:architect": "python scripts/gpu_dev_swarm.py --role architect",
+    "colab:test": "python scripts/colab_tunnel_manager.py --test"
   },
   "devDependencies": {
     "typescript": "^5.3.3"
