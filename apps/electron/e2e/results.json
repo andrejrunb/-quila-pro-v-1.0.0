@@ -4,7 +4,7 @@
       "C:\\Program Files\\nodejs\\node.exe",
       "C:\\aquila\\apps\\electron\\node_modules\\@playwright\\test\\cli.js",
       "test",
-      "e2e/h01-real-import.spec.ts"
+      "e2e/pilot-readiness.spec.ts"
     ],
     "configFile": "C:\\aquila\\apps\\electron\\playwright.config.ts",
     "rootDir": "C:/aquila/apps/electron/e2e",
@@ -104,35 +104,26 @@
   },
   "suites": [
     {
-      "title": "h01-real-import.spec.ts",
-      "file": "h01-real-import.spec.ts",
+      "title": "pilot-readiness.spec.ts",
+      "file": "pilot-readiness.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "H-01 — Importação real pela interface",
-          "file": "h01-real-import.spec.ts",
-          "line": 242,
-          "column": 15,
+          "title": "Áquila Pro — Cockpit de Prontidão dos Dois Pilotos (H-01 & H-02)",
+          "file": "pilot-readiness.spec.ts",
+          "line": 7,
+          "column": 6,
           "specs": [
             {
-              "title": "AC-03.a — prévia bloqueia lote com erros",
+              "title": "Deve abrir o Cockpit de Prontidão, validar os 13 checks de H-01/H-02 e disparar auditoria ao vivo",
               "ok": true,
               "tags": [],
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "serial",
-                      "location": {
-                        "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                        "line": 242,
-                        "column": 15
-                      }
-                    }
-                  ],
+                  "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "electron-v28-production",
                   "projectName": "electron-v28-production",
@@ -141,270 +132,26 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 13734,
+                      "duration": 16460,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "[H-01] CSV corrigido gerado: C:\\aquila\\apps\\test-results\\h01-real-import\\h01-alunos-corrigido.csv\n"
-                        },
-                        {
-                          "text": "[H-01] SHA-256: 8eca339789cb3105ebfbc5bd8c3b9efcd72d71c73e06138fff5d8bae80b731eb\n"
-                        },
-                        {
-                          "text": "[H-01] Alunos H01 no banco antes da confirmação: 0\n"
+                          "text": "[E2E Readiness] ✅ Cockpit dos Dois Pilotos (H-01/H-02) 100% aprovado e certificado!\n"
                         }
                       ],
-                      "stderr": [
-                        {
-                          "text": "[H-01] Seletor input[type='file'] não encontrado diretamente na interface.\n"
-                        },
-                        {
-                          "text": "[SqliteQuery Warning] SELECT count(*) FROM students WHERE registrationNumber LIKE 'H01-%' OR id LIKE 'H01-%': Command failed: python -c \"import sqlite3, json, sys; conn = sqlite3.connect(r'''C:\\aquila\\apps\\electron\\test-user-data\\AquilaPro\\aquila.db'''); cur = conn.cursor(); cur.execute('''SELECT count(*) FROM students WHERE registrationNumber LIKE 'H01-%' OR id LIKE 'H01-%''''); rows = cur.fetchall(); print(json.dumps(rows))\"\n  File \u001b[35m\"<string>\"\u001b[0m, line \u001b[35m1\u001b[0m\r\n    import sqlite3, json, sys; conn = sqlite3.connect(r'''C:\\aquila\\apps\\electron\\test-user-data\\AquilaPro\\aquila.db'''); cur = conn.cursor(); cur.execute('''SELECT count(*) FROM students WHERE registrationNumber LIKE 'H01-%' OR id LIKE 'H01-%'''\u001b[1;31m'\u001b[0m); rows = cur.fetchall(); print(json.dumps(rows))\r\n                                                                                                                                                                                                                                                      \u001b[1;31m^\u001b[0m\r\n\u001b[1;35mSyntaxError\u001b[0m: \u001b[35munterminated string literal (detected at line 1)\u001b[0m\r\n\n"
-                        }
-                      ],
-                      "retry": 0,
-                      "startTime": "2026-10-29T20:06:49.307Z",
-                      "annotations": [
-                        {
-                          "type": "serial",
-                          "location": {
-                            "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                            "line": 242,
-                            "column": 15
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "233dd178a5573abdcd95-ee98c75fd213a6ddb3cd",
-              "file": "h01-real-import.spec.ts",
-              "line": 259,
-              "column": 7
-            },
-            {
-              "title": "AC-03.b — importação real persiste apenas registros válidos",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "serial",
-                      "location": {
-                        "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                        "line": 242,
-                        "column": 15
-                      }
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "electron-v28-production",
-                  "projectName": "electron-v28-production",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 49,
-                      "errors": [],
-                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-29T20:07:03.328Z",
-                      "annotations": [
-                        {
-                          "type": "serial",
-                          "location": {
-                            "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                            "line": 242,
-                            "column": 15
-                          }
-                        }
-                      ],
+                      "startTime": "2026-10-30T15:52:26.353Z",
+                      "annotations": [],
                       "attachments": []
                     }
                   ],
                   "status": "expected"
                 }
               ],
-              "id": "233dd178a5573abdcd95-f2d01c4693f2a25e8981",
-              "file": "h01-real-import.spec.ts",
-              "line": 286,
-              "column": 7
-            },
-            {
-              "title": "AC-03.c — reimportação é idempotente",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "serial",
-                      "location": {
-                        "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                        "line": 242,
-                        "column": 15
-                      }
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "electron-v28-production",
-                  "projectName": "electron-v28-production",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 57,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-10-29T20:07:03.498Z",
-                      "annotations": [
-                        {
-                          "type": "serial",
-                          "location": {
-                            "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                            "line": 242,
-                            "column": 15
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "233dd178a5573abdcd95-16437b2de896f63fed71",
-              "file": "h01-real-import.spec.ts",
-              "line": 308,
-              "column": 7
-            },
-            {
-              "title": "AC-03.d — banco permanece íntegro após importação",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "serial",
-                      "location": {
-                        "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                        "line": 242,
-                        "column": 15
-                      }
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "electron-v28-production",
-                  "projectName": "electron-v28-production",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 1929,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "[H-01] Integridade SQLite pós-importação: ok\n"
-                        },
-                        {
-                          "text": "[H-01] Foreign key check pós-importação: []\n"
-                        },
-                        {
-                          "text": "[H-01] Duplicações detectadas no SQLite: []\n"
-                        }
-                      ],
-                      "stderr": [
-                        {
-                          "text": "[SqliteQuery Warning] SELECT registrationNumber, count(*) AS total\n       FROM students\n       WHERE registrationNumber LIKE 'H01-%'\n       GROUP BY registrationNumber\n       HAVING count(*) > 1;: Command failed: python -c \"import sqlite3, json, sys; conn = sqlite3.connect(r'''C:\\aquila\\apps\\electron\\test-user-data\\AquilaPro\\aquila.db'''); cur = conn.cursor(); cur.execute('''SELECT registrationNumber, count(*) AS total\n       FROM students\n       WHERE registrationNumber LIKE 'H01-%'\n       GROUP BY registrationNumber\n       HAVING count(*) > 1;'''); rows = cur.fetchall(); print(json.dumps(rows))\"\n  File \u001b[35m\"<string>\"\u001b[0m, line \u001b[35m1\u001b[0m\r\n    import sqlite3, json, sys; conn = sqlite3.connect(r'''C:\\aquila\\apps\\electron\\test-user-data\\AquilaPro\\aquila.db'''); cur = conn.cursor(); cur.execute(\u001b[1;31m'\u001b[0m''SELECT registrationNumber, count(*) AS total\r\n                                                                                                                                                           \u001b[1;31m^\u001b[0m\r\n\u001b[1;35mSyntaxError\u001b[0m: \u001b[35munterminated triple-quoted string literal (detected at line 1)\u001b[0m\r\n\n"
-                        }
-                      ],
-                      "retry": 0,
-                      "startTime": "2026-10-29T20:07:03.636Z",
-                      "annotations": [
-                        {
-                          "type": "serial",
-                          "location": {
-                            "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                            "line": 242,
-                            "column": 15
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "233dd178a5573abdcd95-eab7efdf3139534bdb86",
-              "file": "h01-real-import.spec.ts",
-              "line": 327,
-              "column": 7
-            },
-            {
-              "title": "AC-03.e — jornada pedagógica usa alunos importados",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "serial",
-                      "location": {
-                        "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                        "line": 242,
-                        "column": 15
-                      }
-                    }
-                  ],
-                  "expectedStatus": "passed",
-                  "projectId": "electron-v28-production",
-                  "projectName": "electron-v28-production",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 28,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-10-29T20:07:05.628Z",
-                      "annotations": [
-                        {
-                          "type": "serial",
-                          "location": {
-                            "file": "C:\\aquila\\apps\\electron\\e2e\\h01-real-import.spec.ts",
-                            "line": 242,
-                            "column": 15
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "233dd178a5573abdcd95-6175fa78497d1b42e899",
-              "file": "h01-real-import.spec.ts",
-              "line": 350,
+              "id": "d7863879305a6593d931-72f3160a37de9b5ac533",
+              "file": "pilot-readiness.spec.ts",
+              "line": 79,
               "column": 7
             }
           ]
@@ -414,9 +161,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-29T20:06:25.159Z",
-    "duration": 43921.841,
-    "expected": 5,
+    "startTime": "2026-10-30T15:51:59.316Z",
+    "duration": 43622.998,
+    "expected": 1,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

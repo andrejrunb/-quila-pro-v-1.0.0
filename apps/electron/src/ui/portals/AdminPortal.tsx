@@ -24,6 +24,7 @@ import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 // Relocated Security Pages
 import { SecurityMonitor } from '../pages/SecurityMonitor';
 import { TurnstileShadowConsole } from '../components/TurnstileShadowConsole';
+import { PilotReadinessInspector } from '../components/PilotReadinessInspector';
 import MultiStreamGrid from '../components/MultiStreamGrid';
 import { IoTManager } from '../pages/IoTManager';
 import HardwareDiagnostics from '../pages/HardwareDiagnostics';

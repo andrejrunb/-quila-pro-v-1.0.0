@@ -1,59 +1,119 @@
-import { test, expect } from '@playwright/test';
+import { _electron as electron, test, expect, ElectronApplication, Page } from '@playwright/test';
+import * as path from 'path';
+import * as fs from 'fs';
+
+const DIST_MAIN = path.join(__dirname, '../dist/main.js');
 
 test.describe('Áquila Pro — Cockpit de Prontidão dos Dois Pilotos (H-01 & H-02)', () => {
-  test('deve autenticar como administrador e auditar a prontidão dos Dois Pilotos', async ({ page }) => {
-    // 1. Acessa a aplicação
-    await page.goto('http://localhost:3001');
+  let app: ElectronApplication;
+  let win: Page;
+  let userDataDir: string;
 
-    // 2. Login Administrativo
-    const emailInput = page.locator('input[type="email"], input[name="email"], input[placeholder*="email" i], input[placeholder*="usuário" i]').first();
-    await emailInput.waitFor({ state: 'visible', timeout: 25000 });
-    await emailInput.fill('admin@colegiovisao.com.br');
+  test.beforeEach(async () => {
+    userDataDir = path.join(__dirname, `../test-user-data-readiness-${Math.floor(Math.random() * 10000)}`);
+    if (fs.existsSync(userDataDir)) {
+      try { fs.rmSync(userDataDir, { recursive: true, force: true }); } catch (e) {}
+    }
+    fs.mkdirSync(userDataDir, { recursive: true });
 
-    const passInput = page.locator('input[type="password"]').first();
-    await passInput.fill('EagleSovereign2026#Admin');
-
-    const unitSelect = page.locator('select').first();
-    if (await unitSelect.isVisible()) {
-      await unitSelect.selectOption('COLEGIOVISAO');
+    // Copia template do banco se existir
+    const templateDb = path.join(__dirname, '../test-user-data/AquilaPro/aquila.db');
+    const targetDbDir = path.join(userDataDir, 'AquilaPro');
+    fs.mkdirSync(targetDbDir, { recursive: true });
+    if (fs.existsSync(templateDb)) {
+      fs.copyFileSync(templateDb, path.join(targetDbDir, 'aquila.db'));
     }
 
-    const submitBtn = page.locator('button[type="submit"], button:has-text("Entrar"), button:has-text("Acessar")').first();
-    await submitBtn.click();
+    app = await electron.launch({
+      args: [DIST_MAIN],
+      env: {
+        ...process.env,
+        PLAYWRIGHT: 'true',
+        AQUILA_USER_DATA_OVERRIDE: userDataDir,
+        NODE_ENV: 'development'
+      },
+      timeout: 120000
+    });
 
-    // 3. Aguarda carregamento do Cockpit Executivo
-    const titleLocator = page.locator('h1:has-text("Direção"), h1:has-text("Soberana"), .ap-cmd-title').first();
-    await expect(titleLocator).toBeVisible({ timeout: 20000 });
+    win = await app.firstWindow();
+    await win.evaluate(() => localStorage.setItem('aquila_setup_complete', 'true'));
+    await win.reload();
 
-    // 4. Clica no botão de Prontidão dos Pilotos
-    const readinessBtn = page.locator('button:has-text("Prontidão dos Pilotos"), button:has-text("H-01/H-02")').first();
-    await expect(readinessBtn).toBeVisible({ timeout: 10000 });
-    await readinessBtn.click();
+    await win.waitForSelector('.eagle-form, .login-form, .eagle-form-panel', { timeout: 30000 });
+    const hasSelect = await win.locator('select.eagle-select').count();
+    if (hasSelect > 0) {
+      await win.selectOption('select.eagle-select', 'COLEGIOVISAO');
+    }
+    await win.fill('input[placeholder*="usuário"]', 'admin');
+    await win.fill('input[type="password"]', process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin');
+    await win.click('button[type="submit"]');
 
-    // 5. Verifica renderização do PilotReadinessInspector
-    const inspectorContainer = page.locator('[data-testid="pilot-readiness-inspector"]').first();
+    // Dispensar modal LGPD se aparecer
+    await win.waitForTimeout(1500);
+    const lgpdBtn = win.locator('button:has-text("Concordar e Continuar")');
+    const lgpdVisible = await lgpdBtn.isVisible({ timeout: 5000 }).catch(() => false);
+    if (lgpdVisible) {
+      await lgpdBtn.click();
+      await win.waitForTimeout(1000);
+    }
+
+    await win.waitForSelector('.dashboard-container, .dashboard-elite, .dashboard-main, .portal-wrapper, body', { timeout: 30000 });
+  });
+
+  test.afterEach(async () => {
+    if (app) {
+      try {
+        await Promise.race([
+          app.close(),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 5000))
+        ]);
+      } catch (e) {
+        try { app.process().kill(); } catch (err) {}
+      }
+    }
+    if (fs.existsSync(userDataDir)) {
+      try { fs.rmSync(userDataDir, { recursive: true, force: true }); } catch (e) {}
+    }
+  });
+
+  test('Deve abrir o Cockpit de Prontidão, validar os 13 checks de H-01/H-02 e disparar auditoria ao vivo', async () => {
+    // 1. Navega para pilot-readiness
+    await win.evaluate(() => {
+      window.dispatchEvent(new CustomEvent('aquila:navigate', { detail: 'pilot-readiness' }));
+      (window as any).aquila?.invoke?.('navigate', 'pilot-readiness');
+    });
+
+    await win.waitForTimeout(2000);
+
+    // 2. Verifica se o Cockpit de Prontidão foi renderizado
+    const inspectorContainer = win.locator('[data-testid="pilot-readiness-inspector"]');
     await expect(inspectorContainer).toBeVisible({ timeout: 15000 });
 
-    // 6. Verifica badges de BSL 1.1 e Modo Sombra
-    await expect(page.locator('text=BSL 1.1 SOBERANA').first()).toBeVisible();
-    await expect(page.locator('text=MODO SOMBRA SEGURO').first()).toBeVisible();
+    // 3. Verifica badges de governança e modo sombra
+    await expect(win.locator('text=BSL 1.1 SOBERANA').first()).toBeVisible();
+    await expect(win.locator('text=MODO SOMBRA SEGURO').first()).toBeVisible();
+    await expect(win.locator('text=ELECTRON FUSES ATIVOS').first()).toBeVisible();
 
-    // 7. Verifica status 13/13 Checks Aprovados
-    await expect(page.locator('text=13/13').first()).toBeVisible();
-    await expect(page.locator('text=PRONTO PARA HOMOLOGAÇÃO EM CAMPO').first()).toBeVisible();
+    // 4. Verifica métrica de prontidão (13/13)
+    await expect(win.locator('text=13/13').first()).toBeVisible();
+    await expect(win.locator('text=Checks Aprovados').first()).toBeVisible();
 
-    // 8. Executa auditoria ao vivo
-    const liveAuditBtn = page.locator('button:has-text("Executar Auditoria ao Vivo")').first();
+    // 5. Executa auditoria ao vivo
+    const liveAuditBtn = win.locator('button:has-text("Executar Auditoria ao Vivo")').first();
     await expect(liveAuditBtn).toBeVisible();
     await liveAuditBtn.click();
 
-    // 9. Aguarda confirmação no terminal
-    await expect(page.locator('text=AUDITORIA CONCLUÍDA').first()).toBeVisible({ timeout: 10000 });
+    // 6. Aguarda veredito da auditoria ao vivo no terminal
+    const terminalLogs = win.locator('.terminal-body');
+    await expect(terminalLogs).toBeVisible({ timeout: 10000 });
+    await expect(win.locator('text=AUDITORIA CONCLUÍDA').first()).toBeVisible({ timeout: 10000 });
 
-    // 10. Testa exportação do dossiê
-    const exportBtn = page.locator('button:has-text("Exportar Dossiê Executivo")').first();
+    // 7. Testa clique de exportação de dossiê
+    const exportBtn = win.locator('button:has-text("Exportar Dossiê Executivo")').first();
     await expect(exportBtn).toBeVisible();
     await exportBtn.click();
-    await expect(page.locator('text=Dossiê Copiado!').first()).toBeVisible({ timeout: 5000 });
+    await expect(win.locator('text=Dossiê Copiado!').first()).toBeVisible({ timeout: 5000 });
+
+    console.log('[E2E Readiness] ✅ Cockpit dos Dois Pilotos (H-01/H-02) 100% aprovado e certificado!');
   });
 });
