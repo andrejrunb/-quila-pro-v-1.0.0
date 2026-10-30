@@ -836,3 +836,304 @@
   text-decoration: underline;
   background: rgba(56, 189, 248, 0.2);
 }
+
+
+/* =========================================================================
+   TAB 4: FUNIL DE CAPTAÇÃO PREVISÍVEL (PLAYBOOK CRM EDUCACIONAL)
+   ========================================================================= */
+
+.funnel-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+}
+
+.kpi-banner-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kpi-banner-title h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.kpi-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.kpi-card-box {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  backdrop-filter: blur(8px);
+}
+
+.kpi-label {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.kpi-val-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.kpi-val {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #f1f5f9;
+}
+
+.kpi-change.positive {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.kpi-target {
+  font-size: 0.68rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+/* FUNIL PIPELINE */
+.funnel-pipeline-section {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.funnel-header-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.funnel-header-row h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.funnel-stages-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.funnel-stage-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-left: 3px solid #10b981;
+}
+
+.stage-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stage-step {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #34d399;
+  text-transform: uppercase;
+}
+
+.stage-sla {
+  font-size: 0.65rem;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.stage-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin: 0;
+  color: #f1f5f9;
+}
+
+.stage-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.stage-count {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.stage-pct {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #a78bfa;
+}
+
+.stage-bench {
+  font-size: 0.68rem;
+  color: #94a3b8;
+}
+
+.stage-desc {
+  font-size: 0.72rem;
+  color: #64748b;
+  margin: 4px 0 0 0;
+  line-height: 1.35;
+}
+
+/* FOLLOW-UP REGUA */
+.followup-sequence-section {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.followup-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.followup-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  color: #f8fafc;
+}
+
+.followup-header p {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  margin: 2px 0 0 0;
+}
+
+.followup-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.followup-step-item {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 140px 1fr 140px;
+  gap: 16px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .followup-step-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+.step-badge-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.timing-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #c084fc;
+}
+
+.channel-pill {
+  font-size: 0.68rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.step-content-col h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: #f8fafc;
+}
+
+.step-objective {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin: 0 0 8px 0;
+}
+
+.script-box {
+  background: rgba(0, 0, 0, 0.4);
+  border-left: 3px solid #a855f7;
+  padding: 10px 12px;
+  border-radius: 4px;
+}
+
+.script-box p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #e2e8f0;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+.step-action-col {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-copy-script {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: #d8b4fe;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-copy-script:hover {
+  background: rgba(168, 85, 247, 0.3);
+  color: #ffffff;
+}

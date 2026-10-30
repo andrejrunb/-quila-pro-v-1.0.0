@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import './SchoolGrowthAgentSuite.css';
 
-export type GrowthAgentTab = 'storyteller' | 'marketing' | 'authority';
+export type GrowthAgentTab = 'storyteller' | 'marketing' | 'authority' | 'funnel';
 
 interface StorytellerPreset {
   id: string;
@@ -41,6 +41,90 @@ interface AuthorityPreset {
   fullStatement: string;
   academicReferences: Array<{ author: string; year: string; title: string; publication: string; doi: string }>;
 }
+
+
+export interface FunnelStageItem {
+  step: number;
+  name: string;
+  count: number;
+  conversionPct: number;
+  benchmarkPct: string;
+  sla: string;
+  description: string;
+}
+
+export interface CommercialKpiItem {
+  label: string;
+  value: string;
+  change: string;
+  status: 'positive' | 'warning';
+  target: string;
+}
+
+export interface FollowUpStepItem {
+  timing: string;
+  title: string;
+  channel: 'WhatsApp' | 'Telefone' | 'E-mail';
+  script: string;
+  objective: string;
+}
+
+const FUNNEL_STAGES: FunnelStageItem[] = [
+  { step: 1, name: '1. Geração de Demanda', count: 142, conversionPct: 100, benchmarkPct: 'Base 100%', sla: 'Contínuo', description: 'Leads atraídos via campanhas MetaAds, Instagram e indicação orgânica.' },
+  { step: 2, name: '2. Qualificação Rápida', count: 121, conversionPct: 85.2, benchmarkPct: '80% - 90%', sla: '< 5 minutos', description: 'Contato via WhatsApp Soberano para entender série, turno e expectativa.' },
+  { step: 3, name: '3. Visita Agendada', count: 48, conversionPct: 39.6, benchmarkPct: '35% - 45%', sla: 'Em até 48h', description: 'Agendamento para tour presencial pelo colégio e laboratório STEM.' },
+  { step: 4, name: '4. Comparecimento Real', count: 41, conversionPct: 85.4, benchmarkPct: '80% - 85%', sla: 'Dia da Visita', description: 'Famílias que compareceram à visita presencial encantadora.' },
+  { step: 5, name: '5. Matrícula Fechada', count: 29, conversionPct: 70.7, benchmarkPct: '60% - 70%', sla: 'Em até 5 dias', description: 'Matrículas confirmadas e migradas para o sistema de gestão escolar.' }
+];
+
+const COMMERCIAL_KPIS: CommercialKpiItem[] = [
+  { label: 'Leads Semanais', value: '142', change: '+18.3%', status: 'positive', target: 'Meta: 120' },
+  { label: 'SLA 1º Contato', value: '3.8 min', change: '-42%', status: 'positive', target: 'SLA < 5 min' },
+  { label: 'Taxa de Resposta', value: '68.4%', change: '+5.1%', status: 'positive', target: 'Meta: > 60%' },
+  { label: 'Visitas Realizadas', value: '41', change: '+12%', status: 'positive', target: 'Meta: 35' },
+  { label: 'Comparecimento', value: '85.4%', change: '+3.2%', status: 'positive', target: 'Ref: 80%' },
+  { label: 'Propostas Emitidas', value: '38', change: '+15%', status: 'positive', target: 'Meta: 30' },
+  { label: 'Matrículas Fechadas', value: '29', change: '+20.8%', status: 'positive', target: 'Meta: 25' },
+  { label: 'CAC Efetivo', value: 'R$ 184', change: '-14.5%', status: 'positive', target: 'Teto: R$ 250' }
+];
+
+const FOLLOWUP_STEPS: FollowUpStepItem[] = [
+  {
+    timing: '2 horas pós-visita',
+    title: 'Agradecimento & Registro de Afeto',
+    channel: 'WhatsApp',
+    objective: 'Aquecer a memória emotiva da família logo após o retorno para casa.',
+    script: 'Olá, [Nome da Mãe/Pai]! Foi uma honra receber você e o [Nome do Aluno] hoje no Colégio Visão. Ficamos encantados com o interesse dele pelo nosso Laboratório STEM e a Arena de Robótica! Segue uma foto linda dele conhecendo nossos experimentos. Ficou alguma dúvida sobre nossa proposta?'
+  },
+  {
+    timing: '24 horas pós-visita',
+    title: 'Dossiê Pedagógico Individualizado',
+    channel: 'WhatsApp',
+    objective: 'Comprovar a autoridade técnica da escola com diagnóstico personalizado.',
+    script: 'Olá, [Nome]! Nossa coordenação pedagógica já estruturou o Plano Preliminar de Desenvolvimento para o [Nome do Aluno], considerando a fase do [Ano Escolar]. Com nosso motor de nivelamento por Maestria, ele terá acompanhamento contínuo em matemática e redação. Segue o PDF do plano anexo!'
+  },
+  {
+    timing: '48 horas pós-visita',
+    title: 'Convite: "Aluno por um Dia"',
+    channel: 'WhatsApp',
+    objective: 'Eliminar o medo de adaptação da criança e gerar vínculo social com a turma.',
+    script: 'Olá, [Nome]! Abrimos uma vaga especial para o [Nome do Aluno] participar da nossa vivência "Aluno por um Dia" nesta quinta-feira. Ele vai assistir às aulas práticas, participar do intervalo e conhecer os futuros colegas. Podemos reservar o crachá de visitante dele?'
+  },
+  {
+    timing: '72 horas pós-visita',
+    title: 'Condição Especial de Reserva Antecipada',
+    channel: 'WhatsApp',
+    objective: 'Gatilho de urgência ética e garantia de vaga em turma com limite reduzido.',
+    script: 'Olá, [Nome]! Como mantemos o teto pedagógico rigoroso de 25 alunos por turma para garantir o acompanhamento de perto, restam apenas 3 vagas para o turno matutino do [Ano Escolar]. Se confirmarmos até sexta-feira, garantimos a isenção da taxa de matrícula!'
+  },
+  {
+    timing: '5º dia útil',
+    title: 'Ligação Estratégica da Coordenação',
+    channel: 'Telefone',
+    objective: 'Resolução de objeções financeiras ou de transporte com atendimento humano.',
+    script: 'Olá [Nome], sou a Coordenadora Pedagógica do Colégio Visão. Liguei pessoalmente para saber como foi a conversa em família sobre o futuro escolar do [Nome do Aluno] e me colocar à disposição para qualquer ajuste necessário.'
+  }
+];
 
 const STORYTELLER_PRESETS: StorytellerPreset[] = [
   {
