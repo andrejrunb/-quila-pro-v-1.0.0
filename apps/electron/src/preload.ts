@@ -680,6 +680,28 @@ const aquilaAPI = {
 
 
 
+  geminiNotebook: {
+    status: () => ipcRenderer.invoke('gemini-notebook:status'),
+    create: (userId: string, title: string) => ipcRenderer.invoke('gemini-notebook:create', userId, title),
+    get: (notebookId: string) => ipcRenderer.invoke('gemini-notebook:get', notebookId),
+    list: (pageSize?: number) => ipcRenderer.invoke('gemini-notebook:list', pageSize),
+    share: (userId: string, notebookId: string, recipients: Array<{ email: string; role: string }>) =>
+      ipcRenderer.invoke('gemini-notebook:share', userId, notebookId, recipients),
+    remove: (userId: string, notebookId: string, approval: { approvedBy: string; confirm: boolean }) =>
+      ipcRenderer.invoke('gemini-notebook:delete', userId, notebookId, approval),
+  },
+
+  cosmetics: {
+    getCatalog: () => ipcRenderer.invoke('cosmetics:get-catalog'),
+    getInventory: (studentId: string) => ipcRenderer.invoke('cosmetics:get-inventory', studentId),
+    claimAchievement: (studentId: string, achievementCode: string, grantedBy?: string) =>
+      ipcRenderer.invoke('cosmetics:claim-achievement', studentId, achievementCode, grantedBy),
+    purchase: (studentId: string, itemId: string, currentBalance: number, buyerId?: string) =>
+      ipcRenderer.invoke('cosmetics:purchase', studentId, itemId, currentBalance, buyerId),
+    equip: (studentId: string, itemId: string) => ipcRenderer.invoke('cosmetics:equip', studentId, itemId),
+    getAuditTrail: (studentId?: string) => ipcRenderer.invoke('cosmetics:get-audit-trail', studentId),
+  },
+
   student: {
 
     getStudent: (id: string) => ipcRenderer.invoke('get-student', id),

@@ -52,6 +52,8 @@ credenciais.txt
 *.onnx
 *.tflite
 *.safetensors
+*.pdf
+data/inbox/**/preview/
 *.tar.gz
 
 # Archive / legacy directories

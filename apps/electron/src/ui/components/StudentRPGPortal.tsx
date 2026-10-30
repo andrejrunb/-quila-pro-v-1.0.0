@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 import './StudentRPGPortal.css';
+import './StudentRPGPortal.fichas.css';
+import GeminiNotebookPanel from './GeminiNotebookPanel';
+import fichasTitulo from '../assets/fichas/titulo.png';
+import fichasAtomo from '../assets/fichas/atomo.png';
+import fichasLampada from '../assets/fichas/lampada.png';
+import fichasIma from '../assets/fichas/ima.png';
+import fichasTermometro from '../assets/fichas/termometro.png';
 
 import SovereignShop from './SovereignShop';
 
@@ -236,7 +243,23 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
   return (
 
-    <div className="student-portal-main">
+    <div className="student-portal-main fichas-theme">
+
+      {/* Capa estilo Fichas Desenhadas */}
+      <section className="fichas-hero" aria-label="Jornada de estudos">
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <img src={fichasAtomo} alt="" className="fichas-mascot sm fichas-float" />
+          <img src={fichasLampada} alt="" className="fichas-mascot sm fichas-float d2" />
+        </div>
+        <div className="fichas-hero-title">
+          <img src={fichasTitulo} alt="Fichas Desenhadas — Física" />
+          <p className="fichas-hero-sub">As forças ganharam cores e <b>a jornada ganhou vida!</b></p>
+        </div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <img src={fichasIma} alt="" className="fichas-mascot sm fichas-float" />
+          <img src={fichasTermometro} alt="" className="fichas-mascot fichas-float d2" />
+        </div>
+      </section>
 
       {/* Top Student Cockpit Bar — Rectangular Portrait ("Sem Bolinha") & Uniform 32px Buttons */}
 
@@ -517,6 +540,8 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
       </section>
 
 
+
+      <GeminiNotebookPanel userId={studentId} suggestedTopics={['Cinemática', 'Dinâmica', 'Eletrodinâmica']} />
 
       {/* Main 3-Column Bento Grid — Zero Wasted Space */}
 

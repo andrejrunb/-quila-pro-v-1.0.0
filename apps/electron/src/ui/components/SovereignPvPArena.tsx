@@ -26,6 +26,13 @@ import { TRI_ITEM_BANK, TriQuestion } from '../utils/triItemBank';
 import { HISTORICAL_CHARACTERS, HistoricalCharacter } from '../utils/historicalPersonas';
 import { STUDENTS } from '../../database/studentsData';
 import './SovereignPvPArena.css';
+import arenaHeader from '../assets/fichas/arena_header.png';
+import fighterNewton from '../assets/fichas/fighter_newton.png';
+import fighterEinstein from '../assets/fichas/fighter_einstein.png';
+import fighterTesla from '../assets/fichas/fighter_tesla.png';
+import fighterEdison from '../assets/fichas/fighter_edison.png';
+import fighterArquimedes from '../assets/fichas/fighter_arquimedes.png';
+import fighterGalileu from '../assets/fichas/fighter_galileu.png';
 
 interface SovereignPvPArenaProps {
   studentId?: string;
@@ -51,6 +58,8 @@ interface MentorBoss {
   title: string;
   epoch: string;
   avatarIcon: string;
+  avatarImage?: string;
+  specialMove?: string;
   discipline: string;
   maxHp: number;
   bossQuote: string;
@@ -61,16 +70,88 @@ interface MentorBoss {
 
 const MENTOR_BOSSES: MentorBoss[] = [
   {
+    characterId: 'NEWTON',
+    title: 'Isaac Newton — O Pai da Gravidade',
+    epoch: '1643–1727',
+    avatarIcon: '🍎',
+    avatarImage: fighterNewton,
+    specialMove: 'Lançamento de Maçã (F = m · a)',
+    discipline: 'Física',
+    maxHp: 2400,
+    bossQuote: 'Hipóteses não invento. Se vi mais longe, foi por estar sobre ombros de gigantes!',
+    introTaunt: 'Prepare-se! Minha maçã define a gravitação e as três leis fundamentais do movimento.',
+    defeatQuote: 'Sua mecânica é irretocável! Ação e reação foram demonstradas com perfeição.',
+    badgeReward: 'Láurea dos Principia de Newton'
+  },
+  {
     characterId: 'EINSTEIN',
-    title: 'Albert Einstein — O Guardião do Espaço-Tempo',
+    title: 'Albert Einstein — Senhor Relatividade',
     epoch: '1879–1955',
     avatarIcon: '🌌',
+    avatarImage: fighterEinstein,
+    specialMove: 'Explosão Atômica (E = m · c²)',
     discipline: 'Física',
     maxHp: 2500,
-    bossQuote: 'A imaginação é mais poderosa que o conhecimento puro. Consegue dobrar o meu referencial?',
-    introTaunt: 'Saudações! Vamos testar se seu raciocínio resiste à curvatura do espaço e ao efeito fotoelétrico.',
-    defeatQuote: 'Magnífico! Você compreendeu a invariância das leis fundamentais. Receba minha bênção da Relatividade!',
-    badgeReward: 'Insígnia de Ouro de Einstein'
+    bossQuote: 'A imaginação é mais importante que o conhecimento puro. O tempo é relativo!',
+    introTaunt: 'Saudações! Vamos testar se seu raciocínio resiste à dilatação temporal e aos fótons.',
+    defeatQuote: 'Magnífico! Você compreendeu a invariância do espaço-tempo e o efeito fotoelétrico.',
+    badgeReward: 'Insígnia Dourada da Relatividade'
+  },
+  {
+    characterId: 'TESLA',
+    title: 'Nikola Tesla — Mago da Corrente Alternada',
+    epoch: '1856–1943',
+    avatarIcon: '⚡',
+    avatarImage: fighterTesla,
+    specialMove: 'Tempestade de Raios (Indução Eletromagnética)',
+    discipline: 'Física',
+    maxHp: 2600,
+    bossQuote: 'Se você quiser descobrir os segredos do universo, pense em energia, frequência e vibração.',
+    introTaunt: 'O futuro me pertence! Minha bobina está carregada com 1 milhão de volts de corrente alternada.',
+    defeatQuote: 'Fascinante! Seu domínio de eletromagnetismo e circuitos superou meu campo magnético girante.',
+    badgeReward: 'Bobina de Alta Tensão de Tesla'
+  },
+  {
+    characterId: 'EDISON',
+    title: 'Thomas Edison — Magnata da Corrente Contínua',
+    epoch: '1847–1931',
+    avatarIcon: '💡',
+    avatarImage: fighterEdison,
+    specialMove: 'Patente Bloqueadora (Lâmpada Incandescente)',
+    discipline: 'Física',
+    maxHp: 2300,
+    bossQuote: 'O gênio é 1% de inspiração e 99% de transpiração. O mercado exige resultados!',
+    introTaunt: 'Tenho mil patentes registradas na minha estação de Menlo Park. Você tem o que mostrar?',
+    defeatQuote: 'Admito sua inventividade. A resistência e o efeito Joule da sua resposta foram exemplares.',
+    badgeReward: 'Filamento Incandescente de Edison'
+  },
+  {
+    characterId: 'ARQUIMEDES',
+    title: 'Arquimedes — O Rei do Empuxo',
+    epoch: '287–212 a.C.',
+    avatarIcon: '🌊',
+    avatarImage: fighterArquimedes,
+    specialMove: 'Jato d’Água (EUREKA!)',
+    discipline: 'Física',
+    maxHp: 2200,
+    bossQuote: 'Dê-me uma alavanca e um ponto de apoio e moverei o mundo!',
+    introTaunt: 'Saí da banheira gritando Eureka! Seu peso aparente vai submergir ou flutuar?',
+    defeatQuote: 'EUREKA! Seu domínio da hidrostática e do volume deslocado me convenceu.',
+    badgeReward: 'Coroa de Ouro Puro de Siracusa'
+  },
+  {
+    characterId: 'GALILEU',
+    title: 'Galileu Galilei — O Rebelde da Queda Livre',
+    epoch: '1564–1642',
+    avatarIcon: '🔭',
+    avatarImage: fighterGalileu,
+    specialMove: 'Queda da Torre de Pisa (MUV & Gravidade)',
+    discipline: 'Física',
+    maxHp: 2250,
+    bossQuote: 'E pur si muove (Contudo, ela se move)! A física se escreve na linguagem da matemática.',
+    introTaunt: 'Duas esferas de massas diferentes chegam ao solo no mesmo instante no vácuo. Desafia meu telescópio?',
+    defeatQuote: 'Brilhante observação! O método experimental prevaleceu sobre o dogma.',
+    badgeReward: 'Luneta Astronômica de Galileu'
   },
   {
     characterId: 'MARIE_CURIE',
@@ -83,18 +164,6 @@ const MENTOR_BOSSES: MentorBoss[] = [
     introTaunt: 'No meu laboratório em Paris isolamos o Rádio. Você domina a meia-vida e as emissões nucleares?',
     defeatQuote: 'Rigor e precisão admirável! O núcleo do átomo não guarda mais segredos para você.',
     badgeReward: 'Insígnia de Polônio de Marie Curie'
-  },
-  {
-    characterId: 'NEWTON',
-    title: 'Isaac Newton — O Mestre das Três Leis',
-    epoch: '1643–1727',
-    avatarIcon: '🍎',
-    discipline: 'Física',
-    maxHp: 2400,
-    bossQuote: 'Hipóteses não invento. Demonstre com rigor vetorial a ação e reação!',
-    introTaunt: 'Se vi mais longe, foi por estar sobre ombros de gigantes. Prove que merece estar aqui.',
-    defeatQuote: 'Sua dinâmica é impecável. A gravitação universal reconhece sua maestria mecânica!',
-    badgeReward: 'Láurea Real dos Principia de Newton'
   },
   {
     characterId: 'MENDEL',
@@ -488,10 +557,21 @@ export const SovereignPvPArena: React.FC<SovereignPvPArenaProps> = ({
                       className={`boss-card ${selectedBossIdx === idx ? 'active' : ''}`}
                       onClick={() => setSelectedBossIdx(idx)}
                     >
-                      <div className="boss-avatar">{boss.avatarIcon}</div>
+                      <div className="boss-avatar">
+                        {boss.avatarImage ? (
+                          <img src={boss.avatarImage} alt={boss.title} className="boss-avatar-img" />
+                        ) : (
+                          boss.avatarIcon
+                        )}
+                      </div>
                       <div className="boss-info">
                         <strong>{boss.title}</strong>
                         <span className="boss-sub">{boss.discipline} • Época: {boss.epoch}</span>
+                        {boss.specialMove && (
+                          <span className="boss-special-pill" style={{ color: '#F59E0B', fontSize: 11, fontWeight: 700 }}>
+                            ⚡ {boss.specialMove}
+                          </span>
+                        )}
                         <p className="boss-quote">"{boss.bossQuote}"</p>
                       </div>
                       <span className="boss-hp-tag">{boss.maxHp} HP</span>
@@ -628,7 +708,15 @@ export const SovereignPvPArena: React.FC<SovereignPvPArenaProps> = ({
                   </span>
                 </div>
                 <span className="fighter-avatar">
-                  {arenaMode === 'boss_raid' ? activeBoss.avatarIcon : activeOpponent.avatarIcon}
+                  {arenaMode === 'boss_raid' ? (
+                    activeBoss.avatarImage ? (
+                      <img src={activeBoss.avatarImage} alt={activeBoss.title} className="fighter-avatar-img" />
+                    ) : (
+                      activeBoss.avatarIcon
+                    )
+                  ) : (
+                    activeOpponent.avatarIcon
+                  )}
                 </span>
               </div>
               <div className="hp-bar-bg">

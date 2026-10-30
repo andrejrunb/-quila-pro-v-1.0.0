@@ -1,0 +1,147 @@
+/*
+ * Tema "Fichas Desenhadas" para o Portal do Aluno (gamificação).
+ * Identidade: caderno quadriculado, contorno de caneta azul-marinho, azul/laranja/amarelo vivos,
+ * fita washi e cartões "adesivo". Ilustrações: material "Física Fichas Desenhadas"
+ * (Revisão de Concursos) — uso autorizado informado pela coordenação.
+ * Escopo: apenas dentro de .fichas-theme (não afeta outros portais).
+ */
+.fichas-theme {
+  --f-ink: #1b2a4a;
+  --f-blue: #1e6bff;
+  --f-blue-soft: #e8f0ff;
+  --f-orange: #f08a24;
+  --f-yellow: #ffc83d;
+  --f-green: #1f9d55;
+  --f-red: #e0432f;
+  --f-paper: #f6f9ff;
+  --f-hand: 'Segoe Print', 'Bradley Hand', 'Comic Sans MS', cursive;
+  --f-title: 'Segoe UI Black', 'Arial Black', Impact, sans-serif;
+
+  color: var(--f-ink);
+  font-family: var(--f-hand);
+  padding: 14px;
+  border-radius: 14px;
+  background-color: var(--f-paper);
+  background-image:
+    linear-gradient(rgba(30, 107, 255, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 107, 255, 0.10) 1px, transparent 1px);
+  background-size: 22px 22px;
+  gap: 16px;
+}
+
+/* ---------- Herói / capa ---------- */
+.fichas-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  min-height: 150px;
+  background: #fff;
+  border: 3px solid var(--f-ink);
+  border-radius: 18px;
+  box-shadow: 6px 6px 0 var(--f-yellow);
+  overflow: hidden;
+}
+.fichas-hero-title { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
+.fichas-hero-title img { width: min(100%, 440px); height: auto; mix-blend-mode: multiply; }
+.fichas-hero-sub { margin: 0; font-size: 16px; font-weight: 700; color: var(--f-ink); text-align: center; }
+.fichas-hero-sub b { color: var(--f-blue); }
+.fichas-mascot { height: 120px; width: auto; object-fit: contain; mix-blend-mode: multiply; }
+.fichas-mascot.sm { height: 84px; }
+.fichas-float { animation: fichas-bob 3.2s ease-in-out infinite; }
+.fichas-float.d2 { animation-delay: 1.1s; }
+@keyframes fichas-bob { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-6px) rotate(1.5deg); } }
+@media (prefers-reduced-motion: reduce) { .fichas-float { animation: none; } }
+@media (max-width: 900px) {
+  .fichas-hero { grid-template-columns: 1fr; text-align: center; }
+  .fichas-mascot { display: none; }
+}
+
+/* ---------- Cabeçalho do aluno ---------- */
+.fichas-theme .rpg-header {
+  background: #fff;
+  border: 3px solid var(--f-ink);
+  border-radius: 14px;
+  box-shadow: 4px 4px 0 var(--f-blue);
+}
+.fichas-theme .rpg-name-info h2 { color: var(--f-ink); font-family: var(--f-title); font-size: 18px; letter-spacing: 0; }
+.fichas-theme .rpg-student-photo-rect { border: 3px solid var(--f-ink); border-radius: 10px; }
+.fichas-theme .rpg-tutor-pill {
+  background: var(--f-yellow); color: var(--f-ink); border: 2px solid var(--f-ink);
+  border-radius: 999px; font-family: var(--f-hand);
+}
+.fichas-theme .rpg-sub-telemetry { color: #51608a; font-family: var(--f-hand); }
+
+/* barra de XP = termômetro de progresso */
+.fichas-theme .xp-label { color: var(--f-ink); font-family: var(--f-hand); font-weight: 700; }
+.fichas-theme .xp-bar-bg {
+  background: #fff; border: 3px solid var(--f-ink); border-radius: 999px; height: 16px; overflow: hidden;
+}
+.fichas-theme .xp-bar-fill {
+  background: repeating-linear-gradient(-45deg, var(--f-red) 0 10px, #ff6b57 10px 20px);
+  border-radius: 999px;
+}
+
+/* ---------- Botões ---------- */
+.fichas-theme .rpg-action-btn {
+  background: #fff; color: var(--f-ink); border: 2px solid var(--f-ink);
+  border-radius: 10px; font-family: var(--f-hand); font-weight: 800;
+  box-shadow: 2px 3px 0 var(--f-ink); transition: transform 0.12s, box-shadow 0.12s;
+}
+.fichas-theme .rpg-action-btn:hover { transform: translate(-1px, -1px); box-shadow: 3px 4px 0 var(--f-ink); background: var(--f-yellow); }
+.fichas-theme .rpg-action-btn.primary { background: linear-gradient(#3c8cff, var(--f-blue)); color: #fff; }
+.fichas-theme .rpg-action-btn.primary:hover { background: linear-gradient(#5a9eff, #2f78ff); }
+.fichas-theme .rpg-action-btn:focus-visible { outline: 3px solid var(--f-orange); outline-offset: 2px; }
+
+/* ---------- KPIs = adesivos ---------- */
+.fichas-theme .rpg-kpi-pod {
+  background: #fff; border: 3px solid var(--f-ink); border-radius: 14px;
+  box-shadow: 4px 4px 0 var(--f-orange);
+}
+.fichas-theme .rpg-kpi-pod:nth-child(2) { box-shadow: 4px 4px 0 var(--f-green); transform: rotate(0.6deg); }
+.fichas-theme .rpg-kpi-pod:nth-child(3) { box-shadow: 4px 4px 0 var(--f-blue); transform: rotate(-0.6deg); }
+.fichas-theme .rpg-kpi-pod:nth-child(4) { box-shadow: 4px 4px 0 #8b5cf6; transform: rotate(0.4deg); }
+.fichas-theme .rpg-kpi-label { color: #51608a; font-family: var(--f-hand); font-weight: 700; }
+.fichas-theme .rpg-kpi-val { font-family: var(--f-title); }
+.fichas-theme .rpg-kpi-sub { color: #51608a; font-family: var(--f-hand); }
+
+/* ---------- Painéis = folhas com fita ---------- */
+.fichas-theme .rpg-panel {
+  position: relative; background: #fff; border: 3px solid var(--f-ink);
+  border-radius: 14px; box-shadow: 5px 5px 0 var(--f-yellow); color: var(--f-ink);
+}
+.fichas-theme .rpg-panel::before {
+  content: ''; position: absolute; top: -10px; right: 24px; width: 70px; height: 18px;
+  background: repeating-linear-gradient(45deg, #ff9f43 0 6px, #ffc37d 6px 12px);
+  opacity: 0.85; transform: rotate(2.5deg);
+}
+.fichas-theme .rpg-title { color: var(--f-ink); font-family: var(--f-title); }
+.fichas-theme .rpg-panel-tag {
+  background: var(--f-blue-soft); color: var(--f-blue); border: 2px solid var(--f-blue);
+  border-radius: 999px; font-family: var(--f-hand); font-weight: 800;
+}
+.fichas-theme .rpg-mastery-card { background: var(--f-blue-soft); border: 2px solid var(--f-ink); border-radius: 12px; }
+.fichas-theme .rpg-mastery-title { color: var(--f-ink); font-family: var(--f-title); }
+.fichas-theme .rpg-mastery-desc { color: #34446b; }
+.fichas-theme .rpg-mastery-badge { background: var(--f-ink); color: #fff; border-radius: 6px; }
+
+/* conquistas, missões, pods, votações */
+.fichas-theme .achievement-card,
+.fichas-theme .quest-card,
+.fichas-theme .pod-hex-cell,
+.fichas-theme .vote-card {
+  background: #fff; border: 2px solid var(--f-ink); border-radius: 12px; color: var(--f-ink);
+}
+.fichas-theme .achievement-card:hover,
+.fichas-theme .quest-card:hover,
+.fichas-theme .pod-hex-cell:hover { background: #fff8e1; border-color: var(--f-orange); }
+.fichas-theme .achievement-title,
+.fichas-theme .quest-sub { color: var(--f-ink); }
+.fichas-theme .achievement-desc { color: #51608a; }
+.fichas-theme .achievement-pct { color: var(--f-blue); font-weight: 800; }
+.fichas-theme .q-gold { background: var(--f-yellow); color: var(--f-ink); border: 2px solid var(--f-ink); }
+.fichas-theme .q-bronze { background: #ffd3a3; color: var(--f-ink); border: 2px solid var(--f-ink); }
+
+.fichas-theme ::selection { background: var(--f-yellow); color: var(--f-ink); }

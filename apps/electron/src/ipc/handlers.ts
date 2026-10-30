@@ -21,6 +21,8 @@ import { networkGuardService } from '../main/services/NetworkGuardService';
 import { colabOffloadBridge } from '../main/services/ColabOffloadBridge';
 
 import { colabGpuBridge } from '../main/services/ColabGpuBridge';
+import { GeminiNotebookService } from '../main/services/GeminiNotebookService';
+import { CosmeticGrantService } from '../main/services/CosmeticGrantService';
 
 
 
@@ -7804,6 +7806,32 @@ function registerHRCluster(context: SovereignContext, protectedHandle: any) {
 
 
 function registerStudentCluster(context: SovereignContext, protectedHandle: any) {
+
+  // Gemini Notebook Enterprise (opt-in, auditado) — ver GeminiNotebookService
+  const geminiNotebook = () => GeminiNotebookService.getInstance(context.db);
+  protectedHandle('gemini-notebook:status', async () => geminiNotebook().getStatus());
+  protectedHandle('gemini-notebook:create', async (_e, userId: string, title: string) => geminiNotebook().createNotebook(userId, title));
+  protectedHandle('gemini-notebook:get', async (_e, notebookId: string) => geminiNotebook().getNotebook(notebookId));
+  protectedHandle('gemini-notebook:list', async (_e, pageSize?: number) => geminiNotebook().listRecentNotebooks(pageSize));
+  protectedHandle('gemini-notebook:share', async (_e, userId: string, notebookId: string, recipients: any[]) => geminiNotebook().shareNotebook(userId, notebookId, recipients));
+  protectedHandle('gemini-notebook:delete', async (_e, userId: string, notebookId: string, approval: any) => geminiNotebook().deleteNotebook(userId, notebookId, approval));
+
+  // Catálogo e Concessão Determinística de Cosméticos (cosmetics.catalog.json)
+  const cosmeticGrant = () => CosmeticGrantService.getInstance(context.db);
+  protectedHandle('cosmetics:get-catalog', async () => cosmeticGrant().getCatalog());
+  protectedHandle('cosmetics:get-inventory', async (_e, studentId: string) => cosmeticGrant().getStudentState(studentId));
+  protectedHandle('cosmetics:claim-achievement', async (_e, studentId: string, achievementCode: string, grantedBy?: string) =>
+    cosmeticGrant().grantByAchievement(studentId, achievementCode, grantedBy)
+  );
+  protectedHandle('cosmetics:purchase', async (_e, studentId: string, itemId: string, currentBalance: number, buyerId?: string) =>
+    cosmeticGrant().purchaseByCoins(studentId, itemId, currentBalance, buyerId)
+  );
+  protectedHandle('cosmetics:equip', async (_e, studentId: string, itemId: string) =>
+    cosmeticGrant().equipItem(studentId, itemId)
+  );
+  protectedHandle('cosmetics:get-audit-trail', async (_e, studentId?: string) =>
+    cosmeticGrant().getAuditTrail(studentId)
+  );
 
   protectedHandle('get-student-economy', async (_e, studentId: string) => {
 

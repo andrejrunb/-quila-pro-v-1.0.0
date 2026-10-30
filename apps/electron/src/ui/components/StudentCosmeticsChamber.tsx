@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Sparkles, Award, Shield, Palette, Layers, Star, Zap,
   CheckCircle, Lock, Crown, Gem, Gift, HelpCircle, Eye,
@@ -220,6 +220,72 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
   const [aureusBalance, setAureusBalance] = useState<number>(2450);
   const [feedbackMsg, setFeedbackMsg] = useState<{ text: string; type: 'success' | 'warn' } | null>(null);
 
+  useEffect(() => {
+    async function syncWithService() {
+      try {
+        const api = (window as any).aquila?.cosmetics;
+        if (!api) return;
+        const catalogItems = await api.getCatalog();
+        const studentState = await api.getInventory(studentId);
+        if (catalogItems && catalogItems.length > 0) {
+          const mapped: CosmeticCardItem[] = catalogItems.map((cat: any) => {
+            const unlocked = studentState?.unlockedItemIds?.includes(cat.itemId) ?? false;
+            const equipped = Object.values(studentState?.equippedSlots || {}).includes(cat.itemId);
+            const categoryMap: Record<string, any> = {
+              avatar_skin: 'skin_avatar',
+              avatar_frame: 'moldura_frame',
+              profile_theme: 'banner_bg',
+              title: 'emblema_badge',
+              emote: 'emote_animado',
+              arena_theme: 'banner_bg'
+            };
+            const rarityMap: Record<string, any> = {
+              comum: 'Comum',
+              raro: 'Rara',
+              epico: 'Épica',
+              lendario: 'Lendária',
+              campeao: 'Campeão'
+            };
+            const rarityColors: Record<string, string> = {
+              comum: '#9ca3af',
+              raro: '#3b82f6',
+              epico: '#a855f7',
+              lendario: '#eab308',
+              campeao: '#06b6d4'
+            };
+            const icons: Record<string, string> = {
+              avatar_skin: '👤',
+              avatar_frame: '🖼️',
+              profile_theme: '🌄',
+              title: '👑',
+              emote: '💡',
+              arena_theme: '⚔️'
+            };
+            return {
+              id: cat.itemId,
+              title: cat.name,
+              discipline: cat.subject || 'Interdisciplinar',
+              rarity: rarityMap[cat.rarity] || 'Rara',
+              rarityColor: rarityColors[cat.rarity] || '#3b82f6',
+              category: categoryMap[cat.category] || 'skin_avatar',
+              previewIcon: icons[cat.category] || '✨',
+              historicalRef: cat.description || cat.name,
+              bnccSkill: cat.audit?.grantPolicy || 'BNCC Geral',
+              costAureus: cat.priceCoins,
+              unlocked,
+              equipped,
+              description: cat.description || cat.name
+            };
+          });
+          setItems(mapped);
+        }
+      } catch {
+        // Fallback gracioso para os itens locais
+      }
+    }
+    syncWithService();
+  }, [studentId]);
+
   const filteredItems = items.filter(
     item => selectedCategory === 'all' || item.category === selectedCategory
   );
@@ -270,7 +336,15 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
   };
 
 
-  const handleEquip = (itemId: string) => {
+  const handleEquip = async (itemId: string) => {
+    const api = (window as any).aquila?.cosmetics;
+    if (api) {
+      try {
+        await api.equip(studentId, itemId);
+      } catch {
+        // fallback
+      }
+    }
     setItems(prev => {
       const target = prev.find(i => i.id === itemId);
       if (!target) return prev;
@@ -286,7 +360,28 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
     setTimeout(() => setFeedbackMsg(null), 3000);
   };
 
-  const handleUnlock = (item: CosmeticCardItem) => {
+  const handleUnlock = async (item: CosmeticCardItem) => {
+    const api = (window as any).aquila?.cosmetics;
+    if (api) {
+      try {
+        const res = await api.purchase(studentId, item.id, aureusBalance);
+        if (!res.success) {
+          playSfx('warn');
+          setFeedbackMsg({ text: res.error || 'Não foi possível concluir o desbloqueio.', type: 'warn' });
+          setTimeout(() => setFeedbackMsg(null), 3500);
+          return;
+        }
+        playSfx('unlock');
+        setAureusBalance(res.newBalance);
+        setItems(prev => prev.map(i => i.id === item.id ? { ...i, unlocked: true } : i));
+        setFeedbackMsg({ text: `🎉 Parabéns! Você desbloqueou '${item.title}'!`, type: 'success' });
+        setTimeout(() => setFeedbackMsg(null), 3500);
+        return;
+      } catch {
+        // fallback para execução local
+      }
+    }
+
     if (aureusBalance < item.costAureus) {
       playSfx('warn');
       setFeedbackMsg({ text: `Saldo insuficiente (${aureusBalance} Aureus). Conclua missões de evidência para receber moedas cosméticas!`, type: 'warn' });
