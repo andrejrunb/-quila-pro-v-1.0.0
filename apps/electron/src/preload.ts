@@ -783,7 +783,8 @@ const aquilaAPI = {
       'teachers:save-attendance', 'tasks:list', 'tasks:create', 'tasks:update', 'tasks:delete', 'teachers:save-daily-report', 'teachers:get-daily-reports', 'coordination:update-report-status',
       'stress:run-benchmark', 'stress:start', 'stress:stop', 'stress:get-status',
       'pedagogy:ask-copilot', 'pedagogy:process-whiteboard',
-      'seating:get-active-schedule-for-local-room', 'secretariat:get-students-by-class', 'seating:apply-layout', 'reports:get-bimestral-feedback'
+      'seating:get-active-schedule-for-local-room', 'secretariat:get-students-by-class', 'seating:apply-layout', 'reports:get-bimestral-feedback',
+      'batch-import:preview', 'batch-import:confirm', 'playlists:list', 'playlists:save', 'playlists:delete', 'gamemaker:list-templates', 'gamemaker:save-template', 'gamemaker:delete-template'
     ];
 
 
@@ -861,6 +862,20 @@ const aquilaAPI = {
     testConnection: () => ipcRenderer.invoke('rpa:test-connection'),
     saveSigaConfig: (config: any) => ipcRenderer.invoke('rpa:save-siga-config', config),
     saveDominioConfig: (config: any) => ipcRenderer.invoke('rpa:save-dominio-config', config),
+  },
+  playlists: {
+    list: (classId?: string) => ipcRenderer.invoke('playlists:list', classId),
+    save: (data: any) => ipcRenderer.invoke('playlists:save', data),
+    delete: (id: string) => ipcRenderer.invoke('playlists:delete', id),
+  },
+  gameMaker: {
+    listTemplates: (teacherId?: string) => ipcRenderer.invoke('gamemaker:list-templates', teacherId),
+    saveTemplate: (data: any) => ipcRenderer.invoke('gamemaker:save-template', data),
+    deleteTemplate: (id: string) => ipcRenderer.invoke('gamemaker:delete-template', id),
+  },
+  batchImport: {
+    preview: (payload: any) => ipcRenderer.invoke('batch-import:preview', payload),
+    confirm: (payload: any) => ipcRenderer.invoke('batch-import:confirm', payload),
   },
 };
 

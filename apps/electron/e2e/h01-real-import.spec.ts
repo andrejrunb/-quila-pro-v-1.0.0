@@ -27,8 +27,8 @@ const CSV_INVALID_PATH = path.join(OUTPUT_DIR, "h01-alunos-com-erros.csv");
 const CSV_CLEAN_PATH = path.join(OUTPUT_DIR, "h01-alunos-corrigido.csv");
 
 // Credenciais de teste
-const SEC_USER = process.env.AQUILA_USER || "admin";
-const SEC_PASS = process.env.AQUILA_PASSWORD || "EagleSovereign2026#Admin";
+const SEC_USER = process.env.AQUILA_USER || "secretaria";
+const SEC_PASS = process.env.AQUILA_PASSWORD || "Sec@2026!";
 const TEACHER_USER = "prof_carlos";
 const TEACHER_PASS = "Prof@2026!";
 
@@ -85,6 +85,14 @@ function toCsv(rows: StudentRow[]): string {
 
 async function prepareFixturesAndDb(): Promise<void> {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
+
+  // Limpar arquivo de auth para que o teste inicie com login limpo
+  const authFile = path.join(__dirname, ".auth/user.json");
+  if (fsSync.existsSync(authFile)) {
+    try {
+      fsSync.unlinkSync(authFile);
+    } catch {}
+  }
 
   // Limpar quaisquer resíduos H01 do banco de teste
   querySqlite(BASELINE_DB_PATH, "DELETE FROM students WHERE registrationNumber LIKE 'H01-%' OR id LIKE 'H01-%'");
@@ -154,10 +162,31 @@ async function launchApp() {
 }
 
 async function login(window: import("@playwright/test").Page, username: string, pass: string) {
-  await window.evaluate(() => localStorage.setItem("aquila_setup_complete", "true"));
-  await window.reload();
+  // 1. Verificar se há sessão ativa com outro usuário e forçar logout se necessário
+  const currentUser = await window.evaluate(async () => {
+    try {
+      return await (window as any).aquila?.invoke('get-current-user');
+    } catch {
+      return null;
+    }
+  });
 
-  // Selecionar instituição no combobox obrigatório
+  if (currentUser && currentUser.username !== username) {
+    await window.evaluate(async () => {
+      try {
+        await (window as any).aquila?.invoke('logout');
+      } catch {}
+      localStorage.clear();
+      sessionStorage.clear();
+      localStorage.setItem("aquila_setup_complete", "true");
+    });
+    await window.reload();
+  } else if (!currentUser) {
+    await window.evaluate(() => localStorage.setItem("aquila_setup_complete", "true"));
+    await window.reload();
+  }
+
+  // 2. Preencher formulário de autenticação
   const schoolSelect = window.locator('select.eagle-select');
   if (await schoolSelect.isVisible({ timeout: 2000 }).catch(() => false)) {
     await schoolSelect.selectOption("COLEGIOVISAO");
@@ -190,7 +219,7 @@ async function login(window: import("@playwright/test").Page, username: string, 
   }
 
   await expect(
-    window.locator(".hero-title, .dashboard-elite, .dashboard-container, h1, .sec-cockpit").first()
+    window.locator(".hero-title, .dashboard-elite, .dashboard-container, h1, .sec-cockpit, .si-container, .portal-wrapper").first()
   ).toBeVisible({ timeout: 15_000 });
 }
 
@@ -215,19 +244,25 @@ test.describe.serial("H-01 — AC-03: Validação Estrita de Importação de Mat
 
     await login(window, SEC_USER, SEC_PASS);
 
-    // Navegar para a tela/seção de importação
-    const importNavBtn = window
-      .getByRole("button", { name: /importar|matrículas|ingestão|alunos/i })
-      .or(window.locator('button.sec-btn[title*="Importar"]'))
-      .or(window.locator('button:has-text("Importar")'))
-      .first();
-
-    if (await importNavBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await importNavBtn.click();
+    // Se não estiver na Secretaria, navegar pelo menu lateral ou switcher
+    const secCockpit = window.locator(".sec-cockpit");
+    if (!(await secCockpit.isVisible({ timeout: 1000 }).catch(() => false))) {
+      const secBtn = window.locator('button:has-text("Secretaria Digital"), button.portal-switch-pill:has-text("SECRETARIA")').first();
+      if (await secBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
+        await secBtn.click();
+      }
     }
+    await expect(window.locator(".sec-cockpit")).toBeVisible({ timeout: 10_000 });
+
+    // Navegar para a aba de importação de matrículas
+    const importNavBtn = window.locator('[data-testid="btn-nav-import-matriculas"], button:has-text("Importar Matrículas")').first();
+    await expect(importNavBtn).toBeVisible({ timeout: 5000 });
+    await importNavBtn.click();
+
+    // Confirmar que o container de importação está montado
+    await expect(window.locator('[data-testid="import-container"]')).toBeVisible({ timeout: 5000 });
 
     // Asserção Estrita: O elemento de upload de arquivo DEVE estar visível no DOM
-    // NÃO USAMOS .catch(() => false) para mascarar a ausência do componente!
     const fileInput = window.locator('input[type="file"]').first();
     await expect(fileInput).toBeVisible({ timeout: 5000 });
 
@@ -252,12 +287,12 @@ test.describe.serial("H-01 — AC-03: Validação Estrita de Importação de Mat
 
     await fileInput.setInputFiles(CSV_CLEAN_PATH);
 
-    const confirmBtn = window.getByRole("button", { name: /confirmar|importar|salvar|processar/i }).first();
+    const confirmBtn = window.locator('[data-testid="btn-confirm-import"]').or(window.getByRole("button", { name: /confirmar e importar|confirmar/i })).first();
     await expect(confirmBtn).toBeVisible({ timeout: 5000 });
     await confirmBtn.click();
 
     await expect(
-      window.getByText(/concluída|sucesso|25 alunos|efetivada/i)
+      window.getByText(/concluída|sucesso|25 alunos|efetivada/i).first()
     ).toBeVisible({ timeout: 30_000 });
 
     const totalAfter = countH01Students(BASELINE_DB_PATH);
@@ -271,13 +306,13 @@ test.describe.serial("H-01 — AC-03: Validação Estrita de Importação de Mat
     // Tentar importar o mesmo lote novamente
     await fileInput.setInputFiles(CSV_CLEAN_PATH);
 
-    const confirmBtn = window.getByRole("button", { name: /confirmar|importar|salvar|processar/i }).first();
+    const confirmBtn = window.locator('[data-testid="btn-confirm-import"]').or(window.getByRole("button", { name: /confirmar e importar|confirmar/i })).first();
     await expect(confirmBtn).toBeVisible({ timeout: 5000 });
     await confirmBtn.click();
 
     // Deve acusar duplicidade ou ignorar
     await expect(
-      window.getByText(/duplicad|já cadastrad|existente|0 inserid/i)
+      window.getByText(/duplicad|já cadastrad|existente|0 inserid/i).first()
     ).toBeVisible({ timeout: 15_000 });
 
     // Total de alunos NÃO pode duplicar para 50
@@ -317,9 +352,17 @@ test.describe.serial("H-01 — AC-03: Validação Estrita de Importação de Mat
 
     await login(window, TEACHER_USER, TEACHER_PASS);
 
+    // Selecionar a turma do 9º Ano A (onde os alunos foram importados)
+    const classSelect = window.locator('select').first();
+    if (await classSelect.isVisible({ timeout: 5000 }).catch(() => false)) {
+      await classSelect.selectOption({ label: "9º Ano A" }).catch(async () => {
+        await classSelect.selectOption("class-9a").catch(() => {});
+      });
+    }
+
     // O professor da turma class-9a deve conseguir ver o aluno sintetico 001
     await expect(
-      window.getByText(/Aluno Sintetico H01 001/i)
+      window.getByText(/Aluno Sintetico H01 001/i).first()
     ).toBeVisible({ timeout: 15_000 });
   });
 });

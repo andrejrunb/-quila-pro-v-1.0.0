@@ -747,7 +747,7 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
 
                   <div className="seat-card-footer">
                     <span className="seat-student-name" title={student.name}>
-                      {student.name ? student.name.split(' ')[0] : 'Aluno'}
+                      {student.name || 'Aluno'}
                     </span>
                   </div>
                 </div>

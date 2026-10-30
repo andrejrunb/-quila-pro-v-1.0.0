@@ -977,6 +977,54 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
     return await studentService?.bulkImport(students);
   });
 
+  // Student Batch Import Pipeline (AC-03 / H-01)
+  protectedHandle('batch-import:preview', async (_e, payload: any) => {
+    const { studentBatchImportService, db } = context;
+    let service = studentBatchImportService;
+    if (!service && db) {
+      const { StudentBatchImportService } = await import('../main/services/StudentBatchImportService');
+      service = new StudentBatchImportService(db);
+    }
+    if (!service) {
+      throw new Error('Serviço de importação de estudantes indisponível');
+    }
+
+    let rows: any[] = [];
+    if (typeof payload === 'string') {
+      rows = service.parseCsv(payload);
+    } else if (payload && typeof payload.csvContent === 'string') {
+      rows = service.parseCsv(payload.csvContent);
+    } else if (payload && Array.isArray(payload.rows)) {
+      rows = payload.rows;
+    } else if (Array.isArray(payload)) {
+      rows = payload;
+    }
+
+    const schoolId = payload?.schoolId || 'school-aquila-main';
+    return await service.generatePreview(rows, { schoolId });
+  });
+
+  protectedHandle('batch-import:confirm', async (_e, payload: any) => {
+    const { studentBatchImportService, db } = context;
+    let service = studentBatchImportService;
+    if (!service && db) {
+      const { StudentBatchImportService } = await import('../main/services/StudentBatchImportService');
+      service = new StudentBatchImportService(db);
+    }
+    if (!service) {
+      throw new Error('Serviço de importação de estudantes indisponível');
+    }
+
+    const batchId = typeof payload === 'string' ? payload : payload?.batchId;
+    if (!batchId) {
+      throw new Error('batchId obrigatório para confirmação de importação.');
+    }
+
+    const operatorUserId = payload?.operatorUserId || 'user-sec-01';
+    const schoolId = payload?.schoolId || 'school-aquila-main';
+    return await service.confirmImport(batchId, operatorUserId, { schoolId });
+  });
+
   // Classes & Units
   protectedHandle('get-classes', async (_e, teacherId?: string) => {
     const { db } = context;
@@ -991,7 +1039,7 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
 
         if (rows && rows.length > 0) {
           const classIds = rows.map((r: any) => `'${r.classId}'`).join(',');
-          const classes = await db.all(`SELECT * FROM classes WHERE id IN (${classIds}) AND id LIKE 'F-%'`);
+          const classes = await db.all(`SELECT * FROM classes WHERE id IN (${classIds})`);
           if (classes && classes.length > 0) return classes;
         }
 
@@ -1002,16 +1050,18 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
           const rowsByName = await db.all('SELECT DISTINCT classId FROM schedules WHERE teacherId LIKE ?', [`%${namePart}%`]);
           if (rowsByName && rowsByName.length > 0) {
             const classIds = rowsByName.map((r: any) => `'${r.classId}'`).join(',');
-            const classes = await db.all(`SELECT * FROM classes WHERE id IN (${classIds}) AND id LIKE 'F-%'`);
+            const classes = await db.all(`SELECT * FROM classes WHERE id IN (${classIds})`);
             if (classes && classes.length > 0) return classes;
           }
         }
       }
-      // Non-teacher / global view: return ONLY the 22 official real classes
-      return (await db?.all("SELECT * FROM classes WHERE id LIKE 'F-%'")) || [];
+      // Non-teacher / global view: prefer official real classes, fallback to all
+      const fClasses = await db?.all("SELECT * FROM classes WHERE id LIKE 'F-%'");
+      if (fClasses && fClasses.length > 0) return fClasses;
+      return (await db?.all("SELECT * FROM classes")) || [];
     } catch (err) {
       console.error('[IPC] get-classes error:', err);
-      return (await db?.all("SELECT * FROM classes WHERE id LIKE 'F-%'")) || [];
+      return (await db?.all("SELECT * FROM classes")) || [];
     }
   });
   protectedHandle('upsert-class', async (_e, data: any) => {
@@ -4801,6 +4851,47 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
     if (!context.db) throw new Error('Database indisponível');
     await context.db.addStudentGrade(data);
     return { success: true };
+  });
+
+  // --- Pedagogical Playlists & Game Maker Studio ---
+  protectedHandle('playlists:list', async (_event, classId?: string) => {
+    if (!context.db) throw new Error('Database indisponivel');
+    return await context.db.getPedagogicalPlaylists(classId);
+  });
+
+  protectedHandle('playlists:save', async (_event, data: any) => {
+    if (!context.db) throw new Error('Database indisponivel');
+    const result = await context.db.savePedagogicalPlaylist(data);
+    try {
+      const { zeroBypassAuditService } = require('../main/services/ZeroBypassAuditService');
+      await zeroBypassAuditService?.record({
+        userId: data.teacherId || 'prof_carlos',
+        action: 'PEDAGOGICAL_PLAYLIST_CREATED',
+        details: `Playlist pedagogica '${data.title}' salva para turma '${data.classId}'.`,
+        metadata: { playlistId: result.id, subject: data.subject, stagesCount: data.stages?.length }
+      });
+    } catch {}
+    return result;
+  });
+
+  protectedHandle('playlists:delete', async (_event, id: string) => {
+    if (!context.db) throw new Error('Database indisponivel');
+    return await context.db.deletePedagogicalPlaylist(id);
+  });
+
+  protectedHandle('gamemaker:list-templates', async (_event, teacherId?: string) => {
+    if (!context.db) throw new Error('Database indisponivel');
+    return await context.db.getGameMakerTemplates(teacherId);
+  });
+
+  protectedHandle('gamemaker:save-template', async (_event, data: any) => {
+    if (!context.db) throw new Error('Database indisponivel');
+    return await context.db.saveGameMakerTemplate(data);
+  });
+
+  protectedHandle('gamemaker:delete-template', async (_event, id: string) => {
+    if (!context.db) throw new Error('Database indisponivel');
+    return await context.db.deleteGameMakerTemplate(id);
   });
 
   // --- Nivelamento por Maestria & IA Local Socrática ---

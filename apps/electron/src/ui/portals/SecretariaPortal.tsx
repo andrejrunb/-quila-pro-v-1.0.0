@@ -15,6 +15,8 @@ import { TeacherManagement } from '../pages/TeacherManagement';
 import HRPortalComponent from '../components/HRPortal';
 import FinancialGlassUI from '../components/FinancialGlassUI';
 import { FileUploader } from '../components/FileUploader';
+import { StudentBatchImportManager } from '../components/StudentBatchImportManager';
+import { UploadCloud } from 'lucide-react';
 import './SecretariaPortal.css';
 import './HRPortal.css';
 
@@ -67,6 +69,7 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
     { id: 'teachers', label: 'Professores', icon: <Users size={16} /> },
     { id: 'hr', label: 'Gestão de RH', icon: <Briefcase size={16} /> },
     { id: 'cadastro', label: 'Matrícula Inteligente', icon: <UserPlus size={16} /> },
+    { id: 'import-matriculas', label: 'Importar Matrículas', icon: <UploadCloud size={16} /> },
     { id: 'boletins', label: 'Boletins & Fichas', icon: <FileText size={16} /> },
     { id: 'analytics', label: 'Analytics Pedagógico', icon: <TrendingUp size={16} /> },
     { id: 'grade', label: 'Vínculos Docentes', icon: <Presentation size={16} /> },
@@ -84,7 +87,16 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
             <h1 className="sec-cmd-title">Gestão Acadêmica, Documental & Domínio ERP</h1>
           </div>
           <div className="sec-cmd-actions">
-            <button className="sec-btn primary" onClick={() => setActiveTab('cadastro')}>
+            <button 
+              className="sec-btn primary" 
+              data-testid="btn-nav-import-matriculas"
+              onClick={() => setActiveTab('import-matriculas')}
+              title="Importar Matrículas em Lote (CSV)"
+            >
+              <UploadCloud size={14} />
+              <span>Importar Matrículas</span>
+            </button>
+            <button className="sec-btn" onClick={() => setActiveTab('cadastro')}>
               <UserPlus size={14} />
               <span>Nova Matrícula</span>
             </button>
@@ -324,6 +336,12 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
            {activeTab === 'boletins' && (
               <div className="bg-black/20 p-6 rounded-2xl border border-white/5">
                  <SecretariatBoletimManager />
+              </div>
+           )}
+
+           {activeTab === 'import-matriculas' && (
+              <div className="animate-fade-in">
+                 <StudentBatchImportManager />
               </div>
            )}
 

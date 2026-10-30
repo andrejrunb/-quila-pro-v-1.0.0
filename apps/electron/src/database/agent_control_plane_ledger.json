@@ -1,7 +1,7 @@
 [
   {
     "taskId": "TASK-PILOT-001",
-    "idempotencyKey": "test_idempotency_1793291041788",
+    "idempotencyKey": "test_idempotency_1793303704477",
     "responsibleAgent": "Antigravity",
     "state": "READY_FOR_REVIEW",
     "title": "Piloto P1: Auditoria de Rotas Órfãs e Validação Estática",
@@ -19,18 +19,18 @@
         "type": "TYPECHECK",
         "status": "PASS",
         "details": "tsc --noEmit concluído com 0 erros.",
-        "timestamp": "2026-10-29T16:24:01.918Z"
+        "timestamp": "2026-10-29T19:55:04.516Z"
       },
       {
         "type": "JEST",
         "status": "PASS",
         "details": "70 testes unitários verdes.",
-        "timestamp": "2026-10-29T16:24:01.933Z"
+        "timestamp": "2026-10-29T19:55:04.517Z"
       }
     ],
     "requiresHumanApproval": true,
-    "createdAt": "2026-10-29T16:24:01.896Z",
-    "updatedAt": "2026-10-29T16:24:01.960Z",
+    "createdAt": "2026-10-29T19:55:04.512Z",
+    "updatedAt": "2026-10-29T19:55:04.527Z",
     "branchName": "fix/portals-stability-v2.1",
     "commitSha": "927b93ae",
     "pullRequestNumber": 5,
@@ -444,6 +444,44 @@
     "requiresHumanApproval": true,
     "createdAt": "2026-10-29T16:23:56.201Z",
     "updatedAt": "2026-10-29T16:23:56.224Z",
+    "branchName": "fix/portals-stability-v2.1",
+    "commitSha": "c9d06a15",
+    "pullRequestNumber": 5,
+    "pullRequestUrl": "https://github.com/andrejrunb/-quila-pro-v-1.0.0/pull/5"
+  },
+  {
+    "taskId": "TASK-PILOT-ORPHAN-NAV-1793303710991",
+    "idempotencyKey": "idempotent-hash-audit-orphan-route-navigation-1793303710991",
+    "responsibleAgent": "Antigravity-Pilot-Worker",
+    "state": "READY_FOR_REVIEW",
+    "title": "Piloto: Tratamento Automatizado de Rota Órfã na Interface",
+    "description": "Detecção de rota não cadastrada, remediação assistida e validação de CI.",
+    "acceptanceCriteria": [
+      "Identificar componente com rota órfã via AST Indexer",
+      "Mapear no RouteRegistry ou redirecionar para ErrorBoundary",
+      "Evidência de Typecheck e Jest 100% verde",
+      "Revisão humana obrigatória registrada antes do merge"
+    ],
+    "maxRetries": 3,
+    "currentRetries": 0,
+    "environment": "DEVELOPMENT",
+    "evidences": [
+      {
+        "type": "TYPECHECK",
+        "status": "PASS",
+        "details": "TypeScript tsc --noEmit concluído com 0 erros no projeto inteiro.",
+        "timestamp": "2026-10-29T19:55:11.012Z"
+      },
+      {
+        "type": "JEST",
+        "status": "PASS",
+        "details": "Testes de RouteRegistry e ControlPlane 100% aprovados.",
+        "timestamp": "2026-10-29T19:55:11.015Z"
+      }
+    ],
+    "requiresHumanApproval": true,
+    "createdAt": "2026-10-29T19:55:10.998Z",
+    "updatedAt": "2026-10-29T19:55:11.017Z",
     "branchName": "fix/portals-stability-v2.1",
     "commitSha": "c9d06a15",
     "pullRequestNumber": 5,

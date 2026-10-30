@@ -63,6 +63,11 @@ export class SovereignOrchestrator {
     const budgetService = InstitutionalBudgetService.getInstance();
     sovereignRegistry.registerInstance('institutionalBudgetService', budgetService);
 
+    // 2.6 Student Batch Import Service (H-01 / AC-03)
+    const { StudentBatchImportService } = await import('./services/StudentBatchImportService');
+    const studentBatchImportService = new StudentBatchImportService(db);
+    sovereignRegistry.registerInstance('studentBatchImportService', studentBatchImportService);
+
     // 3. IPC Handlers (Injetando Contexto do Registry)
     const context = sovereignRegistry.getContext();
     registerIPCHandlers(context);

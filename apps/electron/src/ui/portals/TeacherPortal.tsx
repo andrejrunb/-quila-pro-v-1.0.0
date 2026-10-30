@@ -22,10 +22,11 @@ import OmrScannerUI from '../components/OmrScannerUI';
 import { BNCCProficiencyHeatmap } from '../components/BNCCProficiencyHeatmap';
 import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
 import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder';
+import { PedagogicalPlaylistsManager } from '../components/PedagogicalPlaylistsManager';
 import {
   Layers,
   Clock, Users, AlertCircle, CheckCircle2, Calendar,
-  FileText, ChevronRight, AlertTriangle, LayoutGrid, Sparkles, BookOpen, FileSpreadsheet, Swords, Presentation, Camera, Flame, Printer, Tv
+  FileText, ChevronRight, AlertTriangle, LayoutGrid, Sparkles, BookOpen, FileSpreadsheet, Swords, Presentation, Camera, Flame, Printer, Tv, Gamepad2
 } from 'lucide-react';
 import './TeacherPortal.css';
 
@@ -142,6 +143,10 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void }> = ({ on
 
           {(toolCategory === 'aulas' || toolCategory === 'todos') && (
             <>
+              <button className="tp-action-btn primary" onClick={() => onNavigate('playlists-gamemaker')}>
+                <Gamepad2 size={14} />
+                <span>Playlists & Game Maker</span>
+              </button>
               <button className="tp-action-btn primary" onClick={() => onNavigate('youtube-radar')}>
                 <Tv size={14} />
                 <span>Radar Videoaulas YouTube</span>
@@ -451,6 +456,10 @@ export const TeacherPortal: React.FC<TeacherPortalProps> = ({ currentPage, onNav
       case 'bncc-heatmap':
       case 'heatmap':
         return <BNCCProficiencyHeatmap onBack={onBack} />;
+      case 'playlists-gamemaker':
+      case 'playlists':
+      case 'gamemaker':
+        return <PedagogicalPlaylistsManager onBack={onBack} onNavigate={onNavigate} user={user} />;
       default:
         return <PremiumDashboard onNavigate={onNavigate} />;
     }

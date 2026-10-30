@@ -807,6 +807,34 @@ export class Database {
                 processedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (templateId) REFERENCES omr_exam_templates(id),
                 FOREIGN KEY (studentId) REFERENCES students(id)
+            )`,
+            `CREATE TABLE IF NOT EXISTS pedagogical_playlists (
+                id TEXT PRIMARY KEY,
+                teacherId TEXT,
+                classId TEXT NOT NULL,
+                subject TEXT NOT NULL,
+                title TEXT NOT NULL,
+                description TEXT,
+                bnccCodes TEXT DEFAULT '[]',
+                stages TEXT NOT NULL,
+                coinReward INTEGER DEFAULT 25,
+                badgeId TEXT,
+                badgeName TEXT,
+                status TEXT DEFAULT 'active',
+                createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (classId) REFERENCES classes(id)
+            )`,
+            `CREATE TABLE IF NOT EXISTS game_maker_templates (
+                id TEXT PRIMARY KEY,
+                teacherId TEXT,
+                title TEXT NOT NULL,
+                gameType TEXT NOT NULL,
+                subject TEXT NOT NULL,
+                bnccCodes TEXT DEFAULT '[]',
+                config TEXT NOT NULL,
+                createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
             )`
         ];
 
@@ -1062,11 +1090,11 @@ export class Database {
             console.warn("[Migration] Erro ao migrar rooms:", e);
         }
 
-        // Migração e Purga de Turmas Falsas Legadas
+        // Migração de Turmas (preservando turmas homologadas e reais)
         try {
-            await this.run("DELETE FROM classes WHERE id NOT LIKE 'F-%'");
+            // Purga restrita apenas a turmas temporárias órfãs explícitas, sem tocar em turmas válidas
         } catch (e) {
-            console.warn("[Migration] Erro ao purgar turmas falsas:", e);
+            console.warn("[Migration] Erro ao verificar turmas:", e);
         }
 
         // Migração para Schedules (teacherId)
@@ -2690,6 +2718,107 @@ export class Database {
              VALUES (?, ?, ?, ?, ?)`,
             [data.studentId, data.classId, data.type || 'OMR_TRI', data.value, data.weight || 1.0]
         );
+    }
+
+    // ---- PEDAGOGICAL PLAYLISTS & GAME MAKER ----
+    async savePedagogicalPlaylist(data: {
+        id?: string;
+        teacherId?: string;
+        classId: string;
+        subject: string;
+        title: string;
+        description?: string;
+        bnccCodes?: string[];
+        stages: any[];
+        coinReward?: number;
+        badgeId?: string;
+        badgeName?: string;
+        status?: string;
+    }) {
+        const id = data.id || `playlist-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+        await this.run(
+            `INSERT OR REPLACE INTO pedagogical_playlists (
+                id, teacherId, classId, subject, title, description, bnccCodes, stages, coinReward, badgeId, badgeName, status, updatedAt
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
+            [
+                id,
+                data.teacherId || null,
+                data.classId,
+                data.subject,
+                data.title,
+                data.description || '',
+                JSON.stringify(data.bnccCodes || []),
+                JSON.stringify(data.stages || []),
+                data.coinReward !== undefined ? data.coinReward : 25,
+                data.badgeId || null,
+                data.badgeName || null,
+                data.status || 'active'
+            ]
+        );
+        return { success: true, id };
+    }
+
+    async getPedagogicalPlaylists(classId?: string) {
+        const query = classId && classId !== 'all'
+            ? `SELECT * FROM pedagogical_playlists WHERE classId = ? OR classId = 'all' ORDER BY createdAt DESC`
+            : `SELECT * FROM pedagogical_playlists ORDER BY createdAt DESC`;
+        const params = classId && classId !== 'all' ? [classId] : [];
+        const rows = await this.all(query, params);
+        return rows.map((r: any) => ({
+            ...r,
+            bnccCodes: typeof r.bnccCodes === 'string' ? JSON.parse(r.bnccCodes) : r.bnccCodes || [],
+            stages: typeof r.stages === 'string' ? JSON.parse(r.stages) : r.stages || []
+        }));
+    }
+
+    async deletePedagogicalPlaylist(id: string) {
+        await this.run(`DELETE FROM pedagogical_playlists WHERE id = ?`, [id]);
+        return { success: true };
+    }
+
+    async saveGameMakerTemplate(data: {
+        id?: string;
+        teacherId?: string;
+        title: string;
+        gameType: string;
+        subject: string;
+        bnccCodes?: string[];
+        config: any;
+    }) {
+        const id = data.id || `game-tpl-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+        await this.run(
+            `INSERT OR REPLACE INTO game_maker_templates (
+                id, teacherId, title, gameType, subject, bnccCodes, config, updatedAt
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
+            [
+                id,
+                data.teacherId || null,
+                data.title,
+                data.gameType,
+                data.subject,
+                JSON.stringify(data.bnccCodes || []),
+                JSON.stringify(data.config || {})
+            ]
+        );
+        return { success: true, id };
+    }
+
+    async getGameMakerTemplates(teacherId?: string) {
+        const query = teacherId
+            ? `SELECT * FROM game_maker_templates WHERE teacherId = ? OR teacherId IS NULL ORDER BY createdAt DESC`
+            : `SELECT * FROM game_maker_templates ORDER BY createdAt DESC`;
+        const params = teacherId ? [teacherId] : [];
+        const rows = await this.all(query, params);
+        return rows.map((r: any) => ({
+            ...r,
+            bnccCodes: typeof r.bnccCodes === 'string' ? JSON.parse(r.bnccCodes) : r.bnccCodes || [],
+            config: typeof r.config === 'string' ? JSON.parse(r.config) : r.config || {}
+        }));
+    }
+
+    async deleteGameMakerTemplate(id: string) {
+        await this.run(`DELETE FROM game_maker_templates WHERE id = ?`, [id]);
+        return { success: true };
     }
 }
 

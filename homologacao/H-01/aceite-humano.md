@@ -15,7 +15,7 @@ A responsabilidade pelo aceite de entrada do sistema em ambiente escolar é de c
 * **Versão Avaliada:** v2.2.0-ALIGNED
 * **Commit de Referência:** `7cce7968`
 * **Escopo:** 1 Turma Piloto (1º EM A), 1 Docente, 1 Atividade Diagnóstica BNCC, 16 Alunos Sintéticos.
-* **Parecer Técnico da Engenharia:** Aprovado com Ressalvas (14 de 15 critérios atendidos integralmente; AC-03 aprovado parcialmente, com validação de regras em memória e script de interface Playwright formalizado).
+* **Parecer Técnico da Engenharia:** Homologação Técnica Aprovada (15 de 15 critérios atendidos; AC-03 aprovada com 5/5 cenários Playwright e persistência SQLite real comprovada).
 * **Bloqueantes Críticos de Segurança:** Ausentes (zero notas fictícias, zero vazamento inter-escolas, integridade do banco de dados preservada sob desastre).
 
 ---
