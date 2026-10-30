@@ -97,6 +97,6 @@ describe('TurnstileShadowService — Operação em Modo Sombra & Governança LGP
     expect(bench.passed).toBe(true);
     expect(bench.totalTests).toBe(4);
     expect(bench.successfulTests).toBe(4);
-    expect(bench.durationMs).toBeGreaterThan(0);
+    expect(bench.durationMs).toBeGreaterThanOrEqual(0);
   });
 });

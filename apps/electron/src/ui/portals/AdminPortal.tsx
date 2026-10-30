@@ -89,6 +89,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
           <h1 className="ap-cmd-title">Direção & Inteligência Estratégica Institucional</h1>
         </div>
         <div className="ap-cmd-actions">
+          <button onClick={() => onNavigate('pilot-readiness')} className="ap-btn primary" style={{ background: 'linear-gradient(135deg, #10B981, #059669)', border: '1px solid #34D399' }}>
+            <Shield size={14} />
+            <span>Prontidão dos Pilotos (H-01/H-02)</span>
+          </button>
           <button onClick={() => onNavigate('seating-intelligence')} className="ap-btn primary">
             <LayoutGrid size={14} />
             <span>Mapa de Salas IA</span>
@@ -325,6 +329,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
         return <StudentMasteryChamber studentId="ADMIN_PREVIEW" initialMode="canvas" onBack={onBack} />;
       case 'security-monitor':
         return <SecurityMonitor />;
+      case 'pilot-readiness':
+      case 'homologacao-pilotos':
+      case 'pilot-cockpit':
+        return <PilotReadinessInspector />;
       case 'turnstile-shadow':
       case 'turnstile-pilot':
       case 'gatekeeper-shadow':

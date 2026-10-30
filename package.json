@@ -21,7 +21,8 @@
     "backup:edge": "node scripts/backup_edge.cjs",
     "restore:drill": "node scripts/restore_edge.cjs",
     "lint": "pnpm -r run lint",
-    "test:stress:hostile": "node scripts/stress_test_pilot_hostile_env.cjs"
+    "test:stress:hostile": "node scripts/stress_test_pilot_hostile_env.cjs",
+    "audit:package": "pnpm dlx tsx scripts/audit_distribution_package.ts"
   },
   "devDependencies": {
     "typescript": "^5.3.3"

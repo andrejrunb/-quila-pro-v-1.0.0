@@ -1,7 +1,7 @@
 {
   "name": "aquila-pro-school-os",
   "version": "2.1.0",
-  "description": "Aquila Pro - Sovereign AI Ecosystem (Desktop) - Maturidade N\u00edvel 10",
+  "description": "Aquila Pro - Sovereign AI Ecosystem (Desktop) - Maturidade Nível 10",
   "main": "dist/main.js",
   "homepage": "./",
   "author": "Andre Jr <andrejrunb@yahoo.com.br>",
@@ -128,7 +128,7 @@
       "**/node_modules/@serialport/**/*"
     ],
     "artifactName": "AquilaPro-Setup-${version}.${ext}",
-    "copyright": "Copyright \u00a9 2026 Andr\u00e9 Jr - \u00c1quila Pro",
+    "copyright": "Copyright © 2026 André Jr - Áquila Pro",
     "directories": {
       "buildResources": "resources",
       "output": "release_v2_2"
@@ -201,6 +201,14 @@
       "provider": "generic",
       "url": "https://updates.aquilapro.com.br/releases/",
       "channel": "latest"
+    },
+    "electronFuses": {
+      "runAsNode": false,
+      "enableCookieEncryption": true,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "enableEmbeddedAsarIntegrityValidation": true,
+      "onlyLoadAppFromAsar": true
     }
   }
 }
