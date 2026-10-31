@@ -425,6 +425,24 @@ def ensure_quarantine_schema(conn: sqlite3.Connection):
             summary_json TEXT NOT NULL
         )
     """)
+
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS downloaded_pdf_corpus (
+            doc_id TEXT PRIMARY KEY,
+            title TEXT NOT NULL,
+            institution TEXT NOT NULL,
+            exam TEXT NOT NULL,
+            subject TEXT NOT NULL,
+            doc_type TEXT NOT NULL,
+            license TEXT NOT NULL,
+            source_url TEXT NOT NULL,
+            local_path TEXT NOT NULL,
+            size_bytes INTEGER NOT NULL,
+            sha256_hash TEXT NOT NULL,
+            extracted_text TEXT NOT NULL,
+            harvested_at TEXT NOT NULL
+        )
+    """)
     conn.commit()
 
 
