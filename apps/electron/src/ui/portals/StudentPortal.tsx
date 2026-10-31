@@ -26,6 +26,7 @@ import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder
 
 import { StudentPlaylistsViewer } from '../components/StudentPlaylistsViewer';
 import { H5PPerseusAppletLab } from '../components/H5PPerseusAppletLab';
+import GeminiNotebookPanel from '../components/GeminiNotebookPanel';
 
 
 
@@ -116,6 +117,30 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNav
       case 'game-maker-play':
 
         return <StudentPlaylistsViewer studentId={studentId} onBack={() => onNavigate('student-portal')} onNavigate={onNavigate} />;
+
+            case 'gemini-notebook':
+      case 'notebook-lm':
+      case 'caderno-inteligente':
+        return (
+          <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+            <button
+              onClick={() => onNavigate('student-portal')}
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                color: '#E2E8F0',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                padding: '8px 16px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                marginBottom: '16px',
+                fontWeight: 600
+              }}
+            >
+              ← Voltar ao Portal do Aluno
+            </button>
+            <GeminiNotebookPanel userId={studentId} suggestedTopics={['Cinemática', 'Dinâmica', 'Eletrodinâmica', 'Termologia', 'Óptica']} />
+          </div>
+        );
 
       case 'h5p-perseus-lab':
 
