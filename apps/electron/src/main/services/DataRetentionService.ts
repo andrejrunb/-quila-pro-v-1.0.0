@@ -923,6 +923,18 @@ export class DataRetentionService {
   }
 
   /**
+   * Alias de conveniência para varredura e expurgo de dados expirados.
+   */
+  public async purgeExpiredData(schoolId?: string): Promise<{
+    scanned: number;
+    deleted: number;
+    anonymized: number;
+    quarantined: number;
+  }> {
+    return this.executeDailyRetentionScan(schoolId);
+  }
+
+  /**
    * Verificação Anti-Reintrodução em Restauração de Backups.
    * Compara os registros que se pretende restaurar com a tabela retention_tombstones.
    * Retorna os registros seguros e bloqueia os que foram anteriormente purgados.

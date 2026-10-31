@@ -103,7 +103,7 @@ export class SecurityAgent extends AutonomousAgent {
 
     if (task.description === 'PURGE_DATA') {
        const retention = (await import('../DataRetentionService')).dataRetentionService;
-       await retention.purgeExpiredData();
+       await retention.executeDailyRetentionScan();
     }
 
     if (task.description === 'ROTATE_SECURITY_KEYS') {
