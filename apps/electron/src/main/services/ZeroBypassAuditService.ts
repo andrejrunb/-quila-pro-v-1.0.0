@@ -75,8 +75,12 @@ export class ZeroBypassAuditService {
     this.db = db || Database.getInstance();
   }
 
+  public static resetInstance(): void {
+    ZeroBypassAuditService.instance = undefined as any;
+  }
+
   public static getInstance(db?: any): ZeroBypassAuditService {
-    if (!ZeroBypassAuditService.instance) {
+    if (!ZeroBypassAuditService.instance || (db && ZeroBypassAuditService.instance.db !== db)) {
       ZeroBypassAuditService.instance = new ZeroBypassAuditService(db);
     }
     return ZeroBypassAuditService.instance;

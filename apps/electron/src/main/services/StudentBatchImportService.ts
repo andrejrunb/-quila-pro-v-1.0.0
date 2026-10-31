@@ -60,6 +60,45 @@ export interface ImportResult {
   completedAt: string;
 }
 
+/**
+ * Validação algorítmica de CPF via Módulo 11 oficial (Receita Federal)
+ */
+export function validateCpfDigits(cpf: string): boolean {
+  if (!cpf) return false;
+  const clean = cpf.replace(/\D/g, '');
+  if (clean.length !== 11) return false;
+  if (/^(\d)\1{10}$/.test(clean)) return false; // descarta 00000000000, 11111111111, etc.
+
+  let sum = 0;
+  for (let i = 0; i < 9; i++) {
+    sum += parseInt(clean[i], 10) * (10 - i);
+  }
+  let rem = (sum * 10) % 11;
+  if (rem === 10 || rem === 11) rem = 0;
+  if (rem !== parseInt(clean[9], 10)) return false;
+
+  sum = 0;
+  for (let i = 0; i < 10; i++) {
+    sum += parseInt(clean[i], 10) * (11 - i);
+  }
+  rem = (sum * 10) % 11;
+  if (rem === 10 || rem === 11) rem = 0;
+  return rem === parseInt(clean[10], 10);
+}
+
+/**
+ * Prevenção de CSV Formula Injection (CWE-1236)
+ * Se o valor inicia com =, +, -, @, prefixa com apóstrofo para impedir execução de comandos.
+ */
+export function sanitizeCsvFormula(value: string): string {
+  if (!value) return '';
+  const trimmed = value.trim();
+  if (/^[=\+\-@\t\r]/.test(trimmed)) {
+    return `'${trimmed}`;
+  }
+  return trimmed;
+}
+
 export class StudentBatchImportService extends EventEmitter {
   private db: Database;
   private pendingPreviews: Map<string, ImportPreviewReport> = new Map();
@@ -70,9 +109,46 @@ export class StudentBatchImportService extends EventEmitter {
   }
 
   /**
-   * Helper para extrair linhas de texto CSV/TSV
+   * Valida presença de colunas obrigatórias no cabeçalho do arquivo CSV
    */
-  public parseCsv(csvContent: string): Omit<RawStudentRow, 'lineNumber'>[] {
+  public validateCsvHeaders(csvContent: string): { valid: boolean; missingColumns: string[]; detectedColumns: string[] } {
+    const lines = csvContent
+      .split(/\r?\n/)
+      .map(l => l.trim())
+      .filter(l => l.length > 0);
+    if (lines.length === 0) {
+      return { valid: false, missingColumns: ['nome', 'matricula', 'turma', 'responsavel_legal', 'telefone_responsavel'], detectedColumns: [] };
+    }
+
+    const separator = lines[0].includes(';') ? ';' : ',';
+    const header = lines[0].split(separator).map(h => h.trim().toLowerCase().replace(/["']/g, ''));
+
+    const findIndex = (...candidates: string[]) => {
+      for (const cand of candidates) {
+        const idx = header.indexOf(cand);
+        if (idx !== -1) return idx;
+      }
+      return -1;
+    };
+
+    const missingColumns: string[] = [];
+    if (findIndex('nome', 'fullname', 'name', 'aluno') === -1) missingColumns.push('nome');
+    if (findIndex('matricula', 'enrollmentid', 'rm', 'id', 'codigo') === -1) missingColumns.push('matricula');
+    if (findIndex('turma', 'classname', 'class', 'sala') === -1) missingColumns.push('turma');
+    if (findIndex('responsavel_legal', 'guardianname', 'responsavel', 'mae', 'pai') === -1) missingColumns.push('responsavel_legal');
+    if (findIndex('telefone_responsavel', 'guardiancontact', 'telefone', 'contato', 'celular', 'email') === -1) missingColumns.push('telefone_responsavel');
+
+    return {
+      valid: missingColumns.length === 0,
+      missingColumns,
+      detectedColumns: header,
+    };
+  }
+
+  /**
+   * Helper para extrair linhas de texto CSV/TSV com validação de colunas obrigatórias
+   */
+  public parseCsv(csvContent: string, options?: { requireHeaders?: boolean }): Omit<RawStudentRow, 'lineNumber'>[] {
     const lines = csvContent
       .split(/\r?\n/)
       .map(l => l.trim())
@@ -97,6 +173,18 @@ export class StudentBatchImportService extends EventEmitter {
     const idxGuardianName = findIndex('responsavel_legal', 'guardianname', 'responsavel', 'mae', 'pai');
     const idxGuardianContact = findIndex('telefone_responsavel', 'guardiancontact', 'telefone', 'contato', 'celular', 'email');
     const idxCpf = findIndex('cpf');
+
+    if (options?.requireHeaders !== false) {
+      const missing: string[] = [];
+      if (idxName === -1) missing.push('nome');
+      if (idxEnrollment === -1) missing.push('matricula');
+      if (idxClass === -1) missing.push('turma');
+      if (idxGuardianName === -1) missing.push('responsavel_legal');
+      if (idxGuardianContact === -1) missing.push('telefone_responsavel');
+      if (missing.length > 0) {
+        throw new Error(`Coluna obrigatória ausente no cabeçalho do arquivo: ${missing.join(', ')}. Cabeçalhos obrigatórios esperados: nome, matricula, turma, responsavel_legal, telefone_responsavel.`);
+      }
+    }
 
     const rows: Omit<RawStudentRow, 'lineNumber'>[] = [];
     for (let i = 1; i < lines.length; i++) {
@@ -264,6 +352,20 @@ export class StudentBatchImportService extends EventEmitter {
         rowHasError = true;
       }
 
+      // 5.1 Validação de CPF (quando informado)
+      if (row.cpf && row.cpf.trim().length > 0) {
+        const cleanCpf = row.cpf.trim();
+        if (!validateCpfDigits(cleanCpf)) {
+          errors.push({
+            lineNumber,
+            field: 'cpf',
+            value: cleanCpf,
+            message: 'CPF informado com formato ou dígitos verificadores matematicamente inválidos.',
+          });
+          rowHasError = true;
+        }
+      }
+
       // 6. Verificação de Conflitos e Duplicatas no Banco SQLite
       if (!rowHasError && row.enrollmentId && this.db && typeof (this.db as any).get === 'function') {
         try {
@@ -343,9 +445,17 @@ export class StudentBatchImportService extends EventEmitter {
   public async confirmImport(
     batchId: string,
     operatorUserId: string,
-    options?: { schoolId?: string }
+    options?: { schoolId?: string; operatorRole?: string }
   ): Promise<ImportResult> {
     const targetSchoolId = options?.schoolId || 'school-aquila-main';
+    const operatorRole = options?.operatorRole || 'admin';
+
+    // 1. Controle de Autorização (RBAC)
+    const allowedRoles = ['admin', 'secretaria', 'diretoria', 'coordenacao'];
+    if (!allowedRoles.includes(operatorRole.toLowerCase())) {
+      throw new Error(`Acesso negado: operador '${operatorUserId}' com perfil '${operatorRole}' não possui permissão para importar matrículas.`);
+    }
+
     const preview = this.pendingPreviews.get(batchId);
     if (!preview) {
       throw new Error(`Lote de importação ${batchId} expirado ou não encontrado.`);
@@ -413,6 +523,9 @@ export class StudentBatchImportService extends EventEmitter {
           ? student.enrollmentId
           : `stu-${student.enrollmentId.toLowerCase().replace(/[^a-z0-9_-]/g, '_')}`;
 
+        const sanitizedFullName = sanitizeCsvFormula(student.fullName);
+        const sanitizedGuardianName = sanitizeCsvFormula(student.guardianName);
+
         if (this.db && typeof (this.db as any).run === 'function') {
           await (this.db as any).run(
             `INSERT INTO students (id, classId, name, registrationNumber, parentPhone, status, metadata)
@@ -420,11 +533,11 @@ export class StudentBatchImportService extends EventEmitter {
             [
               studentId,
               resolvedClassId,
-              student.fullName,
+              sanitizedFullName,
               student.enrollmentId,
               student.guardianContact,
               JSON.stringify({
-                guardianName: student.guardianName,
+                guardianName: sanitizedGuardianName,
                 birthDate: student.birthDate || null,
                 cpf: student.cpf || null,
                 importedInBatch: batchId,
@@ -461,10 +574,36 @@ export class StudentBatchImportService extends EventEmitter {
       }
     };
 
-    if (this.db && (this.db as any).db && typeof (this.db as any).transaction === 'function') {
-      await (this.db as any).transaction(executeDbOps);
-    } else {
-      await executeDbOps();
+    try {
+      if (this.db && (this.db as any).db && typeof (this.db as any).transaction === 'function') {
+        await (this.db as any).transaction(executeDbOps);
+      } else {
+        await executeDbOps();
+      }
+    } catch (err: any) {
+      // Registrar log de auditoria do incidente de falha (independente das tabelas de estudantes)
+      try {
+        if (this.db && typeof (this.db as any).run === 'function') {
+          const auditService = ZeroBypassAuditService.getInstance(this.db);
+          await auditService.initialize();
+          await auditService.record({
+            userId: operatorUserId,
+            action: 'STUDENT_ENROLLMENT',
+            details: `FALHA_IMPORTACAO_LOTE ${batchId}: Rollback executado. Motivo: ${err?.message || err}`,
+            metadata: {
+              batchId,
+              schoolId: targetSchoolId,
+              error: err?.message || String(err),
+              status: 'ROLLBACK_EXECUTED',
+            },
+            legalBasis: 'LGPD_ART_14',
+            consentVerified: false,
+          });
+        }
+      } catch (auditErr) {
+        logger.warn(`[StudentImport] Falha ao registrar log de erro de auditoria: ${auditErr}`);
+      }
+      throw err;
     }
 
     // Limpar prévia da memória após confirmação
