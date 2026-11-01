@@ -3,6 +3,7 @@ packages:
   - 'packages/*'
 
 overrides:
+  '@xmldom/xmldom@0.7.13': 0.8.15
   follow-redirects: 1.16.2
   joi: 17.13.9
   node-forge: 1.4.1
