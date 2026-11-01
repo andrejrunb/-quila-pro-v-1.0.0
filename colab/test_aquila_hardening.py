@@ -486,6 +486,8 @@ class ApiRouteIntegrationTests(unittest.TestCase):
             namespace["__name__"] = "aquila_tunnel_test"
             with self.subTest(expected_error=expected_error), patch.dict(
                 os.environ, environment, clear=True
+            ), patch.dict(
+                sys.modules, {"uvicorn": types.ModuleType("uvicorn")}
             ), patch("threading.Thread") as thread, patch(
                 "subprocess.Popen"
             ) as popen:
