@@ -1,7 +1,7 @@
 # 💾 Guia de 1 Página: Backup & Disaster Recovery (DR) — Áquila Pro Edge
 
 > **Destinado a:** Administrador de TI / Suporte Local da Escola  
-> **Versão de Liberação:** `v2.1.0-rc.10` | **Tempo Médio de Restauração:** $< 500\text{ ms}$
+> **Versão de Liberação:** `v2.1.0-rc.10` | **Status de restauração:** BLOQUEADA; RTO não demonstrado
 
 ---
 
@@ -10,9 +10,9 @@
 | Operação Desejada | Comando PowerShell | Objetivo Operacional |
 | :--- | :--- | :--- |
 | **Backup Diário Imediato** | `pnpm backup:edge` | Executa checkpoint do WAL, gera snapshot atômico, assina SHA-256 e cifra com AES-256-GCM. |
-| **Simulação Semanal (Restore Drill)** | `pnpm restore:drill --backup "<arquivo.bak>" --drill` | Descriptografa e testa o banco em sandbox isolado sem alterar o banco ao vivo. Retorna relatório de integridade em $< 1\text{ s}$. |
-| **Restauração Real de Emergência** | `node scripts/restore_edge.cjs --backup "<arquivo.bak>" --target "C:\AquilaPro\aquila.db"` | Substitui o banco corrompido pelo backup validado, limpa arquivos residuais de WAL e confere integridade lógica. |
-| **Bateria Completa de Testes de DR** | `pnpm test:dr:full` | Roda suíte automatizada de 6 fases: WAL, AuthTag, rejeição a adulteração, drill, pane forçada e retenção GFS. |
+| **Restore Drill** | **SUSPENSO — não executar** | A rota de restore permanece desabilitada até protocolo seguro e recuperação após falha serem demonstrados em ambiente isolado. |
+| **Restauração real** | **BLOQUEADA — não executar** | Não substitua `aquila.db` nem remova arquivos `-wal`/`-shm`; preserve o banco atual e os backups e escale para procedimento aprovado. |
+| **Bateria automatizada de DR** | `pnpm test:dr:full` — somente ambiente isolado | Suíte de teste não é autorização nem evidência suficiente para restaurar uma instalação escolar. |
 
 ---
 
@@ -21,12 +21,12 @@
 1. **Qual foi o último estado válido do banco?**
    - O arquivo `manifest.json` incorporado a cada backup armazena o timestamp exato, a versão do software e o censo exato de tuplas: total de alunos (`students`), turmas (`classes`), presenças registradas (`attendance_logs`) e auditorias (`zero_bypass_audits`).
 2. **Quanto tempo leva para restaurar?**
-   - Em testes reais com banco escolar de 466 alunos, o tempo de restauração foi de **440 milissegundos** (meta: $< 120\text{ s}$).
+   - Não demonstrado. Não há RTO validado para recuperação segura; não prometa prazo de restauração.
 3. **Como se prova que o backup é íntegro e restaurável?**
    - **Tripla Barreira de Verificação:**
      - *Autenticidade Criptográfica:* Auth Tag do **AES-256-GCM** rejeita imediatamente qualquer arquivo adulterado ou chave incorreta.
      - *Integridade Binária:* Hash **SHA-256** do snapshot SQLite calculado e comparado bit a bit.
-     - *Integridade Estrutural:* Execução obrigatória de `PRAGMA integrity_check` antes da liberação operacional.
+     - *Integridade Estrutural:* `PRAGMA integrity_check` é necessário, mas não demonstra sozinho que promoção/rollback são seguros sob WAL, bloqueio ou interrupção.
 
 ---
 
@@ -54,17 +54,15 @@ O sistema gerencia automaticamente o ciclo de vida dos backups no disco:
 
 ---
 
-## 🚨 5. Procedimento Operacional em Caso de Pane Elétrica ou Disco Corrompido
+## 🚨 5. Pane elétrica ou suspeita de corrupção — recuperação bloqueada
 
 ```mermaid
 flowchart TD
     Incident["🚨 Pane Detectada (Erro SQLite / Desligamento Forçado)"] --> Step1["1. Parar o serviço do Áquila Pro no Edge"]
-    Step1 --> Step2["2. Localizar o backup mais recente em C:\\AquilaPro\\backups"]
-    Step2 --> Step3["3. Executar Restore Drill para verificar sanidade:<br/>node scripts/restore_edge.cjs --backup ... --drill"]
-    Step3 --> CheckDrill{"Restore Drill retornou APROVADO?"}
-    CheckDrill -- "Sim" --> Step4["4. Executar restauração real:<br/>node scripts/restore_edge.cjs --backup ... --target C:\\AquilaPro\\aquila.db"]
-    CheckDrill -- "Não (Adulterado)" --> StepFallback["Usar cópia secundária do pendrive (D:\\AquilaBackups)"]
-    Step4 --> Step5["5. Reiniciar o Áquila Pro e validar acesso na interface web"]
+    Step1 --> Step2["2. Não iniciar drill nem restauração automatizada"]
+    Step2 --> Step3["3. Preservar aquila.db, -wal, -shm e backups sem alterações"]
+    Step3 --> Step4["4. Acionar TI/DPO e engenharia para procedimento aprovado"]
+    Step4 --> Step5["5. Só recuperar após protocolo e plano de rollback validados em ambiente isolado"]
 ```
 
 ---

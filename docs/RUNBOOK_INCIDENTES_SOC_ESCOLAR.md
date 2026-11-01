@@ -1,3 +1,5 @@
+> **BLOQUEIO DE SEGURANÇA:** este arquivo é um rascunho, não um runbook operacional validado. A restauração SQLite e o restore drill estão suspensos; não execute `restore_edge.cjs` nem siga instruções que aleguem RTO. Preserve banco, WAL, SHM e backups e acione o procedimento aprovado de incidente.
+
 Here's a thinking process:
 
 1.  **Analyze User Input:**
@@ -7,7 +9,7 @@ Here's a thinking process:
    - **Topics to Cover (5 specific items):**
      1. Resolution of messages in DEAD_LETTER and AMBIGUOUS in NotificationOutboxService (WhatsApp Meta)
      2. Response to WebSocket 1008 / Cooldown on Port 9000
-     3. Disaster Recovery of SQLite corruption with restore_edge.cjs (< 2 min RTO)
+     3. SQLite recovery (BLOCKED; RTO not verified)
      4. Auto-throttling thermal > 75°C
      5. Revocation of LGPD consent Art. 14/18
 
@@ -23,7 +25,7 @@ Here's a thinking process:
    - Header/Metadata
    - 1. DEAD_LETTER & AMBIGUOUS NotificationOutboxService Resolution
    - 2. WebSocket 1008 / Cooldown Recovery (Port 9000)
-   - 3. SQLite Corruption DR with restore_edge.cjs (< 2 min RTO)
+   - 3. SQLite recovery (BLOCKED; RTO not verified)
    - 4. Auto-throttling Thermal > 75°C
    - 5. LGPD Consent Revocation (Art. 14/18)
    - Appendices/Quick References
@@ -31,7 +33,7 @@ Here's a thinking process:
    I need to make sure the technical details match the prompt:
    - NotificationOutboxService: idempotency_key, provider_message_id, statuses PENDING/PROCESSING/SENT/FAILED/DEAD_LETTER/AMBIGUOUS, backoff 10*2^retry_count s, reconcileProviderStatus() via Meta Cloud API whatsapp_meta
    - WebSocket: Port 9000, HMAC-SHA256 auth, rate limiting by role/category, 1008 code, cooldown 60s, blocking progression
-   - SQLite: WAL mode, VACUUM INTO, GZIP, AES-256-GCM, manifest SHA-256, GFS rotation, RTO < 2 min, < 500ms snapshot
+   - SQLite: WAL mode, VACUUM INTO, AES-256-GCM and manifest SHA-256; recovery remains blocked and RTO is unverified
    - Thermal: CPU/NPU > 75°C -> vision workers reduce 30FPS to 10FPS
    - LGPD: Art. 14, 16, 18, BIOMETRIC_CONSENT_REVOKED, zero_bypass_audits SHA-256, template 512-D expunge
 
@@ -47,7 +49,7 @@ Here's a thinking process:
    ...
    ## 2. Bloqueio 1008 / Cooldown no WebSocket Porta 9000
    ...
-   ## 3. Disaster Recovery de Corrupção SQLite — restore_edge.cjs (RTO < 2 min)
+   ## 3. Recuperação de corrupção SQLite — BLOQUEADA; RTO não verificado
    ...
    ## 4. Auto-throttling Térmico > 75°C
    ...
