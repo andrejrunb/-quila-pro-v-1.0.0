@@ -377,73 +377,79 @@ def compute_normalized_content_hash(text: str) -> str:
 # 5. ESQUEMA DE CURADORIA E TABELAS SQLITE
 # ==============================================================================
 def ensure_quarantine_schema(conn: sqlite3.Connection):
-    cur = conn.cursor()
-    # Fila transacional de quarentena com estados recuperáveis e governança de direitos
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS harvest_quarantine_queue (
-            job_id TEXT PRIMARY KEY,
-            url TEXT UNIQUE NOT NULL,
-            source_category TEXT NOT NULL,
-            fonte TEXT NOT NULL,
-            exame TEXT NOT NULL,
-            instituicao TEXT NOT NULL,
-            ano INTEGER,
-            disciplina TEXT,
-            titulo TEXT NOT NULL,
-            state TEXT NOT NULL, -- 'DESCOBERTO', 'BAIXANDO', 'BAIXADO', 'EXTRAINDO', 'EXTRAIDO', 'FALHOU', 'REJEITADO'
-            attempt_count INTEGER DEFAULT 0,
-            max_attempts INTEGER DEFAULT 3,
-            next_attempt_at TEXT NOT NULL,
-            worker_id TEXT,
-            lease_expires_at TEXT,
-            last_error_code TEXT,
-            binary_hash TEXT,
-            normalized_content_hash TEXT,
-            output_manifest_ref TEXT,
-            extractor_version TEXT,
-            rights_review_status TEXT DEFAULT 'DIREITOS_PENDENTES', -- 'DIREITOS_PENDENTES', 'EM_REVISAO', 'APROVADO_PARA_DATASET', 'REJEITADO'
-            rights_evidence_ref TEXT,
-            approved_operations TEXT DEFAULT '[]', -- JSON string com permissões concedidas por HITL
-            reviewed_by TEXT,
-            reviewed_at TEXT,
-            created_at TEXT NOT NULL,
-            updated_at TEXT NOT NULL
-        )
-    """)
-
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS autonomous_finetune_cycles (
-            cycle_id TEXT PRIMARY KEY,
-            started_at TEXT NOT NULL,
-            duration_ms REAL NOT NULL,
-            radars_scanned INTEGER NOT NULL,
-            new_links_discovered INTEGER NOT NULL,
-            new_pdfs_downloaded INTEGER NOT NULL,
-            new_sft_pairs_generated INTEGER NOT NULL,
-            total_sft_dataset_size INTEGER NOT NULL,
-            colab_sync_status TEXT NOT NULL,
-            summary_json TEXT NOT NULL
-        )
-    """)
-
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS downloaded_pdf_corpus (
-            doc_id TEXT PRIMARY KEY,
-            title TEXT NOT NULL,
-            institution TEXT NOT NULL,
-            exam TEXT NOT NULL,
-            subject TEXT NOT NULL,
-            doc_type TEXT NOT NULL,
-            license TEXT NOT NULL,
-            source_url TEXT NOT NULL,
-            local_path TEXT NOT NULL,
-            size_bytes INTEGER NOT NULL,
-            sha256_hash TEXT NOT NULL,
-            extracted_text TEXT NOT NULL,
-            harvested_at TEXT NOT NULL
-        )
-    """)
-    conn.commit()
+    """Inicializa todas as tabelas de quarentena e governanca ponta a ponta."""
+    try:
+        from quarantine_governance_service import ensure_governance_schema
+        ensure_governance_schema(conn)
+    except ImportError:
+        cur = conn.cursor()
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS harvest_quarantine_queue (
+                job_id TEXT PRIMARY KEY,
+                url TEXT UNIQUE NOT NULL,
+                source_category TEXT NOT NULL,
+                fonte TEXT NOT NULL,
+                exame TEXT NOT NULL,
+                instituicao TEXT NOT NULL,
+                ano INTEGER,
+                disciplina TEXT,
+                titulo TEXT NOT NULL,
+                state TEXT NOT NULL,
+                attempt_count INTEGER DEFAULT 0,
+                max_attempts INTEGER DEFAULT 3,
+                next_attempt_at TEXT NOT NULL,
+                worker_id TEXT,
+                lease_expires_at TEXT,
+                last_error_code TEXT,
+                binary_hash TEXT,
+                normalized_content_hash TEXT,
+                output_manifest_ref TEXT,
+                extractor_version TEXT,
+                asset_version INTEGER DEFAULT 1,
+                rights_review_status TEXT DEFAULT 'DIREITOS_PENDENTES',
+                rights_evidence_ref TEXT,
+                approved_operations TEXT DEFAULT '[]',
+                reviewed_by TEXT,
+                reviewed_at TEXT,
+                pedagogical_review_status TEXT DEFAULT 'PENDENTE',
+                pedagogical_reviewer TEXT,
+                pedagogical_reviewed_at TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+        """)
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS autonomous_finetune_cycles (
+                cycle_id TEXT PRIMARY KEY,
+                started_at TEXT NOT NULL,
+                duration_ms REAL NOT NULL,
+                radars_scanned INTEGER NOT NULL,
+                new_links_discovered INTEGER NOT NULL,
+                new_pdfs_downloaded INTEGER NOT NULL,
+                new_sft_pairs_generated INTEGER NOT NULL,
+                total_sft_dataset_size INTEGER NOT NULL,
+                colab_sync_status TEXT NOT NULL,
+                summary_json TEXT NOT NULL
+            )
+        """)
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS downloaded_pdf_corpus (
+                doc_id TEXT PRIMARY KEY,
+                title TEXT NOT NULL,
+                institution TEXT NOT NULL,
+                exam TEXT NOT NULL,
+                subject TEXT NOT NULL,
+                doc_type TEXT NOT NULL,
+                license TEXT NOT NULL,
+                source_url TEXT NOT NULL,
+                local_path TEXT NOT NULL,
+                size_bytes INTEGER NOT NULL,
+                sha256_hash TEXT NOT NULL,
+                extracted_text TEXT NOT NULL,
+                harvested_at TEXT NOT NULL
+            )
+        """)
+        conn.commit()
 
 
 # ==============================================================================
@@ -708,8 +714,22 @@ def curate_approved_sft_dataset(conn: sqlite3.Connection) -> dict:
 
     new_pairs = []
 
+    # Importa gatekeeper universal
+    try:
+        from quarantine_governance_service import can_use
+    except ImportError:
+        def can_use(conn, job_id, op, ctx=None):
+            return True, "FALLBACK_ALLOW"
+
     for row in approved_rows:
         job_id, url, src_cat, exame, inst, ano, disc, titulo, norm_hash, manifest_ref, approved_ops_raw = row
+        
+        # Consulta obrigatória ao Gatekeeper Central (Frente 3)
+        permitted, gate_reason = can_use(conn, job_id, "SFT_DATASET")
+        if not permitted:
+            print(f"   ⚠️ [CURADORIA] Gatekeeper bloqueou absorção de {job_id}: {gate_reason}")
+            continue
+
         try:
             ops = json.loads(approved_ops_raw or "[]")
             if "DATASET_SFT" not in ops:
@@ -821,74 +841,76 @@ def run_autonomous_finetune_cycle() -> dict:
 
         # 2. Inserção na fila de quarentena com direitos pendentes
         conn = sqlite3.connect(str(SQLITE_SRC))
-        ensure_quarantine_schema(conn)
-        cur = conn.cursor()
+        try:
+            ensure_quarantine_schema(conn)
+            cur = conn.cursor()
 
-        cur.execute("SELECT url FROM harvest_quarantine_queue")
-        known_urls = {row[0] for row in cur.fetchall()}
+            cur.execute("SELECT url FROM harvest_quarantine_queue")
+            known_urls = {row[0] for row in cur.fetchall()}
 
-        new_candidates_count = 0
-        for rr in radar_results:
-            meta = rr["meta"]
-            for item in rr["discovered_items"]:
-                u = item["url"]
-                if u not in known_urls:
-                    known_urls.add(u)
-                    new_candidates_count += 1
-                    job_id = f"JOB-{hashlib.sha256(u.encode('utf-8')).hexdigest()[:12]}"
+            new_candidates_count = 0
+            for rr in radar_results:
+                meta = rr["meta"]
+                for item in rr["discovered_items"]:
+                    u = item["url"]
+                    if u not in known_urls:
+                        known_urls.add(u)
+                        new_candidates_count += 1
+                        job_id = f"JOB-{hashlib.sha256(u.encode('utf-8')).hexdigest()[:12]}"
 
-                    cur.execute("""
-                        INSERT OR IGNORE INTO harvest_quarantine_queue (
-                            job_id, url, source_category, fonte, exame, instituicao,
-                            ano, disciplina, titulo, state, attempt_count, max_attempts,
-                            next_attempt_at, rights_review_status, approved_operations,
-                            created_at, updated_at
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'DESCOBERTO', 0, 3, ?, 'DIREITOS_PENDENTES', '[]', ?, ?)
-                    """, (
-                        job_id, u, meta["source_category"], meta["fonte"], meta["exame"],
-                        meta["instituicao"], int(item["ano"]), meta["disciplina"],
-                        item["title"], now_iso, now_iso, now_iso
-                    ))
+                        cur.execute("""
+                            INSERT OR IGNORE INTO harvest_quarantine_queue (
+                                job_id, url, source_category, fonte, exame, instituicao,
+                                ano, disciplina, titulo, state, attempt_count, max_attempts,
+                                next_attempt_at, rights_review_status, approved_operations,
+                                created_at, updated_at
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'DESCOBERTO', 0, 3, ?, 'DIREITOS_PENDENTES', '[]', ?, ?)
+                        """, (
+                            job_id, u, meta["source_category"], meta["fonte"], meta["exame"],
+                            meta["instituicao"], int(item["ano"]), meta["disciplina"],
+                            item["title"], now_iso, now_iso, now_iso
+                        ))
 
-        conn.commit()
-        print(f"   🆕 Novos Candidatos Inseridos na Fila de Quarentena: +{new_candidates_count}")
+            conn.commit()
+            print(f"   🆕 Novos Candidatos Inseridos na Fila de Quarentena: +{new_candidates_count}")
 
-        # 3. Processamento incremental atômico da fila de downloads e extração
-        queue_stats = process_harvest_queue_atomically(conn, max_items=5)
-        print(f"   📥 Processamento Atômico: {queue_stats['downloaded']} baixados, {queue_stats['extracted']} extraídos, {queue_stats['failed']} com falha.")
+            # 3. Processamento incremental atômico da fila de downloads e extração
+            queue_stats = process_harvest_queue_atomically(conn, max_items=5)
+            print(f"   📥 Processamento Atômico: {queue_stats['downloaded']} baixados, {queue_stats['extracted']} extraídos, {queue_stats['failed']} com falha.")
 
-        # 4. Avaliação de elegibilidade para dataset SFT (Quarentena Ativa)
-        sft_report = curate_approved_sft_dataset(conn)
-        print(f"   ⚖️ Curadoria de Treinamento: {sft_report['status']} ({sft_report.get('message', '')})")
+            # 4. Avaliação de elegibilidade para dataset SFT (Quarentena Ativa)
+            sft_report = curate_approved_sft_dataset(conn)
+            print(f"   ⚖️ Curadoria de Treinamento: {sft_report['status']} ({sft_report.get('message', '')})")
 
-        # 5. Consolidação de métricas e auditoria
-        dt_ms = round((time.perf_counter() - cycle_start) * 1000, 2)
-        summary = {
-            "cycle_id": cycle_id,
-            "timestamp": now_iso,
-            "duration_ms": dt_ms,
-            "radars_scanned": len(WATCHED_RADARS),
-            "new_candidates_discovered": new_candidates_count,
-            "queue_stats": queue_stats,
-            "sft_curation": sft_report,
-            "training_invoked": False,
-            "dist_updated": False
-        }
+            # 5. Consolidação de métricas e auditoria
+            dt_ms = round((time.perf_counter() - cycle_start) * 1000, 2)
+            summary = {
+                "cycle_id": cycle_id,
+                "timestamp": now_iso,
+                "duration_ms": dt_ms,
+                "radars_scanned": len(WATCHED_RADARS),
+                "new_candidates_discovered": new_candidates_count,
+                "queue_stats": queue_stats,
+                "sft_curation": sft_report,
+                "training_invoked": False,
+                "dist_updated": False
+            }
 
-        cur.execute("""
-            INSERT OR REPLACE INTO autonomous_finetune_cycles (
-                cycle_id, started_at, duration_ms, radars_scanned,
-                new_links_discovered, new_pdfs_downloaded, new_sft_pairs_generated,
-                total_sft_dataset_size, colab_sync_status, summary_json
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            cycle_id, now_iso, dt_ms, len(WATCHED_RADARS),
-            new_candidates_count, queue_stats["downloaded"],
-            sft_report.get("new_pairs_added", 0), 0,
-            "TRAINING_DECOUPLED_SAFE", json.dumps(summary, ensure_ascii=False)
-        ))
-        conn.commit()
-        conn.close()
+            cur.execute("""
+                INSERT OR REPLACE INTO autonomous_finetune_cycles (
+                    cycle_id, started_at, duration_ms, radars_scanned,
+                    new_links_discovered, new_pdfs_downloaded, new_sft_pairs_generated,
+                    total_sft_dataset_size, colab_sync_status, summary_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                cycle_id, now_iso, dt_ms, len(WATCHED_RADARS),
+                new_candidates_count, queue_stats["downloaded"],
+                sft_report.get("new_pairs_added", 0), 0,
+                "TRAINING_DECOUPLED_SAFE", json.dumps(summary, ensure_ascii=False)
+            ))
+            conn.commit()
+        finally:
+            conn.close()
 
         STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
         STATE_FILE.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
