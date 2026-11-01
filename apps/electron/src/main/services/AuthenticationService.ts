@@ -77,33 +77,6 @@ export class AuthenticationService {
 
   constructor() {
     this.logger = new Logger('AuthenticationService');
-    this.initializeDefaultUsers();
-  }
-
-  /**
-   * Inicializar usuários padrão
-   */
-  private initializeDefaultUsers(): void {
-    // Admin padrão
-    this.createUser({
-      username: 'admin',
-      email: 'admin@aquila.local',
-      password: process.env.INITIAL_ADMIN_PASSWORD || process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin',
-      role: 'admin',
-      name: 'Administrador',
-    });
-
-    // Coordenador padrão
-    this.createUser({
-      username: 'coordinator',
-      email: 'coordinator@aquila.local',
-      password: process.env.INITIAL_COORD_PASSWORD || 'coord123',
-      role: 'coordinator',
-      name: 'Coordenador Pedagógico',
-      department: 'Coordenação',
-    });
-
-    this.logger.info('Usuários padrão inicializados');
   }
 
   /**
@@ -319,5 +292,4 @@ export class AuthenticationService {
 }
 
 export default AuthenticationService;
-
 

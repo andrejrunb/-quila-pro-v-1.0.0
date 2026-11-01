@@ -1,58 +1,37 @@
 /**
- * Áquila Pro — Utilitário de Sessão Criptográfica Segura (HMAC-SHA256)
- * Utiliza Web Crypto API nativa (compatível com Edge Runtime do Next.js).
+ * Signed portal sessions. The signing key is supplied by the deployment
+ * environment; there is deliberately no built-in or cross-purpose fallback.
  */
-
-const AUTH_SECRET = process.env.AQUILA_AUTH_SECRET || process.env.AQUILA_ENCRYPTION_SECRET || 'aquila_sovereign_auth_secret_key_v2_1_production';
+export type PortalRole = 'admin' | 'coordinator' | 'teacher' | 'parent' | 'student';
 
 export interface SessionPayload {
   username: string;
   portal: string;
-  role: 'admin' | 'coordinator' | 'teacher' | 'parent' | 'student';
+  role: PortalRole;
   iat: number;
   exp: number;
-  [key: string]: any;
 }
 
-function base64UrlEncode(buffer: Uint8Array | string): string {
-  let base64: string;
-  if (typeof buffer === 'string') {
-    if (typeof btoa !== 'undefined') {
-      base64 = btoa(unescape(encodeURIComponent(buffer)));
-    } else {
-      base64 = Buffer.from(buffer, 'utf-8').toString('base64');
-    }
-  } else {
-    if (typeof Buffer !== 'undefined') {
-      base64 = Buffer.from(buffer).toString('base64');
-    } else {
-      let binary = '';
-      const len = buffer.byteLength;
-      for (let i = 0; i < len; i++) {
-        binary += String.fromCharCode(buffer[i]);
-      }
-      base64 = btoa(binary);
-    }
-  }
+const VALID_ROLES = new Set<PortalRole>(['admin', 'coordinator', 'teacher', 'parent', 'student']);
 
-  return base64.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+export function getAuthSecret(secret = process.env.AQUILA_AUTH_SECRET): string {
+  if (!secret || Buffer.byteLength(secret, 'utf8') < 32) {
+    throw new Error('AQUILA_AUTH_SECRET must be configured with at least 32 bytes.');
+  }
+  return secret;
 }
 
-function base64UrlDecode(str: string): string {
-  str = str.replace(/-/g, '+').replace(/_/g, '/');
-  while (str.length % 4) {
-    str += '=';
-  }
-  if (typeof atob !== 'undefined') {
-    return decodeURIComponent(escape(atob(str)));
-  }
-  return Buffer.from(str, 'base64').toString('utf-8');
+function base64UrlEncode(value: string | Uint8Array): string {
+  return Buffer.from(value).toString('base64url');
+}
+
+function base64UrlDecode(value: string): string {
+  return Buffer.from(value, 'base64url').toString('utf8');
 }
 
 async function getCryptoKey(): Promise<CryptoKey> {
-  const enc = new TextEncoder();
-  const keyData = enc.encode(AUTH_SECRET);
-  return await crypto.subtle.importKey(
+  const keyData = new TextEncoder().encode(getAuthSecret());
+  return crypto.subtle.importKey(
     'raw',
     keyData,
     { name: 'HMAC', hash: 'SHA-256' },
@@ -61,66 +40,66 @@ async function getCryptoKey(): Promise<CryptoKey> {
   );
 }
 
-/**
- * Assina criptograficamente uma sessão usando HMAC-SHA256 (Web Crypto API)
- */
-export async function signSession(payload: Partial<SessionPayload>, expiresInSeconds = 60 * 60 * 8): Promise<string> {
-  const header = { alg: 'HS256', typ: 'JWT' };
+export async function signSession(
+  payload: Omit<SessionPayload, 'iat' | 'exp'> & Partial<Pick<SessionPayload, 'iat' | 'exp'>>,
+  expiresInSeconds = 60 * 60 * 8
+): Promise<string> {
+  if (!payload.username || !payload.portal || !VALID_ROLES.has(payload.role)) {
+    throw new Error('A valid username, portal, and role are required to issue a session.');
+  }
+
   const now = Math.floor(Date.now() / 1000);
   const fullPayload: SessionPayload = {
-    username: payload.username || 'unknown',
-    portal: payload.portal || 'portal',
-    role: payload.role || 'coordinator',
-    iat: payload.iat ?? now,
-    exp: payload.exp ?? (now + expiresInSeconds),
     ...payload,
+    iat: payload.iat ?? now,
+    exp: payload.exp ?? now + expiresInSeconds,
   };
-
-  const encHeader = base64UrlEncode(JSON.stringify(header));
-  const encPayload = base64UrlEncode(JSON.stringify(fullPayload));
-  const dataToSign = `${encHeader}.${encPayload}`;
-
+  const encodedHeader = base64UrlEncode(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+  const encodedPayload = base64UrlEncode(JSON.stringify(fullPayload));
+  const signedContent = `${encodedHeader}.${encodedPayload}`;
   const key = await getCryptoKey();
-  const enc = new TextEncoder();
-  const signatureBytes = await crypto.subtle.sign('HMAC', key, enc.encode(dataToSign));
-  const signature = base64UrlEncode(new Uint8Array(signatureBytes));
-
-  return `${dataToSign}.${signature}`;
+  const signature = await crypto.subtle.sign(
+    'HMAC',
+    key,
+    new TextEncoder().encode(signedContent)
+  );
+  return `${signedContent}.${base64UrlEncode(new Uint8Array(signature))}`;
 }
 
-/**
- * Valida a integridade e assinatura criptográfica de um token de sessão
- */
 export async function verifySession(token: string): Promise<SessionPayload | null> {
   if (!token || typeof token !== 'string') return null;
-
   const parts = token.split('.');
-  if (parts.length !== 3) return null;
-
-  const [encHeader, encPayload, signature] = parts;
-  const dataToSign = `${encHeader}.${encPayload}`;
+  if (parts.length !== 3 || parts.some(part => part.length === 0)) return null;
 
   try {
+    const [encodedHeader, encodedPayload, encodedSignature] = parts;
+    const header = JSON.parse(base64UrlDecode(encodedHeader));
+    if (header.alg !== 'HS256' || header.typ !== 'JWT') return null;
+
+    const signature = Buffer.from(encodedSignature, 'base64url');
     const key = await getCryptoKey();
-    const enc = new TextEncoder();
-    
-    // Converter signature de base64url de volta para buffer
-    const sigB64 = signature.replace(/-/g, '+').replace(/_/g, '/');
-    const rawSig = typeof atob !== 'undefined' ? atob(sigB64) : Buffer.from(sigB64, 'base64').toString('binary');
-    const sigBytes = new Uint8Array(rawSig.length);
-    for (let i = 0; i < rawSig.length; i++) {
-      sigBytes[i] = rawSig.charCodeAt(i);
-    }
+    const valid = await crypto.subtle.verify(
+      'HMAC',
+      key,
+      signature,
+      new TextEncoder().encode(`${encodedHeader}.${encodedPayload}`)
+    );
+    if (!valid) return null;
 
-    const isValid = await crypto.subtle.verify('HMAC', key, sigBytes, enc.encode(dataToSign));
-    if (!isValid) return null;
-
-    const payload: SessionPayload = JSON.parse(base64UrlDecode(encPayload));
+    const payload = JSON.parse(base64UrlDecode(encodedPayload)) as SessionPayload;
     const now = Math.floor(Date.now() / 1000);
-
-    if (payload.exp && payload.exp < now) {
-      return null; // Expirado
-    }
+    if (
+      typeof payload.username !== 'string' ||
+      payload.username.length === 0 ||
+      typeof payload.portal !== 'string' ||
+      payload.portal.length === 0 ||
+      typeof payload.role !== 'string' ||
+      !VALID_ROLES.has(payload.role) ||
+      !Number.isInteger(payload.iat) ||
+      !Number.isInteger(payload.exp) ||
+      payload.iat > now ||
+      payload.exp <= now
+    ) return null;
 
     return payload;
   } catch {

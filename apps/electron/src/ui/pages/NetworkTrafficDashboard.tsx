@@ -338,7 +338,7 @@ export const NetworkTrafficDashboard: React.FC<{ onBack?: () => void }> = ({ onB
               </div>
               <div className="dns-spec-row">
                 <span className="spec-label">Senha do Console:</span>
-                <span className="spec-val code">EagleSovereign2026#Admin</span>
+                <span className="spec-val code">Credencial individual provisionada externamente</span>
               </div>
               <div className="dns-spec-row">
                 <span className="spec-label">Privacidade:</span>

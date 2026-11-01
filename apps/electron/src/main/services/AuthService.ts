@@ -7,6 +7,8 @@
 import * as crypto from 'crypto';
 import Database from '../../database/Database';
 import SessionService from './SessionService';
+import { getSessionSecret, signSessionToken, VALID_SESSION_ROLES, verifySessionToken } from './sessionCrypto';
+import { isDedicatedDemoDatabase } from '../../database/demoSeedGuard';
 
 // Nota: Em um ambiente real, usaríamos 'bcryptjs', mas como estamos em modo nativo
 // e queremos evitar dependências binárias extras agora, usaremos PBKDF2 do Node crypto.
@@ -22,40 +24,59 @@ export interface UserSession {
   expiresAt: number;
 }
 export class AuthService {
+  private readonly sessionSecret: string;
+
   constructor(
     private readonly db: Database,
-    private readonly sessionService: SessionService
-  ) {}
+    private readonly sessionService: SessionService,
+    sessionSecret?: string
+  ) {
+    this.sessionSecret = getSessionSecret(sessionSecret);
+  }
 
   // ─────────────────────────────────────────────
   // AÇÕES DE AUTH
   // ─────────────────────────────────────────────
 
   async login(username: string, password: string): Promise<UserSession | null> {
-    console.log(`[Auth_Debug] Buscando usuário: ${username}`);
     const user = await this.db.get('SELECT * FROM users WHERE username = ?', [username]);
     if (!user) {
-      console.warn(`[Auth_Debug] Usuário não encontrado: ${username}`);
       return null;
     }
 
-    console.log(`[Auth_Debug] Usuário encontrado. Verificando senha...`);
+    if (
+      typeof user.role !== 'string' ||
+      !VALID_SESSION_ROLES.has(user.role) ||
+      user.isActive === 0 ||
+      user.isActive === false ||
+      user.status === 'inactive'
+    ) {
+      return null;
+    }
+
     const isValid = this._verifyPassword(password, user.password_hash);
     if (!isValid) {
-      console.warn(`[Auth_Debug] Senha incorreta para: ${username}`);
       return null;
     }
 
     // Criar Sessão
+    const issuedAt = Math.floor(Date.now() / 1000);
+    const expiresAt = Date.now() + 24 * 60 * 60 * 1000;
     const session: UserSession = {
-      token: crypto.randomBytes(32).toString('hex'),
+      token: signSessionToken({
+        sub: user.id,
+        role: user.role,
+        iat: issuedAt,
+        exp: Math.floor(expiresAt / 1000),
+        jti: crypto.randomUUID(),
+      }, this.sessionSecret),
       user: {
         id: user.id,
         username: user.username,
         role: user.role,
         name: user.name
       },
-      expiresAt: Date.now() + 24 * 60 * 60 * 1000 // 24h
+      expiresAt
     };
 
     // Salvar na tabela active_sessions
@@ -82,25 +103,30 @@ export class AuthService {
 
   async validateSession(token: string): Promise<UserSession | null> {
     try {
+      const claims = verifySessionToken(token, this.sessionSecret);
+      if (!claims) return null;
+
       const sessionData = await this.db.get('SELECT * FROM active_sessions WHERE token = ?', [token]);
-      
       if (!sessionData) {
-        console.warn(`[AuthService] Validação falhou: Token não encontrado no DB.`);
         return null;
       }
 
       if (Date.now() > sessionData.expiresAt) {
-        console.warn(`[AuthService] Validação falhou: Sessão expirada em ${new Date(sessionData.expiresAt).toISOString()}.`);
         await this.logout(token);
+        return null;
+      }
+
+      const user = JSON.parse(sessionData.data);
+      if (user.id !== claims.sub || user.role !== claims.role || !VALID_SESSION_ROLES.has(user.role)) {
         return null;
       }
 
       return {
         token,
-        user: JSON.parse(sessionData.data),
+        user,
         expiresAt: sessionData.expiresAt
       };
-    } catch (e) {
+    } catch {
       return null;
     }
   }
@@ -117,6 +143,7 @@ export class AuthService {
 
     const session = await this.validateSession(sessionData.token);
     if (!session) {
+      await this.logout(sessionData.token);
       return null;
     }
 
@@ -135,55 +162,80 @@ export class AuthService {
   // GESTÃO DE USUÁRIOS
   // ─────────────────────────────────────────────
 
-  async createUser(data: { username: string; password?: string; name: string; role?: string }): Promise<void> {
+  async createUser(data: { username: string; password: string; name: string; role: string }): Promise<void> {
+    if (!data.password) throw new Error('An individual password is required.');
     const id = `user-${Date.now()}`;
-    const hash = this._hashPassword(data.password || 'eagle123'); // Senha default
+    const hash = this._hashPassword(data.password);
     const sql = `INSERT INTO users (id, username, password_hash, name, role) VALUES (?, ?, ?, ?, ?)`;
     await this.db.run(sql, [id, data.username, hash, data.name, data.role || 'operator']);
   }
 
-  async ensureDefaultAdmin(): Promise<void> {
-    const admin = await this.db.get('SELECT * FROM users WHERE username = ?', ['admin']);
-    if (!admin) {
-      console.log('[AuthService] Criando usuário admin padrão...');
+  async provisionInitialAdmin(): Promise<void> {
+    const username = process.env.AQUILA_INITIAL_ADMIN_USERNAME?.trim();
+    const password = process.env.AQUILA_INITIAL_ADMIN_PASSWORD;
+    if (!username && !password) return;
+
+    await this.db.run(
+      'CREATE TABLE IF NOT EXISTS auth_provisioning (key TEXT PRIMARY KEY, completed_at TEXT NOT NULL)'
+    );
+    const completed = await this.db.get('SELECT key FROM auth_provisioning WHERE key = ?', ['initial-admin']);
+    if (completed) return;
+    if (!username || !password || Buffer.byteLength(password, 'utf8') < 16) {
+      throw new Error('Initial administrator provisioning requires an individual username and password of at least 16 bytes.');
+    }
+
+    const existingAdmin = await this.db.get("SELECT id FROM users WHERE role = 'admin' LIMIT 1");
+    if (!existingAdmin) {
       await this.createUser({
-        username: 'admin',
-        password: process.env.INITIAL_ADMIN_PASSWORD || process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin',
-        name: 'Administrador Áquila',
+        username,
+        password,
+        name: 'Administrador',
         role: 'admin'
       });
     }
-  }
-
-  async ensureTestUser(): Promise<void> {
-    if (process.env.NODE_ENV === 'production') return;
-    const testUser = await this.db.get('SELECT * FROM users WHERE username = ?', ['teste']);
-    if (!testUser) {
-      console.log('[AuthService] Criando usuário de teste...');
-      await this.createUser({
-        username: 'teste',
-        password: 'teste',
-        name: 'Usuário Teste',
-        role: 'operator'
-      });
-    }
+    await this.db.run(
+      'INSERT OR IGNORE INTO auth_provisioning (key, completed_at) VALUES (?, CURRENT_TIMESTAMP)',
+      ['initial-admin']
+    );
   }
 
   /**
    * Seed de usuários demo para todos os portais (sovereign design)
    */
   async seedDemoUsers(): Promise<void> {
-    const demoUsers = [
-      { user: 'rh_demo', pass: 'demo123', name: 'Gestor de RH Demo', role: 'rh' },
-      { user: 'coord_demo', pass: 'demo123', name: 'Coordenação Demo', role: 'coordenacao' },
-      { user: 'profe_demo', pass: 'demo123', name: 'Docente Demo', role: 'docente' },
-      { user: 'pais_demo', pass: 'demo123', name: 'Portal de Pais Demo', role: 'pais' },
-    ];
+    if (
+      process.env.AQUILA_ENABLE_DEMO_USERS !== 'true' ||
+      !isDedicatedDemoDatabase(this.db.getDatabasePath(), 'AQUILA_ENABLE_DEMO_USERS')
+    ) {
+      return;
+    }
 
-    for (const d of demoUsers) {
+    const demoUsers = [
+      { user: 'rh_demo', pass: process.env.AQUILA_DEMO_RH_PASSWORD, name: 'Gestor de RH Demo', role: 'rh' },
+      { user: 'coord_demo', pass: process.env.AQUILA_DEMO_COORD_PASSWORD, name: 'Coordenação Demo', role: 'coordinator' },
+      { user: 'profe_demo', pass: process.env.AQUILA_DEMO_TEACHER_PASSWORD, name: 'Docente Demo', role: 'docente' },
+      { user: 'pais_demo', pass: process.env.AQUILA_DEMO_PARENT_PASSWORD, name: 'Portal de Pais Demo', role: 'pais' },
+    ];
+    const configuredDemoUsers = demoUsers.map(({ pass, ...user }) => {
+      if (!pass || Buffer.byteLength(pass, 'utf8') < 16) {
+        throw new Error('Each enabled demo account requires an individual password of at least 16 bytes.');
+      }
+      return { ...user, pass };
+    });
+
+    await this.db.run(
+      'CREATE TABLE IF NOT EXISTS demo_seed_state (seed_name TEXT PRIMARY KEY, started_at TEXT NOT NULL)'
+    );
+    const alreadyStarted = await this.db.get('SELECT seed_name FROM demo_seed_state WHERE seed_name = ?', ['demo-users']);
+    if (alreadyStarted) return;
+    await this.db.run(
+      'INSERT INTO demo_seed_state (seed_name, started_at) VALUES (?, CURRENT_TIMESTAMP)',
+      ['demo-users']
+    );
+
+    for (const d of configuredDemoUsers) {
       const existing = await this.db.get('SELECT id FROM users WHERE username = ?', [d.user]);
       if (!existing) {
-        console.log(`[AuthService] Seeding demo user: ${d.user}`);
         await this.createUser({
           username: d.user,
           password: d.pass,
@@ -247,4 +299,3 @@ export class AuthService {
     }
   }
 }
-

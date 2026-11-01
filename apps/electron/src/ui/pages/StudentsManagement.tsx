@@ -14,8 +14,7 @@ interface Student {
 
 interface StudentFormData {
   name: string;
-  email: string;
-  class: string;
+  classId: string;
 }
 
 interface StudentsManagementProps {
@@ -29,12 +28,11 @@ export const StudentsManagement: React.FC<StudentsManagementProps> = ({ onBack }
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [formData, setFormData] = useState<StudentFormData>({
     name: '',
-    email: '',
-    class: '',
+    classId: '',
   });
   const [searchTerm, setSearchTerm] = useState('');
   const [filterClass, setFilterClass] = useState('');
-  const { invoke } = useIPC();
+  const { invoke, listStudents, createStudent } = useIPC();
 
   // Carregar alunos ao montar
   useEffect(() => {
@@ -47,11 +45,17 @@ export const StudentsManagement: React.FC<StudentsManagementProps> = ({ onBack }
   const loadStudents = async () => {
     try {
       setIsLoading(true);
-      const result = await invoke('students:list');
-
-      if (result.success && result.data) {
-        setStudents(result.data);
-      }
+      const result = await listStudents();
+      if (!Array.isArray(result)) throw new Error('Invalid student list response.');
+      setStudents(result.map((student: any) => ({
+        id: student.id || student.studentId,
+        name: student.name || '',
+        email: student.email || '',
+        class: student.classId || '',
+        status: student.status === 'inactive' ? 'inactive' : 'active',
+        photoCount: student.photoCount || 0,
+        lastSeen: student.lastSeen,
+      })));
     } catch (error) {
       console.error('Erro ao carregar alunos:', error);
     } finally {
@@ -66,10 +70,10 @@ export const StudentsManagement: React.FC<StudentsManagementProps> = ({ onBack }
     e.preventDefault();
 
     try {
-      const result = await invoke('students:add', formData);
+      const result = await createStudent(formData);
 
       if (result.success) {
-        setFormData({ name: '', email: '', class: '' });
+        setFormData({ name: '', classId: '' });
         setShowForm(false);
         await loadStudents();
       } else {
@@ -180,27 +184,14 @@ export const StudentsManagement: React.FC<StudentsManagementProps> = ({ onBack }
                 />
               </div>
               <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  title="Email do Aluno"
-                  aria-label="Email do Aluno"
-                  value={formData.email}
-                  onChange={e =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Turma</label>
+                <label>ID da turma</label>
                 <input
                   type="text"
-                  title="Turma"
-                  aria-label="Turma"
-                  value={formData.class}
+                  title="ID da turma"
+                  aria-label="ID da turma"
+                  value={formData.classId}
                   onChange={e =>
-                    setFormData({ ...formData, class: e.target.value })
+                    setFormData({ ...formData, classId: e.target.value })
                   }
                   required
                 />

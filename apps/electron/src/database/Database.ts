@@ -41,6 +41,10 @@ export class Database {
         Database.instance = instance;
     }
 
+    public getDatabasePath(): string {
+        return this.dbPath;
+    }
+
     constructor(customPath?: string) {
         if (customPath) {
             this.dbPath = customPath;

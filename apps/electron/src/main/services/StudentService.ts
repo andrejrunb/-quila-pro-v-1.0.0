@@ -1,5 +1,20 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { randomUUID } from 'crypto';
+
+export interface CreateStudentInput {
+    name: string;
+    classId: string;
+    parentPhone?: string;
+    registrationNumber?: string;
+}
+
+export interface CreatedStudent {
+    studentId: string;
+    id: string;
+    name: string;
+    classId: string;
+}
 
 /**
  * StudentService — Gestão de banco de dados e processamento de dados biométricos.
@@ -11,6 +26,24 @@ export class StudentService {
     constructor(dbInstance: any) {
         this.db = dbInstance;
         console.log('[StudentService] Hub de Estudantes inicializado com injeção de DB.');
+    }
+
+    public async createStudent(input: CreateStudentInput): Promise<CreatedStudent> {
+        const id = randomUUID();
+        const classRecord = await this.db.get('SELECT id FROM classes WHERE id = ?', [input.classId]);
+        if (!classRecord) throw new Error('Class not found.');
+
+        await this.db.run(
+            'INSERT INTO students (id, classId, name, parentPhone, registrationNumber) VALUES (?, ?, ?, ?, ?)',
+            [id, input.classId, input.name.trim(), input.parentPhone?.trim() || null, input.registrationNumber?.trim() || null]
+        );
+        const saved = await this.db.get(
+            'SELECT id, name, classId FROM students WHERE id = ?',
+            [id]
+        );
+        if (!saved) throw new Error('Student was not persisted.');
+
+        return { studentId: saved.id, id: saved.id, name: saved.name, classId: saved.classId };
     }
 
     public async importStudentsBulk(students: any[]) {
@@ -35,4 +68,3 @@ export class StudentService {
 }
 
 export default StudentService;
-

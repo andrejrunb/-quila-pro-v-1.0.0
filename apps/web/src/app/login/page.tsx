@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import {
-  Shield, Lock, User, GraduationCap, Users, LayoutDashboard,
-  ArrowRight, Activity, X, CheckCircle, Briefcase, Award
+  Shield, Lock, User, GraduationCap, Users,
+  ArrowRight, Activity, X, Briefcase, Award
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -48,7 +48,7 @@ export default function Login() {
       color: "emerald"
     },
     {
-      id: "alunos",
+      id: "aluno",
       name: "Portal do Aluno",
       description: "Jornada gamificada, tutor IA Córtex, simulados e grade horária.",
       route: "/portal/aluno",
@@ -70,7 +70,7 @@ export default function Login() {
         body: JSON.stringify({
           username,
           password,
-          portalId: selectedPortal?.id || "alunos"
+          portalId: selectedPortal?.id || "aluno"
         })
       });
       const data = await res.json();
@@ -82,28 +82,6 @@ export default function Login() {
       router.push(data.redirect || selectedPortal?.route || "/portal/aluno");
     } catch (err) {
       setErrorMessage("Erro de rede ao conectar com o serviço de autenticação.");
-      setIsLoading(false);
-    }
-  };
-
-  const handleDemoAccess = async () => {
-    setIsLoading(true);
-    setErrorMessage(null);
-    try {
-      const res = await fetch("/api/auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: "demo_user",
-          password: "demo_password",
-          portalId: selectedPortal?.id || "alunos"
-        })
-      });
-      const data = await res.json();
-      router.push(data.redirect || selectedPortal?.route || "/portal/aluno");
-    } catch (err) {
-      router.push(selectedPortal?.route || "/portal/aluno");
-    } finally {
       setIsLoading(false);
     }
   };
@@ -219,19 +197,6 @@ export default function Login() {
               </button>
             </form>
 
-            <div className="relative my-2 flex items-center justify-center">
-              <div className="border-t border-white/10 w-full" />
-              <span className="bg-zinc-950 px-3 text-[10px] uppercase font-bold text-zinc-500 tracking-widest absolute">ou</span>
-            </div>
-
-            <button 
-              onClick={handleDemoAccess}
-              disabled={isLoading}
-              className="w-full bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-emerald-400 font-bold py-3.5 rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer text-xs uppercase tracking-wider"
-            >
-              <CheckCircle size={16} />
-              Acessar Modo Demonstração ({selectedPortal.name})
-            </button>
           </div>
         </div>
       )}

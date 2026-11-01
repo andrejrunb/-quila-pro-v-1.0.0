@@ -67,19 +67,31 @@ export class SecretariatService {
 
   async createTeacher(teacher: any): Promise<any> {
     try {
+      if (
+        !teacher ||
+        typeof teacher.name !== 'string' ||
+        !teacher.name.trim() ||
+        typeof teacher.password !== 'string' ||
+        Buffer.byteLength(teacher.password, 'utf8') < 16
+      ) {
+        return { success: false, error: 'A unique password of at least 16 bytes is required.' };
+      }
+
       const { authService } = require('../registry').sovereignRegistry.getContext();
       
       const teacherId = teacher.id || `tea-${Date.now()}`;
       const username = teacher.username || teacher.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '.').replace(/[^a-z0-9.]/g, '');
-      const defaultPassword = teacher.password || username;
-      
+      if (teacher.password === username) {
+        return { success: false, error: 'Password must be different from the username.' };
+      }
+
       let password_hash = '';
       if (authService) {
-        password_hash = authService._hashPassword(defaultPassword);
+        password_hash = authService._hashPassword(teacher.password);
       } else {
         const crypto = require('crypto');
         const salt = crypto.randomBytes(16).toString('hex');
-        const hash = crypto.scryptSync(defaultPassword, salt, 64, { N: 16384, r: 8, p: 1 }).toString('hex');
+        const hash = crypto.scryptSync(teacher.password, salt, 64, { N: 16384, r: 8, p: 1 }).toString('hex');
         password_hash = `scrypt$16384$8$1$${salt}$${hash}`;
       }
 
@@ -93,7 +105,7 @@ export class SecretariatService {
         status: teacher.status || 'active'
       });
 
-      return { success: true, id: teacherId, login: username, password: defaultPassword };
+      return { success: true, id: teacherId, login: username };
     } catch (err: any) {
       logger.error('Erro ao adicionar professor', err);
       return { success: false, error: err.message };
@@ -349,4 +361,3 @@ export class SecretariatService {
     await this.db.logAudit('SYSTEM', 'ENROLLMENT_CONFIRMED', `Aluno ${studentId} matriculado na turma ${classId}`, { academicYear });
   }
 }
-

@@ -1,16 +1,15 @@
 /**
  * seedRealSchool.ts — Seed Institucional de Referência
  * ==========================================================
- * Popula o banco com professores, turmas, salas e grade horária reais
- * extraídos do PDF "GRADE INSTITUCIONAL MODELO".
+ * Popula dados sintéticos de referência para desenvolvimento isolado.
  *
- * Login = nome do professor (lowercase, sem acento)
- * Senha = nome do professor (lowercase, sem acento)
+ * Nunca execute este seed em uma instalação institucional.
  */
 
 import Database from './Database';
 import * as crypto from 'crypto';
 import { STUDENTS } from './studentsData';
+import { isDedicatedDemoDatabase } from './demoSeedGuard';
 
 // ─────────────────────────────────────────────
 // HASH HELPER (Scrypt — mesmo padrão do AuthService)
@@ -207,14 +206,27 @@ export async function seedRealSchool(db: Database): Promise<{
   classesCreated: number;
   roomsCreated: number;
   schedulesCreated: number;
-  credentials: Array<{ name: string; login: string; password: string; role: string }>;
 }> {
+  const emptyResult = { teachersCreated: 0, classesCreated: 0, roomsCreated: 0, schedulesCreated: 0 };
+  if (!isDedicatedDemoDatabase(db.getDatabasePath())) {
+    throw new Error('Reference-school seeding requires an explicitly isolated development database.');
+  }
+
+  await db.run(
+    'CREATE TABLE IF NOT EXISTS demo_seed_state (seed_name TEXT PRIMARY KEY, started_at TEXT NOT NULL)'
+  );
+  const alreadyStarted = await db.get('SELECT seed_name FROM demo_seed_state WHERE seed_name = ?', ['reference-school']);
+  if (alreadyStarted) return emptyResult;
+  await db.run(
+    'INSERT INTO demo_seed_state (seed_name, started_at) VALUES (?, CURRENT_TIMESTAMP)',
+    ['reference-school']
+  );
+
   console.log('\n╔══════════════════════════════════════════════════╗');
   console.log('║  🦅 ÁQUILA PRO — SEED PILOTO ESCOLA REAL         ║');
   console.log('║  Grade Horária Padrão Institucional              ║');
   console.log('╚══════════════════════════════════════════════════╝\n');
 
-  const credentials: Array<{ name: string; login: string; password: string; role: string }> = [];
   let teachersCreated = 0;
   let classesCreated = 0;
   let roomsCreated = 0;
@@ -259,7 +271,7 @@ export async function seedRealSchool(db: Database): Promise<{
 
     const existing = await db.get('SELECT id FROM users WHERE username = ?', [username]);
     if (!existing) {
-      const passwordHash = hashPassword(username); // Senha = login
+      const passwordHash = hashPassword(crypto.randomBytes(32).toString('hex'));
       await db.run(
         'INSERT INTO users (id, username, password_hash, name, role) VALUES (?, ?, ?, ?, ?)',
         [userId, username, passwordHash, t.name, 'docente']
@@ -271,9 +283,8 @@ export async function seedRealSchool(db: Database): Promise<{
         [userId, t.name, 'docente', 'active']
       );
       
-      credentials.push({ name: t.name, login: username, password: username, role: 'docente' });
       teachersCreated++;
-      console.log(`  ✅ ${t.name} → login: ${username} | senha: ${username}`);
+      console.log(`  ✅ Usuário sintético de referência criado: ${username}`);
     } else {
       teacherIdMap[t.name] = existing.id;
       console.log(`  ⏩ ${t.name} já existe (${username})`);
@@ -391,7 +402,7 @@ export async function seedRealSchool(db: Database): Promise<{
   for (const u of customUsers) {
     const existing = await db.get('SELECT id FROM users WHERE username = ?', [u.username]);
     if (!existing) {
-      const passwordHash = hashPassword(u.username);
+      const passwordHash = hashPassword(crypto.randomBytes(32).toString('hex'));
       await db.run(
         'INSERT INTO users (id, username, password_hash, name, role) VALUES (?, ?, ?, ?, ?)',
         [u.id, u.username, passwordHash, u.name, u.role]
@@ -400,21 +411,8 @@ export async function seedRealSchool(db: Database): Promise<{
         'INSERT OR IGNORE INTO staff (id, name, role, status) VALUES (?, ?, ?, ?)',
         [u.id, u.name, u.role, 'active']
       );
-      credentials.push({ name: u.name, login: u.username, password: u.username, role: u.role });
-      console.log(`  ✅ Gestor criado: ${u.name} → login: ${u.username} | senha: ${u.username} (${u.role})`);
+      console.log(`  ✅ Usuário sintético de referência criado: ${u.username}`);
     }
-  }
-
-  // ── 6. ADMIN PADRÃO (caso não exista) ──
-  const adminExists = await db.get("SELECT id FROM users WHERE username = 'admin'");
-  if (!adminExists) {
-    const adminHash = hashPassword(process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin');
-    await db.run(
-      'INSERT INTO users (id, username, password_hash, name, role) VALUES (?, ?, ?, ?, ?)',
-      ['user-admin', 'admin', adminHash, 'Administrador Áquila', 'admin']
-    );
-    credentials.push({ name: 'Administrador', login: 'admin', password: process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin', role: 'admin' });
-    console.log('\n🔐 Admin criado: admin / EagleSovereign2026#Admin');
   }
 
   // ── 7. ALUNOS ──
@@ -590,5 +588,5 @@ export async function seedRealSchool(db: Database): Promise<{
   console.log(`║  ✅ Eventos criados:     ${calendarCreated.toString().padStart(3)}`);
   console.log('╚══════════════════════════════════════════════════╝\n');
 
-  return { teachersCreated, classesCreated, roomsCreated, schedulesCreated, credentials };
+  return { teachersCreated, classesCreated, roomsCreated, schedulesCreated };
 }

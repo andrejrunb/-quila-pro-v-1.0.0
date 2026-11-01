@@ -3657,7 +3657,7 @@
                       "text": "[Main] INSERT INTO users (id, username, password_hash, name, role) VALUES ('user-admin', 'admin', 'scrypt$16384$8$1$e98c4b4334f31f8'/*+146 bytes*/, 'Administrador Áquila', 'admin')\n\n"
                     },
                     {
-                      "text": "[Main] \n🔐 Admin criado: admin / EagleSovereign2026#Admin\n\n"
+                      "text": "[Main] \n🔐 Admin criado: admin / [REDACTED LEGACY CREDENTIAL]\n\n"
                     },
                     {
                       "text": "[Main] \n👥 Criando alunos...\n\n"

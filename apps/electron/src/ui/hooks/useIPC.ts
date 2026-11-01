@@ -62,8 +62,11 @@ export const useIPC = () => {
   }, [invoke]);
 
   const createStudent = useCallback(async (studentData: any) => {
-    return await invoke('create-student', studentData);
-  }, [invoke]);
+    if (!aquila?.createStudent) {
+      return { success: false, error: 'IPC_NOT_FOUND' };
+    }
+    return await aquila.createStudent(studentData);
+  }, []);
 
   const uploadStudentPhoto = useCallback(async (studentId: string, filePath: string) => {
     return await invoke('upload-student-photo', studentId, filePath);

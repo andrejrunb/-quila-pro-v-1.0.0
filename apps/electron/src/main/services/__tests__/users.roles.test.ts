@@ -37,6 +37,7 @@ const ALL_ROLES = [
 
 /** Roles que têm acesso ao desktop (App.tsx:isProgramAuthorized) */
 const DESKTOP_AUTHORIZED_ROLES = ['admin', 'director', 'secretary', 'hr', 'coordinator', 'security', 'totem'];
+const ORIGINAL_NODE_ENV = process.env.NODE_ENV;
 
 import SessionService from '../SessionService';
 
@@ -51,6 +52,7 @@ describe('Áquila Pro — Usuários, Roles e Relações', () => {
   let sessions: Map<string, any>;
 
   beforeEach(() => {
+    process.env.AQUILA_AUTH_SECRET = 'test-session-signing-key-with-at-least-32-bytes';
     mockDb = new Database() as jest.Mocked<Database>;
     mockSessionService = new SessionService() as jest.Mocked<SessionService>;
     authService = new AuthService(mockDb, mockSessionService);
@@ -77,6 +79,16 @@ describe('Áquila Pro — Usuários, Roles e Relações', () => {
       }
       return null;
     });
+  });
+
+  afterEach(() => {
+    delete process.env.AQUILA_AUTH_SECRET;
+    delete process.env.AQUILA_INITIAL_ADMIN_USERNAME;
+    delete process.env.AQUILA_INITIAL_ADMIN_PASSWORD;
+    delete process.env.AQUILA_ENABLE_DEMO_USERS;
+    delete process.env.AQUILA_DEMO_SEED_DB_PATH;
+    if (ORIGINAL_NODE_ENV === undefined) delete process.env.NODE_ENV;
+    else process.env.NODE_ENV = ORIGINAL_NODE_ENV;
   });
 
   afterAll(async () => {
@@ -107,7 +119,7 @@ describe('Áquila Pro — Usuários, Roles e Relações', () => {
       expect(session).not.toBeNull();
       expect(session?.user.role).toBe(role);
       expect(session?.user.username).toBe(`${role}_user`);
-      expect(session?.token).toHaveLength(64); // 32 bytes hex
+      expect(session?.token.split('.')).toHaveLength(2);
       expect(session?.expiresAt).toBeGreaterThan(Date.now());
     });
 
@@ -214,7 +226,7 @@ describe('Áquila Pro — Usuários, Roles e Relações', () => {
   });
 
   // ════════════════════════════════════════════════════════════════════════════
-  // GRUPO 3: Criação de usuários (createUser / ensureDefaultAdmin)
+  // GRUPO 3: Criação de usuários (createUser / provisionInitialAdmin)
   // ════════════════════════════════════════════════════════════════════════════
   describe('3. Criação de usuários', () => {
 
@@ -239,52 +251,41 @@ describe('Áquila Pro — Usuários, Roles e Relações', () => {
       );
     });
 
-    it('createUser usa role "operator" como default se não informado', async () => {
+    it('createUser requires a provided password and defaults no credential', async () => {
       mockDb.run = jest.fn().mockResolvedValueOnce({ changes: 1, lastID: 1 });
-      await authService.createUser({ username: 'sem_role', name: 'Sem Role' });
-      expect(mockDb.run).toHaveBeenCalledWith(
-        expect.anything(),
-        expect.arrayContaining(['operator'])
-      );
-    });
-
-    it('ensureDefaultAdmin cria admin se não existe', async () => {
-      mockDb.get.mockResolvedValueOnce(null); // admin não existe
-      // db.run já é stateful no beforeEach
-
-
-      await authService.ensureDefaultAdmin();
-
-      expect(mockDb.run).toHaveBeenCalledWith(
-        expect.stringContaining('INSERT INTO users'),
-        expect.arrayContaining(['admin'])
-      );
-    });
-
-    it('ensureDefaultAdmin NÃO cria se admin já existe', async () => {
-      mockDb.get.mockResolvedValueOnce({ id: 'u1', username: 'admin' });
-
-      await authService.ensureDefaultAdmin();
-
+      await expect(authService.createUser({
+        username: 'sem_senha',
+        password: '',
+        name: 'Sem senha',
+        role: 'operator'
+      })).rejects.toThrow('individual password');
       expect(mockDb.run).not.toHaveBeenCalled();
     });
 
-    it('seedDemoUsers cria 4 usuários demo de roles diferentes', async () => {
-      // Todos os 4 checks retornam null (nenhum existe)
-      mockDb.get.mockResolvedValue(null);
-      // db.run já é stateful no beforeEach (vai salvar na session map se for o caso, ou apenas retornar sucesso)
+    it('does not provision an initial administrator without explicit credentials', async () => {
+      await authService.provisionInitialAdmin();
+      expect(mockDb.run).not.toHaveBeenCalled();
+    });
 
+    it('preserves an existing administrator instead of replacing its account', async () => {
+      process.env.AQUILA_INITIAL_ADMIN_USERNAME = 'new-admin';
+      process.env.AQUILA_INITIAL_ADMIN_PASSWORD = 'a-unique-individual-secret';
+      mockDb.get.mockImplementation(async (sql: string) => {
+        if (sql.includes("role = 'admin'")) return { id: 'existing-admin', isActive: 0 };
+        return null;
+      });
 
+      await authService.provisionInitialAdmin();
+      expect(mockDb.run.mock.calls.some(([sql]) => sql.includes('INSERT INTO users'))).toBe(false);
+    });
+
+    it('does not seed demo users during production startup', async () => {
+      process.env.NODE_ENV = 'production';
+      process.env.AQUILA_ENABLE_DEMO_USERS = 'true';
+      process.env.AQUILA_DEMO_SEED_DB_PATH = 'C:\\demo\\test.db';
       await authService.seedDemoUsers();
-
-      // seedDemoUsers chama get 4 vezes (verifica existência) e run 4 vezes (inserção)
-      expect(mockDb.get).toHaveBeenCalledTimes(4);
-      expect(mockDb.run).toHaveBeenCalledTimes(4);
-      const roles = mockDb.run.mock.calls.map(call => (call[1] as any[])?.[4]);
-      expect(roles).toContain('rh');
-      expect(roles).toContain('coordenacao');
-      expect(roles).toContain('docente');
-      expect(roles).toContain('pais');
+      expect(mockDb.get).not.toHaveBeenCalled();
+      expect(mockDb.run).not.toHaveBeenCalled();
     });
   });
 
@@ -361,7 +362,7 @@ describe('Áquila Pro — Usuários, Roles e Relações', () => {
   describe('6. Compatibilidade de hash — SetupWizard → AuthService', () => {
 
     it('hash scrypt gerado externamente é verificável pelo AuthService._verifyPassword', async () => {
-      const password = process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin';
+      const password = 'unique-individual-provisioning-test-password';
       const hash = scryptHash(password); // mesmo algoritmo do create-admin-user corrigido
 
       const mockUser = { id: 'u-setup', username: 'novo_admin', password_hash: hash, name: 'Novo', role: 'admin' };

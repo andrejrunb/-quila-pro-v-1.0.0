@@ -15,6 +15,7 @@ describe('AuthenticationManager', () => {
   let mockDb: any;
 
   beforeEach(() => {
+    process.env.AQUILA_AUTH_SECRET = 'test-session-signing-key-with-at-least-32-bytes';
     mockDb = {
       query: jest.fn(),
       get: jest.fn(),
@@ -24,6 +25,15 @@ describe('AuthenticationManager', () => {
     (Database.getInstance as any).mockReturnValue(mockDb);
     authManager = new AuthenticationManager();
     jest.clearAllMocks();
+  });
+
+  afterEach(() => {
+    delete process.env.AQUILA_AUTH_SECRET;
+  });
+
+  it('fails closed when the session signing key is missing', () => {
+    delete process.env.AQUILA_AUTH_SECRET;
+    expect(() => new AuthenticationManager()).toThrow('AQUILA_AUTH_SECRET');
   });
 
   describe('Password Hashing (Scrypt)', () => {
@@ -44,7 +54,9 @@ describe('AuthenticationManager', () => {
       mockDb.get.mockResolvedValueOnce({
         id: '1',
         username: 'test',
-        password_hash: hash
+        password_hash: hash,
+        role: 'admin',
+        isActive: true,
       });
       mockDb.run.mockResolvedValueOnce({ changes: 1 });
 
@@ -61,7 +73,9 @@ describe('AuthenticationManager', () => {
       mockDb.get.mockResolvedValueOnce({
         id: 'legacy-1',
         username: 'olduser',
-        password_hash: legacyHash
+        password_hash: legacyHash,
+        role: 'admin',
+        isActive: true,
       });
       mockDb.run.mockResolvedValueOnce({ changes: 1 });
 
@@ -75,7 +89,9 @@ describe('AuthenticationManager', () => {
       mockDb.get.mockResolvedValueOnce({
         id: '1',
         username: 'test',
-        password_hash: 'scrypt$16384$8$1$salt$wrong'
+        password_hash: 'scrypt$16384$8$1$salt$wrong',
+        role: 'admin',
+        isActive: true,
       });
 
       const token = await authManager.login({ email: 'test', password: 'password' });
@@ -85,7 +101,14 @@ describe('AuthenticationManager', () => {
     it('deve gerenciar expiração de sessão', async () => {
       // Mock login to get token
       const hash = (authManager as any).hashPassword('pass');
-      mockDb.get.mockResolvedValueOnce({ id: '1', email: 'a@a.com', password_hash: hash });
+      mockDb.get.mockResolvedValueOnce({
+        id: '1',
+        username: 'a@a.com',
+        email: 'a@a.com',
+        password_hash: hash,
+        role: 'admin',
+        isActive: true,
+      });
       mockDb.run.mockResolvedValueOnce({ changes: 1 });
       const authToken = await authManager.login({ email: 'a@a.com', password: 'pass' });
 

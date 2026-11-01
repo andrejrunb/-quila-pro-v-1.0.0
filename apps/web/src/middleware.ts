@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifySession } from '@/lib/session';
+import { canAccessPortal, ROLE_DESTINATIONS } from '@/lib/portalAccess';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -26,13 +27,12 @@ export async function middleware(request: NextRequest) {
       return response;
     }
 
-    // Controle de Acesso Baseado em Funções (RBAC)
     if (pathname.startsWith('/soc') && session.role !== 'admin' && session.role !== 'coordinator') {
-      return NextResponse.redirect(new URL('/portal/aluno', request.url));
+      return NextResponse.redirect(new URL(ROLE_DESTINATIONS[session.role], request.url));
     }
 
-    if (pathname.startsWith('/portal/coordenacao') && session.role !== 'admin' && session.role !== 'coordinator') {
-      return NextResponse.redirect(new URL('/portal/aluno', request.url));
+    if (pathname.startsWith('/portal') && !canAccessPortal(session.role, pathname)) {
+      return NextResponse.redirect(new URL(ROLE_DESTINATIONS[session.role], request.url));
     }
   }
 

@@ -1,12 +1,6 @@
 import { Database } from '../../database/Database';
 import { v4 as uuidv4 } from 'uuid';
-import * as crypto from 'crypto';
-
-function hashPassword(password: string): string {
-  const salt = crypto.randomBytes(16).toString('hex');
-  const hash = crypto.scryptSync(password, salt, 64, { N: 16384, r: 8, p: 1 }).toString('hex');
-  return `scrypt$16384$8$1$${salt}$${hash}`;
-}
+import { isDedicatedDemoDatabase } from '../../database/demoSeedGuard';
 
 const FIRST_NAMES = [
   'Gabriel', 'Lucas', 'Matheus', 'Pedro', 'Guilherme', 'Enzo', 'Gustavo', 'Rafael', 'João', 'Felipe',
@@ -22,8 +16,15 @@ const LAST_NAMES = [
 ];
 
 export async function seedProductionData() {
+  if (
+    process.env.AQUILA_ENABLE_DEMO_SEED !== 'true' ||
+    !isDedicatedDemoDatabase(Database.getInstance().getDatabasePath())
+  ) {
+    throw new Error('Synthetic seeding requires an explicitly isolated development database.');
+  }
+
   const db = Database.getInstance();
-  console.log('--- Iniciando Seeding de Dados de Produção (Áquila Pro v1.0) ---');
+  console.log('--- Iniciando seed sintético para desenvolvimento isolado ---');
 
   try {
     // Desativar FKs temporariamente para permitir limpeza e seeding de dados
@@ -37,7 +38,6 @@ export async function seedProductionData() {
     await db.run('DELETE FROM staff_details');
     await db.run('DELETE FROM staff');
     await db.run('DELETE FROM schools');
-    await db.run("DELETE FROM users WHERE username IN ('admin', 'diretor', 'professor', 'monitor')");
     await db.run("DELETE FROM cameras WHERE name IN ('Câmera Pátio Central', 'Câmera Corredor 1')");
 
     // 1. Criar Escola e Período
@@ -98,22 +98,7 @@ export async function seedProductionData() {
       }
     }
 
-    // 4.5 Criar Usuários de Login (Sistema)
-    console.log('Gerando usuários de sistema...');
-    const systemUsers = [
-      { id: 'user-admin-01', name: 'Administrador Principal', role: 'admin', username: 'admin', pass: process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin', email: 'admin@aquila.edu' },
-      { id: uuidv4(), name: 'Diretor Áquila', role: 'director', username: 'diretor', pass: 'Diretor@2026!', email: 'diretor@aquila.edu' },
-      { id: uuidv4(), name: 'Professor Principal', role: 'docente', username: 'professor', pass: 'Prof@2026!', email: 'professor@aquila.edu' },
-      { id: uuidv4(), name: 'Monitoria Pátio', role: 'security', username: 'monitor', pass: 'Sec@2026!', email: 'monitor@aquila.edu' }
-    ];
-    for (const u of systemUsers) {
-      const hash = hashPassword(u.pass);
-      await db.run('INSERT OR IGNORE INTO users (id, name, role, username, password_hash, email) VALUES (?, ?, ?, ?, ?, ?)', [
-        u.id, u.name, u.role, u.username, hash, u.email
-      ]);
-    }
-
-    // 4.6 Criar Câmeras
+    // 4.5 Criar Câmeras fictícias
     console.log('Gerando câmeras fictícias...');
     await db.run('INSERT OR IGNORE INTO cameras (id, name, rtspUrl, location, status, last_seen, config) VALUES (?, ?, ?, ?, ?, ?, ?)', [
       uuidv4(), 'Câmera Pátio Central', 'rtsp://192.168.1.10/stream', 'Pátio', 'online', new Date().toISOString(), JSON.stringify({ fps: 30, resolution: '1080p' })
@@ -126,10 +111,13 @@ export async function seedProductionData() {
     await db.run('PRAGMA foreign_keys = ON');
     console.log('--- Seeding concluído com sucesso ---');
   } catch (err) {
-    // Garantir que as FKs sejam reativadas em caso de erro
+    // Restore FK enforcement and propagate the seed failure to the runner.
     try {
       await db.run('PRAGMA foreign_keys = ON');
-    } catch (_) {}
+    } catch (cleanupError) {
+      console.error('Falha ao reativar foreign keys após erro no seeding:', cleanupError);
+    }
     console.error('Falha no seeding:', err);
+    throw err;
   }
 }

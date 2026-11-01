@@ -1,29 +1,22 @@
 import Database from '../database/Database';
 import { seedRealSchool } from '../database/seedRealSchool';
+import { isIsolatedDemoDatabaseTarget } from '../database/demoSeedGuard';
 import * as path from 'path';
-import * as fs from 'fs';
 
 async function main() {
-  console.log("--- starting seed script for Colegio Visao ---");
-  
-  // Resolve AppData database path
-  const appDataPath = process.env.APPDATA || (process.platform === 'darwin' ? process.env.HOME + '/Library/Application Support' : process.env.HOME + '/.config');
-  const dbDir = path.join(appDataPath, 'AquilaPro');
-  const dbFile = path.join(dbDir, 'aquila.db');
-  
-  console.log("Database file path:", dbFile);
-
-  if (fs.existsSync(dbFile)) {
-    console.log("Deleting old database file to ensure a clean seed...");
-    try {
-      fs.unlinkSync(dbFile);
-      console.log("Database file deleted successfully.");
-    } catch (e: any) {
-      console.error("Failed to delete database file:", e.message);
-    }
+  const demoDbPath = process.env.AQUILA_DEMO_SEED_DB_PATH;
+  if (
+    process.env.NODE_ENV !== 'development' ||
+    process.env.AQUILA_ENABLE_DEMO_SEED !== 'true' ||
+    !demoDbPath ||
+    !path.isAbsolute(demoDbPath) ||
+    !isIsolatedDemoDatabaseTarget(path.resolve(demoDbPath))
+  ) {
+    throw new Error('Set NODE_ENV=development, AQUILA_ENABLE_DEMO_SEED=true, and an absolute AQUILA_DEMO_SEED_DB_PATH.');
   }
 
-  const db = new Database(dbFile);
+  console.log('Starting isolated reference-school seed:', path.resolve(demoDbPath));
+  const db = new Database(path.resolve(demoDbPath));
   await db.initialize();
   
   const result = await seedRealSchool(db);
@@ -32,7 +25,6 @@ async function main() {
     classesCreated: result.classesCreated,
     roomsCreated: result.roomsCreated,
     schedulesCreated: result.schedulesCreated,
-    totalCredentials: result.credentials.length
   });
 
   process.exit(0);

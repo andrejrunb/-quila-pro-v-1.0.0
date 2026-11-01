@@ -10,6 +10,7 @@ import { semanticSearchService } from '../main/services/SemanticSearchService';
 import { networkGuardService } from '../main/services/NetworkGuardService';
 import { colabOffloadBridge } from '../main/services/ColabOffloadBridge';
 import { colabGpuBridge } from '../main/services/ColabGpuBridge';
+import { registerStudentHandlers } from './studentHandlers';
 
 export interface SovereignContext {
   db?: any;
@@ -217,6 +218,7 @@ export function registerIPCHandlers(context: SovereignContext) {
 
   // Orchestrate clusters
   registerAuthCluster(context, protectedHandle);
+  registerStudentHandlers(context, protectedHandle);
   registerSystemCluster(context, protectedHandle);
   registerPedagogicalCluster(context, protectedHandle);
   registerInstitutionalCluster(context, protectedHandle);
@@ -332,10 +334,6 @@ export function registerIPCHandlers(context: SovereignContext) {
 function registerAuthCluster(context: any, protectedHandle: any) {
   protectedHandle('auth:login', async (_e, { username, password, institution }: any) => {
     const { authService } = context;
-    if (process.env.PLAYWRIGHT === 'true' && username === 'admin') {
-      await authService?.ensureDefaultAdmin?.();
-    }
-
     // Validar credencial da instituição
     if (institution) {
       const normalizedInst = institution.trim().toUpperCase();
@@ -606,7 +604,11 @@ function registerSystemCluster(context: any, protectedHandle: any) {
     const crypto = require('crypto');
     return events.map((e: any) => {
       const hash = crypto.createHash('sha256').update(JSON.stringify(e)).digest('hex');
-      const signature = crypto.createHmac('sha256', 'aquila_secret').update(hash).digest('hex');
+      const auditKey = process.env.AQUILA_AUDIT_HMAC_SECRET;
+      if (!auditKey || Buffer.byteLength(auditKey, 'utf8') < 32) {
+        throw new Error('AQUILA_AUDIT_HMAC_SECRET must be configured with at least 32 bytes.');
+      }
+      const signature = crypto.createHmac('sha256', auditKey).update(hash).digest('hex');
       return {
         id: e.id,
         timestamp: e.timestamp,
@@ -648,57 +650,6 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
   protectedHandle('get-students', async (_e, classId?: string) => {
     const { db } = context;
     return await db?.getStudents(classId);
-  });
-
-  protectedHandle('secretaria:add-student', async (_e, payload: any) => {
-    try {
-      const { db, authService } = context;
-      const studentId = payload.id || `stu-${Date.now()}`;
-      
-      // Criar credenciais baseadas no CPF (ou um hash dele)
-      const username = payload.cpf ? payload.cpf.replace(/\D/g, '') : studentId;
-      const defaultPassword = username; // CPF como senha inicial, o AuthService faz o Hash
-
-      if (authService) {
-        await authService.createUser({
-          username: username,
-          password: defaultPassword,
-          name: payload.name,
-          role: 'student'
-        });
-      }
-
-      await db.addStudent({ ...payload, id: studentId });
-      
-      // Retorna as infos pro UI (ex: login e senha para imprimir)
-      return { success: true, login: username, password: defaultPassword };
-    } catch (err: any) {
-      logger.error('Erro ao adicionar aluno', err);
-      return { success: false, error: err.message };
-    }
-  });
-
-  protectedHandle('secretaria:add-teacher', async (_e, payload: any) => {
-    try {
-      const { db, authService } = context;
-      const teacherId = payload.id || `tea-${Date.now()}`;
-      const username = payload.cpf ? payload.cpf.replace(/\D/g, '') : teacherId;
-      
-      if (authService) {
-        await authService.createUser({
-          username: username,
-          password: username,
-          name: payload.name,
-          role: 'teacher'
-        });
-      }
-
-      await db.addTeacher({ ...payload, id: teacherId });
-      return { success: true, login: username, password: username };
-    } catch (err: any) {
-      logger.error('Erro ao adicionar professor', err);
-      return { success: false, error: err.message };
-    }
   });
 
   protectedHandle('secretaria:add-class', async (_e, payload: any) => {
@@ -957,10 +908,6 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
   protectedHandle('get-student', async (_e, id: string) => {
     const { db } = context;
     return await db?.getStudent(id);
-  });
-  protectedHandle('create-student', async (_e, s: any) => {
-    const { db } = context;
-    return await db?.createStudent(s);
   });
   protectedHandle('update-student', async (_e, s: any) => {
     const { db } = context;
@@ -1899,7 +1846,14 @@ function registerSecretariatCluster(context: any, protectedHandle: any) {
   });
 
   protectedHandle('secretariat:create-teacher', async (_e, teacher: any) => {
+    const user = await context.authService?.getCurrentUser?.();
+    if (!user || !['admin', 'director', 'secretary'].includes(user.role || '')) {
+      return { success: false, error: 'Not authorized to create teachers.', code: 'UNAUTHORIZED' };
+    }
     const { secretariatService } = context;
+    if (!secretariatService) {
+      return { success: false, error: 'Teacher service is unavailable.', code: 'SERVICE_UNAVAILABLE' };
+    }
     return await secretariatService?.createTeacher(teacher);
   });
 
@@ -4564,11 +4518,6 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
     return await pageIndexRAGService?.search?.(query) || [];
   });
 
-  protectedHandle('students:add', async (_e: any, payload: any) => {
-    const { db } = context;
-    return await db?.addStudent?.(payload);
-  });
-
   protectedHandle('students:train', async (_e: any, studentId: string) => {
     const { faceWorker } = context;
     return await faceWorker?.trainFaceRecognition?.(studentId) || { success: true };
@@ -4892,5 +4841,3 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
     return { success: true, config: DominioWebWorker.getInstance().getConfig() };
   });
 }
-
-

@@ -28,10 +28,19 @@ interface CameraConfig {
 }
 
 interface StudentData {
-  id: string;
+  id?: string;
   name: string;
   classId: string;
   photoPath?: string;
+  parentPhone?: string;
+  registrationNumber?: string;
+}
+
+interface StudentCreateData {
+  name: string;
+  classId: string;
+  parentPhone?: string;
+  registrationNumber?: string;
 }
 
 interface AttendanceQuery {
@@ -102,7 +111,7 @@ const aquilaAPI = {
   // ---- ALUNOS ----
   getStudents: (classId?: string) => ipcRenderer.invoke('get-students', classId),
   getStudent: (studentId: string) => ipcRenderer.invoke('get-student', studentId),
-  createStudent: (student: StudentData) => ipcRenderer.invoke('create-student', student),
+  createStudent: (student: StudentCreateData) => ipcRenderer.invoke('create-student', student),
   updateStudent: (student: StudentData) => ipcRenderer.invoke('update-student', student),
   deleteStudent: (studentId: string) => ipcRenderer.invoke('delete-student', studentId),
   inference: inferenceAPI,
@@ -463,7 +472,6 @@ const aquilaAPI = {
   // ---- BACKUP ----
   backupNow: () => ipcRenderer.invoke('backup-now'),
   getBackupHistory: () => ipcRenderer.invoke('get-backup-history'),
-  restoreBackup: (backupId: string) => ipcRenderer.invoke('restore-backup', backupId),
   setBackupSchedule: (schedule: any) => ipcRenderer.invoke('set-backup-schedule', schedule),
   
   // ---- AUTENTICAÇÃO ----
@@ -644,7 +652,7 @@ const aquilaAPI = {
       'get-app-version', 'get-system-info', 'get-hardware-id', 'get-density',
       'get-settings', 'save-settings', 'get-cameras', 'add-camera', 'update-camera',
       'remove-camera', 'test-camera', 'start-camera', 'stop-camera', 'get-students',
-      'get-student', 'create-student', 'update-student', 'delete-student',
+      'get-student', 'update-student', 'delete-student',
       'upload-student-photo', 'train-face-recognition', 'get-classes', 'upsert-class',
       'delete-class', 'get-rooms', 'upsert-room', 'delete-room', 'get-schedules',
       'upsert-schedule', 'delete-schedule', 'clear-schedules', 'calculate-attendance', 'get-attendance-report',
@@ -693,7 +701,7 @@ const aquilaAPI = {
       'ai:chat', 'ai:get-events', 'ai:simulate-event', 'attendance:get-telemetry', 'reid:get-sessions', 'presence:get-discrepancies', 'iot:get-status', 'iot:trigger', 'biometric:get-status', 'biometric:scan',
       'settings:get', 'settings:save', 'auth:create-user', 'discover-cameras',
       'get-reid-sessions', 'get-sync-status', 'lgpd:get-retention', 'lgpd:set-retention',
-      'logout-session', 'reports:attendance', 'search-rag', 'students:add',
+      'logout-session', 'reports:attendance', 'search-rag',
       'students:train', 'get-billing-registry', 'get-payment-history', 'get-subscription',
       'reports:export-excel', 'reports:export-pdf', 'get-ai-synthesis',
       'adapt-messenger-content', 'swarm:get-installed-models', 'swarm:deploy-model',
