@@ -62,7 +62,6 @@ jobs:
   typecheck-and-lint:
     name: 🔍 TypeScript Strict Check & ESLint
     runs-on: ubuntu-latest
-    needs: [security-audit]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -93,7 +92,6 @@ jobs:
   test:
     name: 🧪 Automated Test Suite & LGPD Integrity
     runs-on: ubuntu-latest
-    needs: [security-audit]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -169,3 +167,39 @@ jobs:
           pnpm --filter aquila-pro-school-os run build:renderer
         env:
           NODE_ENV: production
+
+  # ──────────────────────────────────────────
+  # JOB 6: Required Release Gate
+  # ──────────────────────────────────────────
+  release-gate:
+    name: 🚦 Required Release Gate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    needs:
+      - security-audit
+      - aquila-notebook-tests
+      - typecheck-and-lint
+      - test
+      - build
+    steps:
+      - name: Require all verification jobs to pass
+        env:
+          SECURITY_AUDIT_RESULT: ${{ needs.security-audit.result }}
+          AQUILA_NOTEBOOK_TESTS_RESULT: ${{ needs.aquila-notebook-tests.result }}
+          TYPECHECK_RESULT: ${{ needs.typecheck-and-lint.result }}
+          TEST_RESULT: ${{ needs.test.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+        run: |
+          failed=0
+          for job_result in \
+            "$SECURITY_AUDIT_RESULT" \
+            "$AQUILA_NOTEBOOK_TESTS_RESULT" \
+            "$TYPECHECK_RESULT" \
+            "$TEST_RESULT" \
+            "$BUILD_RESULT"; do
+            if [ "$job_result" != "success" ]; then
+              echo "Required verification did not pass: $job_result"
+              failed=1
+            fi
+          done
+          exit "$failed"
