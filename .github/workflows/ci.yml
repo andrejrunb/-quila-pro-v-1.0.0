@@ -107,10 +107,10 @@ jobs:
         run: pnpm dlx tsx scripts/test_omr_calibration.ts
 
       - name: Run SQLite Edge Backup & DR Security Suite
-        run: node scripts/test_backup_dr_suite.cjs
+        run: NODE_PATH=apps/electron/node_modules node scripts/test_backup_dr_suite.cjs
 
       - name: Run E2E Critical Operational Flows Suite
-        run: node scripts/test_e2e_critical_flow.cjs
+        run: NODE_PATH=apps/electron/node_modules node scripts/test_e2e_critical_flow.cjs
 
       - name: Upload Test Artifacts
         if: always()
