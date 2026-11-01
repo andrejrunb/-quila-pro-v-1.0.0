@@ -96,7 +96,9 @@ jobs:
         run: pnpm install --frozen-lockfile || pnpm install
 
       - name: Run Web Crypto HMAC-SHA256 Security Suite
-        run: pnpm dlx tsx scripts/test_session_security.ts
+        run: |
+          AQUILA_AUTH_SECRET="$(node -e 'process.stdout.write(require("crypto").randomBytes(32).toString("hex"))')" \
+            pnpm dlx tsx scripts/test_session_security.ts
 
       - name: Run LGPD Student Rights Test Suite (Art. 14, 16, 18)
         run: pnpm dlx tsx scripts/test_lgpd_rights.ts
