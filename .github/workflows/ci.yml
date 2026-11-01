@@ -141,6 +141,7 @@ jobs:
   # ──────────────────────────────────────────
   build:
     name: 🏗️ Production Build Verification
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     needs: [typecheck-and-lint, test]
     steps:
