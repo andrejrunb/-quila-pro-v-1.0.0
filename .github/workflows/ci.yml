@@ -22,7 +22,7 @@ jobs:
       - name: Detect Leaked Secrets
         run: |
           echo "Scanning for plaintext credentials and raw keys..."
-          ! git grep -E "([s]k_live_|AIzaSy[A-Za-z0-9_-]{33}|ghp_[A-Za-z0-9]{36})" -- ':!*.example' ':!*.md' ':!colab/*.ipynb' ':!scripts/protect_branches.py'
+          ! git grep -E "(s[k]_live_|AIzaSy[A-Za-z0-9_-]{33}|ghp_[A-Za-z0-9]{36})" -- ':!*.example' ':!*.md' ':!colab/*.ipynb' ':!scripts/protect_branches.py'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -121,9 +121,14 @@ jobs:
 
       - name: Run SQLite Edge Backup & DR Security Suite
         run: node scripts/test_backup_dr_suite.cjs
+        env:
+          NODE_PATH: ${{ github.workspace }}/apps/electron/node_modules
 
       - name: Run E2E Critical Operational Flows Suite
+        if: ${{ always() }}
         run: node scripts/test_e2e_critical_flow.cjs
+        env:
+          NODE_PATH: ${{ github.workspace }}/apps/electron/node_modules
 
       - name: Upload Test Artifacts
         if: always()
