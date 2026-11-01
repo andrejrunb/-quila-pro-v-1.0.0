@@ -1,5 +1,5 @@
 import { ioTMainService } from './IoTMainService';
-import { DeviceConfig } from '../../services/IotTypes';
+import { DeviceConfig } from '../../services/IoTTypes';
 
 /**
  * HardwareBridge handles high-level communication with physical access control hardware.
@@ -45,4 +45,3 @@ export class HardwareBridge {
 }
 
 export const hardwareBridge = HardwareBridge.getInstance();
-

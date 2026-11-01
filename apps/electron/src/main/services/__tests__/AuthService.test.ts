@@ -236,10 +236,12 @@ describe('AuthService', () => {
       process.env.AQUILA_INITIAL_ADMIN_PASSWORD = 'a-unique-individual-secret';
       let completed = false;
       const baseGet = mockDb.get.getMockImplementation();
-      mockDb.get.mockImplementation(async (sql: string, params?: any[]) => {
-        if (sql.includes('auth_provisioning')) return completed ? { key: 'initial-admin' } : null;
-        if (sql.includes("role = 'admin'")) return null;
-        return baseGet ? baseGet(sql, params) : null;
+      mockDb.get.mockImplementation(async <T = any>(sql: string, params?: any[]): Promise<T | undefined> => {
+        if (sql.includes('auth_provisioning')) {
+          return (completed ? { key: 'initial-admin' } : undefined) as T | undefined;
+        }
+        if (sql.includes("role = 'admin'")) return undefined;
+        return baseGet ? baseGet(sql, params) : undefined;
       });
       const baseRun = mockDb.run.getMockImplementation();
       mockDb.run.mockImplementation(async (sql: string, params?: any[]) => {
@@ -259,9 +261,11 @@ describe('AuthService', () => {
     it('does not replace or recreate an existing (including disabled) administrator', async () => {
       process.env.AQUILA_INITIAL_ADMIN_USERNAME = 'replacement-admin';
       process.env.AQUILA_INITIAL_ADMIN_PASSWORD = 'a-unique-individual-secret';
-      mockDb.get.mockImplementation(async (sql: string) => {
-        if (sql.includes("role = 'admin'")) return { id: 'existing-admin', isActive: 0 };
-        return null;
+      mockDb.get.mockImplementation(async <T = any>(sql: string): Promise<T | undefined> => {
+        if (sql.includes("role = 'admin'")) {
+          return { id: 'existing-admin', isActive: 0 } as T;
+        }
+        return undefined;
       });
 
       await authService.provisionInitialAdmin();
@@ -315,9 +319,11 @@ describe('AuthService', () => {
       jest.spyOn(mockDb, 'getDatabasePath').mockReturnValue(databasePath);
 
       let seeded = false;
-      mockDb.get.mockImplementation(async (sql: string) => {
-        if (sql.includes('demo_seed_state')) return seeded ? { seed_name: 'demo-users' } : null;
-        return null;
+      mockDb.get.mockImplementation(async <T = any>(sql: string): Promise<T | undefined> => {
+        if (sql.includes('demo_seed_state')) {
+          return (seeded ? { seed_name: 'demo-users' } : undefined) as T | undefined;
+        }
+        return undefined;
       });
       mockDb.run.mockImplementation(async (sql: string) => {
         if (sql.includes('INSERT INTO demo_seed_state')) seeded = true;

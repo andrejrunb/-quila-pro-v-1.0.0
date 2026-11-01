@@ -5,7 +5,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import * as archiver from 'archiver';
+import archiver from 'archiver';
 import { LicenseManager } from './LicenseManager';
 import { ImmutableAuditLog } from './ImmutableAuditLog';
 
@@ -137,4 +137,3 @@ export class BackupManager {
     }
   }
 }
-

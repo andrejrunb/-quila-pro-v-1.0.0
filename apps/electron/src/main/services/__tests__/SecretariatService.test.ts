@@ -1,7 +1,7 @@
 import { SecretariatService } from '../SecretariatService';
 
 describe('SecretariatService teacher provisioning', () => {
-  const db = { createTeacher: jest.fn(async () => undefined) };
+  const db = { createTeacher: jest.fn(async (_teacher: Record<string, unknown>) => undefined) };
   const service = new SecretariatService(db as any);
 
   beforeEach(() => {
@@ -32,7 +32,8 @@ describe('SecretariatService teacher provisioning', () => {
     expect(response).toEqual({ success: true, id: expect.any(String), login: 'teacher.one' });
     expect(response).not.toHaveProperty('password');
     expect(response).not.toHaveProperty('password');
-    const savedTeacher = db.createTeacher.mock.calls[0][0];
+    const savedTeacher = db.createTeacher.mock.calls[0]?.[0];
+    if (!savedTeacher) throw new Error('Expected the teacher to be persisted.');
     expect(savedTeacher).toMatchObject({ username: 'teacher.one' });
     expect(savedTeacher.password_hash).toMatch(/^scrypt\$16384\$8\$1\$/);
     expect(savedTeacher.password_hash).not.toContain('unique-password-123');

@@ -45,6 +45,8 @@ const ROLE_RATE_LIMITS: Record<WSUserRole, { read: number; write: number; dispat
   GUEST:    { read: 20,  write: 0,   dispatch: 0  }
 };
 
+const LIVE_NOTIFICATION_ROLES: ReadonlySet<WSUserRole> = new Set(['ADMIN', 'TEACHER']);
+
 /**
  * Servidor WebSocket para notificações em tempo real com Segurança Enterprise:
  * - Validação de Origem (LAN e domínios homologados)
@@ -448,6 +450,45 @@ export class WebSocketServerManager extends EventEmitter {
     let sentCount = 0;
     this.clients.forEach((_, client) => {
       if (this.sendToClient(client, message)) {
+        sentCount++;
+      }
+    });
+
+    this.emit('broadcast', {
+      type: message.type,
+      recipientCount: sentCount,
+      timestamp: new Date(),
+    });
+  }
+
+  notifyAlert(alert: Record<string, unknown>): void {
+    this.broadcastToRoles({
+      type: 'alert',
+      category: 'DISPATCH',
+      data: alert,
+      timestamp: new Date()
+    }, LIVE_NOTIFICATION_ROLES);
+  }
+
+  notifyFaceRecognition(data: {
+    studentId: string;
+    studentName: string;
+    zone: string;
+    confidence: number;
+    timestamp: number;
+  }): void {
+    this.broadcastToRoles({
+      type: 'face_recognition',
+      category: 'DISPATCH',
+      data,
+      timestamp: new Date()
+    }, LIVE_NOTIFICATION_ROLES);
+  }
+
+  private broadcastToRoles(message: WSMessage, roles: ReadonlySet<WSUserRole>): void {
+    let sentCount = 0;
+    this.clients.forEach((meta, client) => {
+      if (meta.authenticated && roles.has(meta.role) && this.sendToClient(client, message)) {
         sentCount++;
       }
     });
