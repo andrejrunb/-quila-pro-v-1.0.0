@@ -22,7 +22,11 @@ jobs:
       - name: Detect Leaked Secrets
         run: |
           echo "Scanning for plaintext credentials and raw keys..."
-          ! git grep -E "(sk_live_|AIzaSy[A-Za-z0-9_-]{33}|ghp_[A-Za-z0-9]{36})" -- ':!*.example' ':!*.md' ':!colab/*' ':!scripts/protect_branches.py'
+          prefix_a='sk_live'
+          prefix_b='AIza'
+          prefix_c='ghp'
+          secret_pattern="${prefix_a}_|${prefix_b}Sy[A-Za-z0-9_-]{33}|${prefix_c}_[A-Za-z0-9]{36}"
+          ! git grep -E "$secret_pattern" -- ':!*.example' ':!*.md' ':!colab/*' ':!scripts/protect_branches.py'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
