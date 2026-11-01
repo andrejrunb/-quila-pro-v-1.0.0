@@ -67,6 +67,7 @@ export const SecretariatRegistrationManager: React.FC = () => {
             ) : (
               <p className="text-zinc-400">O cadastro não cria credenciais de acesso.</p>
             )}
+          </div>
         </div>
       </div>
     </div>
