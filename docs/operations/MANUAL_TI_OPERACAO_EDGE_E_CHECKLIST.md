@@ -86,12 +86,10 @@ Register-ScheduledTask -TaskName "AquilaPro_Edge_DailyBackup" -Action $Action -T
 
 ### B. Procedimento de Reinício Seguro do Servidor Edge
 Caso seja necessário reiniciar a máquina física:
-1. Pare o serviço do Áquila Pro no console de gerenciamento ou PowerShell:
-   ```powershell
-   Stop-Process -Name "electron", "node" -Force -ErrorAction SilentlyContinue
-   ```
-2. Realize o reinício padrão do Windows/Linux (`Restart-Computer`).
-3. Ao subir, o serviço inicializa automaticamente e efetua o replay do log WAL em milissegundos.
+1. Solicite a parada graciosa pelo gerenciador de serviços aprovado para essa instalação. Antes de qualquer ação manual, confirme o serviço e o PID exatos da instância Áquila Pro. Não encerre processos globalmente por nome (`electron` ou `node`).
+2. Se o host precisar reiniciar, siga o procedimento de mudança aprovado do sistema operacional.
+3. Após o boot, inicie pelo mesmo gerenciador aprovado e confirme o healthcheck e a abertura do banco pelos procedimentos somente leitura autorizados.
+4. O replay do WAL depende do estado do SQLite e não é uma garantia de recuperação. Em caso de lock, erro de integridade ou estado inesperado, preserve `aquila.db`, `aquila.db-wal` e `aquila.db-shm`, interrompa novas gravações pelo procedimento aprovado e escale para a Engenharia. Não remova esses arquivos nem execute restore/reset.
 
 ---
 
@@ -150,7 +148,7 @@ Preencha e assine antes de liberar o sistema para o primeiro dia letivo com estu
 
 ### Termo de Homologação Operacional
 
-Declaramos que o Servidor Edge do **Áquila Pro** foi instalado, configurado e testado em conformidade com as diretrizes técnicas e de privacidade vigentes, estando formalmente homologado para início do projeto-piloto escolar.
+Este termo só pode ser assinado quando todos os gates aplicáveis desta checklist estiverem aprovados e houver aprovação operacional própria. Enquanto o gate de restore/DR estiver bloqueado, este documento não autoriza go-live nem operação com dados reais de estudantes.
 
 **Local e Data:** _________________________, _____ de __________________ de 2026.
 
