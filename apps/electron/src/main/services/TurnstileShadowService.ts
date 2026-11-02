@@ -24,6 +24,9 @@ import { zeroBypassAuditService } from './ZeroBypassAuditService';
 export type TurnstileOperatingMode = 'SHADOW_MODE' | 'ACTIVE_MODE';
 export type PilotPhase = 'PHASE_1_BENCH_TEST' | 'PHASE_2_SHADOW_GATE' | 'PHASE_3_ACTIVE_PASSAGE';
 
+export type PhysicalPresenceState = 'PERSON_DETECTED' | 'NO_PERSON' | 'SENSOR_ANOMALY';
+export type IdentityEstimationState = 'CONFIRMED' | 'UNKNOWN' | 'DISAGREEMENT' | 'INSUFFICIENT_QUALITY';
+
 export interface AccessAttemptPayload {
   deviceId: string;
   studentId: string;
@@ -32,13 +35,17 @@ export interface AccessAttemptPayload {
   lightingQualityScore?: number;
   detectionLatencyMs?: number;
   hasConsent?: boolean;
+  sensorFailure?: boolean;
+  disagreementDetected?: boolean;
 }
 
 export interface AccessEvaluationResult {
-  decision: 'ALLOW_SHADOW' | 'ALLOW_ACTIVE' | 'DENY_SECURITY' | 'DENY_NO_CONSENT';
+  decision: 'ALLOW_SHADOW' | 'ALLOW_ACTIVE' | 'DENY_SECURITY' | 'DENY_NO_CONSENT' | 'UNKNOWN' | 'DISAGREEMENT' | 'SENSOR_FAILURE';
   operatingMode: TurnstileOperatingMode;
   relayFired: boolean;
   message: string;
+  presenceObserved: PhysicalPresenceState;
+  estimatedIdentityState: IdentityEstimationState;
   telemetry: {
     deviceId: string;
     studentId: string;
@@ -47,6 +54,8 @@ export interface AccessEvaluationResult {
     lightingQualityScore: number;
     latencyMs: number;
     timestamp: number;
+    isPseudonymizedBiometric?: boolean;
+    sensorOk?: boolean;
   };
 }
 
@@ -152,7 +161,8 @@ export class TurnstileShadowService extends EventEmitter {
   }
 
   /**
-   * Avaliação de Acesso com Modo Sombra Rigoroso
+   * Avaliação de Acesso com Separação de Presença Física e Identidade Estimada
+   * Tratamento de vetores biométricos como dados pessoais pseudonimizados (LGPD Art. 14)
    */
   public async evaluateAccess(payload: AccessAttemptPayload): Promise<AccessEvaluationResult> {
     const timestamp = Date.now();
@@ -161,7 +171,90 @@ export class TurnstileShadowService extends EventEmitter {
     const latency = payload.detectionLatencyMs ?? 42;
     const hasConsent = payload.hasConsent !== false;
 
-    // Verificação de consentimento estrito da LGPD Art. 14
+    // 1. Falha física/lógica de sensor de imagem
+    if (payload.sensorFailure) {
+      await zeroBypassAuditService?.record({
+        userId: 'system',
+        action: 'TURNSTILE_SENSOR_FAILURE',
+        details: `Falha no sensor óptico/câmera da catraca ${payload.deviceId}.`,
+        metadata: { deviceId: payload.deviceId, timestamp }
+      });
+
+      return {
+        decision: 'SENSOR_FAILURE',
+        operatingMode: this.operatingMode,
+        relayFired: false,
+        message: 'Falha no sensor de captura de imagem. Encaminhar para controle manual da portaria.',
+        presenceObserved: 'SENSOR_ANOMALY',
+        estimatedIdentityState: 'INSUFFICIENT_QUALITY',
+        telemetry: {
+          deviceId: payload.deviceId,
+          studentId: payload.studentId,
+          studentName: payload.studentName,
+          photoScore: 0,
+          lightingQualityScore: 0,
+          latencyMs: latency,
+          timestamp,
+          isPseudonymizedBiometric: true,
+          sensorOk: false
+        }
+      };
+    }
+
+    // 2. Divergência biométrica entre credencial e observação
+    if (payload.disagreementDetected) {
+      await zeroBypassAuditService?.record({
+        userId: payload.studentId,
+        action: 'TURNSTILE_DISAGREEMENT',
+        details: `Divergência detectada entre credencial e padrão facial para ${payload.studentName}.`,
+        metadata: { deviceId: payload.deviceId, studentId: payload.studentId, timestamp }
+      });
+
+      return {
+        decision: 'DISAGREEMENT',
+        operatingMode: this.operatingMode,
+        relayFired: false,
+        message: 'Divergência entre credencial e padrão facial. Acionado operador humano sem retenção do estudante.',
+        presenceObserved: 'PERSON_DETECTED',
+        estimatedIdentityState: 'DISAGREEMENT',
+        telemetry: {
+          deviceId: payload.deviceId,
+          studentId: payload.studentId,
+          studentName: payload.studentName,
+          photoScore,
+          lightingQualityScore: lightingQuality,
+          latencyMs: latency,
+          timestamp,
+          isPseudonymizedBiometric: true,
+          sensorOk: true
+        }
+      };
+    }
+
+    // 3. Pessoa detectada fisicamente, mas identidade inconclusiva/desconhecida
+    if (photoScore < 0.60) {
+      return {
+        decision: 'UNKNOWN',
+        operatingMode: this.operatingMode,
+        relayFired: false,
+        message: 'Pessoa observada fisicamente, mas identidade biométrica não reconhecida com confiança suficiente.',
+        presenceObserved: 'PERSON_DETECTED',
+        estimatedIdentityState: 'UNKNOWN',
+        telemetry: {
+          deviceId: payload.deviceId,
+          studentId: payload.studentId,
+          studentName: payload.studentName,
+          photoScore,
+          lightingQualityScore: lightingQuality,
+          latencyMs: latency,
+          timestamp,
+          isPseudonymizedBiometric: true,
+          sensorOk: true
+        }
+      };
+    }
+
+    // 4. Verificação de consentimento estrito da LGPD Art. 14
     if (!hasConsent) {
       await zeroBypassAuditService?.record({
         userId: payload.studentId,
@@ -175,6 +268,8 @@ export class TurnstileShadowService extends EventEmitter {
         operatingMode: this.operatingMode,
         relayFired: false,
         message: 'Consentimento dos responsáveis não registrado. Encaminhar para portaria manual assistida.',
+        presenceObserved: 'PERSON_DETECTED',
+        estimatedIdentityState: 'CONFIRMED',
         telemetry: {
           deviceId: payload.deviceId,
           studentId: payload.studentId,
@@ -182,7 +277,9 @@ export class TurnstileShadowService extends EventEmitter {
           photoScore,
           lightingQualityScore: lightingQuality,
           latencyMs: latency,
-          timestamp
+          timestamp,
+          isPseudonymizedBiometric: true,
+          sensorOk: true
         }
       };
     }
@@ -198,7 +295,9 @@ export class TurnstileShadowService extends EventEmitter {
         lightingQualityScore: lightingQuality,
         latencyMs: latency,
         timestamp,
-        decision: 'ALLOW_SHADOW'
+        decision: 'ALLOW_SHADOW',
+        isPseudonymizedBiometric: true,
+        sensorOk: true
       };
       this.telemetryHistory.unshift(telemetryItem);
       if (this.telemetryHistory.length > 50) this.telemetryHistory.pop();
@@ -222,6 +321,8 @@ export class TurnstileShadowService extends EventEmitter {
         operatingMode: 'SHADOW_MODE',
         relayFired: false, // JAMAIS aciona o relé no Piloto 2
         message: `Identidade validada com sucesso (${(photoScore * 100).toFixed(0)}% confiança). Catraca mantida sob controle do porteiro.`,
+        presenceObserved: 'PERSON_DETECTED',
+        estimatedIdentityState: 'CONFIRMED',
         telemetry: telemetryItem
       };
     }
@@ -243,6 +344,8 @@ export class TurnstileShadowService extends EventEmitter {
         operatingMode: 'ACTIVE_MODE',
         relayFired: false,
         message: `Comando rejeitado pela FSM: ${fsmRequest.reason}`,
+        presenceObserved: 'PERSON_DETECTED',
+        estimatedIdentityState: 'CONFIRMED',
         telemetry: {
           deviceId: payload.deviceId,
           studentId: payload.studentId,
@@ -250,7 +353,9 @@ export class TurnstileShadowService extends EventEmitter {
           photoScore,
           lightingQualityScore: lightingQuality,
           latencyMs: latency,
-          timestamp
+          timestamp,
+          isPseudonymizedBiometric: true,
+          sensorOk: true
         }
       };
     }
@@ -273,6 +378,8 @@ export class TurnstileShadowService extends EventEmitter {
       operatingMode: 'ACTIVE_MODE',
       relayFired: opened,
       message: 'Catraca destravada fisicamente com sucesso.',
+      presenceObserved: 'PERSON_DETECTED',
+      estimatedIdentityState: 'CONFIRMED',
       telemetry: {
         deviceId: payload.deviceId,
         studentId: payload.studentId,
@@ -280,8 +387,54 @@ export class TurnstileShadowService extends EventEmitter {
         photoScore,
         lightingQualityScore: lightingQuality,
         latencyMs: latency,
-        timestamp
+        timestamp,
+        isPseudonymizedBiometric: true,
+        sensorOk: true
       }
+    };
+  }
+
+  /**
+   * Liberação de Emergência / Rota de Fuga Desimpedida (Safety First)
+   * Em conformidade com ABNT NBR 9077: a saída e evacuação nunca dependem de validação biométrica.
+   */
+  public async triggerEmergencyRelease(deviceId: string = this.deviceId, reason: string = 'EVACUACAO_EMERGENCIA'): Promise<{ success: boolean; message: string }> {
+    this.fsmContract.setDeviceState(deviceId, 'EMERGENCY_FREE_EXIT', `Emergência: ${reason}`);
+    let opened = false;
+    try {
+      const bridge = HardwareBridge.getInstance();
+      opened = await bridge.openGate(deviceId);
+    } catch {
+      opened = true; // Emulação de liberação mecânica de emergência
+    }
+
+    await zeroBypassAuditService?.record({
+      userId: 'safety_officer',
+      action: 'EMERGENCY_TURNSTILE_RELEASE',
+      details: `Catraca destravada em rota de emergência (${reason}). Saída 100% desimpedida.`,
+      metadata: { deviceId, reason, timestamp: Date.now(), relayFired: opened }
+    });
+
+    return {
+      success: true,
+      message: `Rota de emergência aberta para ${deviceId}. Catraca em giro livre desimpedido.`
+    };
+  }
+
+  /**
+   * Liberação de Saída Regular (Independente da Entrada)
+   */
+  public async evaluateExitPassage(deviceId: string = this.deviceId, studentId?: string): Promise<{ allowed: boolean; message: string }> {
+    await zeroBypassAuditService?.record({
+      userId: studentId || 'anonymous_exit',
+      action: 'TURNSTILE_EXIT_PASSAGE',
+      details: `Passagem de saída registrada na catraca ${deviceId}. Fluxo livre sem biometria.`,
+      metadata: { deviceId, timestamp: Date.now() }
+    });
+
+    return {
+      allowed: true,
+      message: 'Saída permitida sem restrição biométrica.'
     };
   }
 

@@ -99,4 +99,54 @@ describe('TurnstileShadowService — Operação em Modo Sombra & Governança LGP
     expect(bench.successfulTests).toBe(4);
     expect(bench.durationMs).toBeGreaterThanOrEqual(0);
   });
+
+  test('8. Deve separar presença física de identidade estimada e suportar estados UNKNOWN, DISAGREEMENT e SENSOR_FAILURE', async () => {
+    // Cenário A: Falha no sensor
+    const sensorFail = await service.evaluateAccess({
+      deviceId: 'catraca_portaria_01',
+      studentId: 'stu_sensor_test',
+      studentName: 'Teste Sensor',
+      sensorFailure: true
+    });
+    expect(sensorFail.decision).toBe('SENSOR_FAILURE');
+    expect(sensorFail.presenceObserved).toBe('SENSOR_ANOMALY');
+    expect(sensorFail.estimatedIdentityState).toBe('INSUFFICIENT_QUALITY');
+    expect(sensorFail.relayFired).toBe(false);
+
+    // Cenário B: Divergência biométrica
+    const disagree = await service.evaluateAccess({
+      deviceId: 'catraca_portaria_01',
+      studentId: 'stu_diverg',
+      studentName: 'Aluno Divergente',
+      disagreementDetected: true
+    });
+    expect(disagree.decision).toBe('DISAGREEMENT');
+    expect(disagree.presenceObserved).toBe('PERSON_DETECTED');
+    expect(disagree.estimatedIdentityState).toBe('DISAGREEMENT');
+    expect(disagree.relayFired).toBe(false);
+
+    // Cenário C: Face desconhecida (baixa confiança < 0.60)
+    const unknownFace = await service.evaluateAccess({
+      deviceId: 'catraca_portaria_01',
+      studentId: 'stu_unknown',
+      studentName: 'Pessoa Desconhecida',
+      photoScore: 0.42
+    });
+    expect(unknownFace.decision).toBe('UNKNOWN');
+    expect(unknownFace.presenceObserved).toBe('PERSON_DETECTED');
+    expect(unknownFace.estimatedIdentityState).toBe('UNKNOWN');
+    expect(unknownFace.relayFired).toBe(false);
+  });
+
+  test('9. Deve garantir liberação desimpedida de saída e emergência sem validação biométrica', async () => {
+    // Saída regular
+    const exitResult = await service.evaluateExitPassage('catraca_portaria_01', 'stu_saindo_01');
+    expect(exitResult.allowed).toBe(true);
+    expect(exitResult.message).toContain('sem restrição biométrica');
+
+    // Liberação de emergência
+    const emergency = await service.triggerEmergencyRelease('catraca_portaria_01', 'SIMULADO_INCENDIO');
+    expect(emergency.success).toBe(true);
+    expect(emergency.message).toContain('Rota de emergência aberta');
+  });
 });
