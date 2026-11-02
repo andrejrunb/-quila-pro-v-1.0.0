@@ -122,6 +122,14 @@ export class Database {
 
         try {
 
+            try {
+                const dbDir = path.dirname(this.dbPath);
+                const { SQLiteDisasterRecoveryService } = require('../main/services/SQLiteDisasterRecoveryService');
+                SQLiteDisasterRecoveryService.recoverPendingRestoreOnBoot(dbDir);
+            } catch (recoveryErr: any) {
+                console.warn(`[Database] Verificação de boot recovery: ${recoveryErr.message}`);
+            }
+
             console.log(`[Database] Abrindo conexão SQA-1000 em: ${this.dbPath}`);
 
             const DBConstructor = (DatabaseSQLite as any).default || DatabaseSQLite;
