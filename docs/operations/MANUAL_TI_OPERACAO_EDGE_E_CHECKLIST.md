@@ -71,17 +71,9 @@ Register-ScheduledTask -TaskName "AquilaPro_Edge_DailyBackup" -Action $Action -T
 
 ## 🩺 3. Painel de Diagnóstico e Verificação de Saúde (Healthcheck)
 
-Para verificar o estado do servidor edge em menos de 30 segundos, execute:
-```powershell
-# Diagnóstico Integrado do Edge
-pnpm test:dr:full
-```
+`pnpm test:dr:full` é uma suíte automatizada de desenvolvimento/teste, não um healthcheck operacional validado para uma instalação escolar. Não a execute apontando para dados instalados ou reais. Use somente monitoramento operacional aprovado e somente leitura; não há neste checklist um comando integrado de healthcheck validado.
 
-O diagnóstico valida automaticamente:
-1. **Espaço em Disco:** Alerta caso o volume `C:` ou o pendrive `D:` possuam menos de 15% de espaço livre.
-2. **Integridade do SQLite:** Executa `PRAGMA integrity_check` para garantir zero páginas corrompidas.
-3. **Conectividade com Gateway WhatsApp:** Valida resolução DNS e handshake com `graph.facebook.com`.
-4. **Fila de Outbox Offline:** Quantidade de mensagens retidas na tabela `notification_outbox` aguardando envio.
+**Gate de recuperação bloqueado:** a suíte de DR e o restore drill não demonstram recuperação segura com SQLite/WAL, arquivo bloqueado ou interrupção entre etapas. Não execute `pnpm restore:drill`, `node scripts/restore_edge.cjs` ou qualquer substituição de banco até haver protocolo validado em ambiente isolado e aprovação operacional própria.
 
 ---
 
@@ -94,12 +86,10 @@ O diagnóstico valida automaticamente:
 
 ### B. Procedimento de Reinício Seguro do Servidor Edge
 Caso seja necessário reiniciar a máquina física:
-1. Pare o serviço do Áquila Pro no console de gerenciamento ou PowerShell:
-   ```powershell
-   Stop-Process -Name "electron", "node" -Force -ErrorAction SilentlyContinue
-   ```
-2. Realize o reinício padrão do Windows/Linux (`Restart-Computer`).
-3. Ao subir, o serviço inicializa automaticamente e efetua o replay do log WAL em milissegundos.
+1. Solicite a parada graciosa pelo gerenciador de serviços aprovado para essa instalação. Antes de qualquer ação manual, confirme o serviço e o PID exatos da instância Áquila Pro. Não encerre processos globalmente por nome (`electron` ou `node`).
+2. Se o host precisar reiniciar, siga o procedimento de mudança aprovado do sistema operacional.
+3. Após o boot, inicie pelo mesmo gerenciador aprovado e confirme o healthcheck e a abertura do banco pelos procedimentos somente leitura autorizados.
+4. O replay do WAL depende do estado do SQLite e não é uma garantia de recuperação. Em caso de lock, erro de integridade ou estado inesperado, preserve `aquila.db`, `aquila.db-wal` e `aquila.db-shm`, interrompa novas gravações pelo procedimento aprovado e escale para a Engenharia. Não remova esses arquivos nem execute restore/reset.
 
 ---
 
@@ -150,7 +140,7 @@ Preencha e assine antes de liberar o sistema para o primeiro dia letivo com estu
 
 ### Verificações de Continuidade e Testes:
 - [ ] **Backup Testado:** Executado `pnpm backup:edge` com sucesso comprovado nos dois destinos.
-- [ ] **Restore Drill:** Executado `node scripts/restore_edge.cjs --drill` com tempo $< 2\text{ minutos}$ e `PRAGMA integrity_check: ok`.
+- [ ] **Restore/DR (BLOQUEADO):** não executar drill ou restauração. Manter este gate pendente até protocolo seguro, testes de falha/recuperação em ambiente isolado e aprovação operacional documentados.
 - [ ] **Stress Test:** Executado `node scripts/stress_test_pilot_realistic.cjs` aprovado com 500 alunos e latência p95 $< 150\text{ ms}$.
 - [ ] **WhatsApp Testado:** Mensagem de teste da Meta Cloud API recebida com sucesso no celular da direção.
 
@@ -158,7 +148,7 @@ Preencha e assine antes de liberar o sistema para o primeiro dia letivo com estu
 
 ### Termo de Homologação Operacional
 
-Declaramos que o Servidor Edge do **Áquila Pro** foi instalado, configurado e testado em conformidade com as diretrizes técnicas e de privacidade vigentes, estando formalmente homologado para início do projeto-piloto escolar.
+Este termo só pode ser assinado quando todos os gates aplicáveis desta checklist estiverem aprovados e houver aprovação operacional própria. Enquanto o gate de restore/DR estiver bloqueado, este documento não autoriza go-live nem operação com dados reais de estudantes.
 
 **Local e Data:** _________________________, _____ de __________________ de 2026.
 

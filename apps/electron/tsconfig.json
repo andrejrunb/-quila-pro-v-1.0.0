@@ -35,7 +35,7 @@
     "allowJs": true,
     "checkJs": false,
     "noEmit": false,
-    "noEmitOnError": false
+    "noEmitOnError": true
   },
   "include": [
     "src/**/*"

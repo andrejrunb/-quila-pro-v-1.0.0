@@ -76,16 +76,11 @@ Para mitigar roubo físico, pane de hardware, enchente/incêndio e ataques de ra
 
 ---
 
-## 🚨 5. Procedimento Semanal de Restore Drill Obrigatório
+## 🚨 5. Restore Drill — suspenso até validação segura
 
-Todo domingo às **02:00**, o agendador executa automaticamente o drill de verificação em sandbox:
+O agendamento e a execução de restore drill estão **suspensos**. Não registre nem mantenha uma tarefa agendada que invoque `scripts/restore_edge.cjs`; a rota não demonstrou segurança de promoção/rollback com SQLite WAL, arquivo bloqueado e interrupção.
 
-```powershell
-node scripts/restore_edge.cjs --backup (Get-ChildItem C:\AquilaPro\backups\*.aquila.bak | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName --drill
-```
-
-- **Critério de Sucesso:** Descriptografia bem-sucedida, conferência de Auth Tag, verificação de SHA-256, `PRAGMA integrity_check: ok` e tempo total de execução $< 120\text{ segundos}$.
-- **Alerta de Falha:** Qualquer divergência de hash ou Auth Tag emite notificação imediata para a equipe de infraestrutura e suspende novos lançamentos até a averiguação.
+Preserve `aquila.db`, seus arquivos `-wal`/`-shm` e os backups existentes. Não execute restauração real nem remova arquivos para “limpar” o estado. A retomada do drill exige protocolo aprovado e testes em cópia descartável isolada, cobrindo falha de preparação, substituição recusada, lock, backup inválido e interrupção em cada estágio, com prova de recuperação do estado anterior. `PRAGMA integrity_check` isolado ou um tempo de execução não são evidência suficiente.
 
 ---
 *Assinado: Córtex de Infraestrutura & DPO Áquila Pro v2.1.0*

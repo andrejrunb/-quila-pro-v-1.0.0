@@ -82,7 +82,9 @@ export class Database {
 
     }
 
-
+    public getDatabasePath(): string {
+        return this.dbPath;
+    }
 
     constructor(customPath?: string) {
 

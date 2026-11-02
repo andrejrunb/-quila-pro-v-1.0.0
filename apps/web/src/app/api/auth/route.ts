@@ -1,30 +1,37 @@
 import { NextResponse } from 'next/server';
 import { signSession } from '@/lib/session';
-import { scryptSync, timingSafeEqual } from 'crypto';
+import { timingSafeEqual } from 'crypto';
+import { PORTAL_ID_ROLES, ROLE_DESTINATIONS } from '@/lib/portalAccess';
+import type { PortalRole } from '@/lib/session';
 
-// Contas do portal configuradas via ambiente ou valores de demonstração seguros
-const DEMO_USERS: Record<string, { pass: string; role: 'admin' | 'coordinator' | 'teacher' | 'parent' | 'student'; defaultPortal: string }> = {
-  'admin': {
-    pass: process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Secure',
-    role: 'admin',
-    defaultPortal: 'coordenacao',
-  },
-  'coordenacao': {
-    pass: process.env.INITIAL_COORD_PASSWORD || 'CoordSovereign2026#Secure',
-    role: 'coordinator',
-    defaultPortal: 'coordenacao',
-  },
-  'professor': {
-    pass: process.env.INITIAL_TEACHER_PASSWORD || 'ProfSovereign2026#Secure',
-    role: 'teacher',
-    defaultPortal: 'professores',
-  },
-  'aluno': {
-    pass: process.env.INITIAL_STUDENT_PASSWORD || 'AlunoSovereign2026#Secure',
-    role: 'student',
-    defaultPortal: 'aluno',
-  },
-};
+interface ConfiguredAccount {
+  username: string;
+  password: string;
+  role: PortalRole;
+}
+
+const ACCOUNT_ENV: Array<{ role: PortalRole; username: string; password: string }> = [
+  { role: 'admin', username: 'AQUILA_WEB_ADMIN_USERNAME', password: 'AQUILA_WEB_ADMIN_PASSWORD' },
+  { role: 'coordinator', username: 'AQUILA_COORD_USERNAME', password: 'AQUILA_COORD_PASSWORD' },
+  { role: 'teacher', username: 'AQUILA_TEACHER_USERNAME', password: 'AQUILA_TEACHER_PASSWORD' },
+  { role: 'parent', username: 'AQUILA_PARENT_USERNAME', password: 'AQUILA_PARENT_PASSWORD' },
+  { role: 'student', username: 'AQUILA_STUDENT_USERNAME', password: 'AQUILA_STUDENT_PASSWORD' },
+];
+
+function getConfiguredAccounts(): Map<string, ConfiguredAccount> {
+  const accounts = new Map<string, ConfiguredAccount>();
+  for (const config of ACCOUNT_ENV) {
+    const username = process.env[config.username]?.trim().toLowerCase();
+    const password = process.env[config.password];
+    if (!username && !password) continue;
+    const minPasswordBytes = config.role === 'admin' ? 16 : 12;
+    if (!username || !password || Buffer.byteLength(password, 'utf8') < minPasswordBytes) {
+      throw new Error(`Incomplete or weak credential configuration for role "${config.role}".`);
+    }
+    accounts.set(username, { username, password, role: config.role });
+  }
+  return accounts;
+}
 
 function verifyPassword(provided: string, expected: string): boolean {
   try {
@@ -44,32 +51,41 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { username, password, portalId } = body;
 
-    if (!username || !password) {
+    if (typeof username !== 'string' || typeof password !== 'string' || !username.trim() || !password) {
       return NextResponse.json({ error: 'Usuário e senha são obrigatórios.' }, { status: 400 });
     }
 
-    const cleanUser = String(username).trim().toLowerCase();
-    const userAccount = DEMO_USERS[cleanUser];
+    const cleanUser = username.trim().toLowerCase();
+    const userAccount = getConfiguredAccounts().get(cleanUser);
 
-    // Validação estrita de credenciais
-    if (!userAccount || !verifyPassword(String(password), userAccount.pass)) {
+    if (!userAccount || !verifyPassword(password, userAccount.password)) {
       return NextResponse.json({ error: 'Credenciais inválidas. Verifique usuário e senha.' }, { status: 401 });
     }
 
-    // Role derivada da conta autenticada (e não forjável pelo cliente)
-    const role = userAccount.role;
-    const portal = portalId || userAccount.defaultPortal;
+    const expectedPortalId = userAccount.role === 'admin'
+      ? 'coordenacao'
+      : Object.entries(PORTAL_ID_ROLES).find(([, role]) => role === userAccount.role)?.[0];
+    const requestedPortalId = typeof portalId === 'string' ? portalId : expectedPortalId;
+    const requestedRole = !requestedPortalId
+      ? undefined
+      : requestedPortalId === 'coordenacao' && userAccount.role === 'admin'
+        ? 'admin'
+        : PORTAL_ID_ROLES[requestedPortalId];
+    if (!requestedPortalId || requestedRole !== userAccount.role) {
+      return NextResponse.json({ error: 'Este perfil não pode acessar o portal selecionado.' }, { status: 403 });
+    }
 
-    // Gerar token assinado criptograficamente com HMAC-SHA256
+    const role = userAccount.role;
+    const destination = ROLE_DESTINATIONS[role];
+
     const sessionToken = await signSession({
       username: cleanUser,
-      portal,
+      portal: destination,
       role,
     });
 
-    const destination = portal === 'professores' ? '/portal/professor' : `/portal/${portal}`;
-    const response = NextResponse.json({ 
-      success: true, 
+    const response = NextResponse.json({
+      success: true,
       redirect: destination,
       user: { username: cleanUser, role }
     });
@@ -83,7 +99,7 @@ export async function POST(request: Request) {
     });
 
     return response;
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Falha no processamento de autenticação.' }, { status: 500 });
   }
 }

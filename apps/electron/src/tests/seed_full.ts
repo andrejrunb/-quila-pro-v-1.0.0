@@ -8,7 +8,7 @@
 import { Database } from '../database/Database';
 import * as crypto from 'crypto';
 import * as path from 'path';
-import * as fs from 'fs';
+import { isDedicatedDemoDatabase, isIsolatedDemoDatabaseTarget } from '../database/demoSeedGuard';
 
 // ─── Hash helper (scrypt — mesmo algoritmo do AuthService) ───────────────────
 function hashPassword(password: string): string {
@@ -19,9 +19,32 @@ function hashPassword(password: string): string {
 
 // ─── Seed principal ───────────────────────────────────────────────────────────
 async function seedFull() {
-  const db = new Database();
+  const demoDbPath = process.env.AQUILA_DEMO_SEED_DB_PATH;
+  if (
+    process.env.NODE_ENV !== 'development' ||
+    process.env.AQUILA_ENABLE_DEMO_SEED !== 'true' ||
+    !demoDbPath ||
+    !path.isAbsolute(demoDbPath) ||
+    !isIsolatedDemoDatabaseTarget(path.resolve(demoDbPath))
+  ) {
+    throw new Error('Full seeding requires an explicitly isolated development database.');
+  }
+
+  const db = new Database(path.resolve(demoDbPath));
+  if (!isDedicatedDemoDatabase(db.getDatabasePath())) {
+    throw new Error('Full seeding refused because the database is not isolated from the installation database.');
+  }
 
   await db.initialize();
+  await db.run(
+    'CREATE TABLE IF NOT EXISTS demo_seed_state (seed_name TEXT PRIMARY KEY, started_at TEXT NOT NULL)'
+  );
+  const seeded = await db.get('SELECT seed_name FROM demo_seed_state WHERE seed_name = ?', ['full-seed']);
+  if (seeded) return;
+  await db.run(
+    'INSERT INTO demo_seed_state (seed_name, started_at) VALUES (?, CURRENT_TIMESTAMP)',
+    ['full-seed']
+  );
 
   let inserted = 0;
   let skipped = 0;
@@ -120,8 +143,6 @@ async function seedFull() {
 
   // ── 5. Usuários — todos os roles do sistema ──────────────────────────────────
   const userDefs = [
-    // Role: admin (acesso total ao desktop + configurações)
-    { id: 'user-admin-01',  username: 'admin',       name: 'Administrador Principal',    role: 'admin',       pass: process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin' },
     { id: 'user-admin-02',  username: 'diretor',     name: 'Diretor Geral',              role: 'director',    pass: 'Diretor@2026!' },
     // Role: secretary (secretaria)
     { id: 'user-sec-01',    username: 'secretaria',  name: 'Secretária Ana',             role: 'secretary',   pass: 'Sec@2026!' },

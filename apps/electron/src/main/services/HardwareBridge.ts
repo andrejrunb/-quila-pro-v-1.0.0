@@ -45,4 +45,3 @@ export class HardwareBridge {
 }
 
 export const hardwareBridge = HardwareBridge.getInstance();
-

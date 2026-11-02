@@ -22,7 +22,11 @@ jobs:
       - name: Detect Leaked Secrets
         run: |
           echo "Scanning for plaintext credentials and raw keys..."
-          ! git grep -E "(sk_live_|AIzaSy[A-Za-z0-9_-]{33}|ghp_[A-Za-z0-9]{36})" -- ':!*.example' ':!*.md' ':!colab/*' ':!scripts/protect_branches.py' ':!.github/workflows/ci.yml'
+          prefix_a='sk_live'
+          prefix_b='AIza'
+          prefix_c='ghp'
+          secret_pattern="${prefix_a}_|${prefix_b}Sy[A-Za-z0-9_-]{33}|${prefix_c}_[A-Za-z0-9]{36}"
+          ! git grep -E "$secret_pattern" -- ':!*.example' ':!*.md' ':!colab/*' ':!scripts/protect_branches.py' ':!.github/workflows/ci.yml'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -40,7 +44,6 @@ jobs:
   typecheck-and-lint:
     name: TypeScript Strict Check and ESLint
     runs-on: ubuntu-latest
-    needs: [security-audit]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -62,6 +65,9 @@ jobs:
       - name: Web TypeScript Strict Check
         run: pnpm --filter @aquila/web exec tsc --noEmit
 
+      - name: Electron TypeScript Strict Check
+        run: pnpm --filter aquila-pro-school-os exec tsc --noEmit --project tsconfig.json
+
       - name: Mobile TypeScript Strict Check
         run: |
           pnpm --filter aquila-pro-mobile exec tsc --noEmit
@@ -73,7 +79,6 @@ jobs:
   test:
     name: Automated Test Suite and LGPD Integrity
     runs-on: ubuntu-latest
-    needs: [security-audit]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -93,7 +98,9 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Run Web Crypto HMAC-SHA256 Security Suite
-        run: pnpm dlx tsx scripts/test_session_security.ts
+        run: |
+          AQUILA_AUTH_SECRET="$(node -e 'process.stdout.write(require("crypto").randomBytes(32).toString("hex"))')" \
+            pnpm dlx tsx scripts/test_session_security.ts
 
       - name: Run LGPD Student Rights Test Suite (Art. 14, 16, 18)
         run: pnpm dlx tsx scripts/test_lgpd_rights.ts

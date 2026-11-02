@@ -42,7 +42,7 @@
 | `send-whatsapp` | AdminPortal | Envio WhatsApp ausente (existe `send-whatsapp-alert`) |
 | `settings:get` | AdminPortal | Getter de settings ausente (existe `get-settings`) |
 | `settings:save` | AdminPortal | Setter de settings ausente (existe `save-settings`) |
-| `students:add` | AdminPortal | Adicionar aluno ausente (existe `create-student`) |
+| `students:add` | Canal legado removido | Use `create-student` pela API dedicada do preload |
 | `students:train` | AdminPortal | Treinar reconhecimento ausente (existe `train-all-faces`) |
 | `swarm:deploy-model` | AdminPortal | Deploy de modelo ausente |
 | `swarm:get-installed-models` | AdminPortal | Modelos instalados ausentes |
@@ -112,7 +112,6 @@ Channels confirmados em ambos os lados (amostra):
 | `send-whatsapp` | `send-whatsapp-alert` | Alias em main.ts |
 | `settings:get` | `get-settings` | Alias em main.ts |
 | `settings:save` | `save-settings` | Alias em main.ts |
-| `students:add` | `create-student` | Alias em main.ts |
 | `students:train` | `train-all-faces` | Alias em main.ts |
 
 ---

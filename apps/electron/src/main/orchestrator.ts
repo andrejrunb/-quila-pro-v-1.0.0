@@ -3,6 +3,7 @@ import { sovereignRegistry } from './registry';
 import { WindowManager } from './window';
 import { registerIPCHandlers } from '../ipc/handlers';
 import * as path from 'path';
+import { getSessionSecret } from './services/sessionCrypto';
 
 export class SovereignOrchestrator {
   /**
@@ -11,6 +12,7 @@ export class SovereignOrchestrator {
    */
   public static async startPhase1(userDataPath: string) {
     console.log('[ORCHESTRATOR] Iniciando Fase 1 (Boot Crítico)...');
+    const sessionSecret = getSessionSecret();
     
     // 1. Database
     const { Database: DBClass } = await import('../database/Database');
@@ -19,25 +21,20 @@ export class SovereignOrchestrator {
     DBClass.setInstance(db);
     sovereignRegistry.setDatabase(db);
 
-    // 1.1 Seeding de Produção (Colégio Áquila Modelo - Dados Reais)
-    const staffCount: any = await db.all('SELECT COUNT(*) as count FROM staff');
-    if (staffCount[0].count === 0 || process.env.AQUILA_FORCE_SEED === 'true') {
-      const { seedRealSchool } = await import('../database/seedRealSchool');
-      await seedRealSchool(db);
-    }
-    
     // 2. Core Services (Eager Loading for Security/Auth)
     const { default: SessionService } = await import('./services/SessionService');
     const sessionService = new SessionService();
     sovereignRegistry.registerInstance('sessionService', sessionService);
 
     const { AuthService } = await import('./services/AuthService');
-    const authService = new AuthService(db, sessionService);
+    const authService = new AuthService(db, sessionService, sessionSecret);
     sovereignRegistry.registerInstance('authService', authService);
 
-    // Garante que o administrador padrão exista no primeiro boot
-    await authService.ensureDefaultAdmin();
-    console.log('[ORCHESTRATOR] Administrador padrão verificado.');
+    await authService.provisionInitialAdmin();
+
+    const { StudentService } = await import('./services/StudentService');
+    const studentService = new StudentService(db);
+    sovereignRegistry.registerInstance('studentService', studentService);
 
     const { LGPDService } = await import('./services/LGPDService');
     const lgpdService = new LGPDService(db);

@@ -61,4 +61,3 @@ class IoTService {
 
 export const ioTService = new IoTService();
 export default ioTService;
-

@@ -253,142 +253,17 @@ export class SQLiteDisasterRecoveryService {
     masterKey?: string;
     actor?: string;
   }): RestoreResult {
-    const start = performance.now();
-    const key = this.resolveMasterKey(options.masterKey);
-
-    if (!fs.existsSync(options.backupFilePath)) {
-      throw new Error(`Arquivo de backup não encontrado: ${options.backupFilePath}`);
-    }
-
-    const fileBuffer = fs.readFileSync(options.backupFilePath);
-    if (fileBuffer.length < this.SALT_LENGTH + this.IV_LENGTH + this.TAG_LENGTH) {
-      throw new Error('Arquivo de backup inválido ou truncado.');
-    }
-
-    // 1. Desmonta envelope criptográfico
-    let offset = 0;
-    const salt = fileBuffer.subarray(offset, offset + this.SALT_LENGTH);
-    offset += this.SALT_LENGTH;
-    const iv = fileBuffer.subarray(offset, offset + this.IV_LENGTH);
-    offset += this.IV_LENGTH;
-    const authTag = fileBuffer.subarray(offset, offset + this.TAG_LENGTH);
-    offset += this.TAG_LENGTH;
-    const ciphertext = fileBuffer.subarray(offset);
-
-    // 2. Descriptografia e verificação de autenticidade (Auth Tag)
-    const derivedKey = crypto.scryptSync(key, salt, 32);
-    const decipher = crypto.createDecipheriv(this.ALGORITHM, derivedKey, iv);
-    decipher.setAuthTag(authTag);
-
-    let decryptedPayload: Buffer;
-    try {
-      decryptedPayload = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
-    } catch (err: any) {
-      throw new Error(`Falha de integridade criptográfica (Auth Tag inválida ou chave incorreta): ${err.message}`);
-    }
-
-    // 3. Extrai cabeçalho, manifesto e banco
-    const manifestLength = decryptedPayload.readUInt32BE(0);
-    const manifestBuffer = decryptedPayload.subarray(4, 4 + manifestLength);
-    const manifest: BackupManifest = JSON.parse(manifestBuffer.toString('utf-8'));
-    const snapshotBuffer = decryptedPayload.subarray(4 + manifestLength);
-
-    // 4. Validação do SHA-256 do snapshot contra o manifesto
-    const computedSha256 = crypto.createHash('sha256').update(snapshotBuffer).digest('hex');
-    const sha256Verified = (computedSha256 === manifest.sha256);
-    if (!sha256Verified) {
-      throw new Error(`Divergência de SHA-256 no banco extraído! Esperado: ${manifest.sha256}, Obtido: ${computedSha256}`);
-    }
-
-    // 5. Grava arquivo temporário para teste de sanidade SQLite
-    const targetDir = path.dirname(options.targetRestorePath);
-    if (!fs.existsSync(targetDir)) {
-      fs.mkdirSync(targetDir, { recursive: true });
-    }
-
-    const tempValidPath = `${options.targetRestorePath}.restore_tmp`;
-    if (fs.existsSync(tempValidPath)) fs.unlinkSync(tempValidPath);
-    fs.writeFileSync(tempValidPath, snapshotBuffer);
-
-    // 6. Executa PRAGMA integrity_check no arquivo restaurado
-    const testDb = new DatabaseConstructor(tempValidPath, { readonly: true });
-    const pragmaStatus = (testDb.pragma('integrity_check') as Array<{ integrity_check: string }>)[0]?.integrity_check || 'unknown';
-    testDb.close();
-
-    if (pragmaStatus !== 'ok') {
-      if (fs.existsSync(tempValidPath)) fs.unlinkSync(tempValidPath);
-      throw new Error(`Restauração rejeitada: PRAGMA integrity_check falhou com status "${pragmaStatus}"`);
-    }
-
-    // 7. Substitui o banco de destino com segurança (limpando WAL e SHM órfãos)
-    if (fs.existsSync(`${options.targetRestorePath}-wal`)) fs.unlinkSync(`${options.targetRestorePath}-wal`);
-    if (fs.existsSync(`${options.targetRestorePath}-shm`)) fs.unlinkSync(`${options.targetRestorePath}-shm`);
-    if (fs.existsSync(options.targetRestorePath)) fs.unlinkSync(options.targetRestorePath);
-
-    fs.renameSync(tempValidPath, options.targetRestorePath);
-
-    const durationMs = performance.now() - start;
-
-    return {
-      success: true,
-      restoredDbPath: options.targetRestorePath,
-      manifest,
-      integrityPragma: pragmaStatus,
-      sha256Verified: true,
-      durationMs,
-      auditRecorded: true
-    };
+    void options;
+    throw new Error('Database restoration is disabled until an atomic, WAL-safe recovery protocol is verified.');
   }
 
   /**
    * Executa Restore Drill de emergência em sandbox isolado, validando o tempo (< 120s)
    */
   public static runRestoreDrill(backupFilePath: string, masterKey?: string): RestoreDrillResult {
-    const log: string[] = [];
-    const t0 = performance.now();
-    log.push(`[DRILL] Iniciando simulação de Disaster Recovery para: ${path.basename(backupFilePath)}`);
-
-    const key = this.resolveMasterKey(masterKey);
-
-    const sandboxDir = path.join(path.dirname(backupFilePath), '.restore_drill_sandbox');
-    if (fs.existsSync(sandboxDir)) fs.rmSync(sandboxDir, { recursive: true, force: true });
-    fs.mkdirSync(sandboxDir, { recursive: true });
-
-    const sandboxTarget = path.join(sandboxDir, 'aquila_restored_drill.db');
-
-    try {
-      const res = this.restoreEncryptedBackup({
-        backupFilePath,
-        targetRestorePath: sandboxTarget,
-        masterKey: key,
-        actor: 'RESTORE_DRILL_AUTOMATION'
-      });
-
-      const totalMs = performance.now() - t0;
-      const underTwoMinutes = totalMs < 120000;
-
-      log.push(`[DRILL] Descriptografia AES-256-GCM e conferência Auth Tag: OK`);
-      log.push(`[DRILL] Hash SHA-256: CONFERIDO (${res.manifest.sha256})`);
-      log.push(`[DRILL] PRAGMA integrity_check: ${res.integrityPragma}`);
-      log.push(`[DRILL] Tuplas verificadas: Estudantes=${res.manifest.rowCounts.students}, Audits=${res.manifest.rowCounts.zero_bypass_audits}`);
-      log.push(`[DRILL] Tempo total de restauração: ${totalMs.toFixed(2)} ms (Meta < 120.000 ms: ${underTwoMinutes ? 'APROVADO' : 'REPROVADO'})`);
-
-      return {
-        success: res.success,
-        durationMs: totalMs,
-        underTwoMinutes,
-        integrityOk: res.integrityPragma === 'ok',
-        tuplesVerified: true,
-        manifest: res.manifest,
-        log
-      };
-    } finally {
-      if (fs.existsSync(sandboxDir)) {
-        try {
-          fs.rmSync(sandboxDir, { recursive: true, force: true });
-        } catch {}
-      }
-    }
+    void backupFilePath;
+    void masterKey;
+    throw new Error('Restore drills are disabled until an atomic, WAL-safe recovery protocol is verified.');
   }
 
   /**

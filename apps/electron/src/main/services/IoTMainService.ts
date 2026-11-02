@@ -108,4 +108,3 @@ class IoTMainService extends EventEmitter {
 
 export const ioTMainService = new IoTMainService();
 export default ioTMainService;
-

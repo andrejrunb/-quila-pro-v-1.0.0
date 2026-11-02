@@ -1,6 +1,7 @@
 import Database from '../../database/Database';
 import Logger from './Logger';
 import crypto from 'crypto';
+import { getSessionSecret, signSessionToken, VALID_SESSION_ROLES, verifySessionToken } from './sessionCrypto';
 
 /**
  * Passo 9: Autenticação de Usuários
@@ -29,13 +30,14 @@ export interface LoginCredentials {
 export interface AuthToken {
   token: string;
   userId: string;
+  role: UserRole;
   expiresAt: number;
 }
 
 export class AuthenticationManager {
   private logger: Logger;
   private sessions: Map<string, AuthToken> = new Map();
-  private tokenSecret = process.env.JWT_SECRET || 'default-secret-key';
+  private readonly tokenSecret: string;
 
   private get db(): Database {
     return Database.getInstance();
@@ -43,6 +45,7 @@ export class AuthenticationManager {
 
   constructor() {
     this.logger = new Logger('AuthenticationManager');
+    this.tokenSecret = getSessionSecret();
   }
 
   /**
@@ -89,15 +92,15 @@ export class AuthenticationManager {
   /**
    * Gerar token JWT simples
    */
-  private generateToken(userId: string): string {
-    const payload = {
-      userId,
-      iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60, // 24 horas
-    };
-
-    const token = Buffer.from(JSON.stringify(payload)).toString('base64');
-    return token;
+  private generateToken(userId: string, role: UserRole): string {
+    const issuedAt = Math.floor(Date.now() / 1000);
+    return signSessionToken({
+      sub: userId,
+      role,
+      iat: issuedAt,
+      exp: issuedAt + 24 * 60 * 60,
+      jti: crypto.randomUUID(),
+    }, this.tokenSecret);
   }
 
   /**
@@ -115,17 +118,25 @@ export class AuthenticationManager {
         return null;
       }
 
+      if (
+        typeof user.role !== 'string' ||
+        !VALID_SESSION_ROLES.has(user.role) ||
+        user.isActive === 0 ||
+        user.isActive === false
+      ) return null;
+
       if (!this.verifyPassword(credentials.password, user.password_hash)) {
         this.logger.warn(`Tentativa de login com senha incorreta: ${credentials.email}`);
         return null;
       }
 
-      const token = this.generateToken(user.id);
+      const token = this.generateToken(user.id, user.role as UserRole);
       const expiresAt = Date.now() + 24 * 60 * 60 * 1000;
 
       const authToken: AuthToken = {
         token,
         userId: user.id,
+        role: user.role,
         expiresAt,
       };
 
@@ -163,7 +174,13 @@ export class AuthenticationManager {
     const authToken = this.sessions.get(token);
     if (!authToken) return false;
 
-    if (authToken.expiresAt < Date.now()) {
+    const claims = verifySessionToken(token, this.tokenSecret);
+    if (
+      !claims ||
+      claims.sub !== authToken.userId ||
+      claims.role !== authToken.role ||
+      authToken.expiresAt < Date.now()
+    ) {
       this.sessions.delete(token);
       return false;
     }
@@ -187,6 +204,7 @@ export class AuthenticationManager {
       ) as any;
 
       if (!user) return null;
+      if (user.isActive === 0 || user.isActive === false || user.role !== authToken.role) return null;
 
       return {
         id: user.id,

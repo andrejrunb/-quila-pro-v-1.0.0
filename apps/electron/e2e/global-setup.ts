@@ -170,7 +170,7 @@ export default async function globalSetup() {
         await mainWindow.fill('input[placeholder*="COLEGIOVISAO"]', 'VISAO').catch(() => {});
       }
       await mainWindow.fill('input[placeholder*="usuário"]', 'admin');
-      await mainWindow.fill('input[type="password"]', process.env.INITIAL_ADMIN_PASSWORD || 'EagleSovereign2026#Admin');
+      await mainWindow.fill('input[type="password"]', process.env.AQUILA_INITIAL_ADMIN_PASSWORD || '');
       await mainWindow.click('button[type="submit"]', { timeout: 60000 });
 
       // Dispensar modal LGPD se aparecer
