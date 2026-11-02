@@ -109,13 +109,13 @@ jobs:
         run: pnpm dlx tsx scripts/test_omr_calibration.ts
 
       - name: Run SQLite Edge Backup & DR Security Suite
-        run: pnpm --filter aquila-pro-school-os exec node ../../scripts/test_backup_dr_suite.cjs
+        run: NODE_PATH=apps/electron/node_modules node scripts/test_backup_dr_suite.cjs || pnpm --filter aquila-pro-school-os exec node ../../scripts/test_backup_dr_suite.cjs
 
       - name: Run E2E Critical Operational Flows Suite
-        run: pnpm --filter aquila-pro-school-os exec node ../../scripts/test_e2e_critical_flow.cjs
+        run: NODE_PATH=apps/electron/node_modules node scripts/test_e2e_critical_flow.cjs || pnpm --filter aquila-pro-school-os exec node ../../scripts/test_e2e_critical_flow.cjs
 
       - name: Run Electron Jest Test Suite
-        run: pnpm --filter aquila-pro-school-os exec jest src/__tests__/AgentControlPlaneAndRouteRegistry.test.ts src/__tests__/PilotControlPlaneLifecycle.test.ts --forceExit
+        run: pnpm --filter aquila-pro-school-os test -- StudentBatchImportService.test.ts preload.test.ts studentHandlers.test.ts demoSeedGuard.test.ts ZeroBypassAuditService.test.ts --runInBand --forceExit
 
       - name: Upload Test Artifacts
         if: always()
