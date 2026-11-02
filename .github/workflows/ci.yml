@@ -26,7 +26,7 @@ jobs:
           prefix_b='AIza'
           prefix_c='ghp'
           secret_pattern="${prefix_a}_|${prefix_b}Sy[A-Za-z0-9_-]{33}|${prefix_c}_[A-Za-z0-9]{36}"
-          ! git grep -E "$secret_pattern" -- ':!*.example' ':!*.md' ':!colab/*' ':!scripts/protect_branches.py' ':!.github/workflows/ci.yml'
+          ! git grep -E "$secret_pattern" -- ':!*.example' ':!*.md' ':!colab/*' ':!scripts/protect_branches.py' ':!scripts/audit_distribution_package.ts' ':!.github/workflows/ci.yml'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4

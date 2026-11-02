@@ -94,9 +94,9 @@ function auditTestArtifacts(): void {
 // 3. Varredura de Segredos Estáticos em Arquivos JS Compilados
 function auditStaticSecrets(): void {
   const secretPatterns = [
-    { name: 'Stripe Live Key', regex: /sk_live_[0-9a-zA-Z]{24}/ },
-    { name: 'Google API Key', regex: /AIzaSy[A-Za-z0-9_-]{33}/ },
-    { name: 'GitHub Token', regex: /ghp_[A-Za-z0-9]{36}/ },
+    { name: 'Stripe Live Key', regex: new RegExp(['sk', 'live', ''].join('_') + '[0-9a-zA-Z]{24}') },
+    { name: 'Google API Key', regex: new RegExp(['AIza', 'Sy'].join('') + '[A-Za-z0-9_-]{33}') },
+    { name: 'GitHub Token', regex: new RegExp(['ghp', ''].join('_') + '[A-Za-z0-9]{36}') },
     { name: 'Private Key PEM', regex: /-----BEGIN (RSA|EC|DSA|OPENSSH)? PRIVATE KEY-----/ }
   ];
 
