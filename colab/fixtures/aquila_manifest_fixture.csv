@@ -1,0 +1,4 @@
+question_id,question_statement,correct_answer,alternative_a,alternative_b,alternative_c,alternative_d,alternative_e
+fixture-valid,Quanto e 2 mais 2?,A,4,3,5,6,7
+fixture-invalid,Qual e a resposta invalida?,A ou B,A,B,,D,E
+,Qual e a resposta ausente?,,A,B,C,D,E
