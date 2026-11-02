@@ -25,7 +25,8 @@ export type TurnstileLifecycleState =
   | 'PASSAGE_COMPLETED'
   | 'TIMEOUT_NO_PASSAGE'
   | 'ALARM_FORCED_ENTRY'
-  | 'COMMUNICATION_FAILURE';
+  | 'COMMUNICATION_FAILURE'
+  | 'EMERGENCY_FREE_EXIT';
 
 export interface PassageCommandRequest {
   transactionId: string;
