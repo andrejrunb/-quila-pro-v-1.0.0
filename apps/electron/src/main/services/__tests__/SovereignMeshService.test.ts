@@ -211,4 +211,78 @@ describe('SovereignMeshService — Onda 7: Malha P2P Soberana & Resiliência Off
       expect(deltas[0].key).toBe('key-3');
     });
   });
+
+  describe('4. Governança Acadêmica & Proteção contra Sobrescrita LWW (P-05)', () => {
+    let nodeAcademic: SovereignMeshService;
+
+    beforeEach(() => {
+      nodeAcademic = new SovereignMeshService({ port: 4001, schoolId: 'escola-modelo', simulationMode: true });
+      nodeAcademic.setSimulatedNodeId('hub-secretaria');
+    });
+
+    test('Mutações concorrentes em notas escolares NÃO devem ser sobrescritas por LWW e devem gerar CONFLICT_PENDING_HUMAN_REVIEW', async () => {
+      let conflictEvent: any = null;
+      nodeAcademic.on('CONFLICT_PENDING_HUMAN_REVIEW', (evt) => {
+        conflictEvent = evt;
+      });
+
+      // Versão registrada pela Sala dos Professores (Nó A)
+      const gradeProfA: CRDTRecord = {
+        key: 'grade:stu-42:matematica',
+        value: { score: 9.5, teacher: 'Prof. Carlos', comments: 'Excelente raciocínio' },
+        timestamp: 1000,
+        sequence: 1,
+        nodeId: 'node-prof-carlos',
+        schoolId: 'escola-modelo',
+        isDeleted: false,
+        versionVector: { 'node-prof-carlos': 1 }
+      };
+
+      // Versão conflitante com timestamp superior (Nó B - ex: revisão ou outro terminal)
+      const gradeTerminalB: CRDTRecord = {
+        key: 'grade:stu-42:matematica',
+        value: { score: 6.0, teacher: 'Coord. Plantão', comments: 'Nota preliminar de recuperação' },
+        timestamp: 2000, // Timestamp mais recente que ganharia no LWW cego!
+        sequence: 2,
+        nodeId: 'node-coord-plantao',
+        schoolId: 'escola-modelo',
+        isDeleted: false,
+        versionVector: { 'node-coord-plantao': 2 }
+      };
+
+      // Primeiro registro entra normalmente
+      const appliedFirst = nodeAcademic.applyRemoteCRDTRecord(gradeProfA);
+      expect(appliedFirst).toBe(true);
+      expect(nodeAcademic.getCRDT('grade:stu-42:matematica')?.value.score).toBe(9.5);
+
+      // Segundo registro conflitante com timestamp superior: LWW cego sobrescreveria para 6.0!
+      // Sob a governança P-05, a sobrescrita deve ser bloqueada e o conflito retido para revisão humana.
+      const appliedConflict = nodeAcademic.applyRemoteCRDTRecord(gradeTerminalB);
+      expect(appliedConflict).toBe(false);
+
+      // A nota existente NÃO foi alterada silenciosamente
+      expect(nodeAcademic.getCRDT('grade:stu-42:matematica')?.value.score).toBe(9.5);
+
+      // Evento de conflito disparado
+      expect(conflictEvent).toBeDefined();
+      expect(conflictEvent.key).toBe('grade:stu-42:matematica');
+      expect(conflictEvent.status).toBe('CONFLICT_PENDING_HUMAN_REVIEW');
+
+      // Ambas as versões preservadas no repositório de conflitos
+      const pending = nodeAcademic.getPendingConflict('grade:stu-42:matematica');
+      expect(pending).toBeDefined();
+      expect(pending?.existing.value.score).toBe(9.5);
+      expect(pending?.incoming.value.score).toBe(6.0);
+
+      // Resolução humana explícita pela coordenadora pedagógica
+      const resolved = nodeAcademic.resolveHumanConflict(
+        'grade:stu-42:matematica',
+        gradeProfA,
+        'coordenadora-ana-paula'
+      );
+      expect(resolved).toBe(true);
+      expect(nodeAcademic.getPendingConflict('grade:stu-42:matematica')).toBeUndefined();
+      expect(nodeAcademic.getCRDT('grade:stu-42:matematica')?.value.score).toBe(9.5);
+    });
+  });
 });

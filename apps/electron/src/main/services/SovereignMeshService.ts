@@ -64,6 +64,7 @@ export class SovereignMeshService extends EventEmitter {
 
   // Estado CRDT Local
   private crdtStore: Map<string, CRDTRecord> = new Map();
+  private pendingConflicts: Map<string, { key: string; existing: CRDTRecord; incoming: CRDTRecord; status: 'CONFLICT_PENDING_HUMAN_REVIEW'; detectedAt: number }> = new Map();
   private versionVector: VersionVector = {};
   private localSequence: number = 0;
   private simulatedPeers: Map<string, SovereignMeshService> = new Map();
@@ -410,9 +411,76 @@ export class SovereignMeshService extends EventEmitter {
    * 2. Desempate por maior sequence monotônico.
    * 3. Desempate determinístico lexicográfico por nodeId.
    */
-  public resolveConflict(incoming: CRDTRecord, existing?: CRDTRecord): { winner: 'incoming' | 'existing'; record: CRDTRecord } {
+  /**
+   * Identifica se uma chave CRDT armazena dados acadêmicos ou críticos protegidos contra LWW silencioso.
+   */
+  public static isAcademicOrCriticalKey(key: string): boolean {
+    const k = key.toLowerCase();
+    return (
+      k.startsWith('grade:') ||
+      k.startsWith('nota:') ||
+      k.startsWith('academic:') ||
+      k.startsWith('report_card:') ||
+      k.startsWith('boletim:') ||
+      k.startsWith('assessment:') ||
+      k.startsWith('evaluation:') ||
+      k.startsWith('student_record:')
+    );
+  }
+
+  /**
+   * Resolução de conflitos:
+   * 1. Registros acadêmicos/críticos concorrentes NÃO são descartados por LWW silencioso.
+   *    Geram evento CONFLICT_PENDING_HUMAN_REVIEW e preservam ambas as versões para revisão humana.
+   * 2. Registros de telemetria/UI/presença transitória usam LWW determinístico:
+   *    - Maior timestamp físico.
+   *    - Desempate por maior sequence monotônico.
+   *    - Desempate determinístico lexicográfico por nodeId.
+   */
+  public resolveConflict(incoming: CRDTRecord, existing?: CRDTRecord): {
+    winner: 'incoming' | 'existing' | 'conflict';
+    record: CRDTRecord;
+    conflictPendingReview?: boolean;
+  } {
     if (!existing) {
       return { winner: 'incoming', record: incoming };
+    }
+
+    // Proteção de Integridade Acadêmica (LGPD / Governança Soberana):
+    // Se for registro acadêmico e houver versões distintas de nós diferentes, retém ambas para revisão humana
+    if (
+      SovereignMeshService.isAcademicOrCriticalKey(incoming.key) &&
+      incoming.nodeId !== existing.nodeId &&
+      JSON.stringify(incoming.value) !== JSON.stringify(existing.value)
+    ) {
+      this.pendingConflicts.set(incoming.key, {
+        key: incoming.key,
+        existing,
+        incoming,
+        status: 'CONFLICT_PENDING_HUMAN_REVIEW',
+        detectedAt: Date.now()
+      });
+
+      this.emit('CONFLICT_PENDING_HUMAN_REVIEW', {
+        key: incoming.key,
+        existing,
+        incoming,
+        status: 'CONFLICT_PENDING_HUMAN_REVIEW',
+        timestamp: Date.now()
+      });
+
+      this.emit('crdt:conflict-flagged-for-human-review', {
+        key: incoming.key,
+        existing,
+        incoming,
+        status: 'CONFLICT_PENDING_HUMAN_REVIEW'
+      });
+
+      return {
+        winner: 'conflict',
+        record: existing,
+        conflictPendingReview: true
+      };
     }
 
     if (incoming.timestamp > existing.timestamp) {
@@ -437,6 +505,51 @@ export class SovereignMeshService extends EventEmitter {
   }
 
   /**
+   * Retorna conflitos pendentes de revisão humana.
+   */
+  public getPendingConflicts(): Array<{
+    key: string;
+    existing: CRDTRecord;
+    incoming: CRDTRecord;
+    status: 'CONFLICT_PENDING_HUMAN_REVIEW';
+    detectedAt: number;
+  }> {
+    return Array.from(this.pendingConflicts.values());
+  }
+
+  public getPendingConflict(key: string) {
+    return this.pendingConflicts.get(key);
+  }
+
+  /**
+   * Resolução definitiva de um conflito acadêmico pela secretaria ou professor (HITL).
+   */
+  public resolveHumanConflict(key: string, chosenRecord: CRDTRecord, reviewerId: string): boolean {
+    const conflict = this.pendingConflicts.get(key);
+    if (!conflict) return false;
+
+    this.localSequence++;
+    const resolvedRecord: CRDTRecord = {
+      ...chosenRecord,
+      sequence: this.localSequence,
+      timestamp: Date.now(),
+      nodeId: this.getNodeId()
+    };
+
+    this.crdtStore.set(key, resolvedRecord);
+    this.pendingConflicts.delete(key);
+
+    this.emit('crdt:conflict-resolved-by-human', {
+      key,
+      resolvedRecord,
+      reviewerId,
+      timestamp: Date.now()
+    });
+
+    return true;
+  }
+
+  /**
    * Aplica um registro CRDT remoto respeitando LWW e isolamento institucional.
    */
   public applyRemoteCRDTRecord(incoming: CRDTRecord): boolean {
@@ -446,7 +559,7 @@ export class SovereignMeshService extends EventEmitter {
     }
 
     const existing = this.crdtStore.get(incoming.key);
-    const { winner, record } = this.resolveConflict(incoming, existing);
+    const result = this.resolveConflict(incoming, existing);
 
     // Atualiza o relógio do nó remoto no nosso vetor de versão
     const currentRemoteSeq = this.versionVector[incoming.nodeId] || 0;
@@ -454,7 +567,12 @@ export class SovereignMeshService extends EventEmitter {
       this.versionVector[incoming.nodeId] = incoming.sequence;
     }
 
-    if (winner === 'incoming') {
+    if (result.winner === 'conflict' || result.conflictPendingReview) {
+      logger.warn(`[Mesh CRDT] Conflito acadêmico registrado para revisão humana na chave ${incoming.key}. Sobrescrita silenciosa bloqueada.`);
+      return false;
+    }
+
+    if (result.winner === 'incoming') {
       this.crdtStore.set(incoming.key, incoming);
       this.emit('crdt:conflict-resolved', { key: incoming.key, winner: 'incoming', record: incoming });
       return true;
@@ -539,6 +657,10 @@ export class SovereignMeshService extends EventEmitter {
   }
 
   private async handleCRDTMessage(message: any, fromPeerId: string) {
+    if (!this.simulationMode && !this.isQuantumSafe(fromPeerId)) {
+      logger.warn(`[Mesh CRDT] Mensagem CRDT rejeitada de par não autenticado por canal Noise/SQS: ${fromPeerId}`);
+      return;
+    }
     switch (message.type) {
       case 'CRDT_SYNC_INIT': {
         const init = message.payload as CRDTSyncInitPayload;
