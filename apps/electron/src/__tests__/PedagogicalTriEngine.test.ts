@@ -412,4 +412,69 @@ describe('Homologação Técnica — PedagogicalTriEngine (Onda 8: Docência, Cu
       expect((consolidated as any).studentRankings).toBeUndefined(); // Zero ranqueamento nominal estigmatizante
     });
   });
+  describe('8. Governança Psicometria TRI e Não-Punição (P-03)', () => {
+    test('validateItemCalibration: deve aceitar itens INEP/SAEB e empíricos N>=500, e rejeitar calibração insuficiente ou LLM', () => {
+      const inepItem = {
+        id: 'INEP-2023-Q01',
+        paramA: 1.2,
+        paramB: 0.5,
+        paramC: 0.2,
+        descriptorCode: 'D14',
+        bnccCode: 'EM13MAT301',
+        area: 'matematica' as const,
+        stage: 'ENSINO_MEDIO' as const,
+        sourceAuthority: 'INEP' as const,
+      };
+      const vInep = PedagogicalTriEngine.validateItemCalibration(inepItem);
+      expect(vInep.isValidCalibration).toBe(true);
+      expect(vInep.status).toBe('OFFICIAL_CALIBRATED');
+
+      const empiricalValid = {
+        ...inepItem,
+        id: 'EMP-VALID',
+        sourceAuthority: 'EMPIRICAL_PILOT' as const,
+        sampleSize: 650,
+      };
+      const vEmp = PedagogicalTriEngine.validateItemCalibration(empiricalValid);
+      expect(vEmp.isValidCalibration).toBe(true);
+      expect(vEmp.status).toBe('EMPIRICAL_CALIBRATED');
+
+      const empiricalInsufficient = {
+        ...inepItem,
+        id: 'EMP-LOW-N',
+        sourceAuthority: 'EMPIRICAL_PILOT' as const,
+        sampleSize: 120, // N < 500
+      };
+      const vLow = PedagogicalTriEngine.validateItemCalibration(empiricalInsufficient);
+      expect(vLow.isValidCalibration).toBe(false);
+      expect(vLow.status).toBe('PRELIMINARY_UNVERIFIED');
+      expect(vLow.reason).toContain('N=120 < 500');
+
+      const llmGenerated = {
+        ...inepItem,
+        id: 'LLM-HALLUCINATED',
+        sourceAuthority: 'SYNTHETIC_PROVISIONAL' as const,
+      };
+      const vLlm = PedagogicalTriEngine.validateItemCalibration(llmGenerated);
+      expect(vLlm.isValidCalibration).toBe(false);
+      expect(vLlm.status).toBe('PRELIMINARY_UNVERIFIED');
+    });
+
+    test('evaluatePedagogicalCoherence: substitui rótulo punitivo anti-chute por sinalização formativa', () => {
+      const sampleItems = [
+        { id: 'EASY-1', paramA: 1.5, paramB: -2.0, paramC: 0.2, descriptorCode: 'D01', bnccCode: 'EM13MAT101', area: 'matematica' as const, stage: 'ENSINO_MEDIO' as const },
+        { id: 'HARD-1', paramA: 1.5, paramB: 2.5, paramC: 0.2, descriptorCode: 'D02', bnccCode: 'EM13MAT301', area: 'matematica' as const, stage: 'ENSINO_MEDIO' as const },
+      ];
+      const anomalousResponses = [
+        { itemId: 'EASY-1', isCorrect: false },
+        { itemId: 'HARD-1', isCorrect: true },
+      ];
+
+      const coherence = PedagogicalTriEngine.evaluatePedagogicalCoherence(-1.0, sampleItems, anomalousResponses);
+      expect(coherence.pedagogicalConsistencyFlagged).toBe(true);
+      expect(coherence.pedagogicalFeedbackMessage).toContain('Sinalização de consistência pedagógica');
+      expect(coherence.pedagogicalFeedbackMessage).toContain('sem caráter punitivo');
+    });
+  });
 });
+

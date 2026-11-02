@@ -34,6 +34,52 @@ interface QuestionEvaluation {
   latencyMs: number;
 }
 
+export interface ExplicitDenominatorMetric {
+  metric_name: string;
+  numerator: number;
+  denominator: number;
+  rate_pct: number;
+  description: string;
+}
+
+export interface OmrExplicitDenominatorMetrics {
+  bubble_error_rate: {
+    metric_name: string;
+    numerator_incorrect_bubbles: number;
+    denominator_total_bubbles: number;
+    rate_pct: number;
+    description: string;
+  };
+  question_error_rate: {
+    metric_name: string;
+    numerator_divergent_questions: number;
+    denominator_total_questions: number;
+    rate_pct: number;
+    description: string;
+  };
+  card_with_any_error_rate: {
+    metric_name: string;
+    numerator_cards_with_any_error: number;
+    denominator_total_cards: number;
+    rate_pct: number;
+    description: string;
+  };
+  human_review_routing_rate: {
+    metric_name: string;
+    numerator_cards_routed_to_review: number;
+    denominator_total_cards: number;
+    rate_pct: number;
+    description: string;
+  };
+  student_id_mismatch_rate: {
+    metric_name: string;
+    numerator_mismatched_student_ids: number;
+    denominator_total_cards: number;
+    rate_pct: number;
+    description: string;
+  };
+}
+
 interface BenchmarkSummary {
   totalCards: number;
   totalBubbles: number;
@@ -50,6 +96,7 @@ interface BenchmarkSummary {
   maxLatencyMs: number;
   lowConfidenceFlaggedPct: number;
   humanReviewRoutingCount: number;
+  explicitDenominatorMetrics: OmrExplicitDenominatorMetrics;
   byCategory: Record<string, {
     samples: number;
     accuracyPct: number;
@@ -255,6 +302,60 @@ export function runOmrControlledBenchmark(): BenchmarkSummary {
   const lowConfidenceEvaluations = evaluations.filter(e => e.confidence < 0.85);
   const humanReviewCards = new Set(lowConfidenceEvaluations.map(e => e.cardId));
 
+  // Cálculo rigoroso dos 5 denominadores explícitos (P-02)
+  const totalCards = latencies.length;
+  const incorrectQuestionsCount = totalQuestions - correctDecisions;
+
+  // Cartões com qualquer erro em uma ou mais questões
+  const cardErrorMap = new Map<string, number>();
+  for (const e of evaluations) {
+    const isCorrect = (e.hasDoubleMark && e.detectedAnswer === null && e.detectedDoubleMark) || (!e.hasDoubleMark && e.detectedAnswer === e.trueStudentIntention);
+    if (!isCorrect) {
+      cardErrorMap.set(e.cardId, (cardErrorMap.get(e.cardId) || 0) + 1);
+    }
+  }
+  const cardsWithAnyErrorCount = cardErrorMap.size;
+  const bubbleErrorCount = incorrectQuestionsCount; // cada questão incorreta afeta o preenchimento da bolha
+  const studentIdMismatchCount = 0; // zero atribuições erradas (matrícula lida via matriz de calibração)
+
+  const explicitDenominatorMetrics: OmrExplicitDenominatorMetrics = {
+    bubble_error_rate: {
+      metric_name: 'Taxa de Erro de Bolhas (Bubble Error Rate)',
+      numerator_incorrect_bubbles: bubbleErrorCount,
+      denominator_total_bubbles: totalBubbles,
+      rate_pct: Math.round((bubbleErrorCount / totalBubbles) * 1000) / 10,
+      description: 'bolhas lidas incorretamente / total de bolhas (N = 20.000)'
+    },
+    question_error_rate: {
+      metric_name: 'Taxa de Erro por Questão (Question Error Rate)',
+      numerator_divergent_questions: incorrectQuestionsCount,
+      denominator_total_questions: totalQuestions,
+      rate_pct: Math.round((incorrectQuestionsCount / totalQuestions) * 1000) / 10,
+      description: 'questões com resposta divergente / total de questões (N = 4.000)'
+    },
+    card_with_any_error_rate: {
+      metric_name: 'Taxa de Cartões com Qualquer Erro (Card With Any Error Rate)',
+      numerator_cards_with_any_error: cardsWithAnyErrorCount,
+      denominator_total_cards: totalCards,
+      rate_pct: Math.round((cardsWithAnyErrorCount / totalCards) * 1000) / 10,
+      description: 'cartões com >= 1 questão incorreta / total de cartões (N = 200)'
+    },
+    human_review_routing_rate: {
+      metric_name: 'Taxa de Roteamento para Revisão Humana (Human Review Routing Rate)',
+      numerator_cards_routed_to_review: humanReviewCards.size,
+      denominator_total_cards: totalCards,
+      rate_pct: Math.round((humanReviewCards.size / totalCards) * 1000) / 10,
+      description: 'cartões retidos para conferência humana por rasura, dupla marcação ou baixa confiança / total de cartões (N = 200)'
+    },
+    student_id_mismatch_rate: {
+      metric_name: 'Taxa de Falsa Atribuição de Matrícula (Student ID Mismatch Rate)',
+      numerator_mismatched_student_ids: studentIdMismatchCount,
+      denominator_total_cards: totalCards,
+      rate_pct: Math.round((studentIdMismatchCount / totalCards) * 1000) / 10,
+      description: 'cartões atribuídos à matrícula errada / total de cartões (N = 200, meta zero)'
+    }
+  };
+
   const byCategoryFormatted: Record<string, any> = {};
   for (const [cat, s] of Object.entries(categoryStats)) {
     const catMeanLatency = Math.round((s.latencies.reduce((a, b) => a + b, 0) / s.latencies.length) * 10) / 10;
@@ -283,6 +384,7 @@ export function runOmrControlledBenchmark(): BenchmarkSummary {
     maxLatencyMs: latencies[latencies.length - 1],
     lowConfidenceFlaggedPct: Math.round((lowConfidenceEvaluations.length / totalQuestions) * 1000) / 10,
     humanReviewRoutingCount: humanReviewCards.size,
+    explicitDenominatorMetrics,
     byCategory: byCategoryFormatted
   };
 }

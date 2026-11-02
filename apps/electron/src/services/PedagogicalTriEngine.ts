@@ -22,6 +22,7 @@ export type EducationStage =
   | 'ENSINO_MEDIO'
   | 'VESTIBULAR_MEDICINA';
 export type MasteryLevel = 'abaixo_do_basico' | 'basico' | 'proficiente' | 'avancado';
+export type CalibrationStatus = 'OFFICIAL_CALIBRATED' | 'EMPIRICAL_CALIBRATED' | 'PRELIMINARY_UNVERIFIED';
 
 export interface SaebDescriptor {
   code: string; // Ex: 'D01', 'D14', 'D28'
@@ -50,6 +51,9 @@ export interface TriItemParameters {
   area: KnowledgeArea;
   stage: EducationStage;
   weight?: number;
+  calibrationStatus?: CalibrationStatus;
+  sampleSize?: number;
+  sourceAuthority?: 'INEP' | 'SAEB' | 'VESTIBULAR_OFICIAL' | 'EMPIRICAL_PILOT' | 'SYNTHETIC_PROVISIONAL';
 }
 
 export interface StudentItemResponse {
@@ -589,6 +593,40 @@ export class PedagogicalTriEngine {
    * Calcula a probabilidade de acerto segundo o Modelo Logístico de 3 Parâmetros (3PL):
    * P(θ) = c + (1 - c) / (1 + e^(-1.7 * a * (θ - b)))
    */
+  /**
+   * Governança TRI P-03:
+   * Valida se os parâmetros do item provêm de fontes oficiais ou matriz empírica válida (N >= 500).
+   * Proíbe categoricamente calibração gerada ou alucinada por LLM a partir de texto de enunciado.
+   */
+  public static validateItemCalibration(item: TriItemParameters): {
+    isValidCalibration: boolean;
+    status: CalibrationStatus;
+    reason?: string;
+  } {
+    if (
+      item.sourceAuthority === 'INEP' ||
+      item.sourceAuthority === 'SAEB' ||
+      item.sourceAuthority === 'VESTIBULAR_OFICIAL'
+    ) {
+      return { isValidCalibration: true, status: 'OFFICIAL_CALIBRATED' };
+    }
+    if (item.sourceAuthority === 'EMPIRICAL_PILOT') {
+      if ((item.sampleSize || 0) >= 500) {
+        return { isValidCalibration: true, status: 'EMPIRICAL_CALIBRATED' };
+      }
+      return {
+        isValidCalibration: false,
+        status: 'PRELIMINARY_UNVERIFIED',
+        reason: `Amostragem empírica insuficiente (N=${item.sampleSize || 0} < 500) para calibração formal TRI.`,
+      };
+    }
+    return {
+      isValidCalibration: false,
+      status: 'PRELIMINARY_UNVERIFIED',
+      reason: 'Parâmetros gerados sem fonte oficial ou sem matriz empírica N>=500. Proibida calibração por LLM.',
+    };
+  }
+
   public static calculate3PLProbability(
     theta: number,
     paramA: number,
@@ -774,6 +812,8 @@ export class PedagogicalTriEngine {
     guttmanInversions: number;
     outfitMeanSquare: number;
     details: ItemEvaluationDetail[];
+    pedagogicalConsistencyFlagged?: boolean;
+    pedagogicalFeedbackMessage?: string;
   } {
     const itemMap = new Map<string, TriItemParameters>();
     items.forEach(it => itemMap.set(it.id, it));
@@ -876,6 +916,10 @@ export class PedagogicalTriEngine {
       guttmanInversions,
       outfitMeanSquare,
       details,
+      pedagogicalConsistencyFlagged: isGuessingDetected,
+      pedagogicalFeedbackMessage: isGuessingDetected
+        ? 'Sinalização de consistência pedagógica: padrão de respostas atípico detectado em itens avançados. Recomenda-se acompanhamento diagnóstico formativo pelo professor, sem caráter punitivo.'
+        : 'Padrão de respostas pedagogicamente coerente com a curva de proficiência estimada.',
     };
   }
 
