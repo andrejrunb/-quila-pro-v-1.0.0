@@ -187,4 +187,115 @@ describe('SQLiteDisasterRecoveryService — Trilha B: Backup e Restauração Cra
     expect(liveDb.prepare('SELECT count(*) as total FROM students').get()).toEqual({ total: 1 });
     liveDb.close();
   });
+  it('7. Recuperação no Boot: trata corrupção/morte durante a escrita do próprio journal', () => {
+    const journalPath = path.join(tmpDir, 'restore_journal.json');
+    // Simula json truncado no meio da escrita por morte súbita
+    fs.writeFileSync(journalPath, '{"phase": "PREPARING_REPLACEMENT", "startedAt": "2026-11-02');
+
+    const recovered = SQLiteDisasterRecoveryService.recoverPendingRestoreOnBoot(tmpDir);
+    expect(recovered).toBe(true);
+    expect(fs.existsSync(journalPath)).toBe(false);
+
+    // Banco original permanece íntegro
+    const liveDb = new Database(sourceDbPath, { readonly: true });
+    expect(liveDb.prepare('SELECT count(*) as total FROM students').get()).toEqual({ total: 1 });
+    liveDb.close();
+  });
+
+  it('8. Recuperação no Boot: interrupção durante REPLACING restaura snapshot prévio com WAL', () => {
+    const journalPath = path.join(tmpDir, 'restore_journal.json');
+    const stagingPath = path.join(tmpDir, 'staging_half_swapped.db');
+    const preRestoreBackupPath = path.join(tmpDir, 'pre_restore_snapshot.db');
+
+    // Cria um snapshot prévio com 1 estudante
+    fs.copyFileSync(sourceDbPath, preRestoreBackupPath);
+    // Cria um arquivo danificado/incompleto no targetRestorePath
+    fs.writeFileSync(sourceDbPath, 'corrupted during swap');
+    fs.writeFileSync(stagingPath, 'orphan staging');
+
+    fs.writeFileSync(
+      journalPath,
+      JSON.stringify({
+        phase: 'REPLACING',
+        backupFilePath: 'backup.bak',
+        stagingPath,
+        targetRestorePath: sourceDbPath,
+        preRestoreBackupPath,
+        startedAt: new Date().toISOString(),
+        actor: 'TEST',
+      })
+    );
+
+    const recovered = SQLiteDisasterRecoveryService.recoverPendingRestoreOnBoot(tmpDir);
+    expect(recovered).toBe(true);
+    expect(fs.existsSync(journalPath)).toBe(false);
+    expect(fs.existsSync(stagingPath)).toBe(false);
+
+    // Banco original foi restaurado a partir do snapshot prévio
+    const liveDb = new Database(sourceDbPath, { readonly: true });
+    expect(liveDb.prepare('SELECT count(*) as total FROM students').get()).toEqual({ total: 1 });
+    liveDb.close();
+  });
+
+  it('9. Recuperação no Boot: interrupção em REPLACED_VERIFYING com banco corrompido reverte para pré-restauração', () => {
+    const journalPath = path.join(tmpDir, 'restore_journal.json');
+    const preRestoreBackupPath = path.join(tmpDir, 'pre_restore_snapshot.db');
+
+    // Cria o snapshot prévio válido
+    fs.copyFileSync(sourceDbPath, preRestoreBackupPath);
+
+    // Banco foi promovido mas está corrompido (falha no integrity check)
+    fs.writeFileSync(sourceDbPath, 'not a valid sqlite file');
+
+    fs.writeFileSync(
+      journalPath,
+      JSON.stringify({
+        phase: 'REPLACED_VERIFYING',
+        backupFilePath: 'backup.bak',
+        stagingPath: path.join(tmpDir, 'stg.db'),
+        targetRestorePath: sourceDbPath,
+        preRestoreBackupPath,
+        startedAt: new Date().toISOString(),
+        actor: 'TEST',
+      })
+    );
+
+    const recovered = SQLiteDisasterRecoveryService.recoverPendingRestoreOnBoot(tmpDir);
+    expect(recovered).toBe(true);
+    expect(fs.existsSync(journalPath)).toBe(false);
+
+    // Reverteu para o snapshot prévio com integridade confirmada
+    const liveDb = new Database(sourceDbPath, { readonly: true });
+    expect(liveDb.prepare('SELECT count(*) as total FROM students').get()).toEqual({ total: 1 });
+    liveDb.close();
+  });
+
+  it('10. Recuperação no Boot: interrupção na fase COMPLETED antes de deletar o journal apenas limpa resíduos', () => {
+    const journalPath = path.join(tmpDir, 'restore_journal.json');
+    const stagingPath = path.join(tmpDir, 'staging_done.db');
+    fs.writeFileSync(stagingPath, 'orphan');
+
+    fs.writeFileSync(
+      journalPath,
+      JSON.stringify({
+        phase: 'COMPLETED',
+        backupFilePath: 'backup.bak',
+        stagingPath,
+        targetRestorePath: sourceDbPath,
+        startedAt: new Date().toISOString(),
+        actor: 'TEST',
+      })
+    );
+
+    const recovered = SQLiteDisasterRecoveryService.recoverPendingRestoreOnBoot(tmpDir);
+    expect(recovered).toBe(true);
+    expect(fs.existsSync(journalPath)).toBe(false);
+    expect(fs.existsSync(stagingPath)).toBe(false);
+
+    // Banco preservado
+    const liveDb = new Database(sourceDbPath, { readonly: true });
+    expect(liveDb.prepare('SELECT count(*) as total FROM students').get()).toEqual({ total: 1 });
+    liveDb.close();
+  });
 });
+
