@@ -242,50 +242,14 @@ export class SovereignEssayService extends EventEmitter {
 
 
 
-        // Tenta OCR no Colab GPU
-
-        const colabStatus = colabGpuBridge.getStatus();
-
-        if (colabStatus.online) {
-
-          try {
-
-            const ocrResult = await colabGpuBridge.ocrEssay(buffer);
-
-            if (ocrResult?.text && (!essayText || essayText.length < 50)) {
-
-              essayText = ocrResult.text;
-
-            }
-
-            ocrConfidence = ocrResult?.confidence || 0.94;
-
-          } catch (ocrErr) {
-
-            console.warn('[SovereignEssayService] OCR GPU falhou, aplicando fallback local:', ocrErr);
-
-            ocrConfidence = 0.78;
-
-            if (!essayText) {
-
-              essayText = this.localFallbackOcr(buffer, params.themeTitle);
-
-            }
-
-          }
-
-        } else {
-
-          // Colab offline: fallback local
-
-          ocrConfidence = 0.82;
-
-          if (!essayText) {
-
-            essayText = this.localFallbackOcr(buffer, params.themeTitle);
-
-          }
-
+        // Soberania de Dados (LGPD Art. 14) e Princípio Fail-Secure:
+        // Não envia fotografias de caligrafia de estudantes para servidores externos e não gera texto sintético forjado.
+        if (!essayText) {
+          throw new Error(
+            'A fotografia da folha de redação foi armazenada com sucesso no edge local. ' +
+            'Por diretriz de soberania de dados (LGPD Art. 14) e princípio fail-secure, ' +
+            'a transcrição de texto deve ser informada para a avaliação das competências do ENEM.'
+          );
         }
 
       }
@@ -858,22 +822,10 @@ export class SovereignEssayService extends EventEmitter {
 
    */
 
-  private localFallbackOcr(buffer: Buffer, themeTitle: string): string {
-
-    return `Na contemporaneidade brasileira, o debate acerca de "${themeTitle}" reveste-se de transcendente relevância ética e social. Com efeito, a Carta Magna de 1988 preconiza a dignidade da pessoa humana e a igualdade substancial como pilares basilares da República. Todavia, a realidade cotidiana expõe disparidades alarmantes que obstaculizam a concretização plena desses preceitos fundamentais.
-
-
-
-Em primeira análise, cumpre pontuar a inércia estrutural do Estado perante a complexidade dessa celeuma. Consoante adverte o sociólogo Zygmunt Bauman em sua teoria da "Modernidade Líquida", as instituições contemporâneas frequentemente falham em prover respostas sólidas às vulnerabilidades dos cidadãos. Sob essa ótica, a escassez de políticas públicas articuladas perpetua a marginalização de parcelas expressivas da população.
-
-
-
-Ademais, constata-se a omissão da consciência coletiva como vetor de agravamento do cenário. De acordo com o jurista Gilberto Dimenstein em "O Cidadão de Papel", os direitos consagrados no ordenamento jurídico tornam-se inócuos quando desprovidos de engajamento comunitário ativo. Dessa forma, a naturalização do problema invisibiliza as demandas mais urgentes da sociedade civil.
-
-
-
-Portanto, medidas imperativas são necessárias para mitigar essa conjuntura perversa. Cabe ao Governo Federal, em articulação com os Ministérios competentes e a sociedade civil organizada, instituir um Plano Nacional Integrado mediante campanhas educacionais e ampliação de verbas orçamentárias prioritárias, com o fito de salvaguardar os preceitos constitucionais e consolidar uma cidadania verdadeiramente plena.`;
-
+  private localFallbackOcr(_buffer: Buffer, _themeTitle: string): string {
+    throw new Error(
+      'Geração de redação sintética desativada: o princípio fail-secure veda a criação de textos artificiais em substituição à caligrafia do aluno.'
+    );
   }
 
 
