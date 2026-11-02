@@ -3,13 +3,13 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "Aquila-Pro-School-OS-SBOM",
-  "documentNamespace": "https://aquilapro.org/spdxdocs/aquila-pro-v2.1.0-rc.32-1793388872592",
+  "documentNamespace": "https://aquilapro.org/spdxdocs/aquila-pro-v2.1.0-rc.32-1793657175368",
   "creationInfo": {
     "creators": [
       "Organization: Áquila Pro Sovereign Systems",
       "Tool: generate_sbom_and_notices.ts"
     ],
-    "created": "2026-10-30T19:34:32.592Z"
+    "created": "2026-11-02T22:06:15.368Z"
   },
   "packages": [
     {

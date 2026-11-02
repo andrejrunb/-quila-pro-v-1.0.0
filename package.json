@@ -11,7 +11,7 @@
     "dev:electron": "pnpm --filter aquila-pro-school-os dev",
     "dev:web": "pnpm --filter @aquila/web dev",
     "dev:mobile": "pnpm --filter aquila-pro-mobile start",
-    "build": "pnpm -r run build",
+    "build": "pnpm -r --if-present run build",
     "test": "pnpm -r run test",
     "test:dr": "node scripts/sqlite_backup_dr.cjs",
     "test:dr:full": "node scripts/test_backup_dr_suite.cjs",
