@@ -4,6 +4,56 @@ console.log('[BOOT] Áquila Pro: Processo Principal iniciado.');
 import { app, dialog } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as crypto from 'crypto';
+import * as dotenv from 'dotenv';
+
+// ============================================================================
+// INICIALIZAÇÃO DE AMBIENTE E SEGREDOS DE BORDA (ZERO-BYPASS)
+// ============================================================================
+
+function initEnvironmentAndSecrets(userDataPath?: string) {
+  const candidatePaths = [
+    path.resolve(__dirname, '../../.env'),
+    path.resolve(process.cwd(), '.env'),
+    path.resolve(process.resourcesPath || '', '.env'),
+    userDataPath ? path.resolve(userDataPath, '.env') : null,
+  ].filter(Boolean) as string[];
+
+  for (const envPath of candidatePaths) {
+    if (fs.existsSync(envPath)) {
+      dotenv.config({ path: envPath });
+    }
+  }
+
+  // Se AQUILA_AUTH_SECRET não estiver presente ou for < 32 bytes (ex: instalação limpa E-01),
+  // recupera ou gera um segredo criptográfico soberano de 256 bits (32 bytes) no userData.
+  if (!process.env.AQUILA_AUTH_SECRET || Buffer.byteLength(process.env.AQUILA_AUTH_SECRET, 'utf8') < 32) {
+    if (userDataPath) {
+      const secretFile = path.resolve(userDataPath, '.auth_secret');
+      try {
+        if (fs.existsSync(secretFile)) {
+          const persisted = fs.readFileSync(secretFile, 'utf8').trim();
+          if (Buffer.byteLength(persisted, 'utf8') >= 32) {
+            process.env.AQUILA_AUTH_SECRET = persisted;
+          }
+        }
+        if (!process.env.AQUILA_AUTH_SECRET || Buffer.byteLength(process.env.AQUILA_AUTH_SECRET, 'utf8') < 32) {
+          const generated = crypto.randomBytes(32).toString('hex');
+          fs.writeFileSync(secretFile, generated, { mode: 0o600 });
+          process.env.AQUILA_AUTH_SECRET = generated;
+          console.log('[SECURITY] AQUILA_AUTH_SECRET soberano de borda gerado e persistido.');
+        }
+      } catch (err) {
+        console.warn('[SECURITY] Não foi possível persistir .auth_secret em userData, usando secret efêmero:', err);
+        process.env.AQUILA_AUTH_SECRET = crypto.randomBytes(32).toString('hex');
+      }
+    }
+  }
+}
+
+// Inicialização imediata com caminhos conhecidos de desenvolvimento
+initEnvironmentAndSecrets();
+
 import { WindowManager } from './main/window';
 import { SovereignOrchestrator } from './main/orchestrator';
 import { sovereignRegistry } from './main/registry';
@@ -66,6 +116,7 @@ app.whenReady().then(async () => {
   
   const userDataPath = app.getPath('userData');
   ensureDirectories(userDataPath);
+  initEnvironmentAndSecrets(userDataPath);
 
   try {
     // Fase 1: Boot Crítico (DB, Auth, Window)

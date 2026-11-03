@@ -52,6 +52,7 @@ Gere uma chave forte de 32 bytes (base64) e configure na conta de serviço do si
 $MasterKey = [Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Minimum 0 -Maximum 256 }))
 
 # Injetar de forma persistente nas variáveis do sistema do servidor Edge:
+[Environment]::SetEnvironmentVariable("AQUILA_AUTH_SECRET", [System.Convert]::ToHexString([System.Security.Cryptography.RandomNumberGenerator]::GetBytes(32)), "Machine")
 [Environment]::SetEnvironmentVariable("AQUILA_BACKUP_MASTER_KEY", $MasterKey, "Machine")
 [Environment]::SetEnvironmentVariable("AQUILA_SECONDARY_BACKUP_DIR", "D:\AquilaBackups", "Machine")
 ```
@@ -73,7 +74,10 @@ Register-ScheduledTask -TaskName "AquilaPro_Edge_DailyBackup" -Action $Action -T
 
 `pnpm test:dr:full` é uma suíte automatizada de desenvolvimento/teste, não um healthcheck operacional validado para uma instalação escolar. Não a execute apontando para dados instalados ou reais. Use somente monitoramento operacional aprovado e somente leitura; não há neste checklist um comando integrado de healthcheck validado.
 
-**Gate de recuperação bloqueado:** a suíte de DR e o restore drill não demonstram recuperação segura com SQLite/WAL, arquivo bloqueado ou interrupção entre etapas. Não execute `pnpm restore:drill`, `node scripts/restore_edge.cjs` ou qualquer substituição de banco até haver protocolo validado em ambiente isolado e aprovação operacional própria.
+**Protocolo de Recuperação e Restauração Segura:**
+- O protocolo transacional de restauração em 7 etapas com journal atômico e recuperação no boot (`recoverPendingRestoreOnBoot`) foi implementado e validado em ambiente de testes unitários (Commit `3af691d2`, 10/10 cenários Jest PASS).
+- Para execução de homologação em bancada física antes do go-live em campo, utilize estritamente o roteiro de corte físico de energia documentado em: [`PROTOCOLO_TESTE_BANCADA_E_CORTE_ENERGIA_H01.md`](file:///c:/aquila/docs/operations/PROTOCOLO_TESTE_BANCADA_E_CORTE_ENERGIA_H01.md).
+- Em ambiente de produção real com dados escolares, a substituição manual de banco de dados (`restore`) permanece restrita e exige autorização conjunta do DPO e do Administrador de TI.
 
 ---
 
