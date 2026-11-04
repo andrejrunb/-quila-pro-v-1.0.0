@@ -418,8 +418,13 @@ export class SovereignOrchestrator {
         sovereignRegistry.registerInstance('hrSovereigntyService', hrSovereigntyService);
         sovereignRegistry.registerInstance('documentService', documentService);
 
-        // Inicializar a malha se ainda não estiver ativa
-        await sovereignMeshService.init();
+        // Inicializar a malha se ainda não estiver ativa (Apenas se explicitamente habilitado)
+        if (process.env.AQUILA_ENABLE_MESH === 'true') {
+          console.log('[SECURITY] AQUILA_ENABLE_MESH=true. Inicializando Sovereign Mesh...');
+          await sovereignMeshService.init();
+        } else {
+          console.log('[SECURITY] Sovereign Mesh mantido em quarentena inativa (H-01 Piloto).');
+        }
         
         consciousnessService.startHomeostasisLoop();
         churnMonitorService.runGlobalRiskScan();
@@ -435,14 +440,16 @@ export class SovereignOrchestrator {
         sovereignRegistry.registerInstance('flowPredictionEngine', flowPredictionEngine);
 
         // 15. [Level 20] Sovereign Federation & Nexus Global
-        const { nexusMeshService } = await import('./services/NexusMeshService');
-        const { federatedLearningOrchestrator } = await import('./services/FederatedLearningOrchestrator');
-        
-        await nexusMeshService.start();
-        await federatedLearningOrchestrator.start();
-        
-        sovereignRegistry.registerInstance('nexusMeshService', nexusMeshService);
-        sovereignRegistry.registerInstance('federatedLearningOrchestrator', federatedLearningOrchestrator);
+        if (process.env.AQUILA_ENABLE_MESH === 'true') {
+          const { nexusMeshService } = await import('./services/NexusMeshService');
+          const { federatedLearningOrchestrator } = await import('./services/FederatedLearningOrchestrator');
+          await nexusMeshService.start();
+          await federatedLearningOrchestrator.start();
+          sovereignRegistry.registerInstance('nexusMeshService', nexusMeshService);
+          sovereignRegistry.registerInstance('federatedLearningOrchestrator', federatedLearningOrchestrator);
+        } else {
+          console.log('[SECURITY] Nexus Mesh / Federação P2P desativados no escopo H-01.');
+        }
 
         // 16. [Expansion Phase] Mobility, Infrastructure & Digital Twin
         const { mobileGateway } = await import('./services/MobileGateway');

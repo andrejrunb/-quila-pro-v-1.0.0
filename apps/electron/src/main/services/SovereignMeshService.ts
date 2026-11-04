@@ -155,6 +155,12 @@ export class SovereignMeshService extends EventEmitter {
       return;
     }
 
+    if (process.env.AQUILA_ENABLE_MESH !== 'true') {
+      this.isStarting = false;
+      logger.info('[Mesh] Mesh P2P mantido em quarentena inativa por governança H-01 (AQUILA_ENABLE_MESH != true). Inicialização suprimida.');
+      return;
+    }
+
     try {
       logger.info('[Mesh] Inicializando motor P2P Libp2p com Noise e mDNS local...');
 

@@ -30,6 +30,10 @@ export class NexusMeshService {
      * Inicializa o Nó Nexus P2P
      */
     public async start() {
+        if (process.env.AQUILA_ENABLE_MESH !== 'true') {
+            logger.info('[NexusMesh] Nexus Mesh mantido em quarentena inativa por governança H-01 (AQUILA_ENABLE_MESH != true).');
+            return;
+        }
         try {
             logger.info('[NexusMesh] Inicializando malha P2P soberana...');
 
