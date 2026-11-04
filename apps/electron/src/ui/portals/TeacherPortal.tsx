@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PortalLayout } from '../layouts/PortalLayout';
 import { ClassroomManagement } from '../pages/ClassroomManagement';
 import { Diary } from '../pages/Diary';

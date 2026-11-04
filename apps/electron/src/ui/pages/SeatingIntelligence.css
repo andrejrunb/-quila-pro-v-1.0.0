@@ -2,10 +2,12 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-height: calc(100vh - 60px);
+    flex: 1;
+    min-height: 0;
+    width: 100%;
     background: radial-gradient(circle at 50% -20%, rgba(110, 69, 226, 0.12), transparent);
     color: white;
-    padding: 0.5rem 0.75rem;
+    padding: 0.35rem 0.6rem;
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -345,11 +347,11 @@
     min-height: 0;
     background: rgba(10, 10, 15, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
+    border-radius: 14px;
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 0.85rem 1rem;
+    padding: 0.4rem 0.6rem;
     overflow: hidden;
 }
 
@@ -394,7 +396,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.35rem;
     padding: 0;
     user-select: none;
     flex-shrink: 0;
@@ -403,7 +405,7 @@
 
 .si-blackboard-bar {
     width: 100%;
-    height: 44px;
+    height: 28px;
     background: linear-gradient(180deg, #13241b 0%, #0d1a13 100%);
     border: 2px solid #2d4a3e;
     border-radius: 8px;
@@ -430,7 +432,8 @@
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
     border: 1.5px solid #60a5fa;
     border-radius: 8px;
-    padding: 0.35rem 0.9rem;
+    padding: 0.2rem 0.65rem;
+    height: 26px;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -477,13 +480,13 @@
 
 .si-main-grid {
     display: grid;
-    gap: 0.75rem;
+    gap: 0.45rem;
     width: 100%;
     max-width: 100%;
     margin: 0;
     flex: 1;
     min-height: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 0.25rem;
     box-sizing: border-box;
 }
 
@@ -495,7 +498,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    min-height: 105px;
+    min-height: 64px;
     min-width: 80px;
     height: 100%;
     width: 100%;

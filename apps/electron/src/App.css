@@ -28,13 +28,14 @@
   min-width: 0;
 }
 
-/* [AGENTE-3 FIX-2] page-content: min-height garante que páginas curtas não distorcem layout */
+/* [AGENTE-3 FIX-2] page-content: ocupa 100% da altura util e permite flexivel preenchimento de portais e paginas */
 .page-content {
   flex: 1;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-bottom: 40px;
   box-sizing: border-box;
   /* Scrollbar customizada para o tema escuro */
   scrollbar-width: thin;

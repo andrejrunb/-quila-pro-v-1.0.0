@@ -207,9 +207,7 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
 
         <div 
           className="portal-content-area"
-          style={{
-            zoom: `${zoomPercent}%`
-          }}
+          style={zoomPercent !== 100 ? { zoom: `${zoomPercent}%` } : undefined}
         >
           {children}
         </div>

@@ -1377,7 +1377,7 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                   className="si-main-grid"
                   style={{
                     position: 'relative',
-                    gridTemplateRows: `repeat(${rows}, minmax(105px, 1fr))`,
+                    gridTemplateRows: `repeat(${rows}, minmax(64px, 1fr))`,
                     gridTemplateColumns: `repeat(${cols}, minmax(88px, 1fr))`,
                     zoom: `${gridZoom}%`,
                     transition: 'zoom 0.15s ease-out'

@@ -250,24 +250,24 @@
   box-shadow: 0 0 6px #10b981;
 }
 
-.colab-url-box {
+.gpu-cockpit-container .colab-url-box {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.colab-url-box label {
+.gpu-cockpit-container .colab-url-box label {
   font-size: 0.7rem;
   color: #94a3b8;
   font-weight: 600;
 }
 
-.input-group {
+.gpu-cockpit-container .input-group {
   display: flex;
   gap: 6px;
 }
 
-.input-group input {
+.gpu-cockpit-container .input-group input {
   flex: 1;
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -277,7 +277,7 @@
   border-radius: 6px;
 }
 
-.input-group button {
+.gpu-cockpit-container .input-group button {
   background: #7c3aed;
   color: white;
   border: none;
@@ -289,11 +289,11 @@
   transition: all 0.2s;
 }
 
-.input-group button:hover {
+.gpu-cockpit-container .input-group button:hover {
   background: #6d28d9;
 }
 
-.edge-info-box {
+.gpu-cockpit-container .edge-info-box {
   background: rgba(0, 0, 0, 0.25);
   padding: 10px;
   border-radius: 8px;
@@ -301,13 +301,13 @@
   flex-direction: column;
 }
 
-.edge-device-name {
+.gpu-cockpit-container .edge-device-name {
   font-size: 0.88rem;
   font-weight: 700;
   color: #e2e8f0;
 }
 
-.edge-driver {
+.gpu-cockpit-container .edge-driver {
   font-size: 0.7rem;
   color: #64748b;
   margin-top: 2px;

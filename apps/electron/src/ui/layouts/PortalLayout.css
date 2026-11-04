@@ -219,8 +219,13 @@
 .portal-content-area {
   flex: 1;
   min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  padding: 6px;
+  overflow-x: hidden;
+  padding: 2px 4px;
+  box-sizing: border-box;
 }
 
 .portal-header-actions {
