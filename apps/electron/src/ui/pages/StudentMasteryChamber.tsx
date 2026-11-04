@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { TRI_ITEM_BANK } from '../utils/triItemBank';
 import { HISTORICAL_CHARACTERS } from '../utils/historicalPersonas';
+import { resolveStudentGradeContext, matchesStudentGradeScope } from '../utils/studentGradeScope';
 import {
   Brain,
   Sparkles,
@@ -281,6 +282,7 @@ const FALLBACK_CONCEPTS: VestibularConceptRow[] = [
 ];
 
 export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ studentId, onBack, initialMode }) => {
+  const studentCtx = useMemo(() => resolveStudentGradeContext(studentId), [studentId]);
   const [activeHubMode, setActiveHubMode] = useState<HubMode>(initialMode || 'simulador');
 
   useEffect(() => {
@@ -288,12 +290,20 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
       setActiveHubMode(initialMode);
     }
   }, [initialMode]);
-  const [selectedStage, setSelectedStage] = useState<EducationStageFilter>('ALL');
+  const [selectedStage, setSelectedStage] = useState<EducationStageFilter>(() => studentCtx.stage);
   const [selectedExam, setSelectedExam] = useState<ExamBoard>('TODAS');
-  const [subject, setSubject] = useState<SubjectName>('Física');
+  const [subject, setSubject] = useState<SubjectName>(() =>
+    studentCtx.stage === 'EF_ANOS_FINAIS' ? 'Ciências' : 'Física'
+  );
   const [tracks, setTracks] = useState<ScaffoldingTrack[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [concepts, setConcepts] = useState<VestibularConceptRow[]>(FALLBACK_CONCEPTS);
+  const [concepts, setConcepts] = useState<VestibularConceptRow[]>(() =>
+    FALLBACK_CONCEPTS.filter(c =>
+      studentCtx.stage === 'EF_ANOS_FINAIS'
+        ? c.concept_id.includes('7ano')
+        : !c.concept_id.includes('7ano')
+    )
+  );
   const [gpuStatus, setGpuStatus] = useState<GpuTrainingStatus>({
     run_id: 'gpu_train_initial',
     gpu_device: 'NVIDIA Virtual GPU Tensor Engine (CUDA Sim / AVX2)',
@@ -410,13 +420,15 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
       console.warn('Usando acervo local de contingência');
     }
 
-    // Mapeia questões calibradas do Banco de Itens TRI Soberano considerando etapa e disciplina
-    const matchingTriQuestions = TRI_ITEM_BANK.filter(q => {
+    // Mapeia questões calibradas do Banco de Itens TRI Soberano estritamente dentro da série/etapa do aluno
+    const stagePool = TRI_ITEM_BANK.filter(q =>
+      matchesStudentGradeScope({ stage: q.stage, bnccCode: q.skillCode }, studentCtx)
+    );
+    const matchingTriQuestions = stagePool.filter(q => {
       const matchSubj = (subject as string) === 'TODAS' || q.discipline.toLowerCase() === subject.toLowerCase();
-      const matchStage = selectedStage === 'ALL' || q.stage === selectedStage;
-      return matchSubj && matchStage;
+      return matchSubj;
     });
-    const sourceQuestions = matchingTriQuestions.length > 0 ? matchingTriQuestions : TRI_ITEM_BANK;
+    const sourceQuestions = matchingTriQuestions.length > 0 ? matchingTriQuestions : (stagePool.length > 0 ? stagePool : TRI_ITEM_BANK);
 
     const mappedTracks: ScaffoldingTrack[] = sourceQuestions.map(q => {
       const altsObj: Record<string, string> = {};
@@ -789,14 +801,14 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
       {/* Triple Filter Bar: Etapa + Bancas + Disciplinas */}
       <div className="mastery-filters-bar">
         <div className="education-stage-pills">
-          <span className="filter-bar-label">ETAPA / CICLO:</span>
-          {EDUCATION_STAGES.map(st => (
+          <span className="filter-bar-label">SÉRIE / ETAPA DO ESTUDANTE:</span>
+          {EDUCATION_STAGES.filter(st => st.id === studentCtx.stage || (studentCtx.stage === 'ENSINO_MEDIO' && st.id === 'VESTIBULAR_MEDICINA')).map(st => (
             <button
               key={st.id}
               className={`stage-pill ${selectedStage === st.id ? 'active' : ''}`}
               onClick={() => setSelectedStage(st.id)}
             >
-              <span className="stage-pill-title">{st.label}</span>
+              <span className="stage-pill-title">{st.label} ({studentCtx.seriesLabel})</span>
               <small className="stage-pill-badge">{st.badge}</small>
             </button>
           ))}

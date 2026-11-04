@@ -3,6 +3,7 @@ import {
   Clock, Calendar, AlertCircle, BookOpen, User, 
   Trophy, Sparkles, ChevronRight, ScreenShare, RefreshCw 
 } from 'lucide-react';
+import { getLocalTodayIsoDate } from '../utils/studentGradeScope';
 import './ClassroomDashboard.css';
 
 interface ClassEntity {
@@ -162,8 +163,8 @@ export const ClassroomDashboard: React.FC<ClassroomDashboardProps> = ({ user }) 
     return currentTimeStr >= start && currentTimeStr <= end;
   };
 
-  // Filtra as tarefas pendentes da turma
-  const todayStr = currentTime.toISOString().split('T')[0];
+  // Filtra as tarefas pendentes da turma usando data local (sem desvio UTC às 21h BRT)
+  const todayStr = getLocalTodayIsoDate(currentTime);
   const filteredTasks = events
     .filter(e => e.type === 'tarefa' && e.date >= todayStr)
     .sort((a, b) => a.date.localeCompare(b.date));

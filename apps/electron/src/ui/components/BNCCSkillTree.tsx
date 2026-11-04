@@ -19,6 +19,7 @@ import {
   Flame
 } from 'lucide-react';
 import { TRI_ITEM_BANK, TriQuestion } from '../utils/triItemBank';
+import { resolveStudentGradeContext, matchesStudentGradeScope } from '../utils/studentGradeScope';
 import './BNCCSkillTree.css';
 
 export type BNCCArea = 'todas' | 'matematica' | 'natureza' | 'linguagens' | 'humanas';
@@ -246,7 +247,7 @@ export const BNCC_SKILLS_DATA: BNCCSkillNode[] = [
     mentor: {
       name: 'Marie Curie',
       role: 'Dupla Laureada com o Nobel',
-      quote: 'Nada na vida deve ser temido, somente compreendido.',
+      quote: 'A radioatividade é uma propriedade atômica que acompanha os átomos do elemento em todas as suas combinações químicas. (Thèse de doctorat, Paris, 1903)',
       badgeName: 'Raio de Polônio',
       badgeIcon: '☢️',
       color: '#00F0FF'
@@ -543,7 +544,10 @@ export const BNCCSkillTree: React.FC<BNCCSkillTreeProps> = ({
   onRewardXp,
   onLaunchQuestion
 }) => {
-  const [skills, setSkills] = useState<BNCCSkillNode[]>(BNCC_SKILLS_DATA);
+  const studentCtx = useMemo(() => resolveStudentGradeContext(studentId), [studentId]);
+  const [skills, setSkills] = useState<BNCCSkillNode[]>(() =>
+    BNCC_SKILLS_DATA.filter(s => matchesStudentGradeScope({ bnccCode: s.code }, resolveStudentGradeContext(studentId)))
+  );
   const [selectedArea, setSelectedArea] = useState<BNCCArea>('todas');
   const [selectedStatus, setSelectedStatus] = useState<SkillStatus>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -553,9 +557,10 @@ export const BNCCSkillTree: React.FC<BNCCSkillTreeProps> = ({
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   const [xpToast, setXpToast] = useState<{ amount: number; message: string } | null>(null);
 
-  // Filtro de nós
+  // Filtro de nós estritamente no escopo da série/etapa do estudante
   const filteredSkills = useMemo(() => {
     return skills.filter(skill => {
+      if (!matchesStudentGradeScope({ bnccCode: skill.code }, studentCtx)) return false;
       if (selectedArea !== 'todas' && skill.area !== selectedArea) return false;
       if (selectedStatus !== 'all' && skill.status !== selectedStatus) return false;
       if (searchQuery.trim()) {
@@ -568,7 +573,7 @@ export const BNCCSkillTree: React.FC<BNCCSkillTreeProps> = ({
       }
       return true;
     });
-  }, [skills, selectedArea, selectedStatus, searchQuery]);
+  }, [skills, selectedArea, selectedStatus, searchQuery, studentCtx]);
 
   // Estatísticas de maestria
   const stats = useMemo(() => {
@@ -596,12 +601,16 @@ export const BNCCSkillTree: React.FC<BNCCSkillTreeProps> = ({
     setTimeout(() => setXpToast(null), 4000);
   };
 
-  // Abrir treino prático com questão do banco TRI
+  // Abrir treino prático com questão do banco TRI restrito à etapa do estudante
   const handleOpenPractice = (skill: BNCCSkillNode) => {
-    // Procura questão correspondente no banco TRI
-    const matchedQuestion = TRI_ITEM_BANK.find(q => q.skillCode === skill.code) || 
-      TRI_ITEM_BANK.find(q => q.area === skill.area) || 
-      TRI_ITEM_BANK[0];
+    const stageQuestions = TRI_ITEM_BANK.filter(q =>
+      matchesStudentGradeScope({ stage: q.stage, bnccCode: q.skillCode }, studentCtx)
+    );
+    const pool = stageQuestions.length > 0 ? stageQuestions : TRI_ITEM_BANK;
+    const matchedQuestion =
+      pool.find(q => q.skillCode === skill.code) ||
+      pool.find(q => q.area === skill.area) ||
+      pool[0];
 
     if (onLaunchQuestion) {
       onLaunchQuestion(matchedQuestion);

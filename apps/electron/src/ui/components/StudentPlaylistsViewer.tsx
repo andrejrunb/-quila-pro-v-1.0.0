@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Layers, Play, CheckCircle2, Award, Coins, Flame, Sparkles, ChevronRight,
   ArrowLeft, Gamepad2, Compass, BookOpen, Users, HelpCircle, Send, Check,
   RotateCcw, Trophy, Star, ShieldCheck, Clock
 } from 'lucide-react';
+import { resolveStudentGradeContext, matchesStudentGradeScope } from '../utils/studentGradeScope';
 
 interface Stage {
   id: string;
@@ -287,7 +288,10 @@ export const StudentPlaylistsViewer: React.FC<StudentPlaylistsViewerProps> = ({
   onBack,
   onNavigate,
 }) => {
-  const [playlists, setPlaylists] = useState<PedagogicalPlaylist[]>(DEFAULT_PLAYLISTS);
+  const studentCtx = useMemo(() => resolveStudentGradeContext(studentId), [studentId]);
+  const [playlists, setPlaylists] = useState<PedagogicalPlaylist[]>(() =>
+    DEFAULT_PLAYLISTS.filter(pl => matchesStudentGradeScope({ classId: pl.classId, bnccCodes: pl.bnccCodes }, resolveStudentGradeContext(studentId)))
+  );
   const [activePlaylist, setActivePlaylist] = useState<PedagogicalPlaylist | null>(null);
   const [currentStageIdx, setCurrentStageIdx] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -299,18 +303,19 @@ export const StudentPlaylistsViewer: React.FC<StudentPlaylistsViewerProps> = ({
 
   useEffect(() => {
     loadPlaylists();
-  }, []);
+  }, [studentCtx]);
 
   const loadPlaylists = async () => {
     try {
       const serverPlaylists = await (window as any).aquila?.playlists?.list?.();
       if (Array.isArray(serverPlaylists) && serverPlaylists.length > 0) {
-        // Merge server playlists with defaults
         const combined = [...serverPlaylists, ...DEFAULT_PLAYLISTS.filter(d => !serverPlaylists.some(p => p.id === d.id))];
-        setPlaylists(combined);
+        setPlaylists(combined.filter(pl => matchesStudentGradeScope({ classId: pl.classId, bnccCodes: pl.bnccCodes }, studentCtx)));
+      } else {
+        setPlaylists(DEFAULT_PLAYLISTS.filter(pl => matchesStudentGradeScope({ classId: pl.classId, bnccCodes: pl.bnccCodes }, studentCtx)));
       }
     } catch {
-      // Keep defaults
+      setPlaylists(DEFAULT_PLAYLISTS.filter(pl => matchesStudentGradeScope({ classId: pl.classId, bnccCodes: pl.bnccCodes }, studentCtx)));
     }
   };
 

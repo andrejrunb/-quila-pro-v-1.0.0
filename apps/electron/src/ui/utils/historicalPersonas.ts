@@ -41,7 +41,7 @@ export const HISTORICAL_CHARACTERS: HistoricalCharacter[] = [
     epoch: '1867–1934',
     country: 'Polônia / França',
     notableWork: 'Isolamento do Rádio e Polônio; Primeira pessoa a ganhar dois Prêmios Nobel em ciências distintas.',
-    famousQuote: 'Na vida, não há nada a temer, apenas a compreender. Agora é a hora de compreender mais, para temer menos.',
+    famousQuote: 'A radioatividade é uma propriedade atômica que acompanha os átomos do elemento em todas as suas combinações químicas. (Thèse de doctorat, Paris, 1903)',
     avatarIcon: '🔬',
     introGreeting: 'Bonjour! Sou Marie Skłodowska-Curie. No laboratório em Paris, provamos que a radioatividade provém do interior do próprio átomo. Como posso ajudar seus estudantes a desvendar o núcleo atômico hoje?',
     suggestedPrompt: 'Como diferenciar as radiações alfa, beta e gama no vestibular?',

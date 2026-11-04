@@ -595,14 +595,75 @@ def process_harvest_queue_atomically(conn: sqlite3.Connection, max_items: int = 
             failed += 1
             continue
 
+        # Se for link de vídeo (YouTube), cataloga metadados sem passar pelo leitor de PDF
+        if "youtube.com/watch" in url.lower() or "youtu.be/" in url.lower():
+            cur.execute("""
+                UPDATE harvest_quarantine_queue
+                SET state = 'CATALOGADO_METADATA_VIDEO',
+                    last_error_code = NULL,
+                    lease_expires_at = NULL,
+                    updated_at = ?
+                WHERE job_id = ?
+            """, (now_iso, job_id))
+            conn.commit()
+            downloaded += 1
+            continue
+
         try:
             req = urllib.request.Request(url, headers=HEADERS)
             with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT_SECONDS, context=STRICT_SSL_CTX) as resp:
+                final_url = resp.geturl()
+                http_status = getattr(resp, "status", 200)
+                content_type = (resp.headers.get("Content-Type") or "").split(";")[0].strip().lower()
                 raw_bytes = resp.read(MAX_PDF_BYTES + 1)
-                if len(raw_bytes) > MAX_PDF_BYTES:
-                    raise ValueError(f"Tamanho do arquivo excede o limite máximo permitido ({MAX_PDF_BYTES} bytes)")
-                if len(raw_bytes) < 512:
-                    raise ValueError("Arquivo corrompido ou vazio (< 512 bytes)")
+
+            byte_size = len(raw_bytes)
+            if byte_size > MAX_PDF_BYTES:
+                raise ValueError(f"Tamanho do arquivo excede o limite máximo permitido ({MAX_PDF_BYTES} bytes)")
+            if byte_size < 512:
+                raise ValueError(f"Arquivo corrompido ou vazio ({byte_size} bytes < 512 bytes)")
+
+            # Validação estrita antes de invocar o leitor PDF: rejeita páginas HTML (<!DOCTYPE, <html)
+            leading_upper = raw_bytes.lstrip()[:32].upper()
+            if (
+                content_type in ("text/html", "application/xhtml+xml")
+                or leading_upper.startswith((b"<!DOC", b"<HTML", b"<HEAD", b"<BODY", b"<SCRIPT"))
+            ):
+                reject_reason = (
+                    f"HTML_NOT_PDF|status={http_status}|ctype={content_type or 'unknown'}"
+                    f"|size={byte_size}|orig={url[:80]}|final={final_url[:80]}"
+                )
+                print(f"   ⚠️ [COLETOR] Candidato {job_id} rejeitado (HTML recebido no lugar de PDF): {reject_reason}")
+                cur.execute("""
+                    UPDATE harvest_quarantine_queue
+                    SET state = 'REJECTED_INVALID_DOCUMENT',
+                        last_error_code = ?,
+                        lease_expires_at = NULL,
+                        updated_at = ?
+                    WHERE job_id = ?
+                """, (reject_reason[:240], now_iso, job_id))
+                conn.commit()
+                failed += 1
+                continue
+
+            # Validação de cabeçalho %PDF- e marcador estrutural %%EOF
+            if not raw_bytes.startswith(b"%PDF-") or b"%%EOF" not in raw_bytes[-4096:]:
+                reject_reason = (
+                    f"INVALID_PDF_STRUCTURE|status={http_status}|ctype={content_type or 'unknown'}"
+                    f"|size={byte_size}|final={final_url[:100]}"
+                )
+                print(f"   ⚠️ [COLETOR] Candidato {job_id} rejeitado (estrutura PDF inválida): {reject_reason}")
+                cur.execute("""
+                    UPDATE harvest_quarantine_queue
+                    SET state = 'REJECTED_INVALID_DOCUMENT',
+                        last_error_code = ?,
+                        lease_expires_at = NULL,
+                        updated_at = ?
+                    WHERE job_id = ?
+                """, (reject_reason[:240], now_iso, job_id))
+                conn.commit()
+                failed += 1
+                continue
 
             # Escrita atômica do download via .part
             part_file_path.write_bytes(raw_bytes)
@@ -611,13 +672,15 @@ def process_harvest_queue_atomically(conn: sqlite3.Connection, max_items: int = 
             part_file_path.replace(final_file_path)
             downloaded += 1
 
-            # Extração de texto real via pypdf (isolada para não invalidar o download)
+            # Extração de texto real via pypdf com verificação estrutural das páginas
             extracted_text = ""
             extraction_err = None
             if HAS_PYPDF:
                 try:
                     import io
-                    reader = PdfReader(io.BytesIO(raw_bytes))
+                    reader = PdfReader(io.BytesIO(raw_bytes), strict=False)
+                    if len(reader.pages) == 0:
+                        raise ValueError("PDF sem páginas legíveis")
                     pages = []
                     for p in reader.pages[:15]:
                         t = p.extract_text() or ""
@@ -626,6 +689,19 @@ def process_harvest_queue_atomically(conn: sqlite3.Connection, max_items: int = 
                     extracted_text = "\n\n--- PAGINA ---\n\n".join(pages)
                 except Exception as pypdf_err:
                     extraction_err = f"PYPDF_{type(pypdf_err).__name__}"
+                    # Se o leitor PDF falhar estruturalmente, mantém bloqueado em REJECTED_INVALID_DOCUMENT
+                    cur.execute("""
+                        UPDATE harvest_quarantine_queue
+                        SET state = 'REJECTED_INVALID_DOCUMENT',
+                            binary_hash = ?,
+                            last_error_code = ?,
+                            lease_expires_at = NULL,
+                            updated_at = ?
+                        WHERE job_id = ?
+                    """, (binary_hash, extraction_err, now_iso, job_id))
+                    conn.commit()
+                    failed += 1
+                    continue
 
             norm_hash = compute_normalized_content_hash(extracted_text) if extracted_text else None
             state = "EXTRAIDO" if (extracted_text and len(extracted_text) >= 120) else "BAIXADO"

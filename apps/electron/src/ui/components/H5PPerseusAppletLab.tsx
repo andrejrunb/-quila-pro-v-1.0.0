@@ -12,6 +12,7 @@ import {
   AppletValidationResult,
   AppletProgressRecord
 } from '../../services/H5PPerseusEngine';
+import { resolveStudentGradeContext, matchesStudentGradeScope, formatSafeDatePtBr } from '../utils/studentGradeScope';
 
 interface H5PPerseusAppletLabProps {
   studentId?: string;
@@ -53,8 +54,17 @@ export const H5PPerseusAppletLab: React.FC<H5PPerseusAppletLabProps> = ({
   const [activeHotspotId, setActiveHotspotId] = useState<string | null>(null);
   const [hotspotQuizAnswers, setHotspotQuizAnswers] = useState<Record<string, number>>({});
 
-  // Catalog
-  const catalog = useMemo(() => H5PPerseusEngine.getCatalog(), []);
+  // Escopo estrito por série/etapa do estudante
+  const studentCtx = useMemo(() => resolveStudentGradeContext(studentId), [studentId]);
+
+  // Catalog filtrado pela série/etapa do estudante
+  const catalog = useMemo(() => {
+    const rawCatalog = H5PPerseusEngine.getCatalog();
+    const scoped = rawCatalog.filter(a =>
+      matchesStudentGradeScope({ gradeLevel: a.gradeLevel, bnccCode: a.bnccCode }, studentCtx)
+    );
+    return scoped.length > 0 ? scoped : rawCatalog;
+  }, [studentCtx]);
 
   // Filtered Catalog
   const filteredCatalog = useMemo(() => {

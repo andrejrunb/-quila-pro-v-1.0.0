@@ -149,6 +149,7 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
   const [rows, setRows] = useState<GradeRow[]>([]);
   const [saveBanner, setSaveBanner] = useState<string | null>(null);
   const [activeReportStudent, setActiveReportStudent] = useState<ReportCardStudent | null>(null);
+  const [showMoreActions, setShowMoreActions] = useState<boolean>(false);
 
   // Estado da Central REA (SigaWeb + JR Sistemas iWeb CSC)
   const [showReaPortalDrawer, setShowReaPortalDrawer] = useState<boolean>(false);
@@ -536,53 +537,75 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
             ))}
           </div>
 
-          {onNavigate && (
+          <div style={{ position: 'relative' }}>
             <button
               className="tg-btn secondary"
-              onClick={() => onNavigate('omr-scanner')}
-              title="Corrigir Provas e Gabaritos via Câmera/Scanner OMR"
-              style={{ borderColor: 'rgba(234, 179, 8, 0.5)', color: '#EAB308' }}
+              onClick={() => setShowMoreActions(prev => !prev)}
+              title="Exportar planilha, importar cartão-resposta OMR e integrações"
             >
-              <Camera size={14} />
-              <span>Scanner OMR</span>
+              <span>Mais ações ▾</span>
             </button>
-          )}
-
-          {onNavigate && (
-            <button
-              className="tg-btn secondary"
-              onClick={() => onNavigate('exam-foundry')}
-              title="Gerar Cadernos de Avaliação e Provas A4 (ENEM/PAS/Bancas Regionais)"
-              style={{ borderColor: 'rgba(56, 189, 248, 0.5)', color: '#38BDF8' }}
-            >
-              <FileText size={14} />
-              <span>Gerador Provas A4</span>
-            </button>
-          )}
-
-          <button
-            className="tg-btn secondary"
-            onClick={() => setShowReaPortalDrawer(prev => !prev)}
-            title="Abrir Conectores REA: SigaWeb e Central de Serviços CSC"
-            style={{ borderColor: showReaPortalDrawer ? '#38bdf8' : undefined, color: showReaPortalDrawer ? '#38bdf8' : undefined }}
-          >
-            <Globe size={14} />
-            <span>Portais REA & CSC</span>
-          </button>
-
-          <button className="tg-btn secondary" onClick={handleApplyCurveBonus} title="Somar +0,5 na N3 de todos os alunos">
-            <Calculator size={14} />
-            <span>+0,5 N3</span>
-          </button>
-
-          <button className="tg-btn secondary" onClick={handleExportCsv} title="Exportar Planilha para Excel / CSV">
-            <Download size={14} />
-            <span>Excel/CSV</span>
-          </button>
+            {showMoreActions && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 6px)',
+                  right: 0,
+                  minWidth: '250px',
+                  background: '#172033',
+                  border: '1px solid #334155',
+                  borderRadius: '8px',
+                  padding: '6px',
+                  boxShadow: '0 10px 25px rgba(0,0,0,0.45)',
+                  zIndex: 50,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '4px'
+                }}
+              >
+                <button
+                  className="tg-btn secondary"
+                  style={{ width: '100%', justifyContent: 'flex-start' }}
+                  onClick={() => { setShowMoreActions(false); handleExportCsv(); }}
+                >
+                  <Download size={14} />
+                  <span>Exportar planilha (CSV)</span>
+                </button>
+                {onNavigate && (
+                  <button
+                    className="tg-btn secondary"
+                    style={{ width: '100%', justifyContent: 'flex-start' }}
+                    onClick={() => { setShowMoreActions(false); onNavigate('omr-scanner'); }}
+                  >
+                    <Camera size={14} />
+                    <span>Importar cartão-resposta (OMR)</span>
+                  </button>
+                )}
+                {onNavigate && (
+                  <button
+                    className="tg-btn secondary"
+                    style={{ width: '100%', justifyContent: 'flex-start' }}
+                    onClick={() => { setShowMoreActions(false); onNavigate('exam-foundry'); }}
+                  >
+                    <FileText size={14} />
+                    <span>Criar avaliação (A4)</span>
+                  </button>
+                )}
+                <button
+                  className="tg-btn secondary"
+                  style={{ width: '100%', justifyContent: 'flex-start' }}
+                  onClick={() => { setShowMoreActions(false); setShowReaPortalDrawer(prev => !prev); }}
+                >
+                  <Globe size={14} />
+                  <span>Enviar ao SigaWeb / Integrações</span>
+                </button>
+              </div>
+            )}
+          </div>
 
           <button className="tg-btn primary" onClick={handleSaveGrades}>
             <Save size={14} />
-            <span>Salvar Notas</span>
+            <span>Salvar notas</span>
           </button>
         </div>
       </header>
@@ -777,8 +800,8 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
                 <th style={{ width: '60px' }}>2º B</th>
                 <th style={{ width: '60px' }}>3º B</th>
                 <th style={{ width: '60px' }}>4º B</th>
-                <th style={{ width: '88px' }}>Média Anual</th>
-                <th style={{ width: '110px' }}>Situação</th>
+                <th style={{ width: '96px' }}>Média Acumulada</th>
+                <th style={{ width: '140px' }}>Situação ({selectedBimester})</th>
                 <th style={{ minWidth: '170px' }}>Observação Pedagógica</th>
                 <th style={{ width: '125px', textAlign: 'right' }}>Ações</th>
               </tr>
@@ -871,8 +894,21 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
                       </strong>
                     </td>
                     <td>
-                      <span className={`tg-status-tag ${isPassing ? 'approved' : 'recovery'}`}>
-                        {isPassing ? 'APROVADO' : 'RECUPERAÇÃO'}
+                      <span
+                        className={`tg-status-tag ${isPassing && annualMean >= 6.0 ? 'approved' : 'recovery'}`}
+                        title={
+                          isPassing
+                            ? annualMean >= 6.0
+                              ? `Média do ${selectedBimester} (${bimMean.toFixed(1)}) e média acumulada (${annualMean.toFixed(1)}) dentro do esperado (≥ 6,0)`
+                              : `Atingiu média no ${selectedBimester} (${bimMean.toFixed(1)}), mas a média acumulada (${annualMean.toFixed(1)}) exige atenção (< 6,0)`
+                            : `Média do ${selectedBimester} (${bimMean.toFixed(1)}) abaixo de 6,0 — elegível para recuperação paralela`
+                        }
+                      >
+                        {isPassing
+                          ? annualMean >= 6.0
+                            ? `REGULAR (${selectedBimester})`
+                            : `BIM. OK • ACUM. < 6`
+                          : `RECUPERAÇÃO (${selectedBimester})`}
                       </span>
                     </td>
                     <td>

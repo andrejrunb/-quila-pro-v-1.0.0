@@ -98,16 +98,33 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
                   <span className="badge-dot"></span>
                   <span className="badge-text">{portalName}</span>
                 </div>
-                <div className="portal-sovereign-tag">
+                <div className="portal-sovereign-tag" title="Conectado ao banco SQLite local da unidade escolar">
                   <Lock size={10} className="portal-lock-icon" />
                   <span className="portal-sovereign-pulse"></span>
-                  <span className="portal-sovereign-text">LAN 100% SOBERANA</span>
+                  <span className="portal-sovereign-text">Conectado • Base Local</span>
                 </div>
+                {(portalName.toLowerCase().includes('aluno') || portalName.toLowerCase().includes('família')) && (
+                  <span
+                    style={{
+                      fontSize: '10px',
+                      fontWeight: 600,
+                      padding: '2px 8px',
+                      borderRadius: '6px',
+                      background: 'rgba(245, 158, 11, 0.14)',
+                      border: '1px solid rgba(245, 158, 11, 0.35)',
+                      color: '#FCD34D',
+                      whiteSpace: 'nowrap'
+                    }}
+                    title="Você está visualizando uma prévia autorizada deste ambiente mantendo sua sessão autenticada"
+                  >
+                    Modo de Prévia: {portalName.split('(')[0].trim()}
+                  </span>
+                )}
               </div>
 
-              {/* Stitch Sovereign Portal Switcher — 6 Core Portals */}
-              <nav className="portal-switcher-bar" aria-label="Alternador Rápido de Portais">
-                <span className="portal-switcher-caption">PORTAIS:</span>
+              {/* Alternador de Ambiente (Prévia Autorizada) */}
+              <nav className="portal-switcher-bar" aria-label="Alternar Ambiente (Prévia Autorizada)">
+                <span className="portal-switcher-caption" title="Alternar prévia entre ambientes autorizados">AMBIENTE:</span>
                 {PORTAL_SHORTCUTS.map((p) => {
                   const isActive =
                     (p.label === 'PROF' && portalName.toLowerCase().includes('pedagógico')) ||

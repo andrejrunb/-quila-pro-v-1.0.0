@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import './StudentRPGPortal.css';
 
@@ -6,7 +6,9 @@ import SovereignShop from './SovereignShop';
 
 import { Proposal } from '../../services/SovereignCouncilService';
 
-import { Sparkles, Brain, Trophy, Flame, Target, BookOpen, ShoppingBag, Vote, Swords, PenTool, GitFork, Network, Crown, Tv, Gamepad2, Layers } from 'lucide-react';
+import { resolveStudentGradeContext, matchesStudentGradeScope, formatSafeDatePtBr } from '../utils/studentGradeScope';
+
+import { Sparkles, Brain, Trophy, Flame, Target, BookOpen, ShoppingBag, Vote, Swords, PenTool, GitFork, Network, Crown, Tv, Gamepad2, Layers, CheckCircle2, Clock, MessageSquare } from 'lucide-react';
 
 
 
@@ -40,17 +42,48 @@ const ACHIEVEMENTS: Achievement[] = [
 
 
 
-const DEFAULT_PODS = [
+const DEFAULT_PODS_BY_STAGE: Record<string, Array<{ id: string; subject: string; created_at: string; stage: string }>> = {
+  ENSINO_MEDIO: [
+    { id: 'pod-em-1', subject: 'Física • Eletrodinâmica & Circuitos (3ª Série EM)', created_at: '2026-10-18T08:30:00Z', stage: 'ENSINO_MEDIO' },
+    { id: 'pod-em-2', subject: 'Matemática • Funções Quadráticas & Geometria Espacial (3ª Série EM)', created_at: '2026-10-17T10:15:00Z', stage: 'ENSINO_MEDIO' },
+    { id: 'pod-em-3', subject: 'Redação • Estrutura Argumentativa & Repertório (3ª Série EM)', created_at: '2026-10-16T09:00:00Z', stage: 'ENSINO_MEDIO' },
+    { id: 'pod-em-4', subject: 'Química • Estequiometria & Rendimento (3ª Série EM)', created_at: '2026-10-15T11:20:00Z', stage: 'ENSINO_MEDIO' },
+  ],
+  EF_ANOS_FINAIS: [
+    { id: 'pod-ef2-1', subject: 'Ciências • Ecossistemas, Biomas & Rios Voadores (7º Ano EF)', created_at: '2026-10-18T08:30:00Z', stage: 'EF_ANOS_FINAIS' },
+    { id: 'pod-ef2-2', subject: 'Matemática • Números Racionais, Razão & Proporção (7º Ano EF)', created_at: '2026-10-17T10:15:00Z', stage: 'EF_ANOS_FINAIS' },
+    { id: 'pod-ef2-3', subject: 'Ciências • Máquinas Simples, Alavancas & Termologia (7º Ano EF)', created_at: '2026-10-16T09:00:00Z', stage: 'EF_ANOS_FINAIS' },
+  ],
+  EF_ANOS_INICIAIS: [
+    { id: 'pod-ef1-1', subject: 'Matemática • Adição, Agrupamento & Multiplicação (3º Ano EF)', created_at: '2026-10-18T08:30:00Z', stage: 'EF_ANOS_INICIAIS' },
+    { id: 'pod-ef1-2', subject: 'Língua Portuguesa • Leitura e Compreensão de Fábulas (3º Ano EF)', created_at: '2026-10-17T10:15:00Z', stage: 'EF_ANOS_INICIAIS' },
+  ],
+};
 
-  { id: 'pod-1', subject: 'Física • Eletrodinâmica & Circuitos TRI', created_at: '2026-10-18T08:30:00Z' },
+interface StudentTaskItem {
+  id: string;
+  title: string;
+  subject: string;
+  dueDate: string;
+  status: 'pending' | 'completed';
+  classId: string;
+}
 
-  { id: 'pod-2', subject: 'Matemática • Geometria Espacial ENEM', created_at: '2026-10-17T10:15:00Z' },
-
-  { id: 'pod-3', subject: 'Redação Nota 1000 • Repertório Constitucional', created_at: '2026-10-16T09:00:00Z' },
-
-  { id: 'pod-4', subject: 'Química • Estequiometria & Rendimento', created_at: '2026-10-15T11:20:00Z' },
-
-];
+const DEFAULT_TASKS_BY_STAGE: Record<string, StudentTaskItem[]> = {
+  ENSINO_MEDIO: [
+    { id: 'tsk-em-1', title: 'Funções Quadráticas — Questão 3 de 8 (Lista Semanal)', subject: 'Matemática', dueDate: 'Amanhã', status: 'pending', classId: 'M-EM3A' },
+    { id: 'tsk-em-2', title: 'Proposta de Intervenção e Repertório Legítimo', subject: 'Redação', dueDate: 'Sexta-feira', status: 'pending', classId: 'M-EM3A' },
+    { id: 'tsk-em-3', title: 'Leis de Ohm e Potência Elétrica em Circuitos', subject: 'Física', dueDate: 'Próxima segunda', status: 'pending', classId: 'M-EM3A' },
+  ],
+  EF_ANOS_FINAIS: [
+    { id: 'tsk-ef2-1', title: 'Adaptações da Vegetação do Cerrado e Ciclo da Água', subject: 'Ciências', dueDate: 'Amanhã', status: 'pending', classId: 'F-EF27A' },
+    { id: 'tsk-ef2-2', title: 'Localização de Frações na Reta Numérica', subject: 'Matemática', dueDate: 'Sexta-feira', status: 'pending', classId: 'F-EF27A' },
+  ],
+  EF_ANOS_INICIAIS: [
+    { id: 'tsk-ef1-1', title: 'Problemas de Agrupamento e Dezenas na Horta', subject: 'Matemática', dueDate: 'Amanhã', status: 'pending', classId: 'F-EF13A' },
+    { id: 'tsk-ef1-2', title: 'Interpretação da Fábula A Cigarra e a Formiga', subject: 'Língua Portuguesa', dueDate: 'Sexta-feira', status: 'pending', classId: 'F-EF13A' },
+  ],
+};
 
 
 
@@ -83,103 +116,91 @@ interface StudentRPGPortalProps {
 
 
 const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStudentId, onNavigate }) => {
+  const [studentId] = useState(propStudentId || 'demo_student_001');
+  const studentCtx = useMemo(() => resolveStudentGradeContext(studentId), [studentId]);
 
   const [economy, setEconomy] = useState<any>({ level: 14, xp: 2680, balance: 1420 });
-
   const [activePolls, setActivePolls] = useState<Proposal[]>(DEFAULT_POLLS);
-
-  const [learningPods, setLearningPods] = useState<any[]>(DEFAULT_PODS);
-
-  const [behavioral, setBehavioral] = useState<any>({ emotion: 'Focado', engagement: 0.88 });
-
+  const [learningPods, setLearningPods] = useState<any[]>(() => DEFAULT_PODS_BY_STAGE[studentCtx.stage] || DEFAULT_PODS_BY_STAGE.ENSINO_MEDIO);
+  const [assignedTasks, setAssignedTasks] = useState<StudentTaskItem[]>(() => DEFAULT_TASKS_BY_STAGE[studentCtx.stage] || DEFAULT_TASKS_BY_STAGE.ENSINO_MEDIO);
+  const [behavioral, setBehavioral] = useState<any>({ emotion: 'Ativo', engagement: 0.88 });
   const [showShop, setShowShop] = useState(false);
 
-  const [studentId] = useState(propStudentId || 'demo_student_001');
-
-
-
   useEffect(() => {
-
     loadEconomy();
-
     loadGovernance();
-
     loadLearningContent();
-
+    loadStudentTasksForGrade();
     loadBehavioral();
 
-
-
     const behavioralInterval = setInterval(loadBehavioral, 10000);
-
     return () => clearInterval(behavioralInterval);
+  }, [studentCtx]);
 
-  }, []);
-
-
+  const loadStudentTasksForGrade = async () => {
+    try {
+      const res = await (window as any).aquila?.invoke?.('tasks:list', { classId: studentCtx.classId });
+      if (res?.success && Array.isArray(res.data) && res.data.length > 0) {
+        // Filtra estritamente apenas tarefas da turma/série do aluno logado
+        const scopedTasks = res.data
+          .filter((t: any) => !t.classId || matchesStudentGradeScope({ classId: t.classId }, studentCtx))
+          .map((t: any) => ({
+            id: t.id,
+            title: t.title,
+            subject: t.subject || 'Atividade Curricular',
+            dueDate: formatSafeDatePtBr(t.dueDate, 'No prazo'),
+            status: t.status || 'pending',
+            classId: t.classId || studentCtx.classId,
+          }));
+        if (scopedTasks.length > 0) {
+          setAssignedTasks(scopedTasks);
+          return;
+        }
+      }
+    } catch {
+      // Mantém tarefas padrão da série do estudante
+    }
+    setAssignedTasks(DEFAULT_TASKS_BY_STAGE[studentCtx.stage] || DEFAULT_TASKS_BY_STAGE.ENSINO_MEDIO);
+  };
 
   const loadEconomy = async () => {
-
     try {
-
       const data = await window.aquila?.student?.getEconomy?.(studentId);
-
       if (data && (data.level || data.xp)) {
-
         setEconomy(data);
-
       }
-
     } catch {
-
       // Usa estado inicial rico
-
     }
-
   };
-
-
 
   const loadGovernance = async () => {
-
     try {
-
       const polls = await window.aquila?.council?.listPolls?.('STUDENT');
-
       if (Array.isArray(polls) && polls.length > 0) {
-
         setActivePolls(polls);
-
       }
-
     } catch {
-
       // Usa estado inicial rico
-
     }
-
   };
 
-
-
   const loadLearningContent = async () => {
-
     try {
-
       const pods = await window.aquila?.pod?.listPods?.(studentId);
-
       if (Array.isArray(pods) && pods.length > 0) {
-
-        setLearningPods(pods);
-
+        const scopedPods = pods.filter((p: any) =>
+          matchesStudentGradeScope({ classId: p.classId, stage: p.stage, gradeLevel: p.gradeLevel }, studentCtx)
+        );
+        if (scopedPods.length > 0) {
+          setLearningPods(scopedPods);
+          return;
+        }
       }
-
     } catch {
-
-      // Usa estado inicial rico
-
+      // Usa estado inicial da série do aluno
     }
-
+    setLearningPods(DEFAULT_PODS_BY_STAGE[studentCtx.stage] || DEFAULT_PODS_BY_STAGE.ENSINO_MEDIO);
   };
 
 
@@ -258,11 +279,11 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             <div className="rpg-name-row">
 
-              <h2>Gabriel Rocha • 3º Ano A</h2>
+              <h2>Olá, {studentCtx.studentName} • {studentCtx.className}</h2>
 
-              <span className="rpg-tutor-pill">
+              <span className="rpg-tutor-pill" title="Apenas atividades e conteúdos da sua série aparecem neste portal">
 
-                ● TUTOR IA: {behavioral.emotion.toUpperCase()} ({Math.round((behavioral.engagement || 0.88) * 100)}%)
+                ● SÉRIE ATIVA: {studentCtx.seriesLabel.toUpperCase()}
 
               </span>
 
@@ -270,7 +291,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             <div className="rpg-sub-telemetry">
 
-              NÍVEL {economy?.level || 14} • {economy?.xp || 2680} XP ACUMULADO • RANKING SOBERANO
+              MEU INÍCIO • NÍVEL {economy?.level || 14} ({economy?.xp || 2680} XP) • SOMENTE TAREFAS DO {studentCtx.seriesLabel.toUpperCase()}
 
             </div>
 
@@ -302,43 +323,11 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
         <div className="rpg-header-actions">
 
-          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('arena')}>
-
-            <Swords size={14} />
-
-            <span>Arena PvP</span>
-
-          </button>
-
           <button className="rpg-action-btn primary" onClick={() => onNavigate?.('mastery-chamber')}>
 
             <Sparkles size={14} />
 
-            <span>Câmara ENEM</span>
-
-          </button>
-
-          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('knowledge-canvas')}>
-
-            <Network size={14} />
-
-            <span>Canvas Áquila</span>
-
-          </button>
-
-          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('essay-lab')}>
-
-            <PenTool size={14} />
-
-            <span>Redação 1000</span>
-
-          </button>
-
-          <button className="rpg-action-btn" onClick={() => onNavigate?.('skill-tree')}>
-
-            <GitFork size={14} />
-
-            <span>Árvore BNCC</span>
+            <span>Praticar questões</span>
 
           </button>
 
@@ -346,39 +335,55 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             <Brain size={14} />
 
-            <span>Lab & Cientistas</span>
+            <span>Assistente de estudos</span>
 
           </button>
 
-          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('cosmetics-chamber')} title="Câmara de Cosméticos e Battle Banners Clash Royale">
+          <button className="rpg-action-btn" onClick={() => onNavigate?.('essay-lab')}>
 
-            <Crown size={14} color="#FBBF24" />
+            <PenTool size={14} />
 
-            <span>Cosméticos & Banners</span>
+            <span>Redação assistida</span>
 
           </button>
 
-          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('youtube-radar')} title="Radar Pedagógico de Videoaulas YouTube">
+          <button className="rpg-action-btn" onClick={() => onNavigate?.('skill-tree')}>
 
-            <Tv size={14} color="#EF4444" />
+            <GitFork size={14} />
+
+            <span>Progresso por habilidade</span>
+
+          </button>
+
+          <button className="rpg-action-btn" onClick={() => onNavigate?.('youtube-radar')} title="Videoaulas da sua série">
+
+            <Tv size={14} color="#38BDF8" />
 
             <span>Videoaulas</span>
 
           </button>
 
-          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('playlists-live')} title="Playlists Pedagógicas em 5 Atos & Games Educativos">
+          <button className="rpg-action-btn" onClick={() => onNavigate?.('playlists-live')} title="Roteiros práticos da sua série">
 
             <Gamepad2 size={14} color="#10B981" />
 
-            <span>Playlists & Games</span>
+            <span>Roteiros & Jogos</span>
 
           </button>
 
-          <button className="rpg-action-btn primary" onClick={() => onNavigate?.('h5p-perseus-lab')} title="Laboratório de Applets H5P & Perseus" data-testid="btn-nav-h5p-perseus">
+          <button className="rpg-action-btn" onClick={() => onNavigate?.('h5p-perseus-lab')} title="Atividades interativas da sua série" data-testid="btn-nav-h5p-perseus">
 
             <Layers size={14} color="#A78BFA" />
 
-            <span>Applets H5P & Perseus</span>
+            <span>Atividades interativas</span>
+
+          </button>
+
+          <button className="rpg-action-btn" onClick={() => onNavigate?.('cosmetics-chamber')} title="Personalizar cartão de perfil">
+
+            <Crown size={14} color="#FBBF24" />
+
+            <span>Cartão de perfil</span>
 
           </button>
 
@@ -386,13 +391,105 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             <ShoppingBag size={14} />
 
-            <span>Mercado ({economy?.balance || 1420} 💎)</span>
+            <span>Loja de cosméticos ({economy?.balance || 1420} 💎)</span>
 
           </button>
 
         </div>
 
       </header>
+
+      {/* Bloco Prioritário "Meu Início": Continue sua atividade + Para entregar (Série do Aluno) + Feedback do Professor */}
+      <section
+        className="student-routine-priority-grid"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '12px',
+          marginBottom: '12px'
+        }}
+      >
+        {/* 1. Continue de onde parou */}
+        <div className="rpg-panel" style={{ padding: '14px 16px', borderLeft: '3px solid #2563EB' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#93C5FD', textTransform: 'uppercase' }}>
+              Continue de onde parou • {studentCtx.seriesLabel}
+            </span>
+            <Clock size={14} color="#60A5FA" />
+          </div>
+          <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#F1F5F9', margin: '0 0 4px 0' }}>
+            {assignedTasks[0]?.title || 'Prática de questões da sua série'}
+          </h3>
+          <p style={{ fontSize: '12px', color: '#CBD5E1', margin: '0 0 12px 0' }}>
+            Disciplina: <strong>{assignedTasks[0]?.subject || 'Matemática'}</strong> • Prazo: {assignedTasks[0]?.dueDate || 'Amanhã'}
+          </p>
+          <button
+            className="rpg-action-btn primary"
+            style={{ width: '100%', justifyContent: 'center', height: '36px' }}
+            onClick={() => onNavigate?.('mastery-chamber')}
+          >
+            <Sparkles size={14} />
+            <span>Continuar atividade</span>
+          </button>
+        </div>
+
+        {/* 2. Para entregar (Somente tarefas da série do estudante) */}
+        <div className="rpg-panel" style={{ padding: '14px 16px', borderLeft: '3px solid #F59E0B' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#FCD34D', textTransform: 'uppercase' }}>
+              Para entregar ({studentCtx.className})
+            </span>
+            <CheckCircle2 size={14} color="#F59E0B" />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            {assignedTasks.slice(0, 3).map((t) => (
+              <div
+                key={t.id}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '6px 8px',
+                  background: 'rgba(15, 23, 42, 0.6)',
+                  borderRadius: '6px',
+                  border: '1px solid rgba(148, 163, 184, 0.15)',
+                  fontSize: '12px'
+                }}
+              >
+                <span style={{ color: '#F1F5F9', fontWeight: 600 }}>
+                  {t.subject}: <span style={{ fontWeight: 400, color: '#CBD5E1' }}>{t.title}</span>
+                </span>
+                <span style={{ color: '#FBBF24', fontWeight: 600, whiteSpace: 'nowrap', marginLeft: '8px' }}>
+                  {t.dueDate}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 3. Feedback recebido do professor */}
+        <div className="rpg-panel" style={{ padding: '14px 16px', borderLeft: '3px solid #10B981' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#6EE7B7', textTransform: 'uppercase' }}>
+              Feedback do professor
+            </span>
+            <MessageSquare size={14} color="#10B981" />
+          </div>
+          <h3 style={{ fontSize: '14px', fontWeight: 700, color: '#F1F5F9', margin: '0 0 4px 0' }}>
+            Comentário docente registrado na sua última entrega
+          </h3>
+          <p style={{ fontSize: '12px', color: '#CBD5E1', margin: '0 0 12px 0' }}>
+            &ldquo;Boa resolução algébrica. Revise a justificativa na etapa 2 antes do fechamento.&rdquo;
+          </p>
+          <button
+            className="rpg-action-btn"
+            style={{ width: '100%', justifyContent: 'center', height: '36px' }}
+            onClick={() => onNavigate?.('ai-lab')}
+          >
+            <span>Consultar comentário e materiais</span>
+          </button>
+        </div>
+      </section>
 
 
 
@@ -594,11 +691,11 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
                   <strong>{pod.subject}</strong>
 
-                  <span>RESUMO IA • {new Date(pod.created_at).toLocaleDateString()}</span>
+                  <span>RESUMO DE AULA • {formatSafeDatePtBr(pod.created_at || pod.createdAt, 'Recente')}</span>
 
                 </div>
 
-                <span className="rpg-panel-tag" style={{ color: '#00F0FF' }}>ESTUDAR →</span>
+                <span className="rpg-panel-tag" style={{ color: '#00F0FF' }}>ABRIR RESUMO →</span>
 
               </div>
 
