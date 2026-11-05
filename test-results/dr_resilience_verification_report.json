@@ -1,0 +1,35 @@
+{
+    "timestamp":  "2026-11-05T14:24:18.2598978-03:00",
+    "scenarios":  [
+                      {
+                          "id":  "DR-01",
+                          "description":  "Rejeição estrita de candidato corrompido \u003e 4KB (12 KB de lixo binário)",
+                          "status":  "PASS",
+                          "details":  "Candidato corrompido de 12KB rejeitado antes do swap com código 3. Banco ativo preservado intacto."
+                      },
+                      {
+                          "id":  "DR-02",
+                          "description":  "Rejeição de arquivo truncado (500 bytes)",
+                          "status":  "PASS",
+                          "details":  "Arquivo truncado \u003c= 4096 bytes rejeitado com código 3."
+                      },
+                      {
+                          "id":  "DR-03",
+                          "description":  "Bloqueio e exclusão mútua quando processo Aquila Pro / Electron está ativo",
+                          "status":  "PASS",
+                          "details":  "Exclusão mútua validada: bloqueio imediato se processo ativo for detectado (código 5)."
+                      },
+                      {
+                          "id":  "DR-04",
+                          "description":  "Restauração atômica, snapshot e pós-verificação com candidato íntegro",
+                          "status":  "PASS",
+                          "details":  "Restauração atômica concluída com sucesso: SHA-256 verificado, snapshot cautelar preservado e pós-validação aprovada."
+                      },
+                      {
+                          "id":  "DR-05",
+                          "description":  "Recuperação automática de falha/desligamento súbito via restore_journal.json",
+                          "status":  "PASS",
+                          "details":  "Diário transacional pendente detectado no boot e recuperado com rollback determinístico."
+                      }
+                  ]
+}

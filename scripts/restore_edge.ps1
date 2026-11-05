@@ -1,0 +1,389 @@
+<#
+.SYNOPSIS
+    Aquila Pro - Script Autonomo e Transacional de Recuperacao SQLite (Edge DR)
+    Compativel com Windows 10/11 Pro Limpo (Zero dependencias de Node, Python ou Git).
+    Implementa o protocolo transacional crash-safe em 7 etapas com diario em disco (restore_journal.json).
+#>
+
+[CmdletBinding()]
+param(
+    [Parameter(Position=0)]
+    [string]$CandidateFile = "",
+    
+    [Parameter()]
+    [string]$TargetDb = "",
+    
+    [Parameter()]
+    [switch]$Force = $false,
+
+    [Parameter()]
+    [switch]$StrictFk = $false
+)
+
+$ErrorActionPreference = "Stop"
+
+# ============================================================================
+# CODIGO NATIVO C# COM WINSQLITE3.DLL (NATIVO DO WINDOWS 10/11)
+# ============================================================================
+$nativeSource = @"
+using System;
+using System.IO;
+using System.Runtime.InteropServices;
+
+public class WinSqliteCore {
+    [DllImport("winsqlite3.dll", EntryPoint = "sqlite3_open_v2", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int Open(string filename, out IntPtr db, int flags, string vfs);
+
+    [DllImport("winsqlite3.dll", EntryPoint = "sqlite3_close_v2", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int Close(IntPtr db);
+
+    [DllImport("winsqlite3.dll", EntryPoint = "sqlite3_prepare_v2", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int Prepare(IntPtr db, string sql, int numBytes, out IntPtr stmt, IntPtr tail);
+
+    [DllImport("winsqlite3.dll", EntryPoint = "sqlite3_step", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int Step(IntPtr stmt);
+
+    [DllImport("winsqlite3.dll", EntryPoint = "sqlite3_column_text", CallingConvention = CallingConvention.Cdecl)]
+    public static extern IntPtr ColumnText(IntPtr stmt, int col);
+
+    [DllImport("winsqlite3.dll", EntryPoint = "sqlite3_finalize", CallingConvention = CallingConvention.Cdecl)]
+    public static extern int Finalize(IntPtr stmt);
+
+    public static string CheckIntegrity(string dbPath) {
+        if (!File.Exists(dbPath)) return "ERR_FILE_NOT_FOUND";
+        IntPtr db = IntPtr.Zero;
+        int rc = Open(dbPath, out db, 1, null);
+        if (rc != 0 || db == IntPtr.Zero) return "ERR_OPEN_" + rc;
+
+        IntPtr stmt = IntPtr.Zero;
+        try {
+            rc = Prepare(db, "PRAGMA integrity_check;", -1, out stmt, IntPtr.Zero);
+            if (rc != 0 || stmt == IntPtr.Zero) return "ERR_PREPARE_" + rc;
+
+            int stepRc = Step(stmt);
+            if (stepRc == 100) {
+                IntPtr textPtr = ColumnText(stmt, 0);
+                return Marshal.PtrToStringAnsi(textPtr);
+            }
+            return "ERR_NO_ROW_" + stepRc;
+        } catch (Exception ex) {
+            return "ERR_EXCEPTION_" + ex.Message;
+        } finally {
+            if (stmt != IntPtr.Zero) Finalize(stmt);
+            if (db != IntPtr.Zero) Close(db);
+        }
+    }
+
+    public static int CheckForeignKeys(string dbPath) {
+        if (!File.Exists(dbPath)) return -1;
+        IntPtr db = IntPtr.Zero;
+        int rc = Open(dbPath, out db, 1, null);
+        if (rc != 0 || db == IntPtr.Zero) return -1;
+
+        IntPtr stmt = IntPtr.Zero;
+        int violations = 0;
+        try {
+            rc = Prepare(db, "PRAGMA foreign_key_check;", -1, out stmt, IntPtr.Zero);
+            if (rc != 0 || stmt == IntPtr.Zero) return -2;
+
+            while (Step(stmt) == 100) {
+                violations++;
+            }
+            return violations;
+        } catch {
+            return -3;
+        } finally {
+            if (stmt != IntPtr.Zero) Finalize(stmt);
+            if (db != IntPtr.Zero) Close(db);
+        }
+    }
+}
+"@
+
+if (-not ([System.Management.Automation.PSTypeName]'WinSqliteCore').Type) {
+    Add-Type -TypeDefinition $nativeSource
+}
+
+# ============================================================================
+# DIRETORIOS E CAMINHOS OPERACIONAIS
+# ============================================================================
+$appDataDir = if ($env:AQUILA_USER_DATA_OVERRIDE) { $env:AQUILA_USER_DATA_OVERRIDE } else { Join-Path $env:APPDATA "AquilaPro" }
+$dbFile = if ($TargetDb -ne "") { $TargetDb } else { Join-Path $appDataDir "aquila.db" }
+$backupDir = Join-Path $appDataDir "backups"
+$snapshotDir = Join-Path $appDataDir "snapshots"
+$journalFile = Join-Path $appDataDir "restore_journal.json"
+
+foreach ($dir in @($appDataDir, $backupDir, $snapshotDir)) {
+    if (-not (Test-Path $dir)) {
+        New-Item -ItemType Directory -Path $dir -Force | Out-Null
+    }
+}
+
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "  AQUILA PRO - RESTAURACAO TRANSACIONAL DISASTER RECOVERY (EDGE DR v2.1.1)  " -ForegroundColor Cyan
+Write-Host "============================================================================" -ForegroundColor Cyan
+Write-Host "Ambiente: Windows 10/11 Pro (Motor winsqlite3.dll)"
+Write-Host "Diretorio Ativo: $appDataDir"
+Write-Host "Banco Ativo:     $dbFile"
+Write-Host ""
+
+# ============================================================================
+# ETAPA 0: RECUPERACAO DE INTERRUPCAO PENDENTE (BOOT / CRASH RECOVERY)
+# ============================================================================
+if (Test-Path $journalFile) {
+    Write-Host "[RECUPERACAO] Detectado diario transacional pendente: $journalFile" -ForegroundColor Yellow
+    try {
+        $rawJson = Get-Content -Path $journalFile -Raw
+        $journalContent = ConvertFrom-Json -InputObject $rawJson
+        $phase = $journalContent.phase
+        $snapDir = $journalContent.snapshotDir
+        Write-Host "  Fase interrompida: $phase" -ForegroundColor Yellow
+        Write-Host "  Snapshot de seguranca: $snapDir" -ForegroundColor Yellow
+
+        if ($phase -eq "REPLACING" -or $phase -eq "READY_FOR_REPLACE") {
+            if (Test-Path $snapDir) {
+                Write-Host "  [ROLLBACK] Revertendo para o snapshot de seguranca anterior..." -ForegroundColor Yellow
+                $snapDb = Join-Path $snapDir "aquila.db"
+                if (Test-Path $snapDb) {
+                    Copy-Item -Path $snapDb -Destination $dbFile -Force
+                    $snapWal = Join-Path $snapDir "aquila.db-wal"
+                    if (Test-Path $snapWal) { Copy-Item -Path $snapWal -Destination "$dbFile-wal" -Force }
+                    Write-Host "  [ROLLBACK] Estado integro restaurado a partir do snapshot." -ForegroundColor Green
+                }
+            }
+        }
+        Remove-Item -Path $journalFile -Force -ErrorAction SilentlyContinue
+        Write-Host "  [OK] Diario de restauracao pendente saneado." -ForegroundColor Green
+    } catch {
+        $errMsg = $_.Exception.Message
+        Write-Host "  [AVISO] Falha ao processar diario pendente: $errMsg" -ForegroundColor DarkYellow
+    }
+}
+
+# ============================================================================
+# ETAPA 1: EXCLUSAO MUTUA E VERIFICACAO DE PROCESSOS EM EXECUCAO
+# ============================================================================
+Write-Host "[1/7] Verificando exclusao mutua de processos..." -ForegroundColor Cyan
+$runningProcesses = @(Get-Process | Where-Object { $_.ProcessName -like "*Aquila Pro*" -or $_.ProcessName -eq "electron" })
+if ($runningProcesses.Count -gt 0 -and -not $Force) {
+    Write-Host "[RECUSADO] O processo Aquila Pro (ou Electron) esta em execucao:" -ForegroundColor Red
+    foreach ($proc in $runningProcesses) {
+        $pidVal = $proc.Id
+        $pName = $proc.ProcessName
+        Write-Host "  - PID: $pidVal | Nome: $pName" -ForegroundColor Red
+    }
+    Write-Host "[SEGURANCA] Encerre o aplicativo antes de realizar a restauracao para evitar corrupcao de lock SQLite." -ForegroundColor Yellow
+    Write-Host "Abortando com codigo 5."
+    exit 5
+}
+Write-Host "  [OK] Exclusao mutua confirmada. Nenhum processo ativo bloqueando o banco." -ForegroundColor Green
+
+# ============================================================================
+# ETAPA 2: SELECAO E RESOLUCAO DO ARQUIVO CANDIDATO
+# ============================================================================
+Write-Host "`n[2/7] Localizando arquivo candidato para restauracao..." -ForegroundColor Cyan
+if ([string]::IsNullOrWhiteSpace($CandidateFile)) {
+    $latestBackup = Get-ChildItem -Path $backupDir -Filter "*.db" -File | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+    if (-not $latestBackup) {
+        $latestBackup = Get-ChildItem -Path $backupDir -Filter "*.bak" -File | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+    }
+    if ($latestBackup) {
+        $CandidateFile = $latestBackup.FullName
+    }
+}
+
+if ([string]::IsNullOrWhiteSpace($CandidateFile) -or -not (Test-Path $CandidateFile)) {
+    Write-Host "[AVISO] Nenhum arquivo de backup valido encontrado em: $backupDir" -ForegroundColor Yellow
+    Write-Host "Uso operacional: restore_edge.bat [caminho\para\backup.db]"
+    exit 0
+}
+
+$candidateItem = Get-Item $CandidateFile
+$candidateSize = $candidateItem.Length
+$candidateFullName = $candidateItem.FullName
+Write-Host "  Candidato selecionado: $candidateFullName"
+Write-Host "  Tamanho: $candidateSize bytes"
+
+# ============================================================================
+# ETAPA 3: PRE-VALIDACAO RIGOROSA DE INTEGRIDADE (PRE-FLIGHT CHECK)
+# ============================================================================
+Write-Host "`n[3/7] Executando pre-validacao estrita de integridade (Pre-Flight)..." -ForegroundColor Cyan
+
+# 3.1 Verificacao de tamanho minimo
+if ($candidateSize -le 4096) {
+    Write-Host "[RECUSADO] Arquivo candidato truncado ou menor que o tamanho minimo operacional (4096 bytes). Tamanho: $candidateSize bytes." -ForegroundColor Red
+    Write-Host "[SEGURANCA] Banco ativo preservado intacto. Abortando com codigo 3." -ForegroundColor Red
+    exit 3
+}
+
+# 3.2 Validacao do cabecalho binario SQLite (Magic Header 16 bytes)
+try {
+    $fileStream = [System.IO.File]::Open($candidateFullName, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite)
+    $magicBuffer = New-Object byte[] 16
+    $bytesRead = $fileStream.Read($magicBuffer, 0, 16)
+    $fileStream.Close()
+    
+    $headerString = [System.Text.Encoding]::ASCII.GetString($magicBuffer)
+    if (-not $headerString.StartsWith("SQLite format 3")) {
+        Write-Host "[RECUSADO] Cabecalho SQLite invalido ou corrompido! Assinatura encontrada: '$headerString'" -ForegroundColor Red
+        Write-Host "[SEGURANCA] O arquivo nao e um banco SQLite valido. Banco ativo preservado intacto. Abortando com codigo 3." -ForegroundColor Red
+        exit 3
+    }
+} catch {
+    $errHeader = $_.Exception.Message
+    Write-Host "[ERRO] Falha ao ler cabecalho do arquivo candidato: $errHeader" -ForegroundColor Red
+    exit 3
+}
+
+# 3.3 Verificacao com PRAGMA integrity_check e foreign_key_check via winsqlite3.dll
+Write-Host "  Executando PRAGMA integrity_check no candidato via winsqlite3.dll..." -ForegroundColor DarkGray
+$integrityStatus = [WinSqliteCore]::CheckIntegrity($candidateFullName)
+if ($integrityStatus -ne "ok") {
+    Write-Host "[RECUSADO] Falha no PRAGMA integrity_check do candidato: '$integrityStatus'!" -ForegroundColor Red
+    Write-Host "[SEGURANCA] Candidato corrompido rejeitado antes de qualquer modificacao no banco ativo. Abortando com codigo 3." -ForegroundColor Red
+    exit 3
+}
+Write-Host "  [OK] PRAGMA integrity_check: ok" -ForegroundColor Green
+
+$fkViolations = [WinSqliteCore]::CheckForeignKeys($candidateFullName)
+if ($fkViolations -gt 0) {
+    if ($StrictFk) {
+        Write-Host "[RECUSADO] PRAGMA foreign_key_check detectou $fkViolations violacoes em modo estrito." -ForegroundColor Red
+        exit 3
+    } else {
+        Write-Host "  [AVISO] PRAGMA foreign_key_check detectou $fkViolations violacoes referenciais (admitido em modo permissivo legado)." -ForegroundColor DarkYellow
+    }
+} else {
+    Write-Host "  [OK] PRAGMA foreign_key_check: 0 violacoes." -ForegroundColor Green
+}
+
+# ============================================================================
+# ETAPA 4: SNAPSHOT CAUTELAR DO BANCO ATIVO COM VALIDACAO DE BYTES
+# ============================================================================
+Write-Host "`n[4/7] Criando snapshot cautelar de rollback com validacao de bytes..." -ForegroundColor Cyan
+$timestamp = (Get-Date).ToString("yyyyMMdd_HHmmss")
+$rollbackDir = Join-Path $snapshotDir "pre_restore_$timestamp"
+New-Item -ItemType Directory -Path $rollbackDir -Force | Out-Null
+
+$activeSnapFile = Join-Path $rollbackDir "aquila.db"
+if (Test-Path $dbFile) {
+    $activeItem = Get-Item $dbFile
+    $activeSize = $activeItem.Length
+    Copy-Item -Path $dbFile -Destination $activeSnapFile -Force
+    
+    # Validacao rigorosa de bytes do snapshot copiado
+    $snapItem = Get-Item $activeSnapFile
+    $snapSize = $snapItem.Length
+    if ($snapSize -ne $activeSize) {
+        Write-Host "[FALHA CRITICA] Erro na criacao do snapshot: tamanho divergente (Original: $activeSize, Copiado: $snapSize)." -ForegroundColor Red
+        Write-Host "[SEGURANCA] Disco cheio ou permissao negada. O banco ativo NAO foi modificado. Abortando com codigo 4." -ForegroundColor Red
+        exit 4
+    }
+    
+    # Copia WAL e SHM se existirem
+    if (Test-Path "$dbFile-wal") { Copy-Item -Path "$dbFile-wal" -Destination (Join-Path $rollbackDir "aquila.db-wal") -Force }
+    if (Test-Path "$dbFile-shm") { Copy-Item -Path "$dbFile-shm" -Destination (Join-Path $rollbackDir "aquila.db-shm") -Force }
+    Write-Host "  [OK] Snapshot verificado e gravado em: $rollbackDir ($snapSize bytes)" -ForegroundColor Green
+} else {
+    Write-Host "  [INFO] Banco ativo nao existia previamente. Restauracao inicial limpa." -ForegroundColor Cyan
+}
+
+# ============================================================================
+# ETAPA 5: REGISTRO DO DIARIO TRANSACIONAL EM DISCO (RESTORE_JOURNAL.JSON)
+# ============================================================================
+Write-Host "`n[5/7] Gravando diario transacional (restore_journal.json)..." -ForegroundColor Cyan
+$journalData = [PSCustomObject]@{
+    phase = "PREPARING_REPLACEMENT"
+    candidatePath = $candidateFullName
+    candidateLength = $candidateSize
+    targetDb = $dbFile
+    snapshotDir = $rollbackDir
+    startedAt = (Get-Date).ToString("o")
+    actor = "OPERATIONAL_DR_AGENT"
+}
+$journalData | ConvertTo-Json | Set-Content -Path $journalFile -Force
+Write-Host "  [OK] Diario transacional persistido em disco." -ForegroundColor Green
+
+# ============================================================================
+# ETAPA 6: STAGING EM SANDBOX E SWAP ATOMICO
+# ============================================================================
+Write-Host "`n[6/7] Executando staging e swap atomico de arquivos..." -ForegroundColor Cyan
+$stagingFile = Join-Path $appDataDir "staging_restore.db"
+if (Test-Path $stagingFile) { Remove-Item -Path $stagingFile -Force }
+
+Copy-Item -Path $candidateFullName -Destination $stagingFile -Force
+$stagingItem = Get-Item $stagingFile
+$stagingSize = $stagingItem.Length
+if ($stagingSize -ne $candidateSize) {
+    Write-Host "[FALHA] Copia em staging truncada! Abortando." -ForegroundColor Red
+    Remove-Item -Path $stagingFile -Force -ErrorAction SilentlyContinue
+    Remove-Item -Path $journalFile -Force -ErrorAction SilentlyContinue
+    exit 4
+}
+
+# Atualiza fase do diario
+$journalData.phase = "READY_FOR_REPLACE"
+$journalData | ConvertTo-Json | Set-Content -Path $journalFile -Force
+
+$journalData.phase = "REPLACING"
+$journalData | ConvertTo-Json | Set-Content -Path $journalFile -Force
+
+$oldDbTemp = Join-Path $appDataDir "aquila.db.old_$timestamp"
+try {
+    # Remove residuos WAL/SHM
+    if (Test-Path "$dbFile-wal") { Remove-Item -Path "$dbFile-wal" -Force -ErrorAction SilentlyContinue }
+    if (Test-Path "$dbFile-shm") { Remove-Item -Path "$dbFile-shm" -Force -ErrorAction SilentlyContinue }
+
+    # Swap atomico via Move-Item (Rename)
+    if (Test-Path $dbFile) {
+        Move-Item -Path $dbFile -Destination $oldDbTemp -Force
+    }
+    Move-Item -Path $stagingFile -Destination $dbFile -Force
+
+    # Se renomeacao do antigo deu certo, remove temp
+    if (Test-Path $oldDbTemp) {
+        Remove-Item -Path $oldDbTemp -Force -ErrorAction SilentlyContinue
+    }
+    Write-Host "  [OK] Swap atomico de arquivos concluido com sucesso." -ForegroundColor Green
+} catch {
+    $errSwap = $_.Exception.Message
+    Write-Host "[FALHA CRITICA NO SWAP] Erro: $errSwap. Executando rollback imediato..." -ForegroundColor Red
+    if (Test-Path $activeSnapFile) {
+        Copy-Item -Path $activeSnapFile -Destination $dbFile -Force
+        Write-Host "  [ROLLBACK CONCLUIDO] Estado anterior restaurado a partir do snapshot." -ForegroundColor Yellow
+    }
+    exit 6
+}
+
+# ============================================================================
+# ETAPA 7: POS-VALIDACAO, CHECKSUM SHA-256 E ENCERRAMENTO DO DIARIO
+# ============================================================================
+Write-Host "`n[7/7] Realizando pos-validacao de integridade no banco restaurado..." -ForegroundColor Cyan
+$postIntegrity = [WinSqliteCore]::CheckIntegrity($dbFile)
+if ($postIntegrity -ne "ok") {
+    Write-Host "[FALHA CRITICA] Pos-validacao falhou com status: '$postIntegrity'! Acionando rollback..." -ForegroundColor Red
+    if (Test-Path $activeSnapFile) {
+        Copy-Item -Path $activeSnapFile -Destination $dbFile -Force
+        Write-Host "  [ROLLBACK CONCLUIDO] Banco ativo revertido para o snapshot de seguranca." -ForegroundColor Yellow
+    }
+    exit 6
+}
+Write-Host "  [OK] Pos-validacao PRAGMA integrity_check: ok" -ForegroundColor Green
+
+# Checksum SHA-256
+$sha256 = (Get-FileHash -Path $dbFile -Algorithm SHA256).Hash
+Set-Content -Path (Join-Path $appDataDir "last_restore.sha256") -Value $sha256 -Force
+
+# Conclusao do Diario Transacional
+$journalData.phase = "COMPLETED"
+$journalData | ConvertTo-Json | Set-Content -Path $journalFile -Force
+Remove-Item -Path $journalFile -Force -ErrorAction SilentlyContinue
+
+Write-Host "`n============================================================================" -ForegroundColor Green
+Write-Host "  RESTAURACAO DISASTER RECOVERY CONCLUIDA COM SUCESSO ABSOLUTO (CRASH-SAFE)  " -ForegroundColor Green
+Write-Host "============================================================================" -ForegroundColor Green
+Write-Host "SHA-256 do Banco Ativo: $sha256"
+Write-Host "Snapshot de Rollback:   $rollbackDir"
+Write-Host "Status de Integridade:  Integro (PRAGMA integrity_check = ok)"
+Write-Host "`nO Aquila Pro pode ser iniciado normalmente."
+exit 0

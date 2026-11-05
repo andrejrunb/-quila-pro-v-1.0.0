@@ -2,23 +2,26 @@
 # Tríade de Commits:
 #   source_commit:        0612be71f307399e2bc8d31fe1dc71e9a7e37e9d (Código e binários empacotados)
 #   evidence_commit:      050b3ce92bf18b3874134be1086a2e411f16da0a (Testes e relatórios JSON gerados)
-#   documentation_commit: HEAD (Dossiê v2.1.1, plano executivo e manifesto)
+#   documentation_commit: 8a21eec7cd17742aeab7bc866612dfe053f4a62c (Dossiê v2.1.1, plano executivo e manifesto)
 # Data: 05 de Novembro de 2026
 
 # Artefatos Binários de Distribuição (win-unpacked)
 F087E4B45834D8DAECBF88DD61B0A2757AB836B8A1891C16CA0AAB321E5D7EBB *apps/electron/release_v2_2/win-unpacked/Aquila Pro.exe
 270A6696E7A8EDFD4DCD3FA198DBCE2D0D0E40847E52EDB41BE0FCDA934B2445 *apps/electron/release_v2_2/win-unpacked/resources/app.asar
 AD19705C7938A60EF5557E31D152843CC42364684913847FBD623484430283A3 *apps/electron/release_v2_2/win-unpacked/resources/app.asar.unpacked/node_modules/better-sqlite3/build/Release/better_sqlite3.node
-D953416D52AD78E2B8ABF1A81661E9AFC06CE1F88B15D55C9E4D7A44136F48D3 *apps/electron/release_v2_2/win-unpacked/restore_edge.bat
-D953416D52AD78E2B8ABF1A81661E9AFC06CE1F88B15D55C9E4D7A44136F48D3 *scripts/restore_edge.bat
+428430E1B0A9B7367FB112BE0585893953D92403CE123AF28E3EADF3AF3912A5 *apps/electron/release_v2_2/win-unpacked/restore_edge.bat
+06DE5C709B3800CB43C2021D7A3D5211EEB15FDFE75733A4A5FEB5483846B36C *apps/electron/release_v2_2/win-unpacked/restore_edge.ps1
+428430E1B0A9B7367FB112BE0585893953D92403CE123AF28E3EADF3AF3912A5 *scripts/restore_edge.bat
+06DE5C709B3800CB43C2021D7A3D5211EEB15FDFE75733A4A5FEB5483846B36C *scripts/restore_edge.ps1
 
 # Relatórios e Evidências das Suítes Automatizadas
-6BAB0C941EF08BEDA4397A6495E7B9E64FD6CC1CD50CE90A3D8FE6511B75F32D *test-results/clean_runtime_h01_evidence.json
-8B3FF6FC6859E9B0F8A911671536A3D0D06E46781F4BA894CA30F543198810D8 *test-results/h01_8_operational_priorities_report.json
+E91E457228B9B6A39E1F4C177A9943416DA81055F124BCE02571792F3132EB91 *test-results/clean_runtime_h01_evidence.json
+E3EA66FF84690651E68311389B27F3E5D5A2BB9EF0874CAD4E48BF01F2193BA5 *test-results/h01_8_operational_priorities_report.json
 F37CADEAF0E155BAD960BDE8CCCFDC1F6A6E88E1B54EF234525828EA75298C63 *test-results/pp_mission_verification_report.json
 4ACAC0F9D41F9035196F7843A651AA9B2D0C4A52700C73BC056BFDE22A1B9B25 *test-results/collector_10_fixtures_report.json
-1CD210E22FC41B977A5113EA98EAC692765A62A69D078642E2042475639A5023 *test-results/colab_harness_verification_report.json
+0B95913B1C41CDDEB1E23F7C850EFADE16CA1F450562C1FFA1FE4391DEDCD7F6 *test-results/colab_harness_verification_report.json
+6D3414407E26B0AED57FF210823683C7138676C240FB3195D87DD2C2C047F76F *test-results/dr_resilience_verification_report.json
 67047AF056BDFE9136368E79A70816116803BB4BF7D95FA8B884AC804D9B27A2 *test-results/h01_complete_homologation_evidence.json
 
 # Dossiê de Homologação e Especificação
-F0B520BD312FE88CC1B3FAD3B208955C2DF4DE49AB417A5A1169986459444E59 *perplexity/dossie_homologacao_h01_final.md
+BA9056FC12CADC109F8BF146D2B2167C57170EADAEB81253C54053F0277E3AC5 *perplexity/dossie_homologacao_h01_final.md
