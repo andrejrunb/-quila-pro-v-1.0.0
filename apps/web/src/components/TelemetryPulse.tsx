@@ -20,7 +20,7 @@ interface PulseInsight {
   type: 'pedagogical_optimization' | 'system_critical' | 'evolutionary_milestone' | 'risk_detected';
   content: string;
   timestamp: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 interface CortexHealth {
@@ -38,7 +38,13 @@ export const TelemetryPulse: React.FC = () => {
   const [insights, setInsights] = useState<PulseInsight[]>([]);
   const [health, setHealth] = useState<CortexHealth | null>(null);
   const [isLive, setIsLive] = useState(true);
-  const [strategy, setStrategy] = useState<any | null>(null);
+  const [strategy, setStrategy] = useState<{
+    maturityStage: string;
+    focusArea: string;
+    strategyText: string;
+    roiEstimate: number;
+    lessonsLearned: number;
+  } | null>(null);
   const [isLoadingStrategy, setIsLoadingStrategy] = useState(false);
 
   useEffect(() => {
@@ -210,7 +216,7 @@ export const TelemetryPulse: React.FC = () => {
                 </div>
                 <div className="bg-white/5 p-4 rounded-xl border border-white/5">
                   <p className="text-[10px] text-slate-500 uppercase font-bold mb-1">Foco Prioritário</p>
-                  <p className="text-sm text-slate-200 leading-relaxed italic">"{strategy.focusArea}"</p>
+                  <p className="text-sm text-slate-200 leading-relaxed italic">&ldquo;{strategy.focusArea}&rdquo;</p>
                 </div>
               </div>
 

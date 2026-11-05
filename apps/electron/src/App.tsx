@@ -54,6 +54,7 @@ import { NPSModal } from './ui/components/NPSModal';
 import { useKeyboardShortcuts } from './ui/hooks/useKeyboardShortcuts';
 import './App.css';
 import './ui/styles/accessibility.css';
+import './ui/styles/aquila-ui-tokens.css';
 import { GlobalPulseHUD } from './ui/components/GlobalPulseHUD';
 import { QuantumBoot } from './ui/components/QuantumBoot';
 import ExecutiveCockpit from './ui/pages/ExecutiveCockpit';
@@ -335,6 +336,7 @@ export const App: React.FC = () => {
 
   const handleLogin = async (user: any) => {
     console.log('[E2E-DEBUG] Entering handleLogin for user:', user.username);
+    try { sessionStorage.setItem('aquila_session_user', JSON.stringify(user)); } catch (_e) {}
     setCurrentUser(user);
     setIsLoggedIn(true);
     console.log('[E2E-DEBUG] isLoggedIn set to true');
@@ -349,6 +351,9 @@ export const App: React.FC = () => {
   };
 
   // Centralized LGPD trigger
+  useEffect(() => {
+    try { if (currentUser) sessionStorage.setItem('aquila_session_user', JSON.stringify(currentUser)); else sessionStorage.removeItem('aquila_session_user'); } catch (_e) {}
+  }, [currentUser]);
   useEffect(() => {
     if (isLoggedIn && currentUser?.id) {
       checkLGPD(currentUser.id);
@@ -485,7 +490,11 @@ export const App: React.FC = () => {
           const isAdminUser = userRole === 'admin' || userRole === 'director' || !userRole;
 
           // 1. Resolução por Perfil Logado (evita que professor caia em tela de aluno em rotas compartilhadas)
-          if (isParentUser || isParentPage) return <ParentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={currentUser?.studentId || currentUser?.id} />;
+          // 1. Resolução por Perfil Logado (confinamento estrito para student, parent, secretaria)
+          if (isParentUser) return <ParentPortal currentPage={isParentPage ? currentPage : 'parent-portal'} onNavigate={handleNavigate} studentId={currentUser?.studentId || currentUser?.id} />;
+          if (isStudentUser) return <StudentPortal currentPage={isStudentPage ? currentPage : 'student-portal'} onNavigate={handleNavigate} studentId={currentUser?.id} />;
+          if (isSecUser) return <SecretariaPortal currentPage={isSecretaryPage ? currentPage : 'secretaria-portal'} onNavigate={handleNavigate} user={currentUser} />;
+          if (isParentPage) return <ParentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={currentUser?.studentId || currentUser?.id} />;
           if (isCoordUser && isCoordinationPage) return <CoordinationPortal currentPage={currentPage} onNavigate={handleNavigate} />;
           if (isTeacherUser && isTeacherPage) return <TeacherPortal currentPage={currentPage} onNavigate={handleNavigate} studentParams={searchParams} user={currentUser} />;
           if (isSecUser && isSecretaryPage) return <SecretariaPortal currentPage={currentPage} onNavigate={handleNavigate} user={currentUser} />;

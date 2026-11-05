@@ -246,8 +246,8 @@ export const BNCC_SKILLS_DATA: BNCCSkillNode[] = [
     prerequisites: ['EM13CNT102'],
     mentor: {
       name: 'Marie Curie',
-      role: 'Dupla Laureada com o Nobel',
-      quote: 'A radioatividade é uma propriedade atômica que acompanha os átomos do elemento em todas as suas combinações químicas. (Thèse de doctorat, Paris, 1903)',
+      role: '1867–1934, Nobel de Física 1903 e Química 1911',
+      quote: '',
       badgeName: 'Raio de Polônio',
       badgeIcon: '☢️',
       color: '#00F0FF'

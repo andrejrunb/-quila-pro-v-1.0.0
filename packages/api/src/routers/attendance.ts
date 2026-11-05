@@ -1,4 +1,4 @@
-import { router, protectedProcedure } from '../index';
+import { router, protectedProcedure } from '../trpc';
 import { z } from 'zod';
 
 export const attendanceRouter = router({

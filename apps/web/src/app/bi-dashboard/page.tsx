@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { 
-  ArrowLeft, Activity, Map, Users, TrendingUp, Filter, AlertTriangle, Download, 
-  MapPin, Clock, Calendar 
+  ArrowLeft, Activity, Map, Users, Filter, AlertTriangle, Download, 
+  MapPin 
 } from "lucide-react";
 import Link from "next/link";
 import { animate, stagger } from "animejs";
@@ -11,16 +11,22 @@ import { animate, stagger } from "animejs";
 // Removida a mock data generation daqui, vai vir do backend via WebSocket
 
 export default function BIDashboard() {
-  const [mounted, setMounted] = useState(false);
   const [biData, setBiData] = useState<{
-    stats?: any,
-    totalStudents?: number,
-    heatmap?: { grid: any[], hours: string[], zones: string[] }
+    stats?: {
+      present?: { total?: number };
+      cameras?: { total?: number };
+      alerts?: { total?: number };
+    };
+    totalStudents?: number;
+    heatmap?: {
+      grid: Array<{ zone: string; hour: string; intensity: number }>;
+      hours: string[];
+      zones: string[];
+    };
   } | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   
   useEffect(() => {
-    setMounted(true);
     
     // Connect to Sovereign OS MobileGateway
     const ws = new WebSocket('ws://localhost:9000');
@@ -55,8 +61,6 @@ export default function BIDashboard() {
       easing: 'easeOutExpo'
     });
   }, []);
-
-  if (!mounted) return null;
 
   const getIntensityColor = (val: number) => {
     if (val < 20) return 'bg-indigo-950/30';
@@ -222,9 +226,9 @@ export default function BIDashboard() {
 }
 
 // Simple Brain icon component since we only imported what's above
-function Brain(props: any) {
+function Brain({ size = 24, ...props }: React.SVGProps<SVGSVGElement> & { size?: number }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={props.size || 24} height={props.size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
       <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
       <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
       <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>

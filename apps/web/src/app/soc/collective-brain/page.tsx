@@ -31,10 +31,10 @@ export default function CollectiveBrain() {
   const [security, setSecurity] = useState<{ encryption: string, layer: string, status: string } | null>(null);
   const [wasm, setWasm] = useState<{ activeModules: number, totalMemoryLimitMb: number, securityViolations: number } | null>(null);
   const [pulse, setPulse] = useState<{ localHash: string, globalConsensusHash: string | null, agreementRate: number, peerCount: number } | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
+  // Client state managed via dynamic Chart component
 
   useEffect(() => {
-    setIsMounted(true);
+    // Mesh initialization on client mount
     const fetchData = async () => {
       try {
         if (!window.aquila?.inference) return;
@@ -58,7 +58,7 @@ export default function CollectiveBrain() {
     try {
       await window.aquila.inference.dispatch('GLOBAL_COGNITIVE_SYNC', { timestamp: Date.now() }, 0.6);
       alert("Sincronização Cognitiva Iniciada no Enxame");
-    } catch (e) {
+    } catch {
       alert("Falha ao iniciar sincronização");
     }
   };
@@ -77,7 +77,7 @@ export default function CollectiveBrain() {
     data: nodes.map(n => n.npuLoad || 0)
   }];
 
-  if (!isMounted) return null;
+  // Client-rendered collective brain dashboard
 
   return (
     <div className="min-h-screen bg-slate-950 text-white p-8">

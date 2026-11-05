@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const viewport = {
   width: "device-width",
@@ -24,8 +13,16 @@ export const viewport = {
 
 export const metadata: Metadata = {
   title: "Áquila Pro — Sovereign School OS",
-  description: "O sistema operacional escolar definitivo para segurança, presença automática e comunicação familiar. Arquitetura Ghost-Vision com privacidade local nativa.",
-  keywords: ["Escola", "Seguranca Escolar", "SaaS B2B", "Education OS", "Ghost-Vision", "Biometria Local"],
+  description:
+    "Sistema operacional escolar local (Offline-First) para presença assistida, diário docente, linha do tempo operacional do estudante e governança LGPD (Art. 14 e 16).",
+  keywords: [
+    "Gestão Escolar",
+    "Coordenação Pedagógica",
+    "Chamada Assistida",
+    "School OS",
+    "Offline-First",
+    "LGPD Escolar",
+  ],
   authors: [{ name: "Áquila Labs" }],
 };
 

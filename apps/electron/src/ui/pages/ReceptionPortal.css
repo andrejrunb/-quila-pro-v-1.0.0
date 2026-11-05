@@ -56,13 +56,13 @@
 }
 
 /* Form Styling */
-.input-group {
+.reception-container .input-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.input-group label {
+.reception-container .input-group label {
   font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -70,7 +70,7 @@
   margin-left: 0.5rem;
 }
 
-.input-group input {
+.reception-container .input-group input {
   padding: 1.25rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);

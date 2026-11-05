@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Shield, GraduationCap, Users, Briefcase, Award,
-  Activity, ArrowLeft, LogOut, ChevronDown, Bell, Sparkles, CheckCircle2
+  LogOut, ChevronDown
 } from "lucide-react";
 
 interface PortalLayoutProps {
@@ -26,7 +26,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
       ws.onerror = () => setGatewayOnline(false);
       ws.onclose = () => setGatewayOnline(false);
     } catch {
-      setGatewayOnline(false);
+      ws = null;
     }
 
     return () => {

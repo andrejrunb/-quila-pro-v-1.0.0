@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Save, 
+import React, { useState, useEffect } from 'react';
+import {
+  Save,
   ChevronLeft,
   Users,
   Camera,
   Printer,
-  Sparkles,
   AlertTriangle,
-  X,
   CheckCircle2,
-  Send,
-  ShieldCheck,
-  RefreshCw,
   BellRing,
-  UploadCloud
+  UploadCloud,
+  RotateCcw,
+  ChevronDown
 } from 'lucide-react';
 import { STUDENTS } from '../../database/studentsData';
+import { getSchoolTodayIsoDate, formatSafeDatePtBr } from '../utils/studentGradeScope';
 import './AttendanceCall.css';
 
-interface Student {
+export type AttendanceStatus = 'unverified' | 'present' | 'absent' | 'justified';
+
+export interface Student {
   id: string;
   name: string;
   registrationNumber?: string;
@@ -30,6 +30,78 @@ interface Student {
 interface AttendanceCallProps {
   onBack: () => void;
   user?: any;
+}
+
+export function getAttendanceStorageKey(classId: string, dateIso: string): string {
+  return `aquila_attendance_${classId}_${dateIso}`;
+}
+
+export function initializeAttendanceRecords(
+  students: Array<{ id: string }>,
+  savedRecords?: Record<string, AttendanceStatus> | null
+): Record<string, AttendanceStatus> {
+  const initial: Record<string, AttendanceStatus> = {};
+  for (const s of students) {
+    const saved = savedRecords?.[s.id];
+    if (saved === 'present' || saved === 'absent' || saved === 'justified' || saved === 'unverified') {
+      initial[s.id] = saved;
+    } else {
+      initial[s.id] = 'unverified';
+    }
+  }
+  return initial;
+}
+
+export function applyBatchAttendanceAction(
+  current: Record<string, AttendanceStatus>,
+  students: Array<{ id: string }>,
+  action: 'all_present' | 'all_absent' | 'mark_unverified_present' | 'invert'
+): {
+  next: Record<string, AttendanceStatus>;
+  previous: Record<string, AttendanceStatus>;
+  affectedCount: number;
+  description: string;
+} {
+  const previous: Record<string, AttendanceStatus> = { ...current };
+  const next: Record<string, AttendanceStatus> = { ...current };
+  let affectedCount = 0;
+
+  for (const s of students) {
+    const prevStatus = current[s.id] || 'unverified';
+    let targetStatus: AttendanceStatus = prevStatus;
+
+    if (action === 'all_present') {
+      targetStatus = 'present';
+    } else if (action === 'all_absent') {
+      targetStatus = 'absent';
+    } else if (action === 'mark_unverified_present') {
+      if (prevStatus === 'unverified') {
+        targetStatus = 'present';
+      }
+    } else if (action === 'invert') {
+      if (prevStatus === 'present') targetStatus = 'absent';
+      else if (prevStatus === 'absent') targetStatus = 'present';
+    }
+
+    next[s.id] = targetStatus;
+    if (targetStatus !== prevStatus) {
+      affectedCount++;
+    }
+  }
+
+  const labels: Record<typeof action, string> = {
+    all_present: `Todos marcados como Presente (${affectedCount} alterados)`,
+    all_absent: `Todos marcados como Ausente (${affectedCount} alterados)`,
+    mark_unverified_present: `Não conferidos marcados como Presente (${affectedCount} alterados)`,
+    invert: `Inversão Presente/Ausente (${affectedCount} alterados)`
+  };
+
+  return {
+    next,
+    previous,
+    affectedCount,
+    description: labels[action]
+  };
 }
 
 const DEFAULT_CLASSES = [
@@ -44,50 +116,74 @@ const DEFAULT_CLASSES = [
   { id: 'M-EM3A',  name: '3º Ano Terceirão Olímpico' },
 ];
 
+const STATUS_META: Record<AttendanceStatus, { label: string; short: string; badgeClass: string }> = {
+  unverified: {
+    label: 'Não conferido',
+    short: '—',
+    badgeClass: 'bg-slate-800/80 text-slate-300 border-slate-600/50'
+  },
+  present: {
+    label: 'Presente',
+    short: 'P',
+    badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+  },
+  absent: {
+    label: 'Ausente',
+    short: 'F',
+    badgeClass: 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+  },
+  justified: {
+    label: 'Justificado',
+    short: 'J',
+    badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+  }
+};
+
 export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) => {
   const [classes, setClasses] = useState<any[]>(DEFAULT_CLASSES);
   const [selectedClass, setSelectedClass] = useState('F-EF26A');
   const [students, setStudents] = useState<Student[]>([]);
-  const [records, setRecords] = useState<Record<string, 'present' | 'absent'>>({});
-  const [facialMatchScores, setFacialMatchScores] = useState<Record<string, number>>({});
+  const [records, setRecords] = useState<Record<string, AttendanceStatus>>({});
+  const [hasSavedRecord, setHasSavedRecord] = useState(false);
+  const [savedAtIso, setSavedAtIso] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Auto-Chamada Facial State
-  const [isScanningFaces, setIsScanningFaces] = useState(false);
-  const [scanProgress, setScanProgress] = useState(0);
-  const [scanStatusText, setScanStatusText] = useState('Inicializando NPU Edge...');
-  const [cameraActive, setCameraActive] = useState(false);
+  // Batch Menu & Undo State
+  const [isBatchMenuOpen, setIsBatchMenuOpen] = useState(false);
+  const [undoSnapshot, setUndoSnapshot] = useState<{
+    previous: Record<string, AttendanceStatus>;
+    description: string;
+    affectedCount: number;
+  } | null>(null);
 
   // Toast Notification State
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'warning' | 'info' } | null>(null);
+  const [isSyncingSiga, setIsSyncingSiga] = useState(false);
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const streamRef = useRef<MediaStream | null>(null);
-  const scanIntervalRef = useRef<any>(null);
+  const todayIso = getSchoolTodayIsoDate();
 
   const showToast = (message: string, type: 'success' | 'warning' | 'info' = 'info') => {
     setToast({ message, type });
     if ((window as any).showToast) {
       try {
         (window as any).showToast(message, type);
-      } catch (e) {
+      } catch (_e) {
         // ignore
       }
     }
     setTimeout(() => {
-      setToast(current => current?.message === message ? null : current);
+      setToast(current => (current?.message === message ? null : current));
     }, 3800);
   };
 
   useEffect(() => {
     loadClasses();
-    return () => {
-      stopCamera();
-    };
   }, []);
 
   useEffect(() => {
     loadStudents();
+    setUndoSnapshot(null);
+    setIsBatchMenuOpen(false);
   }, [selectedClass]);
 
   const loadClasses = async () => {
@@ -103,6 +199,35 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
       }
     } catch (err) {
       console.warn('Fallback para classes padrão:', err);
+    }
+  };
+
+  const readSavedAttendanceForClass = (classId: string): {
+    map: Record<string, AttendanceStatus> | null;
+    savedAt: string | null;
+  } => {
+    try {
+      const primaryKey = getAttendanceStorageKey(classId, todayIso);
+      const legacyKey = `attendance_${classId}_${todayIso}`;
+      const raw = localStorage.getItem(primaryKey) || localStorage.getItem(legacyKey);
+      if (!raw) return { map: null, savedAt: null };
+      const parsed = JSON.parse(raw);
+      const map: Record<string, AttendanceStatus> = {};
+      if (Array.isArray(parsed?.records)) {
+        for (const r of parsed.records) {
+          if (r && r.studentId && r.status) {
+            map[r.studentId] = r.status;
+          }
+        }
+      } else if (parsed?.recordsMap && typeof parsed.recordsMap === 'object') {
+        Object.assign(map, parsed.recordsMap);
+      }
+      return {
+        map: Object.keys(map).length > 0 ? map : null,
+        savedAt: parsed?.savedAt || null
+      };
+    } catch (_e) {
+      return { map: null, savedAt: null };
     }
   };
 
@@ -124,11 +249,10 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
             }));
           }
         } catch (ipcErr) {
-          console.warn('Falha ao obter estudantes via IPC, utilizando banco de dados local:', ipcErr);
+          console.warn('Falha ao obter estudantes via IPC, utilizando banco local:', ipcErr);
         }
       }
 
-      // Se lista ainda estiver vazia, carrega do arquivo STUDENTS
       if (list.length === 0) {
         const filtered = STUDENTS.filter(s => s.classId === selectedClass);
         const source = filtered.length > 0 ? filtered : STUDENTS.slice(0, 28);
@@ -143,12 +267,11 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
 
       setStudents(list);
 
-      // Marca presentes por padrão
-      const initialRecords: Record<string, 'present' | 'absent'> = {};
-      list.forEach((s) => {
-        initialRecords[s.id] = 'present';
-      });
+      const saved = readSavedAttendanceForClass(selectedClass);
+      const initialRecords = initializeAttendanceRecords(list, saved.map);
       setRecords(initialRecords);
+      setHasSavedRecord(Boolean(saved.map));
+      setSavedAtIso(saved.savedAt);
     } catch (err) {
       console.error('Erro ao carregar alunos:', err);
       showToast('Erro ao sincronizar alunos da turma.', 'warning');
@@ -157,185 +280,129 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
     }
   };
 
-  // Determina ausências acumuladas simuladas baseadas no RA (LDB Art. 12)
   const getDeterministicAbsences = (seed: string): number => {
     let hash = 0;
     for (let i = 0; i < seed.length; i++) {
       hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
     }
-    // Mapeia para um valor entre 0 e 22 (limite de 15 faltas ativa o alerta da LDB)
-    const val = hash % 24;
-    return val;
+    return hash % 24;
   };
 
-  const toggleStatus = (studentId: string) => {
+  const setStudentStatus = (studentId: string, status: AttendanceStatus) => {
     setRecords(prev => ({
       ...prev,
-      [studentId]: prev[studentId] === 'present' ? 'absent' : 'present'
+      [studentId]: status
     }));
   };
 
-  const setAllStatus = (status: 'present' | 'absent') => {
-    const updated: Record<string, 'present' | 'absent'> = {};
-    students.forEach(s => {
-      updated[s.id] = status;
+  const cycleStatus = (studentId: string) => {
+    const order: AttendanceStatus[] = ['unverified', 'present', 'absent', 'justified'];
+    const current = records[studentId] || 'unverified';
+    const nextIdx = (order.indexOf(current) + 1) % order.length;
+    setStudentStatus(studentId, order[nextIdx]);
+  };
+
+  const handleBatchAction = (action: 'all_present' | 'all_absent' | 'mark_unverified_present' | 'invert') => {
+    const result = applyBatchAttendanceAction(records, students, action);
+    setRecords(result.next);
+    setUndoSnapshot({
+      previous: result.previous,
+      description: result.description,
+      affectedCount: result.affectedCount
     });
-    setRecords(updated);
-    showToast(`Todos os ${students.length} alunos marcados como ${status === 'present' ? 'Presentes' : 'Ausentes'}.`, 'info');
+    setIsBatchMenuOpen(false);
+    showToast(`${result.description}. Você pode desfazer antes de salvar.`, 'info');
   };
 
-  const invertSelection = () => {
-    const updated: Record<string, 'present' | 'absent'> = {};
-    students.forEach(s => {
-      updated[s.id] = records[s.id] === 'present' ? 'absent' : 'present';
-    });
-    setRecords(updated);
-    showToast('Seleção de presenças invertida com sucesso.', 'info');
+  const handleUndoBatch = () => {
+    if (!undoSnapshot) return;
+    setRecords(undoSnapshot.previous);
+    showToast(`Ação em lote desfeita (${undoSnapshot.affectedCount} alunos restaurados).`, 'info');
+    setUndoSnapshot(null);
   };
 
-  // ── Auto-Chamada Facial Edge NPU ──
-  const startCamera = async () => {
-    try {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          video: { width: 640, height: 480, facingMode: 'user' } 
-        });
-        streamRef.current = stream;
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.play();
-        }
-        setCameraActive(true);
-      } else {
-        setCameraActive(false);
-      }
-    } catch (err) {
-      console.info('Câmera física indisponível ou permissão negada. Executando emulacão biométrica de NPU:', err);
-      setCameraActive(false);
-    }
-  };
-
-  const stopCamera = () => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(t => t.stop());
-      streamRef.current = null;
-    }
-    if (scanIntervalRef.current) {
-      clearInterval(scanIntervalRef.current);
-      scanIntervalRef.current = null;
-    }
-    setCameraActive(false);
-  };
-
-  const openFaceScanModal = () => {
-    setIsScanningFaces(true);
-    setScanProgress(0);
-    setScanStatusText('Conectando ao worker NPU ArcFace 512-dim...');
-    startCamera();
-
-    let step = 0;
-    const totalSteps = students.length;
-    const recognizedScores: Record<string, number> = { ...facialMatchScores };
-    const recognizedRecords: Record<string, 'present' | 'absent'> = { ...records };
-
-    scanIntervalRef.current = setInterval(() => {
-      step++;
-      const currentStudent = students[step - 1];
-      const percent = Math.min(100, Math.round((step / (totalSteps || 1)) * 100));
-      setScanProgress(percent);
-
-      if (currentStudent) {
-        // Gera escore de similaridade de cosseno realista (93.5% a 99.4%)
-        const confidence = parseFloat((0.935 + (Math.sin(step * 7) * 0.05 + 0.01)).toFixed(3));
-        recognizedScores[currentStudent.id] = confidence;
-        recognizedRecords[currentStudent.id] = 'present';
-        setFacialMatchScores({ ...recognizedScores });
-        setRecords({ ...recognizedRecords });
-        setScanStatusText(`Identificado: ${currentStudent.name.split(' ')[0]} (${(confidence * 100).toFixed(1)}%)`);
-      }
-
-      if (step >= totalSteps) {
-        clearInterval(scanIntervalRef.current);
-        setScanStatusText(`Varredura concluída! ${totalSteps} faces confrontadas na NPU local.`);
-      }
-    }, 180);
-  };
-
-  const closeFaceScanModal = () => {
-    stopCamera();
-    setIsScanningFaces(false);
-    showToast(`Auto-chamada concluída: ${Object.keys(facialMatchScores).length} alunos autenticados via NPU local.`, 'success');
-  };
-
-  // ── Notificação LDB Art. 12 VII ──
   const handleNotifyLdb = (e: React.MouseEvent, student: Student) => {
     e.stopPropagation();
     const absenceCount = student.cumulativeAbsences || 15;
-    
-    // Dispara via IPC ou log local
+
     if ((window as any).aquila?.invoke) {
-      (window as any).aquila.invoke('teachers:notify-parent-ldb', {
-        studentId: student.id,
-        studentName: student.name,
-        absences: absenceCount,
-        lawArticle: 'LDB 9.394/96 Art. 12 VII'
-      }).catch((e: any) => console.log('Log de envio local:', e));
+      (window as any).aquila
+        .invoke('teachers:notify-parent-ldb', {
+          studentId: student.id,
+          studentName: student.name,
+          absences: absenceCount,
+          lawArticle: 'LDB 9.394/96 Art. 12 VII'
+        })
+        .catch((err: any) => console.log('Log de envio local:', err));
     }
 
     showToast(
-      `Alerta LDB emitido para responsáveis de ${student.name.split(' ')[0]}: ${absenceCount} faltas registradas. Notificação enviada via canal local!`, 
+      `Alerta LDB emitido para responsáveis de ${student.name.split(' ')[0]}: ${absenceCount} faltas registradas.`,
       'warning'
     );
   };
 
-  // ── Salvar Chamada Soberana ──
   const saveAttendance = async () => {
     try {
-      const recordsArray = Object.entries(records).map(([studentId, status]) => ({
-        studentId,
-        status,
-        facialConfidence: facialMatchScores[studentId] || null
+      const recordsArray = students.map(s => ({
+        studentId: s.id,
+        studentName: s.name,
+        registrationNumber: s.registrationNumber,
+        status: records[s.id] || 'unverified',
+        facialConfidence: null
       }));
 
       let scheduleId = 'sch-default';
       if ((window as any).aquila?.invoke) {
         try {
           const schedules = await (window as any).aquila.invoke('get-schedules');
-          const classSchedule = Array.isArray(schedules) 
-            ? schedules.find((s: any) => s.classId === selectedClass) 
+          const classSchedule = Array.isArray(schedules)
+            ? schedules.find((s: any) => s.classId === selectedClass)
             : null;
           if (classSchedule?.id) scheduleId = classSchedule.id;
-        } catch (e) {
+        } catch (_e) {
           // fallback
         }
       }
 
-      const date = new Date().toISOString().split('T')[0];
+      const nowIso = new Date().toISOString();
+      const payload = {
+        classId: selectedClass,
+        className: currentClassName,
+        scheduleId,
+        date: todayIso,
+        savedAt: nowIso,
+        records: recordsArray,
+        recordsMap: records
+      };
+
+      // Persiste sempre no armazenamento local para sincronização imediata com Diary.tsx
+      const primaryKey = getAttendanceStorageKey(selectedClass, todayIso);
+      const legacyKey = `attendance_${selectedClass}_${todayIso}`;
+      const latestKey = `aquila_attendance_latest_${selectedClass}`;
+      localStorage.setItem(primaryKey, JSON.stringify(payload));
+      localStorage.setItem(legacyKey, JSON.stringify(payload));
+      localStorage.setItem(latestKey, JSON.stringify(payload));
+
+      window.dispatchEvent(new CustomEvent('aquila:attendance-updated', { detail: payload }));
+
+      setHasSavedRecord(true);
+      setSavedAtIso(nowIso);
+      setUndoSnapshot(null);
 
       if ((window as any).aquila?.invoke) {
-        const res = await (window as any).aquila.invoke('teachers:save-attendance', {
-          classId: selectedClass,
-          scheduleId,
-          date,
-          records: recordsArray
-        });
-
-        if (res?.success) {
-          showToast(`Chamada da turma ${currentClassName} registrada no SQLite SQA-1000 com sucesso!`, 'success');
-          return;
+        try {
+          const res = await (window as any).aquila.invoke('teachers:save-attendance', payload);
+          if (res?.success) {
+            showToast(`Chamada da turma ${currentClassName} salva e sincronizada com o Diário!`, 'success');
+            return;
+          }
+        } catch (_ipcErr) {
+          // fallback local já gravado
         }
       }
 
-      // Salva no localStorage como redundância de soberania local
-      const backupKey = `attendance_${selectedClass}_${date}`;
-      localStorage.setItem(backupKey, JSON.stringify({
-        classId: selectedClass,
-        date,
-        records: recordsArray,
-        savedAt: new Date().toISOString()
-      }));
-
-      showToast(`Chamada da turma ${currentClassName} salva no armazenamento soberano local!`, 'success');
+      showToast(`Chamada da turma ${currentClassName} salva e sincronizada com o Diário local!`, 'success');
     } catch (err: any) {
       showToast('Falha ao sincronizar registro: ' + (err.message || 'Erro desconhecido'), 'warning');
     }
@@ -345,7 +412,53 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
     window.print();
   };
 
-  const [isSyncingSiga, setIsSyncingSiga] = useState(false);
+  const handleQuickConfirmAttendance = async () => {
+    const result = applyBatchAttendanceAction(records, students, 'mark_unverified_present');
+    setRecords(result.next);
+    setUndoSnapshot({
+      previous: result.previous,
+      description: result.description,
+      affectedCount: result.affectedCount
+    });
+    const nowIso = new Date().toISOString();
+    const recordsArray = students.map(s => ({
+      studentId: s.id,
+      studentName: s.name,
+      registrationNumber: s.registrationNumber,
+      status: result.next[s.id] || 'present',
+      facialConfidence: null
+    }));
+    const payload = {
+      classId: selectedClass,
+      className: currentClassName,
+      scheduleId: 'sch-default',
+      date: todayIso,
+      savedAt: nowIso,
+      records: recordsArray,
+      recordsMap: result.next
+    };
+    const primaryKey = getAttendanceStorageKey(selectedClass, todayIso);
+    const legacyKey = `attendance_${selectedClass}_${todayIso}`;
+    const latestKey = `aquila_attendance_latest_${selectedClass}`;
+    localStorage.setItem(primaryKey, JSON.stringify(payload));
+    localStorage.setItem(legacyKey, JSON.stringify(payload));
+    localStorage.setItem(latestKey, JSON.stringify(payload));
+    window.dispatchEvent(new CustomEvent('aquila:attendance-updated', { detail: payload }));
+    setHasSavedRecord(true);
+    setSavedAtIso(nowIso);
+    showToast(`Chamada rápida (< 90s) confirmada e salva para ${currentClassName}! (Ctrl+Shift+C)`, 'success');
+  };
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'c') {
+        e.preventDefault();
+        handleQuickConfirmAttendance();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [records, students, selectedClass]);
 
   const handleSyncSigaWeb = async () => {
     try {
@@ -370,271 +483,332 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
   const currentClassName = classes.find(c => c.id === selectedClass)?.name || selectedClass;
   const totalCount = students.length;
   const presentCount = students.filter(s => records[s.id] === 'present').length;
-  const absentCount = totalCount - presentCount;
-  const presencePercent = totalCount > 0 ? Math.round((presentCount / totalCount) * 100) : 0;
+  const absentCount = students.filter(s => records[s.id] === 'absent').length;
+  const justifiedCount = students.filter(s => records[s.id] === 'justified').length;
+  const unverifiedCount = students.filter(s => (records[s.id] || 'unverified') === 'unverified').length;
+  const verifiedCount = totalCount - unverifiedCount;
+  const presencePercent = verifiedCount > 0 ? Math.round((presentCount / verifiedCount) * 100) : 0;
   const ldbAlertCount = students.filter(s => (s.cumulativeAbsences || 0) >= 15).length;
-  const aiRecognizedCount = Object.keys(facialMatchScores).length;
 
   return (
-    <div className="attendance-call-container animate-fade-in">
-      {/* ── INTERFACE EM TELA (SCREEN-ONLY) ── */}
+    <div className="attendance-call-container aquila-ui animate-fade-in">
       <div className="screen-only">
-        {/* Header Superior */}
+        {/* Cabeçalho da Página */}
         <header className="page-header flex items-center justify-between flex-wrap gap-4">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button onClick={onBack} className="back-btn" title="Voltar ao Painel Pedagógico">
               <ChevronLeft size={20} />
             </button>
             <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl md:text-2xl font-black text-white">Chamada Inteligente</h1>
-                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                  LDB & NPU Edge
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-xl md:text-2xl font-bold text-white">Frequência da Turma</h1>
+                <span
+                  className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${
+                    hasSavedRecord && unverifiedCount === 0
+                      ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                      : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+                  }`}
+                >
+                  {hasSavedRecord
+                    ? unverifiedCount === 0
+                      ? 'Chamada Conferida e Salva'
+                      : `Salva parcialmente (${unverifiedCount} não conferidos)`
+                    : `Chamada não salva (${unverifiedCount} não conferidos)`}
+                </span>
+                <span className="text-xs font-mono text-slate-400">
+                  Data: {formatSafeDatePtBr(todayIso)}
                 </span>
               </div>
-              <p className="subtitle text-xs text-zinc-400 mt-0.5">
-                Zero-Typing Classroom • Reconhecimento Facial Local • Gestão de Frequência Soberana
+              <p className="subtitle text-xs text-slate-400 mt-0.5">
+                Registro auditável de presença • Sincronizado com o Diário de Classe • LDB Art. 12 VII
               </p>
             </div>
           </div>
 
+          {/* Ações Secundárias e Primária */}
           <div className="flex items-center gap-2 flex-wrap">
-            <button 
-              className="btn-face-call" 
-              onClick={openFaceScanModal}
-              title="Iniciar detecção automática de rostos por visão computacional local"
+            <button
+              type="button"
+              disabled
+              className="px-3 py-2 rounded-lg text-xs font-semibold bg-slate-800/60 text-slate-500 border border-slate-700/60 cursor-not-allowed flex items-center gap-1.5"
+              title="Reconhecimento facial desabilitado no piloto H-01 (Escopo H02-02 em quarentena)"
             >
-              <Camera size={16} />
-              <span>Auto-Chamada Facial (NPU)</span>
+              <Camera size={14} />
+              <span>Biometria (Fora do Piloto H-01)</span>
             </button>
 
-            <button 
-              className="btn-print-call" 
+            <button
+              type="button"
+              className="btn-print-call"
               onClick={handlePrint}
               title="Imprimir Ata de Frequência de acordo com a LDB"
             >
-              <Printer size={16} />
+              <Printer size={15} />
               <span>Imprimir Ata</span>
             </button>
 
-            <button 
-              className="btn-print-call flex items-center gap-1.5" 
+            <button
+              type="button"
+              className="btn-print-call flex items-center gap-1.5"
               onClick={handleSyncSigaWeb}
               disabled={isSyncingSiga}
-              title="Sincronizar chamada diretamente com o diário oficial no SigaWeb"
+              title="Sincronizar chamada com o diário oficial no SigaWeb"
             >
-              <UploadCloud size={16} />
-              <span>{isSyncingSiga ? 'Sincronizando...' : 'SigaWeb RPA'}</span>
+              <UploadCloud size={15} />
+              <span>{isSyncingSiga ? 'Sincronizando...' : 'Sincronizar SigaWeb'}</span>
             </button>
 
-            <button className="save-btn flex items-center gap-2" onClick={saveAttendance}>
+            <button
+              type="button"
+              className="px-3.5 py-2 rounded-lg text-xs font-bold bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5 transition"
+              onClick={handleQuickConfirmAttendance}
+              data-testid="quick-confirm-attendance-btn"
+              title="Conferir pendentes como Presente e salvar em 1 clique (Atalho: Ctrl+Shift+C)"
+            >
+              <CheckCircle2 size={15} />
+              <span>Confirmar &lt; 90s (Ctrl+Shift+C)</span>
+            </button>
+
+            <button
+              type="button"
+              className="save-btn flex items-center gap-2"
+              onClick={saveAttendance}
+              data-testid="save-attendance-btn"
+            >
               <Save size={16} />
               <span>Salvar Chamada</span>
             </button>
           </div>
         </header>
 
-        {/* Barra de Métricas Rápidas */}
+        {/* Barra de Métricas Auditáveis */}
         <section className="attendance-metrics-bar">
           <div className="metric-chip">
-            <span className="chip-label">Total Alunos</span>
+            <span className="chip-label">Total na Turma</span>
             <span className="chip-val text-white">{totalCount}</span>
           </div>
           <div className="metric-chip">
+            <span className="chip-label">Não Conferidos</span>
+            <span className="chip-val text-slate-300" data-testid="unverified-count">{unverifiedCount}</span>
+          </div>
+          <div className="metric-chip">
             <span className="chip-label">Presentes</span>
-            <span className="chip-val text-emerald-400">{presentCount} <small className="text-xs font-normal">({presencePercent}%)</small></span>
+            <span className="chip-val text-emerald-400" data-testid="present-count">
+              {presentCount} <small className="text-xs font-normal">({presencePercent}%)</small>
+            </span>
           </div>
           <div className="metric-chip">
             <span className="chip-label">Ausentes</span>
-            <span className="chip-val text-rose-400">{absentCount}</span>
+            <span className="chip-val text-rose-400" data-testid="absent-count">{absentCount}</span>
           </div>
           <div className="metric-chip">
-            <span className="chip-label">NPU Reconhecidos</span>
-            <span className="chip-val text-cyan-400">{aiRecognizedCount}</span>
+            <span className="chip-label">Justificados</span>
+            <span className="chip-val text-amber-300" data-testid="justified-count">{justifiedCount}</span>
           </div>
           <div className="metric-chip">
-            <span className="chip-label">Radar LDB (Risco)</span>
+            <span className="chip-label">Alerta LDB (≥15 faltas)</span>
             <span className="chip-val text-amber-400">{ldbAlertCount}</span>
           </div>
         </section>
 
-        {/* Painel de Controles */}
+        {/* Painel de Filtros e Ação em Lote Recolhida */}
         <section className="controls-panel glass">
           <div className="flex items-center gap-4 flex-wrap w-full justify-between">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               <div className="select-wrapper">
                 <Users size={16} className="icon" />
-                <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)}>
+                <select
+                  value={selectedClass}
+                  onChange={e => setSelectedClass(e.target.value)}
+                  aria-label="Selecionar turma"
+                >
                   {classes.map(c => (
                     <option key={c.id} value={c.id}>{c.name}</option>
                   ))}
                 </select>
               </div>
-
-              <span className="text-xs text-zinc-400 hidden sm:inline">
-                {currentClassName}
+              <span className="text-xs text-slate-400">
+                {savedAtIso
+                  ? `Último salvamento: ${new Date(savedAtIso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`
+                  : 'Nenhum registro salvo hoje para esta turma'}
               </span>
             </div>
 
-            <div className="bulk-actions flex gap-2">
-              <button className="btn-all-present" onClick={() => setAllStatus('present')}>
-                Todos Presentes
-              </button>
-              <button className="btn-all-absent" onClick={() => setAllStatus('absent')}>
-                Todos Ausentes
-              </button>
-              <button onClick={invertSelection} title="Inverter marcações">
-                Inverter
-              </button>
+            <div className="flex items-center gap-2 relative">
+              {undoSnapshot && (
+                <button
+                  type="button"
+                  onClick={handleUndoBatch}
+                  data-testid="undo-batch-btn"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/40 hover:bg-amber-500/25 flex items-center gap-1.5 transition"
+                >
+                  <RotateCcw size={13} />
+                  <span>Desfazer lote ({undoSnapshot.affectedCount} alunos)</span>
+                </button>
+              )}
+
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsBatchMenuOpen(prev => !prev)}
+                  data-testid="batch-menu-trigger"
+                  className="px-3.5 py-2 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 flex items-center gap-2 transition"
+                >
+                  <span>Marcar em lote ({totalCount} alunos)</span>
+                  <ChevronDown size={14} />
+                </button>
+
+                {isBatchMenuOpen && (
+                  <div
+                    className="absolute right-0 mt-2 w-72 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl p-1.5 z-30"
+                    data-testid="batch-menu-dropdown"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => handleBatchAction('mark_unverified_present')}
+                      className="w-full text-left px-3 py-2 rounded-lg text-xs text-slate-200 hover:bg-slate-800 flex justify-between items-center"
+                    >
+                      <span>Conferir pendentes como Presente</span>
+                      <span className="font-mono text-emerald-400">{unverifiedCount} alunos</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleBatchAction('all_present')}
+                      className="w-full text-left px-3 py-2 rounded-lg text-xs text-slate-200 hover:bg-slate-800 flex justify-between items-center"
+                    >
+                      <span>Marcar todos como Presente</span>
+                      <span className="font-mono text-emerald-400">{totalCount} alunos</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleBatchAction('all_absent')}
+                      className="w-full text-left px-3 py-2 rounded-lg text-xs text-slate-200 hover:bg-slate-800 flex justify-between items-center"
+                    >
+                      <span>Marcar todos como Ausente</span>
+                      <span className="font-mono text-rose-400">{totalCount} alunos</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleBatchAction('invert')}
+                      className="w-full text-left px-3 py-2 rounded-lg text-xs text-slate-200 hover:bg-slate-800 flex justify-between items-center"
+                    >
+                      <span>Inverter Presentes ↔ Ausentes</span>
+                      <span className="font-mono text-slate-400">{presentCount + absentCount} alunos</span>
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Grid de Alunos */}
+        {/* Lista Limpa de Alunos */}
         <section className="student-table-container mt-4 glass">
           {loading ? (
-            <div className="loading flex items-center justify-center py-20 flex-col gap-3">
+            <div className="loading flex items-center justify-center py-16 flex-col gap-3">
               <div className="spinner"></div>
-              <p className="text-xs text-zinc-400">Carregando lista de chamada...</p>
+              <p className="text-xs text-slate-400">Carregando lista de chamada...</p>
             </div>
           ) : students.length === 0 ? (
-            <div className="empty-state text-center py-20 text-zinc-500">
+            <div className="empty-state text-center py-16 text-slate-400">
               Nenhum aluno matriculado nesta turma.
             </div>
           ) : (
-            <div className="attendance-grid-fast grid grid-cols-1 md:grid-cols-2 gap-2 p-3">
-              {students.map((student, idx) => {
-                const status = records[student.id] || 'present';
-                const confidence = facialMatchScores[student.id];
-                const absences = student.cumulativeAbsences || 0;
-                const isLdbAlert = absences >= 15;
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400 bg-slate-900/50">
+                    <th className="py-2.5 px-3 w-12">Nº</th>
+                    <th className="py-2.5 px-3">Estudante / Matrícula</th>
+                    <th className="py-2.5 px-3 w-44">Faltas Acumuladas</th>
+                    <th className="py-2.5 px-3 text-right">Estado na Aula</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/60 text-xs">
+                  {students.map((student, idx) => {
+                    const status: AttendanceStatus = records[student.id] || 'unverified';
+                    const absences = student.cumulativeAbsences || 0;
+                    const isLdbAlert = absences >= 15;
+                    const meta = STATUS_META[status];
 
-                return (
-                  <div 
-                    key={student.id} 
-                    className={`attendance-student-card flex items-center justify-between p-2.5 px-3 rounded-xl border transition-all cursor-pointer select-none ${
-                      status === 'present' 
-                        ? 'bg-emerald-950/20 border-emerald-500/30 hover:bg-emerald-900/30' 
-                        : 'bg-rose-950/20 border-rose-500/30 hover:bg-rose-900/30'
-                    }`}
-                    onClick={() => toggleStatus(student.id)}
-                  >
-                    <div className="flex items-center gap-2 overflow-hidden mr-2 min-w-0">
-                      <span className="font-mono text-xs text-slate-500 font-bold w-6 text-right flex-shrink-0">
-                        #{idx + 1}
-                      </span>
-                      <div className="flex flex-col min-w-0">
-                        <span className="font-bold text-white text-xs truncate" title={student.name}>
-                          {student.name}
-                        </span>
-                        <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
+                    return (
+                      <tr
+                        key={student.id}
+                        className="hover:bg-slate-800/30 transition-colors"
+                        data-testid={`attendance-row-${student.id}`}
+                      >
+                        <td className="py-2.5 px-3 font-mono text-slate-400 font-bold">
+                          #{idx + 1}
+                        </td>
+                        <td className="py-2.5 px-3">
+                          <div className="font-bold text-slate-100">{student.name}</div>
                           {student.registrationNumber && (
-                            <span className="text-[10px] font-mono text-zinc-400">
-                              RA: {student.registrationNumber}
-                            </span>
+                            <div className="text-[11px] font-mono text-slate-400">
+                              Matrícula: {student.registrationNumber}
+                            </div>
                           )}
-                          {confidence && (
-                            <span className="face-confidence-pill">
-                              <Sparkles size={10} />
-                              {(confidence * 100).toFixed(1)}% NPU
-                            </span>
-                          )}
-                          {isLdbAlert && (
-                            <button
-                              type="button"
-                              className="ldb-alert-tag cursor-pointer hover:brightness-125"
-                              onClick={(e) => handleNotifyLdb(e, student)}
-                              title="Art. 12 VII da LDB: Acumula faltas acima de 30% do limite legal. Clique para despachar notificação aos pais."
+                        </td>
+                        <td className="py-2.5 px-3">
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono text-slate-300">{absences} faltas</span>
+                            {isLdbAlert && (
+                              <button
+                                type="button"
+                                className="ldb-alert-tag cursor-pointer hover:brightness-125"
+                                onClick={e => handleNotifyLdb(e, student)}
+                                title="Art. 12 VII da LDB: Notificar responsáveis"
+                              >
+                                <AlertTriangle size={10} />
+                                LDB
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                        <td className="py-2.5 px-3 text-right">
+                          <div className="inline-flex items-center gap-1.5 flex-wrap justify-end">
+                            <span
+                              onClick={() => cycleStatus(student.id)}
+                              className={`px-2.5 py-1 rounded-md text-[11px] font-bold border cursor-pointer ${meta.badgeClass}`}
+                              title="Clique para alternar estado"
                             >
-                              <AlertTriangle size={10} />
-                              LDB: {absences} faltas
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className={`custom-checkbox-wrapper compact-pill flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold transition-all flex-shrink-0 ${
-                      status === 'present' 
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' 
-                        : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
-                    }`}>
-                      <span className="text-sm font-extrabold">{status === 'present' ? '✓' : '✗'}</span>
-                      <span>{status === 'present' ? 'Presente' : 'Ausente'}</span>
-                    </div>
-                  </div>
-                );
-              })}
+                              {meta.label}
+                            </span>
+                            <div className="inline-flex rounded-lg bg-slate-900 border border-slate-700 p-0.5">
+                              {(['present', 'absent', 'justified', 'unverified'] as AttendanceStatus[]).map(opt => (
+                                <button
+                                  key={opt}
+                                  type="button"
+                                  onClick={() => setStudentStatus(student.id, opt)}
+                                  className={`px-2 py-0.5 rounded text-[11px] font-bold transition ${
+                                    status === opt
+                                      ? opt === 'present'
+                                        ? 'bg-emerald-600 text-white'
+                                        : opt === 'absent'
+                                        ? 'bg-rose-600 text-white'
+                                        : opt === 'justified'
+                                        ? 'bg-amber-600 text-white'
+                                        : 'bg-slate-700 text-white'
+                                      : 'text-slate-400 hover:text-slate-200'
+                                  }`}
+                                  title={STATUS_META[opt].label}
+                                >
+                                  {STATUS_META[opt].short}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           )}
         </section>
       </div>
 
-      {/* ── MODAL AUTO-CHAMADA FACIAL EDGE NPU ── */}
-      {isScanningFaces && (
-        <div className="face-modal-overlay">
-          <div className="face-modal-card">
-            <div className="face-modal-header">
-              <h3>
-                <Camera size={20} className="text-cyan-400" />
-                <span>Auto-Chamada Biométrica NPU</span>
-              </h3>
-              <button 
-                onClick={closeFaceScanModal}
-                className="text-zinc-400 hover:text-white p-1 rounded-lg transition"
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            <div className="face-camera-wrapper">
-              {cameraActive ? (
-                <video ref={videoRef} className="face-camera-feed" autoPlay playsInline muted />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-950 text-cyan-400 p-4 text-center">
-                  <Camera size={44} className="animate-pulse mb-3 opacity-70" />
-                  <p className="font-mono text-sm font-bold text-zinc-300">STREAMING BIOMÉTRICO ATIVO</p>
-                  <p className="text-xs text-zinc-500 max-w-xs mt-1">
-                    Câmera da sala de aula / Sensor RTSP local confrontando embeddings 512-dim em hardware Edge.
-                  </p>
-                </div>
-              )}
-              <div className="scanning-reticle"></div>
-            </div>
-
-            {/* Barra de Progresso e Status */}
-            <div>
-              <div className="flex justify-between items-center text-xs font-mono mb-1.5">
-                <span className="text-zinc-400">{scanStatusText}</span>
-                <span className="text-cyan-400 font-bold">{scanProgress}%</span>
-              </div>
-              <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-to-r from-cyan-500 to-emerald-400 transition-all duration-200"
-                  style={{ width: `${scanProgress}%` }}
-                ></div>
-              </div>
-            </div>
-
-            <div className="face-scan-results-bar">
-              <div className="flex items-center gap-2">
-                <ShieldCheck size={16} className="text-emerald-400" />
-                <span className="text-zinc-300">
-                  Embeddings reconhecidos: <strong>{Object.keys(facialMatchScores).length}</strong> de {students.length}
-                </span>
-              </div>
-              <button 
-                className="px-3 py-1.5 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded-lg text-xs font-bold hover:bg-cyan-500/30 transition"
-                onClick={closeFaceScanModal}
-              >
-                Finalizar e Aplicar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── TOAST DE NOTIFICAÇÃO SOBERANA ── */}
+      {/* Toast */}
       {toast && (
         <div className="attendance-toast-container">
           <div className={`attendance-toast ${toast.type}`}>
@@ -646,7 +820,7 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
         </div>
       )}
 
-      {/* ── FOLHA OFICIAL DE CHAMADA PARA IMPRESSÃO (LDB) ── */}
+      {/* Folha Oficial para Impressão */}
       <div className="print-attendance-sheet">
         <div style={{ borderBottom: '2px solid #000', paddingBottom: '10px', marginBottom: '14px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -659,8 +833,7 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
               </h2>
             </div>
             <div style={{ textAlign: 'right', fontSize: '11px', lineHeight: 1.4 }}>
-              <div><strong>Data:</strong> {new Date().toLocaleDateString('pt-BR')}</div>
-              <div><strong>Hora:</strong> {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</div>
+              <div><strong>Data:</strong> {formatSafeDatePtBr(todayIso)}</div>
             </div>
           </div>
 
@@ -668,8 +841,9 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
             <div><strong>Turma:</strong> {currentClassName}</div>
             <div><strong>Docente:</strong> {user?.name || 'Prof. Responsável'}</div>
             <div><strong>Total Matriculados:</strong> {totalCount}</div>
-            <div><strong>Presentes:</strong> {presentCount} ({presencePercent}%)</div>
+            <div><strong>Presentes:</strong> {presentCount}</div>
             <div><strong>Ausentes:</strong> {absentCount}</div>
+            <div><strong>Justificados:</strong> {justifiedCount}</div>
           </div>
         </div>
 
@@ -679,15 +853,13 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
               <th style={{ border: '1px solid #999', padding: '5px', width: '35px', textAlign: 'center' }}>Nº</th>
               <th style={{ border: '1px solid #999', padding: '5px', width: '70px', textAlign: 'center' }}>RA</th>
               <th style={{ border: '1px solid #999', padding: '5px', textAlign: 'left' }}>Nome do Estudante</th>
-              <th style={{ border: '1px solid #999', padding: '5px', width: '90px', textAlign: 'center' }}>Situação</th>
+              <th style={{ border: '1px solid #999', padding: '5px', width: '110px', textAlign: 'center' }}>Situação</th>
               <th style={{ border: '1px solid #999', padding: '5px', width: '110px', textAlign: 'center' }}>Radar LDB</th>
-              <th style={{ border: '1px solid #999', padding: '5px', width: '130px', textAlign: 'center' }}>Visto / Biometria</th>
             </tr>
           </thead>
           <tbody>
             {students.map((st, i) => {
-              const status = records[st.id] || 'present';
-              const conf = facialMatchScores[st.id];
+              const status = records[st.id] || 'unverified';
               const abs = st.cumulativeAbsences || 0;
               const isAlert = abs >= 15;
 
@@ -700,39 +872,17 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
                   <td style={{ border: '1px solid #ccc', padding: '4px', fontWeight: 'bold' }}>
                     {st.name}
                   </td>
-                  <td style={{ 
-                    border: '1px solid #ccc', 
-                    padding: '4px', 
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    color: status === 'present' ? '#047857' : '#b91c1c'
-                  }}>
-                    {status === 'present' ? '[X] PRESENTE' : '[ ] AUSENTE'}
+                  <td style={{ border: '1px solid #ccc', padding: '4px', textAlign: 'center', fontWeight: 'bold' }}>
+                    {STATUS_META[status].label.toUpperCase()}
                   </td>
                   <td style={{ border: '1px solid #ccc', padding: '4px', textAlign: 'center', fontSize: '10px' }}>
                     {isAlert ? `ALERTA (${abs} faltas)` : 'Regular'}
-                  </td>
-                  <td style={{ border: '1px solid #ccc', padding: '4px', textAlign: 'center', fontSize: '10px' }}>
-                    {conf ? `NPU ${(conf * 100).toFixed(0)}%` : 'Manual'}
                   </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-
-        <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
-          <div style={{ width: '45%', textAlign: 'center', borderTop: '1px solid #000', paddingTop: '6px' }}>
-            Assinatura do Professor(a) Regente
-          </div>
-          <div style={{ width: '45%', textAlign: 'center', borderTop: '1px solid #000', paddingTop: '6px' }}>
-            Visto da Coordenação Pedagógica / Direção
-          </div>
-        </div>
-
-        <div style={{ marginTop: '20px', fontSize: '9px', color: '#666', textAlign: 'center' }}>
-          Documento gerado pelo Sistema Áquila Pro • Conformidade com o Art. 12, VII da Lei 9.394/1996 (LDB) • Criptografia Soberana Local
-        </div>
       </div>
     </div>
   );

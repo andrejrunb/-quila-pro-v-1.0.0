@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Sparkles, Brain, Trophy, Flame, Target, BookOpen, Clock,
-  CheckCircle2, ArrowRight, MessageSquare, Send, Award, Zap,
-  TrendingUp, Calendar, ShieldCheck, ChevronRight
+  CheckCircle2, Send, Zap,
+  Calendar, ShieldCheck, Play, Pause, RotateCcw, Award
 } from "lucide-react";
 import { EagleCard } from "@/components/ui/EagleCard";
 import { EliteButton } from "@/components/ui/EliteButton";
@@ -29,7 +29,35 @@ export default function PortalAluno() {
   ]);
   const [isTyping, setIsTyping] = useState(false);
 
-  const [quests, setQuests] = useState([
+  // Modo Kumon 3 min (180 segundos) & Gamificação Leve
+  const [kumonSeconds, setKumonSeconds] = useState(180);
+  const [kumonRunning, setKumonRunning] = useState(false);
+  const [streakDays, setStreakDays] = useState(12);
+  const [xpPoints, setXpPoints] = useState(2680);
+
+  useEffect(() => {
+    if (!kumonRunning) return;
+    const timer = setInterval(() => {
+      setKumonSeconds((prev) => {
+        if (prev <= 1) {
+          setKumonRunning(false);
+          setStreakDays((d) => d + 1);
+          setXpPoints((xp) => xp + 50);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [kumonRunning]);
+
+  const formatKumonTime = (totalSec: number) => {
+    const mins = Math.floor(totalSec / 60).toString().padStart(2, "0");
+    const secs = (totalSec % 60).toString().padStart(2, "0");
+    return `${mins}:${secs}`;
+  };
+
+  const [quests] = useState([
     {
       id: "q1",
       title: "Simulado Express: Eletrodinâmica & Leis de Ohm",
@@ -141,12 +169,12 @@ export default function PortalAluno() {
                   Nível 14 • Guardião
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-zinc-400 font-medium">
+              <p className="text-xs sm:text-sm text-zinc-300 font-medium">
                 3º Ano A • Ensino Médio Integral • Matrícula #2026-0842
               </p>
-              <div className="flex items-center gap-3 text-[11px] text-zinc-400 mt-1">
+              <div className="flex items-center gap-3 text-[11px] text-zinc-300 mt-1">
                 <span className="flex items-center gap-1 text-emerald-400 font-semibold">
-                  <ShieldCheck size={13} /> Portaria Sul • 07:12 (Biometria)
+                  <ShieldCheck size={13} /> Portaria Sul • 07:12 (Presença Confirmada)
                 </span>
                 <span>•</span>
                 <span>Média Geral: <strong className="text-white">9.1</strong></span>
@@ -158,52 +186,133 @@ export default function PortalAluno() {
           <div className="flex items-center gap-3 sm:gap-6 w-full lg:w-auto justify-between lg:justify-end border-t lg:border-t-0 border-white/10 pt-4 lg:pt-0">
             <div className="flex flex-col items-center px-3 py-2 rounded-xl bg-white/5 border border-white/5 min-w-[70px]">
               <span className="text-xs text-amber-400 font-bold flex items-center gap-1">
-                <Flame size={14} className="animate-pulse" /> 12 Dias
+                <Flame size={14} className="animate-pulse" /> {streakDays} Dias
               </span>
-              <span className="text-[10px] text-zinc-400 uppercase font-semibold">Streak</span>
+              <span className="text-[10px] text-zinc-300 uppercase font-semibold">Streak</span>
             </div>
 
             <div className="flex flex-col items-center px-3 py-2 rounded-xl bg-white/5 border border-white/5 min-w-[80px]">
               <span className="text-xs text-cyan-400 font-bold flex items-center gap-1">
                 <Zap size={14} /> 1.420
               </span>
-              <span className="text-[10px] text-zinc-400 uppercase font-semibold">Coins</span>
+              <span className="text-[10px] text-zinc-300 uppercase font-semibold">Coins</span>
             </div>
 
             {/* XP Bar */}
             <div className="flex flex-col gap-1 min-w-[140px] sm:min-w-[180px]">
               <div className="flex justify-between text-[11px]">
-                <span className="text-zinc-400 font-medium">Progresso XP</span>
-                <span className="text-purple-300 font-bold">2.680 / 3.000</span>
+                <span className="text-zinc-300 font-medium">Progresso XP</span>
+                <span className="text-purple-300 font-bold">{xpPoints.toLocaleString("pt-BR")} / 3.000</span>
               </div>
               <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
                 <div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 w-[89%]" />
               </div>
-              <span className="text-[10px] text-zinc-400 text-right">320 XP para o Nível 15</span>
+              <span className="text-[10px] text-zinc-300 text-right">
+                {Math.max(0, 3000 - xpPoints)} XP para o Nível 15
+              </span>
             </div>
           </div>
         </div>
       </EagleCard>
 
-      {/* Navigation Tabs */}
-      <div className="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto">
+      {/* Modo Kumon 3 Minutos + Conquistas (Gamificação Leve & Foco) */}
+      <EagleCard
+        glow="cyan"
+        className="p-5 border-cyan-500/30 bg-cyan-950/10 flex flex-col lg:flex-row lg:items-center justify-between gap-4"
+        data-testid="kumon-timer-card"
+      >
+        <div className="flex flex-col gap-1.5">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+              Modo Kumon 3 min
+            </span>
+            <h2 className="text-sm sm:text-base font-bold text-white">
+              Sprint Diário de Concentração Rápida (Zero Sobrecarga)
+            </h2>
+          </div>
+          <p className="text-xs text-zinc-300">
+            Pratique 3 minutos de exercícios focados no seu nível exato para manter o hábito diário e ganhar +50 XP.
+          </p>
+          <div className="flex items-center gap-2 flex-wrap pt-1">
+            {[
+              "🏅 Mestre do Foco 3min",
+              "🔥 12 Dias de Hábito",
+              "⚡ Termodinâmica Nível 1",
+            ].map((badge) => (
+              <span
+                key={badge}
+                className="text-[11px] font-semibold px-2.5 py-0.5 rounded-lg bg-white/5 border border-white/10 text-zinc-200 flex items-center gap-1"
+              >
+                <Award size={12} className="text-amber-400" /> {badge}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 bg-zinc-950/80 border border-white/15 rounded-2xl px-4 py-3 self-start lg:self-center">
+          <div className="flex flex-col">
+            <span className="text-[10px] uppercase font-bold text-zinc-300">Timer Kumon</span>
+            <span
+              data-testid="kumon-countdown-display"
+              className="text-2xl font-black font-mono text-cyan-300"
+            >
+              {formatKumonTime(kumonSeconds)}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setKumonRunning((r) => !r)}
+              aria-label={kumonRunning ? "Pausar Modo Kumon" : "Iniciar Modo Kumon"}
+              className="px-3 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black text-xs font-black flex items-center gap-1.5 transition focus-visible:ring-2 focus-visible:ring-white outline-none"
+            >
+              {kumonRunning ? <Pause size={14} /> : <Play size={14} />}
+              <span>{kumonRunning ? "Pausar" : "Iniciar"}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setKumonRunning(false);
+                setKumonSeconds(180);
+              }}
+              aria-label="Reiniciar timer para 3 minutos"
+              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-zinc-200 transition focus-visible:ring-2 focus-visible:ring-cyan-400 outline-none"
+              title="Reiniciar 03:00"
+            >
+              <RotateCcw size={14} />
+            </button>
+          </div>
+        </div>
+      </EagleCard>
+
+      {/* Navigation Tabs (WCAG AA Accessible) */}
+      <div
+        role="tablist"
+        aria-label="Navegação do Portal do Aluno"
+        className="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto"
+      >
         <button
+          role="tab"
+          aria-selected={activeTab === "missoes"}
           onClick={() => setActiveTab("missoes")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-purple-400 outline-none ${
             activeTab === "missoes"
               ? "bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-lg shadow-purple-900/20"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
           }`}
         >
           <Target size={16} /> Missões & Quests
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "tutor"}
           onClick={() => setActiveTab("tutor")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-purple-400 outline-none ${
             activeTab === "tutor"
               ? "bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-lg shadow-purple-900/20"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
           }`}
         >
           <Brain size={16} /> Tutor IA Áquila
@@ -211,22 +320,26 @@ export default function PortalAluno() {
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "boletim"}
           onClick={() => setActiveTab("boletim")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-purple-400 outline-none ${
             activeTab === "boletim"
               ? "bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-lg shadow-purple-900/20"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
           }`}
         >
           <BookOpen size={16} /> Boletim & Desempenho
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "horarios"}
           onClick={() => setActiveTab("horarios")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-purple-400 outline-none ${
             activeTab === "horarios"
               ? "bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-lg shadow-purple-900/20"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
           }`}
         >
           <Calendar size={16} /> Grade Horária
@@ -260,7 +373,7 @@ export default function PortalAluno() {
                         )}
                         <h3 className="text-sm font-bold text-white">{q.title}</h3>
                       </div>
-                      <p className="text-xs text-zinc-400">{q.desc}</p>
+                      <p className="text-xs text-zinc-300">{q.desc}</p>
                       <span className="text-[11px] font-semibold text-amber-400 mt-1">{q.reward}</span>
 
                       {/* Progress bar */}
@@ -295,8 +408,8 @@ export default function PortalAluno() {
 
             <EagleCard glow="amber" className="p-5 flex flex-col gap-4">
               <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                <span className="text-xs font-bold text-zinc-400">POSIÇÃO ATUAL</span>
-                <span className="text-sm font-black text-amber-400">#4 LUGAR • 2.680 XP</span>
+                <span className="text-xs font-bold text-zinc-300">POSIÇÃO ATUAL</span>
+                <span className="text-sm font-black text-amber-400">#4 LUGAR • {xpPoints.toLocaleString("pt-BR")} XP</span>
               </div>
 
               <div className="flex flex-col gap-2.5">
@@ -304,7 +417,7 @@ export default function PortalAluno() {
                   { pos: 1, name: "Sofia Costa", xp: "3.120 XP", badge: "🥇" },
                   { pos: 2, name: "Gabriel Santos", xp: "2.940 XP", badge: "🥈" },
                   { pos: 3, name: "Helena Oliveira", xp: "2.810 XP", badge: "🥉" },
-                  { pos: 4, name: "Lucas Andrade (Você)", xp: "2.680 XP", badge: "⭐", isUser: true },
+                  { pos: 4, name: "Lucas Andrade (Você)", xp: `${xpPoints.toLocaleString("pt-BR")} XP`, badge: "⭐", isUser: true },
                   { pos: 5, name: "Matheus Lima", xp: "2.450 XP", badge: "" },
                 ].map((item) => (
                   <div
@@ -312,19 +425,19 @@ export default function PortalAluno() {
                     className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs ${
                       item.isUser
                         ? "bg-purple-600/20 border border-purple-500/40 text-purple-200 font-bold"
-                        : "bg-white/5 text-zinc-300"
+                        : "bg-white/5 text-zinc-200"
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="w-5 text-center font-bold text-zinc-400">{item.badge || item.pos}</span>
+                      <span className="w-5 text-center font-bold text-zinc-300">{item.badge || item.pos}</span>
                       <span>{item.name}</span>
                     </div>
-                    <span className="font-semibold text-zinc-400">{item.xp}</span>
+                    <span className="font-semibold text-zinc-300">{item.xp}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="text-[11px] text-zinc-400 text-center pt-2">
+              <div className="text-[11px] text-zinc-300 text-center pt-2">
                 Atualização em tempo real via Áquila Gateway
               </div>
             </EagleCard>
@@ -346,7 +459,7 @@ export default function PortalAluno() {
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-white">Córtex Copilot • Ensino Médio & ENEM</h3>
-                    <p className="text-[10px] text-zinc-400">Modelo RAG local • Base Pedagógica BNCC</p>
+                    <p className="text-[10px] text-zinc-300">Modelo RAG local • Base Pedagógica BNCC</p>
                   </div>
                 </div>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
@@ -367,17 +480,17 @@ export default function PortalAluno() {
                       className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                         msg.sender === "user"
                           ? "bg-purple-600 text-white rounded-br-none shadow-md shadow-purple-950/40"
-                          : "bg-white/10 text-zinc-200 border border-white/10 rounded-bl-none shadow-md"
+                          : "bg-white/10 text-zinc-100 border border-white/10 rounded-bl-none shadow-md"
                       }`}
                     >
                       {msg.text}
                     </div>
-                    <span className="text-[10px] text-zinc-400 mt-1 px-1">{msg.timestamp}</span>
+                    <span className="text-[10px] text-zinc-300 mt-1 px-1">{msg.timestamp}</span>
                   </div>
                 ))}
 
                 {isTyping && (
-                  <div className="self-start flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs text-zinc-400">
+                  <div className="self-start flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-xs text-zinc-300">
                     <span className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce" />
                     <span className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.2s]" />
                     <span className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.4s]" />
@@ -388,7 +501,7 @@ export default function PortalAluno() {
 
               {/* Suggestion Chips */}
               <div className="flex items-center gap-2 py-2 overflow-x-auto border-t border-white/5 text-[11px]">
-                <span className="text-zinc-400 font-medium whitespace-nowrap">Sugestões:</span>
+                <span className="text-zinc-300 font-medium whitespace-nowrap">Sugestões:</span>
                 {[
                   "Física: Primeira Lei Termodinâmica",
                   "Redação: Proposta de Intervenção",
@@ -396,8 +509,9 @@ export default function PortalAluno() {
                 ].map((chip) => (
                   <button
                     key={chip}
+                    type="button"
                     onClick={() => handleChipClick(chip)}
-                    className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 hover:border-cyan-400/50 hover:bg-white/10 transition-all text-zinc-300 whitespace-nowrap"
+                    className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 hover:border-cyan-400/50 hover:bg-white/10 transition-all text-zinc-200 whitespace-nowrap"
                   >
                     {chip}
                   </button>
@@ -412,7 +526,7 @@ export default function PortalAluno() {
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                  className="flex-1 bg-white/5 border border-white/10 focus:border-cyan-400/60 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white placeholder-zinc-500 outline-none transition-all"
+                  className="flex-1 bg-white/5 border border-white/10 focus:border-cyan-400/60 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white placeholder-zinc-400 outline-none transition-all"
                 />
                 <EliteButton
                   variant="primary"
@@ -434,7 +548,7 @@ export default function PortalAluno() {
               <div className="flex items-center gap-2 text-purple-300 font-bold text-xs">
                 <Sparkles size={14} /> Redação Nota 1000
               </div>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-300">
                 Submeta seu texto e receba correção automática com os 5 critérios oficiais do ENEM.
               </p>
               <EliteButton variant="secondary" size="sm" className="w-full">
@@ -446,7 +560,7 @@ export default function PortalAluno() {
               <div className="flex items-center gap-2 text-blue-300 font-bold text-xs">
                 <Brain size={14} /> Flashcards SRS
               </div>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-300">
                 Revisão ativa baseada no algoritmo SuperMemo 2 para retenção de longo prazo.
               </p>
               <EliteButton variant="secondary" size="sm" className="w-full">
@@ -463,7 +577,7 @@ export default function PortalAluno() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-bold text-white">Boletim Escolar Bimestral • Ano Letivo 2026</h2>
-              <p className="text-xs text-zinc-400">Notas homologadas e sincronizadas com a Secretaria Digital.</p>
+              <p className="text-xs text-zinc-300">Notas homologadas e sincronizadas com a Secretaria Digital.</p>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-purple-500/10 text-purple-300 border border-purple-500/30">
@@ -479,7 +593,7 @@ export default function PortalAluno() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
-                <tr className="border-b border-white/10 text-[11px] uppercase tracking-wider text-zinc-400">
+                <tr className="border-b border-white/10 text-[11px] uppercase tracking-wider text-zinc-300">
                   <th className="py-3 px-4 font-bold">Disciplina</th>
                   <th className="py-3 px-3 text-center font-bold">1º Bim</th>
                   <th className="py-3 px-3 text-center font-bold">2º Bim</th>
@@ -517,7 +631,7 @@ export default function PortalAluno() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-bold text-white">Quadro de Aulas • Quarta-feira</h2>
-              <p className="text-xs text-zinc-400">Ambiente inteligente com monitoramento de presença em tempo real.</p>
+              <p className="text-xs text-zinc-300">Ambiente inteligente com monitoramento de presença em tempo real.</p>
             </div>
             <span className="text-xs font-bold text-cyan-400 border border-cyan-500/30 px-3 py-1.5 rounded-xl bg-cyan-500/10">
               Aula Ativa: Física Aplicada
@@ -535,7 +649,7 @@ export default function PortalAluno() {
                 }`}
               >
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-zinc-400 font-mono flex items-center gap-1.5">
+                  <span className="text-zinc-300 font-mono flex items-center gap-1.5">
                     <Clock size={13} /> {slot.time}
                   </span>
                   {slot.current && (
@@ -545,9 +659,9 @@ export default function PortalAluno() {
                   )}
                 </div>
                 <h3 className="text-sm font-bold text-white">{slot.subject}</h3>
-                <div className="flex items-center justify-between text-xs text-zinc-400 mt-1">
+                <div className="flex items-center justify-between text-xs text-zinc-300 mt-1">
                   <span>{slot.teacher}</span>
-                  <span className="font-mono text-zinc-300 font-semibold">{slot.room}</span>
+                  <span className="font-mono text-zinc-200 font-semibold">{slot.room}</span>
                 </div>
               </div>
             ))}

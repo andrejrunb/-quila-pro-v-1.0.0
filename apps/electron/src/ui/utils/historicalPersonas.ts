@@ -22,11 +22,37 @@ export interface HistoricalCharacter {
   country: string;
   notableWork: string;
   famousQuote: string;
+  quoteSourceWork?: string;
+  quoteSourceLocator?: string;
+  quoteVerified?: boolean;
   avatarIcon: string;
   introGreeting: string;
   suggestedPrompt: string;
   systemPrompt: string;
   keyTopics: string[];
+}
+
+/**
+ * Gate Editorial H-01: Citações entre aspas só podem ser exibidas quando
+ * acompanhadas de sourceWork, sourceLocator e verified === true.
+ */
+export function getVerifiedPersonaQuote(persona: {
+  famousQuote?: string;
+  quoteSourceWork?: string;
+  quoteSourceLocator?: string;
+  quoteVerified?: boolean;
+}): string {
+  if (
+    persona.quoteVerified === true &&
+    typeof persona.quoteSourceWork === 'string' &&
+    persona.quoteSourceWork.trim().length > 0 &&
+    typeof persona.quoteSourceLocator === 'string' &&
+    persona.quoteSourceLocator.trim().length > 0 &&
+    typeof persona.famousQuote === 'string'
+  ) {
+    return persona.famousQuote.trim();
+  }
+  return '';
 }
 
 export const HISTORICAL_CHARACTERS: HistoricalCharacter[] = [
@@ -40,8 +66,9 @@ export const HISTORICAL_CHARACTERS: HistoricalCharacter[] = [
     areaLabel: 'Física Nuclear & Radioatividade',
     epoch: '1867–1934',
     country: 'Polônia / França',
-    notableWork: 'Isolamento do Rádio e Polônio; Primeira pessoa a ganhar dois Prêmios Nobel em ciências distintas.',
-    famousQuote: 'A radioatividade é uma propriedade atômica que acompanha os átomos do elemento em todas as suas combinações químicas. (Thèse de doctorat, Paris, 1903)',
+    notableWork: '1867–1934, Nobel de Física 1903 e Química 1911. Isolamento do Polônio e do Rádio.',
+    famousQuote: '',
+    quoteVerified: false,
     avatarIcon: '🔬',
     introGreeting: 'Bonjour! Sou Marie Skłodowska-Curie. No laboratório em Paris, provamos que a radioatividade provém do interior do próprio átomo. Como posso ajudar seus estudantes a desvendar o núcleo atômico hoje?',
     suggestedPrompt: 'Como diferenciar as radiações alfa, beta e gama no vestibular?',

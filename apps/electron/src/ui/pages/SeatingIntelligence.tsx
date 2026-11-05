@@ -699,22 +699,86 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                   }
                 }}
               >
-                <div className="seat-photo-wrapper">
-                  <img 
-                    src={getStudentPhoto(student)} 
-                    alt={student.name} 
-                    className="seat-full-photo" 
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      const fallback = e.currentTarget.parentElement?.querySelector('.seat-fallback-avatar');
-                      if (fallback) (fallback as HTMLElement).style.display = 'flex';
+                <div
+                  className="seat-card-clean"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    width: '100%',
+                    height: '100%',
+                    padding: '6px 8px',
+                    background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.92) 100%)',
+                    borderRadius: '10px',
+                    boxSizing: 'border-box',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '34px',
+                      height: '34px',
+                      minWidth: '34px',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      background: '#1e293b',
+                      border: '1px solid rgba(96, 165, 250, 0.35)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
                     }}
-                  />
-                  <div className="seat-fallback-avatar" style={{ display: 'none' }}>
-                    <span>{(student.name || '?').charAt(0).toUpperCase()}</span>
+                  >
+                    <img 
+                      src={getStudentPhoto(student)} 
+                      alt={student.name} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%', display: 'block' }}
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const fallback = e.currentTarget.parentElement?.querySelector('.seat-fallback-avatar');
+                        if (fallback) (fallback as HTMLElement).style.display = 'flex';
+                      }}
+                    />
+                    <div
+                      className="seat-fallback-avatar"
+                      style={{
+                        display: 'none',
+                        width: '100%',
+                        height: '100%',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '13px',
+                        fontWeight: 800,
+                        color: '#fff'
+                      }}
+                    >
+                      <span>{(student.name || '?').charAt(0).toUpperCase()}</span>
+                    </div>
                   </div>
 
-                  <div className="seat-photo-gradient" />
+                  <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px', paddingRight: !isLiveMode ? '16px' : '0' }}>
+                    <span
+                      title={student.name}
+                      style={{
+                        fontSize: '11.5px',
+                        fontWeight: 700,
+                        color: '#F8FAFC',
+                        lineHeight: 1.2,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        wordBreak: 'break-word'
+                      }}
+                    >
+                      {student.name || 'Aluno'}
+                    </span>
+                    <span style={{ fontSize: '9.5px', fontWeight: 600, color: '#94A3B8', whiteSpace: 'nowrap' }}>
+                      Fila {rows - r} • Cart. {cols - c}
+                    </span>
+                  </div>
 
                   <div className="seat-top-badges">
                     {auditStatus === 'MISPLACED' && (
@@ -744,12 +808,6 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                       <X size={11} />
                     </button>
                   )}
-
-                  <div className="seat-card-footer">
-                    <span className="seat-student-name" title={student.name}>
-                      {student.name || 'Aluno'}
-                    </span>
-                  </div>
                 </div>
               </div>
             ) : (
@@ -768,7 +826,7 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
     ).sort((a, b) => a.name.localeCompare(b.name));
 
     return (
-      <div className="si-list-view-container animate-fade-in">
+      <div className="si-list-view-container animate-fade-in" style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, height: '100%', width: '100%', gap: '8px' }}>
         <div className="si-list-header-bar">
           <div className="si-list-stats">
             <span className="si-stat-badge">Total: <strong>{filtered.length}</strong> alunos</span>
@@ -1377,9 +1435,11 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                   className="si-main-grid"
                   style={{
                     position: 'relative',
-                    gridTemplateRows: `repeat(${rows}, minmax(64px, 1fr))`,
-                    gridTemplateColumns: `repeat(${cols}, minmax(88px, 1fr))`,
-                    zoom: `${gridZoom}%`,
+                    gridTemplateRows: `repeat(${rows}, minmax(50px, 1fr))`,
+                    gridTemplateColumns: `repeat(${cols}, minmax(115px, 1fr))`,
+                    width: gridZoom !== 100 ? `${10000 / gridZoom}%` : '100%',
+                    minHeight: gridZoom !== 100 ? `${10000 / gridZoom}%` : '0',
+                    zoom: gridZoom !== 100 ? `${gridZoom}%` : undefined,
                     transition: 'zoom 0.15s ease-out'
                   }}
                 >

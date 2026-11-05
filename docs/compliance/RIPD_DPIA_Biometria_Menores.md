@@ -1,7 +1,7 @@
 # 🏛️ Relatório de Impacto à Proteção de Dados Pessoais (RIPD / DPIA)
 ## Tratamento de Dados Pessoais e Biometria de Menores no Áquila Pro
-**Versão:** 1.1.0 — Piloto Escolar Controlado  
-**Data:** 25 de Outubro de 2026  
+**Versão:** 2.1.0 — Piloto Escolar Controlado (H-01)  
+**Data:** 04 de Novembro de 2026  
 **Enquadramento Legal:** Lei Federal 13.709/2018 (LGPD), especialmente Artigos 7º, 11, 14 e 16; Lei 8.069/1990 (Estatuto da Criança e do Adolescente - ECA).  
 **Status de Validação:** Documento técnico submetido a parecer consultivo de DPO e jurista especialista antes do piloto.
 
@@ -18,9 +18,9 @@
 
 | Categoria | Dado Coletado | Finalidade Específica | Período de Retenção | Salvaguarda Técnica |
 | :--- | :--- | :--- | :--- | :--- |
-| **Identificação Cadastral** | Nome completo, turma, matrícula e contato do responsável | Registro escolar e comunicação oficial | Duração da matrícula + prazo legal de arquivo | SQLite local protegido por criptografia AES-256-GCM |
-| **Matriz Biométrica Facial** | Vetor numérico convolucional (One-Way Embedding de 512 dimensões) | Validação de acesso físico na portaria | Ano letivo corrente ou até revogação formal de consentimento | **Zero fotos brutas em nuvem**. O vetor é projetado para dificultar a reconstrução direta da imagem facial, sem eliminar integralmente o risco residual de reidentificação por comparação de embeddings. |
-| **Registros de Presença** | Timestamp de passagem, ID do terminal e checksum SHA-256 | Comprovação de presença em sala de aula (LDB Art. 12, VII) | Ano letivo corrente | Trilha forense gravada na tabela `zero_bypass_audits` |
+| **Identificação Cadastral** | Nome completo, turma, matrícula e contato do responsável | Registro escolar e comunicação oficial | Duração da matrícula + prazo legal de arquivo | SQLite local protegido por criptografia AES-256-GCM / DPAPI |
+| **Matriz Biométrica Facial** | Hash unidirecional (`face_embedding_hash`, SHA-256) e vetor convolucional 512-D (`face_encoding`, em quarentena no H-01) | Validação de acesso físico na portaria (escopo H-02+) | Ano letivo corrente ou até revogação formal de consentimento | **Zero fotos brutas em nuvem**. `face_embedding_hash` armazena resumo unidirecional e `face_encoding` permanece cifrado em repouso (AES-256-GCM/DPAPI) e desativado no piloto H-01. |
+| **Registros de Presença** | Timestamp de passagem, ID do terminal e checksum SHA-256 | Comprovação de presença em sala de aula (LDB Art. 12, VII) | Ano letivo corrente | Trilha forense gravada na tabela `zero_bypass_audits` / `audit_logs` |
 | **Imagens de CFTV (Perímetro)** | Gravação de circuito interno | Segurança física patrimonial e prevenção de invasão | Purga automática após 15 a 30 dias | Armazenamento exclusivamente local no servidor edge da escola |
 
 ---
@@ -42,16 +42,24 @@
 | Risco Identificado | Nível Inicial | Medidas Preventivas e Mitigações | Nível Residual |
 | :--- | :---: | :--- | :---: |
 | **Vazamento de imagens de menores** | Alto | **Zero imagens em nuvem pública.** Todo o processamento de visão ocorre na borda (Edge NPU/CPU local). Nenhum frame de estudante sai da rede cabeada local da escola. | **Controlado** |
-| **Reidentificação por comparação de vetores** | Médio | Embeddings protegidos em repouso por chave AES-256-GCM / DPAPI. Acesso estritamente restrito por RBAC local. | **Baixo** |
+| **Reidentificação por comparação de vetores** | Médio | Embeddings protegidos em repouso por chave AES-256-GCM / DPAPI e indexados via hash SHA-256 (`face_embedding_hash`). Acesso estritamente restrito por RBAC local. | **Baixo** |
 | **Acesso não autorizado ao banco edge** | Alto | Banco SQLite em modo WAL com criptografia em repouso. Acesso restrito a administradores autenticados com credenciais fortes e auditoria. | **Baixo** |
 | **Falsos positivos na portaria** | Médio | Limiar de confiança calibrado ($\ge 0.82$). Em caso de não reconhecimento, o sistema orienta validação assistida por funcionário humano (*Human-in-the-Loop*). | **Baixo** |
 | **Adulteração de presenças ou notas** | Alto | Trilha de auditoria imutável gravada com integridade verificada por encadeamento de hashes SHA-256 no serviço `zeroBypassAuditService`. | **Mínimo** |
 
 ---
 
-### 5. Atendimento aos Direitos do Titular (Art. 18)
+### 5. Isolamento Offline-First de Conectores Externos e Expurgo Automático (Art. 16)
 
-- **Confirmação e Acesso:** Painel do responsável permite visualização instantânea de todos os dados cadastrais e acessos.
+- **Isolamento de Conectores Cloud (`AQUILA_ENABLE_CLOUD_CONNECTORS=false`):** No perfil operacional do Piloto H-01, os conectores opcionais `@supabase/supabase-js` (`apps/electron/src/lib/supabase.ts`) e `googleapis` (`apps/electron/src/main/services/GoogleWorkspaceBridge.ts`) encontram-se desabilitados por padrão (`AQUILA_ENABLE_CLOUD_CONNECTORS=false`), operando em modo `offline-isolated` sem realizar chamadas de rede externas. Caso habilitados por opt-in institucional em fases futuras (H-02+), apenas metadados pedagógicos anonimizados ou relatórios agregados trafegam sob TLS 1.3; dados biométricos (`face_encoding`) jamais são sincronizados.
+- **Rotina Automatizada de Expurgo (LGPD Art. 16):** A procedure administrativa `automation.runLgpdRetentionPurge` executa o expurgo periódico de templates biométricos revogados e sessões expiradas após o período legal de retenção, gravando certificado de eliminação com hash SHA-256 na trilha de auditoria.
+- **Observabilidade Offline Estruturada (DPO):** A procedure `automation.exportOfflineObservability` exporta manifesto JSON assinado com SHA-256 contendo exclusivamente métricas técnicas de saúde, latência e integridade (`piiIncluded: false`), sem dados pessoais de estudantes.
+
+---
+
+### 6. Atendimento aos Direitos do Titular (Art. 18)
+
+- **Confirmação e Acesso:** Painel do responsável permite visualização instantânea de todos os dados cadastrais e acessos, com Onboarding de 3 passos sobre proteção e revogação.
 - **Correção:** Retificação imediata mediante validação documental da secretaria.
 - **Portabilidade:** Exportação estruturada em JSON com checksum criptográfico SHA-256 para comprovação de integridade no destino.
-- **Eliminação:** Purga de dados sensíveis mantendo apenas registros obrigatórios por lei educacional.
+- **Eliminação:** Purga de dados sensíveis mantendo apenas registros obrigatórios por lei educacional (LDB Art. 12, VII).

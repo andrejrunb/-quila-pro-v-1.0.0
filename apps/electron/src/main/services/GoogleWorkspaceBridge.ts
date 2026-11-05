@@ -45,8 +45,8 @@ export class GoogleWorkspaceBridge {
       logger.info(`[GoogleBridge] Iniciando sincronização do Classroom para curso ${courseId}`);
       const classroom = google.classroom({ version: 'v1', auth: this.auth });
       
-      // Request simulado caso não haja token (Modo Híbrido)
-      if (process.env.NODE_ENV === 'development') {
+      // Request bloqueado/simulado se o conector de nuvem não estiver explicitamente habilitado (Offline-First H-01)
+      if (process.env.NODE_ENV === 'development' || process.env.AQUILA_ENABLE_CLOUD_CONNECTORS !== 'true') {
         logger.info('[GoogleBridge] Mock: 24 notas importadas e sincronizadas no SQLite.');
         return { success: true, synced: 24 };
       }
@@ -71,7 +71,7 @@ export class GoogleWorkspaceBridge {
       logger.info(`[GoogleBridge] Gerando sala do Meet: ${title}`);
       const calendar = google.calendar({ version: 'v3', auth: this.auth });
 
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === 'development' || process.env.AQUILA_ENABLE_CLOUD_CONNECTORS !== 'true') {
         const mockLink = `https://meet.google.com/aquila-${crypto.randomBytes(3).toString('hex')}`;
         logger.info(`[GoogleBridge] Mock: Sala criada -> ${mockLink}`);
         return mockLink;
@@ -126,7 +126,7 @@ export class GoogleWorkspaceBridge {
       
       const drive = google.drive({ version: 'v3', auth: this.auth });
       
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === 'development' || process.env.AQUILA_ENABLE_CLOUD_CONNECTORS !== 'true') {
         logger.info('[GoogleBridge] Mock: Banco de dados criptografado. Submetido 14MB para o Google Drive.');
         return { success: true, vaultId: crypto.randomUUID() };
       }

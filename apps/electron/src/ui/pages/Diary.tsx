@@ -20,6 +20,8 @@ import {
   ChevronDown,
   X
 } from 'lucide-react';
+import { getSchoolTodayIsoDate } from '../utils/studentGradeScope';
+import { getAttendanceStorageKey, AttendanceStatus } from './AttendanceCall';
 
 interface Student {
   id: string;
@@ -28,11 +30,34 @@ interface Student {
   class?: string;
 }
 
-interface DiaryEntry {
+export interface DiaryEntry {
   studentId: string;
   mood: 'happy' | 'neutral' | 'tired' | 'energetic' | null;
   observation: string;
   present: boolean;
+  attendanceStatus?: AttendanceStatus;
+}
+
+export function syncDiaryEntriesWithAttendance(
+  students: Array<{ id: string }>,
+  savedAttendanceMap?: Record<string, AttendanceStatus> | null,
+  savedDiaryEntries?: Record<string, Partial<DiaryEntry>> | null
+): Record<string, DiaryEntry> {
+  const result: Record<string, DiaryEntry> = {};
+  for (const s of students) {
+    const prevDiary = savedDiaryEntries?.[s.id];
+    const attStatus: AttendanceStatus =
+      savedAttendanceMap?.[s.id] || prevDiary?.attendanceStatus || 'unverified';
+    const isPresent = attStatus === 'present' || attStatus === 'justified';
+    result[s.id] = {
+      studentId: s.id,
+      mood: prevDiary?.mood ?? null,
+      observation: prevDiary?.observation ?? '',
+      present: isPresent,
+      attendanceStatus: attStatus
+    };
+  }
+  return result;
 }
 
 export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, user }) => {
@@ -453,12 +478,37 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
       const data = await (window as any).aquila.invoke('get-students', selectedClass);
       const safeStudents = Array.isArray(data) ? data : [];
       setStudents(safeStudents);
-      
-      // Initialize entries if empty
-      const initialEntries: Record<string, DiaryEntry> = {};
-      safeStudents.forEach((s: Student) => {
-        initialEntries[s.id] = { studentId: s.id, mood: null, observation: '', present: true };
-      });
+
+      const todayIso = getSchoolTodayIsoDate();
+      let savedAttendanceMap: Record<string, AttendanceStatus> | null = null;
+      let savedDiaryMap: Record<string, Partial<DiaryEntry>> | null = null;
+
+      try {
+        const rawAtt =
+          localStorage.getItem(getAttendanceStorageKey(selectedClass, todayIso)) ||
+          localStorage.getItem(`attendance_${selectedClass}_${todayIso}`) ||
+          localStorage.getItem(`aquila_attendance_latest_${selectedClass}`);
+        if (rawAtt) {
+          const parsedAtt = JSON.parse(rawAtt);
+          if (parsedAtt?.recordsMap) {
+            savedAttendanceMap = parsedAtt.recordsMap;
+          } else if (Array.isArray(parsedAtt?.records)) {
+            savedAttendanceMap = {};
+            for (const r of parsedAtt.records) {
+              if (r?.studentId && r?.status) savedAttendanceMap[r.studentId] = r.status;
+            }
+          }
+        }
+        const rawDiary = localStorage.getItem(`aquila_diary_${selectedClass}_${todayIso}`);
+        if (rawDiary) {
+          const parsedDiary = JSON.parse(rawDiary);
+          if (parsedDiary?.entries) savedDiaryMap = parsedDiary.entries;
+        }
+      } catch (_e) {
+        // ignore storage parse error
+      }
+
+      const initialEntries = syncDiaryEntriesWithAttendance(safeStudents, savedAttendanceMap, savedDiaryMap);
       setEntries(initialEntries);
     } catch (err) {
       console.error('Erro ao carregar alunos:', err);
@@ -467,11 +517,22 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
     }
   };
 
+  useEffect(() => {
+    const handleAttendanceSync = (e: Event) => {
+      const detail = (e as CustomEvent<any>).detail;
+      if (!detail || (detail.classId && detail.classId !== selectedClass && selectedClass !== 'all')) return;
+      const map: Record<string, AttendanceStatus> = detail.recordsMap || {};
+      setEntries(prev => syncDiaryEntriesWithAttendance(students, map, prev));
+    };
+    window.addEventListener('aquila:attendance-updated', handleAttendanceSync);
+    return () => window.removeEventListener('aquila:attendance-updated', handleAttendanceSync);
+  }, [selectedClass, students]);
+
   const updateMood = (studentId: string, mood: DiaryEntry['mood']) => {
     setEntries(prev => ({
       ...prev,
       [studentId]: {
-        ...(prev[studentId] || { studentId, observation: '', present: true }),
+        ...(prev[studentId] || { studentId, observation: '', present: false, attendanceStatus: 'unverified' }),
         mood
       }
     }));
@@ -481,34 +542,70 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
     setEntries(prev => ({
       ...prev,
       [studentId]: {
-        ...(prev[studentId] || { studentId, mood: null, present: true }),
+        ...(prev[studentId] || { studentId, mood: null, present: false, attendanceStatus: 'unverified' }),
         observation
       }
     }));
   };
 
   const togglePresence = (studentId: string) => {
-    setEntries(prev => ({
-      ...prev,
-      [studentId]: {
-        ...(prev[studentId] || { studentId, mood: null, observation: '' }),
-        present: !prev[studentId]?.present
-      }
-    }));
+    setEntries(prev => {
+      const current = prev[studentId];
+      const nextPresent = !current?.present;
+      return {
+        ...prev,
+        [studentId]: {
+          ...(current || { studentId, mood: null, observation: '' }),
+          present: nextPresent,
+          attendanceStatus: nextPresent ? 'present' : 'absent'
+        }
+      };
+    });
   };
 
   const markAllPresent = () => {
     const newEntries = { ...entries };
     students.forEach(s => {
-      newEntries[s.id] = { ...newEntries[s.id], present: true };
+      newEntries[s.id] = { ...newEntries[s.id], present: true, attendanceStatus: 'present' };
     });
     setEntries(newEntries);
   };
 
   const handleSave = async () => {
     try {
-      console.log('Salvando diário:', entries);
-      alert('Diário de classe salvo com sucesso no banco Áquila!');
+      const todayIso = getSchoolTodayIsoDate();
+      const nowIso = new Date().toISOString();
+      localStorage.setItem(
+        `aquila_diary_${selectedClass}_${todayIso}`,
+        JSON.stringify({
+          classId: selectedClass,
+          date: todayIso,
+          savedAt: nowIso,
+          entries
+        })
+      );
+
+      const recordsMap: Record<string, AttendanceStatus> = {};
+      const recordsArray = students.map(s => {
+        const entry = entries[s.id];
+        const status: AttendanceStatus =
+          entry?.attendanceStatus || (entry?.present ? 'present' : 'absent');
+        recordsMap[s.id] = status;
+        return { studentId: s.id, studentName: s.name, status };
+      });
+
+      const attPayload = {
+        classId: selectedClass,
+        date: todayIso,
+        savedAt: nowIso,
+        records: recordsArray,
+        recordsMap
+      };
+      localStorage.setItem(getAttendanceStorageKey(selectedClass, todayIso), JSON.stringify(attPayload));
+      localStorage.setItem(`aquila_attendance_latest_${selectedClass}`, JSON.stringify(attPayload));
+      window.dispatchEvent(new CustomEvent('aquila:attendance-updated', { detail: attPayload }));
+
+      alert('Diário de classe salvo e sincronizado com a Chamada com sucesso!');
     } catch (err) {
       alert('Erro ao salvar diário.');
     }

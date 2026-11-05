@@ -1,4 +1,4 @@
-import { router, protectedProcedure, adminProcedure } from '../index';
+import { router, protectedProcedure, adminProcedure } from '../trpc';
 import { z } from 'zod';
 import { students } from '@aquila/db';
 import { eq } from 'drizzle-orm';

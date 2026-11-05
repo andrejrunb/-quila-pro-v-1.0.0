@@ -48,6 +48,10 @@ export interface CosmeticItemRecord {
   expiresAt: null;
   requiredAchievement: string | null;
   description?: string;
+  quote?: string;
+  sourceWork?: string;
+  sourceLocator?: string;
+  verified?: boolean;
   audit: {
     createdBy: string;
     createdAt: string;
@@ -169,6 +173,21 @@ export class CosmeticGrantService {
       }
     } else {
       throw new Error(`INVALID_ITEM: acquisitionType '${item.acquisitionType}' desconhecido para ${item.itemId}`);
+    }
+
+    // Gate Editorial H-01: Citações exigem sourceWork, sourceLocator e verified === true
+    if (typeof item.quote === 'string' && item.quote.trim().length > 0) {
+      if (
+        item.verified !== true ||
+        typeof item.sourceWork !== 'string' ||
+        item.sourceWork.trim().length === 0 ||
+        typeof item.sourceLocator !== 'string' ||
+        item.sourceLocator.trim().length === 0
+      ) {
+        throw new Error(
+          `EDITORIAL_GATE_VIOLATION: Item '${item.itemId}' contém citação sem comprovação primária (sourceWork, sourceLocator e verified: true obrigatórios).`
+        );
+      }
     }
   }
 

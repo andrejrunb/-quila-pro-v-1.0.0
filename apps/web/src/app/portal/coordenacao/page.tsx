@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import {
-  Award, TrendingDown, AlertTriangle, Users, BookOpen,
-  Calendar, FileSpreadsheet, RefreshCw, CheckCircle2,
-  Clock, ShieldAlert, ArrowRight, Download, Server, Sparkles, FolderArchive,
-  Upload, Check, AlertCircle, FileCheck2, Database
+  AlertTriangle, Users,
+  FileSpreadsheet, RefreshCw, CheckCircle2,
+  ShieldAlert, Download, Server, FolderArchive,
+  Upload, AlertCircle, FileCheck2
 } from "lucide-react";
 import { EagleCard } from "@/components/ui/EagleCard";
 import { EliteButton } from "@/components/ui/EliteButton";
@@ -43,10 +43,10 @@ export default function PortalCoordenacao() {
     setIdempotentHash("IDEMP_SHA256_e7f2a1b9c3d4e5f6...a891");
   };
   const [isExportingDominio, setIsExportingDominio] = useState(false);
-  const [dominioExported, setDominioExported] = useState(true);
+  const [, setDominioExported] = useState(true);
   const [isSyncingSigaWeb, setIsSyncingSigaWeb] = useState(false);
 
-  const [atRiskStudents, setAtRiskStudents] = useState([
+  const [atRiskStudents] = useState([
     {
       id: "std-1",
       name: "Matheus Lima",

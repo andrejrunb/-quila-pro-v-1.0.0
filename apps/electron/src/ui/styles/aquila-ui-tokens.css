@@ -6,26 +6,8 @@
  */
 
 .aquila-ui {
-  --bg: #f6f8fb;
-  --surface: #ffffff;
-  --surface-soft: #eef2f7;
-  --text: #172033;
-  --text-muted: #475569;
-  --border: #d8e0ea;
-  --control-border: #64748b;
-  --primary: #1d4ed8;
-  --primary-hover: #1e40af;
-  --selection-soft: #dbeafe;
-  --focus: #7c3aed;
-  color: var(--text);
-  background: var(--bg);
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.aquila-ui[data-theme="dark"] {
   --bg: #0f172a;
+  --bg-canvas: #0B1220;
   --surface: #172033;
   --surface-soft: #1e293b;
   --text: #f1f5f9;
@@ -33,6 +15,40 @@
   --border: #334155;
   --control-border: #94a3b8;
   --primary: #2563eb;
+  --accent-primary: #3B82F6;
+  --primary-hover: #1d4ed8;
+  --selection-soft: #1e3a5f;
+  --focus: #c4b5fd;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.aquila-ui[data-theme="light"] {
+  --bg: #f6f8fb;
+  --bg-canvas: #f6f8fb;
+  --surface: #ffffff;
+  --surface-soft: #eef2f7;
+  --text: #172033;
+  --text-muted: #475569;
+  --border: #d8e0ea;
+  --control-border: #64748b;
+  --primary: #1d4ed8;
+  --accent-primary: #2563eb;
+  --primary-hover: #1e40af;
+  --selection-soft: #dbeafe;
+  --focus: #7c3aed;
+}
+
+.aquila-ui[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg-canvas: #0B1220;
+  --surface: #172033;
+  --surface-soft: #1e293b;
+  --text: #f1f5f9;
+  --text-muted: #cbd5e1;
+  --border: #334155;
+  --control-border: #94a3b8;
+  --primary: #2563eb;
+  --accent-primary: #3B82F6;
   --primary-hover: #1d4ed8;
   --selection-soft: #1e3a5f;
   --focus: #c4b5fd;

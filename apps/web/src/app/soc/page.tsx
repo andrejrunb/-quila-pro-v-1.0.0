@@ -1,21 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { EagleCard } from '@/components/ui/EagleCard';
 import { EliteButton } from '@/components/ui/EliteButton';
-import { Shield, Activity, Cpu, Bell, ShieldCheck, Zap, BrainCircuit } from 'lucide-react';
+import { Shield, Activity, Bell, ShieldCheck, Zap, BrainCircuit } from 'lucide-react';
 import { TelemetryPulse } from '@/components/TelemetryPulse';
 
 // Import dinâmico do ApexCharts para compatibilidade com Next.js (SSR safe)
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 export default function SocDashboard() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   // Opções do Gráfico de Coração do Sistema (NPU/CPU)
   const chartOptions: ApexCharts.ApexOptions = {
@@ -57,8 +52,6 @@ export default function SocDashboard() {
     { name: 'GPU Load', data: [11, 32, 45, 32, 34, 52, 41] },
   ];
 
-  if (!isMounted) return null;
-
   return (
     <div className="min-h-screen bg-slate-950 text-white p-8">
       {/* Header SOC */}
@@ -68,7 +61,7 @@ export default function SocDashboard() {
             <Shield className="text-blue-500 w-8 h-8" />
             Security Operations Center
           </h1>
-          <p className="text-slate-400 mt-1">Sovereign Intelligence Monitor v1.5.0</p>
+          <p className="text-slate-400 mt-1">Sovereign Intelligence Monitor v2.1.0</p>
         </div>
         <div className="flex gap-4">
           <EliteButton variant="ghost"><Bell className="w-4 h-4 mr-2" /> Alertas</EliteButton>

@@ -1,96 +1,141 @@
 "use client";
 
-import { Shield, Zap, Target, Users, CheckCircle2, ArrowRight, Quote, BarChart } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Quote, BarChart } from "lucide-react";
 
 export default function Casos() {
   const cases = [
     {
-      school: "Colégio Savant",
-      location: "São Paulo, SP",
-      challenge: "Incerteza no registro de entrada e saída (fraudulência de presença).",
-      result: "Redução de 94% em entradas não autorizadas e 100% de precisão na chamada.",
-      quote: "O Áquila Pro nos deu a paz de espírito que nenhum sistema de catraca conseguiu dar em 10 anos.",
-      author: "Dr. Marcos, Mantenedor"
+      tag: "Cenário de Homologação 01 • Ensino Fundamental II & Médio",
+      school: "Unidade Modelo — 20 Salas / 500 Alunos",
+      location: "Ambiente de Bancada & Simulação Operacional",
+      challenge:
+        "Divergência entre registros de entrada na portaria, chamadas em papel na 1ª aula e demora na identificação de alunos com faltas consecutivas.",
+      result:
+        "Sincronização imediata entre chamada docente e fila de alertas da coordenação, com 100% dos eventos auditados em banco SQLite local (WAL).",
+      quote:
+        "A consolidação da linha do tempo do aluno permite que a coordenação visualize presença, atrasos, ocorrências e justificativas em uma única tela antes do fim do primeiro tempo de aula.",
+      author: "Relatório de Homologação H-01 • Coordenação Pedagógica",
     },
     {
-      school: "Escola Global Matrix",
-      location: "Curitiba, PR",
-      challenge: "Dificuldade na comunicação em tempo real com as famílias sobre a presença.",
-      result: "Aumento de 40% na satisfação dos pais e economia de 15h de staff/semana.",
-      quote: "Hoje os pais recebem o alerta antes mesmo do aluno sentar na carteira. É transparência radical.",
-      author: "Ana Julia, Coordenadora"
-    }
+      tag: "Cenário de Homologação 02 • Avaliações & Secretaria",
+      school: "Fluxo Integrado CSV → Diário → OMR",
+      location: "Bateria Sintética Verificada (Fixtures H-01)",
+      challenge:
+        "Alto tempo gasto pelos professores na digitação manual de notas de simulados e risco de perda de dados em oscilações de rede.",
+      result:
+        "Importação validada de turmas via CSV, geração de provas A4 em 2 colunas e recuperação transacional do banco SQLite testada contra falhas abruptas.",
+      quote:
+        "Mesmo desconectado da internet externa, o aplicativo instalado mantém a chamada, o mapa de carteiras 6×5 e o lançamento de notas funcionando na rede local da escola.",
+      author: "Dossiê Técnico de Estabilidade & DR • Engenharia Áquila",
+    },
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">
-      <section className="pt-48 pb-20 px-8 flex flex-col items-center">
+      <section className="pt-44 pb-16 px-8 flex flex-col items-center">
         <div className="max-w-4xl text-center">
-          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-emerald-500 mb-8 font-bold">Evidence-Based Sovereignty</h2>
-          <h1 className="text-7xl font-black uppercase tracking-tighter mb-10 leading-[0.9]">Resultados em <span className="text-transparent bg-clip-text bg-gradient-to-br from-white to-white/30 italic">Tempo Real</span>.</h1>
-          <p className="text-zinc-500 text-xl font-medium max-w-xl mx-auto">
-             Não vendemos promessas. Vendemos números, segurança e eficiência operacional validada por quem decide.
+          <h2 className="text-xs font-black uppercase tracking-[0.4em] text-emerald-400 mb-6">
+            Cenários de Homologação &amp; Benchmarks Operacionais
+          </h2>
+          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 leading-[0.95]">
+            Evidências de{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 italic">
+              Execução Real
+            </span>
+            .
+          </h1>
+          <p className="text-zinc-300 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+            Estudos de caso baseados nos roteiros de homologação técnica do piloto H-01 com dados sintéticos auditáveis (respeitando o sigilo de instituições e dados de menores conforme LGPD Art. 14).
           </p>
         </div>
       </section>
 
       {/* Case Grid */}
-      <section className="py-20 px-8">
-        <div className="max-w-7xl mx-auto flex flex-col gap-24">
+      <section className="py-16 px-8">
+        <div className="max-w-7xl mx-auto flex flex-col gap-16">
           {cases.map((cs, idx) => (
-            <div key={idx} className="glass p-12 lg:p-20 rounded-[64px] border-white/5 bg-zinc-950/20 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-               <div className="flex flex-col gap-8">
-                  <div className="flex items-center gap-3">
-                     <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-500/10 px-3 py-1 rounded-full font-bold">Case Study {idx + 1}</span>
+            <div
+              key={idx}
+              className="glass p-10 lg:p-16 rounded-[48px] border border-white/10 bg-zinc-950/40 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center"
+            >
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-[11px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-4 py-1.5 rounded-full">
+                    {cs.tag}
+                  </span>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+                  {cs.school} — <span className="text-zinc-400">{cs.location}</span>
+                </h2>
+                <div className="flex flex-col gap-5">
+                  <div>
+                    <h3 className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-1">
+                      Cenário Avaliado
+                    </h3>
+                    <p className="text-zinc-300 font-medium text-sm leading-relaxed">
+                      {cs.challenge}
+                    </p>
                   </div>
-                  <h3 className="text-4xl font-black uppercase tracking-tighter">{cs.school} — <span className="text-zinc-500">{cs.location}</span></h3>
-                  <div className="flex flex-col gap-6">
-                     <div>
-                        <h4 className="text-xs font-black text-indigo-500 uppercase tracking-widest mb-2 font-bold">O Desafio</h4>
-                        <p className="text-zinc-400 font-medium">{cs.challenge}</p>
-                     </div>
-                     <div>
-                        <h4 className="text-xs font-black text-emerald-500 uppercase tracking-widest mb-2 font-bold">A Vitória</h4>
-                        <div className="flex items-center gap-3 text-2xl font-black tracking-tighter">
-                           <BarChart className="text-emerald-500" size={28} />
-                           {cs.result}
-                        </div>
-                     </div>
+                  <div>
+                    <h3 className="text-xs font-black text-emerald-400 uppercase tracking-widest mb-1">
+                      Resultado Verificado em Bancada
+                    </h3>
+                    <div className="flex items-start gap-3 text-lg font-bold tracking-tight text-white">
+                      <BarChart className="text-emerald-400 shrink-0 mt-1" size={24} />
+                      <span>{cs.result}</span>
+                    </div>
                   </div>
-                  <button className="flex items-center gap-2 text-white font-black uppercase tracking-widest text-[10px] mt-4 font-bold">
-                    Ler Relatório Completo <ArrowRight size={14} />
-                  </button>
-               </div>
-               
-               <div className="relative glass p-12 rounded-[48px] border-emerald-500/10 bg-emerald-500/5">
-                  <Quote className="absolute top-10 right-12 opacity-10 text-emerald-500" size={80} />
-                  <p className="text-2xl font-black italic text-white leading-relaxed mb-8 italic">"{cs.quote}"</p>
-                  <p className="text-sm font-black text-emerald-500 uppercase tracking-widest font-bold">{cs.author}</p>
-               </div>
+                </div>
+                <Link
+                  href="/contato?assunto=dossie-h01"
+                  className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-black uppercase tracking-widest text-xs mt-2 no-underline"
+                >
+                  Solicitar Dossiê Técnico H-01 <ArrowRight size={14} />
+                </Link>
+              </div>
+
+              <div className="relative glass p-10 rounded-[36px] border border-emerald-500/20 bg-emerald-500/5">
+                <Quote className="absolute top-8 right-10 opacity-15 text-emerald-400" size={64} />
+                <p className="text-lg md:text-xl font-bold italic text-zinc-100 leading-relaxed mb-6">
+                  &ldquo;{cs.quote}&rdquo;
+                </p>
+                <p className="text-xs font-black text-emerald-400 uppercase tracking-widest">
+                  {cs.author}
+                </p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Trust Metrics Horizontal */}
-      <section className="py-24 px-8 border-y border-white/5">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
-           <div>
-              <div className="text-5xl font-black mb-2">99.8%</div>
-              <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">Uptime Sovereign Hub</p>
-           </div>
-           <div>
-              <div className="text-5xl font-black mb-2">0.2s</div>
-              <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">Tempo de Inferência</p>
-           </div>
-           <div>
-              <div className="text-5xl font-black mb-2">+50</div>
-              <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">Instituições Protegidas</p>
-           </div>
-           <div>
-              <div className="text-5xl font-black mb-2">&lt; 1%</div>
-              <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">Falsa Presença</p>
-           </div>
+      <section className="py-20 px-8 border-y border-white/5">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-10 text-center">
+          <div>
+            <div className="text-4xl md:text-5xl font-black mb-2">20 Salas</div>
+            <p className="text-xs text-zinc-400 font-bold uppercase tracking-widest">
+              Escala Base do Piloto H-01
+            </p>
+          </div>
+          <div>
+            <div className="text-4xl md:text-5xl font-black mb-2">WAL</div>
+            <p className="text-xs text-zinc-400 font-bold uppercase tracking-widest">
+              Persistência Transacional SQLite
+            </p>
+          </div>
+          <div>
+            <div className="text-4xl md:text-5xl font-black mb-2">SHA-256</div>
+            <p className="text-xs text-zinc-400 font-bold uppercase tracking-widest">
+              Integridade da Trilha de Auditoria
+            </p>
+          </div>
+          <div>
+            <div className="text-4xl md:text-5xl font-black mb-2">100% Local</div>
+            <p className="text-xs text-zinc-400 font-bold uppercase tracking-widest">
+              Operação Sem Nuvem Obrigatória
+            </p>
+          </div>
         </div>
       </section>
     </div>

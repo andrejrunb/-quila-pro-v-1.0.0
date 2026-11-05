@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Home from '../page';
 
-// Mock do Next/Image
 vi.mock('next/image', () => {
   return {
     default: ({ src, alt }: { src: string; alt: string }) => {
@@ -12,7 +11,6 @@ vi.mock('next/image', () => {
   };
 });
 
-// Mock do animejs para evitar problemas de animação em ambiente JSDOM
 vi.mock('animejs', () => {
   return {
     animate: vi.fn(),
@@ -21,7 +19,6 @@ vi.mock('animejs', () => {
   };
 });
 
-// Mock do Lucide React
 vi.mock('lucide-react', async () => {
   const actual = await vi.importActual('lucide-react');
   return {
@@ -57,5 +54,21 @@ describe('Home Page', () => {
     render(<Home />);
     expect(screen.getByText(/Escolas/i)).toBeInTheDocument();
     expect(screen.getByText(/Uptime/i)).toBeInTheDocument();
+  });
+
+  it('não deve renderizar Navbar ou Footer duplicados dentro de page.tsx (responsabilidade exclusiva do RootLayout)', () => {
+    const { container } = render(<Home />);
+    expect(container.querySelectorAll('nav').length).toBe(0);
+    expect(container.querySelectorAll('footer').length).toBe(0);
+  });
+
+  it('deve expor todas as âncoras de seção referenciadas pela navegação (#hero, #benefits, #tech, #roi, #pricing, #contact)', () => {
+    const { container } = render(<Home />);
+    expect(container.querySelector('#hero')).not.toBeNull();
+    expect(container.querySelector('#benefits')).not.toBeNull();
+    expect(container.querySelector('#tech')).not.toBeNull();
+    expect(container.querySelector('#roi')).not.toBeNull();
+    expect(container.querySelector('#pricing')).not.toBeNull();
+    expect(container.querySelector('#contact')).not.toBeNull();
   });
 });

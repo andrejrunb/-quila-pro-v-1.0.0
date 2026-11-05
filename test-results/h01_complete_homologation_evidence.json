@@ -1,0 +1,80 @@
+{
+  "timestamp": "2026-11-04T02:07:32.419Z",
+  "environment": {
+    "os": "Windows_NT",
+    "sqlite_version": "3.49.2",
+    "better_sqlite3": true
+  },
+  "tests": [
+    {
+      "item": "Item 2: Jornada Escolar no Aplicativo Instalado",
+      "status": "PASS",
+      "duration_ms": 43,
+      "evidence": {
+        "students_imported": 3,
+        "activity_created": "act-h01-fisica-01",
+        "submission_score": 5,
+        "intervention_id": "int-h01-001",
+        "sqlite_integrity": "ok"
+      }
+    },
+    {
+      "item": "Item 3: Recuperação SQLite Operacional",
+      "status": "PASS",
+      "duration_ms": 39,
+      "evidence": {
+        "rto_ms": 11,
+        "rpo_zero_loss": true,
+        "initial_records": 2,
+        "recovered_records": 2,
+        "sqlite_integrity_check": "ok"
+      }
+    },
+    {
+      "item": "Item 4: Segurança de Login e Autorização",
+      "status": "PASS",
+      "duration_ms": 229,
+      "evidence": {
+        "brute_force_lockout_active": true,
+        "max_allowed_failed_attempts": 5,
+        "lockout_duration_minutes": 15,
+        "session_signature_hmac_sha256": true,
+        "url_token_exposure": false
+      }
+    },
+    {
+      "item": "Item 5: HTTPS, Headers e Exposição (Mitigação private-ip)",
+      "status": "PASS",
+      "duration_ms": 5,
+      "evidence": {
+        "ssrf_mitigation_active": true,
+        "mesh_quarantined_by_default": true,
+        "octal_hex_dword_filtering": true,
+        "cloud_metadata_protection": true
+      }
+    },
+    {
+      "item": "Item 6: Backup Agendado e Falhas Operacionais",
+      "status": "PASS",
+      "duration_ms": 67,
+      "evidence": {
+        "backup_file_created": "C:\\aquila\\test-results\\h01_execution\\backups_valid\\backup_h01_2026-11-04T02-07-32-813Z.db",
+        "backup_size_bytes": 69632,
+        "destination_failure_intercepted": true,
+        "zero_bypass_audit_logged": "BACKUP_DESTINATION_FAILURE"
+      }
+    },
+    {
+      "item": "Item 7: Atualização e Preservação de Dados",
+      "status": "PASS",
+      "duration_ms": 2,
+      "evidence": {
+        "schema_migration_applied": true,
+        "student_records_preserved": true,
+        "activity_records_preserved": true,
+        "default_values_populated": true
+      }
+    }
+  ],
+  "overall_status": "HOMOLOGATED_H01_READY"
+}

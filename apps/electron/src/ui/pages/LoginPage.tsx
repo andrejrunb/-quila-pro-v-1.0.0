@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Lock, Eye, EyeOff, ArrowRight, School, ScanFace, Activity, Cpu, ShieldCheck, Database, AlertCircle } from 'lucide-react';
+import { User, Lock, Eye, EyeOff, ArrowRight, School, ScanFace, Activity, ShieldCheck, AlertCircle } from 'lucide-react';
 import './LoginPage.css';
 import logo from '../../assets/logo.png';
 
@@ -138,10 +138,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           <form onSubmit={handleLogin} className="eagle-form">
             <div className="input-group">
               <label>Instituição</label>
-              <div className="input-wrapper">
-                <School size={18} className="input-icon" />
+              <div className="input-wrapper" style={{ position: 'relative', display: 'flex', alignItems: 'center', width: '100%' }}>
+                <School size={18} className="input-icon" style={{ position: 'absolute', left: '14px', pointerEvents: 'none', zIndex: 2 }} />
                 <select 
                   className="eagle-input eagle-select"
+                  style={{ paddingLeft: '44px', paddingRight: '36px' }}
                   value={institution}
                   onChange={(e) => setInstitution(e.target.value)}
                   required
@@ -156,11 +157,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
             <div className="input-group">
               <label>Usuário</label>
-              <div className="input-wrapper">
-                <User size={18} className="input-icon" />
+              <div className="input-wrapper" style={{ position: 'relative', display: 'flex', alignItems: 'center', width: '100%' }}>
+                <User size={18} className="input-icon" style={{ position: 'absolute', left: '14px', pointerEvents: 'none', zIndex: 2 }} />
                 <input 
                   type="text" 
                   className="eagle-input"
+                  style={{ paddingLeft: '44px', paddingRight: '16px' }}
                   placeholder="Seu nome de usuário" 
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
@@ -171,11 +173,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
             <div className="input-group">
               <label>Senha</label>
-              <div className="input-wrapper">
-                <Lock size={18} className="input-icon" />
+              <div className="input-wrapper" style={{ position: 'relative', display: 'flex', alignItems: 'center', width: '100%' }}>
+                <Lock size={18} className="input-icon" style={{ position: 'absolute', left: '14px', pointerEvents: 'none', zIndex: 2 }} />
                 <input 
                   type={showPassword ? 'text' : 'password'} 
                   className="eagle-input"
+                  style={{ paddingLeft: '44px', paddingRight: '46px' }}
                   placeholder="••••••••" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -184,6 +187,21 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                 <button 
                   type="button" 
                   className="password-toggle"
+                  style={{
+                    position: 'absolute',
+                    right: '10px',
+                    background: 'transparent',
+                    border: 'none',
+                    boxShadow: 'none',
+                    color: '#94a3b8',
+                    padding: '6px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    zIndex: 3
+                  }}
                   onClick={() => setShowPassword(!showPassword)}
                   title={showPassword ? "Esconder senha" : "Mostrar senha"}
                 >
@@ -213,7 +231,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
           <div className="form-footer">
             <a href="#" className="forgot-password">Esqueceu a senha?</a>
-            <p className="version-text">v1.0.0 (Elite Edition)</p>
+            <p className="version-text">v2.1.0 (H-01 Edition)</p>
           </div>
         </div>
       </div>

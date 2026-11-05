@@ -3,17 +3,23 @@
 import React, { useState } from "react";
 import {
   ShieldCheck, Clock, BookOpen, DollarSign, MessageCircle,
-  CheckCircle2, AlertTriangle, QrCode, Copy, Check, X,
-  FileText, ArrowRight, UserCheck, Smartphone, Send
+  CheckCircle2, QrCode, Copy, Check, X,
+  FileText, Smartphone, Bell, Sparkles, Lock
 } from "lucide-react";
 import { EagleCard } from "@/components/ui/EagleCard";
 import { EliteButton } from "@/components/ui/EliteButton";
 
 export default function PortalPais() {
-  const [activeTab, setActiveTab] = useState<"seguranca" | "boletim" | "financeiro" | "ocorrencias" | "contato">("seguranca");
+  const [activeTab, setActiveTab] = useState<
+    "avisos" | "jantar" | "boletim" | "financeiro" | "ocorrencias" | "contato"
+  >("avisos");
   const [showPixModal, setShowPixModal] = useState(false);
   const [pixCopied, setPixCopied] = useState(false);
   const [pixSettled, setPixSettled] = useState(false);
+
+  // Onboarding LGPD 3 Passos & Estado de Consentimento (Art. 14 e 16)
+  const [biometricConsentActive, setBiometricConsentActive] = useState(false);
+  const [lgpdRevocationReceipt, setLgpdRevocationReceipt] = useState<string | null>(null);
 
   const [occurrences, setOccurrences] = useState([
     {
@@ -48,6 +54,30 @@ export default function PortalPais() {
     },
   ]);
 
+  const dinnerConversations = [
+    {
+      id: "dc-1",
+      subject: "Física Aplicada • Termodinâmica",
+      topic: "Como geladeiras e motores funcionam no dia a dia",
+      prompt: "“Lucas, o professor comentou hoje sobre máquinas térmicas. Como um motor de carro transforma calor em movimento sem desperdiçar toda a energia?”",
+      context: "Conectado à aula das 08:40 (EM13CNT302) com o Prof. Ricardo.",
+    },
+    {
+      id: "dc-2",
+      subject: "Redação & Cidadania",
+      topic: "Ética no uso de Inteligência Artificial nas escolas",
+      prompt: "“Se você pudesse criar uma regra para o uso responsável de IA pelos estudantes no Brasil, qual seria a sua proposta principal?”",
+      context: "Conectado ao tema da Redação Modelo ENEM trabalhado nesta semana.",
+    },
+    {
+      id: "dc-3",
+      subject: "Biologia Celular",
+      topic: "Energia celular e alimentação saudável",
+      prompt: "“O que acontece dentro das nossas células quando fazemos exercício físico intenso e precisamos de energia rápida?”",
+      context: "Conectado à revisão espaçada concluída por Lucas ontem.",
+    },
+  ];
+
   const handleSign = (id: string) => {
     const time = new Date().toLocaleString("pt-BR");
     setOccurrences((prev) =>
@@ -56,6 +86,14 @@ export default function PortalPais() {
           ? { ...o, signed: true, signedAt: `${time} (Assinatura Digital ICP-Brasil / LGPD)` }
           : o
       )
+    );
+  };
+
+  const handleRevokeAndPurgeLgpd = () => {
+    setBiometricConsentActive(false);
+    const stamp = new Date().toLocaleString("pt-BR");
+    setLgpdRevocationReceipt(
+      `Expurgo Art. 16 registrado em ${stamp} • Hash SHA-256: e3b0c44298fc1c149afbf4c8996fb924`
     );
   };
 
@@ -96,12 +134,12 @@ export default function PortalPais() {
                   Dentro do Campus • Seguro
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-zinc-400 font-medium">
+              <p className="text-xs sm:text-sm text-zinc-300 font-medium">
                 Responsável: <strong className="text-white">Marcos Andrade</strong> • 3º Ano A (Integral)
               </p>
-              <div className="flex items-center gap-3 text-[11px] text-zinc-400 mt-1">
+              <div className="flex items-center gap-3 text-[11px] text-zinc-300 mt-1">
                 <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                  <ShieldCheck size={13} /> Entrada Portaria Sul: 07:12 (Biometria)
+                  <ShieldCheck size={13} /> Entrada Portaria Sul: 07:12 (Crachá QR / Presença Confirmada)
                 </span>
                 <span>•</span>
                 <span>Previsão de Saída: 12:35</span>
@@ -112,7 +150,7 @@ export default function PortalPais() {
           {/* Tuition Status Strip */}
           <div className="flex items-center gap-4 w-full lg:w-auto justify-between lg:justify-end border-t lg:border-t-0 border-white/10 pt-4 lg:pt-0">
             <div className="flex flex-col">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-400">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-300">
                 Mensalidade de Novembro:
               </span>
               <span className="text-sm font-black text-white">R$ 1.480,00</span>
@@ -134,47 +172,156 @@ export default function PortalPais() {
         </div>
       </EagleCard>
 
-      {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto">
+      {/* Onboarding de 3 Passos (LGPD Art. 14 e 16) */}
+      <EagleCard
+        glow="cyan"
+        className="p-5 border-cyan-500/30 bg-cyan-950/10 flex flex-col gap-4"
+        data-testid="lgpd-onboarding-card"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+              <Lock size={16} className="text-cyan-400" /> Onboarding de Privacidade Familiar em 3 Passos (LGPD Art. 14 e 16)
+            </h2>
+            <p className="text-xs text-zinc-300">
+              Transparência total sobre como os dados do seu filho são protegidos, gerenciados e eliminados.
+            </p>
+          </div>
+          <span className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+            Piloto H-01: Biometria em Quarentena (Offline-First)
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
+          <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-1.5">
+            <span className="text-[10px] font-black uppercase text-cyan-300">
+              Passo 1 • Proteção Local (Art. 14)
+            </span>
+            <h3 className="font-bold text-white">Zero Fotos em Nuvem</h3>
+            <p className="text-zinc-300 leading-relaxed">
+              Registros escolares ficam exclusivamente no servidor local da escola criptografados com AES-256-GCM.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-1.5">
+            <span className="text-[10px] font-black uppercase text-emerald-300">
+              Passo 2 • Escolha Livre & Alternativa
+            </span>
+            <h3 className="font-bold text-white">Crachá QR / RFID Equivalente</h3>
+            <p className="text-zinc-300 leading-relaxed">
+              O estudante tem acesso integral via Crachá QR/RFID sem obrigatoriedade de biometria facial.
+            </p>
+            <div className="pt-1 flex items-center justify-between">
+              <span className="text-[11px] text-zinc-200 font-semibold">
+                Opt-in Biométrico Futuro: {biometricConsentActive ? "Ativo" : "Desativado"}
+              </span>
+              <button
+                type="button"
+                onClick={() => setBiometricConsentActive((v) => !v)}
+                className="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-[11px] font-bold text-white transition"
+              >
+                {biometricConsentActive ? "Desativar" : "Gerenciar"}
+              </button>
+            </div>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-1.5 justify-between">
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-black uppercase text-amber-300">
+                Passo 3 • Revogação & Expurgo (Art. 16)
+              </span>
+              <h3 className="font-bold text-white">Direito de Eliminação Imediata</h3>
+              <p className="text-zinc-300 leading-relaxed">
+                Solicite a qualquer momento a eliminação de templates biométricos com recibo auditável SHA-256.
+              </p>
+            </div>
+            <button
+              type="button"
+              data-testid="lgpd-revoke-purge-btn"
+              onClick={handleRevokeAndPurgeLgpd}
+              className="mt-2 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-[11px] font-bold transition text-center"
+            >
+              Revogar Consentimento & Solicitar Expurgo
+            </button>
+          </div>
+        </div>
+
+        {lgpdRevocationReceipt && (
+          <div
+            role="status"
+            className="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-[11px] font-mono text-emerald-200"
+          >
+            ✓ {lgpdRevocationReceipt}
+          </div>
+        )}
+      </EagleCard>
+
+      {/* Tabs: Separando Avisos (Notificações) de Conversas para o Jantar (Conteúdo Pedagógico) */}
+      <div
+        role="tablist"
+        aria-label="Navegação do Portal da Família"
+        className="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto"
+      >
         <button
-          onClick={() => setActiveTab("seguranca")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
-            activeTab === "seguranca"
+          role="tab"
+          aria-selected={activeTab === "avisos"}
+          onClick={() => setActiveTab("avisos")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-emerald-400 outline-none ${
+            activeTab === "avisos"
               ? "bg-emerald-600/30 text-emerald-200 border border-emerald-500/40 shadow-lg shadow-emerald-900/20"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
           }`}
         >
-          <ShieldCheck size={16} /> Segurança & Portaria
+          <Bell size={16} /> Avisos & Portaria
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "jantar"}
+          onClick={() => setActiveTab("jantar")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-emerald-400 outline-none ${
+            activeTab === "jantar"
+              ? "bg-emerald-600/30 text-emerald-200 border border-emerald-500/40 shadow-lg shadow-emerald-900/20"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
+          }`}
+        >
+          <Sparkles size={16} /> Conversas para o Jantar
+        </button>
+
+        <button
+          role="tab"
+          aria-selected={activeTab === "boletim"}
           onClick={() => setActiveTab("boletim")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-emerald-400 outline-none ${
             activeTab === "boletim"
               ? "bg-emerald-600/30 text-emerald-200 border border-emerald-500/40 shadow-lg shadow-emerald-900/20"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
           }`}
         >
           <BookOpen size={16} /> Boletim & Rendimento
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "financeiro"}
           onClick={() => setActiveTab("financeiro")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-emerald-400 outline-none ${
             activeTab === "financeiro"
               ? "bg-emerald-600/30 text-emerald-200 border border-emerald-500/40 shadow-lg shadow-emerald-900/20"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
           }`}
         >
           <DollarSign size={16} /> Financeiro & PIX
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "ocorrencias"}
           onClick={() => setActiveTab("ocorrencias")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-emerald-400 outline-none ${
             activeTab === "ocorrencias"
               ? "bg-emerald-600/30 text-emerald-200 border border-emerald-500/40 shadow-lg shadow-emerald-900/20"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
           }`}
         >
           <FileText size={16} /> Ocorrências & Assinaturas
@@ -184,59 +331,97 @@ export default function PortalPais() {
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "contato"}
           onClick={() => setActiveTab("contato")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-emerald-400 outline-none ${
             activeTab === "contato"
               ? "bg-emerald-600/30 text-emerald-200 border border-emerald-500/40 shadow-lg shadow-emerald-900/20"
-              : "text-zinc-400 hover:text-white hover:bg-white/5"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
           }`}
         >
           <MessageCircle size={16} /> Canal Direto
         </button>
       </div>
 
-      {/* Tab 1: Segurança & Portaria */}
-      {activeTab === "seguranca" && (
+      {/* Tab 1: Avisos & Portaria (Notificações Operacionais) */}
+      {activeTab === "avisos" && (
         <EagleCard glow="cyan" className="p-6 flex flex-col gap-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <ShieldCheck className="text-emerald-400" size={20} /> Telemetria de Portaria & Acesso Biocêntrico
+                <Bell className="text-emerald-400" size={20} /> Avisos da Escola & Registros de Portaria
               </h2>
-              <p className="text-xs text-zinc-400">
-                Monitoramento por reconhecimento facial local de alta precisão (sem envio de imagem bruta para a nuvem - LGPD Soberana).
+              <p className="text-xs text-zinc-300">
+                Notificações operacionais de chegada, saída e comunicados oficiais separados do conteúdo pedagógico.
               </p>
             </div>
             <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-              Fidelidade Presencial: 99.8%
+              Frequência Mensal: 98.4%
             </span>
           </div>
 
           {/* Timeline of events */}
           <div className="flex flex-col gap-3 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-white/10 pl-6">
             {[
-              { time: "07:12:04", title: "Entrada Autorizada • Portaria Sul", desc: "Catraca 02 - Reconhecimento Facial (Confiança: 99.8%)." },
-              { time: "09:30:15", title: "Acesso ao Pátio Central • Recreio", desc: "Câmera de fluxo operacional registrou permanência segura." },
-              { time: "12:35:00", title: "Saída Programada", desc: "Liberação biométrica padrão ao final das atividades matutinas." },
+              { time: "07:12:04", title: "Entrada Confirmada • Portaria Sul", desc: "Acesso validado localmente (LGPD Soberana)." },
+              { time: "09:30:15", title: "Intervalo Supervisionado • Pátio Central", desc: "Comunicado: Feira de Ciências confirmada para sexta-feira às 10h." },
+              { time: "12:35:00", title: "Previsão de Saída Regular", desc: "Liberação programada ao término do turno matutino." },
             ].map((ev, i) => (
               <div key={i} className="relative flex flex-col gap-1 text-xs">
                 <div className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-black" />
                 <span className="font-mono text-emerald-400 font-bold">{ev.time}</span>
                 <h4 className="font-bold text-white">{ev.title}</h4>
-                <p className="text-zinc-400">{ev.desc}</p>
+                <p className="text-zinc-300">{ev.desc}</p>
               </div>
             ))}
           </div>
         </EagleCard>
       )}
 
-      {/* Tab 2: Boletim */}
+      {/* Tab 2: Conversas para o Jantar (Perguntas Socráticas Conectadas à Aula) */}
+      {activeTab === "jantar" && (
+        <EagleCard glow="purple" className="p-6 flex flex-col gap-6" data-testid="dinner-conversations-panel">
+          <div>
+            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+              <Sparkles className="text-purple-400" size={20} /> Conversas para o Jantar (Conexão Família-Escola)
+            </h2>
+            <p className="text-xs text-zinc-300">
+              Perguntas abertas e acolhedoras baseadas nas aulas de hoje para estimular o diálogo em família sem jargão técnico.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {dinnerConversations.map((item) => (
+              <div
+                key={item.id}
+                className="p-4 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between gap-3"
+              >
+                <div className="flex flex-col gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-purple-300">
+                    {item.subject}
+                  </span>
+                  <h3 className="text-sm font-bold text-white">{item.topic}</h3>
+                  <p className="text-xs text-emerald-200 italic bg-emerald-950/30 border border-emerald-500/20 p-3 rounded-xl">
+                    {item.prompt}
+                  </p>
+                </div>
+                <span className="text-[11px] text-zinc-300 border-t border-white/10 pt-2">
+                  {item.context}
+                </span>
+              </div>
+            ))}
+          </div>
+        </EagleCard>
+      )}
+
+      {/* Tab 3: Boletim */}
       {activeTab === "boletim" && (
         <EagleCard glow="purple" className="p-6 flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-bold text-white">Desempenho Pedagógico de Lucas</h2>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-300">
                 Acompanhamento bimestral e evolução cognitiva calculada pelo Córtex da Escola.
               </p>
             </div>
@@ -256,12 +441,12 @@ export default function PortalPais() {
             ].map((card) => (
               <div key={card.subject} className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-zinc-400 font-medium">{card.subject}</span>
+                  <span className="text-zinc-300 font-medium">{card.subject}</span>
                   <span className="text-emerald-400 font-bold font-mono">{card.trend}</span>
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-black text-white">{card.grade.toFixed(1)}</span>
-                  <span className="text-[10px] text-zinc-400">/ 10.0</span>
+                  <span className="text-[10px] text-zinc-300">/ 10.0</span>
                 </div>
                 <span className="text-[10px] font-semibold text-purple-300 uppercase tracking-wider">
                   {card.status}
@@ -272,13 +457,13 @@ export default function PortalPais() {
         </EagleCard>
       )}
 
-      {/* Tab 3: Financeiro & PIX */}
+      {/* Tab 4: Financeiro & PIX */}
       {activeTab === "financeiro" && (
         <EagleCard glow="cyan" className="p-6 flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-bold text-white">Central Financeira da Mensalidade</h2>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-300">
                 Emissão instantânea de PIX Dinâmico com conciliação contábil via Domínio Sistemas.
               </p>
             </div>
@@ -289,7 +474,7 @@ export default function PortalPais() {
 
           <div className="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex flex-col gap-1">
-              <span className="text-xs text-zinc-400 uppercase font-bold tracking-wider">
+              <span className="text-xs text-zinc-300 uppercase font-bold tracking-wider">
                 Parcela 11/12 • Novembro de 2026
               </span>
               <h3 className="text-2xl font-black text-white">R$ 1.480,00</h3>
@@ -311,14 +496,14 @@ export default function PortalPais() {
         </EagleCard>
       )}
 
-      {/* Tab 4: Ocorrências & Assinaturas */}
+      {/* Tab 5: Ocorrências & Assinaturas */}
       {activeTab === "ocorrencias" && (
         <EagleCard glow="amber" className="p-6 flex flex-col gap-5">
           <div>
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
               <FileText className="text-amber-400" size={20} /> Prontuário Escolar & Notificações
             </h2>
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-zinc-300">
               Assinatura digital com validade jurídica em conformidade com o Marco Legal da Educação e LGPD.
             </p>
           </div>
@@ -331,8 +516,8 @@ export default function PortalPais() {
               >
                 <div className="flex flex-col gap-1.5 flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono text-zinc-400">{occ.date} • {occ.time}</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-zinc-300">
+                    <span className="text-[10px] font-mono text-zinc-300">{occ.date} • {occ.time}</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-zinc-200">
                       {occ.type}
                     </span>
                   </div>
@@ -361,14 +546,14 @@ export default function PortalPais() {
         </EagleCard>
       )}
 
-      {/* Tab 5: Canal Direto */}
+      {/* Tab 6: Canal Direto */}
       {activeTab === "contato" && (
         <EagleCard glow="blue" className="p-6 flex flex-col gap-6">
           <div>
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
               <MessageCircle className="text-blue-400" size={20} /> Canal Institucional com a Coordenação
             </h2>
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-zinc-300">
               Comunicação direta criptografada com a equipe pedagógica e secretaria escolar.
             </p>
           </div>
@@ -378,7 +563,7 @@ export default function PortalPais() {
               <h4 className="text-sm font-bold text-white flex items-center gap-2">
                 <Smartphone size={16} className="text-emerald-400" /> WhatsApp Oficial da Coordenação
               </h4>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-300">
                 Atendimento ágil para dúvidas de frequência, documentos e ocorrências acadêmicas.
               </p>
               <a
@@ -395,7 +580,7 @@ export default function PortalPais() {
               <h4 className="text-sm font-bold text-white flex items-center gap-2">
                 <Clock size={16} className="text-cyan-400" /> Horário de Plantão da Coordenação
               </h4>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-300">
                 Segunda a Sexta-feira: 07:30 às 17:30.<br />
                 Coordenadora Responsável: Profª Juliana Medeiros.
               </p>
@@ -409,8 +594,9 @@ export default function PortalPais() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
           <EagleCard glow="cyan" className="max-w-md w-full p-6 flex flex-col gap-5 border-cyan-500/40 relative">
             <button
+              type="button"
               onClick={() => setShowPixModal(false)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-white"
+              className="absolute top-4 right-4 text-zinc-300 hover:text-white"
             >
               <X size={20} />
             </button>
@@ -420,7 +606,7 @@ export default function PortalPais() {
                 <QrCode size={24} />
               </div>
               <h3 className="text-lg font-bold text-white">PIX Dinâmico Instantâneo</h3>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-300">
                 Mensalidade Escolar • Novembro 2026 • <strong>R$ 1.480,00</strong>
               </p>
             </div>
@@ -436,7 +622,7 @@ export default function PortalPais() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <span className="text-[10px] uppercase font-bold text-zinc-400 text-center">
+              <span className="text-[10px] uppercase font-bold text-zinc-300 text-center">
                 Chave Copia e Cola
               </span>
               <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-2.5">
@@ -444,9 +630,10 @@ export default function PortalPais() {
                   type="text"
                   readOnly
                   value="00020126580014br.gov.bcb.pix0136e4b9c1d8-4f2a-4c8d-90b1-8b21c459821052040000530398654071480.005802BR"
-                  className="bg-transparent text-[11px] font-mono text-zinc-300 outline-none flex-1 truncate"
+                  className="bg-transparent text-[11px] font-mono text-zinc-200 outline-none flex-1 truncate"
                 />
                 <button
+                  type="button"
                   onClick={handleCopyPix}
                   className="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 text-xs font-bold hover:bg-cyan-500/30 transition-all flex items-center gap-1"
                 >
@@ -466,7 +653,7 @@ export default function PortalPais() {
                 <CheckCircle2 size={16} />
                 {pixSettled ? "Pagamento Confirmado!" : "Simular Liquidação Instantânea"}
               </EliteButton>
-              <span className="text-[10px] text-zinc-400 text-center">
+              <span className="text-[10px] text-zinc-300 text-center">
                 Integração automática com Domínio Sistemas (|5100| Baixas)
               </span>
             </div>

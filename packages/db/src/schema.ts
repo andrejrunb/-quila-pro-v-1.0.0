@@ -52,7 +52,10 @@ export const students = sqliteTable('students', {
   parentUserId: text('parent_user_id').references(() => users.id),
   dateOfBirth: text('date_of_birth').notNull(),
   photoUrl: text('photo_url'),
+  // [LGPD Art. 14 / SECURITY.md] Vetor 512-D cifrado em repouso (AES-256-GCM / DPAPI local) e hash unidirecional SHA-256.
+  // Desativado por padrão no perfil do piloto H-01 (quarentena biométrica ativa).
   faceEncoding: blob('face_encoding'),
+  faceEmbeddingHash: text('face_embedding_hash'),
   status: text('status', { enum: ['active', 'inactive', 'graduated', 'transferred'] }).notNull().default('active'),
   enrolledAt: integer('enrolled_at', { mode: 'timestamp' }).notNull(),
 }, (table) => ({

@@ -1,6 +1,6 @@
 import DatabaseSQLite = require('better-sqlite3');
 
-import { supabase } from '../lib/supabase';
+// [P0-SEC-05] Isolamento Offline-First: import direto do Supabase removido do núcleo SQLite local.
 
 
 
@@ -16,6 +16,8 @@ async function syncToSupabase<T extends Record<string, any>>(table: string, reco
 
   try {
 
+    if (process.env.AQUILA_ENABLE_CLOUD_CONNECTORS !== 'true') return;
+    const { supabase } = await import('../lib/supabase');
     const { data, error } = await supabase.from(table).upsert(record, { onConflict: Object.keys(record)[0] });
 
     if (error) {

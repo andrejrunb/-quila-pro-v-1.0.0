@@ -134,6 +134,133 @@ const getAvatarForStudent = (idOrName: string, idx: number) => {
   return `./avatars/face-${num}.jpg`;
 };
 
+export const GRADEBOOK_RULE_VERSION = 'REGRA-AVAL-2026.1';
+
+export interface GradeEvaluationResult {
+  bimesterMean: number | null;
+  accumulatedMean: number | null;
+  isPendingAll: boolean;
+  isPartial: boolean;
+  recoveryApplied: boolean;
+  statusCode: 'PENDING_ENTRY' | 'PARTIAL' | 'REGULAR_BIMESTER' | 'BIMESTER_OK_ACCUMULATED_LOW' | 'RECOVERY_BIMESTER';
+  statusLabel: string;
+  ruleVersion: string;
+}
+
+function parseOptionalGrade(raw: string | undefined | null): number | null {
+  if (raw === undefined || raw === null) return null;
+  const trimmed = String(raw).trim();
+  if (!trimmed || trimmed === '-') return null;
+  const num = parseFloat(trimmed.replace(',', '.'));
+  if (Number.isNaN(num)) return null;
+  return Math.min(10, Math.max(0, num));
+}
+
+export function evaluateGradebookRow(
+  r: Pick<GradeRow, 'n1' | 'n2' | 'n3' | 'rec' | 'b1' | 'b2' | 'b3' | 'b4'>,
+  formulaMode: 'ponderada_visao' | 'aritmetica' = 'ponderada_visao',
+  selectedBimester = 'B3'
+): GradeEvaluationResult {
+  const v1 = parseOptionalGrade(r.n1);
+  const v2 = parseOptionalGrade(r.n2);
+  const v3 = parseOptionalGrade(r.n3);
+  const vRec = parseOptionalGrade(r.rec);
+
+  const entered = [
+    { val: v1, weight: 0.3 },
+    { val: v2, weight: 0.3 },
+    { val: v3, weight: 0.4 },
+  ].filter((item): item is { val: number; weight: number } => item.val !== null);
+
+  if (entered.length === 0) {
+    return {
+      bimesterMean: null,
+      accumulatedMean: null,
+      isPendingAll: true,
+      isPartial: false,
+      recoveryApplied: false,
+      statusCode: 'PENDING_ENTRY',
+      statusLabel: 'AGUARDANDO LANÇAMENTO',
+      ruleVersion: GRADEBOOK_RULE_VERSION,
+    };
+  }
+
+  const isPartial = entered.length < 3;
+  let partial = 0;
+
+  if (formulaMode === 'ponderada_visao') {
+    const totalWeight = entered.reduce((acc, item) => acc + item.weight, 0);
+    const weightedSum = entered.reduce((acc, item) => acc + item.val * item.weight, 0);
+    partial = totalWeight > 0 ? weightedSum / totalWeight : 0;
+  } else {
+    partial = entered.reduce((acc, item) => acc + item.val, 0) / entered.length;
+  }
+
+  const recoveryApplied = !isPartial && vRec !== null && vRec > partial;
+  const finalBimMean = +(Math.min(10, Math.max(0, recoveryApplied && vRec !== null ? vRec : partial))).toFixed(1);
+
+  const b1 = selectedBimester === 'B1' ? finalBimMean : r.b1;
+  const b2 = selectedBimester === 'B2' ? finalBimMean : r.b2;
+  const b3 = selectedBimester === 'B3' ? finalBimMean : r.b3;
+  const b4 = selectedBimester === 'B4' ? finalBimMean : r.b4;
+  const activeBimesters =
+    selectedBimester === 'B1' ? [b1] :
+    selectedBimester === 'B2' ? [b1, b2] :
+    selectedBimester === 'B3' ? [b1, b2, b3] :
+    [b1, b2, b3, b4];
+  const accumulatedMean = +(activeBimesters.reduce((a, b) => a + b, 0) / activeBimesters.length).toFixed(1);
+
+  if (isPartial) {
+    return {
+      bimesterMean: finalBimMean,
+      accumulatedMean,
+      isPendingAll: false,
+      isPartial: true,
+      recoveryApplied: false,
+      statusCode: 'PARTIAL',
+      statusLabel: `PARCIAL (${selectedBimester})`,
+      ruleVersion: GRADEBOOK_RULE_VERSION,
+    };
+  }
+
+  if (finalBimMean >= 6.0 && accumulatedMean >= 6.0) {
+    return {
+      bimesterMean: finalBimMean,
+      accumulatedMean,
+      isPendingAll: false,
+      isPartial: false,
+      recoveryApplied,
+      statusCode: 'REGULAR_BIMESTER',
+      statusLabel: `REGULAR (${selectedBimester})`,
+      ruleVersion: GRADEBOOK_RULE_VERSION,
+    };
+  }
+
+  if (finalBimMean >= 6.0 && accumulatedMean < 6.0) {
+    return {
+      bimesterMean: finalBimMean,
+      accumulatedMean,
+      isPendingAll: false,
+      isPartial: false,
+      recoveryApplied,
+      statusCode: 'BIMESTER_OK_ACCUMULATED_LOW',
+      statusLabel: 'BIM. OK • ACUM. < 6',
+      ruleVersion: GRADEBOOK_RULE_VERSION,
+    };
+  }
+
+  return {
+    bimesterMean: finalBimMean,
+    accumulatedMean,
+    isPendingAll: false,
+    isPartial: false,
+    recoveryApplied,
+    statusCode: 'RECOVERY_BIMESTER',
+    statusLabel: `RECUPERAÇÃO (${selectedBimester})`,
+    ruleVersion: GRADEBOOK_RULE_VERSION,
+  };
+}
+
 export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
   onBack,
   onNavigate,
@@ -150,6 +277,9 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
   const [saveBanner, setSaveBanner] = useState<string | null>(null);
   const [activeReportStudent, setActiveReportStudent] = useState<ReportCardStudent | null>(null);
   const [showMoreActions, setShowMoreActions] = useState<boolean>(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
+  const [showExitConfirmModal, setShowExitConfirmModal] = useState<boolean>(false);
+  const [auditHistory, setAuditHistory] = useState<Array<{ timestamp: string; actor: string; detail: string; ruleVersion: string }>>([]);
 
   // Estado da Central REA (SigaWeb + JR Sistemas iWeb CSC)
   const [showReaPortalDrawer, setShowReaPortalDrawer] = useState<boolean>(false);
@@ -297,28 +427,13 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
   };
 
   const computeBimesterMean = (r: GradeRow): number => {
-    const v1 = parseFloat(r.n1.replace(',', '.'));
-    const v2 = parseFloat(r.n2.replace(',', '.'));
-    const v3 = parseFloat(r.n3.replace(',', '.'));
-    let partial = 0;
-
-    if (formulaMode === 'ponderada_visao') {
-      // Fórmula Ponderada Activesoft / Colégio Áquila Modelo: N1 (30%) + N2 Simulado TRI (30%) + N3 Prova Global (40%)
-      const n1Safe = isNaN(v1) ? 0 : v1;
-      const n2Safe = isNaN(v2) ? 0 : v2;
-      const n3Safe = isNaN(v3) ? 0 : v3;
-      partial = n1Safe * 0.3 + n2Safe * 0.3 + n3Safe * 0.4;
-    } else {
-      const valid = [v1, v2, v3].filter(v => !isNaN(v));
-      partial = valid.length > 0 ? valid.reduce((a, b) => a + b, 0) / valid.length : 0;
-    }
-
-    const vRec = parseFloat(r.rec.replace(',', '.'));
-    const finalMean = !isNaN(vRec) && vRec > partial ? vRec : partial;
-    return Math.min(10, Math.max(0, +finalMean.toFixed(1)));
+    const evalRes = evaluateGradebookRow(r, formulaMode, selectedBimester);
+    return evalRes.bimesterMean ?? 0;
   };
 
   const computeAnnualMean = (r: GradeRow, currentBimMean: number): number => {
+    const evalRes = evaluateGradebookRow(r, formulaMode, selectedBimester);
+    if (evalRes.accumulatedMean !== null) return evalRes.accumulatedMean;
     const b1 = selectedBimester === 'B1' ? currentBimMean : r.b1;
     const b2 = selectedBimester === 'B2' ? currentBimMean : r.b2;
     const b3 = selectedBimester === 'B3' ? currentBimMean : r.b3;
@@ -327,15 +442,28 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
   };
 
   const updateCell = (studentId: string, field: keyof GradeRow, value: string) => {
+    setHasUnsavedChanges(true);
+    setAuditHistory(prev => [
+      {
+        timestamp: new Date().toISOString(),
+        actor: user?.username || user?.name || 'docente_autenticado',
+        detail: `Alteração em ${field} para aluno ${studentId}: "${value}"`,
+        ruleVersion: GRADEBOOK_RULE_VERSION
+      },
+      ...prev.slice(0, 49)
+    ]);
     setRows(prev =>
       prev.map(r => {
         if (r.studentId !== studentId) return r;
         const next = { ...r, [field]: value };
-        const bimMean = computeBimesterMean(next);
-        if (selectedBimester === 'B1') next.b1 = bimMean;
-        if (selectedBimester === 'B2') next.b2 = bimMean;
-        if (selectedBimester === 'B3') next.b3 = bimMean;
-        if (selectedBimester === 'B4') next.b4 = bimMean;
+        const evalRes = evaluateGradebookRow(next, formulaMode, selectedBimester);
+        const bimMean = evalRes.bimesterMean ?? 0;
+        if (evalRes.bimesterMean !== null) {
+          if (selectedBimester === 'B1') next.b1 = bimMean;
+          if (selectedBimester === 'B2') next.b2 = bimMean;
+          if (selectedBimester === 'B3') next.b3 = bimMean;
+          if (selectedBimester === 'B4') next.b4 = bimMean;
+        }
         return next;
       })
     );
@@ -343,17 +471,29 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
 
   const handleSaveGrades = async () => {
     localStorage.setItem(storageKey, JSON.stringify(rows));
+    setHasUnsavedChanges(false);
     try {
       await (window as any).aquila?.invoke('academic:save-grades', {
         classId: selectedClassId,
         subject: selectedSubject,
         bimester: selectedBimester,
+        ruleVersion: GRADEBOOK_RULE_VERSION,
+        actorUser: user?.username || user?.id || 'docente_autenticado',
+        auditHistory,
         rows
       });
     } catch (_) {}
     (window as any).showToast?.(`Planilha de ${selectedSubject} (${selectedBimester}) salva e sincronizada!`, 'success');
-    setSaveBanner(`Planilha de ${selectedSubject} (${selectedBimester}) salva e sincronizada (${rows.length} alunos)!`);
+    setSaveBanner(`Planilha de ${selectedSubject} (${selectedBimester}) salva (${rows.length} alunos • ${GRADEBOOK_RULE_VERSION})!`);
     setTimeout(() => setSaveBanner(null), 4000);
+  };
+
+  const handleBackRequest = () => {
+    if (hasUnsavedChanges) {
+      setShowExitConfirmModal(true);
+      return;
+    }
+    onBack();
   };
 
   const handleSyncSovereignTri = () => {
@@ -478,11 +618,73 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
   const selectedClassName = classes.find(c => c.id === selectedClassId)?.name || selectedClassId;
 
   return (
-    <div className="tg-cockpit">
+    <div className="tg-cockpit aquila-ui">
+      {showExitConfirmModal && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(2, 6, 23, 0.78)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1200,
+          }}
+        >
+          <div
+            style={{
+              background: '#0F172A',
+              border: '1px solid #334155',
+              borderRadius: '12px',
+              padding: '20px',
+              maxWidth: '440px',
+              width: '92%',
+              color: '#F8FAFC',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.6)',
+            }}
+          >
+            <h3 style={{ margin: '0 0 8px 0', fontSize: '16px', fontWeight: 700 }}>
+              Alterações não salvas na planilha
+            </h3>
+            <p style={{ margin: '0 0 16px 0', fontSize: '13px', color: '#CBD5E1', lineHeight: 1.45 }}>
+              Existem notas ou observações editadas que ainda não foram salvas. Escolha como deseja prosseguir:
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', flexWrap: 'wrap' }}>
+              <button
+                className="tg-btn secondary"
+                onClick={() => setShowExitConfirmModal(false)}
+              >
+                Continuar editando
+              </button>
+              <button
+                className="tg-btn secondary"
+                style={{ borderColor: 'rgba(239, 68, 68, 0.45)', color: '#FCA5A5' }}
+                onClick={() => {
+                  setShowExitConfirmModal(false);
+                  setHasUnsavedChanges(false);
+                  onBack();
+                }}
+              >
+                Descartar
+              </button>
+              <button
+                className="tg-btn primary"
+                onClick={async () => {
+                  await handleSaveGrades();
+                  setShowExitConfirmModal(false);
+                  onBack();
+                }}
+              >
+                Salvar e sair
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Top Bar */}
       <header className="tg-command-bar">
         <div className="tg-command-left">
-          <button className="tg-back-btn" onClick={onBack} title="Voltar ao Cockpit Docente">
+          <button className="tg-back-btn" onClick={handleBackRequest} title="Voltar ao Cockpit Docente">
             <ChevronLeft size={15} />
             <span>Voltar</span>
           </button>
@@ -808,12 +1010,13 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
             </thead>
             <tbody>
               {filteredRows.map((r, idx) => {
-                const bimMean = computeBimesterMean(r);
-                const annualMean = computeAnnualMean(r, bimMean);
-                const isPassing = bimMean >= 6.0;
+                const evalRes = evaluateGradebookRow(r, formulaMode, selectedBimester);
+                const bimMean = evalRes.bimesterMean;
+                const annualMean = evalRes.accumulatedMean;
+                const isPassing = bimMean !== null ? bimMean >= 6.0 : true;
 
                 return (
-                  <tr key={r.studentId} className={!isPassing ? 'tg-row-recovery' : ''}>
+                  <tr key={r.studentId} className={bimMean !== null && !isPassing ? 'tg-row-recovery' : ''}>
                     <td className="tg-mono-center">{(idx + 1).toString().padStart(2, '0')}</td>
                     <td>
                       <div className="tg-student-cell">
@@ -880,35 +1083,35 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
                       />
                     </td>
                     <td className="tg-mono-center">
-                      <span className={`tg-mean-pill ${bimMean >= 7 ? 'good' : bimMean >= 6 ? 'warn' : 'low'}`}>
-                        {bimMean.toFixed(1)}
-                      </span>
+                      {bimMean === null ? (
+                        <span className="tg-mean-pill warn" title="Nota ainda não lançada (não equivale a zero)">
+                          —
+                        </span>
+                      ) : (
+                        <span className={`tg-mean-pill ${bimMean >= 7 ? 'good' : bimMean >= 6 ? 'warn' : 'low'}`}>
+                          {bimMean.toFixed(1)}{evalRes.isPartial ? '*' : ''}
+                        </span>
+                      )}
                     </td>
-                    <td className="tg-mono-center tg-hist-col">{(selectedBimester === 'B1' ? bimMean : r.b1).toFixed(1)}</td>
-                    <td className="tg-mono-center tg-hist-col">{(selectedBimester === 'B2' ? bimMean : r.b2).toFixed(1)}</td>
-                    <td className="tg-mono-center tg-hist-col">{(selectedBimester === 'B3' ? bimMean : r.b3).toFixed(1)}</td>
-                    <td className="tg-mono-center tg-hist-col">{(selectedBimester === 'B4' ? bimMean : r.b4).toFixed(1)}</td>
+                    <td className="tg-mono-center tg-hist-col">{(selectedBimester === 'B1' && bimMean !== null ? bimMean : r.b1).toFixed(1)}</td>
+                    <td className="tg-mono-center tg-hist-col">{(selectedBimester === 'B2' && bimMean !== null ? bimMean : r.b2).toFixed(1)}</td>
+                    <td className="tg-mono-center tg-hist-col">{(selectedBimester === 'B3' && bimMean !== null ? bimMean : r.b3).toFixed(1)}</td>
+                    <td className="tg-mono-center tg-hist-col">{(selectedBimester === 'B4' && bimMean !== null ? bimMean : r.b4).toFixed(1)}</td>
                     <td className="tg-mono-center">
-                      <strong style={{ color: annualMean >= 6 ? '#38bdf8' : '#f87171' }}>
-                        {annualMean.toFixed(1)}
-                      </strong>
+                      {annualMean === null ? (
+                        <span style={{ color: '#94a3b8' }}>—</span>
+                      ) : (
+                        <strong style={{ color: annualMean >= 6 ? '#38bdf8' : '#f87171' }}>
+                          {annualMean.toFixed(1)}
+                        </strong>
+                      )}
                     </td>
                     <td>
                       <span
-                        className={`tg-status-tag ${isPassing && annualMean >= 6.0 ? 'approved' : 'recovery'}`}
-                        title={
-                          isPassing
-                            ? annualMean >= 6.0
-                              ? `Média do ${selectedBimester} (${bimMean.toFixed(1)}) e média acumulada (${annualMean.toFixed(1)}) dentro do esperado (≥ 6,0)`
-                              : `Atingiu média no ${selectedBimester} (${bimMean.toFixed(1)}), mas a média acumulada (${annualMean.toFixed(1)}) exige atenção (< 6,0)`
-                            : `Média do ${selectedBimester} (${bimMean.toFixed(1)}) abaixo de 6,0 — elegível para recuperação paralela`
-                        }
+                        className={`tg-status-tag ${evalRes.statusCode === 'REGULAR_BIMESTER' || evalRes.statusCode === 'PARTIAL' ? 'approved' : 'recovery'}`}
+                        title={`Regra ${evalRes.ruleVersion}: ${evalRes.statusLabel}`}
                       >
-                        {isPassing
-                          ? annualMean >= 6.0
-                            ? `REGULAR (${selectedBimester})`
-                            : `BIM. OK • ACUM. < 6`
-                          : `RECUPERAÇÃO (${selectedBimester})`}
+                        {evalRes.statusLabel}
                       </span>
                     </td>
                     <td>

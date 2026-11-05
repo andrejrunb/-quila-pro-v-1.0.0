@@ -1,4 +1,4 @@
-// [BOOT] Linha Zero - main.ts Executing (v1.0.0-PRO)
+// [BOOT] Linha Zero - main.ts Executing (v2.1.0)
 console.log('[BOOT] Áquila Pro: Processo Principal iniciado.');
 
 import { app, dialog } from 'electron';
@@ -63,9 +63,10 @@ import { sovereignRegistry } from './main/registry';
 // ============================================================================
 
 const APP_NAME = 'Áquila Pro';
-const APP_VERSION = '1.5.0';
+const APP_VERSION = process.env.npm_package_version || (typeof app?.getVersion === 'function' ? app.getVersion() : '2.1.0') || '2.1.0';
 
-app.commandLine.appendSwitch('allow-file-access-from-files');
+// [P0-SEC-01] allow-file-access-from-files removido por segurança (superfície XSS/file://).
+// Recursos locais controlados utilizam protocolo seguro aquila-asset:// ou IPC.
 
 // [SQA-PATH-002] Forçar userDataDir se passado via CLI ou ENV
 const customUserData = process.argv.find(arg => arg.startsWith('--user-data-dir='))?.split('=')[1] || process.env.AQUILA_USER_DATA_OVERRIDE;

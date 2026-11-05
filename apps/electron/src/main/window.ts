@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, Tray, Notification, nativeImage, shell, dialog, clipboard } from 'electron';
+import { app, BrowserWindow, Menu, Tray, Notification, nativeImage, shell, dialog, clipboard, session, protocol, net } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -10,7 +10,9 @@ let tray: Tray | null = null;
 let isQuitting = false;
 
 const APP_NAME = 'Áquila Pro';
-const APP_VERSION = '1.5.0';
+const APP_VERSION = process.env.npm_package_version || (typeof app?.getVersion === 'function' ? app.getVersion() : '2.1.0') || '2.1.0';
+let cspConfigured = false;
+let protocolRegistered = false;
 
 const IS_DEV = process.env.NODE_ENV === 'development' || (typeof app !== 'undefined' && app.isPackaged === false);
 
@@ -80,6 +82,50 @@ export class WindowManager {
 
   public static createMainWindow() {
     const playwright = process.env.PLAYWRIGHT === 'true';
+    const appRootPath = typeof app?.getAppPath === 'function' ? app.getAppPath() : path.resolve(__dirname, '..', '..');
+    const candidatePreload = path.join(appRootPath, 'dist', 'preload.js');
+    const preloadPath = fs.existsSync(candidatePreload) ? candidatePreload : path.join(__dirname, '..', 'preload.js');
+
+    if (!protocolRegistered && typeof protocol?.handle === 'function') {
+      try {
+        protocol.handle('aquila-asset', (request) => {
+          const userData = app.getPath('userData');
+          const allowedRoots = [path.resolve(userData, 'photos'), path.resolve(userData, 'reports')];
+          const requestedRel = decodeURIComponent(request.url.replace(/^aquila-asset:\/\/+/i, ''));
+          const resolvedTarget = path.resolve(userData, requestedRel);
+          const isAllowed = allowedRoots.some((root) => resolvedTarget.startsWith(root + path.sep));
+          if (!isAllowed || !fs.existsSync(resolvedTarget)) {
+            return new Response('Forbidden', { status: 403 });
+          }
+          return net.fetch(`file:///${resolvedTarget.replace(/\\/g, '/')}`);
+        });
+        protocolRegistered = true;
+      } catch (err) {
+        console.warn('[WindowManager] Protocolo aquila-asset já registrado ou indisponível:', err);
+      }
+    }
+
+    if (!cspConfigured && session?.defaultSession?.webRequest) {
+      session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+        const csp = [
+          "default-src 'self' data: blob: aquila-asset:",
+          "script-src 'self' 'unsafe-inline'",
+          "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+          "font-src 'self' data: https://fonts.gstatic.com",
+          "img-src 'self' data: blob: aquila-asset: https:",
+          "connect-src 'self' ws://localhost:* http://localhost:* https://localhost:*",
+          "object-src 'none'",
+          "base-uri 'self'",
+        ].join('; ');
+        callback({
+          responseHeaders: {
+            ...details.responseHeaders,
+            'Content-Security-Policy': [csp],
+          },
+        });
+      });
+      cspConfigured = true;
+    }
     
     mainWindow = new BrowserWindow({
       width: 1400, height: 900,
@@ -88,7 +134,7 @@ export class WindowManager {
       title: APP_NAME,
       icon: WindowManager.getAppIcon(),
       webPreferences: {
-        preload: path.join(__dirname, '..', 'preload.js'),
+        preload: preloadPath,
         nodeIntegration: false,
         contextIsolation: true,
         sandbox: true,

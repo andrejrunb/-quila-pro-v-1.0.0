@@ -13,6 +13,7 @@ interface EagleCardProps extends React.HTMLAttributes<HTMLDivElement> {
  */
 export const EagleCard = React.forwardRef<HTMLDivElement, EagleCardProps>(
   ({ className, children, glow = 'blue', intensity = 'medium', ...props }, ref) => {
+    void intensity;
     
     const glowColors = {
       blue: 'hover:border-blue-500/40 hover:shadow-blue-500/15',

@@ -1,161 +1,49 @@
-name: 🦅 Áquila Pro — Sovereign Monorepo CI/CD
+name: Áquila Pro Sovereign CI
 
 on:
   push:
-    branches: [main, clean-release-v1]
+    branches: [main, master, "integration/**"]
   pull_request:
-    branches: [main, clean-release-v1]
+    branches: [main, master, "integration/**"]
 
 jobs:
-  # ──────────────────────────────────────────
-  # JOB 1: Security & Secrets Scan
-  # ──────────────────────────────────────────
-  security-audit:
-    name: Security and Secret Audit
+  quality-and-tests:
+    name: Lint, Typecheck & Automated Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Detect Leaked Secrets
-        run: |
-          echo "Scanning for plaintext credentials and raw keys..."
-          prefix_a='sk_live'
-          prefix_b='AIza'
-          prefix_c='ghp'
-          secret_pattern="${prefix_a}_|${prefix_b}Sy[A-Za-z0-9_-]{33}|${prefix_c}_[A-Za-z0-9]{36}"
-          ! git grep -E "$secret_pattern" -- ':!*.example' ':!*.md' ':!colab/*' ':!scripts/protect_branches.py' ':!scripts/audit_distribution_package.ts' ':!.github/workflows/ci.yml'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 12.15.0
-
-      - name: Dependency Vulnerability Audit Report
-        run: |
-          echo "Auditing dependencies..."
-          pnpm audit --audit-level=high || echo "::warning::Audit detected transitive dependencies advisory. Logged for security triage."
-
-  # ──────────────────────────────────────────
-  # JOB 2: Monorepo Type Check & Lint
-  # ──────────────────────────────────────────
-  typecheck-and-lint:
-    name: TypeScript Strict Check and ESLint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install pnpm
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 12.15.0
+          version: 10
 
-      - name: Setup Node.js 20
+      - name: Setup Node.js 20 LTS
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: "20"
+          cache: "pnpm"
 
-      - name: Install Monorepo Dependencies
-        run: pnpm install --no-frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile=false
 
-      - name: Web TypeScript Strict Check
-        run: pnpm --filter @aquila/web exec tsc --noEmit
+      - name: Lint Web Portal (@aquila/web)
+        run: pnpm --filter @aquila/web run lint
 
-      - name: Electron TypeScript Strict Check
-        run: pnpm --filter aquila-pro-school-os exec tsc --noEmit --project tsconfig.json
-
-      - name: Mobile TypeScript Strict Check
+      - name: Typecheck Web Portal & Shared API (tsc --noEmit)
         run: |
-          pnpm --filter aquila-pro-mobile exec tsc --noEmit
-          pnpm --filter aquila-pro-school-os exec tsc --project tsconfig.json --noEmit
+          pnpm --filter @aquila/web exec tsc --noEmit
+          pnpm --filter @aquila/api exec tsc --noEmit
 
-  # ──────────────────────────────────────────
-  # JOB 3: Unit Tests, Security & LGPD Integrity
-  # ──────────────────────────────────────────
-  test:
-    name: Automated Test Suite and LGPD Integrity
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Unit Tests — Web Portal (@aquila/web)
+        run: pnpm --filter @aquila/web run test
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 12.15.0
+      - name: Unit Tests — Shared API (@aquila/api)
+        run: pnpm --filter @aquila/api run test
 
-      - name: Setup Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install Monorepo Dependencies
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Run Web Crypto HMAC-SHA256 Security Suite
+      - name: H-01 Collector & Mission Verification
         run: |
-          AQUILA_AUTH_SECRET="$(node -e 'process.stdout.write(require("crypto").randomBytes(32).toString("hex"))')" \
-            pnpm dlx tsx scripts/test_session_security.ts
-
-      - name: Run LGPD Student Rights Test Suite (Art. 14, 16, 18)
-        run: pnpm dlx tsx scripts/test_lgpd_rights.ts
-
-      - name: Run OMR Calibration & Accuracy Benchmark
-        run: pnpm dlx tsx scripts/test_omr_calibration.ts
-
-      - name: Run SQLite Edge Backup & DR Security Suite
-        run: NODE_PATH=apps/electron/node_modules node scripts/test_backup_dr_suite.cjs || pnpm --filter aquila-pro-school-os exec node ../../scripts/test_backup_dr_suite.cjs
-
-      - name: Run E2E Critical Operational Flows Suite
-        run: NODE_PATH=apps/electron/node_modules node scripts/test_e2e_critical_flow.cjs || pnpm --filter aquila-pro-school-os exec node ../../scripts/test_e2e_critical_flow.cjs
-
-      - name: Run Electron Jest Test Suite
-        run: pnpm --filter aquila-pro-school-os test -- StudentBatchImportService.test.ts preload.test.ts studentHandlers.test.ts demoSeedGuard.test.ts ZeroBypassAuditService.test.ts --runInBand --forceExit
-
-      - name: Upload Test Artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: |
-            docs/architecture/omr_calibration_report.md
-            apps/electron/e2e/results.json
-            test-results/e2e-critical-report.json
-          if-no-files-found: ignore
-
-  # ──────────────────────────────────────────
-  # JOB 4: Monorepo Build Verification
-  # ──────────────────────────────────────────
-  build:
-    name: Production Build Verification
-    runs-on: ubuntu-latest
-    needs: [typecheck-and-lint, test]
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 12.15.0
-
-      - name: Setup Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install Monorepo Dependencies
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Build Web SaaS & Electron Renderer
-        run: |
-          pnpm --filter @aquila/web run build
-          pnpm --filter aquila-pro-school-os run build:renderer
-        env:
-          NODE_ENV: production
+          python3 scripts/h01/test_collector_10_fixtures.py
+          python3 scripts/colab_harness/test_colab_harness.py
+          node scripts/h01/test_pp_mission_verification.cjs

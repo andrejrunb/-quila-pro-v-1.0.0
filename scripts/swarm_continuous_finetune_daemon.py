@@ -91,8 +91,31 @@ BLOCKED_IP_PREFIXES = (
 
 
 # ==============================================================================
-# 1. VALIDAÇÃO DE SEGURANÇA DE URL (ANTI-SSRF)
+# 1. VALIDAÇÃO DE SEGURANÇA DE URL (ANTI-SSRF & REDIRECT GUARD)
 # ==============================================================================
+import ipaddress
+
+def is_safe_ip_address(ip_str: str) -> bool:
+    """Rejeita IPs privados (RFC1918), loopback, link-local, multicast, não especificados ou reservados."""
+    try:
+        addr = ipaddress.ip_address(ip_str)
+        if (
+            addr.is_private
+            or addr.is_loopback
+            or addr.is_link_local
+            or addr.is_multicast
+            or addr.is_unspecified
+            or addr.is_reserved
+        ):
+            return False
+        for prefix in BLOCKED_IP_PREFIXES:
+            if ip_str.startswith(prefix):
+                return False
+        return True
+    except ValueError:
+        return False
+
+
 def is_safe_external_url(url: str) -> bool:
     """Impede SSRF garantindo esquemas http/https e bloqueando endereços de loopback/redes locais."""
     try:
@@ -102,20 +125,187 @@ def is_safe_external_url(url: str) -> bool:
         hostname = parsed.hostname
         if not hostname:
             return False
-        hostname_lower = hostname.lower()
-        if hostname_lower in ("localhost", "local", "internal", "127.0.0.1", "0.0.0.0"):
+        hostname_lower = hostname.lower().strip("[]")
+        if hostname_lower in ("localhost", "local", "internal", "127.0.0.1", "0.0.0.0", "::1"):
             return False
+        # Se o próprio hostname for um literal de IP, valida diretamente
+        try:
+            ipaddress.ip_address(hostname_lower)
+            return is_safe_ip_address(hostname_lower)
+        except ValueError:
+            pass
         # Resolução de IP para barrar DNS rebinding a redes privadas
         try:
-            ip = socket.gethostbyname(hostname)
-            for prefix in BLOCKED_IP_PREFIXES:
-                if ip.startswith(prefix):
+            infos = socket.getaddrinfo(hostname_lower, None)
+            for info in infos:
+                resolved_ip = info[4][0]
+                if not is_safe_ip_address(resolved_ip):
                     return False
         except Exception:
             pass
         return True
     except Exception:
         return False
+
+
+class SafeRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Valida cada salto de redirecionamento HTTP contra SSRF (RFC1918/loopback/link-local)."""
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        resolved_target = urllib.parse.urljoin(req.full_url, newurl)
+        if not is_safe_external_url(resolved_target):
+            raise ValueError(f"SSRF_REDIRECT_BLOCKED: Redirecionamento bloqueado para destino inseguro '{resolved_target}'")
+        return super().redirect_request(req, fp, code, msg, headers, resolved_target)
+
+
+def open_safe_url(req: urllib.request.Request, timeout: int = REQUEST_TIMEOUT_SECONDS):
+    """Abre uma URL externa validando tanto a URL inicial quanto todos os redirecionamentos."""
+    if not is_safe_external_url(req.full_url):
+        raise ValueError(f"SSRF_INITIAL_URL_BLOCKED: URL inicial bloqueada '{req.full_url}'")
+    opener = urllib.request.build_opener(
+        urllib.request.HTTPSHandler(context=STRICT_SSL_CTX),
+        SafeRedirectHandler()
+    )
+    return opener.open(req, timeout=timeout)
+
+
+def validate_candidate_document_bytes(
+    raw_bytes: bytes,
+    content_type: str = "",
+    orig_url: str = "",
+    final_url: str = "",
+    http_status: int = 200
+) -> dict:
+    """
+    Valida os bytes recebidos de um candidato a documento antes da promoção ou ingestão.
+    Retorna:
+      {
+        "valid": bool,
+        "status": "EXTRAIDO" | "BAIXADO" | "REJECTED_INVALID_DOCUMENT",
+        "reason": str,
+        "extracted_text": str,
+        "page_count": int
+      }
+    """
+    ctype = (content_type or "").split(";")[0].strip().lower()
+    byte_size = len(raw_bytes or b"")
+    final_u = (final_url or orig_url or "").lower()
+
+    # 1. Detecção de redirecionamento para página de login/autenticação
+    if any(tok in final_u for tok in ("/login", "/signin", "/auth", "login.php", "sso")):
+        leading_check = (raw_bytes or b"").lstrip()[:64].upper()
+        if ctype in ("text/html", "application/xhtml+xml") or not leading_check.startswith(b"%PDF-"):
+            return {
+                "valid": False,
+                "status": "REJECTED_INVALID_DOCUMENT",
+                "reason": f"HTML_LOGIN_REDIRECT|status={http_status}|ctype={ctype or 'unknown'}|final={final_url[:100]}",
+                "extracted_text": "",
+                "page_count": 0
+            }
+
+    # 2. Detecção de HTML completo ou parcial, JSON de erro ou texto simples antes da verificação de tamanho
+    leading = (raw_bytes or b"").lstrip()[:128]
+    leading_upper = leading.upper()
+    if (
+        ctype in ("text/html", "application/xhtml+xml")
+        or leading_upper.startswith((b"<!DOC", b"<HTML", b"<HEAD", b"<BODY", b"<SCRIPT", b"<DIV", b"<META"))
+        or b"<HTML" in leading_upper
+    ):
+        return {
+            "valid": False,
+            "status": "REJECTED_INVALID_DOCUMENT",
+            "reason": f"HTML_NOT_PDF|status={http_status}|ctype={ctype or 'unknown'}|size={byte_size}",
+            "extracted_text": "",
+            "page_count": 0
+        }
+
+    if (
+        ctype in ("application/json", "text/plain", "application/problem+json")
+        or leading.startswith((b"{", b"[", b"Error:", b"404 ", b"403 ", b"500 "))
+    ):
+        return {
+            "valid": False,
+            "status": "REJECTED_INVALID_DOCUMENT",
+            "reason": f"JSON_OR_TEXT_ERROR|status={http_status}|ctype={ctype or 'unknown'}|size={byte_size}",
+            "extracted_text": "",
+            "page_count": 0
+        }
+
+    # 3. Limites de tamanho e truncamento
+    if byte_size > MAX_PDF_BYTES:
+        return {
+            "valid": False,
+            "status": "REJECTED_INVALID_DOCUMENT",
+            "reason": f"SIZE_EXCEEDED|size={byte_size}|max={MAX_PDF_BYTES}",
+            "extracted_text": "",
+            "page_count": 0
+        }
+
+    if not (raw_bytes or b"").startswith(b"%PDF-"):
+        return {
+            "valid": False,
+            "status": "REJECTED_INVALID_DOCUMENT",
+            "reason": f"MISSING_PDF_HEADER|status={http_status}|ctype={ctype or 'unknown'}|size={byte_size}",
+            "extracted_text": "",
+            "page_count": 0
+        }
+
+    if b"%%EOF" not in (raw_bytes or b"")[-4096:]:
+        return {
+            "valid": False,
+            "status": "REJECTED_INVALID_DOCUMENT",
+            "reason": f"MISSING_PDF_EOF|status={http_status}|ctype={ctype or 'unknown'}|size={byte_size}",
+            "extracted_text": "",
+            "page_count": 0
+        }
+
+    if byte_size < 200:
+        return {
+            "valid": False,
+            "status": "REJECTED_INVALID_DOCUMENT",
+            "reason": f"TOO_SMALL_OR_TRUNCATED|size={byte_size}",
+            "extracted_text": "",
+            "page_count": 0
+        }
+
+    # 4. Leitura estrutural via pypdf
+    extracted_text = ""
+    page_count = 0
+    if HAS_PYPDF:
+        try:
+            import io
+            reader = PdfReader(io.BytesIO(raw_bytes), strict=False)
+            page_count = len(reader.pages)
+            if page_count == 0:
+                return {
+                    "valid": False,
+                    "status": "REJECTED_INVALID_DOCUMENT",
+                    "reason": "ZERO_PAGES_PDF",
+                    "extracted_text": "",
+                    "page_count": 0
+                }
+            pages = []
+            for p in reader.pages[:15]:
+                t = p.extract_text() or ""
+                if t.strip():
+                    pages.append(t.strip())
+            extracted_text = "\n\n--- PAGINA ---\n\n".join(pages)
+        except Exception as pypdf_err:
+            return {
+                "valid": False,
+                "status": "REJECTED_INVALID_DOCUMENT",
+                "reason": f"PYPDF_{type(pypdf_err).__name__}",
+                "extracted_text": "",
+                "page_count": 0
+            }
+
+    state = "EXTRAIDO" if (extracted_text and len(extracted_text.strip()) >= 20) else "BAIXADO"
+    return {
+        "valid": True,
+        "status": state,
+        "reason": "OK_TEXT_EXTRACTED" if state == "EXTRAIDO" else "OK_SCANNED_OR_NO_TEXT_LAYER",
+        "extracted_text": extracted_text,
+        "page_count": page_count
+    }
 
 
 # ==============================================================================
@@ -611,7 +801,7 @@ def process_harvest_queue_atomically(conn: sqlite3.Connection, max_items: int = 
 
         try:
             req = urllib.request.Request(url, headers=HEADERS)
-            with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT_SECONDS, context=STRICT_SSL_CTX) as resp:
+            with open_safe_url(req, timeout=REQUEST_TIMEOUT_SECONDS) as resp:
                 final_url = resp.geturl()
                 http_status = getattr(resp, "status", 200)
                 content_type = (resp.headers.get("Content-Type") or "").split(";")[0].strip().lower()

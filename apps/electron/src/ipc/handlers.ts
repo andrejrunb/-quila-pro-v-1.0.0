@@ -1293,6 +1293,15 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
 
     const { db } = context;
 
+    const currentUser = await context.authService?.getCurrentUser?.();
+    const role = String(currentUser?.role || '').toLowerCase();
+    if (role === 'student' || role === 'aluno') {
+      if (classId && currentUser?.classId && classId !== currentUser.classId) {
+        return [];
+      }
+      const all = (await db?.getStudents(currentUser?.classId || classId)) || [];
+      return Array.isArray(all) ? all.filter((s: any) => s.id === currentUser.id || s.registrationNumber === currentUser.id) : [];
+    }
     return await db?.getStudents(classId);
 
   });
@@ -1487,7 +1496,22 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
 
       const { db } = context;
 
-      const tasks = await db.getTasks(filters);
+      const currentUser = await context.authService?.getCurrentUser?.();
+      const role = String(currentUser?.role || '').toLowerCase();
+      let safeFilters = filters ? { ...filters } : {};
+      if (role === 'student' || role === 'aluno') {
+        if (safeFilters.studentId && safeFilters.studentId !== currentUser?.id && safeFilters.studentId !== currentUser?.registrationNumber) {
+          return { success: false, code: 'FORBIDDEN_CROSS_STUDENT_ACCESS', message: 'Estudante não autorizado a consultar dados de outro aluno.' };
+        }
+        if (safeFilters.classId && currentUser?.classId && safeFilters.classId !== currentUser.classId) {
+          return { success: false, code: 'FORBIDDEN_CROSS_CLASS_ACCESS', message: 'Estudante não autorizado a consultar outra turma.' };
+        }
+        if (!currentUser?.id && !currentUser?.classId) {
+          return { success: false, code: 'INVALID_STUDENT_CONTEXT', message: 'Contexto curricular do estudante ausente ou inválido.' };
+        }
+        safeFilters = { ...safeFilters, classId: currentUser.classId || safeFilters.classId, studentId: currentUser.id };
+      }
+      const tasks = await db.getTasks(safeFilters);
 
       return { success: true, data: tasks };
 
@@ -1507,6 +1531,14 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
 
       const { db } = context;
 
+      const currentUser = await context.authService?.getCurrentUser?.();
+      const role = String(currentUser?.role || '').toLowerCase();
+      if (!['admin', 'director', 'coordinator', 'coordenacao', 'teacher', 'docente'].includes(role)) {
+        return { success: false, code: 'UNAUTHORIZED_WRITE', message: 'Apenas equipe pedagógica autorizada pode criar atividades.' };
+      }
+      if (task?.isPreviewMode === true) {
+        return { success: false, code: 'PREVIEW_READ_ONLY', message: 'Criação bloqueada em modo de prévia.' };
+      }
       return await db.createClassTask(classId, task);
 
     } catch (err: any) {
@@ -1525,6 +1557,14 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
 
       const { db } = context;
 
+      const currentUser = await context.authService?.getCurrentUser?.();
+      const role = String(currentUser?.role || '').toLowerCase();
+      if (!['admin', 'director', 'coordinator', 'coordenacao', 'teacher', 'docente'].includes(role)) {
+        return { success: false, code: 'UNAUTHORIZED_WRITE', message: 'Apenas equipe pedagógica autorizada pode atualizar atividades.' };
+      }
+      if (task?.isPreviewMode === true) {
+        return { success: false, code: 'PREVIEW_READ_ONLY', message: 'Atualização bloqueada em modo de prévia.' };
+      }
       await db.updateTask(id, task);
 
       return { success: true };
@@ -1545,6 +1585,11 @@ function registerPedagogicalCluster(context: any, protectedHandle: any) {
 
       const { db } = context;
 
+      const currentUser = await context.authService?.getCurrentUser?.();
+      const role = String(currentUser?.role || '').toLowerCase();
+      if (!['admin', 'director', 'coordinator', 'coordenacao', 'teacher', 'docente'].includes(role)) {
+        return { success: false, code: 'UNAUTHORIZED_WRITE', message: 'Apenas equipe pedagógica autorizada pode excluir atividades.' };
+      }
       await db.deleteTask(id);
 
       return { success: true };

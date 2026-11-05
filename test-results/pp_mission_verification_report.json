@@ -1,0 +1,78 @@
+{
+  "total": 12,
+  "passed": 12,
+  "results": [
+    {
+      "id": "ITEM2_VALID_CONTEXT",
+      "description": "Contexto válido resolve estudante, matrícula, turma, série e etapa",
+      "passed": true,
+      "detail": "3ª Série EM (F-EM3A) & 6º Ano EF (F-EF26A) resolvidos"
+    },
+    {
+      "id": "ITEM2_MISSING_OR_INVALID_CONTEXT",
+      "description": "Contexto ausente ou inválido nunca produz fallback para ALL",
+      "passed": true,
+      "detail": "Contexto ausente e inválido bloqueados sem fallback ALL"
+    },
+    {
+      "id": "ITEM2_ID_MANIPULATION_AND_BACKEND_IPC",
+      "description": "Bloqueio de manipulação de studentId/classId no frontend e no IPC",
+      "passed": true,
+      "detail": "Frontend + Backend IPC aplicam bloqueio entre estudantes e turmas"
+    },
+    {
+      "id": "ITEM2_SESSION_SWITCH_NO_LEAK",
+      "description": "Troca de sessão atualiza o contexto sem reutilizar dados anteriores",
+      "passed": true,
+      "detail": "Troca 3ª Série EM -> 6º Ano EF isolada com sucesso"
+    },
+    {
+      "id": "ITEM2_INSUFFICIENT_METADATA_AND_BNCC_PREFIX",
+      "description": "Rejeita material sem metadados e prefixo BNCC amplo sem série exata",
+      "passed": true,
+      "detail": "Metadados insuficientes e prefixo BNCC amplo (EF67/EF69 sem série exata) bloqueados"
+    },
+    {
+      "id": "ITEM2_CROSS_GRADE_TEACHER_ASSIGNMENT",
+      "description": "Preserva exceção pedagógica explícita de revisão atribuída por professor",
+      "passed": true,
+      "detail": "Revisão de outra série liberada apenas para a turma alvo atribuída"
+    },
+    {
+      "id": "ITEM3_TIMEZONE_AND_SAFE_DATES",
+      "description": "Timezone America/Sao_Paulo explícito e ausência de fallback Recente",
+      "passed": true,
+      "detail": "Timezone America/Sao_Paulo e datas inválidas/ausentes verificadas"
+    },
+    {
+      "id": "ITEM4_PORTAL_PREVIEW_ISOLATION",
+      "description": "Prévia de outro portal mantém sessão real e bloqueia escrita",
+      "passed": true,
+      "detail": "Isolamento de sessão e bloqueio de escrita em prévia validados"
+    },
+    {
+      "id": "ITEM5_GRADES_EMPTY_VS_ZERO_AND_RECOVERY",
+      "description": "Nota vazia não vira zero e recuperação segue regra versionada",
+      "passed": true,
+      "detail": "Regra REGRA-AVAL-2026.1 validada (vazio !== 0, parcial, recuperação)"
+    },
+    {
+      "id": "ITEM6_ATTENDANCE_AND_DIARY_SYNC",
+      "description": "Chamada inicia Não conferido, suporta lote+desfazer e sincroniza com Diário",
+      "passed": true,
+      "detail": "4 estados, inicialização unverified, lote+undo e sincronia com Diary validados"
+    },
+    {
+      "id": "ITEM7_MARIE_CURIE_EDITORIAL_GATE",
+      "description": "Citação sem fonte primária omitida e gate editorial ativo",
+      "passed": true,
+      "detail": "Marie Curie com nota factual 1867–1934 e citação omitida até verificação primária"
+    },
+    {
+      "id": "ITEM8_UI_FIXES_AND_TOKENS",
+      "description": "Correções das 6 capturas de tela e tokens CSS nas 4 telas prioritárias",
+      "passed": true,
+      "detail": "LoginPage, SeatingIntelligence, PortalLayout, TeacherPortal e tokens CSS verificados"
+    }
+  ]
+}

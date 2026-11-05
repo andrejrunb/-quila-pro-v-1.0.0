@@ -1,91 +1,129 @@
 "use client";
 
-import { Shield, Zap, Globe, Cpu, CheckCircle2, ArrowRight, MessageSquare, Target, GraduationCap, Users, Calendar, Landmark } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2, ArrowRight, Users, Calendar, Landmark } from "lucide-react";
 
 export default function Solucoes() {
   const personas = [
     {
       id: "direcao",
       name: "Para Direção & Mantenedores",
-      pain: "Riscos operacionais e falta de visão macro.",
-      solution: "Visão Soberana e ROI em Eficiência.",
+      pain: "Falta de visibilidade consolidada sobre infrequência e risco jurídico no tratamento de dados de menores.",
+      solution: "Governança Local, Indicadores de Retenção e Conformidade LGPD.",
       icon: <Landmark className="text-indigo-400" size={40} />,
-      bullets: ["Redução de custos com chamadas manuais", "Soberania de dados e conformidade LGPD", "Fidelização de famílias via transparência"],
-      benefit: "Reduza riscos civis e aumente a retenção de alunos em até 20%."
+      bullets: [
+        "Painel consolidado de frequência e alertas preventivos de evasão (LDB Art. 12)",
+        "Processamento local (Offline-First) com trilha de auditoria SHA-256",
+        "Redução de custos recorrentes com servidores externos de vídeo e nuvem",
+      ],
+      benefit: "Decisões baseadas em evidências operacionais auditáveis.",
+      href: "/contato?perfil=direcao",
     },
     {
       id: "coordenacao",
-      name: "Para Coordenação & DP",
-      pain: "Burocracia excessiva e falta de dados em tempo real.",
-      solution: "Automação Operacional e Controle de Fluxo.",
+      name: "Para Coordenação Pedagógica",
+      pain: "Informações espalhadas entre planilhas, cadernos de chamada e recados de portaria.",
+      solution: "Linha do Tempo Operacional do Estudante em Tempo Real.",
       icon: <Calendar className="text-emerald-400" size={40} />,
-      bullets: ["Alertas de frequência em tempo real", "Gestão de ocorrências digitalizada", "Ponto biométrico automatizado"],
-      benefit: "Recupere 15h semanais da sua equipe de apoio."
+      bullets: [
+        "Encadeamento automático: Presença → Atraso → Ocorrência → Justificativa → Ação",
+        "Fila diária priorizada de estudantes com faltas consecutivas",
+        "Registro formal de intervenções pedagógicas e devolutivas às famílias",
+      ],
+      benefit: "Menos consolidação manual de planilhas, mais acompanhamento ativo.",
+      href: "/contato?perfil=coordenacao",
     },
     {
       id: "familias",
-      name: "Para as Famílias",
-      pain: "Incerteza sobre a segurança e presença do filho.",
-      solution: "Paz de Espírito Total.",
+      name: "Para Professores & Famílias",
+      pain: "Burocracia no preenchimento de diários e demora na comunicação com os responsáveis.",
+      solution: "Diário Docente Ágil e Canal Familiar Transparente.",
       icon: <Users className="text-amber-400" size={40} />,
-      bullets: ["Notificações de presença via WhatsApp", "Acesso ao Portal Familiar Seguro", "Histórico de frequência e biometria"],
-      benefit: "Transforme a escola em um ambiente de confiança radical."
-    }
+      bullets: [
+        "Chamada rápida com mapa de sala (6×5) e confirmação humana pelo professor",
+        "Avisos de presença, tarefas e comunicados escolares para os responsáveis",
+        "Gestão transparente de consentimento e privacidade dos dados do aluno",
+      ],
+      benefit: "Comunicação estruturada e segura entre sala de aula e família.",
+      href: "/contato?perfil=familia-docente",
+    },
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">
-      <section className="pt-40 pb-20 px-8 flex flex-col items-center">
+      <section className="pt-44 pb-16 px-8 flex flex-col items-center">
         <div className="max-w-4xl text-center">
-          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-indigo-500 mb-6">Persona-Centric Solutions</h2>
-          <h1 className="text-6xl font-black uppercase tracking-tighter mb-8 leading-tight">Soluções que <span className="italic text-indigo-400">falam o seu cargo</span>.</h1>
-          <p className="text-zinc-500 text-xl max-w-2xl mx-auto">
-            O Áquila Pro não é apenas software. É um braço direito estratégico para cada pilar da sua instituição.
+          <h2 className="text-xs font-black uppercase tracking-[0.4em] text-indigo-400 mb-6">
+            Soluções por Perfil Institucional
+          </h2>
+          <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tighter mb-6 leading-tight">
+            Fluxos desenhados para a{" "}
+            <span className="italic text-indigo-400">rotina real da escola</span>.
+          </h1>
+          <p className="text-zinc-300 text-lg md:text-xl max-w-2xl mx-auto">
+            Cada perfil acessa exclusivamente as ferramentas e dados pertinentes à sua função, com controle de acesso rigoroso (RBAC).
           </p>
         </div>
       </section>
 
       {/* Persona Cards Grid */}
-      <section className="py-20 px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-          {personas.map((persona, idx) => (
-            <div key={idx} className="group glass p-12 rounded-[64px] border-white/5 hover:border-indigo-500/30 transition-all flex flex-col gap-8 bg-zinc-950/20">
-              <div className="w-20 h-20 rounded-[32px] bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
+      <section className="py-16 px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+          {personas.map((persona) => (
+            <div
+              key={persona.id}
+              className="group glass p-10 rounded-[48px] border border-white/10 hover:border-indigo-500/40 transition-all flex flex-col gap-6 bg-zinc-950/40"
+            >
+              <div className="w-20 h-20 rounded-[28px] bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
                 {persona.icon}
               </div>
               <div>
-                <h3 className="text-2xl font-black uppercase tracking-tighter mb-2">{persona.name}</h3>
-                <p className="text-xs font-bold text-indigo-500 uppercase tracking-widest">{persona.solution}</p>
+                <h2 className="text-2xl font-black uppercase tracking-tighter mb-2">
+                  {persona.name}
+                </h2>
+                <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest">
+                  {persona.solution}
+                </p>
               </div>
-              <p className="text-zinc-400 text-sm leading-relaxed italic border-l-2 border-indigo-500/20 pl-4">
-                "{persona.pain}"
+              <p className="text-zinc-300 text-sm leading-relaxed italic border-l-2 border-indigo-500/40 pl-4">
+                &ldquo;{persona.pain}&rdquo;
               </p>
-              <div className="flex flex-col gap-4 py-4">
+              <div className="flex flex-col gap-3 py-2">
                 {persona.bullets.map((bullet, i) => (
-                  <div key={i} className="flex items-center gap-3 text-xs font-bold text-zinc-300">
-                    <CheckCircle2 size={16} className="text-indigo-500" />
+                  <div key={i} className="flex items-center gap-3 text-xs font-bold text-zinc-200">
+                    <CheckCircle2 size={16} className="text-indigo-400 shrink-0" />
                     {bullet}
                   </div>
                 ))}
               </div>
-              <div className="mt-auto pt-6 border-t border-white/5">
-                <div className="text-sm font-black text-white mb-4 uppercase tracking-tighter">{persona.benefit}</div>
-                <button className="flex items-center gap-2 text-indigo-400 font-bold uppercase tracking-widest text-[10px]">
-                  Ver PDF da Solução <ArrowRight size={14} />
-                </button>
+              <div className="mt-auto pt-6 border-t border-white/10">
+                <div className="text-sm font-black text-white mb-4 uppercase tracking-tighter">
+                  {persona.benefit}
+                </div>
+                <Link
+                  href={persona.href}
+                  className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-bold uppercase tracking-widest text-xs no-underline"
+                >
+                  Solicitar Roteiro deste Perfil <ArrowRight size={14} />
+                </Link>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Floating CTA */}
-      <section className="py-20 px-8 bg-indigo-600/5 mt-20 border-t border-indigo-500/10">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
-           <h2 className="text-3xl font-black uppercase tracking-tighter">Não encontrou seu perfil?</h2>
-           <button className="bg-white text-black px-12 py-5 rounded-full font-black uppercase tracking-widest hover:bg-zinc-200 transition-all">
-              Agendar Conversa Consultiva
-           </button>
+      {/* Bottom CTA */}
+      <section className="py-20 px-8 bg-indigo-600/5 mt-12 border-t border-indigo-500/10">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+          <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter">
+            Deseja avaliar o fluxo completo com sua equipe?
+          </h2>
+          <Link
+            href="/contato"
+            className="bg-white text-black px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs hover:bg-zinc-200 transition-all no-underline"
+          >
+            Agendar Conversa Consultiva
+          </Link>
         </div>
       </section>
     </div>

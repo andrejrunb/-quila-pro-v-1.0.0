@@ -160,7 +160,7 @@ const MENTOR_BOSSES: MentorBoss[] = [
     avatarIcon: '🔬',
     discipline: 'Química',
     maxHp: 2200,
-    bossQuote: 'Na vida não há nada a temer, apenas a compreender. Que comece o bombardeamento de partículas!',
+    bossQuote: '1867–1934, Nobel de Física 1903 e Química 1911.',
     introTaunt: 'No meu laboratório em Paris isolamos o Rádio. Você domina a meia-vida e as emissões nucleares?',
     defeatQuote: 'Rigor e precisão admirável! O núcleo do átomo não guarda mais segredos para você.',
     badgeReward: 'Insígnia de Polônio de Marie Curie'

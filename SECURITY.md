@@ -15,7 +15,7 @@ Apenas as versões mais recentes da branch principal (`main`) e tags oficiais de
 
 1. **Dados de Menores (LGPD Art. 14):**
    - Nenhum dado biométrico não criptografado, identificador real ou fotografia de menores de idade deve ser versionado ou exposto fora da infraestrutura edge soberana local da instituição escolar.
-   - Embeddings faciais utilizam vetores 512-D com hash unidirecional.
+   - Embeddings faciais utilizam vetores 512-D acompanhados de hash unidirecional SHA-256 (`face_embedding_hash`) e, quando persistidos localmente em borda mediante consentimento explícito (`biometric_consent_logs`), o campo `face_encoding` armazena exclusivamente o ciphertext cifrado em repouso com AES-256-GCM / Windows DPAPI (a chave criptográfica de borda nunca sai do servidor local). No perfil do piloto H-01, a coleta biométrica permanece em quarentena (desativada por padrão).
 
 2. **Criptografia em Repouso e Trânsito:**
    - Bancos de dados locais SQLite utilizam modo WAL e isolamento estrito.
@@ -30,6 +30,10 @@ Apenas as versões mais recentes da branch principal (`main`) e tags oficiais de
 4. **APIs e Procedimentos Remotos:**
    - Procedimentos tRPC requerem autenticação (`protectedProcedure`) ou permissão de coordenador/administrador (`adminProcedure`).
    - Bloqueio imediato de tentativas de acesso sem credenciais válidas.
+
+5. **Isolamento Offline-First e Conectores Externos (LGPD Art. 14 e Soberania Local):**
+   - O Áquila Pro opera em modo estritamente *Offline-First* por padrão no perfil do piloto H-01.
+   - Conectores opcionais de nuvem (`@supabase/supabase-js`, `googleapis`) permanecem desativados e bloqueados por padrão (`AQUILA_ENABLE_CLOUD_CONNECTORS=false`), garantindo que nenhum dado escolar deixe o servidor local sem ativação explícita e registro no RIPD/DPIA institucional.
 
 ---
 

@@ -1,4 +1,4 @@
-import { router, adminProcedure } from '../index';
+import { router, adminProcedure } from '../trpc';
 import { z } from 'zod';
 
 export const financeRouter = router({

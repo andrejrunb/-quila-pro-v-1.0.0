@@ -80,7 +80,7 @@ export default function Login() {
         return;
       }
       router.push(data.redirect || selectedPortal?.route || "/portal/aluno");
-    } catch (err) {
+    } catch {
       setErrorMessage("Erro de rede ao conectar com o serviço de autenticação.");
       setIsLoading(false);
     }

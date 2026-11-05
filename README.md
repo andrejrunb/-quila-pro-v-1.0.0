@@ -118,4 +118,4 @@ pnpm --filter aquila-pro-school-os run build
 
 ## 📄 Licença
 
-Distribuído sob a licença **MIT**. Consulte o arquivo [`LICENSE`](LICENSE) para mais detalhes.
+Licenciado sob **Business Source License 1.1 (BSL 1.1)** (`SEE LICENSE IN LICENSE`), com autorização expressa e gratuita para auditoria educacional, verificação de conformidade LGPD (Lei nº 13.709/2018) e homologação de pilotos escolares autorizados. Consulte o arquivo [`LICENSE`](LICENSE) para os termos completos.

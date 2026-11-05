@@ -4,8 +4,20 @@ import Footer from '../Footer';
 
 vi.mock('next/link', () => {
   return {
-    default: ({ children, href }: { children: React.ReactNode; href: string }) => {
-      return <a href={href}>{children}</a>;
+    default: ({
+      children,
+      href,
+      ...rest
+    }: {
+      children: React.ReactNode;
+      href: string;
+      [key: string]: unknown;
+    }) => {
+      return (
+        <a href={href} {...rest}>
+          {children}
+        </a>
+      );
     },
   };
 });
@@ -26,5 +38,11 @@ describe('Footer Component', () => {
     render(<Footer />);
     expect(screen.getByText(/Powered by/i)).toBeInTheDocument();
     expect(screen.getByText(/Antigravity Engine/i)).toBeInTheDocument();
+  });
+
+  it('não deve conter links vazios com href="#"', () => {
+    const { container } = render(<Footer />);
+    const deadLinks = container.querySelectorAll('a[href="#"]');
+    expect(deadLinks.length).toBe(0);
   });
 });

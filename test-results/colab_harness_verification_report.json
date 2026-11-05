@@ -1,0 +1,48 @@
+{
+  "validation_mode": "LOCAL_CONTRACT_SIMULATOR (/v1/chat/completions mock server)",
+  "colab_remote_gpu_tested": false,
+  "total_checks": 8,
+  "passed_checks": 8,
+  "checks": [
+    {
+      "check": "1_read_allowed_file",
+      "passed": true,
+      "details": "step=1"
+    },
+    {
+      "check": "2_block_outside_workspace_path",
+      "passed": true,
+      "details": "PATH_OUTSIDE_WORKSPACE: Caminho '../outside_secret.txt' escapa do workspace 'C:\\Users\\Thaysa\\AppData\\Local\\Temp\\aquila_harness_test_us06ltcd'."
+    },
+    {
+      "check": "3_block_env_and_sensitive_files",
+      "passed": true,
+      "details": "env_blocked=True, extra_sensitive_blocked=4/4"
+    },
+    {
+      "check": "4_block_disallowed_and_hitl_commands",
+      "passed": true,
+      "details": "git_push_blocked=True, extra_cmd_blocked=3/3"
+    },
+    {
+      "check": "5_apply_small_patch_in_temp_workspace",
+      "passed": true,
+      "details": "{'path': 'src/math_helper.py', 'bytes_written': 56}"
+    },
+    {
+      "check": "6_run_allowed_test_command",
+      "passed": true,
+      "details": "returncode=0"
+    },
+    {
+      "check": "7_state_persistence_and_resume_after_disconnect",
+      "passed": true,
+      "details": "paused_at_step=6, resumed_to_step=7"
+    },
+    {
+      "check": "8_stop_at_max_steps_8",
+      "passed": true,
+      "details": "final_status=STOPPED_MAX_STEPS, final_step_count=8"
+    }
+  ]
+}

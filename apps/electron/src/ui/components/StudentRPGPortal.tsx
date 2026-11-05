@@ -116,7 +116,12 @@ interface StudentRPGPortalProps {
 
 
 const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStudentId, onNavigate }) => {
-  const [studentId] = useState(propStudentId || 'demo_student_001');
+  const [studentId, setStudentId] = useState(propStudentId || 'demo_student_001');
+  useEffect(() => {
+    if (propStudentId && propStudentId !== studentId) {
+      setStudentId(propStudentId);
+    }
+  }, [propStudentId]);
   const studentCtx = useMemo(() => resolveStudentGradeContext(studentId), [studentId]);
 
   const [economy, setEconomy] = useState<any>({ level: 14, xp: 2680, balance: 1420 });
@@ -141,14 +146,24 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
     try {
       const res = await (window as any).aquila?.invoke?.('tasks:list', { classId: studentCtx.classId });
       if (res?.success && Array.isArray(res.data) && res.data.length > 0) {
-        // Filtra estritamente apenas tarefas da turma/série do aluno logado
+        // Filtra estritamente apenas tarefas da turma/série do aluno logado (ou revisão atribuída por professor)
         const scopedTasks = res.data
-          .filter((t: any) => !t.classId || matchesStudentGradeScope({ classId: t.classId }, studentCtx))
+          .filter((t: any) =>
+            matchesStudentGradeScope(
+              {
+                classId: t.classId,
+                stage: t.stage,
+                gradeLevel: t.gradeLevel,
+                crossGradeAssignment: t.crossGradeAssignment,
+              },
+              studentCtx
+            )
+          )
           .map((t: any) => ({
             id: t.id,
             title: t.title,
             subject: t.subject || 'Atividade Curricular',
-            dueDate: formatSafeDatePtBr(t.dueDate, 'No prazo'),
+            dueDate: formatSafeDatePtBr(t.dueDate, 'Data não informada'),
             status: t.status || 'pending',
             classId: t.classId || studentCtx.classId,
           }));
@@ -257,7 +272,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
   return (
 
-    <div className="student-portal-main">
+    <div className="student-portal-main aquila-ui">
 
       {/* Top Student Cockpit Bar — Rectangular Portrait ("Sem Bolinha") & Uniform 32px Buttons */}
 
@@ -691,7 +706,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
                   <strong>{pod.subject}</strong>
 
-                  <span>RESUMO DE AULA • {formatSafeDatePtBr(pod.created_at || pod.createdAt, 'Recente')}</span>
+                  <span>RESUMO DE AULA • {formatSafeDatePtBr(pod.created_at || pod.createdAt, 'Data não informada')}</span>
 
                 </div>
 

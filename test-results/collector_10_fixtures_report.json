@@ -1,0 +1,56 @@
+{
+  "total": 10,
+  "passed": 10,
+  "results": [
+    {
+      "fixture": "1_valid_pdf_with_text",
+      "passed": true,
+      "details": "status=EXTRAIDO, len_text=58"
+    },
+    {
+      "fixture": "2_scanned_pdf_without_text",
+      "passed": true,
+      "details": "status=BAIXADO, reason=OK_SCANNED_OR_NO_TEXT_LAYER"
+    },
+    {
+      "fixture": "3_full_html_200_ok",
+      "passed": true,
+      "details": "HTML_NOT_PDF|status=200|ctype=text/html|size=975"
+    },
+    {
+      "fixture": "4_partial_html",
+      "passed": true,
+      "details": "HTML_NOT_PDF|status=200|ctype=application/octet-stream|size=49"
+    },
+    {
+      "fixture": "5_json_error_payload",
+      "passed": true,
+      "details": "JSON_OR_TEXT_ERROR|status=200|ctype=application/json|size=69"
+    },
+    {
+      "fixture": "6_plain_text_payload",
+      "passed": true,
+      "details": "JSON_OR_TEXT_ERROR|status=200|ctype=text/plain|size=64"
+    },
+    {
+      "fixture": "7_truncated_binary",
+      "passed": true,
+      "details": "MISSING_PDF_HEADER|status=200|ctype=application/octet-stream|size=18"
+    },
+    {
+      "fixture": "8_pdf_header_without_eof",
+      "passed": true,
+      "details": "MISSING_PDF_EOF|status=200|ctype=application/pdf|size=645"
+    },
+    {
+      "fixture": "9_redirect_to_login_page",
+      "passed": true,
+      "details": "HTML_LOGIN_REDIRECT|status=200|ctype=text/html|final=https://acervo.exemplo.edu.br/auth/login?next=/restrito/prova2025.pdf"
+    },
+    {
+      "fixture": "10_redirect_to_private_ip_ssrf_blocked",
+      "passed": true,
+      "details": "blocked=7/7 targets"
+    }
+  ]
+}
