@@ -12,7 +12,7 @@
     {
       "check": "2_block_outside_workspace_path",
       "passed": true,
-      "details": "PATH_OUTSIDE_WORKSPACE: Caminho '../outside_secret.txt' escapa do workspace 'C:\\Users\\Thaysa\\AppData\\Local\\Temp\\aquila_harness_test_us06ltcd'."
+      "details": "PATH_OUTSIDE_WORKSPACE: Caminho '../outside_secret.txt' escapa do workspace 'C:\\Users\\Thaysa\\AppData\\Local\\Temp\\aquila_harness_test_t5_zx0mp'."
     },
     {
       "check": "3_block_env_and_sensitive_files",
