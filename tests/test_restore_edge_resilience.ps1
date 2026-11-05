@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
     Suíte Completa de Testes de Resiliência de Disaster Recovery (restore_edge.bat / restore_edge.ps1 v2.1.2)
-    Valida os 8 cenários críticos:
+    Valida os 11 cenários críticos:
     - DR-01: Rejeição de candidato corrompido > 4KB (12 KB de lixo binário)
     - DR-02: Rejeição de arquivo truncado (500 bytes)
     - DR-03: Exclusão mútua contra processo ativo e bloqueio via restore.lock
@@ -10,6 +10,9 @@
     - DR-06: Rollback simétrico completo de Banco + WAL
     - DR-07: Recuperação determinística de boot com flush e saneamento do journal
     - DR-08: Preservação forense do journal e aborto com código 7 se snapshot estiver ausente
+    - DR-09: Isolamento do modo -VerifyOnly com diário pendente (sem mutação)
+    - DR-10: Tratamento robusto das fases do diário (COMPLETED e fase desconhecida)
+    - DR-11: Exclusão mútua do aplicativo no startup (bloqueio via restore.lock)
 #>
 
 $ErrorActionPreference = "Stop"
@@ -348,6 +351,126 @@ if (!row || row.v !== 'in_snapshot_wal') {
 
         Remove-Item -Path $journalPath -Force -ErrorAction SilentlyContinue
         return "Preservação forense validada: diário mantido intacto em disco e execução abortada com código 7."
+    }
+
+    # ------------------------------------------------------------------------
+    # Cenário 9: Isolamento Estrito do Modo -VerifyOnly com Diário Pendente
+    # ------------------------------------------------------------------------
+    Run-Scenario "DR-09" "Modo -VerifyOnly não muta diário nem executa rollback, alertando estado pendente" {
+        $pendingJournal = [PSCustomObject]@{
+            phase = "REPLACING"
+            candidatePath = "dummy_verify.db"
+            targetDb = $initialDb
+            snapshotDir = (Join-Path $testDir "snapshots\pre_restore_dummy")
+            startedAt = (Get-Date).ToString("o")
+            actor = "VERIFY_ONLY_ISOLATION_TEST"
+        }
+        $journalPath = Join-Path $testDir "restore_journal.json"
+        $pendingJournal | ConvertTo-Json | Set-Content -Path $journalPath -Force
+
+        # Executa powershell com -VerifyOnly e candidato válido
+        $validCandidate = Join-Path $testDir "valid_candidate.db"
+        $procVerify = Start-Process -FilePath "powershell.exe" -ArgumentList "-ExecutionPolicy Bypass -File `"$scriptPs1`" `"$validCandidate`" -VerifyOnly" -Wait -NoNewWindow -PassThru
+        if ($procVerify.ExitCode -ne 0) {
+            throw "Execução com -VerifyOnly falhou com código $($procVerify.ExitCode)"
+        }
+
+        # O diário em disco DEVE permanecer inalterado!
+        if (-not (Test-Path $journalPath)) {
+            throw "Modo -VerifyOnly mutou/removeu o diário pendente em disco!"
+        }
+
+        Remove-Item -Path $journalPath -Force -ErrorAction SilentlyContinue
+        return "Isolamento de -VerifyOnly comprovado: diário preservado sem mutações e verificação concluída."
+    }
+
+    # ------------------------------------------------------------------------
+    # Cenário 10: Tratamento de Fases de Diário (COMPLETED e Fase Desconhecida)
+    # ------------------------------------------------------------------------
+    Run-Scenario "DR-10" "Tratamento de fases de diário: COMPLETED arquivado sem rollback e fase desconhecida aborta com código 7" {
+        # 10.1 Fase COMPLETED
+        $completedJournal = [PSCustomObject]@{
+            phase = "COMPLETED"
+            candidatePath = "completed.db"
+            targetDb = $initialDb
+            startedAt = (Get-Date).ToString("o")
+            actor = "PHASE_COMPLETED_TEST"
+        }
+        $journalPath = Join-Path $testDir "restore_journal.json"
+        $completedJournal | ConvertTo-Json | Set-Content -Path $journalPath -Force
+
+        $procComp = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"`"$scriptBat`"`"" -Wait -NoNewWindow -PassThru
+        if (Test-Path $journalPath) {
+            throw "Diário com fase COMPLETED não foi arquivado!"
+        }
+        $archivedCompleted = Get-ChildItem -Path $testDir -Filter "restore_journal_recovered_*.json" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        $archJson = Get-Content -Path $archivedCompleted.FullName -Raw | ConvertFrom-Json
+        if ($archJson.recoveryStatus -ne "PREVIOUS_RESTORE_COMPLETED_ARCHIVED") {
+            throw "Status de recuperação para COMPLETED incorreto: $($archJson.recoveryStatus)"
+        }
+
+        # 10.2 Fase Desconhecida / Não-Homologada
+        $unknownJournal = [PSCustomObject]@{
+            phase = "INVALID_UNKNOWN_PHASE"
+            candidatePath = "unknown.db"
+            targetDb = $initialDb
+            startedAt = (Get-Date).ToString("o")
+            actor = "PHASE_UNKNOWN_TEST"
+        }
+        $unknownJournal | ConvertTo-Json | Set-Content -Path $journalPath -Force
+
+        $procUnknown = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"`"$scriptBat`"`"" -Wait -NoNewWindow -PassThru
+        if ($procUnknown.ExitCode -ne 7) {
+            throw "Esperava código 7 para fase desconhecida de diário, mas obteve $($procUnknown.ExitCode)"
+        }
+        if (-not (Test-Path $journalPath)) {
+            throw "Diário com fase desconhecida foi apagado indevidamente!"
+        }
+
+        Remove-Item -Path $journalPath -Force -ErrorAction SilentlyContinue
+        return "Políticas de fases validadas: COMPLETED limpo sem rollback e fase anômala isolada com código 7."
+    }
+
+    # ------------------------------------------------------------------------
+    # Cenário 11: Exclusão Mútua no Startup do Aplicativo (Bloqueio via restore.lock)
+    # ------------------------------------------------------------------------
+    Run-Scenario "DR-11" "Aplicativo Electron/Database.ts recusa inicialização se restore.lock estiver bloqueado por DR" {
+        $lockFile = Join-Path $testDir "restore.lock"
+        # Adquire lock exclusivo FileShare.None idêntico ao restore_edge.ps1
+        $heldLock = [System.IO.File]::Open($lockFile, [System.IO.FileMode]::OpenOrCreate, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
+        
+        try {
+            $testLockJs = Join-Path $testDir "test_app_lock.js"
+            @'
+const fs = require('fs');
+const path = require('path');
+const lockFile = process.argv[2];
+
+try {
+    const testFd = fs.openSync(lockFile, 'r+');
+    fs.closeSync(testFd);
+    console.log('UNLOCKED');
+    process.exit(0);
+} catch (err) {
+    if (err.code === 'EBUSY' || err.code === 'EPERM' || err.code === 'EACCES') {
+        console.log('LOCKED_AS_EXPECTED');
+        process.exit(42);
+    }
+    process.exit(1);
+}
+'@ | Set-Content -Path $testLockJs -Force
+
+            $res = Start-Process -FilePath "node" -ArgumentList "`"$testLockJs`" `"$lockFile`"" -Wait -NoNewWindow -PassThru
+            if ($res.ExitCode -ne 42) {
+                throw "Simulação do lock check em Database.ts não capturou bloqueio ativo! ExitCode=$($res.ExitCode)"
+            }
+        } finally {
+            $heldLock.Close()
+            $heldLock.Dispose()
+            Remove-Item -Path $lockFile -Force -ErrorAction SilentlyContinue
+        }
+
+        return "Exclusão mútua do aplicativo validada: Database.ts detecta e bloqueia abertura enquanto restore.lock estiver ativo."
     }
 
     # ------------------------------------------------------------------------

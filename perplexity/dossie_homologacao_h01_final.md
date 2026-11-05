@@ -35,9 +35,11 @@ SHA-256 (app.asar):       270A6696E7A8EDFD4DCD3FA198DBCE2D0D0E40847E52EDB41BE0FC
 Módulos Nativos:          resources/app.asar.unpacked/node_modules/better-sqlite3/ (ABI 119 - Electron 28.2.0)
 SHA-256 (better_sqlite3): AD19705C7938A60EF5557E31D152843CC42364684913847FBD623484430283A3
 Lançador Transacional DR: restore_edge.bat (Embutido no pacote portátil)
-SHA-256 (restore_edge):   13E5622F291B75EBDF4BDA4B8926BE4A85BBDC12CAC3EA219B773964ACA6E4D1
+SHA-256 (restore_edge_bat): 13E5622F291B75EBDF4BDA4B8926BE4A85BBDC12CAC3EA219B773964ACA6E4D1
 Motor Autônomo DR v2.1.2: restore_edge.ps1 (Embutido no pacote portátil)
-SHA-256 (restore_edge_ps): F3B691069E55FD5CAEF3A1F7A4040AA02AEFFCD973CDD2CEAA2784D09C5D1DE7
+SHA-256 (restore_edge_ps1): 0D3669E2B03184D573F6EE5BC41A359A4DCF2929AAC0AEC7D11060890F05821A
+Instalador Oficial NSIS:  AquilaPro-Setup-2.1.0.exe
+SHA-256 (Setup NSIS):     C78DA32FEE3FA13168EBB666C776ED3AB66EB33130345D849770DC4C3BB9B47A
 Variáveis de Ambiente:    AQUILA_ENABLE_CLOUD_CONNECTORS=false (Padrão Offline-First Ativo)
 ```
 
@@ -59,7 +61,7 @@ Variáveis de Ambiente:    AQUILA_ENABLE_CLOUD_CONNECTORS=false (Padrão Offline
 | :---: | :--- | :--- | :--- | :--- |
 | **1** | **Instalação Limpa Windows (v2.1.0)** | **Isolamento de Runtime por PATH Sanitizado (Bancada Local):** PASS (`clean_runtime_h01_evidence.json`). Executável iniciado sem Node/Git no PATH, responsivo, fechamento gracioso.<br>**Homologação em Windows Limpo (Ambiente-Alvo):** Etapa presencial a ser executada na máquina física da escola. | Copiar pasta `win-unpacked` para `C:\AquilaPro` em máquina Windows 10/11 Pro sem Node.js, Python ou Git. Clicar duas vezes em `Aquila Pro.exe`. | App abre em < 3s, exibe versão `v2.1.0` no rodapé e não emite erro de DLL/ABI nativa. |
 | **2** | **Jornada Escolar Ponta a Ponta** | Testada em banco SQLite sintético (`WAL`): importação de CSV (20 alunos) → criação de atividade (`EM13CNT101`) → submissão → nota `9.5` → intervenção com hash SHA-256 → reinício do processo. | **Secretaria**: importa CSV sintético da turma piloto pela interface do app.<br>**Professor**: lança chamada (< 90s) e nota.<br>**Coordenação**: registra intervenção.<br>Fechar e reabrir o app. | 100% dos dados mantidos intactos após encerramento do processo e reinicialização da máquina. |
-| **3** | **Recuperação SQLite Operacional (DR)** | Validado na **Matriz Unificada de DR** (Seção 4) e testado em 8 cenários rigorosos de resiliência e concorrência (`dr_resilience_verification_report.json`). Script transacional autônomo `restore_edge.bat` integrado ao pacote com exclusão mútua OS-level (`restore.lock`), integridade via `winsqlite3.dll`, swap atômico `ReplaceFile`, rollback simétrico de Banco+WAL e diário persistente `restore_journal.json`. | Acionar o botão *"Diagnóstico & Integridade"* no menu técnico do aplicativo instalado, ou executar `restore_edge.bat` via Prompt de Comando padrão do Windows. | Banco ativo aprovado em `PRAGMA integrity_check = ok`, sem corrupção silenciosa. Recuperação instalada documentada. |
+| **3** | **Recuperação SQLite Operacional (DR)** | Validado na **Matriz Unificada de DR** (Seção 4) e testado em 11 cenários rigorosos de resiliência e concorrência (`dr_resilience_verification_report.json`). Script transacional autônomo `restore_edge.bat` integrado ao pacote com exclusão mútua OS-level (`restore.lock`), integridade via `winsqlite3.dll`, swap atômico `ReplaceFile`, rollback simétrico de Banco+WAL e diário persistente `restore_journal.json`. | Acionar o botão *"Diagnóstico & Integridade"* no menu técnico do aplicativo instalado, ou executar `restore_edge.bat` via Prompt de Comando padrão do Windows. | Banco ativo aprovado em `PRAGMA integrity_check = ok`, sem corrupção silenciosa. Recuperação instalada documentada. |
 | **4** | **Segurança de Login, Sessão e RBAC** | Cookie `aquila_session` assinado com HMAC-SHA256 (3 partes), expurgo automático de cookie forjado em `middleware.ts`, e RBAC rígido em `packages/api/src/trpc.ts` e `handlers.ts`. | Efetuar login com as contas piloto (`prof.ricardo`, `coord.helena`, `aluno.lucas`). Tentar acessar telas/URLs alheias e inspecionar cookies. | Acessos indevidos recusados com `UNAUTHORIZED` ou `FORBIDDEN`. Cookie ilegível e zero tokens em URL ou logs. |
 | **5** | **Controle de Exposição, CSP e Isolamento de Rede** | Removido `allow-file-access-from-files` em `main.ts`; CSP configurado; protocolo `aquila-asset://` confinado estritamente a `userData/photos` e `reports` (bloqueando path traversal); conectores cloud desativados (`AQUILA_ENABLE_CLOUD_CONNECTORS=false`). | Inspecionar chamadas de rede no painel de rede. Verificar que o app só escuta em interfaces autorizadas da LAN e que o acesso a arquivos do sistema é negado. | Retorno `403 Forbidden` para qualquer path traversal (`../../.auth_secret`); zero tráfego de dados para nuvem pública. |
 | **6** | **Backup Agendado e Resiliência Operacional** | Rotina de backup emite manifesto `.manifest.json` com hash SHA-256; simulação de destino indisponível emite alerta estruturado `BACKUP_DESTINATION_FAILURE`. | Configurar backup para destino primário (disco local) e secundário (pendrive/storage). Simular desconexão do secundário e conferir alerta na UI. | Backup local íntegro gerado; alerta visível ao operador e registrado em log de auditoria caso um destino falhe. |
@@ -70,7 +72,7 @@ Variáveis de Ambiente:    AQUILA_ENABLE_CLOUD_CONNECTORS=false (Padrão Offline
 
 ## 4. Matriz Unificada de DR e Recuperação Operacional SQLite
 
-A resiliência do SQLite em modo `WAL` é consolidada nos oito cenários técnicos testados e validados na suíte automatizada de resiliência ([`dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json)):
+A resiliência do SQLite em modo `WAL` é consolidada nos onze cenários técnicos testados e validados na suíte automatizada de resiliência ([`dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json)):
 
 | Cenário de Falha / Recuperação | O que foi testado em Bancada Técnica | Comportamento Verificado do Sistema | Métrica Medida / Esperada | Procedimento na Máquina da Escola |
 | :--- | :--- | :--- | :--- | :--- |
@@ -82,6 +84,9 @@ A resiliência do SQLite em modo `WAL` é consolidada nos oito cenários técnic
 | **DR-06. Rollback Simétrico Completo de Banco + WAL** | Banco ativo com transações pendentes no WAL; falha simulada | Reversão simétrica restaurando simultaneamente `aquila.db` e `aquila.db-wal`; transações uncheckpointed preservadas | **RPO = 0**; dados do WAL lidos com sucesso pós-rollback | `restore_edge.bat` restaura o conjunto completo sem deixar WAL orfão ou corrompido. |
 | **DR-07. Recuperação Determinística de Boot com Diário Saneado** | Interrupção forçada durante a fase `REPLACING` com diário persistente | Detecção de diário na inicialização, rollback simétrico verificado com `PRAGMA integrity_check = ok` e arquivamento de evidência em `restore_journal_recovered_*.json` | **RTO < 1s** no boot; diário ativo saneado com evidência arquivada | Inicialização normal do aplicativo; rotina em `Database.initialize()` cura o estado automaticamente. |
 | **DR-08. Preservação Forense do Diário se Snapshot Ausente** | Simulação de diário de crash apontando para diretório de snapshot ausente | O script recusa deletar o diário silenciosamente, emite alerta de falha crítica e aborta com código 7 preservando as evidências | **Preservação Forense Garantida**; Código de saída 7; diário mantido intacto | Interrupção imediata com preservação do estado para auditoria da equipe de TI. |
+| **DR-09. Isolamento Estrito do Modo -VerifyOnly** | Execução de verificação com diário transacional pendente em disco | Não muta nem remove o diário pendente em disco, alerta estado e realiza pre-flight estritamente somente-leitura | **Isolamento Não-Destrutivo**; Código 0; diário preservado | Permite auditoria diagnóstica de backups sem disparar rollback acidental. |
+| **DR-10. Tratamento Rígido de Fases de Diário** | Simulação de fase `COMPLETED` e fase desconhecida/não homologada | Fase `COMPLETED` arquiva sem rollback indevido; fase anômala aborta imediatamente com código 7 preservando evidência | **Transições Determinísticas**; Rastreabilidade e proteção contra corrupção | Trata encerramentos parciais com precisão forense. |
+| **DR-11. Exclusão Mútua no Startup do Aplicativo** | Inicialização do Electron/`Database.ts` durante rotina DR ativa com `restore.lock` | `Database.initialize()` detecta `restore.lock` detido exclusivamente (`FileShare.None`) e recusa abrir conexão SQLite | **Concorrência Segura**; Aborto preventivo sem corrupção de lock | Impede concorrência de escrita entre o aplicativo e a ferramenta DR. |
 
 ---
 
@@ -117,6 +122,8 @@ O pacote de distribuição autônomo `apps/electron/release_v2_2/win-unpacked` i
    - O diário é persistido com flush físico garantido ao disco (`stream.Flush(true)`) e promoção atômica via `Save-JournalAtomic`.
    - A substituição do banco de dados ativo em disco utiliza a API de kernel Win32 `ReplaceFile` (`[System.IO.File]::Replace`), garantindo que o arquivo nunca desapareça do filesystem durante o swap.
 7. **Rollback Simétrico Completo de Banco + WAL:** O mecanismo `Invoke-RollbackFromSnapshot` restaura simultaneamente o banco principal e o respectivo arquivo WAL, evitando a perda de transações uncheckpointed ou geração de arquivos laterais órfãos.
+8. **Exclusão Mútua Bidirecional com o Aplicativo (`Database.ts`):** O script adquire `restore.lock` com `[System.IO.FileShare]::None` logo no início da Etapa 1. Concomitantemente, o núcleo de inicialização do aplicativo (`Database.initialize()`) verifica a abertura de `restore.lock`; caso detecte bloqueio exclusivo por rotina DR, recusa terminantemente abrir a conexão com `aquila.db`, eliminando race conditions no startup.
+9. **Isolamento Não-Destrutivo do Modo `-VerifyOnly`:** Quando o parâmetro `-VerifyOnly` é fornecido, o script não executa rollback nem muta/descarta diários pendentes; emite alerta de recuperação pendente e realiza apenas a validação somente-leitura do arquivo candidato.
 
 ---
 
@@ -136,7 +143,7 @@ flowchart LR
 - **Gate G1-A (Bancada Técnica e Verificações Automatizadas):** Concluído com sucesso na engenharia:
   - 8 suítes operacionais aprovadas (`h01_8_operational_priorities_report.json`);
   - Teste de isolamento de runtime em PATH sanitizado aprovado (`clean_runtime_h01_evidence.json`);
-  - Suíte de resiliência e recuperação DR aprovada nos 8 cenários (`dr_resilience_verification_report.json`);
+  - Suíte de resiliência e recuperação DR aprovada nos 11 cenários (`dr_resilience_verification_report.json`);
   - Hashes dos componentes comparados e validados contra o manifesto.
 - **Gate G1-B (Validação em Windows Físico Limpo do Ambiente Escolar):** Etapa mandatória pré-G2 na máquina de destino:
   - Cópia do pacote `win-unpacked` para estação Windows 10/11 Pro física da escola (sem Node/Git);
@@ -179,4 +186,4 @@ Caso qualquer uma das seguintes ocorrências seja detectada durante a bancada pr
 
 ---
 
-*Elaborado para homologação presencial. Aceite operacional pendente das assinaturas formais identificadas nesta versão (Direção Escolar, DPO e TI).*
+*Versão candidata sincronizada nas branches principal e de integração. Rotina DR revisada e onze cenários registrados como aprovados. Homologação física, conferência do pacote instalado e aceite operacional permanecem pendentes das assinaturas formais identificadas nesta versão (Direção Escolar, DPO e TI).*

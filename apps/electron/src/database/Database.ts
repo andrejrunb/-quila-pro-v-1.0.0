@@ -124,8 +124,21 @@ export class Database {
 
         try {
 
+            const dbDir = path.dirname(this.dbPath);
+            const lockFile = path.join(dbDir, 'restore.lock');
+            if (fs.existsSync(lockFile)) {
+                try {
+                    // [DR-LOCK] Testa exclusão mútua com rotina DR externa (restore_edge.ps1)
+                    const testFd = fs.openSync(lockFile, 'r+');
+                    fs.closeSync(testFd);
+                } catch (lockErr: any) {
+                    if (lockErr.code === 'EBUSY' || lockErr.code === 'EPERM' || lockErr.code === 'EACCES') {
+                        throw new Error(`[Database] Bloqueio de restauração ativo detectado (${lockFile}). O aplicativo não pode ser iniciado enquanto uma rotina de Disaster Recovery estiver em andamento.`);
+                    }
+                }
+            }
+
             try {
-                const dbDir = path.dirname(this.dbPath);
                 const { SQLiteDisasterRecoveryService } = require('../main/services/SQLiteDisasterRecoveryService');
                 SQLiteDisasterRecoveryService.recoverPendingRestoreOnBoot(dbDir);
             } catch (recoveryErr: any) {

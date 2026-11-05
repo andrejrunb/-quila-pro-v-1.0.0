@@ -1,19 +1,25 @@
 # Áquila Pro — Manifesto Criptográfico de Homologação H-01 (v2.1.1)
-# Tríade de Commits:
-#   source_commit:        0612be71f307399e2bc8d31fe1dc71e9a7e37e9d (Código e binários empacotados)
-#   evidence_commit:      050b3ce92bf18b3874134be1086a2e411f16da0a (Testes e relatórios JSON gerados)
+# Tríade de Commits Original:
+#   source_commit:        0612be71f307399e2bc8d31fe1dc71e9a7e37e9d (Código e binários portáveis win-unpacked)
+#   evidence_commit:      050b3ce92bf18b3874134be1086a2e411f16da0a (Testes e relatórios JSON de bancada)
 #   documentation_commit: a87c7f0f366675e019c95e8b253261279e34191c (Dossiê v2.1.1, plano executivo e manifesto)
+#
+# Histórico de Endurecimento dos Componentes:
+#   - e7be0afb64764da13c5493de8fc21d10e1890bf7: Hardening DR preliminar e relatório de DR
+#   - d08e4f0c6f5d848601ae56b9c9f75ec5faebaa91: UX dos portais secundários, expansão TRI 3PL e BNCC Skill Tree
+#   - ecec85b2983d448ac5e5a21f54a723421613206f: Compilação e registro do instalador NSIS AquilaPro-Setup-2.1.0.exe
+#   - Commit Atual: Bloqueio mútuo no startup (Database.ts), propagação de erros FK, isolamento -VerifyOnly e 11/11 cenários DR
 # Data: 05 de Novembro de 2026
 
-# Artefatos Binários de Distribuição (win-unpacked)
+# Artefatos Binários de Distribuição (win-unpacked e Setup NSIS)
 F087E4B45834D8DAECBF88DD61B0A2757AB836B8A1891C16CA0AAB321E5D7EBB *apps/electron/release_v2_2/win-unpacked/Aquila Pro.exe
 C78DA32FEE3FA13168EBB666C776ED3AB66EB33130345D849770DC4C3BB9B47A *apps/electron/release_v2_2/AquilaPro-Setup-2.1.0.exe
 270A6696E7A8EDFD4DCD3FA198DBCE2D0D0E40847E52EDB41BE0FCDA934B2445 *apps/electron/release_v2_2/win-unpacked/resources/app.asar
 AD19705C7938A60EF5557E31D152843CC42364684913847FBD623484430283A3 *apps/electron/release_v2_2/win-unpacked/resources/app.asar.unpacked/node_modules/better-sqlite3/build/Release/better_sqlite3.node
 13E5622F291B75EBDF4BDA4B8926BE4A85BBDC12CAC3EA219B773964ACA6E4D1 *apps/electron/release_v2_2/win-unpacked/restore_edge.bat
-EF35BF5263A32C987F52AF871C5CD7B8E09CD90A2F2E635FD232ED5298A8BBB3 *apps/electron/release_v2_2/win-unpacked/restore_edge.ps1
+0D3669E2B03184D573F6EE5BC41A359A4DCF2929AAC0AEC7D11060890F05821A *apps/electron/release_v2_2/win-unpacked/restore_edge.ps1
 13E5622F291B75EBDF4BDA4B8926BE4A85BBDC12CAC3EA219B773964ACA6E4D1 *scripts/restore_edge.bat
-EF35BF5263A32C987F52AF871C5CD7B8E09CD90A2F2E635FD232ED5298A8BBB3 *scripts/restore_edge.ps1
+0D3669E2B03184D573F6EE5BC41A359A4DCF2929AAC0AEC7D11060890F05821A *scripts/restore_edge.ps1
 
 # Relatórios e Evidências das Suítes Automatizadas
 BEF79138F2F6A1A056063664FACB573223B5039E1171EE38B68283AD03BDF100 *test-results/clean_runtime_h01_evidence.json
@@ -21,8 +27,9 @@ BEF79138F2F6A1A056063664FACB573223B5039E1171EE38B68283AD03BDF100 *test-results/c
 F37CADEAF0E155BAD960BDE8CCCFDC1F6A6E88E1B54EF234525828EA75298C63 *test-results/pp_mission_verification_report.json
 4ACAC0F9D41F9035196F7843A651AA9B2D0C4A52700C73BC056BFDE22A1B9B25 *test-results/collector_10_fixtures_report.json
 356B612E03D93E3DACB0DB0754DE82535EFF0CFEC93010F740527E93E2AC7C5F *test-results/colab_harness_verification_report.json
-648CA74419D5F1A65C8811B341295AD86C3DFF91C55E52714263AF89497EE19D *test-results/dr_resilience_verification_report.json
+1F81B2BE1F3996F8C2F03D17F7280CA94ACB032527251656810619CEFE5361D7 *test-results/dr_resilience_verification_report.json
 67047AF056BDFE9136368E79A70816116803BB4BF7D95FA8B884AC804D9B27A2 *test-results/h01_complete_homologation_evidence.json
 
-# Dossiê de Homologação e Especificação
-EBD0B386F09A15572F9C3ED0CE6962BC8CA2C5FB9EBC45DEE3E4F70D5505E84E *perplexity/dossie_homologacao_h01_final.md
+# Dossiê de Homologação e Relatório de Fechamento PP
+705BA4839F32EC06B522E4F3C9F2ECC9982A074D3FE6C4AC2FD6BF43BC9246D1 *perplexity/dossie_homologacao_h01_final.md
+98D1E2EA70937A37F9B0F9B65B972406E90D88510103B4EFA68EEE6326251F53 *perplexity/relatorio_verificacao_e_fechamento_pp.md

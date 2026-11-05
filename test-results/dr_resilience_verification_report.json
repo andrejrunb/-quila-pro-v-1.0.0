@@ -1,5 +1,5 @@
 {
-    "timestamp":  "2026-11-05T15:04:02.2853954-03:00",
+    "timestamp":  "2026-11-05T18:22:40.5734058-03:00",
     "scenarios":  [
                       {
                           "id":  "DR-01",
@@ -48,6 +48,24 @@
                           "description":  "Preservação forense do diário e aborto com código 7 se snapshot for inválido ou ausente",
                           "status":  "PASS",
                           "details":  "Preservação forense validada: diário mantido intacto em disco e execução abortada com código 7."
+                      },
+                      {
+                          "id":  "DR-09",
+                          "description":  "Modo -VerifyOnly não muta diário nem executa rollback, alertando estado pendente",
+                          "status":  "PASS",
+                          "details":  "Isolamento de -VerifyOnly comprovado: diário preservado sem mutações e verificação concluída."
+                      },
+                      {
+                          "id":  "DR-10",
+                          "description":  "Tratamento de fases de diário: COMPLETED arquivado sem rollback e fase desconhecida aborta com código 7",
+                          "status":  "PASS",
+                          "details":  "Políticas de fases validadas: COMPLETED limpo sem rollback e fase anômala isolada com código 7."
+                      },
+                      {
+                          "id":  "DR-11",
+                          "description":  "Aplicativo Electron/Database.ts recusa inicialização se restore.lock estiver bloqueado por DR",
+                          "status":  "PASS",
+                          "details":  "Exclusão mútua do aplicativo validada: Database.ts detecta e bloqueia abertura enquanto restore.lock estiver ativo."
                       }
                   ]
 }

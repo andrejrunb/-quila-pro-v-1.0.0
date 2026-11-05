@@ -88,9 +88,11 @@ public class WinSqliteCore {
             rc = Prepare(db, "PRAGMA foreign_key_check;", -1, out stmt, IntPtr.Zero);
             if (rc != 0 || stmt == IntPtr.Zero) return -2;
 
-            while (Step(stmt) == 100) {
+            int stepRc = 0;
+            while ((stepRc = Step(stmt)) == 100) {
                 violations++;
             }
+            if (stepRc != 101) return -stepRc;
             return violations;
         } catch {
             return -3;
@@ -212,7 +214,16 @@ try {
     # ============================================================================
     Write-Host "[1/7] Adquirindo bloqueio exclusivo e verificando exclusao mutua..." -ForegroundColor Cyan
 
-    # 1.1 Inspecao de processos ativos
+    # 1.1 Lock de arquivo exclusivo OS-level (FileShare.None)
+    try {
+        $lockStream = [System.IO.File]::Open($lockFile, [System.IO.FileMode]::OpenOrCreate, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
+    } catch {
+        Write-Host "[RECUSADO] Nao foi possivel adquirir o lock exclusivo ($lockFile). Outra rotina DR ou aplicativo esta ativo." -ForegroundColor Red
+        Write-Host "Abortando com codigo 5."
+        exit 5
+    }
+
+    # 1.2 Inspecao de processos ativos
     $runningProcesses = @(Get-Process | Where-Object { $_.ProcessName -like "*Aquila Pro*" -or $_.ProcessName -eq "electron" })
     if ($runningProcesses.Count -gt 0) {
         Write-Host "[RECUSADO] O processo Aquila Pro (ou Electron) esta em execucao:" -ForegroundColor Red
@@ -220,15 +231,11 @@ try {
             Write-Host "  - PID: $($proc.Id) | Nome: $($proc.ProcessName)" -ForegroundColor Red
         }
         Write-Host "[SEGURANCA] Encerre o aplicativo antes de realizar a restauracao para evitar corrupcao de lock SQLite." -ForegroundColor Yellow
-        Write-Host "Abortando com codigo 5."
-        exit 5
-    }
-
-    # 1.2 Lock de arquivo exclusivo OS-level (FileShare.None)
-    try {
-        $lockStream = [System.IO.File]::Open($lockFile, [System.IO.FileMode]::OpenOrCreate, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
-    } catch {
-        Write-Host "[RECUSADO] Nao foi possivel adquirir o lock exclusivo ($lockFile). Outra rotina DR ou aplicativo esta ativo." -ForegroundColor Red
+        if ($null -ne $lockStream) {
+            $lockStream.Close()
+            $lockStream.Dispose()
+            $lockStream = $null
+        }
         Write-Host "Abortando com codigo 5."
         exit 5
     }
@@ -237,7 +244,9 @@ try {
     # ============================================================================
     # ETAPA 2: RECUPERACAO DETERMINISTICA DE CRASH / DIARIO PENDENTE
     # ============================================================================
-    if (Test-Path $journalFile) {
+    if ($VerifyOnly -and (Test-Path $journalFile)) {
+        Write-Host "`n[VERIFY-ONLY] Detectado diario pendente em disco ($journalFile). O banco esta em estado de recuperacao pendente. Nenhuma modificacao realizada." -ForegroundColor Yellow
+    } elseif (Test-Path $journalFile) {
         Write-Host "`n[2/7] Detectado diario transacional pendente: $journalFile" -ForegroundColor Yellow
         $journalContent = $null
         try {
@@ -254,22 +263,51 @@ try {
 
         $phase = $journalContent.phase
         $snapDir = $journalContent.snapshotDir
+        $stagingPath = $journalContent.stagingPath
         Write-Host "  Fase interrompida identificada: $phase" -ForegroundColor Yellow
         Write-Host "  Snapshot de seguranca indicado:  $snapDir" -ForegroundColor Yellow
 
-        if ($phase -eq "REPLACING" -or $phase -eq "READY_FOR_REPLACE" -or $phase -eq "REPLACED_VERIFYING") {
-            if ([string]::IsNullOrWhiteSpace($snapDir) -or -not (Test-Path $snapDir)) {
-                Write-Host "[FALHA CRITICA DE RECUPERACAO] Diretorio de snapshot ($snapDir) ausente ou inacessivel!" -ForegroundColor Red
-                Write-Host "[SEGURANCA] Diario mantido intacto em disco para auditoria forense. Nao foi possivel realizar rollback." -ForegroundColor Red
-                exit 7
-            }
+        $recoveryStatus = ""
 
-            try {
-                Invoke-RollbackFromSnapshot -snapDir $snapDir -targetDb $dbFile
-            } catch {
-                $errRollback = $_.Exception.Message
-                Write-Host "[FALHA CRITICA NO ROLLBACK DO BOOT] $errRollback" -ForegroundColor Red
-                Write-Host "[SEGURANCA] Diario mantido intacto em disco para analise forense." -ForegroundColor Red
+        switch ($phase) {
+            "COMPLETED" {
+                Write-Host "  [RECUPERACAO] Restauracao anterior ja havia sido concluida com sucesso. Nao requer rollback." -ForegroundColor Green
+                $recoveryStatus = "PREVIOUS_RESTORE_COMPLETED_ARCHIVED"
+            }
+            { $_ -in @("REPLACING", "READY_FOR_REPLACE", "REPLACED_VERIFYING") } {
+                if ([string]::IsNullOrWhiteSpace($snapDir) -or -not (Test-Path $snapDir)) {
+                    Write-Host "[FALHA CRITICA DE RECUPERACAO] Diretorio de snapshot ($snapDir) ausente ou inacessivel!" -ForegroundColor Red
+                    Write-Host "[SEGURANCA] Diario mantido intacto em disco para auditoria forense. Nao foi possivel realizar rollback." -ForegroundColor Red
+                    exit 7
+                }
+
+                try {
+                    Invoke-RollbackFromSnapshot -snapDir $snapDir -targetDb $dbFile
+                    $recoveryStatus = "ROLLBACK_VERIFIED_OK"
+                } catch {
+                    $errRollback = $_.Exception.Message
+                    Write-Host "[FALHA CRITICA NO ROLLBACK DO BOOT] $errRollback" -ForegroundColor Red
+                    Write-Host "[SEGURANCA] Diario mantido intacto em disco para analise forense." -ForegroundColor Red
+                    exit 7
+                }
+            }
+            { $_ -in @("STAGING", "SNAPSHOT_CREATED", "INITIALIZING") } {
+                Write-Host "  [RECUPERACAO] Falha ocorreu antes da substituicao do banco ativo. Limpando staging residual..." -ForegroundColor Yellow
+                if (-not [string]::IsNullOrWhiteSpace($stagingPath) -and (Test-Path $stagingPath)) {
+                    try { Remove-Item -Path $stagingPath -Force } catch { /* ignore */ }
+                }
+                if (Test-Path $dbFile) {
+                    $actIntegrity = [WinSqliteCore]::CheckIntegrity($dbFile)
+                    if ($actIntegrity -ne "ok") {
+                        Write-Host "[FALHA CRITICA] Banco ativo nao esta saudavel ($actIntegrity) apos interrupcao preliminar." -ForegroundColor Red
+                        exit 7
+                    }
+                }
+                $recoveryStatus = "EARLY_PHASE_STAGING_CLEANED_OK"
+            }
+            default {
+                Write-Host "[FALHA CRITICA DE RECUPERACAO] Fase de diario desconhecida ou nao homologada: '$phase'!" -ForegroundColor Red
+                Write-Host "[SEGURANCA] Diario mantido intacto em disco para analise forense. Abortando com codigo 7." -ForegroundColor Red
                 exit 7
             }
         }
@@ -277,10 +315,10 @@ try {
         # Conclusao segura do diario recuperado
         $recoveredArchive = Join-Path $appDataDir "restore_journal_recovered_$(Get-Date -Format 'yyyyMMdd_HHmmss').json"
         $journalContent | Add-Member -MemberType NoteProperty -Name "recoveredAt" -Value (Get-Date).ToString("o") -Force
-        $journalContent | Add-Member -MemberType NoteProperty -Name "recoveryStatus" -Value "ROLLBACK_VERIFIED_OK" -Force
+        $journalContent | Add-Member -MemberType NoteProperty -Name "recoveryStatus" -Value $recoveryStatus -Force
         Save-JournalAtomic -path $recoveredArchive -obj $journalContent
         Remove-Item -Path $journalFile -Force -ErrorAction SilentlyContinue
-        Write-Host "  [OK] Diario pendente recuperado e saneado com sucesso. Evidencia arquivada em: $recoveredArchive" -ForegroundColor Green
+        Write-Host "  [OK] Diario pendente recuperado e saneado com sucesso ($recoveryStatus). Evidencia arquivada em: $recoveredArchive" -ForegroundColor Green
     } else {
         Write-Host "`n[2/7] Verificacao de diario pendente: Nenhum crash anterior detectado." -ForegroundColor Green
     }
