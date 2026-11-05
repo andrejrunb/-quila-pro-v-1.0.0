@@ -1,12 +1,12 @@
 {
-    "timestamp":  "2026-11-05T14:28:45.9820111-03:00",
+    "timestamp":  "2026-11-05T15:00:08.6816954-03:00",
     "item":  "Item 1: Instalacao Limpa Windows",
     "status":  "PASS",
     "binary":  {
                    "path":  "C:\\aquila\\apps\\electron\\release_v2_2\\win-unpacked\\Aquila Pro.exe",
                    "size_mb":  168.72,
                    "sha256":  "F087E4B45834D8DAECBF88DD61B0A2757AB836B8A1891C16CA0AAB321E5D7EBB",
-                   "git_sha":  "8a21eec7cd17742aeab7bc866612dfe053f4a62c",
+                   "git_sha":  "a87c7f0f366675e019c95e8b253261279e34191c",
                    "responding":  true
                }
 }

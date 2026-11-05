@@ -1,5 +1,5 @@
 {
-    "timestamp":  "2026-11-05T14:24:18.2598978-03:00",
+    "timestamp":  "2026-11-05T15:04:02.2853954-03:00",
     "scenarios":  [
                       {
                           "id":  "DR-01",
@@ -15,21 +15,39 @@
                       },
                       {
                           "id":  "DR-03",
-                          "description":  "Bloqueio e exclusão mútua quando processo Aquila Pro / Electron está ativo",
+                          "description":  "Bloqueio e exclusão mútua quando processo ou restore.lock está ativo",
                           "status":  "PASS",
-                          "details":  "Exclusão mútua validada: bloqueio imediato se processo ativo for detectado (código 5)."
+                          "details":  "Exclusão mútua validada: bloqueio imediato se restore.lock estiver detido (código 5)."
                       },
                       {
                           "id":  "DR-04",
-                          "description":  "Restauração atômica, snapshot e pós-verificação com candidato íntegro",
+                          "description":  "Rejeição estrita de inconsistência de FK por padrão e liberação sob -AllowFkViolations",
                           "status":  "PASS",
-                          "details":  "Restauração atômica concluída com sucesso: SHA-256 verificado, snapshot cautelar preservado e pós-validação aprovada."
+                          "details":  "Política de FK validada: rejeição estrita (código 3) por padrão; admitido somente sob -AllowFkViolations."
                       },
                       {
                           "id":  "DR-05",
-                          "description":  "Recuperação automática de falha/desligamento súbito via restore_journal.json",
+                          "description":  "Restauração atômica via ReplaceFile, snapshot e pós-verificação com candidato íntegro",
                           "status":  "PASS",
-                          "details":  "Diário transacional pendente detectado no boot e recuperado com rollback determinístico."
+                          "details":  "Restauração atômica concluída: SHA-256 verificado, snapshot cautelar gravado e pós-validação aprovada."
+                      },
+                      {
+                          "id":  "DR-06",
+                          "description":  "Rollback simétrico completo de Banco + WAL com integridade pós-reversão comprovada",
+                          "status":  "PASS",
+                          "details":  "Rollback simétrico de Banco + WAL executado e transações do WAL recuperadas com sucesso."
+                      },
+                      {
+                          "id":  "DR-07",
+                          "description":  "Recuperação determinística de boot via restore_journal.json e arquivamento de evidência",
+                          "status":  "PASS",
+                          "details":  "Diário pendente recuperado, rollback executado e evidência de auditoria arquivada."
+                      },
+                      {
+                          "id":  "DR-08",
+                          "description":  "Preservação forense do diário e aborto com código 7 se snapshot for inválido ou ausente",
+                          "status":  "PASS",
+                          "details":  "Preservação forense validada: diário mantido intacto em disco e execução abortada com código 7."
                       }
                   ]
 }

@@ -15,7 +15,7 @@ source_commit:        0612be71f307399e2bc8d31fe1dc71e9a7e37e9d
 evidence_commit:      050b3ce92bf18b3874134be1086a2e411f16da0a
                       (Execução das suítes de teste de bancada e geração dos relatórios JSON)
 
-documentation_commit: 8a21eec7cd17742aeab7bc866612dfe053f4a62c
+documentation_commit: a87c7f0f366675e019c95e8b253261279e34191c
                       (Dossiê v2.1.1 harmonizado, manifesto SHA256SUMS, plano executivo e motor DR)
 ```
 
@@ -34,10 +34,10 @@ Pacote da Aplicação:      resources/app.asar
 SHA-256 (app.asar):       270A6696E7A8EDFD4DCD3FA198DBCE2D0D0E40847E52EDB41BE0FCDA934B2445
 Módulos Nativos:          resources/app.asar.unpacked/node_modules/better-sqlite3/ (ABI 119 - Electron 28.2.0)
 SHA-256 (better_sqlite3): AD19705C7938A60EF5557E31D152843CC42364684913847FBD623484430283A3
-Script Transacional DR:   restore_edge.bat (Embutido no pacote portátil)
-SHA-256 (restore_edge):   428430E1B0A9B7367FB112BE0585893953D92403CE123AF28E3EADF3AF3912A5
-Motor Autônomo DR:        restore_edge.ps1 (Embutido no pacote portátil)
-SHA-256 (restore_edge_ps): 06DE5C709B3800CB43C2021D7A3D5211EEB15FDFE75733A4A5FEB5483846B36C
+Lançador Transacional DR: restore_edge.bat (Embutido no pacote portátil)
+SHA-256 (restore_edge):   13E5622F291B75EBDF4BDA4B8926BE4A85BBDC12CAC3EA219B773964ACA6E4D1
+Motor Autônomo DR v2.1.2: restore_edge.ps1 (Embutido no pacote portátil)
+SHA-256 (restore_edge_ps): F3B691069E55FD5CAEF3A1F7A4040AA02AEFFCD973CDD2CEAA2784D09C5D1DE7
 Variáveis de Ambiente:    AQUILA_ENABLE_CLOUD_CONNECTORS=false (Padrão Offline-First Ativo)
 ```
 
@@ -59,7 +59,7 @@ Variáveis de Ambiente:    AQUILA_ENABLE_CLOUD_CONNECTORS=false (Padrão Offline
 | :---: | :--- | :--- | :--- | :--- |
 | **1** | **Instalação Limpa Windows (v2.1.0)** | **Isolamento de Runtime por PATH Sanitizado (Bancada Local):** PASS (`clean_runtime_h01_evidence.json`). Executável iniciado sem Node/Git no PATH, responsivo, fechamento gracioso.<br>**Homologação em Windows Limpo (Ambiente-Alvo):** Etapa presencial a ser executada na máquina física da escola. | Copiar pasta `win-unpacked` para `C:\AquilaPro` em máquina Windows 10/11 Pro sem Node.js, Python ou Git. Clicar duas vezes em `Aquila Pro.exe`. | App abre em < 3s, exibe versão `v2.1.0` no rodapé e não emite erro de DLL/ABI nativa. |
 | **2** | **Jornada Escolar Ponta a Ponta** | Testada em banco SQLite sintético (`WAL`): importação de CSV (20 alunos) → criação de atividade (`EM13CNT101`) → submissão → nota `9.5` → intervenção com hash SHA-256 → reinício do processo. | **Secretaria**: importa CSV sintético da turma piloto pela interface do app.<br>**Professor**: lança chamada (< 90s) e nota.<br>**Coordenação**: registra intervenção.<br>Fechar e reabrir o app. | 100% dos dados mantidos intactos após encerramento do processo e reinicialização da máquina. |
-| **3** | **Recuperação SQLite Operacional (DR)** | Validado na **Matriz Unificada de DR** (Seção 4) e testado em 5 cenários rigorosos de falha (`dr_resilience_verification_report.json`). Script transacional autônomo `restore_edge.bat` integrado ao pacote com pré-validação via `winsqlite3.dll`, exclusão mútua, staging sandbox e `restore_journal.json`. | Acionar o botão *"Diagnóstico & Integridade"* no menu técnico do aplicativo instalado, ou executar `restore_edge.bat` via Prompt de Comando padrão do Windows. | Banco ativo aprovado em `PRAGMA integrity_check = ok`, sem corrupção silenciosa. Recuperação instalada documentada. |
+| **3** | **Recuperação SQLite Operacional (DR)** | Validado na **Matriz Unificada de DR** (Seção 4) e testado em 8 cenários rigorosos de resiliência e concorrência (`dr_resilience_verification_report.json`). Script transacional autônomo `restore_edge.bat` integrado ao pacote com exclusão mútua OS-level (`restore.lock`), integridade via `winsqlite3.dll`, swap atômico `ReplaceFile`, rollback simétrico de Banco+WAL e diário persistente `restore_journal.json`. | Acionar o botão *"Diagnóstico & Integridade"* no menu técnico do aplicativo instalado, ou executar `restore_edge.bat` via Prompt de Comando padrão do Windows. | Banco ativo aprovado em `PRAGMA integrity_check = ok`, sem corrupção silenciosa. Recuperação instalada documentada. |
 | **4** | **Segurança de Login, Sessão e RBAC** | Cookie `aquila_session` assinado com HMAC-SHA256 (3 partes), expurgo automático de cookie forjado em `middleware.ts`, e RBAC rígido em `packages/api/src/trpc.ts` e `handlers.ts`. | Efetuar login com as contas piloto (`prof.ricardo`, `coord.helena`, `aluno.lucas`). Tentar acessar telas/URLs alheias e inspecionar cookies. | Acessos indevidos recusados com `UNAUTHORIZED` ou `FORBIDDEN`. Cookie ilegível e zero tokens em URL ou logs. |
 | **5** | **Controle de Exposição, CSP e Isolamento de Rede** | Removido `allow-file-access-from-files` em `main.ts`; CSP configurado; protocolo `aquila-asset://` confinado estritamente a `userData/photos` e `reports` (bloqueando path traversal); conectores cloud desativados (`AQUILA_ENABLE_CLOUD_CONNECTORS=false`). | Inspecionar chamadas de rede no painel de rede. Verificar que o app só escuta em interfaces autorizadas da LAN e que o acesso a arquivos do sistema é negado. | Retorno `403 Forbidden` para qualquer path traversal (`../../.auth_secret`); zero tráfego de dados para nuvem pública. |
 | **6** | **Backup Agendado e Resiliência Operacional** | Rotina de backup emite manifesto `.manifest.json` com hash SHA-256; simulação de destino indisponível emite alerta estruturado `BACKUP_DESTINATION_FAILURE`. | Configurar backup para destino primário (disco local) e secundário (pendrive/storage). Simular desconexão do secundário e conferir alerta na UI. | Backup local íntegro gerado; alerta visível ao operador e registrado em log de auditoria caso um destino falhe. |
@@ -70,15 +70,18 @@ Variáveis de Ambiente:    AQUILA_ENABLE_CLOUD_CONNECTORS=false (Padrão Offline
 
 ## 4. Matriz Unificada de DR e Recuperação Operacional SQLite
 
-A resiliência do SQLite em modo `WAL` é consolidada nos cinco cenários técnicos testados e validados na suíte automatizada de resiliência ([`dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json)):
+A resiliência do SQLite em modo `WAL` é consolidada nos oito cenários técnicos testados e validados na suíte automatizada de resiliência ([`dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json)):
 
 | Cenário de Falha / Recuperação | O que foi testado em Bancada Técnica | Comportamento Verificado do Sistema | Métrica Medida / Esperada | Procedimento na Máquina da Escola |
 | :--- | :--- | :--- | :--- | :--- |
-| **1. Rejeição de Candidato Corrompido Pré-Swap** | Candidato com bytes inválidos (12 KB de lixo binário) e arquivo truncado (500 bytes) | Validação do Magic Header (`SQLite format 3`) e `PRAGMA integrity_check` via `winsqlite3.dll` aborta imediatamente antes do swap; banco ativo preservado intacto | **RTO < 50 ms** (aborto imediato); **RPO = 0** (banco ativo intocado); Código de saída 3 | Execução de `restore_edge.bat "arquivo_corrompido.db"` rejeita e emite código de saída 3 sem tocar em `aquila.db`. |
-| **2. Exclusão Mútua contra Processos Ativos** | Tentativa de restauração com `Aquila Pro.exe` ou `electron` em execução | Bloqueio preventivo antes de qualquer leitura ou cópia para impedir corrupção de lock SQLite | **RTO = Imediato**; Código de saída 5; banco ativo protegido | `restore_edge.bat` notifica o operador e solicita o fechamento do app antes de prosseguir. |
-| **3. Snapshot Cautelar com Validação de Bytes** | Criação de snapshot pré-restauração antes de modificar a base ativa | Validação estrita do comprimento de bytes do snapshot contra o original; se houver divergência (ex: disco cheio), a operação é cancelada | **RPO = 0**; Código de saída 4; rollback prévio garantido | Snapshot gravado em `%APPDATA%\AquilaPro\snapshots\pre_restore_[TIMESTAMP]`. |
-| **4. Staging Sandbox e Substituição Atômica** | Cópia do candidato para staging (`staging_restore.db`), conferência de tamanho e swap via renomeação de arquivos | WAL/SHM limpos, banco ativo renomeado atomicamente para `.old` e substituído; rollback instantâneo se falhar | **RTO < 2s**; integridade do banco anterior preservada integralmente | `restore_edge.bat` gerencia todo o swap e limpa arquivos transitórios automaticamente. |
-| **5. Recuperação Pós-Interrupção Súbita (Crash Recovery)** | Simulação de desligamento ou falta de energia no meio da fase `REPLACING` com diário persistente | A rotina de boot recovery (ou próxima execução do script) lê `restore_journal.json` e reverte automaticamente para o snapshot íntegro | **RTO < 1s** no boot; **RPO = zero corrupção**; diário pendente saneado | Inicialização normal do aplicativo; rotina em `Database.initialize()` cura o estado automaticamente. |
+| **DR-01. Rejeição de Candidato Corrompido Pré-Swap** | Candidato com bytes inválidos (12 KB de lixo binário) | Validação do Magic Header (`SQLite format 3`) e `PRAGMA integrity_check` via `winsqlite3.dll` aborta imediatamente antes do swap; banco ativo preservado intacto | **RTO < 50 ms** (aborto imediato); **RPO = 0**; Código de saída 3 | Execução de `restore_edge.bat "arquivo_corrompido.db"` rejeita e emite código de saída 3 sem tocar em `aquila.db`. |
+| **DR-02. Rejeição de Candidato Truncado** | Arquivo candidato truncado (500 bytes) | Rejeição por tamanho mínimo operacional ($\le 4.096$ bytes) | **RTO < 10 ms**; Código de saída 3 | Aborta imediatamente; base ativa intocada. |
+| **DR-03. Exclusão Mútua & Lock OS-Level** | Processo `Aquila Pro.exe` ativo ou lock exclusivo `restore.lock` detido | Bloqueio preventivo antes de qualquer leitura ou cópia para impedir corrupção de lock SQLite | **RTO = Imediato**; Código de saída 5; banco ativo protegido | `restore_edge.bat` notifica o operador e solicita o fechamento do app antes de prosseguir. |
+| **DR-04. Política Estrita de Chaves Estrangeiras** | Candidato com registros órfãos inseridos intencionalmente | Rejeição por padrão com código 3; erros de execução do check tratados como falha; liberação apenas sob `-AllowFkViolations` explícito | **Integridade Referencial Estrita** garantida por padrão; Código de saída 3 | Bloqueia candidatos inconsistentes; requer aprovação expressa do operador para dados legados. |
+| **DR-05. Substituição Atômica via API ReplaceFile** | Restauração de base íntegra de 32 KB | Swap atômico de staging via API Win32 `ReplaceFile`, eliminando janela de ausência do arquivo em disco; snapshot cautelar registrado | **RTO < 2s**; Código de saída 0; SHA-256 verificado | Execução normal de restauração substitui atomicamente o banco ativo. |
+| **DR-06. Rollback Simétrico Completo de Banco + WAL** | Banco ativo com transações pendentes no WAL; falha simulada | Reversão simétrica restaurando simultaneamente `aquila.db` e `aquila.db-wal`; transações uncheckpointed preservadas | **RPO = 0**; dados do WAL lidos com sucesso pós-rollback | `restore_edge.bat` restaura o conjunto completo sem deixar WAL orfão ou corrompido. |
+| **DR-07. Recuperação Determinística de Boot com Diário Saneado** | Interrupção forçada durante a fase `REPLACING` com diário persistente | Detecção de diário na inicialização, rollback simétrico verificado com `PRAGMA integrity_check = ok` e arquivamento de evidência em `restore_journal_recovered_*.json` | **RTO < 1s** no boot; diário ativo saneado com evidência arquivada | Inicialização normal do aplicativo; rotina em `Database.initialize()` cura o estado automaticamente. |
+| **DR-08. Preservação Forense do Diário se Snapshot Ausente** | Simulação de diário de crash apontando para diretório de snapshot ausente | O script recusa deletar o diário silenciosamente, emite alerta de falha crítica e aborta com código 7 preservando as evidências | **Preservação Forense Garantida**; Código de saída 7; diário mantido intacto | Interrupção imediata com preservação do estado para auditoria da equipe de TI. |
 
 ---
 
@@ -94,21 +97,26 @@ A resiliência do SQLite em modo `WAL` é consolidada nos cinco cenários técni
 
 ---
 
-## 6. Procedimento Autônomo e Transacional de Restauração (`restore_edge.bat`)
+## 6. Procedimento Autônomo e Transacional de Restauração (`restore_edge.bat` / `restore_edge.ps1` v2.1.2)
 
-O pacote de distribuição autônomo `apps/electron/release_v2_2/win-unpacked` inclui nativamente os utilitários [`restore_edge.bat`](file:///c:/aquila/apps/electron/release_v2_2/win-unpacked/restore_edge.bat) e [`restore_edge.ps1`](file:///c:/aquila/apps/electron/release_v2_2/win-unpacked/restore_edge.ps1), implementando as garantias transacionais exigidas:
+O pacote de distribuição autônomo `apps/electron/release_v2_2/win-unpacked` inclui nativamente os utilitários [`restore_edge.bat`](file:///c:/aquila/apps/electron/release_v2_2/win-unpacked/restore_edge.bat) e [`restore_edge.ps1`](file:///c:/aquila/apps/electron/release_v2_2/win-unpacked/restore_edge.ps1), incorporando o conjunto completo de salvaguardas operacionais:
 
-1. **Zero Dependências de Ferramentas de Desenvolvimento:** Opera utilizando exclusivamente o PowerShell padrão do Windows 10/11 e o motor nativo `winsqlite3.dll` pré-instalado em `C:\Windows\System32\winsqlite3.dll` no Windows 10 e 11 Pro, sem requerer Node.js, Python, Git ou compiladores na máquina escolar.
-2. **Exclusão Mútua Garantida (Etapa 1):** Verifica se `Aquila Pro.exe` ou processos Electron estão ativos antes de abrir arquivos SQLite. Se houver processo rodando, aborta imediatamente com código 5, evitando corrupção de lock.
-3. **Pré-validação Estrita de Integridade (Etapa 3):**
-   - Valida assinatura binária do Magic Header (16 bytes iniciais: `SQLite format 3\0`);
+1. **Zero Dependências Externas:** Opera utilizando exclusivamente o PowerShell do Windows 10/11 e o motor nativo `winsqlite3.dll` pré-instalado em `C:\Windows\System32\winsqlite3.dll` no Windows 10 e 11 Pro, sem requerer Node.js, Python, Git ou compiladores na máquina escolar.
+2. **Exclusão Mútua Rígida & Lock OS-Level (Etapa 1):** Executada **antes de qualquer acesso ao banco ou leitura de diário**. Verifica processos ativos (`Aquila Pro*` e `electron`) e adquire um lock exclusivo de arquivo (`restore.lock`, `FileShare.None`). Se houver concorrência, aborta imediatamente com código 5.
+3. **Recuperação Determinística de Boot com Preservação Forense (Etapa 2):** Se um diário `restore_journal.json` for encontrado de uma interrupção anterior:
+   - Se o snapshot indicado não for encontrado, **o diário NÃO é descartado**; a execução é abortada com código 7 para auditoria forense.
+   - Se o snapshot for válido, executa rollback simétrico completo (banco + WAL) e valida com `PRAGMA integrity_check = ok`.
+   - Somente após integridade comprovada, o diário é arquivado com status `ROLLBACK_VERIFIED_OK` em `restore_journal_recovered_[TIMESTAMP].json`.
+4. **Pré-Validação Rigorosa de Integridade e Chaves Estrangeiras (Etapa 4):**
+   - Valida assinatura binária do Magic Header (16 bytes: `SQLite format 3\0`);
    - Rejeita arquivos menores ou iguais a 4.096 bytes;
-   - Executa `PRAGMA integrity_check;` via `winsqlite3.dll`. Se retornar qualquer valor diferente de `"ok"`, o arquivo é imediatamente recusado com código 3 sem que o banco ativo seja tocado.
-4. **Snapshot Cautelar com Validação de Bytes (Etapa 4):** Copia `aquila.db`, `aquila.db-wal` e `aquila.db-shm` para `%APPDATA%\AquilaPro\snapshots\pre_restore_[TIMESTAMP]`. Valida se o tamanho do arquivo copiado corresponde exatamente ao arquivo de origem antes de permitir o swap.
-5. **Diário Transacional Persistente em Disco (Etapa 5):** Grava `%APPDATA%\AquilaPro\restore_journal.json` marcando o progresso das fases (`PREPARING_REPLACEMENT` → `READY_FOR_REPLACE` → `REPLACING` → `COMPLETED`).
-6. **Staging em Sandbox & Substituição Atômica (Etapa 6):** O candidato é primeiro copiado para `staging_restore.db`, verificado e então promovido via renomeação de arquivos atômica no sistema operacional, com remoção segura de resíduos WAL/SHM.
-7. **Pós-Validação & Rollback Automático (Etapa 7):** Executa `PRAGMA integrity_check` no banco recém-promovido. Em caso de falha, aciona rollback automático a partir do snapshot. Caso aprove, calcula o checksum SHA-256 e finaliza o diário.
-8. **Recuperação de Interrupção Súbita no Boot (Boot Recovery):** Se o computador sofrer queda de energia durante o swap, o aplicativo em `Database.initialize()` (e o script `restore_edge.bat` na inicialização) identifica o `restore_journal.json` pendente e realiza o rollback determinístico para o snapshot pré-swap.
+   - Executa `PRAGMA integrity_check;` via `winsqlite3.dll` (código 3 se falhar);
+   - Executa `PRAGMA foreign_key_check;`. Erros de execução na consulta ($< 0$) são tratados como falha estrita (código 3). Violações referenciais ($> 0$) são rejeitadas por padrão com código 3, exigindo o parâmetro explícito `-AllowFkViolations` para contingências legadas.
+5. **Snapshot Cautelar com Validação de Bytes (Etapa 5):** Copia `aquila.db`, WAL e SHM para diretório de snapshot e valida se a contagem de bytes copiada coincide exatamente com os arquivos de origem (código 4 se houver divergência).
+6. **Persistência Atômica do Diário e Substituição Atômica (Etapa 6):**
+   - O diário é persistido com flush físico garantido ao disco (`stream.Flush(true)`) e promoção atômica via `Save-JournalAtomic`.
+   - A substituição do banco de dados ativo em disco utiliza a API de kernel Win32 `ReplaceFile` (`[System.IO.File]::Replace`), garantindo que o arquivo nunca desapareça do filesystem durante o swap.
+7. **Rollback Simétrico Completo de Banco + WAL:** O mecanismo `Invoke-RollbackFromSnapshot` restaura simultaneamente o banco principal e o respectivo arquivo WAL, evitando a perda de transações uncheckpointed ou geração de arquivos laterais órfãos.
 
 ---
 
@@ -118,7 +126,7 @@ A migração de testes sintéticos para o ambiente escolar deve respeitar obriga
 
 ```mermaid
 flowchart LR
-    G1A["G1-A: Bancada Técnica Automatizada<br/>(8 Prioridades + PATH Sanitizado + DR 5/5)"] --> G1B["G1-B: Validação em Windows Físico Limpo<br/>(Pacote win-unpacked + Jornada + Usabilidade)"]
+    G1A["G1-A: Bancada Técnica Automatizada<br/>(8 Prioridades + PATH Sanitizado + DR 8/8)"] --> G1B["G1-B: Validação em Windows Físico Limpo<br/>(Pacote win-unpacked + Jornada + Usabilidade)"]
     G1B --> G2["G2: Aceite Formal Conjunto<br/>(Direção Escolar + DPO + TI)"]
     G2 --> G3["G3: Termo LGPD e Esclarecimento<br/>(Famílias da Turma)"]
     G3 --> G4["G4: Importação Assistida Restrita<br/>(1 Turma / 30 Alunos)"]
@@ -128,7 +136,7 @@ flowchart LR
 - **Gate G1-A (Bancada Técnica e Verificações Automatizadas):** Concluído com sucesso na engenharia:
   - 8 suítes operacionais aprovadas (`h01_8_operational_priorities_report.json`);
   - Teste de isolamento de runtime em PATH sanitizado aprovado (`clean_runtime_h01_evidence.json`);
-  - Suíte de resiliência e recuperação DR aprovada nos 5 cenários (`dr_resilience_verification_report.json`);
+  - Suíte de resiliência e recuperação DR aprovada nos 8 cenários (`dr_resilience_verification_report.json`);
   - Hashes dos componentes comparados e validados contra o manifesto.
 - **Gate G1-B (Validação em Windows Físico Limpo do Ambiente Escolar):** Etapa mandatória pré-G2 na máquina de destino:
   - Cópia do pacote `win-unpacked` para estação Windows 10/11 Pro física da escola (sem Node/Git);
