@@ -1,18 +1,20 @@
 <#
 .SYNOPSIS
     Suíte Completa de Testes de Resiliência de Disaster Recovery (restore_edge.bat / restore_edge.ps1 v2.1.2)
-    Valida os 11 cenários críticos:
+    Valida os 13 cenários críticos de resiliência e integração:
     - DR-01: Rejeição de candidato corrompido > 4KB (12 KB de lixo binário)
     - DR-02: Rejeição de arquivo truncado (500 bytes)
     - DR-03: Exclusão mútua contra processo ativo e bloqueio via restore.lock
     - DR-04: Rejeição estrita de Foreign Key por padrão e teste de -AllowFkViolations
     - DR-05: Restauração atômica com candidato íntegro via ReplaceFile
-    - DR-06: Rollback simétrico completo de Banco + WAL
+    - DR-06: Rollback simétrico comprovado com transações exclusivas do WAL
     - DR-07: Recuperação determinística de boot com flush e saneamento do journal
     - DR-08: Preservação forense do journal e aborto com código 7 se snapshot estiver ausente
     - DR-09: Isolamento do modo -VerifyOnly com diário pendente (sem mutação)
-    - DR-10: Tratamento robusto das fases do diário (COMPLETED e fase desconhecida)
-    - DR-11: Exclusão mútua do aplicativo no startup (bloqueio via restore.lock)
+    - DR-10: Tratamento robusto das fases do diário (COMPLETED, PREPARING_REPLACEMENT e anômala)
+    - DR-11: Mecanismo de lock do sistema operacional sob FileShare.None
+    - DR-12: Teste de integração do startup real (Database.ts): bloqueio sob restore.lock ativo
+    - DR-13: Teste de integração do startup real (Database.ts): bloqueio sob falha de boot recovery
 #>
 
 $ErrorActionPreference = "Stop"
@@ -224,27 +226,71 @@ db.close();
     }
 
     # ------------------------------------------------------------------------
-    # Cenário 6: Rollback Simétrico Completo de Banco + WAL
+    # Cenário 6: Rollback Simétrico Comprovado com Transações Exclusivas do WAL
     # ------------------------------------------------------------------------
-    Run-Scenario "DR-06" "Rollback simétrico completo de Banco + WAL com integridade pós-reversão comprovada" {
+    Run-Scenario "DR-06" "Rollback simétrico recupera transação comprovadamente exclusiva do arquivo WAL" {
         $snapTestDir = Join-Path $testDir "snapshots\pre_restore_sim_wal"
         New-Item -ItemType Directory -Path $snapTestDir -Force | Out-Null
 
         $snapDb = Join-Path $snapTestDir "aquila.db"
         $snapWal = Join-Path $snapTestDir "aquila.db-wal"
+        $isolatedDb = Join-Path $testDir "isolated_check_no_wal.db"
 
-        # Criar base do snapshot com transação pendente em WAL
-        $walJs = Join-Path $testDir "create_wal_snap.js"
+        # Criar base com transação 1 no .db e transação 2 EXCLUSIVA no .db-wal (sem checkpoint)
+        $walJs = Join-Path $testDir "create_wal_proof.js"
         @'
 const { DatabaseSync } = require('node:sqlite');
-const dbPath = process.argv[2];
-const db = new DatabaseSync(dbPath);
+const fs = require('fs');
+
+const srcDb = process.argv[2];
+const snapDb = process.argv[3];
+const snapWal = process.argv[4];
+const isoDb = process.argv[5];
+
+const db = new DatabaseSync(srcDb);
 db.exec('PRAGMA journal_mode = WAL;');
+db.exec('PRAGMA wal_autocheckpoint = 0;');
 db.exec('CREATE TABLE wal_check (id INTEGER PRIMARY KEY, v TEXT);');
-db.exec("INSERT INTO wal_check VALUES (1, 'in_snapshot_wal');");
+db.exec("INSERT INTO wal_check VALUES (1, 'in_main_db');");
+db.exec('PRAGMA wal_checkpoint(TRUNCATE);');
+
+// Inserir registro 2 estritamente no WAL
+db.exec("INSERT INTO wal_check VALUES (2, 'wal_exclusive_payload');");
+
+// Copiar snapshot enquanto a transação 2 está ativa no WAL
+fs.copyFileSync(srcDb, snapDb);
+fs.copyFileSync(srcDb + '-wal', snapWal);
+
+// Prova de isolamento: inspecionar snapDb isolado (sem o -wal)
+fs.copyFileSync(snapDb, isoDb);
+const dbIso = new DatabaseSync(isoDb, { readOnly: true });
+const isoRows = dbIso.prepare('SELECT id, v FROM wal_check').all();
+dbIso.close();
+
+const hasRow2WithoutWal = isoRows.some(r => r.id === 2);
+if (hasRow2WithoutWal) {
+    console.error('FALHA: Registro 2 foi gravado no .db principal antes do WAL!');
+    process.exit(2);
+}
+
 db.close();
 '@ | Set-Content -Path $walJs -Force
-        node --no-warnings $walJs $snapDb
+
+        $walGenSrc = Join-Path $testDir "wal_gen_temp.db"
+        node --no-warnings $walJs $walGenSrc $snapDb $snapWal $isolatedDb
+        if ($LASTEXITCODE -ne 0) {
+            throw "Geração da prova matemática do WAL falhou!"
+        }
+
+        # Asserções de pré-condição: WAL existe, tem tamanho > 0 e a transação depende dele
+        if (-not (Test-Path $snapWal)) {
+            throw "Arquivo de snapshot WAL não foi gerado em: $snapWal"
+        }
+        $snapWalSize = (Get-Item $snapWal).Length
+        Write-Host "  Snapshot WAL verificado: $snapWalSize bytes (comprovadamente > 0)"
+        if ($snapWalSize -le 0) {
+            throw "Arquivo WAL do snapshot possui 0 bytes; transação não estaria isolada nele!"
+        }
 
         # Simular corrupção proposital no banco ativo
         [System.IO.File]::WriteAllText($initialDb, "CORRUPTED_ACTIVE_PAYLOAD")
@@ -256,7 +302,7 @@ db.close();
             targetDb = $initialDb
             snapshotDir = $snapTestDir
             startedAt = (Get-Date).ToString("o")
-            actor = "WAL_ROLLBACK_TEST"
+            actor = "WAL_EXCLUSIVE_PROOF_TEST"
         }
         $journalPath = Join-Path $testDir "restore_journal.json"
         $walJournal | ConvertTo-Json | Set-Content -Path $journalPath -Force
@@ -267,24 +313,29 @@ db.close();
             throw "Recuperação de WAL falhou com código $($process.ExitCode)"
         }
 
-        # Valida que o dado contido no WAL foi lido com sucesso pelo SQLite
-        $verifyJs = Join-Path $testDir "verify_wal.js"
+        # Valida que o dado EXCLUSIVO do WAL (id=2) foi recuperado com sucesso no banco ativo
+        $verifyJs = Join-Path $testDir "verify_wal_exclusive.js"
         @'
 const { DatabaseSync } = require('node:sqlite');
 const dbPath = process.argv[2];
 const db = new DatabaseSync(dbPath);
-const row = db.prepare('SELECT v FROM wal_check WHERE id = 1').get();
+const rows = db.prepare('SELECT id, v FROM wal_check ORDER BY id').all();
 db.close();
-if (!row || row.v !== 'in_snapshot_wal') {
-    process.exit(1);
-}
+
+const row1 = rows.find(r => r.id === 1);
+const row2 = rows.find(r => r.id === 2);
+
+if (!row1 || row1.v !== 'in_main_db') process.exit(1);
+if (!row2 || row2.v !== 'wal_exclusive_payload') process.exit(2);
+process.exit(0);
 '@ | Set-Content -Path $verifyJs -Force
+
         node --no-warnings $verifyJs $initialDb
         if ($LASTEXITCODE -ne 0) {
-            throw "Dado presente no WAL ('in_snapshot_wal') não foi recuperado no banco ativo!"
+            throw "Transação exclusiva do WAL ('wal_exclusive_payload') não foi recuperada no banco ativo!"
         }
 
-        return "Rollback simétrico de Banco + WAL executado e transações do WAL recuperadas com sucesso."
+        return "Transação exclusiva do WAL comprovada (ausente no .db isolado) e recuperada após rollback simétrico."
     }
 
     # ------------------------------------------------------------------------
@@ -385,10 +436,10 @@ if (!row || row.v !== 'in_snapshot_wal') {
     }
 
     # ------------------------------------------------------------------------
-    # Cenário 10: Tratamento de Fases de Diário (COMPLETED e Fase Desconhecida)
+    # Cenário 10: Tratamento de Fases de Diário (COMPLETED, PREPARING_REPLACEMENT e Fase Desconhecida)
     # ------------------------------------------------------------------------
-    Run-Scenario "DR-10" "Tratamento de fases de diário: COMPLETED arquivado sem rollback e fase desconhecida aborta com código 7" {
-        # 10.1 Fase COMPLETED
+    Run-Scenario "DR-10" "Tratamento de fases de diário: COMPLETED, PREPARING_REPLACEMENT e fase desconhecida com código 7" {
+        # 10.1 Fase COMPLETED (recuperação de sucesso prévio)
         $completedJournal = [PSCustomObject]@{
             phase = "COMPLETED"
             candidatePath = "completed.db"
@@ -409,7 +460,34 @@ if (!row || row.v !== 'in_snapshot_wal') {
             throw "Status de recuperação para COMPLETED incorreto: $($archJson.recoveryStatus)"
         }
 
-        # 10.2 Fase Desconhecida / Não-Homologada
+        # 10.2 Fase PREPARING_REPLACEMENT (interrupção preliminar com limpeza de staging)
+        $stagingDummy = Join-Path $testDir "staging_restore.db"
+        [System.IO.File]::WriteAllText($stagingDummy, "STAGING_RESIDUAL_PAYLOAD")
+
+        $prepJournal = [PSCustomObject]@{
+            phase = "PREPARING_REPLACEMENT"
+            candidatePath = "candidate.db"
+            stagingPath = $stagingDummy
+            targetDb = $initialDb
+            startedAt = (Get-Date).ToString("o")
+            actor = "PHASE_PREPARING_TEST"
+        }
+        $prepJournal | ConvertTo-Json | Set-Content -Path $journalPath -Force
+
+        $procPrep = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"`"$scriptBat`"`"" -Wait -NoNewWindow -PassThru
+        if (Test-Path $stagingDummy) {
+            throw "Arquivo residual de staging não foi limpo na recuperação de PREPARING_REPLACEMENT!"
+        }
+        if (Test-Path $journalPath) {
+            throw "Diário com fase PREPARING_REPLACEMENT não foi arquivado!"
+        }
+        $archivedPrep = Get-ChildItem -Path $testDir -Filter "restore_journal_recovered_*.json" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        $archPrepJson = Get-Content -Path $archivedPrep.FullName -Raw | ConvertFrom-Json
+        if ($archPrepJson.recoveryStatus -ne "EARLY_PHASE_STAGING_CLEANED_OK") {
+            throw "Status de recuperação para PREPARING_REPLACEMENT incorreto: $($archPrepJson.recoveryStatus)"
+        }
+
+        # 10.3 Fase Desconhecida / Não-Homologada
         $unknownJournal = [PSCustomObject]@{
             phase = "INVALID_UNKNOWN_PHASE"
             candidatePath = "unknown.db"
@@ -428,32 +506,28 @@ if (!row || row.v !== 'in_snapshot_wal') {
         }
 
         Remove-Item -Path $journalPath -Force -ErrorAction SilentlyContinue
-        return "Políticas de fases validadas: COMPLETED limpo sem rollback e fase anômala isolada com código 7."
+        return "Políticas de fases validadas: COMPLETED limpo sem rollback, PREPARING_REPLACEMENT saneado com limpeza de staging e fase anômala isolada com código 7."
     }
 
     # ------------------------------------------------------------------------
-    # Cenário 11: Exclusão Mútua no Startup do Aplicativo (Bloqueio via restore.lock)
+    # Cenário 11: Mecanismo de Lock do Sistema Operacional sob FileShare.None
     # ------------------------------------------------------------------------
-    Run-Scenario "DR-11" "Aplicativo Electron/Database.ts recusa inicialização se restore.lock estiver bloqueado por DR" {
+    Run-Scenario "DR-11" "Detecção de lock de arquivo OS-level via FileShare.None com recusa EBUSY/EPERM" {
         $lockFile = Join-Path $testDir "restore.lock"
-        # Adquire lock exclusivo FileShare.None idêntico ao restore_edge.ps1
         $heldLock = [System.IO.File]::Open($lockFile, [System.IO.FileMode]::OpenOrCreate, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
         
         try {
             $testLockJs = Join-Path $testDir "test_app_lock.js"
             @'
 const fs = require('fs');
-const path = require('path');
 const lockFile = process.argv[2];
 
 try {
     const testFd = fs.openSync(lockFile, 'r+');
     fs.closeSync(testFd);
-    console.log('UNLOCKED');
     process.exit(0);
 } catch (err) {
     if (err.code === 'EBUSY' || err.code === 'EPERM' || err.code === 'EACCES') {
-        console.log('LOCKED_AS_EXPECTED');
         process.exit(42);
     }
     process.exit(1);
@@ -462,7 +536,7 @@ try {
 
             $res = Start-Process -FilePath "node" -ArgumentList "`"$testLockJs`" `"$lockFile`"" -Wait -NoNewWindow -PassThru
             if ($res.ExitCode -ne 42) {
-                throw "Simulação do lock check em Database.ts não capturou bloqueio ativo! ExitCode=$($res.ExitCode)"
+                throw "Detecção de lock OS-level não retornou código 42 esperado! ExitCode=$($res.ExitCode)"
             }
         } finally {
             $heldLock.Close()
@@ -470,7 +544,110 @@ try {
             Remove-Item -Path $lockFile -Force -ErrorAction SilentlyContinue
         }
 
-        return "Exclusão mútua do aplicativo validada: Database.ts detecta e bloqueia abertura enquanto restore.lock estiver ativo."
+        return "Mecanismo OS-level comprovado: FileShare.None bloqueia tentativas de leitura/escrita concorrentes."
+    }
+
+    # ------------------------------------------------------------------------
+    # Cenário 12: Teste de Integração Real do Startup do Aplicativo (Database.ts)
+    # ------------------------------------------------------------------------
+    Run-Scenario "DR-12" "Classe real Database.ts do aplicativo recusa inicialização e abertura do SQLite quando restore.lock está ativo" {
+        $lockFile = Join-Path $testDir "restore.lock"
+        $heldLock = [System.IO.File]::Open($lockFile, [System.IO.FileMode]::OpenOrCreate, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
+        
+        try {
+            $integJs = Join-Path $testDir "test_database_real_startup.cjs"
+            @'
+const path = require('path');
+const testDir = process.argv[2];
+process.env.AQUILA_USER_DATA_OVERRIDE = testDir;
+
+const { Database } = require('c:/aquila/apps/electron/dist/database/Database.js');
+const db = new Database();
+
+(async () => {
+    try {
+        await db.initialize();
+        console.error('FALHA: db.initialize() abriu banco SQLite mesmo com restore.lock ativo!');
+        process.exit(1);
+    } catch (err) {
+        if (err.message && err.message.includes('Bloqueio de restauração ativo detectado')) {
+            console.log('INTEGRATION_SUCCESS: ' + err.message);
+            if (db.db) {
+                console.error('FALHA: Instância db foi criada apesar do erro!');
+                process.exit(2);
+            }
+            process.exit(0);
+        }
+        console.error('Erro inesperado: ' + err.message);
+        process.exit(3);
+    }
+})();
+'@ | Set-Content -Path $integJs -Force
+
+            $res = Start-Process -FilePath "node" -ArgumentList "`"$integJs`" `"$testDir`"" -Wait -NoNewWindow -PassThru
+            if ($res.ExitCode -ne 0) {
+                throw "Teste de integração real em Database.ts falhou! ExitCode=$($res.ExitCode)"
+            }
+        } finally {
+            $heldLock.Close()
+            $heldLock.Dispose()
+            Remove-Item -Path $lockFile -Force -ErrorAction SilentlyContinue
+        }
+
+        return "Integração real comprovada: Database.initialize() do pacote compilado aborta sem tocar no SQLite."
+    }
+
+    # ------------------------------------------------------------------------
+    # Cenário 13: Teste de Integração Real de Bloqueio por Falha de Boot Recovery
+    # ------------------------------------------------------------------------
+    Run-Scenario "DR-13" "Classe real Database.ts recusa inicialização quando diário de restauração é inconclusivo" {
+        $corruptJournal = Join-Path $testDir "restore_journal.json"
+        $invalidContent = [PSCustomObject]@{
+            phase = "UNKNOWN_CORRUPTED_PHASE"
+            targetDb = (Join-Path $testDir "aquila.db")
+            startedAt = (Get-Date).ToString("o")
+        }
+        $invalidContent | ConvertTo-Json | Set-Content -Path $corruptJournal -Force
+
+        try {
+            $recoveryFailJs = Join-Path $testDir "test_database_recovery_failure.cjs"
+            @'
+const path = require('path');
+const testDir = process.argv[2];
+process.env.AQUILA_USER_DATA_OVERRIDE = testDir;
+
+const { Database } = require('c:/aquila/apps/electron/dist/database/Database.js');
+const db = new Database();
+
+(async () => {
+    try {
+        await db.initialize();
+        console.error('FALHA: db.initialize() abriu banco mesmo com diário pendente irrecuperável!');
+        process.exit(1);
+    } catch (err) {
+        if (err.message && err.message.includes('não pôde ser recuperado de forma conclusiva')) {
+            console.log('RECOVERY_BLOCK_SUCCESS: ' + err.message);
+            if (db.db) {
+                console.error('FALHA: Instância db foi criada!');
+                process.exit(2);
+            }
+            process.exit(0);
+        }
+        console.error('Erro inesperado: ' + err.message);
+        process.exit(3);
+    }
+})();
+'@ | Set-Content -Path $recoveryFailJs -Force
+
+            $res = Start-Process -FilePath "node" -ArgumentList "`"$recoveryFailJs`" `"$testDir`"" -Wait -NoNewWindow -PassThru
+            if ($res.ExitCode -ne 0) {
+                throw "Teste de bloqueio de boot recovery em Database.ts falhou! ExitCode=$($res.ExitCode)"
+            }
+        } finally {
+            Remove-Item -Path $corruptJournal -Force -ErrorAction SilentlyContinue
+        }
+
+        return "Bloqueio estrito de boot recovery comprovado: Database.ts impede abertura diante de diário inconclusivo."
     }
 
     # ------------------------------------------------------------------------

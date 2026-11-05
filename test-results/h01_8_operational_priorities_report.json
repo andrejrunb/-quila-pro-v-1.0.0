@@ -1,8 +1,8 @@
 {
   "suite": "H-01 Operational Release Readiness (8 Priorities)",
   "version": "2.1.0",
-  "startedAt": "2026-11-05T17:59:05.445Z",
-  "completedAt": "2026-11-05T17:59:13.319Z",
+  "startedAt": "2026-11-05T23:45:41.390Z",
+  "completedAt": "2026-11-05T23:45:50.511Z",
   "allPassed": true,
   "totalPriorities": 8,
   "passedPriorities": 8,
@@ -11,7 +11,7 @@
       "priority": 1,
       "title": "Instalação limpa Windows e verificação de pacote/módulos nativos (v2.1.0)",
       "status": "PASS",
-      "durationMs": 7,
+      "durationMs": 37,
       "evidence": {
         "exeExists": true,
         "exeSizeMB": 168.72,
@@ -26,7 +26,7 @@
       "priority": 2,
       "title": "Jornada escolar completa com dados sintéticos e persistência após reinício",
       "status": "PASS",
-      "durationMs": 31,
+      "durationMs": 268,
       "evidence": {
         "importedStudents": 20,
         "activityCreated": "act-fis-01",
@@ -39,12 +39,12 @@
       "priority": 3,
       "title": "Recuperação SQLite operacional (falha simulada nas fases críticas e medição RTO/RPO)",
       "status": "PASS",
-      "durationMs": 26,
+      "durationMs": 69,
       "evidence": {
         "corruptCandidateRejectedBeforeSwap": true,
         "sqliteIntegrityCheck": "ok",
         "recordsPreserved": 50,
-        "rtoMs": 10,
+        "rtoMs": 33,
         "rpoLostTransactions": 0
       }
     },
@@ -52,7 +52,7 @@
       "priority": 4,
       "title": "Segurança de login, expiração/assinatura de sessão e isolamento de autorização",
       "status": "PASS",
-      "durationMs": 9,
+      "durationMs": 31,
       "evidence": {
         "hmacSessionVerified": true,
         "forgedCookiePurgedByMiddleware": true,
@@ -64,7 +64,7 @@
       "priority": 5,
       "title": "CSP, protocolo seguro aquila-asset:// e bloqueio de exposição de segredos/backups",
       "status": "PASS",
-      "durationMs": 5,
+      "durationMs": 62,
       "evidence": {
         "cspHeaderConfigured": true,
         "allowFileAccessSwitchRemoved": true,
@@ -77,7 +77,7 @@
       "priority": 6,
       "title": "Rotina de backup verificável e alerta operacional em falha de destino",
       "status": "PASS",
-      "durationMs": 7,
+      "durationMs": 26,
       "evidence": {
         "backupManifestVerified": true,
         "backupSha256": "45c3f70339c33a4715c05b210c35099a21e70f2bdba24527d38af17f5426f660",
@@ -85,7 +85,7 @@
           "severity": "CRITICAL",
           "code": "BACKUP_DESTINATION_FAILURE",
           "message": "Falha ao gravar backup no destino configurado: EPERM",
-          "timestamp": "2026-11-05T17:59:13.287Z"
+          "timestamp": "2026-11-05T23:45:50.413Z"
         }
       }
     },
@@ -93,7 +93,7 @@
       "priority": 7,
       "title": "Atualização de instalação sobre banco sintético existente e preservação de dados",
       "status": "PASS",
-      "durationMs": 26,
+      "durationMs": 83,
       "evidence": {
         "migratedToVersion": "2.1.0",
         "addedColumns": [
@@ -111,7 +111,7 @@
       "priority": 8,
       "title": "Usabilidade por perfil, plano de continuidade em papel e critérios de parada (Go/No-Go)",
       "status": "PASS",
-      "durationMs": 6,
+      "durationMs": 13,
       "evidence": {
         "roleBasedNavigationMenusVerified": true,
         "paperFallbackProcedureDefined": true,

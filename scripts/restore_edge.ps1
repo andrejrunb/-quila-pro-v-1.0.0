@@ -291,10 +291,13 @@ try {
                     exit 7
                 }
             }
-            { $_ -in @("STAGING", "SNAPSHOT_CREATED", "INITIALIZING") } {
+            { $_ -in @("PREPARING_REPLACEMENT", "STAGING", "SNAPSHOT_CREATED", "INITIALIZING") } {
                 Write-Host "  [RECUPERACAO] Falha ocorreu antes da substituicao do banco ativo. Limpando staging residual..." -ForegroundColor Yellow
-                if (-not [string]::IsNullOrWhiteSpace($stagingPath) -and (Test-Path $stagingPath)) {
-                    try { Remove-Item -Path $stagingPath -Force } catch { /* ignore */ }
+                $stagingTargets = @($stagingPath, (Join-Path $appDataDir "staging_restore.db"))
+                foreach ($st in $stagingTargets) {
+                    if (-not [string]::IsNullOrWhiteSpace($st) -and (Test-Path $st)) {
+                        try { Remove-Item -Path $st -Force } catch { /* ignore */ }
+                    }
                 }
                 if (Test-Path $dbFile) {
                     $actIntegrity = [WinSqliteCore]::CheckIntegrity($dbFile)
@@ -461,11 +464,13 @@ try {
     # ETAPA 6: PERSISTENCIA DO DIARIO TRANSACIONAL, STAGING E SWAP ATOMICO
     # ============================================================================
     Write-Host "`n[6/7] Gravando diario transacional, staging e swap atomico..." -ForegroundColor Cyan
+    $stagingFile = Join-Path $appDataDir "staging_restore.db"
     $journalData = [PSCustomObject]@{
         phase = "PREPARING_REPLACEMENT"
         candidatePath = $candidateFullName
         candidateLength = $candidateSize
         targetDb = $dbFile
+        stagingPath = $stagingFile
         snapshotDir = $rollbackDir
         startedAt = (Get-Date).ToString("o")
         actor = "OPERATIONAL_DR_AGENT"
@@ -474,7 +479,6 @@ try {
     Write-Host "  [OK] Diario transacional persistido em disco com flush garantido." -ForegroundColor Green
 
     # Staging em sandbox
-    $stagingFile = Join-Path $appDataDir "staging_restore.db"
     if (Test-Path $stagingFile) { Remove-Item -Path $stagingFile -Force }
 
     Copy-Item -Path $candidateFullName -Destination $stagingFile -Force

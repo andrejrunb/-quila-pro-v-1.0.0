@@ -23,17 +23,17 @@ documentation_commit: e7be0afb64764da13c5493de8fc21d10e1890bf7
 
 > **Nota de Comparação de Componentes e Procedência:** Os componentes listados tiveram seus hashes comparados e validados contra o manifesto [`SHA256SUMS_H01_CANDIDATE.txt`](./SHA256SUMS_H01_CANDIDATE.txt):
 > - `Aquila Pro.exe`: `F087E4B45834D8DAECBF88DD61B0A2757AB836B8A1891C16CA0AAB321E5D7EBB`
-> - `AquilaPro-Setup-2.1.0.exe` (Instalador NSIS): `C78DA32FEE3FA13168EBB666C776ED3AB66EB33130345D849770DC4C3BB9B47A`
-> - `resources/app.asar`: `270A6696E7A8EDFD4DCD3FA198DBCE2D0D0E40847E52EDB41BE0FCDA934B2445`
+> - `AquilaPro-Setup-2.1.0.exe` (Instalador NSIS): `CADCAE5A339ED2BBAAC324F878E6C3CE01884F92FA82DB91D339787C1867D84D`
+> - `resources/app.asar`: `0166AD40F37BF0CAC8B9862CB477D074875DA5E7B8B14128B30204E1DCE806FF`
 > - `better_sqlite3.node`: `AD19705C7938A60EF5557E31D152843CC42364684913847FBD623484430283A3`
 > - `restore_edge.bat`: `13E5622F291B75EBDF4BDA4B8926BE4A85BBDC12CAC3EA219B773964ACA6E4D1`
-> - `restore_edge.ps1`: `0D3669E2B03184D573F6EE5BC41A359A4DCF2929AAC0AEC7D11060890F05821A`
+> - `restore_edge.ps1`: `097EE957A62FD9AE7F75FD0842C445131BC3858D1405C0214AE24E9BF96BACBE`
 >
 > **Procedência e Evolução dos Commits:**
 > - `source_commit: 0612be71` (código e pacote portável win-unpacked)
 > - `evidence_commit: 050b3ce9` (relatórios de bancada e suítes operacionais)
 > - `documentation_commit: a87c7f0f` (dossiê v2.1.1 e manifesto inicial)
-> - `hardening_history`: `e7be0afb` (DR preliminar), `d08e4f0c` (UX secundária e TRI 3PL BNCC), `ecec85b2` (Setup NSIS) e commit atual (fechamento do lock de startup `Database.ts`, propagação estrita de erro FK, isolamento `-VerifyOnly` e 11/11 cenários DR).
+> - `hardening_history`: `e7be0afb` (DR preliminar), `d08e4f0c` (UX secundária e TRI 3PL BNCC), `ecec85b2` (Setup NSIS inicial) e commit atual (compilação e empacotamento real de win-unpacked e Setup NSIS, lock de startup e boot recovery em Database.ts, prova de transação exclusiva WAL e 13/13 cenários DR).
 
 ---
 
@@ -67,7 +67,7 @@ O procedimento autônomo de restauração para ambientes de produção foi compl
 - **Diário Transacional Persistente em Disco:** Registra fases em `restore_journal.json`.
 - **Staging Sandbox e Substituição Atômica:** Cópia para staging temporário antes do swap atômico via renomeação de arquivos, com rollback instantâneo se houver falha.
 - **Pós-Validação & Boot Recovery:** Validação pós-swap com `PRAGMA integrity_check = ok` e rotina de recuperação no boot em caso de falta de energia acidental.
-- **Evidência de Resiliência:** 11/11 cenários de resiliência aprovados em [`test-results/dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json).
+- **Evidência de Resiliência:** 13/13 cenários de resiliência aprovados em [`test-results/dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json).
 
 ---
 
@@ -80,7 +80,7 @@ O procedimento autônomo de restauração para ambientes de produção foi compl
 | `node scripts/h01/test_pp_mission_verification.cjs` | **PASS (12/12 Verificações da Missão PP)** | [`test-results/pp_mission_verification_report.json`](../test-results/pp_mission_verification_report.json) |
 | `python scripts/h01/test_collector_10_fixtures.py` | **PASS (10/10 fixtures sintéticas)** | [`test-results/collector_10_fixtures_report.json`](../test-results/collector_10_fixtures_report.json) |
 | `python scripts/colab_harness/test_colab_harness.py` | **PASS (8/8 checks — Simulador Local)** | [`test-results/colab_harness_verification_report.json`](../test-results/colab_harness_verification_report.json) |
-| `powershell -ExecutionPolicy Bypass -File tests/test_restore_edge_resilience.ps1` | **PASS (11/11 Cenários de Resiliência DR)** | [`test-results/dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json) |
+| `powershell -ExecutionPolicy Bypass -File tests/test_restore_edge_resilience.ps1` | **PASS (13/13 Cenários de Resiliência DR)** | [`test-results/dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json) |
 | `pnpm --filter @aquila/web run lint` | **PASS (0 erros, 0 warnings)** | Console log |
 | `pnpm --filter @aquila/web run test` | **PASS (9 test files, 32/32 testes)** | Console log |
 | `pnpm --filter @aquila/api run test` | **PASS (1 test file, 5/5 testes)** | Console log |

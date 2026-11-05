@@ -1,5 +1,5 @@
 {
-    "timestamp":  "2026-11-05T18:22:40.5734058-03:00",
+    "timestamp":  "2026-11-05T20:44:03.6787041-03:00",
     "scenarios":  [
                       {
                           "id":  "DR-01",
@@ -33,9 +33,9 @@
                       },
                       {
                           "id":  "DR-06",
-                          "description":  "Rollback simétrico completo de Banco + WAL com integridade pós-reversão comprovada",
+                          "description":  "Rollback simétrico recupera transação comprovadamente exclusiva do arquivo WAL",
                           "status":  "PASS",
-                          "details":  "Rollback simétrico de Banco + WAL executado e transações do WAL recuperadas com sucesso."
+                          "details":  "Transação exclusiva do WAL comprovada (ausente no .db isolado) e recuperada após rollback simétrico."
                       },
                       {
                           "id":  "DR-07",
@@ -57,15 +57,27 @@
                       },
                       {
                           "id":  "DR-10",
-                          "description":  "Tratamento de fases de diário: COMPLETED arquivado sem rollback e fase desconhecida aborta com código 7",
+                          "description":  "Tratamento de fases de diário: COMPLETED, PREPARING_REPLACEMENT e fase desconhecida com código 7",
                           "status":  "PASS",
-                          "details":  "Políticas de fases validadas: COMPLETED limpo sem rollback e fase anômala isolada com código 7."
+                          "details":  "Políticas de fases validadas: COMPLETED limpo sem rollback, PREPARING_REPLACEMENT saneado com limpeza de staging e fase anômala isolada com código 7."
                       },
                       {
                           "id":  "DR-11",
-                          "description":  "Aplicativo Electron/Database.ts recusa inicialização se restore.lock estiver bloqueado por DR",
+                          "description":  "Detecção de lock de arquivo OS-level via FileShare.None com recusa EBUSY/EPERM",
                           "status":  "PASS",
-                          "details":  "Exclusão mútua do aplicativo validada: Database.ts detecta e bloqueia abertura enquanto restore.lock estiver ativo."
+                          "details":  "Mecanismo OS-level comprovado: FileShare.None bloqueia tentativas de leitura/escrita concorrentes."
+                      },
+                      {
+                          "id":  "DR-12",
+                          "description":  "Classe real Database.ts do aplicativo recusa inicialização e abertura do SQLite quando restore.lock está ativo",
+                          "status":  "PASS",
+                          "details":  "Integração real comprovada: Database.initialize() do pacote compilado aborta sem tocar no SQLite."
+                      },
+                      {
+                          "id":  "DR-13",
+                          "description":  "Classe real Database.ts recusa inicialização quando diário de restauração é inconclusivo",
+                          "status":  "PASS",
+                          "details":  "Bloqueio estrito de boot recovery comprovado: Database.ts impede abertura diante de diário inconclusivo."
                       }
                   ]
 }

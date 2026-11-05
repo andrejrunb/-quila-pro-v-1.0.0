@@ -667,7 +667,7 @@ export class SQLiteDisasterRecoveryService {
         }
 
         default:
-          if (fs.existsSync(journalPath)) fs.unlinkSync(journalPath);
+          console.error(`[SQLiteDisasterRecovery] Fase desconhecida no diário: ${journal.phase}. Preservando diário para auditoria forense.`);
           return false;
       }
     } catch (err: any) {

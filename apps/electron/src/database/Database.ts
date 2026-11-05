@@ -96,9 +96,9 @@ export class Database {
 
         } else {
 
-            const appDataPath = process.env.AQUILA_USER_DATA_OVERRIDE || process.env.APPDATA || (process.platform === 'darwin' ? process.env.HOME + '/Library/Application Support' : process.env.HOME + '/.config');
-
-            const aquilaPath = path.join(appDataPath, 'AquilaPro');
+            const aquilaPath = process.env.AQUILA_USER_DATA_OVERRIDE
+                ? process.env.AQUILA_USER_DATA_OVERRIDE
+                : path.join(process.env.APPDATA || (process.platform === 'darwin' ? process.env.HOME + '/Library/Application Support' : process.env.HOME + '/.config'), 'AquilaPro');
 
             if (!fs.existsSync(aquilaPath)) {
 
@@ -126,9 +126,11 @@ export class Database {
 
             const dbDir = path.dirname(this.dbPath);
             const lockFile = path.join(dbDir, 'restore.lock');
+            const journalFile = path.join(dbDir, 'restore_journal.json');
+
+            // [DR-LOCK] Testa exclusão mútua com rotina DR externa (restore_edge.ps1)
             if (fs.existsSync(lockFile)) {
                 try {
-                    // [DR-LOCK] Testa exclusão mútua com rotina DR externa (restore_edge.ps1)
                     const testFd = fs.openSync(lockFile, 'r+');
                     fs.closeSync(testFd);
                 } catch (lockErr: any) {
@@ -138,11 +140,18 @@ export class Database {
                 }
             }
 
-            try {
-                const { SQLiteDisasterRecoveryService } = require('../main/services/SQLiteDisasterRecoveryService');
-                SQLiteDisasterRecoveryService.recoverPendingRestoreOnBoot(dbDir);
-            } catch (recoveryErr: any) {
-                console.warn(`[Database] Verificação de boot recovery: ${recoveryErr.message}`);
+            // [DR-BOOT-RECOVERY] Se houver diário de restauração pendente, tenta recuperar e BLOQUEIA se falhar
+            if (fs.existsSync(journalFile)) {
+                try {
+                    const { SQLiteDisasterRecoveryService } = require('../main/services/SQLiteDisasterRecoveryService');
+                    const recovered = SQLiteDisasterRecoveryService.recoverPendingRestoreOnBoot(dbDir);
+                    if (!recovered || fs.existsSync(journalFile)) {
+                        throw new Error(`[Database] Diário de restauração pendente (${journalFile}) não pôde ser recuperado de forma conclusiva. Inicialização abortada para proteger a integridade dos dados.`);
+                    }
+                } catch (recoveryErr: any) {
+                    console.error(`[Database] Falha crítica na verificação de boot recovery: ${recoveryErr.message}`);
+                    throw recoveryErr;
+                }
             }
 
             console.log(`[Database] Abrindo conexão SQA-1000 em: ${this.dbPath}`);
