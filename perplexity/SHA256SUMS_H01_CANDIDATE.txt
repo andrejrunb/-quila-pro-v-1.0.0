@@ -1,0 +1,19 @@
+# Áquila Pro — Manifesto Criptográfico de Homologação H-01 (v2.1.1)
+# Commit: e80ec1155c9f0948d3da3eb76eb82f57159d6d12
+# Data: 05 de Novembro de 2026 00:15 BRT
+
+# Artefatos Binários de Distribuição (win-unpacked)
+F087E4B45834D8DAECBF88DD61B0A2757AB836B8A1891C16CA0AAB321E5D7EBB *apps/electron/release_v2_2/win-unpacked/Aquila Pro.exe
+270A6696E7A8EDFD4DCD3FA198DBCE2D0D0E40847E52EDB41BE0FCDA934B2445 *apps/electron/release_v2_2/win-unpacked/resources/app.asar
+AD19705C7938A60EF5557E31D152843CC42364684913847FBD623484430283A3 *apps/electron/release_v2_2/win-unpacked/resources/app.asar.unpacked/node_modules/better-sqlite3/build/Release/better_sqlite3.node
+
+# Relatórios e Evidências das Suítes Automatizadas
+6BAB0C941EF08BEDA4397A6495E7B9E64FD6CC1CD50CE90A3D8FE6511B75F32D *test-results/clean_runtime_h01_evidence.json
+8B3FF6FC6859E9B0F8A911671536A3D0D06E46781F4BA894CA30F543198810D8 *test-results/h01_8_operational_priorities_report.json
+F37CADEAF0E155BAD960BDE8CCCFDC1F6A6E88E1B54EF234525828EA75298C63 *test-results/pp_mission_verification_report.json
+4ACAC0F9D41F9035196F7843A651AA9B2D0C4A52700C73BC056BFDE22A1B9B25 *test-results/collector_10_fixtures_report.json
+1CD210E22FC41B977A5113EA98EAC692765A62A69D078642E2042475639A5023 *test-results/colab_harness_verification_report.json
+67047AF056BDFE9136368E79A70816116803BB4BF7D95FA8B884AC804D9B27A2 *test-results/h01_complete_homologation_evidence.json
+
+# Dossiê de Homologação e Especificação
+DADA2EF32A389C5A7845947D6E27411A29E92589027F6D03397B1C8B8A0CB689 *perplexity/dossie_homologacao_h01_final.md
