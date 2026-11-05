@@ -829,6 +829,141 @@ export const TRI_ITEM_BANK: TriQuestion[] = [
     correctAnswer: 'B',
     socraticExplanation: 'Para Montesquieu, "só o poder pode frear o poder". A tripartição impede que uma única instância exerça o despotismo, garantindo a liberdade civil por meio de freios e contrapesos mútuos.'
   }
+  // ==========================================
+  // EXPANSÃO H-01 / SCIENCE ROYALE — NOVOS LOTES BNCC
+  // ==========================================
+  {
+    id: 'TRI-EM-FIS-01',
+    stage: 'ENSINO_MEDIO',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT102',
+    skillDescription: 'Analisar e quantificar a eficiência de máquinas térmicas reais em comparação ao ciclo ideal de Carnot sob a 2ª Lei da Termodinâmica.',
+    difficulty: 'medio',
+    paramA: 1.45,
+    paramB: 0.35,
+    paramC: 0.20,
+    text: 'Uma máquina térmica opera entre uma fonte quente a 600 K e uma fonte fria a 300 K. Se a máquina recebe 2.000 J de calor da fonte quente por ciclo e realiza 600 J de trabalho útil, qual é a relação entre o rendimento real desta máquina e o rendimento máximo teórico previsto pelo Ciclo de Carnot?',
+    options: [
+      { letter: 'A', text: 'O rendimento real é de 30% e o teórico de Carnot é 50%, operando abaixo do limite termodinâmico máximo.' },
+      { letter: 'B', text: 'O rendimento real é de 50% e o teórico é de 30%, violando a Primeira Lei da Termodinâmica.' },
+      { letter: 'C', text: 'Ambos os rendimentos são iguais a 50%, demonstrando reversibilidade perfeita.' },
+      { letter: 'D', text: 'O rendimento real é de 60% e o teórico é de 100%, operando sem perdas para a fonte fria.' },
+      { letter: 'E', text: 'O rendimento teórico de Carnot é nulo porque a fonte fria está acima do zero absoluto.' }
+    ],
+    correctAnswer: 'A',
+    socraticExplanation: 'Rendimento real: eta = W / Q1 = 600 / 2000 = 0.30 (30%). Rendimento de Carnot: eta_C = 1 - T2 / T1 = 1 - 300 / 600 = 0.50 (50%). A máquina real opera com 30%, abaixo do limite de Carnot de 50%, respeitando a 2ª Lei.'
+  },
+  {
+    id: 'TRI-EM-FIS-02',
+    stage: 'ENSINO_MEDIO',
+    area: 'natureza',
+    discipline: 'Física',
+    skillCode: 'EM13CNT103',
+    skillDescription: 'Aplicar a Lei de Snell-Descartes e o fenômeno da reflexão interna total na transmissão de dados por fibras ópticas.',
+    difficulty: 'medio',
+    paramA: 1.55,
+    paramB: 0.65,
+    paramC: 0.20,
+    text: 'Em cabos de fibra óptica modernos utilizados em redes de telecomunicações, pulsos de laser trafegam confinados no núcleo de vidro ou polímero sem escapar para a casca externa. Para que ocorra o fenômeno da reflexão interna total que viabiliza esse confinamento, é condição física estrita que:',
+    options: [
+      { letter: 'A', text: 'O índice de refração do núcleo seja estritamente maior que o da casca e o ângulo de incidência supere o ângulo limite.' },
+      { letter: 'B', text: 'O índice de refração da casca seja maior que o do núcleo para acelerar a velocidade da onda luminosa.' },
+      { letter: 'C', text: 'A luz viaje do meio menos refringente para o mais refringente em incidência normal (0°).' },
+      { letter: 'D', text: 'O ângulo de incidência seja exatamente zero para evitar difração e dispersão cromática.' },
+      { letter: 'E', text: 'O revestimento externo absorva 100% da radiação eletromagnética para evitar retorno do sinal.' }
+    ],
+    correctAnswer: 'A',
+    socraticExplanation: 'A reflexão total ocorre apenas quando a luz se propaga de um meio mais refringente para outro menos refringente (n_nucleo > n_casca) e o ângulo de incidência é superior ao ângulo crítico (theta_i > theta_c).'
+  },
+  {
+    id: 'TRI-EM-BIO-01',
+    stage: 'ENSINO_MEDIO',
+    area: 'natureza',
+    discipline: 'Biologia',
+    skillCode: 'EM13CNT201',
+    skillDescription: 'Compreender a 1ª Lei de Mendel (Segregação dos Fatores) e o cálculo de probabilidades genotípicas e fenotípicas.',
+    difficulty: 'facil',
+    paramA: 1.20,
+    paramB: -0.80,
+    paramC: 0.20,
+    text: 'Em humanos, o albinismo oculocutâneo clássico é uma condição autossômica recessiva (alelo "a"), enquanto a pigmentação melânica normal é condicionada pelo alelo dominante "A". Se um casal heterozigoto (Aa) planeja ter dois filhos, qual é a probabilidade de ambos nascerem com pigmentação normal?',
+    options: [
+      { letter: 'A', text: '9/16 (56,25%)' },
+      { letter: 'B', text: '3/4 (75,0%)' },
+      { letter: 'C', text: '1/4 (25,0%)' },
+      { letter: 'D', text: '1/16 (6,25%)' },
+      { letter: 'E', text: '1/2 (50,0%)' }
+    ],
+    correctAnswer: 'A',
+    socraticExplanation: 'Cruzamento Aa x Aa produz: 1/4 AA, 2/4 Aa (ambos normais = 3/4) e 1/4 aa (albino). Como os eventos são independentes, a probabilidade de ambos os filhos serem normais é (3/4) x (3/4) = 9/16.'
+  },
+  {
+    id: 'TRI-EM-MAT-01',
+    stage: 'ENSINO_MEDIO',
+    area: 'matematica',
+    discipline: 'Matemática',
+    skillCode: 'EM13MAT201',
+    skillDescription: 'Calcular volumes e relações métricas entre sólidos geométricos inscritos (cilindro e cone retos).',
+    difficulty: 'medio',
+    paramA: 1.50,
+    paramB: 0.40,
+    paramC: 0.20,
+    text: 'Um reservatório de água escolar cilíndrico de raio da base R e altura H possui capacidade de 18.000 litros. Um segundo reservatório tem o formato de cone circular reto com o mesmo raio da base R e a mesma altura H. Qual é a capacidade de armazenamento de água desse reservatório cônico?',
+    options: [
+      { letter: 'A', text: '6.000 litros.' },
+      { letter: 'B', text: '9.000 litros.' },
+      { letter: 'C', text: '12.000 litros.' },
+      { letter: 'D', text: '4.500 litros.' },
+      { letter: 'E', text: '3.000 litros.' }
+    ],
+    correctAnswer: 'A',
+    socraticExplanation: 'O volume do cone é um terço do volume do cilindro de mesma base e mesma altura (V_cone = 1/3 * pi * R^2 * H = 1/3 * V_cilindro). Logo, 18.000 / 3 = 6.000 litros.'
+  },
+  {
+    id: 'TRI-EF8-CI-01',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'natureza',
+    discipline: 'Ciências',
+    skillCode: 'EF08CI01',
+    skillDescription: 'Calcular o consumo elétrico em kWh e analisar medidas de eficiência energética residencial.',
+    difficulty: 'facil',
+    paramA: 1.15,
+    paramB: -1.05,
+    paramC: 0.20,
+    text: 'Um chuveiro elétrico escolar tem potência nominal de 5.000 W (5 kW) e permanece ligado durante 1 hora por dia para higienização dos atletas da escola. Ao final de um mês de 30 dias, qual terá sido o consumo total de energia elétrica em quilowatts-hora (kWh) desse equipamento?',
+    options: [
+      { letter: 'A', text: '150 kWh' },
+      { letter: 'B', text: '50 kWh' },
+      { letter: 'C', text: '300 kWh' },
+      { letter: 'D', text: '15 kWh' },
+      { letter: 'E', text: '1.500 kWh' }
+    ],
+    correctAnswer: 'A',
+    socraticExplanation: 'Energia = Potência x Tempo. Em 30 dias com 1 hora diária: Delta_t = 30 h. Consumo: E = 5 kW x 30 h = 150 kWh.'
+  },
+  {
+    id: 'TRI-EF9-MAT-01',
+    stage: 'EF_ANOS_FINAIS',
+    area: 'matematica',
+    discipline: 'Matemática',
+    skillCode: 'EF09MA06',
+    skillDescription: 'Calcular as coordenadas do vértice de uma função quadrática e interpretar o ponto de máximo em situações reais.',
+    difficulty: 'medio',
+    paramA: 1.35,
+    paramB: -0.10,
+    paramC: 0.20,
+    text: 'A trajetória da bola em um experimento de física de lançamento é modelada pela função h(t) = -5t^2 + 20t, onde h representa a altura em metros e t o tempo decorrido em segundos. Qual é a altura máxima atingida pela bola?',
+    options: [
+      { letter: 'A', text: '20 metros atingidos aos 2 segundos.' },
+      { letter: 'B', text: '15 metros atingidos aos 1,5 segundo.' },
+      { letter: 'C', text: '25 metros atingidos aos 3 segundos.' },
+      { letter: 'D', text: '10 metros atingidos ao 1 segundo.' },
+      { letter: 'E', text: '40 metros atingidos aos 4 segundos.' }
+    ],
+    correctAnswer: 'A',
+    socraticExplanation: 'O tempo de altura máxima é a coordenada t_v = -b / (2a) = -20 / (2 x (-5)) = 2 segundos. Substituindo: h(2) = -5(2)^2 + 20(2) = -20 + 40 = 20 metros.'
+  },
 ];
 
 // ============================================================================

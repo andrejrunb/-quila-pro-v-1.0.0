@@ -527,6 +527,94 @@ export const BNCC_SKILLS_DATA: BNCCSkillNode[] = [
     status: 'locked',
     progressPct: 0
   }
+  {
+    id: 'EM13MAT201',
+    code: 'EM13MAT201',
+    area: 'matematica',
+    discipline: 'Matemática',
+    title: 'Geometria Espacial & Volume de Sólidos',
+    description: 'Investigar relações métricas entre prismas, cilindros, cones e esferas sob o Princípio de Cavalieri.',
+    level: 'intermediario',
+    triTheta: 0.4,
+    xpReward: 200,
+    prerequisites: ['EM13MAT101'],
+    mentor: {
+      name: 'Arquimedes de Siracusa',
+      role: 'Pai da Geometria Mecânica',
+      quote: 'Dê-me um ponto de apoio e uma alavanca e moverei o mundo.',
+      badgeName: 'Coroa de Ouro',
+      badgeIcon: '🏛️',
+      color: '#00F0FF'
+    },
+    status: 'in_progress',
+    progressPct: 50
+  },
+  {
+    id: 'EM13CNT103',
+    code: 'EM13CNT103',
+    area: 'natureza',
+    discipline: 'Física',
+    title: 'Óptica Geométrica & Fibras Ópticas',
+    description: 'Compreender a reflexão interna total, Lei de Snell e dispersão cromática da luz através de prismas e fibras.',
+    level: 'avancado',
+    triTheta: 0.7,
+    xpReward: 230,
+    prerequisites: ['EM13CNT101'],
+    mentor: {
+      name: 'Isaac Newton',
+      role: 'Pai da Óptica e Gravitação',
+      quote: 'Se vi mais longe, foi por estar sobre ombros de gigantes.',
+      badgeName: 'Prisma Espectral',
+      badgeIcon: '🌈',
+      color: '#F59E0B'
+    },
+    status: 'in_progress',
+    progressPct: 40
+  },
+  {
+    id: 'EF08CI01',
+    code: 'EF08CI01',
+    area: 'natureza',
+    discipline: 'Ciências',
+    title: 'Energia Elétrica & Eficiência Residencial',
+    description: 'Calcular consumo em kWh, potência de aparelhos e propor práticas sustentáveis de conservação de energia.',
+    level: 'fundamentos',
+    triTheta: -1.0,
+    xpReward: 160,
+    prerequisites: [],
+    mentor: {
+      name: 'James Clerk Maxwell',
+      role: 'Arquiteto do Eletromagnetismo',
+      quote: 'A verdadeira lógica deste mundo é o cálculo das probabilidades.',
+      badgeName: 'Dínamo Eletromagnético',
+      badgeIcon: '💡',
+      color: '#10B981'
+    },
+    status: 'mastered',
+    progressPct: 100
+  },
+  {
+    id: 'EF09MA06',
+    code: 'EF09MA06',
+    area: 'matematica',
+    discipline: 'Matemática',
+    title: 'Funções Quadráticas & Vértice Parabólico',
+    description: 'Modelar lançamentos e trajetórias de projéteis, calculando ponto de máximo/mínimo através do vértice da parábola.',
+    level: 'intermediario',
+    triTheta: -0.1,
+    xpReward: 190,
+    prerequisites: ['EM13MAT101'],
+    mentor: {
+      name: 'Galileu Galilei',
+      role: 'Pai do Método Científico Moderno',
+      quote: 'O livro da natureza foi escrito em caracteres matemáticos.',
+      badgeName: 'Telescópio de Pádua',
+      badgeIcon: '🔭',
+      color: '#8B5CF6'
+    },
+    status: 'mastered',
+    progressPct: 100
+  },
 ];
 
 interface BNCCSkillTreeProps {

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
+import { Atom,
   Sparkles, Brain, Trophy, Flame, Target, BookOpen, Clock,
   CheckCircle2, Send, Zap,
   Calendar, ShieldCheck, Play, Pause, RotateCcw, Award
@@ -17,7 +17,7 @@ interface ChatMessage {
 }
 
 export default function PortalAluno() {
-  const [activeTab, setActiveTab] = useState<"missoes" | "tutor" | "boletim" | "horarios">("missoes");
+  const [activeTab, setActiveTab] = useState<"missoes" | "tutor" | "boletim" | "horarios" | "habilidades">("missoes");
   const [chatInput, setChatInput] = useState("");
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
@@ -344,6 +344,20 @@ export default function PortalAluno() {
         >
           <Calendar size={16} /> Grade Horária
         </button>
+
+        <button
+          role="tab"
+          aria-selected={activeTab === "habilidades"}
+          onClick={() => setActiveTab("habilidades")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-cyan-400 outline-none ${
+            activeTab === "habilidades"
+              ? "bg-cyan-600/30 text-cyan-200 border border-cyan-500/40 shadow-lg shadow-cyan-900/20"
+              : "text-zinc-300 hover:text-white hover:bg-white/5"
+          }`}
+        >
+          <Atom size={16} className="text-cyan-400" /> Trilha BNCC & Mentores
+          <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-cyan-400/20 text-cyan-300 border border-cyan-400/40">Novo</span>
+        </button>
       </div>
 
       {/* Tab 1: Missões & Quests */}
@@ -662,6 +676,131 @@ export default function PortalAluno() {
                 <div className="flex items-center justify-between text-xs text-zinc-300 mt-1">
                   <span>{slot.teacher}</span>
                   <span className="font-mono text-zinc-200 font-semibold">{slot.room}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </EagleCard>
+      )}
+
+      {/* Tab 5: Trilha de Habilidades BNCC & Mentores Soberanos */}
+      {activeTab === "habilidades" && (
+        <EagleCard glow="cyan" className="p-6 flex flex-col gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <Atom className="text-cyan-400" size={20} /> Trilha Soberana de Habilidades BNCC & Mentoria Histórica
+              </h2>
+              <p className="text-xs text-zinc-300">
+                Competências curriculares calibradas pelo modelo psicométrico TRI (3PL) com mentores em domínio público.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+                14 / 18 Habilidades Conquistadas
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              {
+                code: "EM13CNT102",
+                title: "Termodinâmica & Ciclo de Carnot",
+                area: "Ciências da Natureza",
+                mentor: "Nicolas Carnot",
+                quote: "A potência motriz do calor é independente dos agentes empregados.",
+                progress: 85,
+                theta: "+0.35 TRI",
+                badge: "🔥 Máquina Térmica",
+              },
+              {
+                code: "EM13CNT103",
+                title: "Óptica Geométrica & Reflexão Total",
+                area: "Ciências da Natureza",
+                mentor: "Isaac Newton",
+                quote: "Se vi mais longe, foi por estar sobre ombros de gigantes.",
+                progress: 70,
+                theta: "+0.65 TRI",
+                badge: "🌈 Prisma Espectral",
+              },
+              {
+                code: "EM13CNT201",
+                title: "Genética Mendeliana & Segregação",
+                area: "Ciências da Natureza",
+                mentor: "Gregor Mendel",
+                quote: "Minha hora ainda há de chegar.",
+                progress: 90,
+                theta: "-0.80 TRI",
+                badge: "🌱 Ervilha de Mendel",
+              },
+              {
+                code: "EM13MAT201",
+                title: "Geometria Espacial & Sólidos Inscritos",
+                area: "Matemática",
+                mentor: "Arquimedes",
+                quote: "Dê-me um ponto de apoio e moverei o mundo.",
+                progress: 60,
+                theta: "+0.40 TRI",
+                badge: "🏛️ Coroa de Ouro",
+              },
+              {
+                code: "EM13MAT101",
+                title: "Modelagem Linear & Taxas de Variação",
+                area: "Matemática",
+                mentor: "René Descartes",
+                quote: "Dividir cada dificuldade em tantas partes quantas for possível.",
+                progress: 95,
+                theta: "-1.20 TRI",
+                badge: "📐 Plano Cartesiano",
+              },
+              {
+                code: "EF09MA06",
+                title: "Funções Quadráticas & Vértice Parabólico",
+                area: "Matemática",
+                mentor: "Galileu Galilei",
+                quote: "O livro da natureza foi escrito em caracteres matemáticos.",
+                progress: 100,
+                theta: "-0.10 TRI",
+                badge: "🔭 Telescópio de Pádua",
+              },
+            ].map((skill) => (
+              <div
+                key={skill.code}
+                className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-400/40 transition-all flex flex-col justify-between gap-3"
+              >
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-white/10 text-cyan-300">
+                      {skill.code}
+                    </span>
+                    <span className="text-[10px] font-mono font-bold text-zinc-400">
+                      {skill.theta}
+                    </span>
+                  </div>
+                  <h3 className="text-sm font-bold text-white">{skill.title}</h3>
+                  <p className="text-[11px] text-zinc-400">{skill.area}</p>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-black/30 border border-white/5 flex flex-col gap-1">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-zinc-300 font-semibold">{skill.badge}</span>
+                    <span className="text-[10px] text-zinc-400">{skill.mentor}</span>
+                  </div>
+                  <p className="text-[10px] italic text-zinc-400 line-clamp-2">&quot;{skill.quote}&quot;</p>
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-[10px] font-semibold text-zinc-400">
+                    <span>Maestria Acumulada</span>
+                    <span className="text-white font-bold">{skill.progress}%</span>
+                  </div>
+                  <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-indigo-500"
+                      style={{ width: `${skill.progress}%` }}
+                    />
+                  </div>
                 </div>
               </div>
             ))}

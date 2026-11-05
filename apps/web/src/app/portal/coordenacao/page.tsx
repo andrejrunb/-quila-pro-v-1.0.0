@@ -5,7 +5,8 @@ import {
   AlertTriangle, Users,
   FileSpreadsheet, RefreshCw, CheckCircle2,
   ShieldAlert, Download, Server, FolderArchive,
-  Upload, AlertCircle, FileCheck2
+  Upload, AlertCircle, FileCheck2,
+  Search, Filter
 } from "lucide-react";
 import { EagleCard } from "@/components/ui/EagleCard";
 import { EliteButton } from "@/components/ui/EliteButton";
@@ -45,6 +46,9 @@ export default function PortalCoordenacao() {
   const [isExportingDominio, setIsExportingDominio] = useState(false);
   const [, setDominioExported] = useState(true);
   const [isSyncingSigaWeb, setIsSyncingSigaWeb] = useState(false);
+
+    const [searchTerm, setSearchTerm] = useState("");
+  const [riskFilter, setRiskFilter] = useState<"todos" | "Crítico" | "Alto" | "Médio">("todos");
 
   const [atRiskStudents] = useState([
     {
@@ -89,6 +93,14 @@ export default function PortalCoordenacao() {
       setDominioExported(true);
     }, 1500);
   };
+
+    const filteredStudents = atRiskStudents.filter((std) => {
+    const matchesSearch =
+      std.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      std.grade.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRisk = riskFilter === "todos" || std.riskLevel === riskFilter;
+    return matchesSearch && matchesRisk;
+  });
 
   const handleSyncSigaWebGlobal = () => {
     setIsSyncingSigaWeb(true);
@@ -183,11 +195,17 @@ export default function PortalCoordenacao() {
         </div>
       </EagleCard>
 
-      {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto">
+      {/* Tabs (WCAG AA Accessible) */}
+      <div
+        role="tablist"
+        aria-label="Navegação da Coordenação Pedagógica"
+        className="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto"
+      >
         <button
+          role="tab"
+          aria-selected={activeTab === "evasao"}
           onClick={() => setActiveTab("evasao")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-amber-400 outline-none ${
             activeTab === "evasao"
               ? "bg-amber-600/30 text-amber-200 border border-amber-500/40 shadow-lg shadow-amber-900/20"
               : "text-zinc-400 hover:text-white hover:bg-white/5"
@@ -197,8 +215,10 @@ export default function PortalCoordenacao() {
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "dominio"}
           onClick={() => setActiveTab("dominio")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-amber-400 outline-none ${
             activeTab === "dominio"
               ? "bg-amber-600/30 text-amber-200 border border-amber-500/40 shadow-lg shadow-amber-900/20"
               : "text-zinc-400 hover:text-white hover:bg-white/5"
@@ -208,8 +228,10 @@ export default function PortalCoordenacao() {
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "sigaweb"}
           onClick={() => setActiveTab("sigaweb")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-amber-400 outline-none ${
             activeTab === "sigaweb"
               ? "bg-amber-600/30 text-amber-200 border border-amber-500/40 shadow-lg shadow-amber-900/20"
               : "text-zinc-400 hover:text-white hover:bg-white/5"
@@ -219,8 +241,10 @@ export default function PortalCoordenacao() {
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "matriculas"}
           onClick={() => setActiveTab("matriculas")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-amber-400 outline-none ${
             activeTab === "matriculas"
               ? "bg-amber-600/30 text-amber-200 border border-amber-500/40 shadow-lg shadow-amber-900/20"
               : "text-zinc-400 hover:text-white hover:bg-white/5"
@@ -230,8 +254,10 @@ export default function PortalCoordenacao() {
         </button>
 
         <button
+          role="tab"
+          aria-selected={activeTab === "campus"}
           onClick={() => setActiveTab("campus")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:ring-2 focus-visible:ring-amber-400 outline-none ${
             activeTab === "campus"
               ? "bg-amber-600/30 text-amber-200 border border-amber-500/40 shadow-lg shadow-amber-900/20"
               : "text-zinc-400 hover:text-white hover:bg-white/5"
@@ -254,12 +280,46 @@ export default function PortalCoordenacao() {
               </p>
             </div>
             <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-red-500/10 text-red-400 border border-red-500/30">
-              3 Casos em Risco Imediato
+              {atRiskStudents.filter(s => s.riskLevel === "Crítico").length} Casos em Risco Crítico
             </span>
           </div>
 
+          {/* Quick Filter Bar */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+            <div className="relative flex-1">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Buscar por estudante ou turma (ex: Matheus, 2º Ano B)..."
+                className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-black/40 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400"
+              />
+            </div>
+
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[11px] text-zinc-400 font-semibold mr-1 flex items-center gap-1">
+                <Filter size={12} /> Severidade:
+              </span>
+              {(["todos", "Crítico", "Alto", "Médio"] as const).map((lvl) => (
+                <button
+                  key={lvl}
+                  type="button"
+                  onClick={() => setRiskFilter(lvl)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                    riskFilter === lvl
+                      ? "bg-amber-500 text-black shadow-md shadow-amber-950/40"
+                      : "bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  {lvl === "todos" ? "Todos os Níveis" : lvl}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="flex flex-col gap-3">
-            {atRiskStudents.map((std) => (
+            {filteredStudents.map((std) => (
               <div
                 key={std.id}
                 className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col lg:flex-row lg:items-center justify-between gap-4"

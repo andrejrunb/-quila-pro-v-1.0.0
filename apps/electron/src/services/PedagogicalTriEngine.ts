@@ -544,6 +544,20 @@ export const OFFICIAL_BNCC_SKILLS: Record<string, BnccSkill> = {
     description: 'Justificar a importância da camada de ozônio para a vida na Terra e os impactos dos gases que a degradam.',
     stage: 'EF_ANOS_FINAIS',
   },
+  'EF08CI01': {
+    code: 'EF08CI01',
+    area: 'natureza',
+    component: 'Ciências',
+    description: 'Identificar e classificar diferentes fontes (renováveis e não renováveis) e tipos de energia utilizados em residências, comunidades ou cidades.',
+    stage: 'EF_ANOS_FINAIS',
+  },
+  'EF09MA06': {
+    code: 'EF09MA06',
+    area: 'matematica',
+    component: 'Matemática',
+    description: 'Compreender as funções como relações de dependência unívoca entre duas variáveis e suas representações numérica, algébrica e gráfica (Função Quadrática).',
+    stage: 'EF_ANOS_FINAIS',
+  },
 
   // FUNDAMENTAL I (ANOS INICIAIS)
   'EF01LP01': {
