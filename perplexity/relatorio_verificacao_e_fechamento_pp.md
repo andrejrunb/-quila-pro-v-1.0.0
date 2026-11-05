@@ -17,16 +17,16 @@ source_commit:        0612be71f307399e2bc8d31fe1dc71e9a7e37e9d
 evidence_commit:      050b3ce92bf18b3874134be1086a2e411f16da0a
                       (Execução de bancada, validação em PATH limpo e relatórios JSON gerados)
 
-documentation_commit: 8a21eec7cd17742aeab7bc866612dfe053f4a62c
-                      (Dossiê v2.1.1 harmonizado, plano executivo, manifesto SHA256SUMS e motor DR)
+documentation_commit: e7be0afb64764da13c5493de8fc21d10e1890bf7
+                      (Dossiê v2.1.2 harmonizado, DR hardening com lock OS-level, rollback simétrico e manifesto)
 ```
 
 > **Nota de Comparação de Componentes:** Os componentes listados tiveram seus hashes comparados entre os pontos de referência identificados, conforme manifesto [`SHA256SUMS_H01_CANDIDATE.txt`](./SHA256SUMS_H01_CANDIDATE.txt):
 > - `Aquila Pro.exe`: `F087E4B45834D8DAECBF88DD61B0A2757AB836B8A1891C16CA0AAB321E5D7EBB`
 > - `resources/app.asar`: `270A6696E7A8EDFD4DCD3FA198DBCE2D0D0E40847E52EDB41BE0FCDA934B2445`
 > - `better_sqlite3.node`: `AD19705C7938A60EF5557E31D152843CC42364684913847FBD623484430283A3`
-> - `restore_edge.bat`: `428430E1B0A9B7367FB112BE0585893953D92403CE123AF28E3EADF3AF3912A5`
-> - `restore_edge.ps1`: `06DE5C709B3800CB43C2021D7A3D5211EEB15FDFE75733A4A5FEB5483846B36C`
+> - `restore_edge.bat`: `13E5622F291B75EBDF4BDA4B8926BE4A85BBDC12CAC3EA219B773964ACA6E4D1`
+> - `restore_edge.ps1`: `F3B691069E55FD5CAEF3A1F7A4040AA02AEFFCD973CDD2CEAA2784D09C5D1DE7`
 
 ---
 
@@ -73,7 +73,7 @@ O procedimento autônomo de restauração para ambientes de produção foi compl
 | `node scripts/h01/test_pp_mission_verification.cjs` | **PASS (12/12 Verificações da Missão PP)** | [`test-results/pp_mission_verification_report.json`](../test-results/pp_mission_verification_report.json) |
 | `python scripts/h01/test_collector_10_fixtures.py` | **PASS (10/10 fixtures sintéticas)** | [`test-results/collector_10_fixtures_report.json`](../test-results/collector_10_fixtures_report.json) |
 | `python scripts/colab_harness/test_colab_harness.py` | **PASS (8/8 checks — Simulador Local)** | [`test-results/colab_harness_verification_report.json`](../test-results/colab_harness_verification_report.json) |
-| `powershell -ExecutionPolicy Bypass -File tests/test_restore_edge_resilience.ps1` | **PASS (5/5 Cenários de Resiliência DR)** | [`test-results/dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json) |
+| `powershell -ExecutionPolicy Bypass -File tests/test_restore_edge_resilience.ps1` | **PASS (8/8 Cenários de Resiliência DR)** | [`test-results/dr_resilience_verification_report.json`](../test-results/dr_resilience_verification_report.json) |
 | `pnpm --filter @aquila/web run lint` | **PASS (0 erros, 0 warnings)** | Console log |
 | `pnpm --filter @aquila/web run test` | **PASS (8 test files, 30/30 testes)** | Console log |
 | `pnpm --filter @aquila/api run test` | **PASS (1 test file, 5/5 testes)** | Console log |
