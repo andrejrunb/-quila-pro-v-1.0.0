@@ -28,6 +28,7 @@ apps/electron/test-user-data*/
 apps/electron/playwright-report/
 apps/electron/test-results/
 apps/electron/coverage/
+test-results/pilot_journey_env/
 
 # WhatsApp Web & ephemeral caches
 apps/electron/.wwebjs_auth/

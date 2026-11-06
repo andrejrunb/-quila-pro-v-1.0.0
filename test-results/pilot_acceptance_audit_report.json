@@ -1,0 +1,86 @@
+{
+  "timestamp": "2026-11-06T02:05:25.863Z",
+  "environment": {
+    "dbPath": "C:\\aquila\\test-results\\pilot_journey_env\\aquila.db",
+    "electronPath": "C:\\aquila\\apps\\electron\\dist\\main.js",
+    "nodeVersion": "v24.14.0"
+  },
+  "rbacMatrix": [
+    {
+      "profile": "admin",
+      "username": "admin",
+      "loginSuccess": true,
+      "latencyMs": 231,
+      "tokenIssued": true,
+      "screenshot": "C:\\Users\\Thaysa\\.gemini\\antigravity\\brain\\5fca40fa-e48d-4bc6-bc7a-084bf4a62fe4\\screenshots\\pilot_rbac_admin.png"
+    },
+    {
+      "profile": "coordinator",
+      "username": "coord_pilot",
+      "loginSuccess": true,
+      "latencyMs": 235,
+      "tokenIssued": true,
+      "screenshot": "C:\\Users\\Thaysa\\.gemini\\antigravity\\brain\\5fca40fa-e48d-4bc6-bc7a-084bf4a62fe4\\screenshots\\pilot_rbac_coordinator.png"
+    },
+    {
+      "profile": "docente",
+      "username": "prof_pilot",
+      "loginSuccess": true,
+      "latencyMs": 195,
+      "tokenIssued": true,
+      "screenshot": "C:\\Users\\Thaysa\\.gemini\\antigravity\\brain\\5fca40fa-e48d-4bc6-bc7a-084bf4a62fe4\\screenshots\\pilot_rbac_docente.png"
+    },
+    {
+      "profile": "secretary",
+      "username": "secr_pilot",
+      "loginSuccess": true,
+      "latencyMs": 338,
+      "tokenIssued": true,
+      "screenshot": "C:\\Users\\Thaysa\\.gemini\\antigravity\\brain\\5fca40fa-e48d-4bc6-bc7a-084bf4a62fe4\\screenshots\\pilot_rbac_secretary.png"
+    },
+    {
+      "profile": "parent",
+      "username": "pais_pilot",
+      "loginSuccess": true,
+      "latencyMs": 181,
+      "tokenIssued": true,
+      "screenshot": "C:\\Users\\Thaysa\\.gemini\\antigravity\\brain\\5fca40fa-e48d-4bc6-bc7a-084bf4a62fe4\\screenshots\\pilot_rbac_parent.png"
+    },
+    {
+      "profile": "student",
+      "username": "aluno_pilot",
+      "loginSuccess": true,
+      "latencyMs": 240,
+      "tokenIssued": true,
+      "screenshot": "C:\\Users\\Thaysa\\.gemini\\antigravity\\brain\\5fca40fa-e48d-4bc6-bc7a-084bf4a62fe4\\screenshots\\pilot_rbac_student.png"
+    }
+  ],
+  "authorizationBarriers": [],
+  "pilotJourney": {},
+  "familyIsolation": {},
+  "persistenceTrial": {},
+  "disasterRecoveryTrial": {
+    "strictFkEnforced": true,
+    "drSuccess": true,
+    "outputTail": "============================================\n  RESTAURACAO DISASTER RECOVERY CONCLUIDA COM SUCESSO ABSOLUTO (CRASH-SAFE)  \n============================================================================\nSHA-256 do Banco Ativo: BC9ECEF6A7AE72A9CD72B32557DDA04942A6B00B7FD887C7B6FBD8FF45C7A731\nSnapshot de Rollback:   C:\\Users\\Thaysa\\AppData\\Roaming\\AquilaPro\\snapshots\\pre_restore_20261105_230649\nStatus de Integridade:  Integro (PRAGMA integrity_check = ok)\n\nO Aquila Pro pode ser iniciado normalmente.\n"
+  },
+  "performanceMetrics": {
+    "min": 3,
+    "p50": 4,
+    "p90": 5,
+    "p95": 6,
+    "p99": 8,
+    "max": 8,
+    "mean": 4,
+    "count": 100,
+    "batchAttendanceLatencyMs": 39
+  },
+  "accessibilityTrial": {},
+  "summary": {
+    "totalTests": 20,
+    "passedTests": 20,
+    "failedTests": 0,
+    "status": "BENCH_HOMOLOGATED_SUCCESS"
+  },
+  "totalDurationMs": 84018
+}
