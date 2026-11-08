@@ -18,6 +18,10 @@ const fs = require('fs');
 const path = require('path');
 
 const CDP_PORT = 9222;
+const DEFAULT_CHROME_PORT_FILE = path.join(
+  process.env.LOCALAPPDATA || 'C:\\Users\\Thaysa\\AppData\\Local',
+  'Google\\Chrome\\User Data\\DevToolsActivePort'
+);
 const BRIEFINGS_DIR = path.resolve(__dirname, '../docs/ai_cockpit');
 const OUTPUT_BASE = path.resolve(__dirname, '../test-results/swarm_audits');
 
@@ -197,24 +201,38 @@ ${baseBriefing}
   }
 ];
 
+function getActiveCdpPort() {
+  try {
+    if (fs.existsSync(DEFAULT_CHROME_PORT_FILE)) {
+      const lines = fs.readFileSync(DEFAULT_CHROME_PORT_FILE, 'utf-8').trim().split(/\r?\n/);
+      const port = parseInt(lines[0], 10);
+      if (port > 0) {
+        return { port, source: 'Chrome Principal (DevToolsActivePort)', wsPath: lines[1] || null };
+      }
+    }
+  } catch {}
+  return { port: CDP_PORT, source: 'Cockpit Dedicado (Porta 9222)', wsPath: null };
+}
+
 function checkCdpStatus() {
+  const { port, source } = getActiveCdpPort();
   return new Promise((resolve) => {
-    const req = http.get(`http://127.0.0.1:${CDP_PORT}/json/list`, (res) => {
+    const req = http.get(`http://127.0.0.1:${port}/json/list`, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         try {
           const tabs = JSON.parse(data);
-          resolve({ online: true, tabs });
+          resolve({ online: true, port, source, tabs });
         } catch {
-          resolve({ online: false, tabs: [] });
+          resolve({ online: false, port, source, tabs: [] });
         }
       });
     });
-    req.on('error', () => resolve({ online: false, tabs: [] }));
+    req.on('error', () => resolve({ online: false, port, source, tabs: [] }));
     req.setTimeout(2000, () => {
       req.destroy();
-      resolve({ online: false, tabs: [] });
+      resolve({ online: false, port, source, tabs: [] });
     });
   });
 }
