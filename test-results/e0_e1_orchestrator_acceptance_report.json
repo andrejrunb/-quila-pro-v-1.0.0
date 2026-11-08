@@ -1,0 +1,81 @@
+{
+  "timestamp": "2026-11-07T22:28:33Z",
+  "suite": "E0 & E1 Sovereign Orchestrator Automated Suite",
+  "framework": "LangGraph StateGraph / Durable Execution",
+  "python_version": "3.14.3",
+  "adr_reference": "docs/adr/0002-orchestration-langgraph-hitl.md",
+  "acceptance_criteria": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0
+  },
+  "results": [
+    {
+      "criterion": 1,
+      "name": "Process restart preserves interrupted task",
+      "status": "PASSED",
+      "evidence": "Interrupted at awaiting_approval; fresh engine reload from checkpoint verified 100% state, artifacts and approval_id."
+    },
+    {
+      "criterion": 2,
+      "name": "Rejected approval halts publishing",
+      "status": "PASSED",
+      "evidence": "Decision REJECTED transitioned state to REJECTED; 0 entries written to publication_registry."
+    },
+    {
+      "criterion": 3,
+      "name": "Unauthorized user cannot approve",
+      "status": "PASSED",
+      "evidence": "Student role rejected; History teacher rejected on Physics task with InsufficientPermissionsError."
+    },
+    {
+      "criterion": 4,
+      "name": "Cross-school isolation (Multi-Tenancy)",
+      "status": "PASSED",
+      "evidence": "School Beta actor blocked from querying or initializing School Alpha workflow with CrossTenantAccessError."
+    },
+    {
+      "criterion": 5,
+      "name": "Artifact alteration invalidates acceptance",
+      "status": "PASSED",
+      "evidence": "Hash mismatch detected upon resume; ArtifactTamperedError raised and publication prevented."
+    },
+    {
+      "criterion": 6,
+      "name": "Repeated resumption does not duplicate publication",
+      "status": "PASSED",
+      "evidence": "Second publication call returned existing receipt (ALREADY_PUBLISHED); exactly 1 row in registry."
+    },
+    {
+      "criterion": 7,
+      "name": "Failure after write before checkpoint recovery",
+      "status": "PASSED",
+      "evidence": "Simulated recovery from crash returned ALREADY_PUBLISHED without duplicate insertion."
+    },
+    {
+      "criterion": 8,
+      "name": "Cancellation halts further actions",
+      "status": "PASSED",
+      "evidence": "Task marked CANCELLED rejected resume attempt with WorkflowError."
+    },
+    {
+      "criterion": 9,
+      "name": "Worker unavailability yields explicit error",
+      "status": "PASSED",
+      "evidence": "Missing worker raised explicit WorkerUnavailableError; zero simulated false successes."
+    },
+    {
+      "criterion": 10,
+      "name": "Logs contain no tokens or student PII",
+      "status": "PASSED",
+      "evidence": "Regex scans for JWTs, Bearer headers, and CPFs verified 0 leaks in execution logs."
+    }
+  ],
+  "governance": {
+    "constitution": "v2.1",
+    "lgpd_articles": ["Art. 14", "Art. 16"],
+    "checkpoints_db": "isolated_orchestrator_checkpoints.db",
+    "claim_check": "storage/blobs/<sha256>",
+    "zero_bypass_signed_receipts": true
+  }
+}

@@ -1,0 +1,18 @@
+[project]
+name = "aquila-agent-orchestrator"
+version = "0.1.0"
+description = "Sovereign LangGraph Multi-Agent Orchestrator for Áquila Pro"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph>=0.2.0",
+    "langchain-core>=0.3.0",
+    "pydantic>=2.7.0",
+    "aiosqlite>=0.20.0",
+    "fastapi>=0.111.0",
+    "uvicorn>=0.30.0",
+    "cryptography>=42.0.0"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
