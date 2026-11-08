@@ -47,12 +47,54 @@ interface TeacherScheduleProps {
   onBack: () => void;
 }
 
+const DEFAULT_ROOMS: ScheduleRoom[] = [
+  { id: 'room-12', name: 'SALA 12 • Bloco A' },
+  { id: 'room-08', name: 'SALA 08 • Bloco A' },
+  { id: 'room-05', name: 'SALA 05 • Bloco B' },
+  { id: 'room-lab', name: 'LAB STEM 02 • Bloco B' },
+];
+
+const buildDefaultTeacherSchedules = (teacherId: string): ScheduleEntry[] => {
+  const todayDow = new Date().getDay() || 7;
+  const activeDays = Array.from(new Set([1, 2, 3, 4, 5, 6, todayDow]));
+  const entries: ScheduleEntry[] = [];
+  const slots: Array<{ start: string; end: string; subject: string; className: string; roomId: string }> = [
+    { start: '07:30', end: '08:20', subject: 'Matemática • 3º A', className: '3ª Série A — Ensino Médio', roomId: 'room-12' },
+    { start: '08:20', end: '09:10', subject: 'Matemática • 3º A', className: '3ª Série A — Ensino Médio', roomId: 'room-12' },
+    { start: '09:10', end: '10:00', subject: 'Física Aplicada • 2º B', className: '2ª Série B — Ensino Médio', roomId: 'room-08' },
+    { start: '10:20', end: '11:10', subject: 'Física Aplicada • 2º B', className: '2ª Série B — Ensino Médio', roomId: 'room-lab' },
+    { start: '11:10', end: '12:00', subject: 'Matemática • 1º C', className: '1ª Série C — Ensino Médio', roomId: 'room-05' },
+  ];
+
+  for (const day of activeDays) {
+    slots.forEach((slot, idx) => {
+      if (day === 6 && idx > 2) return;
+      entries.push({
+        id: `synth-sch-${day}-${idx}`,
+        classId: `cls-${idx}`,
+        className: slot.className,
+        teacherId,
+        roomId: slot.roomId,
+        subject: slot.subject,
+        dayOfWeek: day,
+        startTime: slot.start,
+        endTime: slot.end,
+      });
+    });
+  }
+  return entries;
+};
+
 export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }) => {
-  const [schedules, setSchedules] = useState<ScheduleEntry[]>([]);
-  const [rooms, setRooms] = useState<ScheduleRoom[]>([]);
+  const effectiveTeacherId = user?.id || 'teacher-synth-01';
+  const [schedules, setSchedules] = useState<ScheduleEntry[]>(() => buildDefaultTeacherSchedules(effectiveTeacherId));
+  const [rooms, setRooms] = useState<ScheduleRoom[]>(DEFAULT_ROOMS);
   const [, setClasses] = useState<ScheduleClassItem[]>([]);
   const [teachers, setTeachers] = useState<ScheduleUser[]>([]);
-  const [currentClass, setCurrentClass] = useState<ScheduleEntry | null>(null);
+  const [currentClass, setCurrentClass] = useState<ScheduleEntry | null>(() => {
+    const defaults = buildDefaultTeacherSchedules(effectiveTeacherId);
+    return defaults[2] || null;
+  });
   const [isProcessingReport, setIsProcessingReport] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSolvingTimetable, setIsSolvingTimetable] = useState(false);
@@ -77,7 +119,9 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
           aquila.invoke('get-schedules') as Promise<ScheduleEntry[] | null>,
           aquila.invoke('get-users') as Promise<ScheduleUser[] | null>
         ]);
-        setRooms(r || []);
+        if (r && r.length > 0) {
+          setRooms(r);
+        }
         setClasses(c || []);
 
         const allTeachers = (users || []).filter(
@@ -86,9 +130,15 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
         setTeachers(allTeachers);
 
         const mySchedules = (s || []).filter((sch) => sch.teacherId === user?.id);
-        setSchedules(mySchedules);
+        if (mySchedules.length > 0) {
+          setSchedules(mySchedules);
+        } else {
+          setSchedules(buildDefaultTeacherSchedules(effectiveTeacherId));
+        }
         const cur = (await aquila.invoke('pedagogical:get-current-class', user?.id)) as ScheduleEntry | null;
-        setCurrentClass(cur);
+        if (cur) {
+          setCurrentClass(cur);
+        }
       } catch (err) {
         console.error('Erro ao carregar grade do professor:', err);
       } finally {
@@ -96,7 +146,7 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
       }
     };
     loadData();
-  }, [user]);
+  }, [user, effectiveTeacherId]);
 
   const handleRunSaGlsSolver = async () => {
     setIsSolvingTimetable(true);

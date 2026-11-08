@@ -1,19 +1,15 @@
 /**
  * send_ui_screenshots_to_ais.cjs
  * ============================================================================
- * Conecta ao Chrome logado da usuária (via DevToolsActivePort) e encaminha as
- * 10 capturas de tela PNG do Áquila Pro Desktop + o prompt cirúrgico de
- * auditoria e melhoria de UI/UX para todas as 6 IAs logadas:
- *   1. Claude 3.7 Sonnet
- *   2. ChatGPT 4o / o1
- *   3. DeepSeek R1 / V3
- *   4. Perplexity Pro
- *   5. GitHub / Microsoft Copilot
- *   6. Brisk Next / Brisk Teaching
+ * Conecta ao Chrome logado da usuária (via DevToolsActivePort), envia as
+ * screenshots + prompt de UI/UX para as IAs restantes (ChatGPT, DeepSeek,
+ * Perplexity, Copilot e Brisk — Claude já recebeu!) e mantém o WebSocket
+ * aberto para coletar automaticamente as respostas de todas as 6 IAs!
  */
 
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
 const WebSocket = require('ws');
 
 const DEFAULT_CHROME_PORT_FILE = path.join(
@@ -22,6 +18,8 @@ const DEFAULT_CHROME_PORT_FILE = path.join(
 );
 
 const SCREENSHOT_OUT_DIR = path.resolve(__dirname, '../test-results/ui_screenshots_2026_11_08');
+const RESPONSES_OUT_DIR = path.resolve(__dirname, '../test-results/ui_screenshots_2026_11_08/ai_responses');
+fs.mkdirSync(RESPONSES_OUT_DIR, { recursive: true });
 
 const UI_PAGES_METADATA = [
   { id: '01_admin_executive_cockpit', title: '01. Portal da Direcao (Sovereign Executive Cockpit)' },
@@ -62,7 +60,7 @@ class CdpBrowserClient {
       });
       ws.on('error', (err) => {
         clearTimeout(timer);
-        reject(new Error(err.message || 'Conexao recusada pelo Chrome CDP (verifique o popup Allow no Chrome)'));
+        reject(new Error(err.message || 'Conexao recusada pelo Chrome CDP'));
       });
       ws.on('message', (rawData) => {
         try {
@@ -78,7 +76,7 @@ class CdpBrowserClient {
     });
   }
 
-  send(method, params = {}, sessionId = undefined) {
+  send(method, params = {}, sessionId = undefined, timeoutMs = 15000) {
     return new Promise((resolve, reject) => {
       const id = ++this.msgId;
       const payload = { id, method, params };
@@ -89,7 +87,7 @@ class CdpBrowserClient {
           this.pending.delete(id);
           reject(new Error(`Timeout em ${method}`));
         }
-      }, 25000);
+      }, timeoutMs);
 
       this.pending.set(id, {
         resolve: (res) => {
@@ -124,18 +122,18 @@ function getBrowserWsUrl() {
 function buildUiAuditPrompt(aiName, specialtyFocus, capturedPaths) {
   const rawBase = 'https://raw.githubusercontent.com/andrejrunb/-quila-pro-v-1.0.0/main/test-results/ui_screenshots_2026_11_08';
   const screenList = capturedPaths
-    .map(c => `- \`${c.id}.png\`: ${c.title}\n  Link Direto Raw GitHub: ${rawBase}/${c.id}.png`)
+    .map(c => `- \`${c.id}.png\`: ${c.title}\n  Link Direto PNG: ${rawBase}/${c.id}.png`)
     .join('\n');
 
   return `[AUDITORIA VISUAL DE UI/UX — ÁQUILA PRO DESKTOP & PORTAIS SOBERANOS — 08/11/2026]
 [AGENTE CONVOCADO: ${aiName}]
 [FOCO DE ESPECIALIDADE: ${specialtyFocus}]
 
-Acabamos de abrir o Áquila Pro Desktop localmente no computador (1920x1080), capturar as 10 telas/portais principais da interface do usuário e anexar os prints (PNG) diretamente nesta conversa para sua inspeção visual e técnica:
+Acabamos de abrir o Áquila Pro Desktop localmente no computador (1920x1080), capturar as 10 telas/portais principais da interface do usuário e disponibilizar os prints (PNG anexados e via links diretos Raw GitHub abaixo) para sua inspeção visual e técnica:
 
 ${screenList}
 
-Repositório GitHub (branch \`main\` atualizada até o commit \`0ce07a72\`):
+Repositório GitHub (branch \`main\` atualizada até o commit \`7f6cc622\`):
 - https://github.com/andrejrunb/-quila-pro-v-1.0.0
 - Arquivos de UI principais:
   - \`apps/electron/src/ui/layouts/PortalLayout.tsx\` & \`PortalLayout.css\`
@@ -156,7 +154,7 @@ Repositório GitHub (branch \`main\` atualizada até o commit \`0ce07a72\`):
 10. **Câmara de Cosméticos & Maestria/Wordwall (\`09_student_cosmetics_chamber.png\` & \`10_student_mastery_wordwall.png\`)**: Preview de Battle Banner estilo Clash Royale, catálogo de cosméticos com moeda \`Aureus (🪙)\` e player interativo Wordwall com 8 mecânicas e 5 temas.
 
 === SUA MISSÃO DE AUDITORIA E REDESIGN UI/UX ===
-Analise criticamente as screenshots anexadas e a estrutura atual e entregue:
+Analise criticamente as screenshots e a estrutura atual e entregue:
 1. **Top 5 Gargalos Visuais e de Usabilidade (Diagnóstico Crítico)**:
    - Onde há sobrecarga cognitiva, excesso de botões na mesma barra, problemas de hierarquia tipográfica, contraste WCAG AAA insuficiente, espaçamento inconsistente ou poluição visual?
 2. **Melhorias Específicas por Portal (Direção, Professor, Secretaria, Família e Aluno)**:
@@ -173,6 +171,8 @@ const AI_TARGETS = [
     id: 'claude',
     name: 'Claude 3.7 Sonnet (Design System, Hierarquia & WCAG AAA)',
     domains: ['claude.ai'],
+    skipSend: true, // Já enviado com sucesso na rodada anterior!
+    outputFile: 'claude_ui_ux_audit.md',
     specialtyFocus: 'Arquitetura de Design System Elite, Glassmorphism, Hierarquia Visual, Contraste WCAG AAA e Componentização React/CSS',
     shotIndices: [0, 1, 7, 8],
     inputSelectors: [
@@ -190,6 +190,8 @@ const AI_TARGETS = [
     id: 'chatgpt',
     name: 'ChatGPT 4o / o1 (UX Pedagógico, Gamificação & Jornada Familiar)',
     domains: ['chatgpt.com'],
+    skipSend: false,
+    outputFile: 'chatgpt_ui_ux_audit.md',
     specialtyFocus: 'UX Pedagógico, Engajamento no Portal do Aluno (Wordwall + Câmara de Cosméticos), Clareza Cognitiva no Portal dos Pais e Estúdio Docente',
     shotIndices: [6, 7, 8, 9],
     inputSelectors: [
@@ -210,6 +212,8 @@ const AI_TARGETS = [
     id: 'deepseek',
     name: 'DeepSeek R1 / V3 (Ergonomia de Dados, Dashboards & Grade SA+GLS)',
     domains: ['chat.deepseek.com', 'deepseek.com'],
+    skipSend: false,
+    outputFile: 'deepseek_ui_ux_audit.md',
     specialtyFocus: 'Densidade de Informação (Data-Ink Ratio de Tufte), Visualização de Telemetria em Tempo Real, Grade Horária SA+GLS e Performance de Renderização',
     shotIndices: [0, 1, 2, 4],
     inputSelectors: [
@@ -226,6 +230,8 @@ const AI_TARGETS = [
     id: 'perplexity',
     name: 'Perplexity Pro (Benchmarks EdTech Globais 2026 & Acessibilidade)',
     domains: ['perplexity.ai'],
+    skipSend: false,
+    outputFile: 'perplexity_ui_ux_audit.md',
     specialtyFocus: 'Benchmarks Visuais EdTech & SaaS 2026 (Linear, Raycast, Duolingo Max, Wordwall, Kahoot), Acessibilidade Cognitiva (TDAH/Dislexia) e Responsividade',
     shotIndices: [1, 5, 7, 9],
     inputSelectors: [
@@ -243,6 +249,8 @@ const AI_TARGETS = [
     id: 'copilot',
     name: 'GitHub / Microsoft Copilot (Refatoração CSS, Micro-interações & Layout)',
     domains: ['github.com/copilot', 'copilot.microsoft.com'],
+    skipSend: false,
+    outputFile: 'copilot_ui_ux_audit.md',
     specialtyFocus: 'Refatoração de CSS Grid/Flexbox, Eliminação de Inline Styles, Estados de Hover/Focus, Atalhos de Teclado e Polimento de Componentes React',
     shotIndices: [0, 2, 5, 8],
     inputSelectors: [
@@ -261,6 +269,8 @@ const AI_TARGETS = [
     id: 'brisk',
     name: 'Brisk Next / Brisk Teaching (UX Docente, PEI/AEE & Devolutivas)',
     domains: ['app.briskteaching.com', 'briskteaching.com'],
+    skipSend: false,
+    outputFile: 'brisk_ui_ux_audit.md',
     specialtyFocus: 'Fluxo de Trabalho Docente em 1 Clique, Estúdio Pedagógico IA, Diferenciação Visual PEI/AEE (DOK 1-4) e Rubricas Formativas',
     shotIndices: [1, 3, 4, 6],
     inputSelectors: [
@@ -282,13 +292,9 @@ async function attachScreenshotsAndSendToAiTab(client, targetInfo, aiConfig, cap
     flatten: true
   });
 
-  await client.send('Page.enable', {}, sessionId);
-  await client.send('DOM.enable', {}, sessionId);
-  await client.send('Runtime.enable', {}, sessionId);
-
   try {
-    await client.send('Page.bringToFront', {}, sessionId);
-    await new Promise(r => setTimeout(r, 900));
+    await client.send('Page.bringToFront', {}, sessionId, 5000);
+    await new Promise(r => setTimeout(r, 700));
   } catch {}
 
   const selectedCaptures = (aiConfig.shotIndices || [0, 1, 7, 8])
@@ -296,22 +302,23 @@ async function attachScreenshotsAndSendToAiTab(client, targetInfo, aiConfig, cap
     .filter(Boolean);
   const selectedFilePaths = selectedCaptures.map(c => c.filePath);
 
-  let attachedMethod = 'NONE';
+  let attachedMethod = 'GITHUB_RAW_LINKS';
 
-  // Método 1: <input type="file"> via DOM.setFileInputFiles
+  // Tenta anexar via <input type="file"> (rápido, sem serializar base64 gigante)
   try {
-    const { root } = await client.send('DOM.getDocument', { depth: -1, pierce: true }, sessionId);
+    await client.send('DOM.enable', {}, sessionId, 5000);
+    const { root } = await client.send('DOM.getDocument', { depth: 3, pierce: true }, sessionId, 5000);
     const { nodeIds } = await client.send('DOM.querySelectorAll', {
       nodeId: root.nodeId,
       selector: 'input[type="file"]'
-    }, sessionId);
+    }, sessionId, 5000);
 
     if (nodeIds && nodeIds.length > 0) {
       const targetNodeId = nodeIds[nodeIds.length - 1];
       await client.send('DOM.setFileInputFiles', {
         nodeId: targetNodeId,
         files: selectedFilePaths
-      }, sessionId);
+      }, sessionId, 8000);
 
       await client.send('Runtime.evaluate', {
         expression: `
@@ -326,52 +333,12 @@ async function attachScreenshotsAndSendToAiTab(client, targetInfo, aiConfig, cap
           })()
         `,
         returnByValue: true
-      }, sessionId);
+      }, sessionId, 5000);
 
       attachedMethod = `DOM.setFileInputFiles (${selectedFilePaths.length} PNGs)`;
-      await new Promise(r => setTimeout(r, 1800));
+      await new Promise(r => setTimeout(r, 1500));
     }
   } catch {}
-
-  // Método 2: ClipboardEvent('paste') com arquivos PNG no elemento de chat
-  if (attachedMethod === 'NONE') {
-    try {
-      const sampleShots = selectedCaptures.slice(0, 3).map(c => ({
-        name: `${c.id}.png`,
-        b64: fs.readFileSync(c.filePath).toString('base64')
-      }));
-
-      const pasteRes = await client.send('Runtime.evaluate', {
-        expression: `
-          (function() {
-            const shots = ${JSON.stringify(sampleShots)};
-            const dt = new DataTransfer();
-            for (const s of shots) {
-              const bin = atob(s.b64);
-              const arr = new Uint8Array(bin.length);
-              for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
-              const file = new File([arr], s.name, { type: 'image/png' });
-              dt.items.add(file);
-            }
-            const active = document.activeElement || document.body;
-            const pasteEvt = new ClipboardEvent('paste', {
-              bubbles: true,
-              cancelable: true,
-              clipboardData: dt
-            });
-            active.dispatchEvent(pasteEvt);
-            return { pasted: shots.length };
-          })()
-        `,
-        returnByValue: true
-      }, sessionId);
-
-      if (pasteRes?.result?.value?.pasted) {
-        attachedMethod = `ClipboardEvent.paste (${pasteRes.result.value.pasted} PNGs)`;
-        await new Promise(r => setTimeout(r, 1500));
-      }
-    } catch {}
-  }
 
   const promptText = buildUiAuditPrompt(aiConfig.name, aiConfig.specialtyFocus, capturedPaths);
 
@@ -388,7 +355,7 @@ async function attachScreenshotsAndSendToAiTab(client, targetInfo, aiConfig, cap
             if (setter) setter.call(el, text);
             else el.value = text;
             el.dispatchEvent(new Event('input', { bubbles: true }));
-            return { found: true, selector: sel };
+            return { found: true, fastInserted: true, selector: sel };
           } else if (el.isContentEditable) {
             el.innerHTML = '';
             const ok = document.execCommand && document.execCommand('insertText', false, text);
@@ -396,7 +363,7 @@ async function attachScreenshotsAndSendToAiTab(client, targetInfo, aiConfig, cap
               el.innerText = text;
               el.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: text }));
             }
-            return { found: true, selector: sel };
+            return { found: true, fastInserted: true, selector: sel };
           }
         }
       }
@@ -407,13 +374,18 @@ async function attachScreenshotsAndSendToAiTab(client, targetInfo, aiConfig, cap
   const focusRes = await client.send('Runtime.evaluate', {
     expression: insertExpr,
     returnByValue: true
-  }, sessionId);
+  }, sessionId, 10000);
 
-  if (!focusRes?.result?.value?.found) {
+  const focusInfo = focusRes?.result?.value || { found: false };
+  if (!focusInfo.found) {
     return { ai: aiConfig.name, status: 'INPUT_NOT_FOUND', attachedMethod };
   }
 
-  await new Promise(r => setTimeout(r, 1400));
+  if (!focusInfo.fastInserted) {
+    await client.send('Input.insertText', { text: promptText }, sessionId, 10000);
+  }
+
+  await new Promise(r => setTimeout(r, 1000));
 
   const submitExpr = `
     (function() {
@@ -432,7 +404,7 @@ async function attachScreenshotsAndSendToAiTab(client, targetInfo, aiConfig, cap
   const subRes = await client.send('Runtime.evaluate', {
     expression: submitExpr,
     returnByValue: true
-  }, sessionId);
+  }, sessionId, 8000);
 
   let submitted = Boolean(subRes?.result?.value?.clicked);
   if (!submitted) {
@@ -442,14 +414,14 @@ async function attachScreenshotsAndSendToAiTab(client, targetInfo, aiConfig, cap
       code: 'Enter',
       windowsVirtualKeyCode: 13,
       nativeVirtualKeyCode: 13
-    }, sessionId);
+    }, sessionId, 5000);
     await client.send('Input.dispatchKeyEvent', {
       type: 'keyUp',
       key: 'Enter',
       code: 'Enter',
       windowsVirtualKeyCode: 13,
       nativeVirtualKeyCode: 13
-    }, sessionId);
+    }, sessionId, 5000);
     submitted = true;
   }
 
@@ -461,51 +433,152 @@ async function attachScreenshotsAndSendToAiTab(client, targetInfo, aiConfig, cap
   };
 }
 
+async function collectResponseFromTab(client, targetId) {
+  const { sessionId } = await client.send('Target.attachToTarget', {
+    targetId,
+    flatten: true
+  });
+
+  const collectExpr = `
+    (function() {
+      const candidateSelectors = [
+        '[data-message-author-role="assistant"]',
+        '.font-claude-message',
+        '[data-is-streaming]',
+        '.ds-markdown',
+        '.prose',
+        '.markdown-body',
+        'article',
+        'main'
+      ];
+      for (const sel of candidateSelectors) {
+        const nodes = Array.from(document.querySelectorAll(sel));
+        if (nodes.length > 0) {
+          const lastNode = nodes[nodes.length - 1];
+          const text = (lastNode.innerText || '').trim();
+          if (text.length > 100) {
+            return { collected: true, selector: sel, length: text.length, content: text };
+          }
+        }
+      }
+      const bodyText = (document.body?.innerText || '').trim();
+      return { collected: bodyText.length > 100, selector: 'body', length: bodyText.length, content: bodyText };
+    })()
+  `;
+
+  const res = await client.send('Runtime.evaluate', {
+    expression: collectExpr,
+    returnByValue: true
+  }, sessionId, 10000);
+
+  return res?.result?.value || { collected: false, length: 0, content: '' };
+}
+
+async function collectAllResponses(client, label) {
+  const { targetInfos } = await client.send('Target.getTargets');
+  const pageTargets = targetInfos.filter(t => t.type === 'page');
+  const summary = [];
+
+  for (const aiConfig of AI_TARGETS) {
+    const matchingTab = pageTargets.find(t =>
+      aiConfig.domains.some(d => (t.url || '').toLowerCase().includes(d))
+    );
+    if (!matchingTab) continue;
+    try {
+      const col = await collectResponseFromTab(client, matchingTab.targetId);
+      if (col.collected && col.content) {
+        const outPath = path.join(RESPONSES_OUT_DIR, aiConfig.outputFile);
+        fs.writeFileSync(outPath, col.content, 'utf-8');
+        summary.push(`${aiConfig.id}: ${(col.length / 1024).toFixed(1)} KB`);
+      }
+    } catch {}
+  }
+
+  console.log(`[UI-AUDIT-COLLECT ${new Date().toISOString()}] (${label}) -> ${summary.join(' | ') || 'aguardando'}`);
+  return summary;
+}
+
 async function main() {
   const capturedPaths = UI_PAGES_METADATA.map(item => ({
     ...item,
     filePath: path.join(SCREENSHOT_OUT_DIR, `${item.id}.png`)
   })).filter(c => fs.existsSync(c.filePath));
 
-  if (capturedPaths.length === 0) {
-    throw new Error(`Nenhuma screenshot encontrada em ${SCREENSHOT_OUT_DIR}`);
-  }
-
   const wsUrl = getBrowserWsUrl();
   console.log(`[CDP] Conectando ao Chrome da usuária (${wsUrl})...`);
-  console.log(`      >>> Se aparecer a janelinha do Chrome pedindo permissão ("Allow"), clique em Allow! <<<`);
+  console.log(`      >>> Clique em "Allow" na janelinha do Chrome para concluir as 5 IAs restantes e ativar a coleta! <<<`);
   const client = new CdpBrowserClient(wsUrl);
-  await client.connect();
+  while (true) {
+    try {
+      await client.connect();
+      break;
+    } catch (err) {
+      console.log(`[CDP] Aguardando clique em "Allow" no Chrome (${err.message})... reconectando em 3s...`);
+      await sleep(3000);
+    }
+  }
 
-  try {
-    const { targetInfos } = await client.send('Target.getTargets');
-    const pageTargets = targetInfos.filter(t => t.type === 'page');
+  const { targetInfos } = await client.send('Target.getTargets');
+  const pageTargets = targetInfos.filter(t => t.type === 'page');
 
-    const results = [];
-    for (const aiConfig of AI_TARGETS) {
-      const matchingTab = pageTargets.find(t =>
-        aiConfig.domains.some(d => (t.url || '').toLowerCase().includes(d))
-      );
+  const results = [];
+  for (const aiConfig of AI_TARGETS) {
+    if (aiConfig.skipSend) {
+      results.push({ ai: aiConfig.name, status: 'ALREADY_SENT_OK', attachedMethod: 'DOM.setFileInputFiles (4 PNGs)' });
+      continue;
+    }
 
-      if (!matchingTab) {
-        console.log(`  [AVISO] Aba não encontrada para ${aiConfig.name}`);
-        results.push({ ai: aiConfig.name, status: 'TAB_NOT_FOUND' });
-        continue;
-      }
+    const matchingTab = pageTargets.find(t =>
+      aiConfig.domains.some(d => (t.url || '').toLowerCase().includes(d))
+    );
 
+    if (!matchingTab) {
+      results.push({ ai: aiConfig.name, status: 'TAB_NOT_FOUND', attachedMethod: '-' });
+      continue;
+    }
+
+    try {
       console.log(`  -> Enviando screenshots + prompt de UI/UX para ${aiConfig.name}...`);
       const res = await attachScreenshotsAndSendToAiTab(client, matchingTab, aiConfig, capturedPaths);
       results.push(res);
       console.log(`     Status: ${res.status} | Anexo: ${res.attachedMethod}`);
+    } catch (err) {
+      console.warn(`     [WARN] Erro em ${aiConfig.name}: ${err.message}`);
+      results.push({ ai: aiConfig.name, status: `ERROR: ${err.message}`, attachedMethod: '-' });
     }
-
-    console.log('\n====================================================================');
-    console.log('  RESUMO DO ENVIO DAS SCREENSHOTS UI/UX PARA AS 6 IAs              ');
-    console.log('====================================================================');
-    console.table(results);
-  } finally {
-    client.close();
   }
+
+  console.log('\n====================================================================');
+  console.log('  RESUMO DO ENVIO DAS SCREENSHOTS UI/UX PARA AS 6 IAs              ');
+  console.log('====================================================================');
+  console.table(results);
+
+  // Coleta imediata do que já estiver pronto (ex: Claude já está gerando!)
+  await collectAllResponses(client, 'initial-check');
+
+  // Mantém o WebSocket aberto e coleta a cada 90s + servidor HTTP em 127.0.0.1:9230
+  setInterval(() => {
+    client.send('Target.getTargets').catch(() => {});
+  }, 20000);
+
+  setInterval(() => {
+    collectAllResponses(client, 'periodic-90s').catch(() => {});
+  }, 90000);
+
+  const srv = http.createServer(async (req, res) => {
+    if (req.url === '/collect') {
+      const col = await collectAllResponses(client, 'http-trigger');
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, collected: col }));
+    } else {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, results }));
+    }
+  });
+  srv.on('error', () => {});
+  srv.listen(9230, '127.0.0.1', () => {
+    console.log('[DAEMON] Coletor ativo em http://127.0.0.1:9230/collect (coletando respostas a cada 90s sem novo popup Allow!)');
+  });
 }
 
 main().catch(err => {

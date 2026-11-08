@@ -306,7 +306,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             <div className="rpg-sub-telemetry">
 
-              MEU INÍCIO • NÍVEL {economy?.level || 14} ({economy?.xp || 2680} XP) • SOMENTE TAREFAS DO {studentCtx.seriesLabel.toUpperCase()}
+              MEU INÍCIO • NÍVEL {economy?.level || 14} ({economy?.xp || 2680} XP) • 🪙 {(economy?.aureus || 2450).toLocaleString('pt-BR')} AUREUS • ⚡ BANNER: NIKOLA TESLA (CAMPEÃO)
 
             </div>
 
@@ -342,7 +342,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             <Sparkles size={14} />
 
-            <span>Praticar questões</span>
+            <span>Praticar &amp; Wordwall (8 Estilos)</span>
 
           </button>
 
@@ -398,7 +398,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             <Crown size={14} color="#FBBF24" />
 
-            <span>Cartão de perfil</span>
+            <span>Battle Banner &amp; Skins (🪙 {(economy?.aureus || 2450).toLocaleString('pt-BR')})</span>
 
           </button>
 
