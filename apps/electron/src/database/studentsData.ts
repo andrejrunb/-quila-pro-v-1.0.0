@@ -35,2217 +35,2217 @@ const CLASS_ID_TO_NAME: Record<string, string> = {
 const RAW_STUDENTS = [
   {
     "registrationNumber": "45453",
-    "name": "GIOVANNA CAMPOS GOMES",
+    "name": "ALUNO SINTETICO 001",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45207",
-    "name": "EDUARDO GONCALVES BARBOSA",
+    "name": "ALUNO SINTETICO 002",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52239",
-    "name": "ARTHUR FREITAS NASCIMENTO",
+    "name": "ALUNO SINTETICO 003",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45063",
-    "name": "MANUELA RODRIGUES BORGES",
+    "name": "ALUNO SINTETICO 004",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "44988",
-    "name": "RAFAEL FONTES PAIVA",
+    "name": "ALUNO SINTETICO 005",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45397",
-    "name": "BERNARDO SOARES BARBOSA",
+    "name": "ALUNO SINTETICO 006",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "44998",
-    "name": "CAIO ALBUQUERQUE FARIA",
+    "name": "ALUNO SINTETICO 007",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45457",
-    "name": "LUCAS MEDEIROS NOGUEIRA",
+    "name": "ALUNO SINTETICO 008",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "51475",
-    "name": "BEATRIZ NASCIMENTO DUARTE",
+    "name": "ALUNO SINTETICO 009",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "44982",
-    "name": "PEDRO BARROS FREITAS",
+    "name": "ALUNO SINTETICO 010",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45232",
-    "name": "BERNARDO BORGES LOPES",
+    "name": "ALUNO SINTETICO 011",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52468",
-    "name": "YASMIN DUARTE MORAES",
+    "name": "ALUNO SINTETICO 012",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45376",
-    "name": "MATHEUS RIBEIRO RODRIGUES",
+    "name": "ALUNO SINTETICO 013",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45210",
-    "name": "LORENZO SANTANA OLIVEIRA",
+    "name": "ALUNO SINTETICO 014",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45482",
-    "name": "HENRIQUE CARDOSO SANTOS",
+    "name": "ALUNO SINTETICO 015",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "51034",
-    "name": "ELENA FERREIRA COSTA",
+    "name": "ALUNO SINTETICO 016",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45245",
-    "name": "LEONARDO ALMEIDA SILVA",
+    "name": "ALUNO SINTETICO 017",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45414",
-    "name": "PEDRO CAMPOS NASCIMENTO",
+    "name": "ALUNO SINTETICO 018",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52019",
-    "name": "VALENTINA MACHADO LIMA",
+    "name": "ALUNO SINTETICO 019",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52357",
-    "name": "HENRIQUE RIBEIRO SANTOS",
+    "name": "ALUNO SINTETICO 020",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45023",
-    "name": "BEATRIZ RAMOS CARVALHO",
+    "name": "ALUNO SINTETICO 021",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52389",
-    "name": "FELIPE PINTO MEDEIROS",
+    "name": "ALUNO SINTETICO 022",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45018",
-    "name": "ALICE MARQUES PAIVA",
+    "name": "ALUNO SINTETICO 023",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52578",
-    "name": "ARTHUR BRAGA CARVALHO",
+    "name": "ALUNO SINTETICO 024",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52534",
-    "name": "VINICIUS MARQUES BRANDAO",
+    "name": "ALUNO SINTETICO 025",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45022",
-    "name": "DAVI ROCHA MELO",
+    "name": "ALUNO SINTETICO 026",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "51023",
-    "name": "ELENA SILVA ROCHA",
+    "name": "ALUNO SINTETICO 027",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45379",
-    "name": "DANIEL DIAS PINTO",
+    "name": "ALUNO SINTETICO 028",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45519",
-    "name": "MATEUS OLIVEIRA LIMA",
+    "name": "ALUNO SINTETICO 029",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "51734",
-    "name": "BEATRIZ MORAES NASCIMENTO",
+    "name": "ALUNO SINTETICO 030",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45019",
-    "name": "ELENA PEREIRA NASCIMENTO",
+    "name": "ALUNO SINTETICO 031",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52267",
-    "name": "JOAO MOREIRA LOPES",
+    "name": "ALUNO SINTETICO 032",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "45190",
-    "name": "LIVIA ALVES RIBEIRO",
+    "name": "ALUNO SINTETICO 033",
     "cpf": "",
     "classId": "F-EF26A"
   },
   {
     "registrationNumber": "52478",
-    "name": "PEDRO FERREIRA CARVALHO",
+    "name": "ALUNO SINTETICO 034",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52344",
-    "name": "JOAO FARIA MEDEIROS",
+    "name": "ALUNO SINTETICO 035",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45329",
-    "name": "CAIO GONCALVES MEDEIROS",
+    "name": "ALUNO SINTETICO 036",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45377",
-    "name": "GIOVANNA FERREIRA FREITAS",
+    "name": "ALUNO SINTETICO 037",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45664",
-    "name": "LEONARDO MELO NASCIMENTO",
+    "name": "ALUNO SINTETICO 038",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45518",
-    "name": "THEO RODRIGUES FARIA",
+    "name": "ALUNO SINTETICO 039",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45277",
-    "name": "THEO GARCIA NOGUEIRA",
+    "name": "ALUNO SINTETICO 040",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45327",
-    "name": "DAVI GOMES RAMOS",
+    "name": "ALUNO SINTETICO 041",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52085",
-    "name": "DANIEL SOARES ALBUQUERQUE",
+    "name": "ALUNO SINTETICO 042",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52630",
-    "name": "RAFAEL MOREIRA GARCIA",
+    "name": "ALUNO SINTETICO 043",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51459",
-    "name": "LIVIA GARCIA MEDEIROS",
+    "name": "ALUNO SINTETICO 044",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51251",
-    "name": "HELENA SOUZA MARTINS",
+    "name": "ALUNO SINTETICO 045",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45447",
-    "name": "GABRIEL PAIVA BARBOSA",
+    "name": "ALUNO SINTETICO 046",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45532",
-    "name": "JOAO RODRIGUES BARBOSA",
+    "name": "ALUNO SINTETICO 047",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52280",
-    "name": "DAVI PEREIRA SILVA",
+    "name": "ALUNO SINTETICO 048",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51429",
-    "name": "VALENTINA OLIVEIRA SANTANA",
+    "name": "ALUNO SINTETICO 049",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45355",
-    "name": "CAIO DIAS MENDES",
+    "name": "ALUNO SINTETICO 050",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51727",
-    "name": "ISABELA MORAES RAMOS",
+    "name": "ALUNO SINTETICO 051",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52238",
-    "name": "ELENA DUARTE GOMES",
+    "name": "ALUNO SINTETICO 052",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45319",
-    "name": "FERNANDA CAMPOS SANTANA",
+    "name": "ALUNO SINTETICO 053",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45206",
-    "name": "JULIA GOMES BRAGA",
+    "name": "ALUNO SINTETICO 054",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45646",
-    "name": "LARA RODRIGUES RODRIGUES",
+    "name": "ALUNO SINTETICO 055",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52190",
-    "name": "CAROLINA MACHADO BARROS",
+    "name": "ALUNO SINTETICO 056",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51062",
-    "name": "VINICIUS RODRIGUES DIAS",
+    "name": "ALUNO SINTETICO 057",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52043",
-    "name": "LARA PAIVA PAIVA",
+    "name": "ALUNO SINTETICO 058",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45062",
-    "name": "ALICE SANTOS LOPES",
+    "name": "ALUNO SINTETICO 059",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45221",
-    "name": "ALICE GONCALVES RODRIGUES",
+    "name": "ALUNO SINTETICO 060",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45017",
-    "name": "VALENTINA CARVALHO FREITAS",
+    "name": "ALUNO SINTETICO 061",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45259",
-    "name": "ALICE PINTO FONTES",
+    "name": "ALUNO SINTETICO 062",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45691",
-    "name": "REBECA OLIVEIRA SOUZA",
+    "name": "ALUNO SINTETICO 063",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45496",
-    "name": "YASMIN ALMEIDA PEREIRA",
+    "name": "ALUNO SINTETICO 064",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45083",
-    "name": "MATEUS COSTA ALMEIDA",
+    "name": "ALUNO SINTETICO 065",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "52544",
-    "name": "ELENA SOUZA NASCIMENTO",
+    "name": "ALUNO SINTETICO 066",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "45568",
-    "name": "SAMUEL GARCIA BORGES",
+    "name": "ALUNO SINTETICO 067",
     "cpf": "",
     "classId": "F-EF26B"
   },
   {
     "registrationNumber": "51356",
-    "name": "LORENZO OLIVEIRA MARTINS",
+    "name": "ALUNO SINTETICO 068",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45332",
-    "name": "ALICE DIAS DIAS",
+    "name": "ALUNO SINTETICO 069",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44551",
-    "name": "LARA GONCALVES ALVES",
+    "name": "ALUNO SINTETICO 070",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45418",
-    "name": "EDUARDO LOPES MARQUES",
+    "name": "ALUNO SINTETICO 071",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "52598",
-    "name": "MIGUEL DUARTE ROCHA",
+    "name": "ALUNO SINTETICO 072",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45249",
-    "name": "ARTHUR FREITAS AZEVEDO",
+    "name": "ALUNO SINTETICO 073",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45082",
-    "name": "SOFIA FREITAS RAMOS",
+    "name": "ALUNO SINTETICO 074",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45248",
-    "name": "BERNARDO FONTES BORGES",
+    "name": "ALUNO SINTETICO 075",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45114",
-    "name": "MIGUEL FERREIRA LIMA",
+    "name": "ALUNO SINTETICO 076",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45366",
-    "name": "BERNARDO LOPES RODRIGUES",
+    "name": "ALUNO SINTETICO 077",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45192",
-    "name": "MIGUEL AZEVEDO MELO",
+    "name": "ALUNO SINTETICO 078",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "51971",
-    "name": "ELENA ROCHA PEREIRA",
+    "name": "ALUNO SINTETICO 079",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45250",
-    "name": "ELENA MELO SILVA",
+    "name": "ALUNO SINTETICO 080",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45202",
-    "name": "BERNARDO PAIVA DIAS",
+    "name": "ALUNO SINTETICO 081",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44548",
-    "name": "MIGUEL MACHADO ROCHA",
+    "name": "ALUNO SINTETICO 082",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44555",
-    "name": "VALENTINA SOUZA SILVA",
+    "name": "ALUNO SINTETICO 083",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45266",
-    "name": "MIGUEL MORAES MARTINS",
+    "name": "ALUNO SINTETICO 084",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45265",
-    "name": "MIGUEL MELO MACHADO",
+    "name": "ALUNO SINTETICO 085",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44673",
-    "name": "VINICIUS BARBOSA PAIVA",
+    "name": "ALUNO SINTETICO 086",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "51422",
-    "name": "MATHEUS ALVES NOGUEIRA",
+    "name": "ALUNO SINTETICO 087",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45048",
-    "name": "HELENA MORAES GOMES",
+    "name": "ALUNO SINTETICO 088",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45261",
-    "name": "MIGUEL GOMES FERREIRA",
+    "name": "ALUNO SINTETICO 089",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45216",
-    "name": "LUISA PEREIRA BRAGA",
+    "name": "ALUNO SINTETICO 090",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45252",
-    "name": "LIVIA SOARES DIAS",
+    "name": "ALUNO SINTETICO 091",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45317",
-    "name": "EDUARDO RODRIGUES LOPES",
+    "name": "ALUNO SINTETICO 092",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45226",
-    "name": "VINICIUS GARCIA RODRIGUES",
+    "name": "ALUNO SINTETICO 093",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "44516",
-    "name": "ELENA ROCHA MARTINS",
+    "name": "ALUNO SINTETICO 094",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45177",
-    "name": "PEDRO MACHADO CAMPOS",
+    "name": "ALUNO SINTETICO 095",
     "cpf": "",
     "classId": "F-EF27A"
   },
   {
     "registrationNumber": "45535",
-    "name": "NICOLAS ALBUQUERQUE GARCIA",
+    "name": "ALUNO SINTETICO 096",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45087",
-    "name": "LORENZO BRAGA RAMOS",
+    "name": "ALUNO SINTETICO 097",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45347",
-    "name": "CAIO PINTO DIAS",
+    "name": "ALUNO SINTETICO 098",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "51980",
-    "name": "VINICIUS PINTO ALBUQUERQUE",
+    "name": "ALUNO SINTETICO 099",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "44817",
-    "name": "THEO ALBUQUERQUE DIAS",
+    "name": "ALUNO SINTETICO 100",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45695",
-    "name": "SOFIA OLIVEIRA DUARTE",
+    "name": "ALUNO SINTETICO 101",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45505",
-    "name": "DANIEL FARIA RIBEIRO",
+    "name": "ALUNO SINTETICO 102",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "52025",
-    "name": "DAVI MARTINS OLIVEIRA",
+    "name": "ALUNO SINTETICO 103",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45045",
-    "name": "MATHEUS PINTO MENDES",
+    "name": "ALUNO SINTETICO 104",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "50999",
-    "name": "LORENZO ALMEIDA COSTA",
+    "name": "ALUNO SINTETICO 105",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "44993",
-    "name": "JOAO NOGUEIRA MARQUES",
+    "name": "ALUNO SINTETICO 106",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "51054",
-    "name": "ALICE FONTES BRANDAO",
+    "name": "ALUNO SINTETICO 107",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45420",
-    "name": "DAVI FERREIRA MACHADO",
+    "name": "ALUNO SINTETICO 108",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45096",
-    "name": "CAIO SOARES CASTRO",
+    "name": "ALUNO SINTETICO 109",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45223",
-    "name": "GABRIEL MEDEIROS BORGES",
+    "name": "ALUNO SINTETICO 110",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "51404",
-    "name": "SAMUEL GONCALVES MEDEIROS",
+    "name": "ALUNO SINTETICO 111",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "45025",
-    "name": "HENRIQUE PAIVA MENDES",
+    "name": "ALUNO SINTETICO 112",
     "cpf": "",
     "classId": "F-EF27B"
   },
   {
     "registrationNumber": "52449",
-    "name": "ARTHUR CAMPOS AZEVEDO",
+    "name": "ALUNO SINTETICO 113",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "51468",
-    "name": "LEONARDO FERREIRA ROCHA",
+    "name": "ALUNO SINTETICO 114",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44036",
-    "name": "NICOLAS GONCALVES GONCALVES",
+    "name": "ALUNO SINTETICO 115",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44940",
-    "name": "HELENA OLIVEIRA BARROS",
+    "name": "ALUNO SINTETICO 116",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52490",
-    "name": "DANIEL PAIVA CARDOSO",
+    "name": "ALUNO SINTETICO 117",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44745",
-    "name": "LIVIA ALVES ALBUQUERQUE",
+    "name": "ALUNO SINTETICO 118",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44010",
-    "name": "EDUARDO TEIXEIRA CARDOSO",
+    "name": "ALUNO SINTETICO 119",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "43989",
-    "name": "MATHEUS PAIVA FONTES",
+    "name": "ALUNO SINTETICO 120",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45498",
-    "name": "JOAO DIAS PAIVA",
+    "name": "ALUNO SINTETICO 121",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "51458",
-    "name": "JULIA SILVA CARVALHO",
+    "name": "ALUNO SINTETICO 122",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "51710",
-    "name": "RAFAEL ALVES MENDES",
+    "name": "ALUNO SINTETICO 123",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52484",
-    "name": "DAVI MACHADO AZEVEDO",
+    "name": "ALUNO SINTETICO 124",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44730",
-    "name": "GUILHERME DIAS MENDES",
+    "name": "ALUNO SINTETICO 125",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44640",
-    "name": "CAROLINA SILVA BARROS",
+    "name": "ALUNO SINTETICO 126",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45343",
-    "name": "MIGUEL BARROS MORAES",
+    "name": "ALUNO SINTETICO 127",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44952",
-    "name": "YASMIN NASCIMENTO VIEIRA",
+    "name": "ALUNO SINTETICO 128",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45386",
-    "name": "SAMUEL PAIVA RODRIGUES",
+    "name": "ALUNO SINTETICO 129",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44990",
-    "name": "YASMIN VIEIRA MACHADO",
+    "name": "ALUNO SINTETICO 130",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44768",
-    "name": "JOAO NOGUEIRA MARQUES",
+    "name": "ALUNO SINTETICO 131",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45506",
-    "name": "VALENTINA VIEIRA SOUZA",
+    "name": "ALUNO SINTETICO 132",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "43811",
-    "name": "LORENZO DUARTE PEREIRA",
+    "name": "ALUNO SINTETICO 133",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52366",
-    "name": "JULIA MORAES MARTINS",
+    "name": "ALUNO SINTETICO 134",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45024",
-    "name": "VINICIUS BORGES PINTO",
+    "name": "ALUNO SINTETICO 135",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44630",
-    "name": "CAROLINA MACHADO OLIVEIRA",
+    "name": "ALUNO SINTETICO 136",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45709",
-    "name": "CAROLINA COSTA SANTANA",
+    "name": "ALUNO SINTETICO 137",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44164",
-    "name": "LEONARDO MELO NASCIMENTO",
+    "name": "ALUNO SINTETICO 138",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44608",
-    "name": "MANUELA CASTRO SOARES",
+    "name": "ALUNO SINTETICO 139",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52339",
-    "name": "VINICIUS BORGES FONTES",
+    "name": "ALUNO SINTETICO 140",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45222",
-    "name": "BERNARDO BORGES BARBOSA",
+    "name": "ALUNO SINTETICO 141",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45097",
-    "name": "VINICIUS MOREIRA NOGUEIRA",
+    "name": "ALUNO SINTETICO 142",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44450",
-    "name": "RAFAEL RODRIGUES CARDOSO",
+    "name": "ALUNO SINTETICO 143",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "51565",
-    "name": "MATHEUS PINTO GARCIA",
+    "name": "ALUNO SINTETICO 144",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45204",
-    "name": "MATHEUS BORGES TEIXEIRA",
+    "name": "ALUNO SINTETICO 145",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "52309",
-    "name": "GUILHERME GONCALVES PINTO",
+    "name": "ALUNO SINTETICO 146",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "45029",
-    "name": "HELENA NASCIMENTO NASCIMENTO",
+    "name": "ALUNO SINTETICO 147",
     "cpf": "",
     "classId": "F-EF28A"
   },
   {
     "registrationNumber": "44587",
-    "name": "GUILHERME BRANDAO SANTOS",
+    "name": "ALUNO SINTETICO 148",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "43603",
-    "name": "PEDRO BRAGA CARVALHO",
+    "name": "ALUNO SINTETICO 149",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45548",
-    "name": "ISABELA SANTANA MORAES",
+    "name": "ALUNO SINTETICO 150",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52201",
-    "name": "PEDRO AZEVEDO BRAGA",
+    "name": "ALUNO SINTETICO 151",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45155",
-    "name": "MANUELA FARIA RIBEIRO",
+    "name": "ALUNO SINTETICO 152",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "43406",
-    "name": "VINICIUS GARCIA ALVES",
+    "name": "ALUNO SINTETICO 153",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45036",
-    "name": "MIGUEL CARVALHO FERREIRA",
+    "name": "ALUNO SINTETICO 154",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44357",
-    "name": "PEDRO MACHADO FREITAS",
+    "name": "ALUNO SINTETICO 155",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44696",
-    "name": "FERNANDA SANTANA SOUZA",
+    "name": "ALUNO SINTETICO 156",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44660",
-    "name": "HENRIQUE PAIVA ALBUQUERQUE",
+    "name": "ALUNO SINTETICO 157",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52466",
-    "name": "LORENZO BARROS SOUZA",
+    "name": "ALUNO SINTETICO 158",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "43270",
-    "name": "MATHEUS FONTES MENDES",
+    "name": "ALUNO SINTETICO 159",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44028",
-    "name": "MATEUS SANTANA ROCHA",
+    "name": "ALUNO SINTETICO 160",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44308",
-    "name": "MATHEUS NOGUEIRA BORGES",
+    "name": "ALUNO SINTETICO 161",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44479",
-    "name": "ALICE TEIXEIRA BRANDAO",
+    "name": "ALUNO SINTETICO 162",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "51048",
-    "name": "FELIPE BORGES SOARES",
+    "name": "ALUNO SINTETICO 163",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44004",
-    "name": "DAVI MACHADO SANTANA",
+    "name": "ALUNO SINTETICO 164",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44976",
-    "name": "LARA RODRIGUES ALVES",
+    "name": "ALUNO SINTETICO 165",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44618",
-    "name": "LORENZO FREITAS ALMEIDA",
+    "name": "ALUNO SINTETICO 166",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45176",
-    "name": "LIVIA SANTOS CASTRO",
+    "name": "ALUNO SINTETICO 167",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44646",
-    "name": "GIOVANNA BARROS BRAGA",
+    "name": "ALUNO SINTETICO 168",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45021",
-    "name": "MIGUEL MORAES PEREIRA",
+    "name": "ALUNO SINTETICO 169",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44471",
-    "name": "ALICE MOREIRA RODRIGUES",
+    "name": "ALUNO SINTETICO 170",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45534",
-    "name": "LUCAS GONCALVES PINTO",
+    "name": "ALUNO SINTETICO 171",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "51106",
-    "name": "VALENTINA RAMOS SOUZA",
+    "name": "ALUNO SINTETICO 172",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45407",
-    "name": "JULIA SANTANA CAMPOS",
+    "name": "ALUNO SINTETICO 173",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44006",
-    "name": "JULIA ROCHA BRAGA",
+    "name": "ALUNO SINTETICO 174",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "51047",
-    "name": "LEONARDO DUARTE VIEIRA",
+    "name": "ALUNO SINTETICO 175",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44765",
-    "name": "LARA GARCIA MENDES",
+    "name": "ALUNO SINTETICO 176",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52320",
-    "name": "HENRIQUE PAIVA GARCIA",
+    "name": "ALUNO SINTETICO 177",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45032",
-    "name": "ELENA LIMA CAMPOS",
+    "name": "ALUNO SINTETICO 178",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45131",
-    "name": "MIGUEL GOMES BRAGA",
+    "name": "ALUNO SINTETICO 179",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52507",
-    "name": "DANIEL ALBUQUERQUE SANTOS",
+    "name": "ALUNO SINTETICO 180",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "52576",
-    "name": "THEO BRANDAO MOREIRA",
+    "name": "ALUNO SINTETICO 181",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "45035",
-    "name": "HENRIQUE PAIVA ALBUQUERQUE",
+    "name": "ALUNO SINTETICO 182",
     "cpf": "",
     "classId": "F-EF28B"
   },
   {
     "registrationNumber": "44598",
-    "name": "LARA MARQUES SOARES",
+    "name": "ALUNO SINTETICO 183",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52044",
-    "name": "MATEUS DUARTE LIMA",
+    "name": "ALUNO SINTETICO 184",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52244",
-    "name": "MATHEUS FARIA MEDEIROS",
+    "name": "ALUNO SINTETICO 185",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "51103",
-    "name": "EDUARDO SANTOS SOARES",
+    "name": "ALUNO SINTETICO 186",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44565",
-    "name": "PEDRO MORAES OLIVEIRA",
+    "name": "ALUNO SINTETICO 187",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43440",
-    "name": "MATEUS BRAGA DUARTE",
+    "name": "ALUNO SINTETICO 188",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43439",
-    "name": "MATEUS BARROS COSTA",
+    "name": "ALUNO SINTETICO 189",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44755",
-    "name": "LUCAS BARBOSA MENDES",
+    "name": "ALUNO SINTETICO 190",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45555",
-    "name": "LUISA BARROS OLIVEIRA",
+    "name": "ALUNO SINTETICO 191",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43000",
-    "name": "PEDRO ROCHA BARROS",
+    "name": "ALUNO SINTETICO 192",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44033",
-    "name": "LUISA ROCHA ROCHA",
+    "name": "ALUNO SINTETICO 193",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43926",
-    "name": "YASMIN GOMES SOUZA",
+    "name": "ALUNO SINTETICO 194",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45693",
-    "name": "DAVI LIMA GOMES",
+    "name": "ALUNO SINTETICO 195",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44188",
-    "name": "LORENZO CAMPOS ROCHA",
+    "name": "ALUNO SINTETICO 196",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43432",
-    "name": "MATHEUS RODRIGUES BARBOSA",
+    "name": "ALUNO SINTETICO 197",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44564",
-    "name": "ARTHUR RAMOS NASCIMENTO",
+    "name": "ALUNO SINTETICO 198",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43684",
-    "name": "BERNARDO ALBUQUERQUE MEDEIROS",
+    "name": "ALUNO SINTETICO 199",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45110",
-    "name": "MIGUEL MELO DUARTE",
+    "name": "ALUNO SINTETICO 200",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45125",
-    "name": "CAROLINA MACHADO MACHADO",
+    "name": "ALUNO SINTETICO 201",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44652",
-    "name": "GIOVANNA BRAGA FREITAS",
+    "name": "ALUNO SINTETICO 202",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "42820",
-    "name": "LIVIA CASTRO ALBUQUERQUE",
+    "name": "ALUNO SINTETICO 203",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45422",
-    "name": "LUISA FREITAS FREITAS",
+    "name": "ALUNO SINTETICO 204",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43515",
-    "name": "YASMIN VIEIRA MACHADO",
+    "name": "ALUNO SINTETICO 205",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "44309",
-    "name": "SAMUEL MOREIRA PINTO",
+    "name": "ALUNO SINTETICO 206",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52548",
-    "name": "SAMUEL ALBUQUERQUE FARIA",
+    "name": "ALUNO SINTETICO 207",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45301",
-    "name": "MATHEUS CARDOSO RODRIGUES",
+    "name": "ALUNO SINTETICO 208",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52276",
-    "name": "CAIO PAIVA GONCALVES",
+    "name": "ALUNO SINTETICO 209",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52557",
-    "name": "DANIEL MENDES SANTOS",
+    "name": "ALUNO SINTETICO 210",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "43895",
-    "name": "LUISA SILVA DUARTE",
+    "name": "ALUNO SINTETICO 211",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "51033",
-    "name": "CAIO CARDOSO PAIVA",
+    "name": "ALUNO SINTETICO 212",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "51763",
-    "name": "HELENA ALMEIDA ALMEIDA",
+    "name": "ALUNO SINTETICO 213",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "42817",
-    "name": "NICOLAS DIAS NOGUEIRA",
+    "name": "ALUNO SINTETICO 214",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "45315",
-    "name": "ELENA CAMPOS MACHADO",
+    "name": "ALUNO SINTETICO 215",
     "cpf": "",
     "classId": "F-EF29A"
   },
   {
     "registrationNumber": "52516",
-    "name": "FERNANDA COSTA PEREIRA",
+    "name": "ALUNO SINTETICO 216",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52579",
-    "name": "SOFIA AZEVEDO NASCIMENTO",
+    "name": "ALUNO SINTETICO 217",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43529",
-    "name": "MANUELA BARBOSA PINTO",
+    "name": "ALUNO SINTETICO 218",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44022",
-    "name": "ALICE NOGUEIRA SANTOS",
+    "name": "ALUNO SINTETICO 219",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44504",
-    "name": "BEATRIZ MORAES LIMA",
+    "name": "ALUNO SINTETICO 220",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43929",
-    "name": "MIGUEL BRAGA AZEVEDO",
+    "name": "ALUNO SINTETICO 221",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43674",
-    "name": "HELENA SANTANA LIMA",
+    "name": "ALUNO SINTETICO 222",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44046",
-    "name": "MATHEUS CARDOSO MOREIRA",
+    "name": "ALUNO SINTETICO 223",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "45091",
-    "name": "SAMUEL SOARES ALVES",
+    "name": "ALUNO SINTETICO 224",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "51030",
-    "name": "GUILHERME DIAS MENDES",
+    "name": "ALUNO SINTETICO 225",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43567",
-    "name": "RAFAEL MARQUES SANTOS",
+    "name": "ALUNO SINTETICO 226",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43362",
-    "name": "MATHEUS CASTRO DIAS",
+    "name": "ALUNO SINTETICO 227",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52573",
-    "name": "ALICE SOARES SOARES",
+    "name": "ALUNO SINTETICO 228",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44007",
-    "name": "SOFIA VIEIRA RAMOS",
+    "name": "ALUNO SINTETICO 229",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52287",
-    "name": "THEO RIBEIRO BARBOSA",
+    "name": "ALUNO SINTETICO 230",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44501",
-    "name": "FERNANDA NASCIMENTO BRAGA",
+    "name": "ALUNO SINTETICO 231",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44325",
-    "name": "THEO BORGES MENDES",
+    "name": "ALUNO SINTETICO 232",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43419",
-    "name": "FERNANDA RAMOS SANTANA",
+    "name": "ALUNO SINTETICO 233",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43947",
-    "name": "LARA LOPES SANTOS",
+    "name": "ALUNO SINTETICO 234",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43820",
-    "name": "GUILHERME SANTOS CARDOSO",
+    "name": "ALUNO SINTETICO 235",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44184",
-    "name": "JULIA PEREIRA COSTA",
+    "name": "ALUNO SINTETICO 236",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44217",
-    "name": "GIOVANNA PEREIRA VIEIRA",
+    "name": "ALUNO SINTETICO 237",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "51390",
-    "name": "MATEUS BRAGA DUARTE",
+    "name": "ALUNO SINTETICO 238",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43614",
-    "name": "GABRIEL MENDES PINTO",
+    "name": "ALUNO SINTETICO 239",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "43996",
-    "name": "SOFIA MARTINS FERREIRA",
+    "name": "ALUNO SINTETICO 240",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "45337",
-    "name": "ISABELA ALMEIDA CAMPOS",
+    "name": "ALUNO SINTETICO 241",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44203",
-    "name": "CAIO ALBUQUERQUE MARQUES",
+    "name": "ALUNO SINTETICO 242",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "45710",
-    "name": "RAFAEL GONCALVES MENDES",
+    "name": "ALUNO SINTETICO 243",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52288",
-    "name": "FERNANDA BRAGA MORAES",
+    "name": "ALUNO SINTETICO 244",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44846",
-    "name": "FELIPE MOREIRA RODRIGUES",
+    "name": "ALUNO SINTETICO 245",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "44049",
-    "name": "GUILHERME RODRIGUES FONTES",
+    "name": "ALUNO SINTETICO 246",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "51706",
-    "name": "RAFAEL DIAS GONCALVES",
+    "name": "ALUNO SINTETICO 247",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52392",
-    "name": "YASMIN LIMA MELO",
+    "name": "ALUNO SINTETICO 248",
     "cpf": "",
     "classId": "F-EF29B"
   },
   {
     "registrationNumber": "52037",
-    "name": "CAROLINA CAMPOS VIEIRA",
+    "name": "ALUNO SINTETICO 249",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51726",
-    "name": "HELENA MARTINS MARTINS",
+    "name": "ALUNO SINTETICO 250",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51469",
-    "name": "YASMIN BRAGA NASCIMENTO",
+    "name": "ALUNO SINTETICO 251",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43517",
-    "name": "EDUARDO ALVES LOPES",
+    "name": "ALUNO SINTETICO 252",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43415",
-    "name": "MATEUS SOUZA DUARTE",
+    "name": "ALUNO SINTETICO 253",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "42741",
-    "name": "SAMUEL MARQUES ALVES",
+    "name": "ALUNO SINTETICO 254",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "52533",
-    "name": "MATEUS AZEVEDO ALMEIDA",
+    "name": "ALUNO SINTETICO 255",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "45275",
-    "name": "FELIPE MENDES ALBUQUERQUE",
+    "name": "ALUNO SINTETICO 256",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44080",
-    "name": "HENRIQUE SOARES RIBEIRO",
+    "name": "ALUNO SINTETICO 257",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44571",
-    "name": "MATHEUS GARCIA MOREIRA",
+    "name": "ALUNO SINTETICO 258",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44769",
-    "name": "MATEUS DUARTE LIMA",
+    "name": "ALUNO SINTETICO 259",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43383",
-    "name": "BERNARDO BRANDAO MARQUES",
+    "name": "ALUNO SINTETICO 260",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44200",
-    "name": "LARA CARDOSO ALBUQUERQUE",
+    "name": "ALUNO SINTETICO 261",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43422",
-    "name": "BEATRIZ MARTINS CAMPOS",
+    "name": "ALUNO SINTETICO 262",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43336",
-    "name": "VINICIUS GARCIA CASTRO",
+    "name": "ALUNO SINTETICO 263",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "52512",
-    "name": "HELENA VIEIRA VIEIRA",
+    "name": "ALUNO SINTETICO 264",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "44071",
-    "name": "HELENA MARTINS FERREIRA",
+    "name": "ALUNO SINTETICO 265",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43084",
-    "name": "MIGUEL FERREIRA COSTA",
+    "name": "ALUNO SINTETICO 266",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "52026",
-    "name": "GABRIEL SANTOS CASTRO",
+    "name": "ALUNO SINTETICO 267",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43074",
-    "name": "LEONARDO RAMOS AZEVEDO",
+    "name": "ALUNO SINTETICO 268",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51319",
-    "name": "MATEUS MACHADO LIMA",
+    "name": "ALUNO SINTETICO 269",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43621",
-    "name": "FELIPE MOREIRA RODRIGUES",
+    "name": "ALUNO SINTETICO 270",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51656",
-    "name": "DANIEL PINTO RODRIGUES",
+    "name": "ALUNO SINTETICO 271",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "52243",
-    "name": "SAMUEL ALBUQUERQUE BORGES",
+    "name": "ALUNO SINTETICO 272",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43321",
-    "name": "REBECA OLIVEIRA BRAGA",
+    "name": "ALUNO SINTETICO 273",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43436",
-    "name": "MIGUEL MORAES FERREIRA",
+    "name": "ALUNO SINTETICO 274",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51457",
-    "name": "FERNANDA SILVA FREITAS",
+    "name": "ALUNO SINTETICO 275",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "43509",
-    "name": "LUCAS ALVES PINTO",
+    "name": "ALUNO SINTETICO 276",
     "cpf": "",
     "classId": "F-EM1A"
   },
   {
     "registrationNumber": "51091",
-    "name": "DAVI VIEIRA FERREIRA",
+    "name": "ALUNO SINTETICO 277",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "45040",
-    "name": "VALENTINA SOUZA DUARTE",
+    "name": "ALUNO SINTETICO 278",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "45650",
-    "name": "EDUARDO MEDEIROS RIBEIRO",
+    "name": "ALUNO SINTETICO 279",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "51400",
-    "name": "YASMIN MELO SILVA",
+    "name": "ALUNO SINTETICO 280",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "51643",
-    "name": "BEATRIZ CAMPOS ALMEIDA",
+    "name": "ALUNO SINTETICO 281",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "51649",
-    "name": "FELIPE MEDEIROS TEIXEIRA",
+    "name": "ALUNO SINTETICO 282",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "44671",
-    "name": "REBECA SILVA BRAGA",
+    "name": "ALUNO SINTETICO 283",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43843",
-    "name": "DANIEL CASTRO FARIA",
+    "name": "ALUNO SINTETICO 284",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43420",
-    "name": "LUCAS SANTOS CARDOSO",
+    "name": "ALUNO SINTETICO 285",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "51105",
-    "name": "NICOLAS ALBUQUERQUE CARDOSO",
+    "name": "ALUNO SINTETICO 286",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "42850",
-    "name": "HENRIQUE PAIVA MENDES",
+    "name": "ALUNO SINTETICO 287",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43438",
-    "name": "CAROLINA ALMEIDA ALMEIDA",
+    "name": "ALUNO SINTETICO 288",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "41761",
-    "name": "ELENA GOMES FERREIRA",
+    "name": "ALUNO SINTETICO 289",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "44594",
-    "name": "BEATRIZ GOMES AZEVEDO",
+    "name": "ALUNO SINTETICO 290",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "45295",
-    "name": "LUISA MACHADO DUARTE",
+    "name": "ALUNO SINTETICO 291",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "44581",
-    "name": "RAFAEL NOGUEIRA GONCALVES",
+    "name": "ALUNO SINTETICO 292",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "45530",
-    "name": "LIVIA MOREIRA GARCIA",
+    "name": "ALUNO SINTETICO 293",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "52420",
-    "name": "REBECA AZEVEDO BARROS",
+    "name": "ALUNO SINTETICO 294",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "52539",
-    "name": "REBECA CARVALHO SANTANA",
+    "name": "ALUNO SINTETICO 295",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43452",
-    "name": "MATEUS ALMEIDA RAMOS",
+    "name": "ALUNO SINTETICO 296",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "43846",
-    "name": "LIVIA NOGUEIRA ALVES",
+    "name": "ALUNO SINTETICO 297",
     "cpf": "",
     "classId": "F-EM1B"
   },
   {
     "registrationNumber": "42775",
-    "name": "RAFAEL GONCALVES CARDOSO",
+    "name": "ALUNO SINTETICO 298",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43478",
-    "name": "HENRIQUE MOREIRA PAIVA",
+    "name": "ALUNO SINTETICO 299",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51924",
-    "name": "LORENZO GOMES COSTA",
+    "name": "ALUNO SINTETICO 300",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42316",
-    "name": "HENRIQUE TEIXEIRA CASTRO",
+    "name": "ALUNO SINTETICO 301",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43247",
-    "name": "MATHEUS RODRIGUES NOGUEIRA",
+    "name": "ALUNO SINTETICO 302",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43505",
-    "name": "DAVI FERREIRA SILVA",
+    "name": "ALUNO SINTETICO 303",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45647",
-    "name": "NICOLAS SANTOS SANTOS",
+    "name": "ALUNO SINTETICO 304",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "52599",
-    "name": "LORENZO ALMEIDA COSTA",
+    "name": "ALUNO SINTETICO 305",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42933",
-    "name": "VINICIUS BARBOSA BORGES",
+    "name": "ALUNO SINTETICO 306",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44264",
-    "name": "FELIPE TEIXEIRA MEDEIROS",
+    "name": "ALUNO SINTETICO 307",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51673",
-    "name": "LARA MARQUES SOARES",
+    "name": "ALUNO SINTETICO 308",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45290",
-    "name": "VINICIUS MEDEIROS GARCIA",
+    "name": "ALUNO SINTETICO 309",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43864",
-    "name": "GIOVANNA ALMEIDA SANTANA",
+    "name": "ALUNO SINTETICO 310",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42616",
-    "name": "DANIEL BRANDAO CASTRO",
+    "name": "ALUNO SINTETICO 311",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45643",
-    "name": "SAMUEL RIBEIRO BORGES",
+    "name": "ALUNO SINTETICO 312",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45645",
-    "name": "VALENTINA SOUZA MACHADO",
+    "name": "ALUNO SINTETICO 313",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43378",
-    "name": "FERNANDA SOUZA CARVALHO",
+    "name": "ALUNO SINTETICO 314",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51357",
-    "name": "PEDRO OLIVEIRA FREITAS",
+    "name": "ALUNO SINTETICO 315",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "52264",
-    "name": "JULIA BRAGA LIMA",
+    "name": "ALUNO SINTETICO 316",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44799",
-    "name": "SOFIA COSTA LIMA",
+    "name": "ALUNO SINTETICO 317",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42627",
-    "name": "LUCAS TEIXEIRA LOPES",
+    "name": "ALUNO SINTETICO 318",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "41915",
-    "name": "REBECA COSTA SILVA",
+    "name": "ALUNO SINTETICO 319",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "45464",
-    "name": "LORENZO CARVALHO SANTANA",
+    "name": "ALUNO SINTETICO 320",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51379",
-    "name": "JULIA BRAGA AZEVEDO",
+    "name": "ALUNO SINTETICO 321",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "41814",
-    "name": "HELENA COSTA AZEVEDO",
+    "name": "ALUNO SINTETICO 322",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44095",
-    "name": "ISABELA BRAGA MACHADO",
+    "name": "ALUNO SINTETICO 323",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42867",
-    "name": "NICOLAS LOPES NOGUEIRA",
+    "name": "ALUNO SINTETICO 324",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "52268",
-    "name": "RAFAEL MEDEIROS SOARES",
+    "name": "ALUNO SINTETICO 325",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44663",
-    "name": "MATHEUS DIAS FARIA",
+    "name": "ALUNO SINTETICO 326",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51487",
-    "name": "GIOVANNA PEREIRA RAMOS",
+    "name": "ALUNO SINTETICO 327",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "52275",
-    "name": "BERNARDO ALVES CARDOSO",
+    "name": "ALUNO SINTETICO 328",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "41763",
-    "name": "FERNANDA FERREIRA MORAES",
+    "name": "ALUNO SINTETICO 329",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43341",
-    "name": "NICOLAS ALVES MOREIRA",
+    "name": "ALUNO SINTETICO 330",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44591",
-    "name": "ARTHUR AZEVEDO PEREIRA",
+    "name": "ALUNO SINTETICO 331",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "44949",
-    "name": "ALICE MEDEIROS TEIXEIRA",
+    "name": "ALUNO SINTETICO 332",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42885",
-    "name": "ISABELA PEREIRA BARROS",
+    "name": "ALUNO SINTETICO 333",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43400",
-    "name": "GIOVANNA NASCIMENTO DUARTE",
+    "name": "ALUNO SINTETICO 334",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43596",
-    "name": "FELIPE GONCALVES RODRIGUES",
+    "name": "ALUNO SINTETICO 335",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42879",
-    "name": "GUILHERME GONCALVES MEDEIROS",
+    "name": "ALUNO SINTETICO 336",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "42231",
-    "name": "DAVI MELO SOUZA",
+    "name": "ALUNO SINTETICO 337",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "43318",
-    "name": "HELENA ROCHA CARVALHO",
+    "name": "ALUNO SINTETICO 338",
     "cpf": "",
     "classId": "F-EM2A"
   },
   {
     "registrationNumber": "51339",
-    "name": "VALENTINA BARROS COSTA",
+    "name": "ALUNO SINTETICO 339",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42789",
-    "name": "EDUARDO BORGES FONTES",
+    "name": "ALUNO SINTETICO 340",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42172",
-    "name": "RAFAEL BORGES BARBOSA",
+    "name": "ALUNO SINTETICO 341",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "45199",
-    "name": "LARA PINTO TEIXEIRA",
+    "name": "ALUNO SINTETICO 342",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "51765",
-    "name": "MATEUS PEREIRA DUARTE",
+    "name": "ALUNO SINTETICO 343",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "45419",
-    "name": "BERNARDO ALBUQUERQUE TEIXEIRA",
+    "name": "ALUNO SINTETICO 344",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "44751",
-    "name": "HELENA SOUZA MARTINS",
+    "name": "ALUNO SINTETICO 345",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "52047",
-    "name": "RAFAEL PAIVA BARBOSA",
+    "name": "ALUNO SINTETICO 346",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "45046",
-    "name": "RAFAEL NOGUEIRA ALVES",
+    "name": "ALUNO SINTETICO 347",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41765",
-    "name": "RAFAEL RODRIGUES RIBEIRO",
+    "name": "ALUNO SINTETICO 348",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42007",
-    "name": "SOFIA FREITAS RAMOS",
+    "name": "ALUNO SINTETICO 349",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "11094",
-    "name": "BEATRIZ MORAES AZEVEDO",
+    "name": "ALUNO SINTETICO 350",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41712",
-    "name": "LIVIA PAIVA NOGUEIRA",
+    "name": "ALUNO SINTETICO 351",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41760",
-    "name": "PEDRO MORAES MACHADO",
+    "name": "ALUNO SINTETICO 352",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41536",
-    "name": "EDUARDO CARDOSO CASTRO",
+    "name": "ALUNO SINTETICO 353",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42436",
-    "name": "MIGUEL CARVALHO FERREIRA",
+    "name": "ALUNO SINTETICO 354",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "43570",
-    "name": "CAIO DIAS CARDOSO",
+    "name": "ALUNO SINTETICO 355",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "43526",
-    "name": "ARTHUR NASCIMENTO BRAGA",
+    "name": "ALUNO SINTETICO 356",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "41065",
-    "name": "LEONARDO ALMEIDA OLIVEIRA",
+    "name": "ALUNO SINTETICO 357",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "52022",
-    "name": "JULIA LIMA RAMOS",
+    "name": "ALUNO SINTETICO 358",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "44104",
-    "name": "LIVIA GARCIA FONTES",
+    "name": "ALUNO SINTETICO 359",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "43559",
-    "name": "VINICIUS PAIVA BRANDAO",
+    "name": "ALUNO SINTETICO 360",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "52139",
-    "name": "JULIA MARTINS LIMA",
+    "name": "ALUNO SINTETICO 361",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42430",
-    "name": "PEDRO ALMEIDA DUARTE",
+    "name": "ALUNO SINTETICO 362",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42781",
-    "name": "LORENZO BARROS MARTINS",
+    "name": "ALUNO SINTETICO 363",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "52571",
-    "name": "GUILHERME MARQUES CASTRO",
+    "name": "ALUNO SINTETICO 364",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42752",
-    "name": "THEO GARCIA NOGUEIRA",
+    "name": "ALUNO SINTETICO 365",
     "cpf": "",
     "classId": "F-EM3A"
   },
   {
     "registrationNumber": "42807",
-    "name": "GABRIEL PAIVA LOPES",
+    "name": "ALUNO SINTETICO 366",
     "cpf": "",
     "classId": "F-EM3A"
   },
   // --- Fundamental I (1º ao 5º Ano) ---
-  { "registrationNumber": "11001", "name": "ALICE CARVALHO SILVA", "cpf": "", "classId": "F-EF11A" },
-  { "registrationNumber": "11002", "name": "BERNARDO SANTOS LIMA", "cpf": "", "classId": "F-EF11A" },
-  { "registrationNumber": "11003", "name": "CLARA MENDES DIAS", "cpf": "", "classId": "F-EF11A" },
-  { "registrationNumber": "12001", "name": "DAVI OLIVEIRA SOUZA", "cpf": "", "classId": "F-EF12A" },
-  { "registrationNumber": "12002", "name": "ELISA PEREIRA ROCHA", "cpf": "", "classId": "F-EF12A" },
-  { "registrationNumber": "13001", "name": "FELIPE CARDOSO ALMEIDA", "cpf": "", "classId": "F-EF13A" },
-  { "registrationNumber": "13002", "name": "GABRIELA COSTA RIBEIRO", "cpf": "", "classId": "F-EF13A" },
-  { "registrationNumber": "14001", "name": "HEITOR NUNES MARTINS", "cpf": "", "classId": "F-EF14A" },
-  { "registrationNumber": "14002", "name": "ISABELA LOPES TEIXEIRA", "cpf": "", "classId": "F-EF14A" },
-  { "registrationNumber": "15001", "name": "JOAQUIM FERREIRA GOMES", "cpf": "", "classId": "F-EF15A" },
-  { "registrationNumber": "15002", "name": "LAURA PINTO MOREIRA", "cpf": "", "classId": "F-EF15A" },
+  { "registrationNumber": "11001", "name": "ALUNO SINTETICO 367", "cpf": "", "classId": "F-EF11A" },
+  { "registrationNumber": "11002", "name": "ALUNO SINTETICO 368", "cpf": "", "classId": "F-EF11A" },
+  { "registrationNumber": "11003", "name": "ALUNO SINTETICO 369", "cpf": "", "classId": "F-EF11A" },
+  { "registrationNumber": "12001", "name": "ALUNO SINTETICO 370", "cpf": "", "classId": "F-EF12A" },
+  { "registrationNumber": "12002", "name": "ALUNO SINTETICO 371", "cpf": "", "classId": "F-EF12A" },
+  { "registrationNumber": "13001", "name": "ALUNO SINTETICO 372", "cpf": "", "classId": "F-EF13A" },
+  { "registrationNumber": "13002", "name": "ALUNO SINTETICO 373", "cpf": "", "classId": "F-EF13A" },
+  { "registrationNumber": "14001", "name": "ALUNO SINTETICO 374", "cpf": "", "classId": "F-EF14A" },
+  { "registrationNumber": "14002", "name": "ALUNO SINTETICO 375", "cpf": "", "classId": "F-EF14A" },
+  { "registrationNumber": "15001", "name": "ALUNO SINTETICO 376", "cpf": "", "classId": "F-EF15A" },
+  { "registrationNumber": "15002", "name": "ALUNO SINTETICO 377", "cpf": "", "classId": "F-EF15A" },
   // --- Turma Medicina (Extensivo / Alta Performance) ---
-  { "registrationNumber": "99001", "name": "BEATRIZ ALENCAR RESENDE", "cpf": "", "classId": "MED-EXT" },
-  { "registrationNumber": "99002", "name": "CAIO VINICIUS MEDEIROS", "cpf": "", "classId": "MED-EXT" },
-  { "registrationNumber": "99003", "name": "MARIANA TEIXEIRA CAVALCANTI", "cpf": "", "classId": "MED-EXT" },
-  { "registrationNumber": "99004", "name": "RODRIGO FONTES GUIMARAES", "cpf": "", "classId": "MED-EXT" }
+  { "registrationNumber": "99001", "name": "ALUNO SINTETICO 378", "cpf": "", "classId": "MED-EXT" },
+  { "registrationNumber": "99002", "name": "ALUNO SINTETICO 379", "cpf": "", "classId": "MED-EXT" },
+  { "registrationNumber": "99003", "name": "ALUNO SINTETICO 380", "cpf": "", "classId": "MED-EXT" },
+  { "registrationNumber": "99004", "name": "ALUNO SINTETICO 381", "cpf": "", "classId": "MED-EXT" }
 ];
 
 export const STUDENTS: StudentData[] = RAW_STUDENTS.map((s) => {

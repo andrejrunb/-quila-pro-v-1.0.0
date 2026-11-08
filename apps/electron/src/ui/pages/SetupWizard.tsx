@@ -27,7 +27,7 @@ export const SetupWizard: React.FC<{ onFinish: () => void }> = ({ onFinish }) =>
       // 2. Criar Admin Inicial (se alterado)
       if (formData.adminPass) {
         // Assume IPC auth:create-user
-        await aquila.invoke('auth:login', { username: 'admin', password: 'password' }); // Login temporário com default
+        await aquila.invoke('auth:login', { username: formData.adminEmail || 'admin', password: formData.adminPass });
         // await aquila.invoke('auth:create-user', { ... }); // Seria o ideal
       }
 

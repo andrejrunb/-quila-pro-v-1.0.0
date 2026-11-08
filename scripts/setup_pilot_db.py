@@ -35,7 +35,7 @@ print("Cleaned up orphaned foreign key records.")
 
 # 2. Seed test users
 test_users = [
-    ('user-admin-01', 'admin', 'admin', 'Administrador Principal', make_scrypt_hash('Admin@2026!'), None, None),
+    ('user-admin-01', 'admin', 'admin', 'Administrador Principal (Fixture)', make_scrypt_hash(os.environ.get('PILOT_ADMIN_PASSWORD', 'Admin@2026!')), None, None),
     ('user-coord-pilot', 'coord_pilot', 'coordinator', 'Fabiana Coordenação', make_scrypt_hash('Coord@2026!'), None, None),
     ('user-prof-pilot', 'prof_pilot', 'docente', 'Professora Karine', make_scrypt_hash('Prof@2026!'), None, None),
     ('user-secr-pilot', 'secr_pilot', 'secretary', 'Secretário Pedro', make_scrypt_hash('Secr@2026!'), None, None),

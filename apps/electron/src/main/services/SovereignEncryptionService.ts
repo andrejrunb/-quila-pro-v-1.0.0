@@ -14,7 +14,23 @@ export class SovereignEncryptionService {
   private constructor() {
     // Hardened Key Derivation (HKD)
     // Em produção, o segredo é injetado via TPM ou derivado do hardware fingerprint.
-    const masterSecret = process.env.AQUILA_ENCRYPTION_SECRET || crypto.randomBytes(32).toString('hex');
+    let masterSecret = process.env.AQUILA_ENCRYPTION_SECRET;
+    if (!masterSecret) {
+      try {
+        const fsMod = require('fs');
+        const pathMod = require('path');
+        const keyDir = process.env.APPDATA || process.env.USERPROFILE || '.';
+        const secretPath = pathMod.join(keyDir, '.aquila_machine_key');
+        if (fsMod.existsSync(secretPath)) {
+          masterSecret = fsMod.readFileSync(secretPath, 'utf8').trim();
+        } else {
+          masterSecret = crypto.randomBytes(32).toString('hex');
+          fsMod.writeFileSync(secretPath, masterSecret, { mode: 0o600 });
+        }
+      } catch {
+        masterSecret = crypto.randomBytes(32).toString('hex');
+      }
+    }
     this.key = crypto.scryptSync(masterSecret, 'aquila-pro-salt', 32);
     logger.info('[SECURITY] SovereignEncryptionService inicializado com AES-256-GCM.');
   }

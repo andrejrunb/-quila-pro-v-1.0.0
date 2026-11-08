@@ -12,9 +12,26 @@ export class SecurityService {
 
   constructor() {
     // A chave é derivada de um segredo único do hardware 
-    const salt = 'aquila-pro-secure-salt-v1';
-    const hwSecret = process.env.AQUILA_ENCRYPTION_SECRET || (os.hostname() + os.arch() + (process.env.COMPUTERNAME || 'eagle-device'));
-    this.key = crypto.pbkdf2Sync(hwSecret, salt, 10000, 32, 'sha256');
+    const isTest = process.env.NODE_ENV === 'test' || Boolean(process.env.PLAYWRIGHT_TEST);
+    let secret = process.env.AQUILA_ENCRYPTION_SECRET;
+    if (!secret) {
+      if (isTest) {
+        secret = 'aquila-test-hw-secret';
+      } else {
+        const fsMod = require('fs');
+        const pathMod = require('path');
+        const keyDir = process.env.APPDATA || process.env.USERPROFILE || '.';
+        const secretPath = pathMod.join(keyDir, '.aquila_machine_key');
+        if (fsMod.existsSync(secretPath)) {
+          secret = fsMod.readFileSync(secretPath, 'utf8').trim();
+        } else {
+          secret = crypto.randomBytes(32).toString('hex');
+          fsMod.writeFileSync(secretPath, secret, { mode: 0o600 });
+        }
+      }
+    }
+    const salt = crypto.createHash('sha256').update(secret + '-salt').digest();
+    this.key = crypto.pbkdf2Sync(secret, salt, 100000, 32, 'sha256');
   }
 
   /**

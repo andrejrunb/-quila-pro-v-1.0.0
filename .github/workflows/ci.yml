@@ -8,7 +8,7 @@ on:
 
 jobs:
   quality-and-tests:
-    name: Lint, Typecheck & Automated Tests
+    name: Lint, Typecheck, Security Audit & Automated Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,22 +25,36 @@ jobs:
           node-version: "20"
           cache: "pnpm"
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile=false
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies (Strict Lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Security Audit (High & Critical Vulnerabilities)
+        run: pnpm audit --audit-level=high
+        continue-on-error: true
 
       - name: Lint Web Portal (@aquila/web)
         run: pnpm --filter @aquila/web run lint
 
-      - name: Typecheck Web Portal & Shared API (tsc --noEmit)
+      - name: Typecheck Web, Shared API & Electron Desktop
         run: |
           pnpm --filter @aquila/web exec tsc --noEmit
           pnpm --filter @aquila/api exec tsc --noEmit
+          pnpm --filter aquila-pro-school-os exec tsc --project tsconfig.json --noEmit
 
       - name: Unit Tests — Web Portal (@aquila/web)
         run: pnpm --filter @aquila/web run test
 
       - name: Unit Tests — Shared API (@aquila/api)
         run: pnpm --filter @aquila/api run test
+
+      - name: E0/E1 Sovereign Orchestrator (Durable LangGraph Suite)
+        run: |
+          python3 -m unittest tests/orchestrator/test_e0_e1_orchestrator.py
 
       - name: H-01 Collector & Mission Verification
         run: |
