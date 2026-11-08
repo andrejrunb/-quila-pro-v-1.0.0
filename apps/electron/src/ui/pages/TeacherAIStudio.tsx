@@ -35,6 +35,7 @@ type StudioStation =
 
 type AquilaToolId =
   | 'bncc-lesson'
+  | 'brisk-didactic-hub'
   | 'slide-deck'
   | 'pei-inclusive'
   | 'paper-exam-ocr'
@@ -253,7 +254,7 @@ export const TeacherAIStudio: React.FC<TeacherAIStudioProps> = ({ onBack }) => {
   const [rubricProjectType, setRubricProjectType] = useState<'enem-essay' | 'steam-lab' | 'seminar' | 'maker-project'>('enem-essay');
   const [exitTicketConfidence, setExitTicketConfidence] = useState<number>(4);
   const [exitTicketSelectedOpt, setExitTicketSelectedOpt] = useState<number | null>(1);
-  const [selectedStudentForComment, setSelectedStudentForComment] = useState<string>(STUDENTS[0]?.name || 'ANA CLARA FERREIRA');
+  const [selectedStudentForComment, setSelectedStudentForComment] = useState<string>(STUDENTS[0]?.name || 'ALUNO SINTETICO 001');
   const [commentTone, setCommentTone] = useState<'afetivo' | 'analitico' | 'metas' | 'pei'>('afetivo');
   const [toastNotification, setToastNotification] = useState<string | null>(null);
 
@@ -433,6 +434,148 @@ INSTRUÇÕES OBRIGATÓRIAS:
     showToast(`${label} copiado para a área de transferência!`);
   };
 
+  const downloadFileBlob = (filename: string, fileContent: string, mimeType: string) => {
+    const blob = new Blob([fileContent], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleExportGoogleFormsScript = () => {
+    const safeTopic = topic.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const questionsCode = dynamicPedagogy.questions
+      .map((q, idx) => {
+        const choices = (['A', 'B', 'C', 'D', 'E'] as const)
+          .map(
+            letter =>
+              `  item${idx}.createChoice(${JSON.stringify(`${letter}) ${q.alternatives[letter]}`)}, ${letter === q.correct})`
+          )
+          .join(',\n  ');
+        return `
+  // Questão ${idx + 1} (${q.exam} • TRI ~${q.triDifficulty})
+  var item${idx} = form.addMultipleChoiceItem();
+  item${idx}.setTitle(${JSON.stringify(`Q${idx + 1} [${q.exam}] ${q.statement}`)})
+    .setPoints(2)
+    .setRequired(true);
+  item${idx}.setChoices([
+  ${choices}
+  ]);
+  var feedback${idx} = FormApp.createFeedback()
+    .setText(${JSON.stringify(`Resolução Oficial: ${q.explanation}`)})
+    .build();
+  item${idx}.setFeedbackForCorrect(feedback${idx});
+  item${idx}.setFeedbackForIncorrect(feedback${idx});`;
+      })
+      .join('\n');
+
+    const appsScript = `/**
+ * ÁQUILA PRO ↔ CONEXÃO GOOGLE FORMS (PADRÃO BRISK TEACHING)
+ * Tema: ${topic.toUpperCase()} | Turma: ${grade} | Habilidade: ${dynamicPedagogy.lessonPlan.bnccCode}
+ * Como usar: Abra https://script.new, cole este código e clique em "Executar".
+ */
+function createAquilaQuizInGoogleForms() {
+  var form = FormApp.create(${JSON.stringify(`Quiz Áquila Pro — ${topic.toUpperCase()} (${grade})`)});
+  form.setDescription(${JSON.stringify(`Disciplina: ${subject} | Habilidade BNCC: ${dynamicPedagogy.lessonPlan.bnccCode} — ${dynamicPedagogy.lessonPlan.bnccDescription}`)});
+  form.setIsQuiz(true);
+  form.setCollectEmail(true);
+${questionsCode}
+  Logger.log('Google Forms Quiz criado com sucesso: ' + form.getEditUrl());
+}
+`;
+    navigator.clipboard.writeText(appsScript);
+    downloadFileBlob(`aquila_google_forms_${safeTopic}.gs`, appsScript, 'text/plain;charset=utf-8');
+    showToast(`Quiz exportado para Google Forms (.gs baixado + copiado para a área de transferência)!`);
+  };
+
+  const handleExportKahootCsv = () => {
+    const safeTopic = topic.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const header = 'Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)';
+    const letterToIndex: Record<string, number> = { A: 1, B: 2, C: 3, D: 4, E: 4 };
+    const rows = dynamicPedagogy.questions.map(q => {
+      const clean = (s: string) => `"${(s || '').replace(/"/g, '""').slice(0, 95)}"`;
+      const correctIdx = letterToIndex[q.correct] || 1;
+      return [
+        clean(q.statement),
+        clean(q.alternatives.A),
+        clean(q.alternatives.B),
+        clean(q.alternatives.C),
+        clean(q.alternatives.D),
+        '60',
+        String(correctIdx),
+      ].join(',');
+    });
+    const csvContent = '\uFEFF' + [header, ...rows].join('\r\n');
+    downloadFileBlob(`aquila_kahoot_${safeTopic}.csv`, csvContent, 'text/csv;charset=utf-8');
+    showToast(`Planilha oficial Kahoot! (.csv) gerada e baixada para "${topic}"!`);
+  };
+
+  const handleExportQuizizzCsv = () => {
+    const safeTopic = topic.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const header = 'Question Text,Question Type,Option 1,Option 2,Option 3,Option 4,Option 5,Correct Answer,Time in seconds';
+    const letterToIndex: Record<string, number> = { A: 1, B: 2, C: 3, D: 4, E: 5 };
+    const rows = dynamicPedagogy.questions.map(q => {
+      const clean = (s: string) => `"${(s || '').replace(/"/g, '""')}"`;
+      return [
+        clean(q.statement),
+        'Multiple Choice',
+        clean(q.alternatives.A),
+        clean(q.alternatives.B),
+        clean(q.alternatives.C),
+        clean(q.alternatives.D),
+        clean(q.alternatives.E),
+        String(letterToIndex[q.correct] || 1),
+        '60',
+      ].join(',');
+    });
+    const csvContent = '\uFEFF' + [header, ...rows].join('\r\n');
+    downloadFileBlob(`aquila_quizizz_${safeTopic}.csv`, csvContent, 'text/csv;charset=utf-8');
+    showToast(`Planilha oficial Quizizz/Wayground (.csv) baixada com sucesso!`);
+  };
+
+  const handleExportDidacticSummaryAndWorksheet = () => {
+    const safeTopic = topic.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const md = `# MATERIAL DIDÁTICO ÁQUILA PRO (RESUMO + LISTA + QUIZ)
+**Tema:** ${topic.toUpperCase()}  
+**Disciplina:** ${subject} | **Turma:** ${grade}  
+**Habilidade BNCC:** \`${dynamicPedagogy.lessonPlan.bnccCode}\` — ${dynamicPedagogy.lessonPlan.bnccDescription}
+
+---
+
+## 1. RESUMO ESTRUTURADO & GUIA DE ESTUDO (CORNELL / REVISÃO RÁPIDA)
+- **Ideia Central:** ${dynamicPedagogy.creative.headline}
+- **Analogia Didática:** ${dynamicPedagogy.creative.analogy}
+- **Aplicação Prática no Cotidiano:** ${dynamicPedagogy.creative.realWorldConnection}
+- **Síntese dos Slides de Aula:**
+${dynamicPedagogy.slides.map(s => `  - **Slide ${s.num} (${s.title}):** ${s.body.replace(/\n/g, ' ')}`).join('\n')}
+
+---
+
+## 2. LISTA DE EXERCÍCIOS E QUIZ COM GABARITO COMENTADO (PADRÃO TRI / ENEM)
+${dynamicPedagogy.questions
+  .map(
+    (q, idx) => `### Questão ${idx + 1} (${q.exam} • TRI ~${q.triDifficulty})
+${q.statement}
+- A) ${q.alternatives.A}
+- B) ${q.alternatives.B}
+- C) ${q.alternatives.C}
+- D) ${q.alternatives.D}
+- E) ${q.alternatives.E}
+
+> **Gabarito Oficial:** **${q.correct}** — ${q.explanation}
+`
+  )
+  .join('\n')}
+`;
+    navigator.clipboard.writeText(md);
+    downloadFileBlob(`material_didatico_${safeTopic}.md`, md, 'text/markdown;charset=utf-8');
+    showToast(`Resumo + Lista + Quiz baixados (.md) e copiados para colar no Google Docs / Brisk!`);
+  };
+
   return (
     <div className="tai-studio-shell">
       {/* HEADER PRINCIPAL */}
@@ -555,6 +698,7 @@ INSTRUÇÕES OBRIGATÓRIAS:
             <div className="tai-tool-list">
               {[
                 { id: 'bncc-lesson', name: 'Plano de Aula BNCC + Sequência Didática', badge: 'BNCC Oficial', icon: <BookOpen size={16} /> },
+                { id: 'brisk-didactic-hub', name: 'Fábrica Didática Brisk (Lista, Resumo, Quiz + Forms & Kahoot!)', badge: 'Google Forms • Kahoot • Quizizz', icon: <Zap size={16} /> },
                 { id: 'slide-deck', name: 'Gerador de Apresentação de Slides (8 Slides)', badge: 'Pronto p/ Projetar', icon: <Presentation size={16} /> },
                 { id: 'pei-inclusive', name: 'Adaptador Inclusivo & PEI (TDAH / TEA / Dislexia)', badge: 'Educação Inclusiva', icon: <Brain size={16} /> },
                 { id: 'paper-exam-ocr', name: 'Corretor de Provas em Papel (OCR Gabarito)', badge: 'Visão Computacional', icon: <Camera size={16} /> },
@@ -619,30 +763,149 @@ INSTRUÇÕES OBRIGATÓRIAS:
               </button>
             </div>
 
-            {/* AÇÕES DE EXPORTAÇÃO RÁPIDA */}
-            <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginBottom: 14 }}>
-              <button
-                className="af-btn ghost"
-                onClick={() => handleCopyText(JSON.stringify(dynamicPedagogy, null, 2), 'Planejamento Completo')}
-              >
-                <Copy size={14} />
-                <span>Copiar Conteúdo</span>
-              </button>
-              <button
-                className="af-btn ghost"
-                onClick={() => showToast(`Planejamento de "${topic}" vinculado ao Diário de Classe!`)}
-              >
-                <BookmarkCheck size={14} />
-                <span>Salvar no Diário</span>
-              </button>
-              <button
-                className="af-btn ghost"
-                onClick={() => window.print()}
-              >
-                <Printer size={14} />
-                <span>Imprimir / PDF</span>
-              </button>
+                        {/* HUB DE PRODUÇÃO DIDÁTICA & CONEXÕES 1-CLIQUE (LISTA • RESUMO • QUIZ • GOOGLE FORMS • KAHOOT! • QUIZIZZ • WORDWALL) */}
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, padding: '10px 14px', borderRadius: 12, background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(56, 189, 248, 0.25)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  ⚡ Hub Material Didático &amp; Conexões (Estilo Brisk):
+                </span>
+                <button
+                  type="button"
+                  className="af-btn"
+                  style={{ background: 'rgba(139, 92, 246, 0.2)', border: '1px solid rgba(139, 92, 246, 0.45)', color: '#ddd6fe', fontSize: '0.76rem', padding: '6px 10px' }}
+                  onClick={handleExportGoogleFormsScript}
+                  title="Gera e baixa o script oficial para criar este Quiz no Google Forms com pontuação e gabarito automáticos"
+                >
+                  <FileText size={13} />
+                  <span>📋 Exportar Google Forms (.gs)</span>
+                </button>
+                <button
+                  type="button"
+                  className="af-btn"
+                  style={{ background: 'rgba(236, 72, 153, 0.2)', border: '1px solid rgba(236, 72, 153, 0.45)', color: '#fbcfe8', fontSize: '0.76rem', padding: '6px 10px' }}
+                  onClick={handleExportKahootCsv}
+                  title="Baixa a planilha oficial de importação direta no Kahoot! Creator"
+                >
+                  <Zap size={13} />
+                  <span>🎮 Exportar Kahoot! (.csv)</span>
+                </button>
+                <button
+                  type="button"
+                  className="af-btn"
+                  style={{ background: 'rgba(245, 158, 11, 0.2)', border: '1px solid rgba(245, 158, 11, 0.45)', color: '#fde68a', fontSize: '0.76rem', padding: '6px 10px' }}
+                  onClick={handleExportQuizizzCsv}
+                  title="Baixa a planilha oficial de importação direta no Quizizz / Wayground"
+                >
+                  <Award size={13} />
+                  <span>⚡ Exportar Quizizz (.csv)</span>
+                </button>
+                <button
+                  type="button"
+                  className="af-btn"
+                  style={{ background: 'rgba(16, 185, 129, 0.2)', border: '1px solid rgba(16, 185, 129, 0.45)', color: '#a7f3d0', fontSize: '0.76rem', padding: '6px 10px' }}
+                  onClick={handleExportDidacticSummaryAndWorksheet}
+                  title="Gera Resumo Estruturado (Cornell) + Lista de Exercícios Comentada prontos para Google Docs / Word"
+                >
+                  <Download size={13} />
+                  <span>📚 Baixar Resumo + Lista + Quiz (.md)</span>
+                </button>
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button
+                  className="af-btn ghost"
+                  onClick={() => handleCopyText(JSON.stringify(dynamicPedagogy, null, 2), 'Planejamento Completo')}
+                >
+                  <Copy size={14} />
+                  <span>Copiar</span>
+                </button>
+                <button
+                  className="af-btn ghost"
+                  onClick={() => showToast(`Planejamento de "${topic}" vinculado ao Diário de Classe!`)}
+                >
+                  <BookmarkCheck size={14} />
+                  <span>Salvar no Diário</span>
+                </button>
+                <button
+                  className="af-btn ghost"
+                  onClick={() => window.print()}
+                >
+                  <Printer size={14} />
+                  <span>Imprimir / PDF</span>
+                </button>
+              </div>
             </div>
+
+                        {/* 1B. FÁBRICA DIDÁTICA BRISK (LISTA, RESUMO, QUIZ + CONEXÃO GOOGLE FORMS, KAHOOT! & QUIZIZZ) */}
+            {selectedTool === 'brisk-didactic-hub' && (
+              <div className="tai-output-box">
+                <div className="tai-output-header">
+                  <div>
+                    <span className="tai-badge-inline">PRODUÇÃO DE MATERIAL DIDÁTICO • LISTA, RESUMO &amp; QUIZ • INTEGRAÇÃO GOOGLE FORMS &amp; KAHOOT!</span>
+                    <h2>Fábrica de Material Didático: {topic.toUpperCase()} ({grade})</h2>
+                  </div>
+                </div>
+
+                <div className="tai-sections-grid">
+                  <div className="tai-sec-card">
+                    <h4>📚 1. Resumo Didático Estruturado (Guia de Estudo &amp; Revisão)</h4>
+                    <p><strong>Síntese Conceitual ({dynamicPedagogy.lessonPlan.bnccCode}):</strong> {dynamicPedagogy.creative.headline}</p>
+                    <p><strong>Analogia Didática:</strong> {dynamicPedagogy.creative.analogy}</p>
+                    <p><strong>Aplicação Prática:</strong> {dynamicPedagogy.creative.realWorldConnection}</p>
+                    <div style={{ marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      <button className="af-btn" onClick={handleExportDidacticSummaryAndWorksheet}>
+                        <Download size={14} />
+                        <span>Baixar Resumo + Lista Completa (.md / Docs)</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="tai-sec-card">
+                    <h4>🎯 2. Exportação Direta de Quiz &amp; Jogos (Google Forms, Kahoot!, Quizizz &amp; Wordwall)</h4>
+                    <p style={{ fontSize: '0.84rem', color: '#cbd5e1', marginBottom: 10 }}>
+                      Exporte instantaneamente as <strong>{dynamicPedagogy.questions.length} questões calibradas</strong> deste tópico para suas plataformas favoritas de avaliação e gamificação em sala:
+                    </p>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: 10 }}>
+                      <button
+                        type="button"
+                        className="af-btn"
+                        style={{ justifyContent: 'center', padding: '10px 14px', background: 'rgba(139, 92, 246, 0.22)', border: '1px solid rgba(139, 92, 246, 0.5)' }}
+                        onClick={handleExportGoogleFormsScript}
+                      >
+                        <FileText size={15} />
+                        <span>Conectar Google Forms (.gs)</span>
+                      </button>
+                      <button
+                        type="button"
+                        className="af-btn"
+                        style={{ justifyContent: 'center', padding: '10px 14px', background: 'rgba(236, 72, 153, 0.22)', border: '1px solid rgba(236, 72, 153, 0.5)' }}
+                        onClick={handleExportKahootCsv}
+                      >
+                        <Zap size={15} />
+                        <span>Exportar Kahoot! (.csv)</span>
+                      </button>
+                      <button
+                        type="button"
+                        className="af-btn"
+                        style={{ justifyContent: 'center', padding: '10px 14px', background: 'rgba(245, 158, 11, 0.22)', border: '1px solid rgba(245, 158, 11, 0.5)' }}
+                        onClick={handleExportQuizizzCsv}
+                      >
+                        <Award size={15} />
+                        <span>Exportar Quizizz (.csv)</span>
+                      </button>
+                      <button
+                        type="button"
+                        className="af-btn"
+                        style={{ justifyContent: 'center', padding: '10px 14px', background: 'rgba(14, 165, 233, 0.22)', border: '1px solid rgba(14, 165, 233, 0.5)' }}
+                        onClick={() => setActiveStation('aquila-multimodal-studio')}
+                      >
+                        <Sparkles size={15} />
+                        <span>Abrir no Wordwall &amp; Podcast</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* 1. PLANO DE AULA BNCC */}
             {selectedTool === 'bncc-lesson' && (
@@ -1693,7 +1956,7 @@ INSTRUÇÕES OBRIGATÓRIAS:
                   </td>
                   <td>
                     <span style={{ fontSize: '0.78rem', color: '#f87171', fontWeight: 700 }}>
-                      2 alunos: Davi Lucas Silva, Lucas Andrade
+                      2 alunos: ALUNO SINTETICO 002, ALUNO SINTETICO 003
                     </span>
                     <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Encaminhados para reforço na Câmara de Maestria</div>
                   </td>

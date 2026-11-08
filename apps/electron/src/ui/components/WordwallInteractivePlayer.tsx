@@ -74,6 +74,7 @@ export const WordwallInteractivePlayer: React.FC<WordwallInteractivePlayerProps>
   const [score, setScore] = useState<number>(0);
   const [streak, setStreak] = useState<number>(0);
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
+  const [calmReadingMode, setCalmReadingMode] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
 
   // Group Sort State

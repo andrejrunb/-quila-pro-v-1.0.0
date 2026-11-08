@@ -346,35 +346,36 @@
 }
 
 .premium-grid-table th {
-  padding: 1rem;
+  padding: 0.65rem 0.4rem;
   text-align: center;
-  font-size: 0.625rem;
-  font-weight: 900;
-  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #cbd5e1;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  background-color: rgba(15, 23, 42, 0.8);
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(15, 23, 42, 0.9);
 }
 
 .premium-grid-table th:first-child {
   text-align: left;
-  width: 10rem;
+  width: 6.4rem;
 }
 
 .premium-grid-table td {
-  padding: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
-  min-width: 10rem;
+  padding: 0.45rem 0.35rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  min-width: 6.6rem;
   position: relative;
 }
 
 .time-slot-cell {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  color: #475569;
-  background-color: rgba(15, 23, 42, 0.3);
+  color: #cbd5e1;
+  white-space: nowrap;
+  background-color: rgba(15, 23, 42, 0.45);
 }
 
 .cell-suggested {

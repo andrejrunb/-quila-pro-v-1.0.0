@@ -1,8 +1,8 @@
 .cr-chamber-root {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-  padding: 1.5rem;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
   background: radial-gradient(circle at 50% 0%, #1c1035, #0a0614 70%);
   color: #ffffff;
   min-height: 100%;
@@ -418,4 +418,34 @@
 .cr-btn-buy:hover {
   background: #fbbf24;
   transform: scale(1.02);
+}
+
+
+/* 2-COLUMN SPLIT LAYOUT (CLAUDE 3.7 + COPILOT UI AUDIT) */
+.cr-main-split-layout {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.cr-banner-preview-section {
+  position: sticky;
+  top: 0.75rem;
+}
+
+.cr-catalog-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+@media (max-width: 1100px) {
+  .cr-main-split-layout {
+    grid-template-columns: 1fr;
+  }
+  .cr-banner-preview-section {
+    position: static;
+  }
 }

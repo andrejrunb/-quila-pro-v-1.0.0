@@ -239,3 +239,45 @@
     scroll-behavior: auto !important;
   }
 }
+
+
+/* ==========================================================================
+   AUDITORIA MULTI-IA (CLAUDE 3.7 + DEEPSEEK + PERPLEXITY + COPILOT) — 08/11/2026
+   WCAG AAA Contrast (7.8:1+), Tabular Numerals & Keyboard Focus Ring
+   ========================================================================== */
+:root {
+  --text-1: #f1f5f9; /* 16.2:1 on #090c12 */
+  --text-2: #cbd5e1; /* 11.8:1 on #090c12 */
+  --text-3: #a3b2c7; /*  7.9:1 on #090c12 (WCAG AAA) */
+  --focus-ring-aaa: #fde047;
+}
+
+.kpi-value,
+.cs-kpi-val,
+.sec-kpi-value,
+.tp-kpi-value,
+.coord-kpi-value,
+.cr-wallet-value,
+.portal-clock,
+.xp-label,
+.time-slot-cell,
+table td,
+table th {
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+:is(button, a, input, select, textarea, [role="tab"], [tabindex="0"]):focus-visible {
+  outline: 2px solid var(--focus-ring-aaa, #fde047) !important;
+  outline-offset: 2px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

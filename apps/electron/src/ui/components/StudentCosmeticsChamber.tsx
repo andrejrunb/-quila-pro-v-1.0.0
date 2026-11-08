@@ -637,7 +637,8 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
         </div>
       )}
 
-      {/* PREVIEW DO BATTLE BANNER DO ALUNO */}
+      <div className="cr-main-split-layout">
+      {/* PREVIEW DO BATTLE BANNER DO ALUNO (COLUNA FIXA ESQUERDA) */}
       <section className="cr-banner-preview-section" aria-label="Prévia do seu Battle Banner Estudantil">
         <div className="cr-banner-preview-box">
           <div className="cr-banner-bg" style={{ borderColor: equippedFrame?.rarityColor || '#a855f7' }}>
@@ -673,6 +674,7 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
         </div>
       </section>
 
+      <div className="cr-catalog-column">
       {/* FILTROS POR CATEGORIA DO SHOPPING */}
       <nav className="cr-category-nav" role="navigation" aria-label="Filtro de Cosméticos por Categoria">
         {[
@@ -764,6 +766,8 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
           </article>
         ))}
       </section>
+      </div>
+      </div>
     </main>
   );
 };

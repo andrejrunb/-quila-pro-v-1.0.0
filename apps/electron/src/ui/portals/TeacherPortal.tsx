@@ -49,9 +49,9 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void }> = ({ on
   ];
 
   const attentionStudents = [
-    { id: 'std-1', name: 'ALUNO SINTETICO 001', className: '2º B • Cadeira B3', alert: 'Foco Oscilante • IA', photo: './avatars/face-1.jpg' },
+    { id: 'std-1', name: 'ALUNO SINTETICO 001', className: '2º B • Cadeira B3', alert: 'Acompanhamento Formativo', photo: './avatars/face-1.jpg' },
     { id: 'std-2', name: 'ALUNO SINTETICO 002', className: '3º A • Cadeira A2', alert: 'Dúvida Recorrente', photo: './avatars/face-2.jpg' },
-    { id: 'std-3', name: 'ALUNO SINTETICO 003', className: '2º B • Cadeira C4', alert: 'Conversa Lateral', photo: './avatars/face-3.jpg' },
+    { id: 'std-3', name: 'ALUNO SINTETICO 003', className: '2º B • Cadeira C4', alert: ' Mediação de Grupo', photo: './avatars/face-3.jpg' },
     { id: 'std-4', name: 'ALUNO SINTETICO 004', className: '1º C • Cadeira A1', alert: 'Destaque Positivo', photo: './avatars/face-4.jpg' },
   ];
 
@@ -93,7 +93,7 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void }> = ({ on
               onClick={() => setToolCategory('aulas')}
             >
               <BookOpen size={13} />
-              <span>Aulas & Provas (6)</span>
+              <span>Aulas & Provas (7)</span>
             </button>
             <button
               type="button"
@@ -109,7 +109,7 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void }> = ({ on
               onClick={() => setToolCategory('todos')}
             >
               <Layers size={13} />
-              <span>Todas (17)</span>
+              <span>Todas (18)</span>
             </button>
           </div>
         </div>

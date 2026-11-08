@@ -264,25 +264,6 @@ const AI_TARGETS = [
       'button[aria-label*="Send"]',
       'button[type="submit"]'
     ]
-  },
-  {
-    id: 'brisk',
-    name: 'Brisk Next / Brisk Teaching (UX Docente, PEI/AEE & Devolutivas)',
-    domains: ['app.briskteaching.com', 'briskteaching.com'],
-    skipSend: false,
-    outputFile: 'brisk_ui_ux_audit.md',
-    specialtyFocus: 'Fluxo de Trabalho Docente em 1 Clique, Estúdio Pedagógico IA, Diferenciação Visual PEI/AEE (DOK 1-4) e Rubricas Formativas',
-    shotIndices: [1, 3, 4, 6],
-    inputSelectors: [
-      'textarea',
-      'div[contenteditable="true"]',
-      'input[type="text"]'
-    ],
-    sendSelectors: [
-      'button[type="submit"]',
-      'button[aria-label*="Send"]',
-      'button[aria-label*="Generate"]'
-    ]
   }
 ];
 

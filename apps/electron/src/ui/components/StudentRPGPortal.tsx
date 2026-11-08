@@ -658,7 +658,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             <div className="rpg-mastery-top">
 
-              <span className="rpg-mastery-badge">MOTOR NVIDIA 90B VISION</span>
+              <span className="rpg-mastery-badge">TRILHA ADAPTATIVA BNCC & ENEM</span>
 
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: '#34D399', fontWeight: 700 }}>
 
