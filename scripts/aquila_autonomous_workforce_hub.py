@@ -59,10 +59,10 @@ DIGITAL_EMPLOYEES = [
         "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 */6 * * *",
         "schedule_human": "A cada 6 horas",
         "engine": "NVIDIA NIM + Qwen-2.5-Coder + WordwallSovereignEngine",
-        "command": [sys.executable, str(ROOT / "scripts" / "gpu_continuous_game_generator.py")],
+        "command": [sys.executable, str(ROOT / "scripts" / "scale_bncc_enem_wordwall_factory.py")],
         "deliverables": [
-            "Jogos interativos em 8 estilos Wordwall (Quiz Show, Labirinto, Avião, Pares, Roleta, Caixas, V/F, Classificação)",
-            "Missões de cientistas históricos (Tesla, Marie Curie, Santos Dumont, César Lattes) e recompensas em Aureus (🪙)"
+            "336 pacotes Wordwall BNCC (6º Ano EF a 3ª Série EM) + 336 itens ENEM/Vestibulares com Figuras Vetoriais SVG",
+            "Jogos interativos em 8 estilos Wordwall + Missões de cientistas históricos e recompensas em Aureus (🪙)"
         ]
     },
     {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { TRI_ITEM_BANK } from '../utils/triItemBank';
+import { GENERATED_ENEM_SVG_BANK } from '../utils/generatedEnemSvgBank';
 import { HISTORICAL_CHARACTERS } from '../utils/historicalPersonas';
 import { resolveStudentGradeContext, matchesStudentGradeScope } from '../utils/studentGradeScope';
 import {
@@ -59,6 +60,8 @@ interface ScaffoldingTrack {
   incidence_pct?: number;
   difficulty_tri?: number;
   original_question: string;
+  figureSvg?: string;
+  figureCaption?: string;
   alternatives?: {
     A: string;
     B: string;
@@ -404,62 +407,68 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
       // Mantém fallback
     }
 
-    try {
-      // @ts-ignore
-      if (window.aquila?.mastery?.getBySubject) {
-        // @ts-ignore
-        const dbTracks = await window.aquila.mastery.getBySubject(subject, selectedExam, 40);
-        if (Array.isArray(dbTracks) && dbTracks.length > 0) {
-          setTracks(dbTracks);
-          setCurrentIndex(0);
-          resetQuestionState(true);
-          return;
-        }
-      }
-    } catch (err) {
-      console.warn('Usando acervo local de contingência');
-    }
+    const combinedBank = [
+      ...GENERATED_ENEM_SVG_BANK.map(item => ({
+        ...item,
+        isSvgCalibrated: true
+      })),
+      ...TRI_ITEM_BANK.map(item => ({
+        ...item,
+        exam: item.stage === 'VESTIBULAR_MEDICINA' ? 'FUVEST/UNICAMP' : 'ENEM',
+        year: 2024,
+        triScore: Math.round(500 + item.paramB * 100),
+        figureSvg: undefined as string | undefined,
+        figureCaption: undefined as string | undefined,
+        isSvgCalibrated: false
+      }))
+    ];
 
-    // Mapeia questões calibradas do Banco de Itens TRI Soberano estritamente dentro da série/etapa do aluno
-    const stagePool = TRI_ITEM_BANK.filter(q =>
+    const stagePool = combinedBank.filter(q =>
       matchesStudentGradeScope({ stage: q.stage, bnccCode: q.skillCode }, studentCtx)
     );
     const matchingTriQuestions = stagePool.filter(q => {
       const matchSubj = (subject as string) === 'TODAS' || q.discipline.toLowerCase() === subject.toLowerCase();
-      return matchSubj;
+      const matchExam = selectedExam === 'TODAS' || (q.exam || '').toUpperCase().includes(selectedExam.toUpperCase());
+      return matchSubj && matchExam;
     });
-    const sourceQuestions = matchingTriQuestions.length > 0 ? matchingTriQuestions : (stagePool.length > 0 ? stagePool : TRI_ITEM_BANK);
+    const fallbackSubjPool = stagePool.filter(q =>
+      (subject as string) === 'TODAS' || q.discipline.toLowerCase() === subject.toLowerCase()
+    );
+    const sourceQuestions = matchingTriQuestions.length > 0
+      ? matchingTriQuestions
+      : (fallbackSubjPool.length > 0 ? fallbackSubjPool : (stagePool.length > 0 ? stagePool : combinedBank));
 
     const mappedTracks: ScaffoldingTrack[] = sourceQuestions.map(q => {
       const altsObj: Record<string, string> = {};
       q.options.forEach(opt => {
         altsObj[opt.letter] = opt.text;
       });
-      const triScoreNum = Math.round(500 + q.paramB * 100);
 
       return {
         question_id: q.id,
         stage: q.stage,
-        exam: selectedExam === 'TODAS' ? (q.stage === 'VESTIBULAR_MEDICINA' ? 'FUVEST/UNICAMP' : 'ENEM') : selectedExam,
-        year: 2024,
+        exam: q.exam || (selectedExam === 'TODAS' ? 'ENEM' : selectedExam),
+        year: q.year || 2025,
         decade_span: '1998-2025',
         subject: q.discipline,
         macro_topic: `${q.skillCode} — ${q.skillDescription}`,
         incidence_pct: Math.round(18 + q.paramA * 8),
-        difficulty_tri: triScoreNum,
+        difficulty_tri: q.triScore || Math.round(500 + q.paramB * 100),
         original_question: q.text,
+        figureSvg: q.figureSvg,
+        figureCaption: q.figureCaption,
         alternatives: altsObj as any,
         correct_answer: q.correctAnswer,
-        rubricCriteria: q.rubricCriteria,
+        rubricCriteria: (q as any).rubricCriteria,
         diagnostic: {
-          prerequisite_math: 'Operações e proporções fundamentais da BNCC',
+          prerequisite_math: `Modelo Analítico Calibrado (${q.skillCode})`,
           prerequisite_concept: q.skillDescription
         },
         mastery_progressive_levels: [
           {
             level: 1,
             title: 'Nível 1 — Isolamento do Conceito Central (Habilidade BNCC)',
-            description: `A competência avaliada é: ${q.skillDescription}. Identifique a variável alvo antes de calcular.`,
+            description: `A competência avaliada é: ${q.skillDescription}. Identifique a variável alvo no diagrama antes de calcular.`,
             exercises: [
               { drill: `Qual código de competência rege este item?`, ans: q.skillCode }
             ]
@@ -475,6 +484,23 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
         ]
       };
     });
+
+    try {
+      // @ts-ignore
+      if (window.aquila?.mastery?.getBySubject) {
+        // @ts-ignore
+        const dbTracks = await window.aquila.mastery.getBySubject(subject, selectedExam, 40);
+        if (Array.isArray(dbTracks) && dbTracks.length > 0) {
+          const validDbTracks = dbTracks.filter((t: any) => t.alternatives && t.alternatives.A && !String(t.alternatives.A).includes('Hipótese de subdimensionamento'));
+          setTracks([...mappedTracks, ...validDbTracks]);
+          setCurrentIndex(0);
+          resetQuestionState(true);
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn('Usando acervo calibrado local + SVG');
+    }
 
     setTracks(mappedTracks);
     setCurrentIndex(0);
@@ -1327,6 +1353,32 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
             )}
 
             <p className="question-statement">{currentTrack.original_question}</p>
+
+            {currentTrack.figureSvg && (
+              <div
+                style={{
+                  margin: '12px 0 16px 0',
+                  padding: '12px 14px',
+                  background: 'rgba(9, 13, 22, 0.85)',
+                  border: '1px solid rgba(56, 189, 248, 0.28)',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                <div
+                  style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+                  dangerouslySetInnerHTML={{ __html: currentTrack.figureSvg }}
+                />
+                {currentTrack.figureCaption && (
+                  <span style={{ fontSize: '0.76rem', color: '#94a3b8', fontFamily: 'var(--font-mono, monospace)' }}>
+                    📐 {currentTrack.figureCaption}
+                  </span>
+                )}
+              </div>
+            )}
 
             {/* Módulo Manipulativo Concreto & Blocos Numéricos (Fundamental I - Matific / Educacross) */}
             {(currentTrack.stage === 'EF_ANOS_INICIAIS' || selectedStage === 'EF_ANOS_INICIAIS') && (

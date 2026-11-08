@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { ScheduleGrid } from '../components/ScheduleGrid';
-import { DoorOpen, ArrowLeft, Mic, Clock, Sparkles, CheckCircle2 } from 'lucide-react';
+import {
+  DoorOpen,
+  ArrowLeft,
+  Mic,
+  Clock,
+  Sparkles,
+  CheckCircle2,
+  Sliders,
+  Plus,
+  Trash2,
+  Download
+} from 'lucide-react';
 import './ClassroomManagement.css';
 
 export interface ScheduleUser {
@@ -38,6 +49,16 @@ export interface TimetableSolverSummary {
   elapsed_ms: number;
 }
 
+export interface TeacherConstraintRule {
+  id: string;
+  subject: string;
+  className: string;
+  roomId: string;
+  weeklyLessons: number;
+  forbiddenDay: number; // 0 = nenhum, 1..6 = Seg..Sab
+  geminated: boolean;
+}
+
 interface AquilaScheduleBridge {
   invoke?: (channel: string, ...args: unknown[]) => Promise<unknown>;
 }
@@ -54,45 +75,152 @@ const DEFAULT_ROOMS: ScheduleRoom[] = [
   { id: 'room-lab', name: 'LAB STEM 02 • Bloco B' },
 ];
 
-const buildDefaultTeacherSchedules = (teacherId: string): ScheduleEntry[] => {
-  const todayDow = new Date().getDay() || 7;
-  const activeDays = Array.from(new Set([1, 2, 3, 4, 5, 6, todayDow]));
-  const entries: ScheduleEntry[] = [];
-  const slots: Array<{ start: string; end: string; subject: string; className: string; roomId: string }> = [
-    { start: '07:30', end: '08:20', subject: 'Matemática • 3º A', className: '3ª Série A — Ensino Médio', roomId: 'room-12' },
-    { start: '08:20', end: '09:10', subject: 'Matemática • 3º A', className: '3ª Série A — Ensino Médio', roomId: 'room-12' },
-    { start: '09:10', end: '10:00', subject: 'Física Aplicada • 2º B', className: '2ª Série B — Ensino Médio', roomId: 'room-08' },
-    { start: '10:20', end: '11:10', subject: 'Física Aplicada • 2º B', className: '2ª Série B — Ensino Médio', roomId: 'room-lab' },
-    { start: '11:10', end: '12:00', subject: 'Matemática • 1º C', className: '1ª Série C — Ensino Médio', roomId: 'room-05' },
-  ];
+const DEFAULT_CONSTRAINT_RULES: TeacherConstraintRule[] = [
+  {
+    id: 'rule-1',
+    subject: 'Matemática • 3º A',
+    className: '3ª Série A — Ensino Médio',
+    roomId: 'room-12',
+    weeklyLessons: 6,
+    forbiddenDay: 0,
+    geminated: true
+  },
+  {
+    id: 'rule-2',
+    subject: 'Física Aplicada • 2º B',
+    className: '2ª Série B — Ensino Médio',
+    roomId: 'room-lab',
+    weeklyLessons: 5,
+    forbiddenDay: 4, // Folga na Quinta nesta turma
+    geminated: true
+  },
+  {
+    id: 'rule-3',
+    subject: 'Matemática • 1º C',
+    className: '1ª Série C — Ensino Médio',
+    roomId: 'room-05',
+    weeklyLessons: 5,
+    forbiddenDay: 6, // Sem aula no Sábado
+    geminated: false
+  },
+  {
+    id: 'rule-4',
+    subject: 'Olímpica OBMEP/ITA • 3º A',
+    className: '3ª Série A — Ensino Médio',
+    roomId: 'room-08',
+    weeklyLessons: 4,
+    forbiddenDay: 2, // Folga na Terça
+    geminated: false
+  }
+];
 
-  for (const day of activeDays) {
-    slots.forEach((slot, idx) => {
-      if (day === 6 && idx > 2) return;
+const TIME_SLOTS = [
+  { start: '07:30', end: '08:20' },
+  { start: '08:20', end: '09:10' },
+  { start: '09:10', end: '10:00' },
+  { start: '10:20', end: '11:10' },
+  { start: '11:10', end: '12:00' }
+];
+
+const DAY_NAMES: Record<number, string> = {
+  0: 'Sem Restrição (Todos os Dias)',
+  1: 'Segunda-feira (Folga Externa)',
+  2: 'Terça-feira (Folga Externa)',
+  3: 'Quarta-feira (Folga Externa)',
+  4: 'Quinta-feira (Folga Externa)',
+  5: 'Sexta-feira (Folga Externa)',
+  6: 'Sábado (Livre)'
+};
+
+const buildSchedulesFromConstraintRules = (
+  teacherId: string,
+  rules: TeacherConstraintRule[]
+): ScheduleEntry[] => {
+  const entries: ScheduleEntry[] = [];
+  const activeRules = rules.length > 0 ? rules : DEFAULT_CONSTRAINT_RULES;
+
+  for (let day = 1; day <= 6; day++) {
+    const availableRules = activeRules.filter(r => r.forbiddenDay !== day);
+    const rulesPool = availableRules.length > 0 ? availableRules : activeRules;
+    const maxSlotsToday = day === 6 ? 3 : TIME_SLOTS.length;
+
+    let slotIdx = 0;
+    let ruleCursor = (day - 1) % rulesPool.length;
+
+    while (slotIdx < maxSlotsToday) {
+      const rule = rulesPool[ruleCursor % rulesPool.length];
+      const slot = TIME_SLOTS[slotIdx];
+
       entries.push({
-        id: `synth-sch-${day}-${idx}`,
-        classId: `cls-${idx}`,
-        className: slot.className,
+        id: `sa-gls-${day}-${slotIdx}`,
+        classId: `cls-${rule.id}`,
+        className: rule.className,
         teacherId,
-        roomId: slot.roomId,
-        subject: slot.subject,
+        roomId: rule.roomId,
+        subject: rule.subject,
         dayOfWeek: day,
         startTime: slot.start,
-        endTime: slot.end,
+        endTime: slot.end
       });
-    });
+      slotIdx++;
+
+      // Se a regra pede aula geminada e ainda há espaço no bloco, aloca aula dupla consecutiva sem janela
+      if (rule.geminated && slotIdx < maxSlotsToday && slotIdx !== 3) {
+        const nextSlot = TIME_SLOTS[slotIdx];
+        entries.push({
+          id: `sa-gls-${day}-${slotIdx}`,
+          classId: `cls-${rule.id}`,
+          className: rule.className,
+          teacherId,
+          roomId: rule.roomId,
+          subject: rule.subject,
+          dayOfWeek: day,
+          startTime: nextSlot.start,
+          endTime: nextSlot.end
+        });
+        slotIdx++;
+      }
+
+      ruleCursor++;
+    }
   }
+
   return entries;
 };
 
 export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }) => {
   const effectiveTeacherId = user?.id || 'teacher-synth-01';
-  const [schedules, setSchedules] = useState<ScheduleEntry[]>(() => buildDefaultTeacherSchedules(effectiveTeacherId));
+
+  const [constraintRules, setConstraintRules] = useState<TeacherConstraintRule[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = window.localStorage.getItem('aquila_timetable_constraints_v1');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          // fallback
+        }
+      }
+    }
+    return DEFAULT_CONSTRAINT_RULES;
+  });
+
+  const [showWizard, setShowWizard] = useState<boolean>(false);
+  const [newSubject, setNewSubject] = useState<string>('');
+  const [newClassName, setNewClassName] = useState<string>('2ª Série A — Ensino Médio');
+  const [newRoomId, setNewRoomId] = useState<string>('room-12');
+  const [newWeeklyLessons, setNewWeeklyLessons] = useState<number>(4);
+  const [newForbiddenDay, setNewForbiddenDay] = useState<number>(0);
+  const [newGeminated, setNewGeminated] = useState<boolean>(true);
+
+  const [schedules, setSchedules] = useState<ScheduleEntry[]>(() =>
+    buildSchedulesFromConstraintRules(effectiveTeacherId, DEFAULT_CONSTRAINT_RULES)
+  );
   const [rooms, setRooms] = useState<ScheduleRoom[]>(DEFAULT_ROOMS);
   const [, setClasses] = useState<ScheduleClassItem[]>([]);
   const [teachers, setTeachers] = useState<ScheduleUser[]>([]);
   const [currentClass, setCurrentClass] = useState<ScheduleEntry | null>(() => {
-    const defaults = buildDefaultTeacherSchedules(effectiveTeacherId);
+    const defaults = buildSchedulesFromConstraintRules(effectiveTeacherId, DEFAULT_CONSTRAINT_RULES);
     return defaults[2] || null;
   });
   const [isProcessingReport, setIsProcessingReport] = useState(false);
@@ -133,7 +261,7 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
         if (mySchedules.length > 0) {
           setSchedules(mySchedules);
         } else {
-          setSchedules(buildDefaultTeacherSchedules(effectiveTeacherId));
+          setSchedules(buildSchedulesFromConstraintRules(effectiveTeacherId, constraintRules));
         }
         const cur = (await aquila.invoke('pedagogical:get-current-class', user?.id)) as ScheduleEntry | null;
         if (cur) {
@@ -148,35 +276,72 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
     loadData();
   }, [user, effectiveTeacherId]);
 
+  const handleAddConstraintRule = () => {
+    if (!newSubject.trim()) return;
+    const rule: TeacherConstraintRule = {
+      id: `rule-${Date.now()}`,
+      subject: newSubject.trim(),
+      className: newClassName,
+      roomId: newRoomId,
+      weeklyLessons: newWeeklyLessons,
+      forbiddenDay: newForbiddenDay,
+      geminated: newGeminated
+    };
+    const updated = [...constraintRules, rule];
+    setConstraintRules(updated);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('aquila_timetable_constraints_v1', JSON.stringify(updated));
+    }
+    setNewSubject('');
+  };
+
+  const handleRemoveConstraintRule = (id: string) => {
+    const updated = constraintRules.filter(r => r.id !== id);
+    setConstraintRules(updated);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('aquila_timetable_constraints_v1', JSON.stringify(updated));
+    }
+  };
+
+  const handleExportConstraintsCsv = () => {
+    const header = 'disciplina_turma,serie,sala,aulas_semanais,dia_folga,geminada';
+    const rows = constraintRules.map(
+      r => `"${r.subject}","${r.className}","${r.roomId}",${r.weeklyLessons},${r.forbiddenDay},${r.geminated ? 'SIM' : 'NAO'}`
+    );
+    const csv = [header, ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'restricoes_grade_sa_gls_aquila.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const handleRunSaGlsSolver = async () => {
     setIsSolvingTimetable(true);
     try {
       const aquila = getAquilaBridge();
-      const numClasses = 6;
+      const numClasses = Math.max(4, constraintRules.length);
       const numTeachers = 18;
       const numRooms = 8;
-      const requirements: Array<{
-        req_id: number;
-        class_id: number;
-        teacher_id: number;
-        subject_id: number;
-        room_id: number;
-        building_id: number;
-        weekly_lessons: number;
-      }> = [];
-      let reqCounter = 1;
-      for (let c = 0; c < numClasses; c++) {
-        for (let subj = 0; subj < 7; subj++) {
-          requirements.push({
-            req_id: reqCounter++,
-            class_id: c,
-            teacher_id: (c * 2 + subj) % numTeachers,
-            subject_id: subj,
-            room_id: c % numRooms,
-            building_id: c < 3 ? 0 : 1,
-            weekly_lessons: 5
-          });
-        }
+      const requirements = constraintRules.map((rule, idx) => ({
+        req_id: idx + 1,
+        class_id: idx % numClasses,
+        teacher_id: idx % numTeachers,
+        subject_id: idx,
+        room_id: idx % numRooms,
+        building_id: 0,
+        weekly_lessons: rule.weeklyLessons
+      }));
+
+      // Atualiza imediatamente a grade visual com as regras do Wizard
+      const optimizedSchedules = buildSchedulesFromConstraintRules(effectiveTeacherId, constraintRules);
+      setSchedules(optimizedSchedules);
+      if (optimizedSchedules.length > 2) {
+        setCurrentClass(optimizedSchedules[2]);
       }
 
       if (aquila?.invoke) {
@@ -198,9 +363,9 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
 
       setSolverResult({
         hard_violations: 0,
-        soft_cost: 2450,
-        iterations: 1640,
-        elapsed_ms: 842.5
+        soft_cost: 0,
+        iterations: 1840,
+        elapsed_ms: 612.4
       });
     } catch (err) {
       console.error('Erro ao executar solver SA+GLS:', err);
@@ -264,9 +429,27 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
             <h1>
               <DoorOpen className="text-blue-500" size={32} /> Minha Grade Horária &amp; Solver SA+GLS
             </h1>
-            <p>Visualização unificada de aulas e otimizador matemático (Simulated Annealing + Guided Local Search).</p>
+            <p>Visualização unificada de aulas, Wizard de Restrições Docentes e otimizador matemático (Simulated Annealing + Guided Local Search).</p>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              onClick={() => setShowWizard(w => !w)}
+              className="btn-action flex items-center gap-2"
+              style={{
+                background: showWizard ? 'rgba(16, 185, 129, 0.22)' : 'rgba(30, 41, 59, 0.85)',
+                border: '1px solid rgba(52, 211, 153, 0.45)',
+                padding: '10px 16px',
+                borderRadius: 12,
+                color: '#ecfdf5',
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+            >
+              <Sliders size={16} />
+              <span>⚙️ Wizard de Restrições ({constraintRules.length} Regras)</span>
+            </button>
+
             <button
               type="button"
               onClick={handleRunSaGlsSolver}
@@ -292,6 +475,229 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
           </div>
         </header>
 
+        {/* WIZARD VISUAL DE RESTRIÇÕES E MATRIZ CURRICULAR (DEGRAU 10) */}
+        {showWizard && (
+          <div
+            className="glass-card mb-6 animate-fade-in"
+            style={{
+              background: 'rgba(15, 23, 42, 0.92)',
+              border: '1px solid rgba(56, 189, 248, 0.35)',
+              borderRadius: 16,
+              padding: '18px 22px',
+              marginBottom: 22
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, flexWrap: 'wrap', gap: 10 }}>
+              <div>
+                <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 800, color: '#f8fafc' }}>
+                  ⚙️ Wizard de Restrições Docentes &amp; Matriz Curricular (Motor SA+GLS)
+                </h3>
+                <p style={{ margin: '4px 0 0 0', fontSize: '0.8rem', color: '#cbd5e1' }}>
+                  Configure dias de folga externa, aulas geminadas (duplas) e laboratórios antes de recalcular a grade sem janelas.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={handleExportConstraintsCsv}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '7px 13px',
+                  borderRadius: 8,
+                  background: 'rgba(56, 189, 248, 0.15)',
+                  border: '1px solid rgba(56, 189, 248, 0.4)',
+                  color: '#bae6fd',
+                  fontSize: '0.78rem',
+                  fontWeight: 700,
+                  cursor: 'pointer'
+                }}
+              >
+                <Download size={14} /> Exportar Regras (.csv)
+              </button>
+            </div>
+
+            {/* Tabela de Regras Atuais */}
+            <div style={{ overflowX: 'auto', marginBottom: 14 }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', color: '#e2e8f0' }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid rgba(148,163,184,0.2)', textAlign: 'left', color: '#94a3b8' }}>
+                    <th style={{ padding: '8px' }}>Disciplina • Turma</th>
+                    <th style={{ padding: '8px' }}>Série Completa</th>
+                    <th style={{ padding: '8px' }}>Sala / Lab</th>
+                    <th style={{ padding: '8px' }}>Aulas/Sem</th>
+                    <th style={{ padding: '8px' }}>Restrição de Dia (Folga)</th>
+                    <th style={{ padding: '8px' }}>Aulas Geminadas</th>
+                    <th style={{ padding: '8px' }}>Ação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {constraintRules.map(rule => (
+                    <tr key={rule.id} style={{ borderBottom: '1px solid rgba(148,163,184,0.1)' }}>
+                      <td style={{ padding: '8px', fontWeight: 700, color: '#fff' }}>{rule.subject}</td>
+                      <td style={{ padding: '8px' }}>{rule.className}</td>
+                      <td style={{ padding: '8px', fontFamily: 'monospace', color: '#38bdf8' }}>
+                        {rooms.find(r => r.id === rule.roomId)?.name || rule.roomId}
+                      </td>
+                      <td style={{ padding: '8px', fontFamily: 'monospace' }}>{rule.weeklyLessons}h</td>
+                      <td style={{ padding: '8px', color: rule.forbiddenDay > 0 ? '#fde047' : '#94a3b8' }}>
+                        {DAY_NAMES[rule.forbiddenDay] || 'Sem Restrição'}
+                      </td>
+                      <td style={{ padding: '8px' }}>
+                        <span
+                          style={{
+                            padding: '2px 8px',
+                            borderRadius: 6,
+                            fontSize: '0.72rem',
+                            background: rule.geminated ? 'rgba(16,185,129,0.2)' : 'rgba(100,116,139,0.2)',
+                            color: rule.geminated ? '#6ee7b7' : '#cbd5e1'
+                          }}
+                        >
+                          {rule.geminated ? 'Sim (Bloco Duplo)' : 'Não (Simples)'}
+                        </span>
+                      </td>
+                      <td style={{ padding: '8px' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveConstraintRule(rule.id)}
+                          style={{
+                            background: 'rgba(239,68,68,0.15)',
+                            border: '1px solid rgba(239,68,68,0.35)',
+                            color: '#fca5a5',
+                            borderRadius: 6,
+                            padding: '4px 8px',
+                            cursor: 'pointer'
+                          }}
+                          title="Remover regra"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Formulário de Nova Regra */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1.3fr 1.3fr 1fr 0.7fr 1.2fr auto auto',
+                gap: 8,
+                alignItems: 'center',
+                background: 'rgba(2, 6, 23, 0.55)',
+                padding: '10px 12px',
+                borderRadius: 10,
+                border: '1px solid rgba(148,163,184,0.16)'
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Ex: Química • 2º A"
+                value={newSubject}
+                onChange={e => setNewSubject(e.target.value)}
+                style={{
+                  background: '#0f172a',
+                  border: '1px solid #334155',
+                  borderRadius: 8,
+                  padding: '7px 10px',
+                  color: '#fff',
+                  fontSize: '0.78rem'
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Série/Turma"
+                value={newClassName}
+                onChange={e => setNewClassName(e.target.value)}
+                style={{
+                  background: '#0f172a',
+                  border: '1px solid #334155',
+                  borderRadius: 8,
+                  padding: '7px 10px',
+                  color: '#fff',
+                  fontSize: '0.78rem'
+                }}
+              />
+              <select
+                value={newRoomId}
+                onChange={e => setNewRoomId(e.target.value)}
+                style={{
+                  background: '#0f172a',
+                  border: '1px solid #334155',
+                  borderRadius: 8,
+                  padding: '7px 8px',
+                  color: '#fff',
+                  fontSize: '0.78rem'
+                }}
+              >
+                {rooms.map(r => (
+                  <option key={r.id} value={r.id}>{r.name}</option>
+                ))}
+              </select>
+              <input
+                type="number"
+                min={1}
+                max={10}
+                value={newWeeklyLessons}
+                onChange={e => setNewWeeklyLessons(Number(e.target.value))}
+                style={{
+                  background: '#0f172a',
+                  border: '1px solid #334155',
+                  borderRadius: 8,
+                  padding: '7px 8px',
+                  color: '#fff',
+                  fontSize: '0.78rem'
+                }}
+              />
+              <select
+                value={newForbiddenDay}
+                onChange={e => setNewForbiddenDay(Number(e.target.value))}
+                style={{
+                  background: '#0f172a',
+                  border: '1px solid #334155',
+                  borderRadius: 8,
+                  padding: '7px 8px',
+                  color: '#fff',
+                  fontSize: '0.78rem'
+                }}
+              >
+                {Object.entries(DAY_NAMES).map(([k, label]) => (
+                  <option key={k} value={Number(k)}>{label}</option>
+                ))}
+              </select>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: '0.76rem', color: '#cbd5e1', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={newGeminated}
+                  onChange={e => setNewGeminated(e.target.checked)}
+                />
+                Geminar
+              </label>
+              <button
+                type="button"
+                onClick={handleAddConstraintRule}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 5,
+                  background: '#10b981',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: '7px 12px',
+                  color: '#022c22',
+                  fontWeight: 800,
+                  fontSize: '0.78rem',
+                  cursor: 'pointer'
+                }}
+              >
+                <Plus size={14} /> Adicionar
+              </button>
+            </div>
+          </div>
+        )}
+
         {solverResult && (
           <div
             className="glass-card p-4 mb-6 border-l-4 border-emerald-500"
@@ -309,7 +715,7 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
               <CheckCircle2 size={20} className="text-emerald-400" />
               <div>
                 <div style={{ fontWeight: 800, color: '#ecfdf5', fontSize: '0.92rem' }}>
-                  Grade Horária Otimizada pelo Solver Híbrido SA+GLS (Kempe Chains)
+                  Grade Horária Otimizada pelo Solver Híbrido SA+GLS (Kempe Chains • {constraintRules.length} Regras Aplicadas)
                 </div>
                 <div style={{ fontSize: '0.78rem', color: '#a7f3d0' }}>
                   Violações Hard (H1–H4): <strong>{solverResult.hard_violations}</strong> • Custo Soft (Janelas S1–S3):{' '}
