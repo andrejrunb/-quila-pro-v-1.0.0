@@ -338,6 +338,16 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
         weekly_lessons: rule.weeklyLessons
       }));
 
+      const teacherUnavailable: Record<string, number[]> = {};
+      constraintRules.forEach((rule, idx) => {
+        if (rule.forbiddenDay >= 1 && rule.forbiddenDay <= 5) {
+          const dayIdx = rule.forbiddenDay - 1;
+          const tId = String(idx % numTeachers);
+          const slots = [0, 1, 2, 3, 4, 5, 6].map(p => dayIdx * 7 + p);
+          teacherUnavailable[tId] = Array.from(new Set([...(teacherUnavailable[tId] || []), ...slots]));
+        }
+      });
+
       // Atualiza imediatamente a grade visual com as regras do Wizard
       const optimizedSchedules = buildSchedulesFromConstraintRules(effectiveTeacherId, constraintRules);
       setSchedules(optimizedSchedules);
@@ -353,6 +363,7 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
           days: 5,
           periods_per_day: 7,
           time_limit_sec: 0.85,
+          teacher_unavailable: teacherUnavailable,
           requirements
         })) as { success?: boolean; data?: TimetableSolverSummary };
 
@@ -734,7 +745,7 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
               <CheckCircle2 size={20} className="text-emerald-400" />
               <div>
                 <div style={{ fontWeight: 800, color: '#ecfdf5', fontSize: '0.92rem' }}>
-                  Métricas do Solver Híbrido SA+GLS ({constraintRules.length} requisitos enviados — folgas e geminação ainda não são repassadas ao solver)
+                  Métricas do Solver Híbrido SA+GLS ({constraintRules.length} requisitos e restrições de folga docente enviadas ao solver)
                 </div>
                 <div style={{ fontSize: '0.78rem', color: '#a7f3d0' }}>
                   Violações Hard (H1–H4): <strong>{solverResult.hard_violations}</strong> • Custo Soft (Janelas S1–S3):{' '}

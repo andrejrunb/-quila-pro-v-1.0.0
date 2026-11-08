@@ -445,50 +445,99 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
         </div>
       </div>
 
-      {/* Pergunta de Ouro para o Jantar em Família */}
-      <div className="pp-dinner-card">
-        <div className="pp-dinner-header">
-          <span className="pp-dinner-tag">
-            <Sparkles size={13} color="#F59E0B" />
-            PERGUNTA DE OURO PARA O JANTAR EM FAMÍLIA (CONEXÃO PAIS & FILHOS)
-          </span>
-          <span style={{ fontSize: '11px', color: '#94A3B8' }}>Sem cobrança de notas • Estímulo ao Pensamento Crítico</span>
-        </div>
+      {/* Pergunta de Ouro para o Jantar em Família (7 Séries • Conexão Pais & Filhos) */}
+      {(() => {
+        const currentDinnerScript = DINNER_CONVERSATION_SCRIPTS[selectedDinnerGradeIdx] || DINNER_CONVERSATION_SCRIPTS[0];
+        const whatsappText = `🦅 *Áquila Pro — Conexão Família & Escola (${currentDinnerScript?.gradeLevel})*\n\n*Pergunta para o Jantar:* "${currentDinnerScript?.sparkQuestion}"\n\n💡 *Dica Científica:* ${currentDinnerScript?.topicSummaryPlainLanguage}\n\n🤝 *Papo em Família:* ${currentDinnerScript?.followUpHook}`;
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappText)}`;
 
-        <div className="pp-dinner-question-box">
-          <p className="pp-dinner-question">
-            "Filho, me explica: quando você esfrega um balão no casaco de lã e encosta ele na parede, por que ele gruda se a parede é neutra e não foi esfregada em nada?"
-          </p>
-          <p className="pp-dinner-explanation">
-            <strong>💡 Dica Científica para os Pais:</strong> O balão rouba elétrons (fica negativo). Ao encostar na parede neutra, ele empurra os elétrons da superfície para o fundo (polarização induzida). A atração entre os prótons da parede e o balão vence a repulsão. Segundo a pirâmide de William Glasser, <em>explicar um conceito para os pais fixa até 90% da memória</em>.
-          </p>
-        </div>
+        return (
+          <div className="pp-dinner-card">
+            <div className="pp-dinner-header">
+              <span className="pp-dinner-tag">
+                <Sparkles size={13} color="#F59E0B" />
+                PERGUNTA DE OURO PARA O JANTAR EM FAMÍLIA (CONEXÃO PAIS &amp; FILHOS)
+              </span>
+              <span style={{ fontSize: '11px', color: '#94A3B8' }}>Sem cobrança de notas • Estímulo ao Pensamento Crítico</span>
+            </div>
 
-        <div className="pp-dinner-actions">
-          <span style={{ fontSize: '11px', color: '#CBD5E1', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Brain size={14} color="#F59E0B" />
-            Fortalece a cumplicidade familiar e substitui a pergunta "fez a tarefa?" por um diálogo fascinante.
-          </span>
-          <button
-            className="pp-action-btn"
-            style={{
-              background: dinnerCopied ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.18)',
-              borderColor: dinnerCopied ? '#10B981' : 'rgba(245, 158, 11, 0.4)',
-              color: dinnerCopied ? '#10B981' : '#FDE68A',
-            }}
-            onClick={() => {
-              navigator.clipboard?.writeText(
-                DINNER_CONVERSATION_SCRIPTS[selectedDinnerGradeIdx]?.sparkQuestion || ''
-              );
-              setDinnerCopied(true);
-              setTimeout(() => setDinnerCopied(false), 3000);
-            }}
-          >
-            {dinnerCopied ? <Check size={13} /> : <Copy size={13} />}
-            <span>{dinnerCopied ? 'Copiado para Área de Transferência!' : 'Copiar Pergunta para o WhatsApp'}</span>
-          </button>
-        </div>
-      </div>
+            {/* Seletor Dinâmico das 7 Séries (6º EF à 3ª EM) */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', margin: '10px 0 12px 0' }}>
+              <span style={{ fontSize: '0.74rem', fontWeight: 700, color: '#94A3B8' }}>SÉRIE:</span>
+              {DINNER_CONVERSATION_SCRIPTS.map((script, idx) => (
+                <button
+                  key={script.gradeLevel}
+                  type="button"
+                  onClick={() => setSelectedDinnerGradeIdx(idx)}
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: 8,
+                    fontSize: '0.74rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    background: selectedDinnerGradeIdx === idx ? 'rgba(245, 158, 11, 0.25)' : 'rgba(30, 41, 59, 0.55)',
+                    border: selectedDinnerGradeIdx === idx ? '1px solid #F59E0B' : '1px solid rgba(148, 163, 184, 0.2)',
+                    color: selectedDinnerGradeIdx === idx ? '#FDE68A' : '#94A3B8',
+                  }}
+                >
+                  {script.gradeLevel}
+                </button>
+              ))}
+            </div>
+
+            <div className="pp-dinner-question-box">
+              <p className="pp-dinner-question">
+                "{currentDinnerScript?.sparkQuestion}"
+              </p>
+              <p className="pp-dinner-explanation">
+                <strong>💡 Dica Científica para os Pais ({currentDinnerScript?.gradeLevel}):</strong> {currentDinnerScript?.topicSummaryPlainLanguage} {currentDinnerScript?.followUpHook} <em>{currentDinnerScript?.closingEncouragement}</em>
+              </p>
+            </div>
+
+            <div className="pp-dinner-actions" style={{ flexWrap: 'wrap', gap: 10 }}>
+              <span style={{ fontSize: '11px', color: '#CBD5E1', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Brain size={14} color="#F59E0B" />
+                Fortalece a cumplicidade familiar e substitui a pergunta "fez a tarefa?" por um diálogo fascinante.
+              </span>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button
+                  className="pp-action-btn"
+                  style={{
+                    background: dinnerCopied ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.18)',
+                    borderColor: dinnerCopied ? '#10B981' : 'rgba(245, 158, 11, 0.4)',
+                    color: dinnerCopied ? '#10B981' : '#FDE68A',
+                  }}
+                  onClick={() => {
+                    navigator.clipboard?.writeText(whatsappText);
+                    setDinnerCopied(true);
+                    setTimeout(() => setDinnerCopied(false), 3000);
+                  }}
+                >
+                  {dinnerCopied ? <Check size={13} /> : <Copy size={13} />}
+                  <span>{dinnerCopied ? 'Copiado para Área de Transferência!' : 'Copiar Texto Completo'}</span>
+                </button>
+
+                <button
+                  className="pp-action-btn"
+                  style={{
+                    background: 'rgba(16, 185, 129, 0.18)',
+                    borderColor: 'rgba(16, 185, 129, 0.45)',
+                    color: '#6EE7B7',
+                  }}
+                  onClick={() => {
+                    window.open(whatsappUrl, '_blank');
+                  }}
+                  title="Abrir no WhatsApp Web / Celular"
+                >
+                  <MessageCircle size={13} />
+                  <span>Enviar no WhatsApp</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 
@@ -525,21 +574,55 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
           </div>
           <span className="pp-bar-label">{attendanceRate}% frequência anual</span>
         </div>
-        <div style={{
-          marginTop: 10,
-          padding: '8px 12px',
-          background: 'rgba(16, 185, 129, 0.08)',
-          border: '1px solid rgba(16, 185, 129, 0.25)',
-          borderRadius: 8,
-          fontSize: '0.74rem',
-          color: '#A7F3D0',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8
-        }}>
-          <CheckCircle2 size={14} color="#10B981" />
-          <span><strong>Conformidade LDB Art. 12, VIII, "a" (Lei 15.231/2025):</strong> Frequência em 96% (mínimo legal: 75%). Sem risco de retenção escolar.</span>
-        </div>
+        {(() => {
+          const ldbAlertText = `🦅 *Áquila Pro — Notificação Escolar (LDB Art. 12, VIII, "a")*\n\nPrezado(a) Responsável Legal,\nInformamos que o registro de frequência do estudante indica ${attendance?.absences ?? 6} faltas (frequência apurada: ${attendanceRate}%).\nConforme a LDB Art. 12, VIII, 'a' (alterada pela Lei Federal nº 15.231/2025), a escola mantém acompanhamento contínuo da assiduidade para garantia da aprendizagem integral.\n\nConsulte o Portal da Família para detalhes pedagógicos e registro diário de portaria.`;
+          const ldbWhatsAppUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(ldbAlertText)}`;
+
+          return (
+            <div style={{
+              marginTop: 10,
+              padding: '10px 14px',
+              background: attendanceRate >= 75 ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.12)',
+              border: attendanceRate >= 75 ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid rgba(239, 68, 68, 0.35)',
+              borderRadius: 10,
+              fontSize: '0.74rem',
+              color: attendanceRate >= 75 ? '#A7F3D0' : '#FECACA',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: 8
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                {attendanceRate >= 75 ? <CheckCircle2 size={15} color="#10B981" /> : <AlertTriangle size={15} color="#EF4444" />}
+                <span>
+                  <strong>Conformidade LDB Art. 12, VIII, "a" (Lei 15.231/2025):</strong> Frequência em {attendanceRate}% (mínimo legal: 75%). {attendanceRate >= 75 ? 'Sem risco de retenção escolar.' : 'Aviso preventivo de infrequência.'}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => window.open(ldbWhatsAppUrl, '_blank')}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 5,
+                  padding: '4px 10px',
+                  borderRadius: 6,
+                  background: 'rgba(16, 185, 129, 0.2)',
+                  border: '1px solid rgba(16, 185, 129, 0.45)',
+                  color: '#6EE7B7',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  cursor: 'pointer'
+                }}
+                title="Compartilhar resumo oficial no WhatsApp do responsável"
+              >
+                <MessageCircle size={12} />
+                <span>Notificar Responsável (WhatsApp)</span>
+              </button>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );
