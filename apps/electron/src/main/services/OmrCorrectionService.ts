@@ -110,16 +110,24 @@ export class OmrCorrectionService extends EventEmitter {
         detectedAnswers = scanResult.answers || {};
         confidence = scanResult.confidence_avg || 0.95;
       } catch (colabErr) {
-        console.warn('[OmrCorrectionService] Colab GPU falhou no scan OMR. Enfileirando watchdog e aplicando fallback:', colabErr);
+        console.warn('[OmrCorrectionService] Colab GPU falhou no scan OMR. Enfileirando watchdog:', colabErr);
         await colabTunnelWatchdog.enqueueTask('image_process', {
           templateId: params.templateId,
           studentId: params.studentId,
         });
+        const isTest = process.env.NODE_ENV === 'test' || Boolean(process.env.PLAYWRIGHT_TEST);
+        if (!isTest) {
+          throw new Error('[OmrCorrectionService] Falha na Visão Computacional Remota: worker GPU indisponível e motor de visão local desativado. Tarefa enfileirada no watchdog para reprocessamento assíncrono.');
+        }
         detectedAnswers = this.localFallbackOmrDetection(template.totalQuestions);
         confidence = 0.70;
       }
     } else {
       // Fallback local caso Colab esteja offline
+      const isTest = process.env.NODE_ENV === 'test' || Boolean(process.env.PLAYWRIGHT_TEST);
+      if (!isTest) {
+        throw new Error('[OmrCorrectionService] Leitura Óptica Offline Indisponível: o motor de visão computacional local não está inicializado e o worker GPU remoto está desconectado. Conecte o worker de visão antes de corrigir provas reais de alunos.');
+      }
       detectedAnswers = this.localFallbackOmrDetection(template.totalQuestions);
       confidence = 0.70;
     }
@@ -195,11 +203,18 @@ export class OmrCorrectionService extends EventEmitter {
   /**
    * Algoritmo de fallback para leitura quando offline.
    */
+  /**
+   * Algoritmo de fallback para leitura quando offline em ambiente de teste/CI.
+   * AVISO DE GOVERNANÇA: Proibido gerar notas fictícias em produção ou em provas reais de alunos.
+   */
   private localFallbackOmrDetection(totalQuestions: number): Record<string, string> {
+    const isTest = process.env.NODE_ENV === 'test' || Boolean(process.env.PLAYWRIGHT_TEST);
+    if (!isTest) {
+      throw new Error('[OmrCorrectionService] localFallbackOmrDetection bloqueado fora do ambiente de teste.');
+    }
     const answers: Record<string, string> = {};
     const options = ['A', 'B', 'C', 'D', 'E'];
     for (let i = 1; i <= totalQuestions; i++) {
-      // Simulação conservadora padrão de resposta detectada
       answers[String(i)] = options[(i - 1) % options.length];
     }
     return answers;

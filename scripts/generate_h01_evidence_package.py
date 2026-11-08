@@ -80,8 +80,8 @@ csv_clean_path = os.path.join(base_dir, "evidencias-importacao", "h01-alunos-cor
 write_csv_file(csv_err_path, valid_students + invalid_students)
 write_csv_file(csv_clean_path, valid_students)
 
-# Also write to test-results/h01-real-import/ for Playwright E2E runner
-test_results_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "test-results", "h01-real-import"))
+# Also write to test-results/h01-synthetic-import/ for Playwright E2E runner
+test_results_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "test-results", "h01-synthetic-import"))
 os.makedirs(test_results_dir, exist_ok=True)
 write_csv_file(os.path.join(test_results_dir, "h01-alunos-com-erros.csv"), valid_students + invalid_students)
 write_csv_file(os.path.join(test_results_dir, "h01-alunos-corrigido.csv"), valid_students)

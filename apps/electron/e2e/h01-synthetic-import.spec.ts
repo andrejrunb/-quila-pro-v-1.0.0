@@ -1,9 +1,9 @@
-// apps/electron/e2e/h01-real-import.spec.ts
+// apps/electron/e2e/h01-synthetic-import.spec.ts
 //
-// H-01 — Validação Estrita de Importação Real de Matrículas (AC-03)
+// H-01 — Validação Estrita de Importação de Matrículas Sintéticas (AC-03)
 //
 // Execução:
-//   pnpm --filter aquila-pro-school-os exec playwright test e2e/h01-real-import.spec.ts
+//   pnpm --filter aquila-pro-school-os exec playwright test e2e/h01-synthetic-import.spec.ts
 //
 // Regras Estritas de QA:
 //   1. Não engolir erros: se um seletor ou etapa obrigatória não existir, falhar explicitamente.
@@ -18,7 +18,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { spawnSync } from "node:child_process";
 
-const OUTPUT_DIR = path.resolve(__dirname, "../../test-results/h01-real-import");
+const OUTPUT_DIR = path.resolve(__dirname, "../../test-results/h01-synthetic-import");
 const DISPOSABLE_DB_DIR = path.resolve(__dirname, "../../test-results/h01-disposable");
 const BASELINE_DB_PATH = path.resolve(__dirname, "../test-user-data/AquilaPro/aquila.db");
 const DISPOSABLE_DB_PATH = path.join(DISPOSABLE_DB_DIR, "aquila-h01.db");
