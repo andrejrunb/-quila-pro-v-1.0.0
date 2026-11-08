@@ -14,6 +14,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const WebSocket = require('ws');
 
 const DEFAULT_CHROME_PORT_FILE = path.join(
   process.env.LOCALAPPDATA || 'C:\\Users\\Thaysa\\AppData\\Local',
@@ -45,24 +46,27 @@ class CdpBrowserClient {
 
   connect() {
     return new Promise((resolve, reject) => {
-      const ws = new WebSocket(this.wsUrl);
+      const ws = new WebSocket(this.wsUrl, {
+        handshakeTimeout: 600000,
+        maxPayload: 256 * 1024 * 1024
+      });
       this.ws = ws;
       const timer = setTimeout(() => {
         try { ws.close(); } catch {}
-        reject(new Error('Timeout conectando ao Chrome CDP WebSocket (90s)'));
-      }, 90000);
+        reject(new Error('Timeout conectando ao Chrome CDP WebSocket (600s)'));
+      }, 600000);
 
-      ws.onopen = () => {
+      ws.on('open', () => {
         clearTimeout(timer);
         resolve();
-      };
-      ws.onerror = (err) => {
+      });
+      ws.on('error', (err) => {
         clearTimeout(timer);
         reject(new Error(err.message || 'Conexao recusada pelo Chrome CDP (verifique o popup Allow no Chrome)'));
-      };
-      ws.onmessage = (event) => {
+      });
+      ws.on('message', (rawData) => {
         try {
-          const data = JSON.parse(event.data);
+          const data = JSON.parse(rawData.toString());
           if (data.id && this.pending.has(data.id)) {
             const { resolve: res, reject: rej } = this.pending.get(data.id);
             this.pending.delete(data.id);
@@ -70,7 +74,7 @@ class CdpBrowserClient {
             else res(data.result);
           }
         } catch {}
-      };
+      });
     });
   }
 
@@ -118,8 +122,9 @@ function getBrowserWsUrl() {
 }
 
 function buildUiAuditPrompt(aiName, specialtyFocus, capturedPaths) {
+  const rawBase = 'https://raw.githubusercontent.com/andrejrunb/-quila-pro-v-1.0.0/main/test-results/ui_screenshots_2026_11_08';
   const screenList = capturedPaths
-    .map(c => `- \`${c.id}.png\`: ${c.title}`)
+    .map(c => `- \`${c.id}.png\`: ${c.title}\n  Link Direto Raw GitHub: ${rawBase}/${c.id}.png`)
     .join('\n');
 
   return `[AUDITORIA VISUAL DE UI/UX — ÁQUILA PRO DESKTOP & PORTAIS SOBERANOS — 08/11/2026]
