@@ -227,6 +227,7 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
   const [isLoading, setIsLoading] = useState(true);
   const [isSolvingTimetable, setIsSolvingTimetable] = useState(false);
   const [solverResult, setSolverResult] = useState<TimetableSolverSummary | null>(null);
+  const [solverMode, setSolverMode] = useState<'none' | 'solver' | 'heuristic'>('none');
 
   const getAquilaBridge = (): AquilaScheduleBridge | undefined => {
     if (typeof window === 'undefined') return undefined;
@@ -357,16 +358,15 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
 
         if (res?.success && res.data) {
           setSolverResult(res.data);
+          setSolverMode('solver');
           return;
         }
       }
 
-      setSolverResult({
-        hard_violations: 0,
-        soft_cost: 0,
-        iterations: 1840,
-        elapsed_ms: 612.4
-      });
+      // Sem o solver Python (modo prévia/navegador): NÃO inventamos métricas.
+      // A grade exibida vem de uma heurística simples de distribuição, não do SA+GLS.
+      setSolverResult(null);
+      setSolverMode('heuristic');
     } catch (err) {
       console.error('Erro ao executar solver SA+GLS:', err);
     } finally {
@@ -698,6 +698,25 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
           </div>
         )}
 
+        {solverMode === 'heuristic' && (
+          <div
+            role="status"
+            style={{
+              background: 'rgba(245, 158, 11, 0.12)',
+              border: '1px solid rgba(245, 158, 11, 0.45)',
+              borderRadius: 14,
+              padding: '12px 18px',
+              marginBottom: 20,
+              color: '#fde68a',
+              fontSize: '0.82rem'
+            }}
+          >
+            <strong>⚠️ Prévia heurística — solver SA+GLS indisponível neste modo.</strong> A grade abaixo respeita os dias de folga e
+            as aulas geminadas do Wizard, mas <strong>não foi otimizada</strong> e ainda não aplica a carga semanal exata. Rode no
+            aplicativo desktop (com o motor Python ativo) para obter a grade otimizada e as métricas reais.
+          </div>
+        )}
+
         {solverResult && (
           <div
             className="glass-card p-4 mb-6 border-l-4 border-emerald-500"
@@ -715,7 +734,7 @@ export const TeacherSchedule: React.FC<TeacherScheduleProps> = ({ user, onBack }
               <CheckCircle2 size={20} className="text-emerald-400" />
               <div>
                 <div style={{ fontWeight: 800, color: '#ecfdf5', fontSize: '0.92rem' }}>
-                  Grade Horária Otimizada pelo Solver Híbrido SA+GLS (Kempe Chains • {constraintRules.length} Regras Aplicadas)
+                  Métricas do Solver Híbrido SA+GLS ({constraintRules.length} requisitos enviados — folgas e geminação ainda não são repassadas ao solver)
                 </div>
                 <div style={{ fontSize: '0.78rem', color: '#a7f3d0' }}>
                   Violações Hard (H1–H4): <strong>{solverResult.hard_violations}</strong> • Custo Soft (Janelas S1–S3):{' '}

@@ -8,6 +8,7 @@ export interface EnemSvgCalibratedItem {
   stage: 'EF_ANOS_INICIAIS' | 'EF_ANOS_FINAIS' | 'ENSINO_MEDIO' | 'VESTIBULAR_MEDICINA';
   exam: string;
   year: number;
+  reviewStatus?: string;
   area: 'matematica' | 'natureza' | 'linguagens' | 'humanas';
   discipline: string;
   skillCode: string;
@@ -29,8 +30,9 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
   {
     "id": "AQ-SVG-6EF-CNT-001",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF06CNT01",
@@ -41,8 +43,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • CINEMÁTICA VETORIAL E GRÁFICOS MOVIM</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">v(t) = v0 + a*t</text>\n</svg>",
-    "figureCaption": "Figura 1: Representação gráfica calibrada para Cinemática Vetorial e Gráficos Movimento Uniformemente Variado (EF06CNT01).",
-    "text": "(ENEM • 6º Ano EF • Habilidade EF06CNT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Cinemática Vetorial e Gráficos Movimento Uniformemente Variado. Considerando os parâmetros experimentais e a relação fundamental v(t) = v0 + a*t, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Cinemática Vetorial e Gráficos Movimento Uniformemente Variado (EF06CNT01).",
+    "text": "(Simulado Áquila (estilo ENEM) • 6º Ano EF • Habilidade EF06CNT01) Analise o diagrama abaixo referente ao estudo de Cinemática Vetorial e Gráficos Movimento Uniformemente Variado. Considerando a relação fundamental v(t) = v0 + a*t, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -54,25 +56,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Equação horária da velocidade com aceleração constante, obedecendo rigorosamente ao modelo v(t) = v0 + a*t representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT01."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT01."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Equação horária da velocidade com aceleração constante, obedecendo ao modelo v(t) = v0 + a*t representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação v(t) = v0 + a*t. Passo 2: Aplique o fundamento 'Equação horária da velocidade com aceleração constante'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação v(t) = v0 + a*t. Passo 2: Aplique o fundamento 'Equação horária da velocidade com aceleração constante'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-6EF-CNT-002",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF06CNT02",
@@ -83,8 +86,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • LEIS DE NEWTON, ATRITO DINÂMICO E PL</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">F_R = m * a</text>\n</svg>",
-    "figureCaption": "Figura 2: Representação gráfica calibrada para Leis de Newton, Atrito Dinâmico e Plano Inclinado (EF06CNT02).",
-    "text": "(FUVEST • 6º Ano EF • Habilidade EF06CNT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Leis de Newton, Atrito Dinâmico e Plano Inclinado. Considerando os parâmetros experimentais e a relação fundamental F_R = m * a, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Leis de Newton, Atrito Dinâmico e Plano Inclinado (EF06CNT02).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 6º Ano EF • Habilidade EF06CNT02) Analise o diagrama abaixo referente ao estudo de Leis de Newton, Atrito Dinâmico e Plano Inclinado. Considerando a relação fundamental F_R = m * a, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -96,11 +99,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Segunda Lei de Newton para sistemas com massa constante, obedecendo rigorosamente ao modelo F_R = m * a representado no diagrama."
+        "text": "Segunda Lei de Newton para sistemas com massa constante, obedecendo ao modelo F_R = m * a representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT02."
       },
       {
         "letter": "E",
@@ -108,13 +111,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_R = m * a. Passo 2: Aplique o fundamento 'Segunda Lei de Newton para sistemas com massa constante'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_R = m * a. Passo 2: Aplique o fundamento 'Segunda Lei de Newton para sistemas com massa constante'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-CNT-003",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF06CNT03",
@@ -125,38 +129,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • CIRCUITOS ELÉTRICOS, PRIMEIRA LEI DE</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">P = R * i^2</text>\n</svg>",
-    "figureCaption": "Figura 3: Representação gráfica calibrada para Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada (EF06CNT03).",
-    "text": "(UNICAMP • 6º Ano EF • Habilidade EF06CNT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada. Considerando os parâmetros experimentais e a relação fundamental P = R * i^2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada (EF06CNT03).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 6º Ano EF • Habilidade EF06CNT03) Analise o diagrama abaixo referente ao estudo de Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada. Considerando a relação fundamental P = R * i^2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola P = R * i^2, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Efeito Joule em resistores ôhmicos sob corrente contínua, obedecendo ao modelo P = R * i^2 representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de circuitos elétricos, primeira lei de ohm e potência dissipada."
+        "text": "O fenômeno viola P = R * i^2, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Efeito Joule em resistores ôhmicos sob corrente contínua, obedecendo rigorosamente ao modelo P = R * i^2 representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de circuitos elétricos, primeira lei de ohm e potência dissipada."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT03."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação P = R * i^2. Passo 2: Aplique o fundamento 'Efeito Joule em resistores ôhmicos sob corrente contínua'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação P = R * i^2. Passo 2: Aplique o fundamento 'Efeito Joule em resistores ôhmicos sob corrente contínua'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-CNT-004",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF06CNT04",
@@ -167,8 +172,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • TERMODINÂMICA, CICLO DE CARNOT E DIA</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">eta = 1 - T_fria / T_quente</text>\n</svg>",
-    "figureCaption": "Figura 4: Representação gráfica calibrada para Termodinâmica, Ciclo de Carnot e Diagramas P x V (EF06CNT04).",
-    "text": "(UnB • 6º Ano EF • Habilidade EF06CNT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Termodinâmica, Ciclo de Carnot e Diagramas P x V. Considerando os parâmetros experimentais e a relação fundamental eta = 1 - T_fria / T_quente, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Termodinâmica, Ciclo de Carnot e Diagramas P x V (EF06CNT04).",
+    "text": "(Simulado Áquila (estilo UnB) • 6º Ano EF • Habilidade EF06CNT04) Analise o diagrama abaixo referente ao estudo de Termodinâmica, Ciclo de Carnot e Diagramas P x V. Considerando a relação fundamental eta = 1 - T_fria / T_quente, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -180,25 +185,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Rendimento máximo teórico de uma máquina térmica, obedecendo rigorosamente ao modelo eta = 1 - T_fria / T_quente representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT04."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT04."
+        "text": "Rendimento máximo teórico de uma máquina térmica, obedecendo ao modelo eta = 1 - T_fria / T_quente representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação eta = 1 - T_fria / T_quente. Passo 2: Aplique o fundamento 'Rendimento máximo teórico de uma máquina térmica'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação eta = 1 - T_fria / T_quente. Passo 2: Aplique o fundamento 'Rendimento máximo teórico de uma máquina térmica'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-6EF-CNT-005",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF06CNT05",
@@ -209,8 +215,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ÓPTICA GEOMÉTRICA, REFRAÇÃO (LEI DE </text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">n1 * sen(theta1) = n2 * sen(theta2</text>\n</svg>",
-    "figureCaption": "Figura 5: Representação gráfica calibrada para Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas (EF06CNT05).",
-    "text": "(UFG • 6º Ano EF • Habilidade EF06CNT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas. Considerando os parâmetros experimentais e a relação fundamental n1 * sen(theta1) = n2 * sen(theta2), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas (EF06CNT05).",
+    "text": "(Simulado Áquila (estilo UFG) • 6º Ano EF • Habilidade EF06CNT05) Analise o diagrama abaixo referente ao estudo de Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas. Considerando a relação fundamental n1 * sen(theta1) = n2 * sen(theta2), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -218,29 +224,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de óptica geométrica, refração (lei de snell) e lentes esféricas."
+        "text": "Conservação da frequência e desvio angular na refração, obedecendo ao modelo n1 * sen(theta1) = n2 * sen(theta2) representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Conservação da frequência e desvio angular na refração, obedecendo rigorosamente ao modelo n1 * sen(theta1) = n2 * sen(theta2) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de óptica geométrica, refração (lei de snell) e lentes esféricas."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT05."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT05."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação n1 * sen(theta1) = n2 * sen(theta2). Passo 2: Aplique o fundamento 'Conservação da frequência e desvio angular na refração'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação n1 * sen(theta1) = n2 * sen(theta2). Passo 2: Aplique o fundamento 'Conservação da frequência e desvio angular na refração'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-6EF-CNT-006",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF06CNT06",
@@ -251,8 +258,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ONDULATÓRIA, EFEITO DOPPLER E ACÚSTI</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">v = lambda * f</text>\n</svg>",
-    "figureCaption": "Figura 6: Representação gráfica calibrada para Ondulatória, Efeito Doppler e Acústica Musical (EF06CNT06).",
-    "text": "(OBMEP • 6º Ano EF • Habilidade EF06CNT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Ondulatória, Efeito Doppler e Acústica Musical. Considerando os parâmetros experimentais e a relação fundamental v = lambda * f, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Ondulatória, Efeito Doppler e Acústica Musical (EF06CNT06).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 6º Ano EF • Habilidade EF06CNT06) Analise o diagrama abaixo referente ao estudo de Ondulatória, Efeito Doppler e Acústica Musical. Considerando a relação fundamental v = lambda * f, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -264,25 +271,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Equação fundamental da propagação ondulatória, obedecendo rigorosamente ao modelo v = lambda * f representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT06."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT06."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Equação fundamental da propagação ondulatória, obedecendo ao modelo v = lambda * f representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = lambda * f. Passo 2: Aplique o fundamento 'Equação fundamental da propagação ondulatória'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = lambda * f. Passo 2: Aplique o fundamento 'Equação fundamental da propagação ondulatória'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-6EF-CNT-007",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF06CNT07",
@@ -293,8 +301,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ELETROMAGNETISMO, FORÇA DE LORENTZ E</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">epsilon = -d(Phi_B)/dt</text>\n</svg>",
-    "figureCaption": "Figura 7: Representação gráfica calibrada para Eletromagnetismo, Força de Lorentz e Indução de Faraday (EF06CNT07).",
-    "text": "(OBA • 6º Ano EF • Habilidade EF06CNT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Eletromagnetismo, Força de Lorentz e Indução de Faraday. Considerando os parâmetros experimentais e a relação fundamental epsilon = -d(Phi_B)/dt, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Eletromagnetismo, Força de Lorentz e Indução de Faraday (EF06CNT07).",
+    "text": "(Simulado Áquila (estilo OBA) • 6º Ano EF • Habilidade EF06CNT07) Analise o diagrama abaixo referente ao estudo de Eletromagnetismo, Força de Lorentz e Indução de Faraday. Considerando a relação fundamental epsilon = -d(Phi_B)/dt, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -306,11 +314,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Força eletromotriz induzida pela variação de fluxo magnético, obedecendo rigorosamente ao modelo epsilon = -d(Phi_B)/dt representado no diagrama."
+        "text": "Força eletromotriz induzida pela variação de fluxo magnético, obedecendo ao modelo epsilon = -d(Phi_B)/dt representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT07."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT07."
       },
       {
         "letter": "E",
@@ -318,13 +326,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação epsilon = -d(Phi_B)/dt. Passo 2: Aplique o fundamento 'Força eletromotriz induzida pela variação de fluxo magnético'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação epsilon = -d(Phi_B)/dt. Passo 2: Aplique o fundamento 'Força eletromotriz induzida pela variação de fluxo magnético'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-CNT-008",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF06CNT08",
@@ -335,38 +344,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ASTRONOMIA E GRAVITAÇÃO UNIVERSAL DE</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">T^2 / R^3 = constante</text>\n</svg>",
-    "figureCaption": "Figura 8: Representação gráfica calibrada para Astronomia e Gravitação Universal de Kepler-Newton (OBA) (EF06CNT08).",
-    "text": "(UEG • 6º Ano EF • Habilidade EF06CNT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Astronomia e Gravitação Universal de Kepler-Newton (OBA). Considerando os parâmetros experimentais e a relação fundamental T^2 / R^3 = constante, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Astronomia e Gravitação Universal de Kepler-Newton (OBA) (EF06CNT08).",
+    "text": "(Simulado Áquila (estilo UEG) • 6º Ano EF • Habilidade EF06CNT08) Analise o diagrama abaixo referente ao estudo de Astronomia e Gravitação Universal de Kepler-Newton (OBA). Considerando a relação fundamental T^2 / R^3 = constante, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola T^2 / R^3 = constante, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Terceira Lei de Kepler para órbitas planetárias elípticas, obedecendo ao modelo T^2 / R^3 = constante representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de astronomia e gravitação universal de kepler-newton (oba)."
+        "text": "O fenômeno viola T^2 / R^3 = constante, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Terceira Lei de Kepler para órbitas planetárias elípticas, obedecendo rigorosamente ao modelo T^2 / R^3 = constante representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de astronomia e gravitação universal de kepler-newton (oba)."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT08."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT08."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação T^2 / R^3 = constante. Passo 2: Aplique o fundamento 'Terceira Lei de Kepler para órbitas planetárias elípticas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação T^2 / R^3 = constante. Passo 2: Aplique o fundamento 'Terceira Lei de Kepler para órbitas planetárias elípticas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-MAT-009",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF06MAT01",
@@ -377,38 +387,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • FUNÇÕES POLINOMIAIS DE 1º E 2º GRAU </text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">x_v = -b / (2a)</text>\n</svg>",
-    "figureCaption": "Figura 9: Representação gráfica calibrada para Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola (EF06MAT01).",
-    "text": "(FUVEST • 6º Ano EF • Habilidade EF06MAT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola. Considerando os parâmetros experimentais e a relação fundamental x_v = -b / (2a), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola (EF06MAT01).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 6º Ano EF • Habilidade EF06MAT01) Analise o diagrama abaixo referente ao estudo de Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola. Considerando a relação fundamental x_v = -b / (2a), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola x_v = -b / (2a), reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Abscissa do ponto de máximo ou mínimo da função quadrática, obedecendo ao modelo x_v = -b / (2a) representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de funções polinomiais de 1º e 2º grau e vértice da parábola."
+        "text": "O fenômeno viola x_v = -b / (2a), reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Abscissa do ponto de máximo ou mínimo da função quadrática, obedecendo rigorosamente ao modelo x_v = -b / (2a) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de funções polinomiais de 1º e 2º grau e vértice da parábola."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06MAT01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06MAT01."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação x_v = -b / (2a). Passo 2: Aplique o fundamento 'Abscissa do ponto de máximo ou mínimo da função quadrática'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação x_v = -b / (2a). Passo 2: Aplique o fundamento 'Abscissa do ponto de máximo ou mínimo da função quadrática'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-MAT-010",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF06MAT02",
@@ -419,8 +430,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • GEOMETRIA PLANA, SEMELHANÇA DE TRIÂN</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">a^2 = b^2 + c^2</text>\n</svg>",
-    "figureCaption": "Figura 10: Representação gráfica calibrada para Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras (EF06MAT02).",
-    "text": "(UNICAMP • 6º Ano EF • Habilidade EF06MAT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras. Considerando os parâmetros experimentais e a relação fundamental a^2 = b^2 + c^2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras (EF06MAT02).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 6º Ano EF • Habilidade EF06MAT02) Analise o diagrama abaixo referente ao estudo de Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras. Considerando a relação fundamental a^2 = b^2 + c^2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -432,25 +443,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Relação métrica fundamental no triângulo retângulo, obedecendo rigorosamente ao modelo a^2 = b^2 + c^2 representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06MAT02."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06MAT02."
+        "text": "Relação métrica fundamental no triângulo retângulo, obedecendo ao modelo a^2 = b^2 + c^2 representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação a^2 = b^2 + c^2. Passo 2: Aplique o fundamento 'Relação métrica fundamental no triângulo retângulo'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação a^2 = b^2 + c^2. Passo 2: Aplique o fundamento 'Relação métrica fundamental no triângulo retângulo'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-6EF-MAT-011",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF06MAT03",
@@ -461,8 +473,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • GEOMETRIA ESPACIAL: PRISMAS, CILINDR</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">V_esfera = (4/3) * pi * R^3</text>\n</svg>",
-    "figureCaption": "Figura 11: Representação gráfica calibrada para Geometria Espacial: Prismas, Cilindros, Cones e Esferas (EF06MAT03).",
-    "text": "(UnB • 6º Ano EF • Habilidade EF06MAT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Geometria Espacial: Prismas, Cilindros, Cones e Esferas. Considerando os parâmetros experimentais e a relação fundamental V_esfera = (4/3) * pi * R^3, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Geometria Espacial: Prismas, Cilindros, Cones e Esferas (EF06MAT03).",
+    "text": "(Simulado Áquila (estilo UnB) • 6º Ano EF • Habilidade EF06MAT03) Analise o diagrama abaixo referente ao estudo de Geometria Espacial: Prismas, Cilindros, Cones e Esferas. Considerando a relação fundamental V_esfera = (4/3) * pi * R^3, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -470,29 +482,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de geometria espacial: prismas, cilindros, cones e esferas."
+        "text": "Volume de sólidos de revolução em problemas do ENEM, obedecendo ao modelo V_esfera = (4/3) * pi * R^3 representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Volume de sólidos de revolução em problemas do ENEM, obedecendo rigorosamente ao modelo V_esfera = (4/3) * pi * R^3 representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de geometria espacial: prismas, cilindros, cones e esferas."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06MAT03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06MAT03."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação V_esfera = (4/3) * pi * R^3. Passo 2: Aplique o fundamento 'Volume de sólidos de revolução em problemas do ENEM'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação V_esfera = (4/3) * pi * R^3. Passo 2: Aplique o fundamento 'Volume de sólidos de revolução em problemas do ENEM'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-6EF-MAT-012",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF06MAT04",
@@ -503,8 +516,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • ANÁLISE COMBINATÓRIA, PERMUTAÇÕES E </text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">P(A|B) = P(A inter B) / P(B)</text>\n</svg>",
-    "figureCaption": "Figura 12: Representação gráfica calibrada para Análise Combinatória, Permutações e Probabilidade Condicional (EF06MAT04).",
-    "text": "(UFG • 6º Ano EF • Habilidade EF06MAT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Análise Combinatória, Permutações e Probabilidade Condicional. Considerando os parâmetros experimentais e a relação fundamental P(A|B) = P(A inter B) / P(B), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Análise Combinatória, Permutações e Probabilidade Condicional (EF06MAT04).",
+    "text": "(Simulado Áquila (estilo UFG) • 6º Ano EF • Habilidade EF06MAT04) Analise o diagrama abaixo referente ao estudo de Análise Combinatória, Permutações e Probabilidade Condicional. Considerando a relação fundamental P(A|B) = P(A inter B) / P(B), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -516,25 +529,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Teorema da probabilidade condicional com redução amostral, obedecendo rigorosamente ao modelo P(A|B) = P(A inter B) / P(B) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06MAT04."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06MAT04."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Teorema da probabilidade condicional com redução amostral, obedecendo ao modelo P(A|B) = P(A inter B) / P(B) representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação P(A|B) = P(A inter B) / P(B). Passo 2: Aplique o fundamento 'Teorema da probabilidade condicional com redução amostral'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação P(A|B) = P(A inter B) / P(B). Passo 2: Aplique o fundamento 'Teorema da probabilidade condicional com redução amostral'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-6EF-MAT-013",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF06MAT05",
@@ -545,8 +559,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • PROGRESSÕES ARITMÉTICAS (PA) E GEOMÉ</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">a_n = a_1 * q^(n-1)</text>\n</svg>",
-    "figureCaption": "Figura 13: Representação gráfica calibrada para Progressões Aritméticas (PA) e Geométricas (PG) Financeiras (EF06MAT05).",
-    "text": "(OBMEP • 6º Ano EF • Habilidade EF06MAT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Progressões Aritméticas (PA) e Geométricas (PG) Financeiras. Considerando os parâmetros experimentais e a relação fundamental a_n = a_1 * q^(n-1), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Progressões Aritméticas (PA) e Geométricas (PG) Financeiras (EF06MAT05).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 6º Ano EF • Habilidade EF06MAT05) Analise o diagrama abaixo referente ao estudo de Progressões Aritméticas (PA) e Geométricas (PG) Financeiras. Considerando a relação fundamental a_n = a_1 * q^(n-1), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -558,11 +572,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Crescimento exponencial discreto em juros compostos, obedecendo rigorosamente ao modelo a_n = a_1 * q^(n-1) representado no diagrama."
+        "text": "Crescimento exponencial discreto em juros compostos, obedecendo ao modelo a_n = a_1 * q^(n-1) representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06MAT05."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06MAT05."
       },
       {
         "letter": "E",
@@ -570,13 +584,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação a_n = a_1 * q^(n-1). Passo 2: Aplique o fundamento 'Crescimento exponencial discreto em juros compostos'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação a_n = a_1 * q^(n-1). Passo 2: Aplique o fundamento 'Crescimento exponencial discreto em juros compostos'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-MAT-014",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF06MAT06",
@@ -587,38 +602,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • TRIGONOMETRIA NO CICLO E FUNÇÕES PER</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">sen^2(x) + cos^2(x) = 1</text>\n</svg>",
-    "figureCaption": "Figura 14: Representação gráfica calibrada para Trigonometria no Ciclo e Funções Periódicas Senoidais (EF06MAT06).",
-    "text": "(OBA • 6º Ano EF • Habilidade EF06MAT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Trigonometria no Ciclo e Funções Periódicas Senoidais. Considerando os parâmetros experimentais e a relação fundamental sen^2(x) + cos^2(x) = 1, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Trigonometria no Ciclo e Funções Periódicas Senoidais (EF06MAT06).",
+    "text": "(Simulado Áquila (estilo OBA) • 6º Ano EF • Habilidade EF06MAT06) Analise o diagrama abaixo referente ao estudo de Trigonometria no Ciclo e Funções Periódicas Senoidais. Considerando a relação fundamental sen^2(x) + cos^2(x) = 1, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola sen^2(x) + cos^2(x) = 1, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Relação fundamental da trigonometria circular, obedecendo ao modelo sen^2(x) + cos^2(x) = 1 representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de trigonometria no ciclo e funções periódicas senoidais."
+        "text": "O fenômeno viola sen^2(x) + cos^2(x) = 1, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Relação fundamental da trigonometria circular, obedecendo rigorosamente ao modelo sen^2(x) + cos^2(x) = 1 representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de trigonometria no ciclo e funções periódicas senoidais."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06MAT06."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06MAT06."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação sen^2(x) + cos^2(x) = 1. Passo 2: Aplique o fundamento 'Relação fundamental da trigonometria circular'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação sen^2(x) + cos^2(x) = 1. Passo 2: Aplique o fundamento 'Relação fundamental da trigonometria circular'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-MAT-015",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF06MAT07",
@@ -629,8 +645,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • ESTATÍSTICA DESCRITIVA: MÉDIA PONDER</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">Mediana = termo central ordenado</text>\n</svg>",
-    "figureCaption": "Figura 15: Representação gráfica calibrada para Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão (EF06MAT07).",
-    "text": "(UEG • 6º Ano EF • Habilidade EF06MAT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão. Considerando os parâmetros experimentais e a relação fundamental Mediana = termo central ordenado, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão (EF06MAT07).",
+    "text": "(Simulado Áquila (estilo UEG) • 6º Ano EF • Habilidade EF06MAT07) Analise o diagrama abaixo referente ao estudo de Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão. Considerando a relação fundamental Mediana = termo central ordenado, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -642,25 +658,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Medida de tendência central robusta a valores extremos, obedecendo rigorosamente ao modelo Mediana = termo central ordenado representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06MAT07."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06MAT07."
+        "text": "Medida de tendência central robusta a valores extremos, obedecendo ao modelo Mediana = termo central ordenado representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Mediana = termo central ordenado. Passo 2: Aplique o fundamento 'Medida de tendência central robusta a valores extremos'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Mediana = termo central ordenado. Passo 2: Aplique o fundamento 'Medida de tendência central robusta a valores extremos'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-6EF-MAT-016",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF06MAT08",
@@ -671,8 +688,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • LOGARITMOS, ESCALA RICHTER E DECIBÉI</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">log_b(x*y) = log_b(x) + log_b(y)</text>\n</svg>",
-    "figureCaption": "Figura 16: Representação gráfica calibrada para Logaritmos, Escala Richter e Decibéis Acústicos (EF06MAT08).",
-    "text": "(UFMG • 6º Ano EF • Habilidade EF06MAT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Logaritmos, Escala Richter e Decibéis Acústicos. Considerando os parâmetros experimentais e a relação fundamental log_b(x*y) = log_b(x) + log_b(y), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Logaritmos, Escala Richter e Decibéis Acústicos (EF06MAT08).",
+    "text": "(Simulado Áquila (estilo UFMG) • 6º Ano EF • Habilidade EF06MAT08) Analise o diagrama abaixo referente ao estudo de Logaritmos, Escala Richter e Decibéis Acústicos. Considerando a relação fundamental log_b(x*y) = log_b(x) + log_b(y), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -680,29 +697,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de logaritmos, escala richter e decibéis acústicos."
+        "text": "Transformação de produtos exponenciais em somas lineares, obedecendo ao modelo log_b(x*y) = log_b(x) + log_b(y) representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Transformação de produtos exponenciais em somas lineares, obedecendo rigorosamente ao modelo log_b(x*y) = log_b(x) + log_b(y) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de logaritmos, escala richter e decibéis acústicos."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06MAT08."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06MAT08."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação log_b(x*y) = log_b(x) + log_b(y). Passo 2: Aplique o fundamento 'Transformação de produtos exponenciais em somas lineares'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação log_b(x*y) = log_b(x) + log_b(y). Passo 2: Aplique o fundamento 'Transformação de produtos exponenciais em somas lineares'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-6EF-CNT-017",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF06CNT01",
@@ -713,8 +731,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • ESTEQUIOMETRIA, PUREZA DE REAGENTES </text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (1 mol = 6,02 x 10^23 entidades)</text>\n</svg>",
-    "figureCaption": "Figura 17: Representação gráfica calibrada para Estequiometria, Pureza de Reagentes e Rendimento Industrial (EF06CNT01).",
-    "text": "(UNICAMP • 6º Ano EF • Habilidade EF06CNT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Estequiometria, Pureza de Reagentes e Rendimento Industrial. Considerando os parâmetros experimentais e a relação fundamental 1 mol = 6,02 x 10^23 entidades, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Estequiometria, Pureza de Reagentes e Rendimento Industrial (EF06CNT01).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 6º Ano EF • Habilidade EF06CNT01) Analise o diagrama abaixo referente ao estudo de Estequiometria, Pureza de Reagentes e Rendimento Industrial. Considerando a relação fundamental 1 mol = 6,02 x 10^23 entidades, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -722,29 +740,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de estequiometria, pureza de reagentes e rendimento industrial."
+        "text": "Lei de Lavoisier e proporções molares em reações químicas, obedecendo ao modelo 1 mol = 6,02 x 10^23 entidades representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Lei de Lavoisier e proporções molares em reações químicas, obedecendo rigorosamente ao modelo 1 mol = 6,02 x 10^23 entidades representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de estequiometria, pureza de reagentes e rendimento industrial."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT01."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação 1 mol = 6,02 x 10^23 entidades. Passo 2: Aplique o fundamento 'Lei de Lavoisier e proporções molares em reações químicas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação 1 mol = 6,02 x 10^23 entidades. Passo 2: Aplique o fundamento 'Lei de Lavoisier e proporções molares em reações químicas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-6EF-CNT-018",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF06CNT02",
@@ -755,8 +774,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • TERMOQUÍMICA, ENTALPIA DE COMBUSTÃO </text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (Delta_H = H_produtos - H_reagentes)</text>\n</svg>",
-    "figureCaption": "Figura 18: Representação gráfica calibrada para Termoquímica, Entalpia de Combustão e Lei de Hess (EF06CNT02).",
-    "text": "(UnB • 6º Ano EF • Habilidade EF06CNT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Termoquímica, Entalpia de Combustão e Lei de Hess. Considerando os parâmetros experimentais e a relação fundamental Delta_H = H_produtos - H_reagentes, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Termoquímica, Entalpia de Combustão e Lei de Hess (EF06CNT02).",
+    "text": "(Simulado Áquila (estilo UnB) • 6º Ano EF • Habilidade EF06CNT02) Analise o diagrama abaixo referente ao estudo de Termoquímica, Entalpia de Combustão e Lei de Hess. Considerando a relação fundamental Delta_H = H_produtos - H_reagentes, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -768,25 +787,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Balanço energético em processos exotérmicos e endotérmicos, obedecendo rigorosamente ao modelo Delta_H = H_produtos - H_reagentes representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT02."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT02."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Balanço energético em processos exotérmicos e endotérmicos, obedecendo ao modelo Delta_H = H_produtos - H_reagentes representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_H = H_produtos - H_reagentes. Passo 2: Aplique o fundamento 'Balanço energético em processos exotérmicos e endotérmicos'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_H = H_produtos - H_reagentes. Passo 2: Aplique o fundamento 'Balanço energético em processos exotérmicos e endotérmicos'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-6EF-CNT-019",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF06CNT03",
@@ -797,8 +817,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • ELETROQUÍMICA: PILHAS DE DANIELL E E</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (Delta_E0 = E0_red(maior) - E0_red()</text>\n</svg>",
-    "figureCaption": "Figura 19: Representação gráfica calibrada para Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa (EF06CNT03).",
-    "text": "(UFG • 6º Ano EF • Habilidade EF06CNT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa. Considerando os parâmetros experimentais e a relação fundamental Delta_E0 = E0_red(maior) - E0_red(menor), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa (EF06CNT03).",
+    "text": "(Simulado Áquila (estilo UFG) • 6º Ano EF • Habilidade EF06CNT03) Analise o diagrama abaixo referente ao estudo de Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa. Considerando a relação fundamental Delta_E0 = E0_red(maior) - E0_red(menor), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -810,11 +830,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Diferença de potencial espontânea em células galvânicas, obedecendo rigorosamente ao modelo Delta_E0 = E0_red(maior) - E0_red(menor) representado no diagrama."
+        "text": "Diferença de potencial espontânea em células galvânicas, obedecendo ao modelo Delta_E0 = E0_red(maior) - E0_red(menor) representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT03."
       },
       {
         "letter": "E",
@@ -822,13 +842,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_E0 = E0_red(maior) - E0_red(menor). Passo 2: Aplique o fundamento 'Diferença de potencial espontânea em células galvânicas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_E0 = E0_red(maior) - E0_red(menor). Passo 2: Aplique o fundamento 'Diferença de potencial espontânea em células galvânicas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-CNT-020",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF06CNT04",
@@ -839,38 +860,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • EQUILÍBRIO QUÍMICO, PH, POH E DESLOC</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (pH = -log10[H+])</text>\n</svg>",
-    "figureCaption": "Figura 20: Representação gráfica calibrada para Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier (EF06CNT04).",
-    "text": "(OBMEP • 6º Ano EF • Habilidade EF06CNT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier. Considerando os parâmetros experimentais e a relação fundamental pH = -log10[H+], assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier (EF06CNT04).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 6º Ano EF • Habilidade EF06CNT04) Analise o diagrama abaixo referente ao estudo de Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier. Considerando a relação fundamental pH = -log10[H+], assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola pH = -log10[H+], reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Escala logarítmica de acidez em soluções aquosas a 25 °C, obedecendo ao modelo pH = -log10[H+] representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de equilíbrio químico, ph, poh e deslocamento de le chatelier."
+        "text": "O fenômeno viola pH = -log10[H+], reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Escala logarítmica de acidez em soluções aquosas a 25 °C, obedecendo rigorosamente ao modelo pH = -log10[H+] representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de equilíbrio químico, ph, poh e deslocamento de le chatelier."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação pH = -log10[H+]. Passo 2: Aplique o fundamento 'Escala logarítmica de acidez em soluções aquosas a 25 °C'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação pH = -log10[H+]. Passo 2: Aplique o fundamento 'Escala logarítmica de acidez em soluções aquosas a 25 °C'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-CNT-021",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF06CNT05",
@@ -881,8 +903,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • QUÍMICA ORGÂNICA: FUNÇÕES OXIGENADAS</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (Cadeia carbônica tetravalente (sp3)</text>\n</svg>",
-    "figureCaption": "Figura 21: Representação gráfica calibrada para Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros (EF06CNT05).",
-    "text": "(OBA • 6º Ano EF • Habilidade EF06CNT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros. Considerando os parâmetros experimentais e a relação fundamental Cadeia carbônica tetravalente (sp3, sp2, sp), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros (EF06CNT05).",
+    "text": "(Simulado Áquila (estilo OBA) • 6º Ano EF • Habilidade EF06CNT05) Analise o diagrama abaixo referente ao estudo de Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros. Considerando a relação fundamental Cadeia carbônica tetravalente (sp3, sp2, sp), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -894,25 +916,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila, obedecendo rigorosamente ao modelo Cadeia carbônica tetravalente (sp3, sp2, sp) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT05."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT05."
+        "text": "Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila, obedecendo ao modelo Cadeia carbônica tetravalente (sp3, sp2, sp) representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeia carbônica tetravalente (sp3, sp2, sp). Passo 2: Aplique o fundamento 'Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeia carbônica tetravalente (sp3, sp2, sp). Passo 2: Aplique o fundamento 'Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-6EF-CNT-022",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF06CNT06",
@@ -923,8 +946,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • SOLUÇÕES, CONCENTRAÇÃO MOLAR, DILUIÇ</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (C1 * V1 = C2 * V2)</text>\n</svg>",
-    "figureCaption": "Figura 22: Representação gráfica calibrada para Soluções, Concentração Molar, Diluição e Titulação Ácido-Base (EF06CNT06).",
-    "text": "(UEG • 6º Ano EF • Habilidade EF06CNT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Soluções, Concentração Molar, Diluição e Titulação Ácido-Base. Considerando os parâmetros experimentais e a relação fundamental C1 * V1 = C2 * V2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Soluções, Concentração Molar, Diluição e Titulação Ácido-Base (EF06CNT06).",
+    "text": "(Simulado Áquila (estilo UEG) • 6º Ano EF • Habilidade EF06CNT06) Analise o diagrama abaixo referente ao estudo de Soluções, Concentração Molar, Diluição e Titulação Ácido-Base. Considerando a relação fundamental C1 * V1 = C2 * V2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -932,29 +955,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de soluções, concentração molar, diluição e titulação ácido-base."
+        "text": "Conservação da quantidade de soluto durante diluição, obedecendo ao modelo C1 * V1 = C2 * V2 representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Conservação da quantidade de soluto durante diluição, obedecendo rigorosamente ao modelo C1 * V1 = C2 * V2 representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de soluções, concentração molar, diluição e titulação ácido-base."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT06."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT06."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação C1 * V1 = C2 * V2. Passo 2: Aplique o fundamento 'Conservação da quantidade de soluto durante diluição'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação C1 * V1 = C2 * V2. Passo 2: Aplique o fundamento 'Conservação da quantidade de soluto durante diluição'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-6EF-CNT-023",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF06CNT07",
@@ -965,8 +989,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • CINÉTICA QUÍMICA, ENERGIA DE ATIVAÇÃ</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (v = k * [A]^m * [B]^n)</text>\n</svg>",
-    "figureCaption": "Figura 23: Representação gráfica calibrada para Cinética Química, Energia de Ativação e Catálise Enzimática (EF06CNT07).",
-    "text": "(UFMG • 6º Ano EF • Habilidade EF06CNT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Cinética Química, Energia de Ativação e Catálise Enzimática. Considerando os parâmetros experimentais e a relação fundamental v = k * [A]^m * [B]^n, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Cinética Química, Energia de Ativação e Catálise Enzimática (EF06CNT07).",
+    "text": "(Simulado Áquila (estilo UFMG) • 6º Ano EF • Habilidade EF06CNT07) Analise o diagrama abaixo referente ao estudo de Cinética Química, Energia de Ativação e Catálise Enzimática. Considerando a relação fundamental v = k * [A]^m * [B]^n, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -978,25 +1002,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Lei da velocidade e redução da barreira energética por catalisadores, obedecendo rigorosamente ao modelo v = k * [A]^m * [B]^n representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT07."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT07."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Lei da velocidade e redução da barreira energética por catalisadores, obedecendo ao modelo v = k * [A]^m * [B]^n representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = k * [A]^m * [B]^n. Passo 2: Aplique o fundamento 'Lei da velocidade e redução da barreira energética por catalisadores'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = k * [A]^m * [B]^n. Passo 2: Aplique o fundamento 'Lei da velocidade e redução da barreira energética por catalisadores'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-6EF-CNT-024",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF06CNT08",
@@ -1007,8 +1032,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • RADIOATIVIDADE: EMISSÕES ALFA, BETA,</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (m = m0 / 2^x)</text>\n</svg>",
-    "figureCaption": "Figura 24: Representação gráfica calibrada para Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida (EF06CNT08).",
-    "text": "(ENEM • 6º Ano EF • Habilidade EF06CNT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida. Considerando os parâmetros experimentais e a relação fundamental m = m0 / 2^x, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida (EF06CNT08).",
+    "text": "(Simulado Áquila (estilo ENEM) • 6º Ano EF • Habilidade EF06CNT08) Analise o diagrama abaixo referente ao estudo de Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida. Considerando a relação fundamental m = m0 / 2^x, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1020,11 +1045,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Decaimento nuclear estatístico aplicado à datação por Carbono-14, obedecendo rigorosamente ao modelo m = m0 / 2^x representado no diagrama."
+        "text": "Decaimento nuclear estatístico aplicado à datação por Carbono-14, obedecendo ao modelo m = m0 / 2^x representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT08."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT08."
       },
       {
         "letter": "E",
@@ -1032,13 +1057,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação m = m0 / 2^x. Passo 2: Aplique o fundamento 'Decaimento nuclear estatístico aplicado à datação por Carbono-14'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação m = m0 / 2^x. Passo 2: Aplique o fundamento 'Decaimento nuclear estatístico aplicado à datação por Carbono-14'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-CNT-025",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF06CNT01",
@@ -1049,8 +1075,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • ECOLOGIA, CADEIAS TRÓFICAS, CICLOS B</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 25: Representação gráfica calibrada para Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização (EF06CNT01).",
-    "text": "(UnB • 6º Ano EF • Habilidade EF06CNT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização. Considerando os parâmetros experimentais e a relação fundamental Fluxo unidirecional de energia (regra dos 10%), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização (EF06CNT01).",
+    "text": "(Simulado Áquila (estilo UnB) • 6º Ano EF • Habilidade EF06CNT01) Analise o diagrama abaixo referente ao estudo de Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização. Considerando a relação fundamental Fluxo unidirecional de energia (regra dos 10%), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1062,11 +1088,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Pirâmides ecológicas e bioacumulação trófica em ecossistemas, obedecendo rigorosamente ao modelo Fluxo unidirecional de energia (regra dos 10%) representado no diagrama."
+        "text": "Pirâmides ecológicas e bioacumulação trófica em ecossistemas, obedecendo ao modelo Fluxo unidirecional de energia (regra dos 10%) representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT01."
       },
       {
         "letter": "E",
@@ -1074,13 +1100,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Fluxo unidirecional de energia (regra dos 10%). Passo 2: Aplique o fundamento 'Pirâmides ecológicas e bioacumulação trófica em ecossistemas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Fluxo unidirecional de energia (regra dos 10%). Passo 2: Aplique o fundamento 'Pirâmides ecológicas e bioacumulação trófica em ecossistemas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-CNT-026",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF06CNT02",
@@ -1091,38 +1118,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • CITOLOGIA, TRANSPORTE DE MEMBRANA (O</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 26: Representação gráfica calibrada para Citologia, Transporte de Membrana (Osmose) e Respiração Celular (EF06CNT02).",
-    "text": "(UFG • 6º Ano EF • Habilidade EF06CNT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Citologia, Transporte de Membrana (Osmose) e Respiração Celular. Considerando os parâmetros experimentais e a relação fundamental Meio hipotônico -> hipertônico, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Citologia, Transporte de Membrana (Osmose) e Respiração Celular (EF06CNT02).",
+    "text": "(Simulado Áquila (estilo UFG) • 6º Ano EF • Habilidade EF06CNT02) Analise o diagrama abaixo referente ao estudo de Citologia, Transporte de Membrana (Osmose) e Respiração Celular. Considerando a relação fundamental Meio hipotônico -> hipertônico, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Meio hipotônico -> hipertônico, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Movimento passivo do solvente através de membrana semipermeável, obedecendo ao modelo Meio hipotônico -> hipertônico representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de citologia, transporte de membrana (osmose) e respiração celular."
+        "text": "O fenômeno viola Meio hipotônico -> hipertônico, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Movimento passivo do solvente através de membrana semipermeável, obedecendo rigorosamente ao modelo Meio hipotônico -> hipertônico representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de citologia, transporte de membrana (osmose) e respiração celular."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Meio hipotônico -> hipertônico. Passo 2: Aplique o fundamento 'Movimento passivo do solvente através de membrana semipermeável'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Meio hipotônico -> hipertônico. Passo 2: Aplique o fundamento 'Movimento passivo do solvente através de membrana semipermeável'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-CNT-027",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF06CNT03",
@@ -1133,8 +1161,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • GENÉTICA MENDELIANA, HEREDOGRAMAS, S</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 27: Representação gráfica calibrada para Genética Mendeliana, Heredogramas, Sistema ABO e Linkage (EF06CNT03).",
-    "text": "(OBMEP • 6º Ano EF • Habilidade EF06CNT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Genética Mendeliana, Heredogramas, Sistema ABO e Linkage. Considerando os parâmetros experimentais e a relação fundamental Proporção F2 = 3:1 (monoibridismo), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Genética Mendeliana, Heredogramas, Sistema ABO e Linkage (EF06CNT03).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 6º Ano EF • Habilidade EF06CNT03) Analise o diagrama abaixo referente ao estudo de Genética Mendeliana, Heredogramas, Sistema ABO e Linkage. Considerando a relação fundamental Proporção F2 = 3:1 (monoibridismo), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1146,25 +1174,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Segregação independente de alelos na meiose, obedecendo rigorosamente ao modelo Proporção F2 = 3:1 (monoibridismo) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT03."
+        "text": "Segregação independente de alelos na meiose, obedecendo ao modelo Proporção F2 = 3:1 (monoibridismo) representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Proporção F2 = 3:1 (monoibridismo). Passo 2: Aplique o fundamento 'Segregação independente de alelos na meiose'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Proporção F2 = 3:1 (monoibridismo). Passo 2: Aplique o fundamento 'Segregação independente de alelos na meiose'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-6EF-CNT-028",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF06CNT04",
@@ -1175,8 +1204,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • BIOTECNOLOGIA: PCR, CRISPR-CAS9, TRA</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 28: Representação gráfica calibrada para Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem (EF06CNT04).",
-    "text": "(OBA • 6º Ano EF • Habilidade EF06CNT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem. Considerando os parâmetros experimentais e a relação fundamental Enzimas de restrição e DNA recombinante, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem (EF06CNT04).",
+    "text": "(Simulado Áquila (estilo OBA) • 6º Ano EF • Habilidade EF06CNT04) Analise o diagrama abaixo referente ao estudo de Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem. Considerando a relação fundamental Enzimas de restrição e DNA recombinante, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1184,29 +1213,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de biotecnologia: pcr, crispr-cas9, transgênicos e clonagem."
+        "text": "Edição gênica dirigida e aplicações biomédicas, obedecendo ao modelo Enzimas de restrição e DNA recombinante representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Edição gênica dirigida e aplicações biomédicas, obedecendo rigorosamente ao modelo Enzimas de restrição e DNA recombinante representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de biotecnologia: pcr, crispr-cas9, transgênicos e clonagem."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Enzimas de restrição e DNA recombinante. Passo 2: Aplique o fundamento 'Edição gênica dirigida e aplicações biomédicas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Enzimas de restrição e DNA recombinante. Passo 2: Aplique o fundamento 'Edição gênica dirigida e aplicações biomédicas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-6EF-CNT-029",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF06CNT05",
@@ -1217,8 +1247,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • FISIOLOGIA HUMANA: SISTEMAS CIRCULAT</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 29: Representação gráfica calibrada para Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas (EF06CNT05).",
-    "text": "(UEG • 6º Ano EF • Habilidade EF06CNT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas. Considerando os parâmetros experimentais e a relação fundamental Imunização ativa (vacina) vs passiva (soro), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas (EF06CNT05).",
+    "text": "(Simulado Áquila (estilo UEG) • 6º Ano EF • Habilidade EF06CNT05) Analise o diagrama abaixo referente ao estudo de Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas. Considerando a relação fundamental Imunização ativa (vacina) vs passiva (soro), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1230,25 +1260,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Memória imunológica mediada por linfócitos B e T, obedecendo rigorosamente ao modelo Imunização ativa (vacina) vs passiva (soro) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT05."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT05."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Memória imunológica mediada por linfócitos B e T, obedecendo ao modelo Imunização ativa (vacina) vs passiva (soro) representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Imunização ativa (vacina) vs passiva (soro). Passo 2: Aplique o fundamento 'Memória imunológica mediada por linfócitos B e T'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Imunização ativa (vacina) vs passiva (soro). Passo 2: Aplique o fundamento 'Memória imunológica mediada por linfócitos B e T'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-6EF-CNT-030",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF06CNT06",
@@ -1259,8 +1290,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • EVOLUÇÃO BIOLÓGICA: SELEÇÃO NATURAL </text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 30: Representação gráfica calibrada para Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck) (EF06CNT06).",
-    "text": "(UFMG • 6º Ano EF • Habilidade EF06CNT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck). Considerando os parâmetros experimentais e a relação fundamental Pressão seletiva ambiental sobre variabilidade genética, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck) (EF06CNT06).",
+    "text": "(Simulado Áquila (estilo UFMG) • 6º Ano EF • Habilidade EF06CNT06) Analise o diagrama abaixo referente ao estudo de Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck). Considerando a relação fundamental Pressão seletiva ambiental sobre variabilidade genética, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1272,11 +1303,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Resistência bacteriana a antibióticos por seleção diferencial, obedecendo rigorosamente ao modelo Pressão seletiva ambiental sobre variabilidade genética representado no diagrama."
+        "text": "Resistência bacteriana a antibióticos por seleção diferencial, obedecendo ao modelo Pressão seletiva ambiental sobre variabilidade genética representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT06."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT06."
       },
       {
         "letter": "E",
@@ -1284,13 +1315,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pressão seletiva ambiental sobre variabilidade genética. Passo 2: Aplique o fundamento 'Resistência bacteriana a antibióticos por seleção diferencial'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pressão seletiva ambiental sobre variabilidade genética. Passo 2: Aplique o fundamento 'Resistência bacteriana a antibióticos por seleção diferencial'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-CNT-031",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF06CNT07",
@@ -1301,38 +1333,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • BOTÂNICA, FOTOSSÍNTESE, TRANSPIRAÇÃO</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 31: Representação gráfica calibrada para Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas) (EF06CNT07).",
-    "text": "(ENEM • 6º Ano EF • Habilidade EF06CNT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas). Considerando os parâmetros experimentais e a relação fundamental 6 CO2 + 6 H2O -> C6H12O6 + 6 O2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas) (EF06CNT07).",
+    "text": "(Simulado Áquila (estilo ENEM) • 6º Ano EF • Habilidade EF06CNT07) Analise o diagrama abaixo referente ao estudo de Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas). Considerando a relação fundamental 6 CO2 + 6 H2O -> C6H12O6 + 6 O2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola 6 CO2 + 6 H2O -> C6H12O6 + 6 O2, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Fixação de carbono no Ciclo de Calvin e fotólise da água, obedecendo ao modelo 6 CO2 + 6 H2O -> C6H12O6 + 6 O2 representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de botânica, fotossíntese, transpiração estomática e hormônios (auxinas)."
+        "text": "O fenômeno viola 6 CO2 + 6 H2O -> C6H12O6 + 6 O2, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Fixação de carbono no Ciclo de Calvin e fotólise da água, obedecendo rigorosamente ao modelo 6 CO2 + 6 H2O -> C6H12O6 + 6 O2 representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de botânica, fotossíntese, transpiração estomática e hormônios (auxinas)."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT07."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT07."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação 6 CO2 + 6 H2O -> C6H12O6 + 6 O2. Passo 2: Aplique o fundamento 'Fixação de carbono no Ciclo de Calvin e fotólise da água'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação 6 CO2 + 6 H2O -> C6H12O6 + 6 O2. Passo 2: Aplique o fundamento 'Fixação de carbono no Ciclo de Calvin e fotólise da água'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-CNT-032",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF06CNT08",
@@ -1343,8 +1376,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • PARASITOLOGIA E SAÚDE PÚBLICA: DENGU</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 32: Representação gráfica calibrada para Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose (EF06CNT08).",
-    "text": "(FUVEST • 6º Ano EF • Habilidade EF06CNT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose. Considerando os parâmetros experimentais e a relação fundamental Vetor biológico vs hospedeiro definitivo, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose (EF06CNT08).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 6º Ano EF • Habilidade EF06CNT08) Analise o diagrama abaixo referente ao estudo de Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose. Considerando a relação fundamental Vetor biológico vs hospedeiro definitivo, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1356,25 +1389,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Profilaxia epidemiológica e saneamento ambiental, obedecendo rigorosamente ao modelo Vetor biológico vs hospedeiro definitivo representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CNT08."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CNT08."
+        "text": "Profilaxia epidemiológica e saneamento ambiental, obedecendo ao modelo Vetor biológico vs hospedeiro definitivo representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Vetor biológico vs hospedeiro definitivo. Passo 2: Aplique o fundamento 'Profilaxia epidemiológica e saneamento ambiental'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Vetor biológico vs hospedeiro definitivo. Passo 2: Aplique o fundamento 'Profilaxia epidemiológica e saneamento ambiental'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-6EF-CI-033",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF06CI01",
@@ -1385,8 +1419,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • RIOS VOADORES, CICLO HIDROLÓGICO E E</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Evapotranspiração amazônica e tran</text>\n</svg>",
-    "figureCaption": "Figura 33: Representação gráfica calibrada para Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural (EF06CI01).",
-    "text": "(UFG • 6º Ano EF • Habilidade EF06CI01) Analise o diagrama técnico-científico abaixo referente ao estudo de Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural. Considerando os parâmetros experimentais e a relação fundamental Evapotranspiração amazônica e transporte de umidade, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural (EF06CI01).",
+    "text": "(Simulado Áquila (estilo UFG) • 6º Ano EF • Habilidade EF06CI01) Analise o diagrama abaixo referente ao estudo de Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural. Considerando a relação fundamental Evapotranspiração amazônica e transporte de umidade, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1398,25 +1432,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Regulação climática sul-americana e conservação da floresta, obedecendo rigorosamente ao modelo Evapotranspiração amazônica e transporte de umidade representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CI01."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CI01."
+        "text": "Regulação climática sul-americana e conservação da floresta, obedecendo ao modelo Evapotranspiração amazônica e transporte de umidade representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Evapotranspiração amazônica e transporte de umidade. Passo 2: Aplique o fundamento 'Regulação climática sul-americana e conservação da floresta'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Evapotranspiração amazônica e transporte de umidade. Passo 2: Aplique o fundamento 'Regulação climática sul-americana e conservação da floresta'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-6EF-CI-034",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF06CI02",
@@ -1427,8 +1462,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • MÁQUINAS SIMPLES: ALAVANCAS INTERFIX</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: F_potente * d_potente = F_resisten</text>\n</svg>",
-    "figureCaption": "Figura 34: Representação gráfica calibrada para Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado (EF06CI02).",
-    "text": "(OBMEP • 6º Ano EF • Habilidade EF06CI02) Analise o diagrama técnico-científico abaixo referente ao estudo de Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado. Considerando os parâmetros experimentais e a relação fundamental F_potente * d_potente = F_resistente * d_resistente, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado (EF06CI02).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 6º Ano EF • Habilidade EF06CI02) Analise o diagrama abaixo referente ao estudo de Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado. Considerando a relação fundamental F_potente * d_potente = F_resistente * d_resistente, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1436,29 +1471,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de máquinas simples: alavancas interfixas, polias e plano inclinado."
+        "text": "Condição de equilíbrio rotacional (torque) em alavancas, obedecendo ao modelo F_potente * d_potente = F_resistente * d_resistente representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Condição de equilíbrio rotacional (torque) em alavancas, obedecendo rigorosamente ao modelo F_potente * d_potente = F_resistente * d_resistente representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de máquinas simples: alavancas interfixas, polias e plano inclinado."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CI02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CI02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_potente * d_potente = F_resistente * d_resistente. Passo 2: Aplique o fundamento 'Condição de equilíbrio rotacional (torque) em alavancas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_potente * d_potente = F_resistente * d_resistente. Passo 2: Aplique o fundamento 'Condição de equilíbrio rotacional (torque) em alavancas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-6EF-CI-035",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF06CI03",
@@ -1469,8 +1505,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • PLACAS TECTÔNICAS, DERIVA CONTINENTA</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Correntes de convecção no manto as</text>\n</svg>",
-    "figureCaption": "Figura 35: Representação gráfica calibrada para Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra (EF06CI03).",
-    "text": "(OBA • 6º Ano EF • Habilidade EF06CI03) Analise o diagrama técnico-científico abaixo referente ao estudo de Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra. Considerando os parâmetros experimentais e a relação fundamental Correntes de convecção no manto astenosférico, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra (EF06CI03).",
+    "text": "(Simulado Áquila (estilo OBA) • 6º Ano EF • Habilidade EF06CI03) Analise o diagrama abaixo referente ao estudo de Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra. Considerando a relação fundamental Correntes de convecção no manto astenosférico, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1482,25 +1518,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Formação de cadeias montanhosas, fossas oceânicas e vulcanismo, obedecendo rigorosamente ao modelo Correntes de convecção no manto astenosférico representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CI03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CI03."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Formação de cadeias montanhosas, fossas oceânicas e vulcanismo, obedecendo ao modelo Correntes de convecção no manto astenosférico representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Correntes de convecção no manto astenosférico. Passo 2: Aplique o fundamento 'Formação de cadeias montanhosas, fossas oceânicas e vulcanismo'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Correntes de convecção no manto astenosférico. Passo 2: Aplique o fundamento 'Formação de cadeias montanhosas, fossas oceânicas e vulcanismo'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-6EF-CI-036",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF06CI04",
@@ -1511,8 +1548,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • MISTURAS HOMOGÊNEAS, HETEROGÊNEAS E </text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Destilação fracionada, filtração e</text>\n</svg>",
-    "figureCaption": "Figura 36: Representação gráfica calibrada para Misturas Homogêneas, Heterogêneas e Processos de Separação (EF06CI04).",
-    "text": "(UEG • 6º Ano EF • Habilidade EF06CI04) Analise o diagrama técnico-científico abaixo referente ao estudo de Misturas Homogêneas, Heterogêneas e Processos de Separação. Considerando os parâmetros experimentais e a relação fundamental Destilação fracionada, filtração e decantação, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Misturas Homogêneas, Heterogêneas e Processos de Separação (EF06CI04).",
+    "text": "(Simulado Áquila (estilo UEG) • 6º Ano EF • Habilidade EF06CI04) Analise o diagrama abaixo referente ao estudo de Misturas Homogêneas, Heterogêneas e Processos de Separação. Considerando a relação fundamental Destilação fracionada, filtração e decantação, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1524,11 +1561,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Separação física baseada em pontos de ebulição e densidade, obedecendo rigorosamente ao modelo Destilação fracionada, filtração e decantação representado no diagrama."
+        "text": "Separação física baseada em pontos de ebulição e densidade, obedecendo ao modelo Destilação fracionada, filtração e decantação representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CI04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CI04."
       },
       {
         "letter": "E",
@@ -1536,13 +1573,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Destilação fracionada, filtração e decantação. Passo 2: Aplique o fundamento 'Separação física baseada em pontos de ebulição e densidade'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Destilação fracionada, filtração e decantação. Passo 2: Aplique o fundamento 'Separação física baseada em pontos de ebulição e densidade'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-CHS-037",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF06CHS01",
@@ -1553,8 +1591,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • BRASIL COLÔNIA, CICLOS ECONÔMICOS E </text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Pacto Colonial e plantation escrav</text>\n</svg>",
-    "figureCaption": "Figura 37: Representação gráfica calibrada para Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena (EF06CHS01).",
-    "text": "(OBMEP • 6º Ano EF • Habilidade EF06CHS01) Analise o diagrama técnico-científico abaixo referente ao estudo de Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena. Considerando os parâmetros experimentais e a relação fundamental Pacto Colonial e plantation escravista, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena (EF06CHS01).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 6º Ano EF • Habilidade EF06CHS01) Analise o diagrama abaixo referente ao estudo de Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena. Considerando a relação fundamental Pacto Colonial e plantation escravista, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1562,29 +1600,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de brasil colônia, ciclos econômicos e resistência quilombola/indígena."
+        "text": "Formação socioeconômica da América Portuguesa, obedecendo ao modelo Pacto Colonial e plantation escravista representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Formação socioeconômica da América Portuguesa, obedecendo rigorosamente ao modelo Pacto Colonial e plantation escravista representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de brasil colônia, ciclos econômicos e resistência quilombola/indígena."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CHS01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CHS01."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pacto Colonial e plantation escravista. Passo 2: Aplique o fundamento 'Formação socioeconômica da América Portuguesa'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pacto Colonial e plantation escravista. Passo 2: Aplique o fundamento 'Formação socioeconômica da América Portuguesa'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-6EF-CHS-038",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF06CHS02",
@@ -1595,8 +1634,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • ERA VARGAS (1930-1945), INDUSTRIALIZ</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Estado Novo, DIP e trabalhismo urb</text>\n</svg>",
-    "figureCaption": "Figura 38: Representação gráfica calibrada para Era Vargas (1930-1945), Industrialização de Base e CLT (EF06CHS02).",
-    "text": "(OBA • 6º Ano EF • Habilidade EF06CHS02) Analise o diagrama técnico-científico abaixo referente ao estudo de Era Vargas (1930-1945), Industrialização de Base e CLT. Considerando os parâmetros experimentais e a relação fundamental Estado Novo, DIP e trabalhismo urbano, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Era Vargas (1930-1945), Industrialização de Base e CLT (EF06CHS02).",
+    "text": "(Simulado Áquila (estilo OBA) • 6º Ano EF • Habilidade EF06CHS02) Analise o diagrama abaixo referente ao estudo de Era Vargas (1930-1945), Industrialização de Base e CLT. Considerando a relação fundamental Estado Novo, DIP e trabalhismo urbano, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1608,25 +1647,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Modernização conservadora e substituição de importações, obedecendo rigorosamente ao modelo Estado Novo, DIP e trabalhismo urbano representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CHS02."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CHS02."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Modernização conservadora e substituição de importações, obedecendo ao modelo Estado Novo, DIP e trabalhismo urbano representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Estado Novo, DIP e trabalhismo urbano. Passo 2: Aplique o fundamento 'Modernização conservadora e substituição de importações'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Estado Novo, DIP e trabalhismo urbano. Passo 2: Aplique o fundamento 'Modernização conservadora e substituição de importações'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-6EF-CHS-039",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF06CHS03",
@@ -1637,8 +1677,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • REVOLUÇÃO INDUSTRIAL, ILUMINISMO E T</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Maquinofatura, cercamentos e tempo</text>\n</svg>",
-    "figureCaption": "Figura 39: Representação gráfica calibrada para Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho (EF06CHS03).",
-    "text": "(UEG • 6º Ano EF • Habilidade EF06CHS03) Analise o diagrama técnico-científico abaixo referente ao estudo de Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho. Considerando os parâmetros experimentais e a relação fundamental Maquinofatura, cercamentos e tempo fabril, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho (EF06CHS03).",
+    "text": "(Simulado Áquila (estilo UEG) • 6º Ano EF • Habilidade EF06CHS03) Analise o diagrama abaixo referente ao estudo de Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho. Considerando a relação fundamental Maquinofatura, cercamentos e tempo fabril, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1650,11 +1690,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Transição do capitalismo comercial para o industrial, obedecendo rigorosamente ao modelo Maquinofatura, cercamentos e tempo fabril representado no diagrama."
+        "text": "Transição do capitalismo comercial para o industrial, obedecendo ao modelo Maquinofatura, cercamentos e tempo fabril representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CHS03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CHS03."
       },
       {
         "letter": "E",
@@ -1662,13 +1702,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Maquinofatura, cercamentos e tempo fabril. Passo 2: Aplique o fundamento 'Transição do capitalismo comercial para o industrial'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Maquinofatura, cercamentos e tempo fabril. Passo 2: Aplique o fundamento 'Transição do capitalismo comercial para o industrial'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-CHS-040",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF06CHS04",
@@ -1679,38 +1720,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • REPÚBLICA VELHA, CORONELISMO, VOTO D</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Política dos Governadores e Café c</text>\n</svg>",
-    "figureCaption": "Figura 40: Representação gráfica calibrada para República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina (EF06CHS04).",
-    "text": "(UFMG • 6º Ano EF • Habilidade EF06CHS04) Analise o diagrama técnico-científico abaixo referente ao estudo de República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina. Considerando os parâmetros experimentais e a relação fundamental Política dos Governadores e Café com Leite, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina (EF06CHS04).",
+    "text": "(Simulado Áquila (estilo UFMG) • 6º Ano EF • Habilidade EF06CHS04) Analise o diagrama abaixo referente ao estudo de República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina. Considerando a relação fundamental Política dos Governadores e Café com Leite, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Política dos Governadores e Café com Leite, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Cidadania restrita e movimentos sociais na Primeira República, obedecendo ao modelo Política dos Governadores e Café com Leite representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de república velha, coronelismo, voto de cabresto e revolta da vacina."
+        "text": "O fenômeno viola Política dos Governadores e Café com Leite, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Cidadania restrita e movimentos sociais na Primeira República, obedecendo rigorosamente ao modelo Política dos Governadores e Café com Leite representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de república velha, coronelismo, voto de cabresto e revolta da vacina."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CHS04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CHS04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Política dos Governadores e Café com Leite. Passo 2: Aplique o fundamento 'Cidadania restrita e movimentos sociais na Primeira República'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Política dos Governadores e Café com Leite. Passo 2: Aplique o fundamento 'Cidadania restrita e movimentos sociais na Primeira República'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-CHS-041",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF06CHS01",
@@ -1721,8 +1763,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • DINÂMICA DEMOGRÁFICA, TRANSIÇÃO ETÁR</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Queda da fecundidade e envelhecime</text>\n</svg>",
-    "figureCaption": "Figura 41: Representação gráfica calibrada para Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil (EF06CHS01).",
-    "text": "(OBA • 6º Ano EF • Habilidade EF06CHS01) Analise o diagrama técnico-científico abaixo referente ao estudo de Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil. Considerando os parâmetros experimentais e a relação fundamental Queda da fecundidade e envelhecimento populacional, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil (EF06CHS01).",
+    "text": "(Simulado Áquila (estilo OBA) • 6º Ano EF • Habilidade EF06CHS01) Analise o diagrama abaixo referente ao estudo de Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil. Considerando a relação fundamental Queda da fecundidade e envelhecimento populacional, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1734,25 +1776,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Leitura de pirâmides etárias e impactos previdenciários, obedecendo rigorosamente ao modelo Queda da fecundidade e envelhecimento populacional representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CHS01."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CHS01."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Leitura de pirâmides etárias e impactos previdenciários, obedecendo ao modelo Queda da fecundidade e envelhecimento populacional representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Queda da fecundidade e envelhecimento populacional. Passo 2: Aplique o fundamento 'Leitura de pirâmides etárias e impactos previdenciários'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Queda da fecundidade e envelhecimento populacional. Passo 2: Aplique o fundamento 'Leitura de pirâmides etárias e impactos previdenciários'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-6EF-CHS-042",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF06CHS02",
@@ -1763,8 +1806,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • GEOPOLÍTICA MUNDIAL, NOVA ORDEM MULT</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Cadeias globais de valor e blocos </text>\n</svg>",
-    "figureCaption": "Figura 42: Representação gráfica calibrada para Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional (EF06CHS02).",
-    "text": "(UEG • 6º Ano EF • Habilidade EF06CHS02) Analise o diagrama técnico-científico abaixo referente ao estudo de Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional. Considerando os parâmetros experimentais e a relação fundamental Cadeias globais de valor e blocos econômicos, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional (EF06CHS02).",
+    "text": "(Simulado Áquila (estilo UEG) • 6º Ano EF • Habilidade EF06CHS02) Analise o diagrama abaixo referente ao estudo de Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional. Considerando a relação fundamental Cadeias globais de valor e blocos econômicos, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1776,11 +1819,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Fluxos financeiros, tecnológicos e tensões territoriais, obedecendo rigorosamente ao modelo Cadeias globais de valor e blocos econômicos representado no diagrama."
+        "text": "Fluxos financeiros, tecnológicos e tensões territoriais, obedecendo ao modelo Cadeias globais de valor e blocos econômicos representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CHS02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CHS02."
       },
       {
         "letter": "E",
@@ -1788,13 +1831,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeias globais de valor e blocos econômicos. Passo 2: Aplique o fundamento 'Fluxos financeiros, tecnológicos e tensões territoriais'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeias globais de valor e blocos econômicos. Passo 2: Aplique o fundamento 'Fluxos financeiros, tecnológicos e tensões territoriais'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-CHS-043",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF06CHS03",
@@ -1805,38 +1849,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • DOMÍNIOS MORFOCLIMÁTICOS BRASILEIROS</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Cerrado, Amazônia, Caatinga e Mata</text>\n</svg>",
-    "figureCaption": "Figura 43: Representação gráfica calibrada para Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola (EF06CHS03).",
-    "text": "(UFMG • 6º Ano EF • Habilidade EF06CHS03) Analise o diagrama técnico-científico abaixo referente ao estudo de Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola. Considerando os parâmetros experimentais e a relação fundamental Cerrado, Amazônia, Caatinga e Mata dos Cocais, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola (EF06CHS03).",
+    "text": "(Simulado Áquila (estilo UFMG) • 6º Ano EF • Habilidade EF06CHS03) Analise o diagrama abaixo referente ao estudo de Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola. Considerando a relação fundamental Cerrado, Amazônia, Caatinga e Mata dos Cocais, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Cerrado, Amazônia, Caatinga e Mata dos Cocais, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Interação entre relevo, hidrografia, clima e vegetação, obedecendo ao modelo Cerrado, Amazônia, Caatinga e Mata dos Cocais representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de domínios morfoclimáticos brasileiros (ab'sáber) e fronteira agrícola."
+        "text": "O fenômeno viola Cerrado, Amazônia, Caatinga e Mata dos Cocais, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Interação entre relevo, hidrografia, clima e vegetação, obedecendo rigorosamente ao modelo Cerrado, Amazônia, Caatinga e Mata dos Cocais representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de domínios morfoclimáticos brasileiros (ab'sáber) e fronteira agrícola."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CHS03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CHS03."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cerrado, Amazônia, Caatinga e Mata dos Cocais. Passo 2: Aplique o fundamento 'Interação entre relevo, hidrografia, clima e vegetação'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cerrado, Amazônia, Caatinga e Mata dos Cocais. Passo 2: Aplique o fundamento 'Interação entre relevo, hidrografia, clima e vegetação'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-CHS-044",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF06CHS04",
@@ -1847,8 +1892,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • URBANIZAÇÃO BRASILEIRA, METROPOLIZAÇ</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Macrocefalia urbana e conurbação</text>\n</svg>",
-    "figureCaption": "Figura 44: Representação gráfica calibrada para Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação (EF06CHS04).",
-    "text": "(ENEM • 6º Ano EF • Habilidade EF06CHS04) Analise o diagrama técnico-científico abaixo referente ao estudo de Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação. Considerando os parâmetros experimentais e a relação fundamental Macrocefalia urbana e conurbação, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação (EF06CHS04).",
+    "text": "(Simulado Áquila (estilo ENEM) • 6º Ano EF • Habilidade EF06CHS04) Analise o diagrama abaixo referente ao estudo de Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação. Considerando a relação fundamental Macrocefalia urbana e conurbação, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1860,25 +1905,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Planejamento urbano, mobilidade e impactos socioambientais, obedecendo rigorosamente ao modelo Macrocefalia urbana e conurbação representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06CHS04."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06CHS04."
+        "text": "Planejamento urbano, mobilidade e impactos socioambientais, obedecendo ao modelo Macrocefalia urbana e conurbação representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Macrocefalia urbana e conurbação. Passo 2: Aplique o fundamento 'Planejamento urbano, mobilidade e impactos socioambientais'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Macrocefalia urbana e conurbação. Passo 2: Aplique o fundamento 'Planejamento urbano, mobilidade e impactos socioambientais'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-6EF-LP-045",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "linguagens",
     "discipline": "Língua Portuguesa",
     "skillCode": "EF06LP01",
@@ -1889,8 +1935,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 380,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • VARIAÇÃO LINGUÍSTICA, PRECONCEITO LI</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Norma-padrão vs variedades regiona</text>\n</svg>",
-    "figureCaption": "Figura 45: Representação gráfica calibrada para Variação Linguística, Preconceito Linguístico e Adequação ao Registro (EF06LP01).",
-    "text": "(UEG • 6º Ano EF • Habilidade EF06LP01) Analise o diagrama técnico-científico abaixo referente ao estudo de Variação Linguística, Preconceito Linguístico e Adequação ao Registro. Considerando os parâmetros experimentais e a relação fundamental Norma-padrão vs variedades regionais, históricas e sociais, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Variação Linguística, Preconceito Linguístico e Adequação ao Registro (EF06LP01).",
+    "text": "(Simulado Áquila (estilo UEG) • 6º Ano EF • Habilidade EF06LP01) Analise o diagrama abaixo referente ao estudo de Variação Linguística, Preconceito Linguístico e Adequação ao Registro. Considerando a relação fundamental Norma-padrão vs variedades regionais, históricas e sociais, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1902,11 +1948,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Reconhecimento da língua como patrimônio cultural dinâmico, obedecendo rigorosamente ao modelo Norma-padrão vs variedades regionais, históricas e sociais representado no diagrama."
+        "text": "Reconhecimento da língua como patrimônio cultural dinâmico, obedecendo ao modelo Norma-padrão vs variedades regionais, históricas e sociais representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06LP01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06LP01."
       },
       {
         "letter": "E",
@@ -1914,13 +1960,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Norma-padrão vs variedades regionais, históricas e sociais. Passo 2: Aplique o fundamento 'Reconhecimento da língua como patrimônio cultural dinâmico'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Norma-padrão vs variedades regionais, históricas e sociais. Passo 2: Aplique o fundamento 'Reconhecimento da língua como patrimônio cultural dinâmico'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-6EF-LP-046",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "linguagens",
     "discipline": "Língua Portuguesa",
     "skillCode": "EF06LP02",
@@ -1931,38 +1978,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 405,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • GÊNEROS TEXTUAIS, INTERTEXTUALIDADE,</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Tese, argumentos de autoridade e o</text>\n</svg>",
-    "figureCaption": "Figura 46: Representação gráfica calibrada para Gêneros Textuais, Intertextualidade, Ironia e Estratégias Argumentativas (EF06LP02).",
-    "text": "(UFMG • 6º Ano EF • Habilidade EF06LP02) Analise o diagrama técnico-científico abaixo referente ao estudo de Gêneros Textuais, Intertextualidade, Ironia e Estratégias Argumentativas. Considerando os parâmetros experimentais e a relação fundamental Tese, argumentos de autoridade e operadores coesivos, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Gêneros Textuais, Intertextualidade, Ironia e Estratégias Argumentativas (EF06LP02).",
+    "text": "(Simulado Áquila (estilo UFMG) • 6º Ano EF • Habilidade EF06LP02) Analise o diagrama abaixo referente ao estudo de Gêneros Textuais, Intertextualidade, Ironia e Estratégias Argumentativas. Considerando a relação fundamental Tese, argumentos de autoridade e operadores coesivos, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Tese, argumentos de autoridade e operadores coesivos, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Construção de sentido em textos multimodais e charges, obedecendo ao modelo Tese, argumentos de autoridade e operadores coesivos representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de gêneros textuais, intertextualidade, ironia e estratégias argumentativas."
+        "text": "O fenômeno viola Tese, argumentos de autoridade e operadores coesivos, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Construção de sentido em textos multimodais e charges, obedecendo rigorosamente ao modelo Tese, argumentos de autoridade e operadores coesivos representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de gêneros textuais, intertextualidade, ironia e estratégias argumentativas."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06LP02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06LP02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Tese, argumentos de autoridade e operadores coesivos. Passo 2: Aplique o fundamento 'Construção de sentido em textos multimodais e charges'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Tese, argumentos de autoridade e operadores coesivos. Passo 2: Aplique o fundamento 'Construção de sentido em textos multimodais e charges'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-6EF-LP-047",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "linguagens",
     "discipline": "Língua Portuguesa",
     "skillCode": "EF06LP03",
@@ -1973,8 +2021,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 430,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • FUNÇÕES DA LINGUAGEM (JAKOBSON): REF</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Foco no referente, emissor, recept</text>\n</svg>",
-    "figureCaption": "Figura 47: Representação gráfica calibrada para Funções da Linguagem (Jakobson): Referencial, Emotiva, Conativa e Metalinguística (EF06LP03).",
-    "text": "(ENEM • 6º Ano EF • Habilidade EF06LP03) Analise o diagrama técnico-científico abaixo referente ao estudo de Funções da Linguagem (Jakobson): Referencial, Emotiva, Conativa e Metalinguística. Considerando os parâmetros experimentais e a relação fundamental Foco no referente, emissor, receptor ou código, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Funções da Linguagem (Jakobson): Referencial, Emotiva, Conativa e Metalinguística (EF06LP03).",
+    "text": "(Simulado Áquila (estilo ENEM) • 6º Ano EF • Habilidade EF06LP03) Analise o diagrama abaixo referente ao estudo de Funções da Linguagem (Jakobson): Referencial, Emotiva, Conativa e Metalinguística. Considerando a relação fundamental Foco no referente, emissor, receptor ou código, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -1986,25 +2034,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Identificação da intencionalidade comunicativa predominante, obedecendo rigorosamente ao modelo Foco no referente, emissor, receptor ou código representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06LP03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06LP03."
+        "text": "Identificação da intencionalidade comunicativa predominante, obedecendo ao modelo Foco no referente, emissor, receptor ou código representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Foco no referente, emissor, receptor ou código. Passo 2: Aplique o fundamento 'Identificação da intencionalidade comunicativa predominante'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Foco no referente, emissor, receptor ou código. Passo 2: Aplique o fundamento 'Identificação da intencionalidade comunicativa predominante'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-6EF-LP-048",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "linguagens",
     "discipline": "Língua Portuguesa",
     "skillCode": "EF06LP04",
@@ -2015,8 +2064,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 455,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • MODERNISMO BRASILEIRO (1922-1945): R</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Antropofagia oswaldiana, regionali</text>\n</svg>",
-    "figureCaption": "Figura 48: Representação gráfica calibrada para Modernismo Brasileiro (1922-1945): Ruptura Estética e Identidade Nacional (EF06LP04).",
-    "text": "(FUVEST • 6º Ano EF • Habilidade EF06LP04) Analise o diagrama técnico-científico abaixo referente ao estudo de Modernismo Brasileiro (1922-1945): Ruptura Estética e Identidade Nacional. Considerando os parâmetros experimentais e a relação fundamental Antropofagia oswaldiana, regionalismo de 30 e Drummond, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Modernismo Brasileiro (1922-1945): Ruptura Estética e Identidade Nacional (EF06LP04).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 6º Ano EF • Habilidade EF06LP04) Analise o diagrama abaixo referente ao estudo de Modernismo Brasileiro (1922-1945): Ruptura Estética e Identidade Nacional. Considerando a relação fundamental Antropofagia oswaldiana, regionalismo de 30 e Drummond, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2024,29 +2073,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de modernismo brasileiro (1922-1945): ruptura estética e identidade nacional."
+        "text": "Análise literária comparada entre vanguardas e tradição, obedecendo ao modelo Antropofagia oswaldiana, regionalismo de 30 e Drummond representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Análise literária comparada entre vanguardas e tradição, obedecendo rigorosamente ao modelo Antropofagia oswaldiana, regionalismo de 30 e Drummond representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de modernismo brasileiro (1922-1945): ruptura estética e identidade nacional."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF06LP04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF06LP04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Antropofagia oswaldiana, regionalismo de 30 e Drummond. Passo 2: Aplique o fundamento 'Análise literária comparada entre vanguardas e tradição'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Antropofagia oswaldiana, regionalismo de 30 e Drummond. Passo 2: Aplique o fundamento 'Análise literária comparada entre vanguardas e tradição'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-CNT-049",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF07CNT01",
@@ -2057,38 +2107,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • CINEMÁTICA VETORIAL E GRÁFICOS MOVIM</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">v(t) = v0 + a*t</text>\n</svg>",
-    "figureCaption": "Figura 49: Representação gráfica calibrada para Cinemática Vetorial e Gráficos Movimento Uniformemente Variado (EF07CNT01).",
-    "text": "(FUVEST • 7º Ano EF • Habilidade EF07CNT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Cinemática Vetorial e Gráficos Movimento Uniformemente Variado. Considerando os parâmetros experimentais e a relação fundamental v(t) = v0 + a*t, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Cinemática Vetorial e Gráficos Movimento Uniformemente Variado (EF07CNT01).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 7º Ano EF • Habilidade EF07CNT01) Analise o diagrama abaixo referente ao estudo de Cinemática Vetorial e Gráficos Movimento Uniformemente Variado. Considerando a relação fundamental v(t) = v0 + a*t, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola v(t) = v0 + a*t, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Equação horária da velocidade com aceleração constante, obedecendo ao modelo v(t) = v0 + a*t representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de cinemática vetorial e gráficos movimento uniformemente variado."
+        "text": "O fenômeno viola v(t) = v0 + a*t, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Equação horária da velocidade com aceleração constante, obedecendo rigorosamente ao modelo v(t) = v0 + a*t representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de cinemática vetorial e gráficos movimento uniformemente variado."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT01."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação v(t) = v0 + a*t. Passo 2: Aplique o fundamento 'Equação horária da velocidade com aceleração constante'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação v(t) = v0 + a*t. Passo 2: Aplique o fundamento 'Equação horária da velocidade com aceleração constante'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-7EF-CNT-050",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF07CNT02",
@@ -2099,8 +2150,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • LEIS DE NEWTON, ATRITO DINÂMICO E PL</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">F_R = m * a</text>\n</svg>",
-    "figureCaption": "Figura 50: Representação gráfica calibrada para Leis de Newton, Atrito Dinâmico e Plano Inclinado (EF07CNT02).",
-    "text": "(UNICAMP • 7º Ano EF • Habilidade EF07CNT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Leis de Newton, Atrito Dinâmico e Plano Inclinado. Considerando os parâmetros experimentais e a relação fundamental F_R = m * a, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Leis de Newton, Atrito Dinâmico e Plano Inclinado (EF07CNT02).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 7º Ano EF • Habilidade EF07CNT02) Analise o diagrama abaixo referente ao estudo de Leis de Newton, Atrito Dinâmico e Plano Inclinado. Considerando a relação fundamental F_R = m * a, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2112,25 +2163,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Segunda Lei de Newton para sistemas com massa constante, obedecendo rigorosamente ao modelo F_R = m * a representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT02."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT02."
+        "text": "Segunda Lei de Newton para sistemas com massa constante, obedecendo ao modelo F_R = m * a representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_R = m * a. Passo 2: Aplique o fundamento 'Segunda Lei de Newton para sistemas com massa constante'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_R = m * a. Passo 2: Aplique o fundamento 'Segunda Lei de Newton para sistemas com massa constante'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-CNT-051",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF07CNT03",
@@ -2141,8 +2193,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • CIRCUITOS ELÉTRICOS, PRIMEIRA LEI DE</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">P = R * i^2</text>\n</svg>",
-    "figureCaption": "Figura 51: Representação gráfica calibrada para Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada (EF07CNT03).",
-    "text": "(UnB • 7º Ano EF • Habilidade EF07CNT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada. Considerando os parâmetros experimentais e a relação fundamental P = R * i^2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada (EF07CNT03).",
+    "text": "(Simulado Áquila (estilo UnB) • 7º Ano EF • Habilidade EF07CNT03) Analise o diagrama abaixo referente ao estudo de Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada. Considerando a relação fundamental P = R * i^2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2150,29 +2202,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de circuitos elétricos, primeira lei de ohm e potência dissipada."
+        "text": "Efeito Joule em resistores ôhmicos sob corrente contínua, obedecendo ao modelo P = R * i^2 representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Efeito Joule em resistores ôhmicos sob corrente contínua, obedecendo rigorosamente ao modelo P = R * i^2 representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de circuitos elétricos, primeira lei de ohm e potência dissipada."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT03."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação P = R * i^2. Passo 2: Aplique o fundamento 'Efeito Joule em resistores ôhmicos sob corrente contínua'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação P = R * i^2. Passo 2: Aplique o fundamento 'Efeito Joule em resistores ôhmicos sob corrente contínua'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-CNT-052",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF07CNT04",
@@ -2183,8 +2236,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • TERMODINÂMICA, CICLO DE CARNOT E DIA</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">eta = 1 - T_fria / T_quente</text>\n</svg>",
-    "figureCaption": "Figura 52: Representação gráfica calibrada para Termodinâmica, Ciclo de Carnot e Diagramas P x V (EF07CNT04).",
-    "text": "(UFG • 7º Ano EF • Habilidade EF07CNT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Termodinâmica, Ciclo de Carnot e Diagramas P x V. Considerando os parâmetros experimentais e a relação fundamental eta = 1 - T_fria / T_quente, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Termodinâmica, Ciclo de Carnot e Diagramas P x V (EF07CNT04).",
+    "text": "(Simulado Áquila (estilo UFG) • 7º Ano EF • Habilidade EF07CNT04) Analise o diagrama abaixo referente ao estudo de Termodinâmica, Ciclo de Carnot e Diagramas P x V. Considerando a relação fundamental eta = 1 - T_fria / T_quente, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2196,25 +2249,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Rendimento máximo teórico de uma máquina térmica, obedecendo rigorosamente ao modelo eta = 1 - T_fria / T_quente representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT04."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT04."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Rendimento máximo teórico de uma máquina térmica, obedecendo ao modelo eta = 1 - T_fria / T_quente representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação eta = 1 - T_fria / T_quente. Passo 2: Aplique o fundamento 'Rendimento máximo teórico de uma máquina térmica'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação eta = 1 - T_fria / T_quente. Passo 2: Aplique o fundamento 'Rendimento máximo teórico de uma máquina térmica'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-7EF-CNT-053",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF07CNT05",
@@ -2225,8 +2279,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ÓPTICA GEOMÉTRICA, REFRAÇÃO (LEI DE </text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">n1 * sen(theta1) = n2 * sen(theta2</text>\n</svg>",
-    "figureCaption": "Figura 53: Representação gráfica calibrada para Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas (EF07CNT05).",
-    "text": "(OBMEP • 7º Ano EF • Habilidade EF07CNT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas. Considerando os parâmetros experimentais e a relação fundamental n1 * sen(theta1) = n2 * sen(theta2), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas (EF07CNT05).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 7º Ano EF • Habilidade EF07CNT05) Analise o diagrama abaixo referente ao estudo de Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas. Considerando a relação fundamental n1 * sen(theta1) = n2 * sen(theta2), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2238,11 +2292,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Conservação da frequência e desvio angular na refração, obedecendo rigorosamente ao modelo n1 * sen(theta1) = n2 * sen(theta2) representado no diagrama."
+        "text": "Conservação da frequência e desvio angular na refração, obedecendo ao modelo n1 * sen(theta1) = n2 * sen(theta2) representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT05."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT05."
       },
       {
         "letter": "E",
@@ -2250,13 +2304,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação n1 * sen(theta1) = n2 * sen(theta2). Passo 2: Aplique o fundamento 'Conservação da frequência e desvio angular na refração'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação n1 * sen(theta1) = n2 * sen(theta2). Passo 2: Aplique o fundamento 'Conservação da frequência e desvio angular na refração'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-7EF-CNT-054",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF07CNT06",
@@ -2267,38 +2322,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ONDULATÓRIA, EFEITO DOPPLER E ACÚSTI</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">v = lambda * f</text>\n</svg>",
-    "figureCaption": "Figura 54: Representação gráfica calibrada para Ondulatória, Efeito Doppler e Acústica Musical (EF07CNT06).",
-    "text": "(OBA • 7º Ano EF • Habilidade EF07CNT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Ondulatória, Efeito Doppler e Acústica Musical. Considerando os parâmetros experimentais e a relação fundamental v = lambda * f, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Ondulatória, Efeito Doppler e Acústica Musical (EF07CNT06).",
+    "text": "(Simulado Áquila (estilo OBA) • 7º Ano EF • Habilidade EF07CNT06) Analise o diagrama abaixo referente ao estudo de Ondulatória, Efeito Doppler e Acústica Musical. Considerando a relação fundamental v = lambda * f, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola v = lambda * f, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Equação fundamental da propagação ondulatória, obedecendo ao modelo v = lambda * f representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de ondulatória, efeito doppler e acústica musical."
+        "text": "O fenômeno viola v = lambda * f, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Equação fundamental da propagação ondulatória, obedecendo rigorosamente ao modelo v = lambda * f representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de ondulatória, efeito doppler e acústica musical."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT06."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT06."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = lambda * f. Passo 2: Aplique o fundamento 'Equação fundamental da propagação ondulatória'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = lambda * f. Passo 2: Aplique o fundamento 'Equação fundamental da propagação ondulatória'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-7EF-CNT-055",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF07CNT07",
@@ -2309,8 +2365,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ELETROMAGNETISMO, FORÇA DE LORENTZ E</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">epsilon = -d(Phi_B)/dt</text>\n</svg>",
-    "figureCaption": "Figura 55: Representação gráfica calibrada para Eletromagnetismo, Força de Lorentz e Indução de Faraday (EF07CNT07).",
-    "text": "(UEG • 7º Ano EF • Habilidade EF07CNT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Eletromagnetismo, Força de Lorentz e Indução de Faraday. Considerando os parâmetros experimentais e a relação fundamental epsilon = -d(Phi_B)/dt, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Eletromagnetismo, Força de Lorentz e Indução de Faraday (EF07CNT07).",
+    "text": "(Simulado Áquila (estilo UEG) • 7º Ano EF • Habilidade EF07CNT07) Analise o diagrama abaixo referente ao estudo de Eletromagnetismo, Força de Lorentz e Indução de Faraday. Considerando a relação fundamental epsilon = -d(Phi_B)/dt, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2322,25 +2378,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Força eletromotriz induzida pela variação de fluxo magnético, obedecendo rigorosamente ao modelo epsilon = -d(Phi_B)/dt representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT07."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT07."
+        "text": "Força eletromotriz induzida pela variação de fluxo magnético, obedecendo ao modelo epsilon = -d(Phi_B)/dt representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação epsilon = -d(Phi_B)/dt. Passo 2: Aplique o fundamento 'Força eletromotriz induzida pela variação de fluxo magnético'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação epsilon = -d(Phi_B)/dt. Passo 2: Aplique o fundamento 'Força eletromotriz induzida pela variação de fluxo magnético'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-CNT-056",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF07CNT08",
@@ -2351,8 +2408,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ASTRONOMIA E GRAVITAÇÃO UNIVERSAL DE</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">T^2 / R^3 = constante</text>\n</svg>",
-    "figureCaption": "Figura 56: Representação gráfica calibrada para Astronomia e Gravitação Universal de Kepler-Newton (OBA) (EF07CNT08).",
-    "text": "(UFMG • 7º Ano EF • Habilidade EF07CNT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Astronomia e Gravitação Universal de Kepler-Newton (OBA). Considerando os parâmetros experimentais e a relação fundamental T^2 / R^3 = constante, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Astronomia e Gravitação Universal de Kepler-Newton (OBA) (EF07CNT08).",
+    "text": "(Simulado Áquila (estilo UFMG) • 7º Ano EF • Habilidade EF07CNT08) Analise o diagrama abaixo referente ao estudo de Astronomia e Gravitação Universal de Kepler-Newton (OBA). Considerando a relação fundamental T^2 / R^3 = constante, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2360,29 +2417,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de astronomia e gravitação universal de kepler-newton (oba)."
+        "text": "Terceira Lei de Kepler para órbitas planetárias elípticas, obedecendo ao modelo T^2 / R^3 = constante representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Terceira Lei de Kepler para órbitas planetárias elípticas, obedecendo rigorosamente ao modelo T^2 / R^3 = constante representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de astronomia e gravitação universal de kepler-newton (oba)."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT08."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT08."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação T^2 / R^3 = constante. Passo 2: Aplique o fundamento 'Terceira Lei de Kepler para órbitas planetárias elípticas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação T^2 / R^3 = constante. Passo 2: Aplique o fundamento 'Terceira Lei de Kepler para órbitas planetárias elípticas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-MAT-057",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF07MAT01",
@@ -2393,8 +2451,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • FUNÇÕES POLINOMIAIS DE 1º E 2º GRAU </text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">x_v = -b / (2a)</text>\n</svg>",
-    "figureCaption": "Figura 57: Representação gráfica calibrada para Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola (EF07MAT01).",
-    "text": "(UNICAMP • 7º Ano EF • Habilidade EF07MAT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola. Considerando os parâmetros experimentais e a relação fundamental x_v = -b / (2a), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola (EF07MAT01).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 7º Ano EF • Habilidade EF07MAT01) Analise o diagrama abaixo referente ao estudo de Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola. Considerando a relação fundamental x_v = -b / (2a), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2402,29 +2460,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de funções polinomiais de 1º e 2º grau e vértice da parábola."
+        "text": "Abscissa do ponto de máximo ou mínimo da função quadrática, obedecendo ao modelo x_v = -b / (2a) representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Abscissa do ponto de máximo ou mínimo da função quadrática, obedecendo rigorosamente ao modelo x_v = -b / (2a) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de funções polinomiais de 1º e 2º grau e vértice da parábola."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07MAT01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07MAT01."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação x_v = -b / (2a). Passo 2: Aplique o fundamento 'Abscissa do ponto de máximo ou mínimo da função quadrática'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação x_v = -b / (2a). Passo 2: Aplique o fundamento 'Abscissa do ponto de máximo ou mínimo da função quadrática'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-MAT-058",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF07MAT02",
@@ -2435,8 +2494,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • GEOMETRIA PLANA, SEMELHANÇA DE TRIÂN</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">a^2 = b^2 + c^2</text>\n</svg>",
-    "figureCaption": "Figura 58: Representação gráfica calibrada para Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras (EF07MAT02).",
-    "text": "(UnB • 7º Ano EF • Habilidade EF07MAT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras. Considerando os parâmetros experimentais e a relação fundamental a^2 = b^2 + c^2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras (EF07MAT02).",
+    "text": "(Simulado Áquila (estilo UnB) • 7º Ano EF • Habilidade EF07MAT02) Analise o diagrama abaixo referente ao estudo de Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras. Considerando a relação fundamental a^2 = b^2 + c^2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2448,25 +2507,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Relação métrica fundamental no triângulo retângulo, obedecendo rigorosamente ao modelo a^2 = b^2 + c^2 representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07MAT02."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07MAT02."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Relação métrica fundamental no triângulo retângulo, obedecendo ao modelo a^2 = b^2 + c^2 representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação a^2 = b^2 + c^2. Passo 2: Aplique o fundamento 'Relação métrica fundamental no triângulo retângulo'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação a^2 = b^2 + c^2. Passo 2: Aplique o fundamento 'Relação métrica fundamental no triângulo retângulo'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-7EF-MAT-059",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF07MAT03",
@@ -2477,8 +2537,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • GEOMETRIA ESPACIAL: PRISMAS, CILINDR</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">V_esfera = (4/3) * pi * R^3</text>\n</svg>",
-    "figureCaption": "Figura 59: Representação gráfica calibrada para Geometria Espacial: Prismas, Cilindros, Cones e Esferas (EF07MAT03).",
-    "text": "(UFG • 7º Ano EF • Habilidade EF07MAT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Geometria Espacial: Prismas, Cilindros, Cones e Esferas. Considerando os parâmetros experimentais e a relação fundamental V_esfera = (4/3) * pi * R^3, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Geometria Espacial: Prismas, Cilindros, Cones e Esferas (EF07MAT03).",
+    "text": "(Simulado Áquila (estilo UFG) • 7º Ano EF • Habilidade EF07MAT03) Analise o diagrama abaixo referente ao estudo de Geometria Espacial: Prismas, Cilindros, Cones e Esferas. Considerando a relação fundamental V_esfera = (4/3) * pi * R^3, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2490,11 +2550,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Volume de sólidos de revolução em problemas do ENEM, obedecendo rigorosamente ao modelo V_esfera = (4/3) * pi * R^3 representado no diagrama."
+        "text": "Volume de sólidos de revolução em problemas do ENEM, obedecendo ao modelo V_esfera = (4/3) * pi * R^3 representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07MAT03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07MAT03."
       },
       {
         "letter": "E",
@@ -2502,13 +2562,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação V_esfera = (4/3) * pi * R^3. Passo 2: Aplique o fundamento 'Volume de sólidos de revolução em problemas do ENEM'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação V_esfera = (4/3) * pi * R^3. Passo 2: Aplique o fundamento 'Volume de sólidos de revolução em problemas do ENEM'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-7EF-MAT-060",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF07MAT04",
@@ -2519,38 +2580,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • ANÁLISE COMBINATÓRIA, PERMUTAÇÕES E </text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">P(A|B) = P(A inter B) / P(B)</text>\n</svg>",
-    "figureCaption": "Figura 60: Representação gráfica calibrada para Análise Combinatória, Permutações e Probabilidade Condicional (EF07MAT04).",
-    "text": "(OBMEP • 7º Ano EF • Habilidade EF07MAT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Análise Combinatória, Permutações e Probabilidade Condicional. Considerando os parâmetros experimentais e a relação fundamental P(A|B) = P(A inter B) / P(B), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Análise Combinatória, Permutações e Probabilidade Condicional (EF07MAT04).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 7º Ano EF • Habilidade EF07MAT04) Analise o diagrama abaixo referente ao estudo de Análise Combinatória, Permutações e Probabilidade Condicional. Considerando a relação fundamental P(A|B) = P(A inter B) / P(B), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola P(A|B) = P(A inter B) / P(B), reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Teorema da probabilidade condicional com redução amostral, obedecendo ao modelo P(A|B) = P(A inter B) / P(B) representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de análise combinatória, permutações e probabilidade condicional."
+        "text": "O fenômeno viola P(A|B) = P(A inter B) / P(B), reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Teorema da probabilidade condicional com redução amostral, obedecendo rigorosamente ao modelo P(A|B) = P(A inter B) / P(B) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de análise combinatória, permutações e probabilidade condicional."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07MAT04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07MAT04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação P(A|B) = P(A inter B) / P(B). Passo 2: Aplique o fundamento 'Teorema da probabilidade condicional com redução amostral'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação P(A|B) = P(A inter B) / P(B). Passo 2: Aplique o fundamento 'Teorema da probabilidade condicional com redução amostral'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-7EF-MAT-061",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF07MAT05",
@@ -2561,8 +2623,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • PROGRESSÕES ARITMÉTICAS (PA) E GEOMÉ</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">a_n = a_1 * q^(n-1)</text>\n</svg>",
-    "figureCaption": "Figura 61: Representação gráfica calibrada para Progressões Aritméticas (PA) e Geométricas (PG) Financeiras (EF07MAT05).",
-    "text": "(OBA • 7º Ano EF • Habilidade EF07MAT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Progressões Aritméticas (PA) e Geométricas (PG) Financeiras. Considerando os parâmetros experimentais e a relação fundamental a_n = a_1 * q^(n-1), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Progressões Aritméticas (PA) e Geométricas (PG) Financeiras (EF07MAT05).",
+    "text": "(Simulado Áquila (estilo OBA) • 7º Ano EF • Habilidade EF07MAT05) Analise o diagrama abaixo referente ao estudo de Progressões Aritméticas (PA) e Geométricas (PG) Financeiras. Considerando a relação fundamental a_n = a_1 * q^(n-1), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2574,25 +2636,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Crescimento exponencial discreto em juros compostos, obedecendo rigorosamente ao modelo a_n = a_1 * q^(n-1) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07MAT05."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07MAT05."
+        "text": "Crescimento exponencial discreto em juros compostos, obedecendo ao modelo a_n = a_1 * q^(n-1) representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação a_n = a_1 * q^(n-1). Passo 2: Aplique o fundamento 'Crescimento exponencial discreto em juros compostos'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação a_n = a_1 * q^(n-1). Passo 2: Aplique o fundamento 'Crescimento exponencial discreto em juros compostos'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-MAT-062",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF07MAT06",
@@ -2603,8 +2666,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • TRIGONOMETRIA NO CICLO E FUNÇÕES PER</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">sen^2(x) + cos^2(x) = 1</text>\n</svg>",
-    "figureCaption": "Figura 62: Representação gráfica calibrada para Trigonometria no Ciclo e Funções Periódicas Senoidais (EF07MAT06).",
-    "text": "(UEG • 7º Ano EF • Habilidade EF07MAT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Trigonometria no Ciclo e Funções Periódicas Senoidais. Considerando os parâmetros experimentais e a relação fundamental sen^2(x) + cos^2(x) = 1, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Trigonometria no Ciclo e Funções Periódicas Senoidais (EF07MAT06).",
+    "text": "(Simulado Áquila (estilo UEG) • 7º Ano EF • Habilidade EF07MAT06) Analise o diagrama abaixo referente ao estudo de Trigonometria no Ciclo e Funções Periódicas Senoidais. Considerando a relação fundamental sen^2(x) + cos^2(x) = 1, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2612,29 +2675,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de trigonometria no ciclo e funções periódicas senoidais."
+        "text": "Relação fundamental da trigonometria circular, obedecendo ao modelo sen^2(x) + cos^2(x) = 1 representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Relação fundamental da trigonometria circular, obedecendo rigorosamente ao modelo sen^2(x) + cos^2(x) = 1 representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de trigonometria no ciclo e funções periódicas senoidais."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07MAT06."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07MAT06."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação sen^2(x) + cos^2(x) = 1. Passo 2: Aplique o fundamento 'Relação fundamental da trigonometria circular'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação sen^2(x) + cos^2(x) = 1. Passo 2: Aplique o fundamento 'Relação fundamental da trigonometria circular'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-MAT-063",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF07MAT07",
@@ -2645,8 +2709,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • ESTATÍSTICA DESCRITIVA: MÉDIA PONDER</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">Mediana = termo central ordenado</text>\n</svg>",
-    "figureCaption": "Figura 63: Representação gráfica calibrada para Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão (EF07MAT07).",
-    "text": "(UFMG • 7º Ano EF • Habilidade EF07MAT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão. Considerando os parâmetros experimentais e a relação fundamental Mediana = termo central ordenado, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão (EF07MAT07).",
+    "text": "(Simulado Áquila (estilo UFMG) • 7º Ano EF • Habilidade EF07MAT07) Analise o diagrama abaixo referente ao estudo de Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão. Considerando a relação fundamental Mediana = termo central ordenado, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2658,25 +2722,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Medida de tendência central robusta a valores extremos, obedecendo rigorosamente ao modelo Mediana = termo central ordenado representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07MAT07."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07MAT07."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Medida de tendência central robusta a valores extremos, obedecendo ao modelo Mediana = termo central ordenado representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Mediana = termo central ordenado. Passo 2: Aplique o fundamento 'Medida de tendência central robusta a valores extremos'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Mediana = termo central ordenado. Passo 2: Aplique o fundamento 'Medida de tendência central robusta a valores extremos'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-7EF-MAT-064",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF07MAT08",
@@ -2687,8 +2752,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • LOGARITMOS, ESCALA RICHTER E DECIBÉI</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">log_b(x*y) = log_b(x) + log_b(y)</text>\n</svg>",
-    "figureCaption": "Figura 64: Representação gráfica calibrada para Logaritmos, Escala Richter e Decibéis Acústicos (EF07MAT08).",
-    "text": "(ENEM • 7º Ano EF • Habilidade EF07MAT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Logaritmos, Escala Richter e Decibéis Acústicos. Considerando os parâmetros experimentais e a relação fundamental log_b(x*y) = log_b(x) + log_b(y), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Logaritmos, Escala Richter e Decibéis Acústicos (EF07MAT08).",
+    "text": "(Simulado Áquila (estilo ENEM) • 7º Ano EF • Habilidade EF07MAT08) Analise o diagrama abaixo referente ao estudo de Logaritmos, Escala Richter e Decibéis Acústicos. Considerando a relação fundamental log_b(x*y) = log_b(x) + log_b(y), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2700,11 +2765,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Transformação de produtos exponenciais em somas lineares, obedecendo rigorosamente ao modelo log_b(x*y) = log_b(x) + log_b(y) representado no diagrama."
+        "text": "Transformação de produtos exponenciais em somas lineares, obedecendo ao modelo log_b(x*y) = log_b(x) + log_b(y) representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07MAT08."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07MAT08."
       },
       {
         "letter": "E",
@@ -2712,13 +2777,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação log_b(x*y) = log_b(x) + log_b(y). Passo 2: Aplique o fundamento 'Transformação de produtos exponenciais em somas lineares'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação log_b(x*y) = log_b(x) + log_b(y). Passo 2: Aplique o fundamento 'Transformação de produtos exponenciais em somas lineares'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-7EF-CNT-065",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF07CNT01",
@@ -2729,8 +2795,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • ESTEQUIOMETRIA, PUREZA DE REAGENTES </text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (1 mol = 6,02 x 10^23 entidades)</text>\n</svg>",
-    "figureCaption": "Figura 65: Representação gráfica calibrada para Estequiometria, Pureza de Reagentes e Rendimento Industrial (EF07CNT01).",
-    "text": "(UnB • 7º Ano EF • Habilidade EF07CNT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Estequiometria, Pureza de Reagentes e Rendimento Industrial. Considerando os parâmetros experimentais e a relação fundamental 1 mol = 6,02 x 10^23 entidades, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Estequiometria, Pureza de Reagentes e Rendimento Industrial (EF07CNT01).",
+    "text": "(Simulado Áquila (estilo UnB) • 7º Ano EF • Habilidade EF07CNT01) Analise o diagrama abaixo referente ao estudo de Estequiometria, Pureza de Reagentes e Rendimento Industrial. Considerando a relação fundamental 1 mol = 6,02 x 10^23 entidades, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2742,11 +2808,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Lei de Lavoisier e proporções molares em reações químicas, obedecendo rigorosamente ao modelo 1 mol = 6,02 x 10^23 entidades representado no diagrama."
+        "text": "Lei de Lavoisier e proporções molares em reações químicas, obedecendo ao modelo 1 mol = 6,02 x 10^23 entidades representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT01."
       },
       {
         "letter": "E",
@@ -2754,13 +2820,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação 1 mol = 6,02 x 10^23 entidades. Passo 2: Aplique o fundamento 'Lei de Lavoisier e proporções molares em reações químicas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação 1 mol = 6,02 x 10^23 entidades. Passo 2: Aplique o fundamento 'Lei de Lavoisier e proporções molares em reações químicas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-7EF-CNT-066",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF07CNT02",
@@ -2771,38 +2838,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • TERMOQUÍMICA, ENTALPIA DE COMBUSTÃO </text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (Delta_H = H_produtos - H_reagentes)</text>\n</svg>",
-    "figureCaption": "Figura 66: Representação gráfica calibrada para Termoquímica, Entalpia de Combustão e Lei de Hess (EF07CNT02).",
-    "text": "(UFG • 7º Ano EF • Habilidade EF07CNT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Termoquímica, Entalpia de Combustão e Lei de Hess. Considerando os parâmetros experimentais e a relação fundamental Delta_H = H_produtos - H_reagentes, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Termoquímica, Entalpia de Combustão e Lei de Hess (EF07CNT02).",
+    "text": "(Simulado Áquila (estilo UFG) • 7º Ano EF • Habilidade EF07CNT02) Analise o diagrama abaixo referente ao estudo de Termoquímica, Entalpia de Combustão e Lei de Hess. Considerando a relação fundamental Delta_H = H_produtos - H_reagentes, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Delta_H = H_produtos - H_reagentes, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Balanço energético em processos exotérmicos e endotérmicos, obedecendo ao modelo Delta_H = H_produtos - H_reagentes representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de termoquímica, entalpia de combustão e lei de hess."
+        "text": "O fenômeno viola Delta_H = H_produtos - H_reagentes, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Balanço energético em processos exotérmicos e endotérmicos, obedecendo rigorosamente ao modelo Delta_H = H_produtos - H_reagentes representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de termoquímica, entalpia de combustão e lei de hess."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_H = H_produtos - H_reagentes. Passo 2: Aplique o fundamento 'Balanço energético em processos exotérmicos e endotérmicos'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_H = H_produtos - H_reagentes. Passo 2: Aplique o fundamento 'Balanço energético em processos exotérmicos e endotérmicos'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-7EF-CNT-067",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF07CNT03",
@@ -2813,8 +2881,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • ELETROQUÍMICA: PILHAS DE DANIELL E E</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (Delta_E0 = E0_red(maior) - E0_red()</text>\n</svg>",
-    "figureCaption": "Figura 67: Representação gráfica calibrada para Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa (EF07CNT03).",
-    "text": "(OBMEP • 7º Ano EF • Habilidade EF07CNT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa. Considerando os parâmetros experimentais e a relação fundamental Delta_E0 = E0_red(maior) - E0_red(menor), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa (EF07CNT03).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 7º Ano EF • Habilidade EF07CNT03) Analise o diagrama abaixo referente ao estudo de Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa. Considerando a relação fundamental Delta_E0 = E0_red(maior) - E0_red(menor), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2826,25 +2894,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Diferença de potencial espontânea em células galvânicas, obedecendo rigorosamente ao modelo Delta_E0 = E0_red(maior) - E0_red(menor) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT03."
+        "text": "Diferença de potencial espontânea em células galvânicas, obedecendo ao modelo Delta_E0 = E0_red(maior) - E0_red(menor) representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_E0 = E0_red(maior) - E0_red(menor). Passo 2: Aplique o fundamento 'Diferença de potencial espontânea em células galvânicas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_E0 = E0_red(maior) - E0_red(menor). Passo 2: Aplique o fundamento 'Diferença de potencial espontânea em células galvânicas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-CNT-068",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF07CNT04",
@@ -2855,8 +2924,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • EQUILÍBRIO QUÍMICO, PH, POH E DESLOC</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (pH = -log10[H+])</text>\n</svg>",
-    "figureCaption": "Figura 68: Representação gráfica calibrada para Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier (EF07CNT04).",
-    "text": "(OBA • 7º Ano EF • Habilidade EF07CNT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier. Considerando os parâmetros experimentais e a relação fundamental pH = -log10[H+], assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier (EF07CNT04).",
+    "text": "(Simulado Áquila (estilo OBA) • 7º Ano EF • Habilidade EF07CNT04) Analise o diagrama abaixo referente ao estudo de Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier. Considerando a relação fundamental pH = -log10[H+], assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2864,29 +2933,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de equilíbrio químico, ph, poh e deslocamento de le chatelier."
+        "text": "Escala logarítmica de acidez em soluções aquosas a 25 °C, obedecendo ao modelo pH = -log10[H+] representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Escala logarítmica de acidez em soluções aquosas a 25 °C, obedecendo rigorosamente ao modelo pH = -log10[H+] representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de equilíbrio químico, ph, poh e deslocamento de le chatelier."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação pH = -log10[H+]. Passo 2: Aplique o fundamento 'Escala logarítmica de acidez em soluções aquosas a 25 °C'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação pH = -log10[H+]. Passo 2: Aplique o fundamento 'Escala logarítmica de acidez em soluções aquosas a 25 °C'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-CNT-069",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF07CNT05",
@@ -2897,8 +2967,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • QUÍMICA ORGÂNICA: FUNÇÕES OXIGENADAS</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (Cadeia carbônica tetravalente (sp3)</text>\n</svg>",
-    "figureCaption": "Figura 69: Representação gráfica calibrada para Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros (EF07CNT05).",
-    "text": "(UEG • 7º Ano EF • Habilidade EF07CNT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros. Considerando os parâmetros experimentais e a relação fundamental Cadeia carbônica tetravalente (sp3, sp2, sp), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros (EF07CNT05).",
+    "text": "(Simulado Áquila (estilo UEG) • 7º Ano EF • Habilidade EF07CNT05) Analise o diagrama abaixo referente ao estudo de Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros. Considerando a relação fundamental Cadeia carbônica tetravalente (sp3, sp2, sp), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2910,25 +2980,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila, obedecendo rigorosamente ao modelo Cadeia carbônica tetravalente (sp3, sp2, sp) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT05."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT05."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila, obedecendo ao modelo Cadeia carbônica tetravalente (sp3, sp2, sp) representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeia carbônica tetravalente (sp3, sp2, sp). Passo 2: Aplique o fundamento 'Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeia carbônica tetravalente (sp3, sp2, sp). Passo 2: Aplique o fundamento 'Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-7EF-CNT-070",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF07CNT06",
@@ -2939,8 +3010,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • SOLUÇÕES, CONCENTRAÇÃO MOLAR, DILUIÇ</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (C1 * V1 = C2 * V2)</text>\n</svg>",
-    "figureCaption": "Figura 70: Representação gráfica calibrada para Soluções, Concentração Molar, Diluição e Titulação Ácido-Base (EF07CNT06).",
-    "text": "(UFMG • 7º Ano EF • Habilidade EF07CNT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Soluções, Concentração Molar, Diluição e Titulação Ácido-Base. Considerando os parâmetros experimentais e a relação fundamental C1 * V1 = C2 * V2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Soluções, Concentração Molar, Diluição e Titulação Ácido-Base (EF07CNT06).",
+    "text": "(Simulado Áquila (estilo UFMG) • 7º Ano EF • Habilidade EF07CNT06) Analise o diagrama abaixo referente ao estudo de Soluções, Concentração Molar, Diluição e Titulação Ácido-Base. Considerando a relação fundamental C1 * V1 = C2 * V2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -2952,11 +3023,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Conservação da quantidade de soluto durante diluição, obedecendo rigorosamente ao modelo C1 * V1 = C2 * V2 representado no diagrama."
+        "text": "Conservação da quantidade de soluto durante diluição, obedecendo ao modelo C1 * V1 = C2 * V2 representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT06."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT06."
       },
       {
         "letter": "E",
@@ -2964,13 +3035,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação C1 * V1 = C2 * V2. Passo 2: Aplique o fundamento 'Conservação da quantidade de soluto durante diluição'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação C1 * V1 = C2 * V2. Passo 2: Aplique o fundamento 'Conservação da quantidade de soluto durante diluição'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-7EF-CNT-071",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF07CNT07",
@@ -2981,38 +3053,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • CINÉTICA QUÍMICA, ENERGIA DE ATIVAÇÃ</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (v = k * [A]^m * [B]^n)</text>\n</svg>",
-    "figureCaption": "Figura 71: Representação gráfica calibrada para Cinética Química, Energia de Ativação e Catálise Enzimática (EF07CNT07).",
-    "text": "(ENEM • 7º Ano EF • Habilidade EF07CNT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Cinética Química, Energia de Ativação e Catálise Enzimática. Considerando os parâmetros experimentais e a relação fundamental v = k * [A]^m * [B]^n, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Cinética Química, Energia de Ativação e Catálise Enzimática (EF07CNT07).",
+    "text": "(Simulado Áquila (estilo ENEM) • 7º Ano EF • Habilidade EF07CNT07) Analise o diagrama abaixo referente ao estudo de Cinética Química, Energia de Ativação e Catálise Enzimática. Considerando a relação fundamental v = k * [A]^m * [B]^n, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola v = k * [A]^m * [B]^n, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Lei da velocidade e redução da barreira energética por catalisadores, obedecendo ao modelo v = k * [A]^m * [B]^n representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de cinética química, energia de ativação e catálise enzimática."
+        "text": "O fenômeno viola v = k * [A]^m * [B]^n, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Lei da velocidade e redução da barreira energética por catalisadores, obedecendo rigorosamente ao modelo v = k * [A]^m * [B]^n representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de cinética química, energia de ativação e catálise enzimática."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT07."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT07."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = k * [A]^m * [B]^n. Passo 2: Aplique o fundamento 'Lei da velocidade e redução da barreira energética por catalisadores'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = k * [A]^m * [B]^n. Passo 2: Aplique o fundamento 'Lei da velocidade e redução da barreira energética por catalisadores'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-7EF-CNT-072",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF07CNT08",
@@ -3023,8 +3096,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • RADIOATIVIDADE: EMISSÕES ALFA, BETA,</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (m = m0 / 2^x)</text>\n</svg>",
-    "figureCaption": "Figura 72: Representação gráfica calibrada para Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida (EF07CNT08).",
-    "text": "(FUVEST • 7º Ano EF • Habilidade EF07CNT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida. Considerando os parâmetros experimentais e a relação fundamental m = m0 / 2^x, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida (EF07CNT08).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 7º Ano EF • Habilidade EF07CNT08) Analise o diagrama abaixo referente ao estudo de Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida. Considerando a relação fundamental m = m0 / 2^x, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3036,25 +3109,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Decaimento nuclear estatístico aplicado à datação por Carbono-14, obedecendo rigorosamente ao modelo m = m0 / 2^x representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT08."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT08."
+        "text": "Decaimento nuclear estatístico aplicado à datação por Carbono-14, obedecendo ao modelo m = m0 / 2^x representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação m = m0 / 2^x. Passo 2: Aplique o fundamento 'Decaimento nuclear estatístico aplicado à datação por Carbono-14'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação m = m0 / 2^x. Passo 2: Aplique o fundamento 'Decaimento nuclear estatístico aplicado à datação por Carbono-14'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-CNT-073",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF07CNT01",
@@ -3065,8 +3139,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • ECOLOGIA, CADEIAS TRÓFICAS, CICLOS B</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 73: Representação gráfica calibrada para Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização (EF07CNT01).",
-    "text": "(UFG • 7º Ano EF • Habilidade EF07CNT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização. Considerando os parâmetros experimentais e a relação fundamental Fluxo unidirecional de energia (regra dos 10%), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização (EF07CNT01).",
+    "text": "(Simulado Áquila (estilo UFG) • 7º Ano EF • Habilidade EF07CNT01) Analise o diagrama abaixo referente ao estudo de Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização. Considerando a relação fundamental Fluxo unidirecional de energia (regra dos 10%), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3078,25 +3152,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Pirâmides ecológicas e bioacumulação trófica em ecossistemas, obedecendo rigorosamente ao modelo Fluxo unidirecional de energia (regra dos 10%) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT01."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT01."
+        "text": "Pirâmides ecológicas e bioacumulação trófica em ecossistemas, obedecendo ao modelo Fluxo unidirecional de energia (regra dos 10%) representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Fluxo unidirecional de energia (regra dos 10%). Passo 2: Aplique o fundamento 'Pirâmides ecológicas e bioacumulação trófica em ecossistemas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Fluxo unidirecional de energia (regra dos 10%). Passo 2: Aplique o fundamento 'Pirâmides ecológicas e bioacumulação trófica em ecossistemas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-CNT-074",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF07CNT02",
@@ -3107,8 +3182,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • CITOLOGIA, TRANSPORTE DE MEMBRANA (O</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 74: Representação gráfica calibrada para Citologia, Transporte de Membrana (Osmose) e Respiração Celular (EF07CNT02).",
-    "text": "(OBMEP • 7º Ano EF • Habilidade EF07CNT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Citologia, Transporte de Membrana (Osmose) e Respiração Celular. Considerando os parâmetros experimentais e a relação fundamental Meio hipotônico -> hipertônico, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Citologia, Transporte de Membrana (Osmose) e Respiração Celular (EF07CNT02).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 7º Ano EF • Habilidade EF07CNT02) Analise o diagrama abaixo referente ao estudo de Citologia, Transporte de Membrana (Osmose) e Respiração Celular. Considerando a relação fundamental Meio hipotônico -> hipertônico, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3116,29 +3191,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de citologia, transporte de membrana (osmose) e respiração celular."
+        "text": "Movimento passivo do solvente através de membrana semipermeável, obedecendo ao modelo Meio hipotônico -> hipertônico representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Movimento passivo do solvente através de membrana semipermeável, obedecendo rigorosamente ao modelo Meio hipotônico -> hipertônico representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de citologia, transporte de membrana (osmose) e respiração celular."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Meio hipotônico -> hipertônico. Passo 2: Aplique o fundamento 'Movimento passivo do solvente através de membrana semipermeável'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Meio hipotônico -> hipertônico. Passo 2: Aplique o fundamento 'Movimento passivo do solvente através de membrana semipermeável'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-CNT-075",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF07CNT03",
@@ -3149,8 +3225,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • GENÉTICA MENDELIANA, HEREDOGRAMAS, S</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 75: Representação gráfica calibrada para Genética Mendeliana, Heredogramas, Sistema ABO e Linkage (EF07CNT03).",
-    "text": "(OBA • 7º Ano EF • Habilidade EF07CNT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Genética Mendeliana, Heredogramas, Sistema ABO e Linkage. Considerando os parâmetros experimentais e a relação fundamental Proporção F2 = 3:1 (monoibridismo), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Genética Mendeliana, Heredogramas, Sistema ABO e Linkage (EF07CNT03).",
+    "text": "(Simulado Áquila (estilo OBA) • 7º Ano EF • Habilidade EF07CNT03) Analise o diagrama abaixo referente ao estudo de Genética Mendeliana, Heredogramas, Sistema ABO e Linkage. Considerando a relação fundamental Proporção F2 = 3:1 (monoibridismo), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3162,25 +3238,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Segregação independente de alelos na meiose, obedecendo rigorosamente ao modelo Proporção F2 = 3:1 (monoibridismo) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT03."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Segregação independente de alelos na meiose, obedecendo ao modelo Proporção F2 = 3:1 (monoibridismo) representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Proporção F2 = 3:1 (monoibridismo). Passo 2: Aplique o fundamento 'Segregação independente de alelos na meiose'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Proporção F2 = 3:1 (monoibridismo). Passo 2: Aplique o fundamento 'Segregação independente de alelos na meiose'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-7EF-CNT-076",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF07CNT04",
@@ -3191,8 +3268,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • BIOTECNOLOGIA: PCR, CRISPR-CAS9, TRA</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 76: Representação gráfica calibrada para Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem (EF07CNT04).",
-    "text": "(UEG • 7º Ano EF • Habilidade EF07CNT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem. Considerando os parâmetros experimentais e a relação fundamental Enzimas de restrição e DNA recombinante, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem (EF07CNT04).",
+    "text": "(Simulado Áquila (estilo UEG) • 7º Ano EF • Habilidade EF07CNT04) Analise o diagrama abaixo referente ao estudo de Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem. Considerando a relação fundamental Enzimas de restrição e DNA recombinante, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3204,11 +3281,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Edição gênica dirigida e aplicações biomédicas, obedecendo rigorosamente ao modelo Enzimas de restrição e DNA recombinante representado no diagrama."
+        "text": "Edição gênica dirigida e aplicações biomédicas, obedecendo ao modelo Enzimas de restrição e DNA recombinante representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT04."
       },
       {
         "letter": "E",
@@ -3216,13 +3293,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Enzimas de restrição e DNA recombinante. Passo 2: Aplique o fundamento 'Edição gênica dirigida e aplicações biomédicas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Enzimas de restrição e DNA recombinante. Passo 2: Aplique o fundamento 'Edição gênica dirigida e aplicações biomédicas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-7EF-CNT-077",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF07CNT05",
@@ -3233,38 +3311,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • FISIOLOGIA HUMANA: SISTEMAS CIRCULAT</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 77: Representação gráfica calibrada para Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas (EF07CNT05).",
-    "text": "(UFMG • 7º Ano EF • Habilidade EF07CNT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas. Considerando os parâmetros experimentais e a relação fundamental Imunização ativa (vacina) vs passiva (soro), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas (EF07CNT05).",
+    "text": "(Simulado Áquila (estilo UFMG) • 7º Ano EF • Habilidade EF07CNT05) Analise o diagrama abaixo referente ao estudo de Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas. Considerando a relação fundamental Imunização ativa (vacina) vs passiva (soro), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Imunização ativa (vacina) vs passiva (soro), reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Memória imunológica mediada por linfócitos B e T, obedecendo ao modelo Imunização ativa (vacina) vs passiva (soro) representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de fisiologia humana: sistemas circulatório, imunológico e vacinas."
+        "text": "O fenômeno viola Imunização ativa (vacina) vs passiva (soro), reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Memória imunológica mediada por linfócitos B e T, obedecendo rigorosamente ao modelo Imunização ativa (vacina) vs passiva (soro) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de fisiologia humana: sistemas circulatório, imunológico e vacinas."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT05."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT05."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Imunização ativa (vacina) vs passiva (soro). Passo 2: Aplique o fundamento 'Memória imunológica mediada por linfócitos B e T'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Imunização ativa (vacina) vs passiva (soro). Passo 2: Aplique o fundamento 'Memória imunológica mediada por linfócitos B e T'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-7EF-CNT-078",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF07CNT06",
@@ -3275,8 +3354,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • EVOLUÇÃO BIOLÓGICA: SELEÇÃO NATURAL </text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 78: Representação gráfica calibrada para Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck) (EF07CNT06).",
-    "text": "(ENEM • 7º Ano EF • Habilidade EF07CNT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck). Considerando os parâmetros experimentais e a relação fundamental Pressão seletiva ambiental sobre variabilidade genética, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck) (EF07CNT06).",
+    "text": "(Simulado Áquila (estilo ENEM) • 7º Ano EF • Habilidade EF07CNT06) Analise o diagrama abaixo referente ao estudo de Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck). Considerando a relação fundamental Pressão seletiva ambiental sobre variabilidade genética, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3288,25 +3367,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Resistência bacteriana a antibióticos por seleção diferencial, obedecendo rigorosamente ao modelo Pressão seletiva ambiental sobre variabilidade genética representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT06."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT06."
+        "text": "Resistência bacteriana a antibióticos por seleção diferencial, obedecendo ao modelo Pressão seletiva ambiental sobre variabilidade genética representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pressão seletiva ambiental sobre variabilidade genética. Passo 2: Aplique o fundamento 'Resistência bacteriana a antibióticos por seleção diferencial'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pressão seletiva ambiental sobre variabilidade genética. Passo 2: Aplique o fundamento 'Resistência bacteriana a antibióticos por seleção diferencial'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-CNT-079",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF07CNT07",
@@ -3317,8 +3397,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • BOTÂNICA, FOTOSSÍNTESE, TRANSPIRAÇÃO</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 79: Representação gráfica calibrada para Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas) (EF07CNT07).",
-    "text": "(FUVEST • 7º Ano EF • Habilidade EF07CNT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas). Considerando os parâmetros experimentais e a relação fundamental 6 CO2 + 6 H2O -> C6H12O6 + 6 O2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas) (EF07CNT07).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 7º Ano EF • Habilidade EF07CNT07) Analise o diagrama abaixo referente ao estudo de Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas). Considerando a relação fundamental 6 CO2 + 6 H2O -> C6H12O6 + 6 O2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3326,29 +3406,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de botânica, fotossíntese, transpiração estomática e hormônios (auxinas)."
+        "text": "Fixação de carbono no Ciclo de Calvin e fotólise da água, obedecendo ao modelo 6 CO2 + 6 H2O -> C6H12O6 + 6 O2 representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Fixação de carbono no Ciclo de Calvin e fotólise da água, obedecendo rigorosamente ao modelo 6 CO2 + 6 H2O -> C6H12O6 + 6 O2 representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de botânica, fotossíntese, transpiração estomática e hormônios (auxinas)."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT07."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT07."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação 6 CO2 + 6 H2O -> C6H12O6 + 6 O2. Passo 2: Aplique o fundamento 'Fixação de carbono no Ciclo de Calvin e fotólise da água'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação 6 CO2 + 6 H2O -> C6H12O6 + 6 O2. Passo 2: Aplique o fundamento 'Fixação de carbono no Ciclo de Calvin e fotólise da água'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-CNT-080",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF07CNT08",
@@ -3359,8 +3440,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • PARASITOLOGIA E SAÚDE PÚBLICA: DENGU</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 80: Representação gráfica calibrada para Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose (EF07CNT08).",
-    "text": "(UNICAMP • 7º Ano EF • Habilidade EF07CNT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose. Considerando os parâmetros experimentais e a relação fundamental Vetor biológico vs hospedeiro definitivo, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose (EF07CNT08).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 7º Ano EF • Habilidade EF07CNT08) Analise o diagrama abaixo referente ao estudo de Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose. Considerando a relação fundamental Vetor biológico vs hospedeiro definitivo, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3372,25 +3453,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Profilaxia epidemiológica e saneamento ambiental, obedecendo rigorosamente ao modelo Vetor biológico vs hospedeiro definitivo representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CNT08."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CNT08."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Profilaxia epidemiológica e saneamento ambiental, obedecendo ao modelo Vetor biológico vs hospedeiro definitivo representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Vetor biológico vs hospedeiro definitivo. Passo 2: Aplique o fundamento 'Profilaxia epidemiológica e saneamento ambiental'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Vetor biológico vs hospedeiro definitivo. Passo 2: Aplique o fundamento 'Profilaxia epidemiológica e saneamento ambiental'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-7EF-CI-081",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF07CI01",
@@ -3401,8 +3483,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • RIOS VOADORES, CICLO HIDROLÓGICO E E</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Evapotranspiração amazônica e tran</text>\n</svg>",
-    "figureCaption": "Figura 81: Representação gráfica calibrada para Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural (EF07CI01).",
-    "text": "(OBMEP • 7º Ano EF • Habilidade EF07CI01) Analise o diagrama técnico-científico abaixo referente ao estudo de Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural. Considerando os parâmetros experimentais e a relação fundamental Evapotranspiração amazônica e transporte de umidade, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural (EF07CI01).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 7º Ano EF • Habilidade EF07CI01) Analise o diagrama abaixo referente ao estudo de Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural. Considerando a relação fundamental Evapotranspiração amazônica e transporte de umidade, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3414,25 +3496,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Regulação climática sul-americana e conservação da floresta, obedecendo rigorosamente ao modelo Evapotranspiração amazônica e transporte de umidade representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CI01."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CI01."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Regulação climática sul-americana e conservação da floresta, obedecendo ao modelo Evapotranspiração amazônica e transporte de umidade representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Evapotranspiração amazônica e transporte de umidade. Passo 2: Aplique o fundamento 'Regulação climática sul-americana e conservação da floresta'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Evapotranspiração amazônica e transporte de umidade. Passo 2: Aplique o fundamento 'Regulação climática sul-americana e conservação da floresta'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-7EF-CI-082",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF07CI02",
@@ -3443,8 +3526,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • MÁQUINAS SIMPLES: ALAVANCAS INTERFIX</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: F_potente * d_potente = F_resisten</text>\n</svg>",
-    "figureCaption": "Figura 82: Representação gráfica calibrada para Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado (EF07CI02).",
-    "text": "(OBA • 7º Ano EF • Habilidade EF07CI02) Analise o diagrama técnico-científico abaixo referente ao estudo de Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado. Considerando os parâmetros experimentais e a relação fundamental F_potente * d_potente = F_resistente * d_resistente, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado (EF07CI02).",
+    "text": "(Simulado Áquila (estilo OBA) • 7º Ano EF • Habilidade EF07CI02) Analise o diagrama abaixo referente ao estudo de Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado. Considerando a relação fundamental F_potente * d_potente = F_resistente * d_resistente, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3456,11 +3539,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Condição de equilíbrio rotacional (torque) em alavancas, obedecendo rigorosamente ao modelo F_potente * d_potente = F_resistente * d_resistente representado no diagrama."
+        "text": "Condição de equilíbrio rotacional (torque) em alavancas, obedecendo ao modelo F_potente * d_potente = F_resistente * d_resistente representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CI02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CI02."
       },
       {
         "letter": "E",
@@ -3468,13 +3551,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_potente * d_potente = F_resistente * d_resistente. Passo 2: Aplique o fundamento 'Condição de equilíbrio rotacional (torque) em alavancas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_potente * d_potente = F_resistente * d_resistente. Passo 2: Aplique o fundamento 'Condição de equilíbrio rotacional (torque) em alavancas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-7EF-CI-083",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF07CI03",
@@ -3485,38 +3569,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • PLACAS TECTÔNICAS, DERIVA CONTINENTA</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Correntes de convecção no manto as</text>\n</svg>",
-    "figureCaption": "Figura 83: Representação gráfica calibrada para Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra (EF07CI03).",
-    "text": "(UEG • 7º Ano EF • Habilidade EF07CI03) Analise o diagrama técnico-científico abaixo referente ao estudo de Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra. Considerando os parâmetros experimentais e a relação fundamental Correntes de convecção no manto astenosférico, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra (EF07CI03).",
+    "text": "(Simulado Áquila (estilo UEG) • 7º Ano EF • Habilidade EF07CI03) Analise o diagrama abaixo referente ao estudo de Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra. Considerando a relação fundamental Correntes de convecção no manto astenosférico, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Correntes de convecção no manto astenosférico, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Formação de cadeias montanhosas, fossas oceânicas e vulcanismo, obedecendo ao modelo Correntes de convecção no manto astenosférico representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de placas tectônicas, deriva continental e estrutura interna da terra."
+        "text": "O fenômeno viola Correntes de convecção no manto astenosférico, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Formação de cadeias montanhosas, fossas oceânicas e vulcanismo, obedecendo rigorosamente ao modelo Correntes de convecção no manto astenosférico representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de placas tectônicas, deriva continental e estrutura interna da terra."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CI03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CI03."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Correntes de convecção no manto astenosférico. Passo 2: Aplique o fundamento 'Formação de cadeias montanhosas, fossas oceânicas e vulcanismo'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Correntes de convecção no manto astenosférico. Passo 2: Aplique o fundamento 'Formação de cadeias montanhosas, fossas oceânicas e vulcanismo'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-7EF-CI-084",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF07CI04",
@@ -3527,8 +3612,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • MISTURAS HOMOGÊNEAS, HETEROGÊNEAS E </text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Destilação fracionada, filtração e</text>\n</svg>",
-    "figureCaption": "Figura 84: Representação gráfica calibrada para Misturas Homogêneas, Heterogêneas e Processos de Separação (EF07CI04).",
-    "text": "(UFMG • 7º Ano EF • Habilidade EF07CI04) Analise o diagrama técnico-científico abaixo referente ao estudo de Misturas Homogêneas, Heterogêneas e Processos de Separação. Considerando os parâmetros experimentais e a relação fundamental Destilação fracionada, filtração e decantação, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Misturas Homogêneas, Heterogêneas e Processos de Separação (EF07CI04).",
+    "text": "(Simulado Áquila (estilo UFMG) • 7º Ano EF • Habilidade EF07CI04) Analise o diagrama abaixo referente ao estudo de Misturas Homogêneas, Heterogêneas e Processos de Separação. Considerando a relação fundamental Destilação fracionada, filtração e decantação, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3540,25 +3625,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Separação física baseada em pontos de ebulição e densidade, obedecendo rigorosamente ao modelo Destilação fracionada, filtração e decantação representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CI04."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CI04."
+        "text": "Separação física baseada em pontos de ebulição e densidade, obedecendo ao modelo Destilação fracionada, filtração e decantação representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Destilação fracionada, filtração e decantação. Passo 2: Aplique o fundamento 'Separação física baseada em pontos de ebulição e densidade'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Destilação fracionada, filtração e decantação. Passo 2: Aplique o fundamento 'Separação física baseada em pontos de ebulição e densidade'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-CHS-085",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF07CHS01",
@@ -3569,8 +3655,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • BRASIL COLÔNIA, CICLOS ECONÔMICOS E </text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Pacto Colonial e plantation escrav</text>\n</svg>",
-    "figureCaption": "Figura 85: Representação gráfica calibrada para Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena (EF07CHS01).",
-    "text": "(OBA • 7º Ano EF • Habilidade EF07CHS01) Analise o diagrama técnico-científico abaixo referente ao estudo de Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena. Considerando os parâmetros experimentais e a relação fundamental Pacto Colonial e plantation escravista, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena (EF07CHS01).",
+    "text": "(Simulado Áquila (estilo OBA) • 7º Ano EF • Habilidade EF07CHS01) Analise o diagrama abaixo referente ao estudo de Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena. Considerando a relação fundamental Pacto Colonial e plantation escravista, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3582,11 +3668,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Formação socioeconômica da América Portuguesa, obedecendo rigorosamente ao modelo Pacto Colonial e plantation escravista representado no diagrama."
+        "text": "Formação socioeconômica da América Portuguesa, obedecendo ao modelo Pacto Colonial e plantation escravista representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CHS01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CHS01."
       },
       {
         "letter": "E",
@@ -3594,13 +3680,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pacto Colonial e plantation escravista. Passo 2: Aplique o fundamento 'Formação socioeconômica da América Portuguesa'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pacto Colonial e plantation escravista. Passo 2: Aplique o fundamento 'Formação socioeconômica da América Portuguesa'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-7EF-CHS-086",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF07CHS02",
@@ -3611,38 +3698,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • ERA VARGAS (1930-1945), INDUSTRIALIZ</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Estado Novo, DIP e trabalhismo urb</text>\n</svg>",
-    "figureCaption": "Figura 86: Representação gráfica calibrada para Era Vargas (1930-1945), Industrialização de Base e CLT (EF07CHS02).",
-    "text": "(UEG • 7º Ano EF • Habilidade EF07CHS02) Analise o diagrama técnico-científico abaixo referente ao estudo de Era Vargas (1930-1945), Industrialização de Base e CLT. Considerando os parâmetros experimentais e a relação fundamental Estado Novo, DIP e trabalhismo urbano, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Era Vargas (1930-1945), Industrialização de Base e CLT (EF07CHS02).",
+    "text": "(Simulado Áquila (estilo UEG) • 7º Ano EF • Habilidade EF07CHS02) Analise o diagrama abaixo referente ao estudo de Era Vargas (1930-1945), Industrialização de Base e CLT. Considerando a relação fundamental Estado Novo, DIP e trabalhismo urbano, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Estado Novo, DIP e trabalhismo urbano, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Modernização conservadora e substituição de importações, obedecendo ao modelo Estado Novo, DIP e trabalhismo urbano representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de era vargas (1930-1945), industrialização de base e clt."
+        "text": "O fenômeno viola Estado Novo, DIP e trabalhismo urbano, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Modernização conservadora e substituição de importações, obedecendo rigorosamente ao modelo Estado Novo, DIP e trabalhismo urbano representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de era vargas (1930-1945), industrialização de base e clt."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CHS02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CHS02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Estado Novo, DIP e trabalhismo urbano. Passo 2: Aplique o fundamento 'Modernização conservadora e substituição de importações'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Estado Novo, DIP e trabalhismo urbano. Passo 2: Aplique o fundamento 'Modernização conservadora e substituição de importações'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-7EF-CHS-087",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF07CHS03",
@@ -3653,8 +3741,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • REVOLUÇÃO INDUSTRIAL, ILUMINISMO E T</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Maquinofatura, cercamentos e tempo</text>\n</svg>",
-    "figureCaption": "Figura 87: Representação gráfica calibrada para Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho (EF07CHS03).",
-    "text": "(UFMG • 7º Ano EF • Habilidade EF07CHS03) Analise o diagrama técnico-científico abaixo referente ao estudo de Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho. Considerando os parâmetros experimentais e a relação fundamental Maquinofatura, cercamentos e tempo fabril, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho (EF07CHS03).",
+    "text": "(Simulado Áquila (estilo UFMG) • 7º Ano EF • Habilidade EF07CHS03) Analise o diagrama abaixo referente ao estudo de Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho. Considerando a relação fundamental Maquinofatura, cercamentos e tempo fabril, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3666,25 +3754,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Transição do capitalismo comercial para o industrial, obedecendo rigorosamente ao modelo Maquinofatura, cercamentos e tempo fabril representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CHS03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CHS03."
+        "text": "Transição do capitalismo comercial para o industrial, obedecendo ao modelo Maquinofatura, cercamentos e tempo fabril representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Maquinofatura, cercamentos e tempo fabril. Passo 2: Aplique o fundamento 'Transição do capitalismo comercial para o industrial'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Maquinofatura, cercamentos e tempo fabril. Passo 2: Aplique o fundamento 'Transição do capitalismo comercial para o industrial'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-CHS-088",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF07CHS04",
@@ -3695,8 +3784,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • REPÚBLICA VELHA, CORONELISMO, VOTO D</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Política dos Governadores e Café c</text>\n</svg>",
-    "figureCaption": "Figura 88: Representação gráfica calibrada para República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina (EF07CHS04).",
-    "text": "(ENEM • 7º Ano EF • Habilidade EF07CHS04) Analise o diagrama técnico-científico abaixo referente ao estudo de República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina. Considerando os parâmetros experimentais e a relação fundamental Política dos Governadores e Café com Leite, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina (EF07CHS04).",
+    "text": "(Simulado Áquila (estilo ENEM) • 7º Ano EF • Habilidade EF07CHS04) Analise o diagrama abaixo referente ao estudo de República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina. Considerando a relação fundamental Política dos Governadores e Café com Leite, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3704,29 +3793,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de república velha, coronelismo, voto de cabresto e revolta da vacina."
+        "text": "Cidadania restrita e movimentos sociais na Primeira República, obedecendo ao modelo Política dos Governadores e Café com Leite representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Cidadania restrita e movimentos sociais na Primeira República, obedecendo rigorosamente ao modelo Política dos Governadores e Café com Leite representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de república velha, coronelismo, voto de cabresto e revolta da vacina."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CHS04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CHS04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Política dos Governadores e Café com Leite. Passo 2: Aplique o fundamento 'Cidadania restrita e movimentos sociais na Primeira República'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Política dos Governadores e Café com Leite. Passo 2: Aplique o fundamento 'Cidadania restrita e movimentos sociais na Primeira República'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-CHS-089",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF07CHS01",
@@ -3737,38 +3827,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • DINÂMICA DEMOGRÁFICA, TRANSIÇÃO ETÁR</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Queda da fecundidade e envelhecime</text>\n</svg>",
-    "figureCaption": "Figura 89: Representação gráfica calibrada para Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil (EF07CHS01).",
-    "text": "(UEG • 7º Ano EF • Habilidade EF07CHS01) Analise o diagrama técnico-científico abaixo referente ao estudo de Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil. Considerando os parâmetros experimentais e a relação fundamental Queda da fecundidade e envelhecimento populacional, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil (EF07CHS01).",
+    "text": "(Simulado Áquila (estilo UEG) • 7º Ano EF • Habilidade EF07CHS01) Analise o diagrama abaixo referente ao estudo de Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil. Considerando a relação fundamental Queda da fecundidade e envelhecimento populacional, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Queda da fecundidade e envelhecimento populacional, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Leitura de pirâmides etárias e impactos previdenciários, obedecendo ao modelo Queda da fecundidade e envelhecimento populacional representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de dinâmica demográfica, transição etária e bônus demográfico no brasil."
+        "text": "O fenômeno viola Queda da fecundidade e envelhecimento populacional, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Leitura de pirâmides etárias e impactos previdenciários, obedecendo rigorosamente ao modelo Queda da fecundidade e envelhecimento populacional representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de dinâmica demográfica, transição etária e bônus demográfico no brasil."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CHS01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CHS01."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Queda da fecundidade e envelhecimento populacional. Passo 2: Aplique o fundamento 'Leitura de pirâmides etárias e impactos previdenciários'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Queda da fecundidade e envelhecimento populacional. Passo 2: Aplique o fundamento 'Leitura de pirâmides etárias e impactos previdenciários'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-7EF-CHS-090",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF07CHS02",
@@ -3779,8 +3870,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • GEOPOLÍTICA MUNDIAL, NOVA ORDEM MULT</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Cadeias globais de valor e blocos </text>\n</svg>",
-    "figureCaption": "Figura 90: Representação gráfica calibrada para Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional (EF07CHS02).",
-    "text": "(UFMG • 7º Ano EF • Habilidade EF07CHS02) Analise o diagrama técnico-científico abaixo referente ao estudo de Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional. Considerando os parâmetros experimentais e a relação fundamental Cadeias globais de valor e blocos econômicos, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional (EF07CHS02).",
+    "text": "(Simulado Áquila (estilo UFMG) • 7º Ano EF • Habilidade EF07CHS02) Analise o diagrama abaixo referente ao estudo de Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional. Considerando a relação fundamental Cadeias globais de valor e blocos econômicos, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3792,25 +3883,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Fluxos financeiros, tecnológicos e tensões territoriais, obedecendo rigorosamente ao modelo Cadeias globais de valor e blocos econômicos representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CHS02."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CHS02."
+        "text": "Fluxos financeiros, tecnológicos e tensões territoriais, obedecendo ao modelo Cadeias globais de valor e blocos econômicos representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeias globais de valor e blocos econômicos. Passo 2: Aplique o fundamento 'Fluxos financeiros, tecnológicos e tensões territoriais'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeias globais de valor e blocos econômicos. Passo 2: Aplique o fundamento 'Fluxos financeiros, tecnológicos e tensões territoriais'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-CHS-091",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF07CHS03",
@@ -3821,8 +3913,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • DOMÍNIOS MORFOCLIMÁTICOS BRASILEIROS</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Cerrado, Amazônia, Caatinga e Mata</text>\n</svg>",
-    "figureCaption": "Figura 91: Representação gráfica calibrada para Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola (EF07CHS03).",
-    "text": "(ENEM • 7º Ano EF • Habilidade EF07CHS03) Analise o diagrama técnico-científico abaixo referente ao estudo de Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola. Considerando os parâmetros experimentais e a relação fundamental Cerrado, Amazônia, Caatinga e Mata dos Cocais, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola (EF07CHS03).",
+    "text": "(Simulado Áquila (estilo ENEM) • 7º Ano EF • Habilidade EF07CHS03) Analise o diagrama abaixo referente ao estudo de Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola. Considerando a relação fundamental Cerrado, Amazônia, Caatinga e Mata dos Cocais, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3830,29 +3922,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de domínios morfoclimáticos brasileiros (ab'sáber) e fronteira agrícola."
+        "text": "Interação entre relevo, hidrografia, clima e vegetação, obedecendo ao modelo Cerrado, Amazônia, Caatinga e Mata dos Cocais representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Interação entre relevo, hidrografia, clima e vegetação, obedecendo rigorosamente ao modelo Cerrado, Amazônia, Caatinga e Mata dos Cocais representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de domínios morfoclimáticos brasileiros (ab'sáber) e fronteira agrícola."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CHS03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CHS03."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cerrado, Amazônia, Caatinga e Mata dos Cocais. Passo 2: Aplique o fundamento 'Interação entre relevo, hidrografia, clima e vegetação'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cerrado, Amazônia, Caatinga e Mata dos Cocais. Passo 2: Aplique o fundamento 'Interação entre relevo, hidrografia, clima e vegetação'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-CHS-092",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF07CHS04",
@@ -3863,8 +3956,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • URBANIZAÇÃO BRASILEIRA, METROPOLIZAÇ</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Macrocefalia urbana e conurbação</text>\n</svg>",
-    "figureCaption": "Figura 92: Representação gráfica calibrada para Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação (EF07CHS04).",
-    "text": "(FUVEST • 7º Ano EF • Habilidade EF07CHS04) Analise o diagrama técnico-científico abaixo referente ao estudo de Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação. Considerando os parâmetros experimentais e a relação fundamental Macrocefalia urbana e conurbação, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação (EF07CHS04).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 7º Ano EF • Habilidade EF07CHS04) Analise o diagrama abaixo referente ao estudo de Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação. Considerando a relação fundamental Macrocefalia urbana e conurbação, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3876,25 +3969,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Planejamento urbano, mobilidade e impactos socioambientais, obedecendo rigorosamente ao modelo Macrocefalia urbana e conurbação representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07CHS04."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07CHS04."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Planejamento urbano, mobilidade e impactos socioambientais, obedecendo ao modelo Macrocefalia urbana e conurbação representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Macrocefalia urbana e conurbação. Passo 2: Aplique o fundamento 'Planejamento urbano, mobilidade e impactos socioambientais'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Macrocefalia urbana e conurbação. Passo 2: Aplique o fundamento 'Planejamento urbano, mobilidade e impactos socioambientais'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-7EF-LP-093",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "linguagens",
     "discipline": "Língua Portuguesa",
     "skillCode": "EF07LP01",
@@ -3905,8 +3999,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 422,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • VARIAÇÃO LINGUÍSTICA, PRECONCEITO LI</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Norma-padrão vs variedades regiona</text>\n</svg>",
-    "figureCaption": "Figura 93: Representação gráfica calibrada para Variação Linguística, Preconceito Linguístico e Adequação ao Registro (EF07LP01).",
-    "text": "(UFMG • 7º Ano EF • Habilidade EF07LP01) Analise o diagrama técnico-científico abaixo referente ao estudo de Variação Linguística, Preconceito Linguístico e Adequação ao Registro. Considerando os parâmetros experimentais e a relação fundamental Norma-padrão vs variedades regionais, históricas e sociais, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Variação Linguística, Preconceito Linguístico e Adequação ao Registro (EF07LP01).",
+    "text": "(Simulado Áquila (estilo UFMG) • 7º Ano EF • Habilidade EF07LP01) Analise o diagrama abaixo referente ao estudo de Variação Linguística, Preconceito Linguístico e Adequação ao Registro. Considerando a relação fundamental Norma-padrão vs variedades regionais, históricas e sociais, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3918,25 +4012,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Reconhecimento da língua como patrimônio cultural dinâmico, obedecendo rigorosamente ao modelo Norma-padrão vs variedades regionais, históricas e sociais representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07LP01."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07LP01."
+        "text": "Reconhecimento da língua como patrimônio cultural dinâmico, obedecendo ao modelo Norma-padrão vs variedades regionais, históricas e sociais representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Norma-padrão vs variedades regionais, históricas e sociais. Passo 2: Aplique o fundamento 'Reconhecimento da língua como patrimônio cultural dinâmico'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Norma-padrão vs variedades regionais, históricas e sociais. Passo 2: Aplique o fundamento 'Reconhecimento da língua como patrimônio cultural dinâmico'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-7EF-LP-094",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "linguagens",
     "discipline": "Língua Portuguesa",
     "skillCode": "EF07LP02",
@@ -3947,8 +4042,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 447,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • GÊNEROS TEXTUAIS, INTERTEXTUALIDADE,</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Tese, argumentos de autoridade e o</text>\n</svg>",
-    "figureCaption": "Figura 94: Representação gráfica calibrada para Gêneros Textuais, Intertextualidade, Ironia e Estratégias Argumentativas (EF07LP02).",
-    "text": "(ENEM • 7º Ano EF • Habilidade EF07LP02) Analise o diagrama técnico-científico abaixo referente ao estudo de Gêneros Textuais, Intertextualidade, Ironia e Estratégias Argumentativas. Considerando os parâmetros experimentais e a relação fundamental Tese, argumentos de autoridade e operadores coesivos, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Gêneros Textuais, Intertextualidade, Ironia e Estratégias Argumentativas (EF07LP02).",
+    "text": "(Simulado Áquila (estilo ENEM) • 7º Ano EF • Habilidade EF07LP02) Analise o diagrama abaixo referente ao estudo de Gêneros Textuais, Intertextualidade, Ironia e Estratégias Argumentativas. Considerando a relação fundamental Tese, argumentos de autoridade e operadores coesivos, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -3956,29 +4051,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de gêneros textuais, intertextualidade, ironia e estratégias argumentativas."
+        "text": "Construção de sentido em textos multimodais e charges, obedecendo ao modelo Tese, argumentos de autoridade e operadores coesivos representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Construção de sentido em textos multimodais e charges, obedecendo rigorosamente ao modelo Tese, argumentos de autoridade e operadores coesivos representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de gêneros textuais, intertextualidade, ironia e estratégias argumentativas."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07LP02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07LP02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Tese, argumentos de autoridade e operadores coesivos. Passo 2: Aplique o fundamento 'Construção de sentido em textos multimodais e charges'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Tese, argumentos de autoridade e operadores coesivos. Passo 2: Aplique o fundamento 'Construção de sentido em textos multimodais e charges'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-7EF-LP-095",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "linguagens",
     "discipline": "Língua Portuguesa",
     "skillCode": "EF07LP03",
@@ -3989,8 +4085,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 472,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • FUNÇÕES DA LINGUAGEM (JAKOBSON): REF</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Foco no referente, emissor, recept</text>\n</svg>",
-    "figureCaption": "Figura 95: Representação gráfica calibrada para Funções da Linguagem (Jakobson): Referencial, Emotiva, Conativa e Metalinguística (EF07LP03).",
-    "text": "(FUVEST • 7º Ano EF • Habilidade EF07LP03) Analise o diagrama técnico-científico abaixo referente ao estudo de Funções da Linguagem (Jakobson): Referencial, Emotiva, Conativa e Metalinguística. Considerando os parâmetros experimentais e a relação fundamental Foco no referente, emissor, receptor ou código, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Funções da Linguagem (Jakobson): Referencial, Emotiva, Conativa e Metalinguística (EF07LP03).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 7º Ano EF • Habilidade EF07LP03) Analise o diagrama abaixo referente ao estudo de Funções da Linguagem (Jakobson): Referencial, Emotiva, Conativa e Metalinguística. Considerando a relação fundamental Foco no referente, emissor, receptor ou código, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4002,25 +4098,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Identificação da intencionalidade comunicativa predominante, obedecendo rigorosamente ao modelo Foco no referente, emissor, receptor ou código representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07LP03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07LP03."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Identificação da intencionalidade comunicativa predominante, obedecendo ao modelo Foco no referente, emissor, receptor ou código representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Foco no referente, emissor, receptor ou código. Passo 2: Aplique o fundamento 'Identificação da intencionalidade comunicativa predominante'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Foco no referente, emissor, receptor ou código. Passo 2: Aplique o fundamento 'Identificação da intencionalidade comunicativa predominante'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-7EF-LP-096",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "linguagens",
     "discipline": "Língua Portuguesa",
     "skillCode": "EF07LP04",
@@ -4031,8 +4128,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 497,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • MODERNISMO BRASILEIRO (1922-1945): R</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Antropofagia oswaldiana, regionali</text>\n</svg>",
-    "figureCaption": "Figura 96: Representação gráfica calibrada para Modernismo Brasileiro (1922-1945): Ruptura Estética e Identidade Nacional (EF07LP04).",
-    "text": "(UNICAMP • 7º Ano EF • Habilidade EF07LP04) Analise o diagrama técnico-científico abaixo referente ao estudo de Modernismo Brasileiro (1922-1945): Ruptura Estética e Identidade Nacional. Considerando os parâmetros experimentais e a relação fundamental Antropofagia oswaldiana, regionalismo de 30 e Drummond, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Modernismo Brasileiro (1922-1945): Ruptura Estética e Identidade Nacional (EF07LP04).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 7º Ano EF • Habilidade EF07LP04) Analise o diagrama abaixo referente ao estudo de Modernismo Brasileiro (1922-1945): Ruptura Estética e Identidade Nacional. Considerando a relação fundamental Antropofagia oswaldiana, regionalismo de 30 e Drummond, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4044,11 +4141,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Análise literária comparada entre vanguardas e tradição, obedecendo rigorosamente ao modelo Antropofagia oswaldiana, regionalismo de 30 e Drummond representado no diagrama."
+        "text": "Análise literária comparada entre vanguardas e tradição, obedecendo ao modelo Antropofagia oswaldiana, regionalismo de 30 e Drummond representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF07LP04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF07LP04."
       },
       {
         "letter": "E",
@@ -4056,13 +4153,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Antropofagia oswaldiana, regionalismo de 30 e Drummond. Passo 2: Aplique o fundamento 'Análise literária comparada entre vanguardas e tradição'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Antropofagia oswaldiana, regionalismo de 30 e Drummond. Passo 2: Aplique o fundamento 'Análise literária comparada entre vanguardas e tradição'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-CNT-097",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF08CNT01",
@@ -4073,8 +4171,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • CINEMÁTICA VETORIAL E GRÁFICOS MOVIM</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">v(t) = v0 + a*t</text>\n</svg>",
-    "figureCaption": "Figura 97: Representação gráfica calibrada para Cinemática Vetorial e Gráficos Movimento Uniformemente Variado (EF08CNT01).",
-    "text": "(UNICAMP • 8º Ano EF • Habilidade EF08CNT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Cinemática Vetorial e Gráficos Movimento Uniformemente Variado. Considerando os parâmetros experimentais e a relação fundamental v(t) = v0 + a*t, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Cinemática Vetorial e Gráficos Movimento Uniformemente Variado (EF08CNT01).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 8º Ano EF • Habilidade EF08CNT01) Analise o diagrama abaixo referente ao estudo de Cinemática Vetorial e Gráficos Movimento Uniformemente Variado. Considerando a relação fundamental v(t) = v0 + a*t, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4082,29 +4180,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de cinemática vetorial e gráficos movimento uniformemente variado."
+        "text": "Equação horária da velocidade com aceleração constante, obedecendo ao modelo v(t) = v0 + a*t representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Equação horária da velocidade com aceleração constante, obedecendo rigorosamente ao modelo v(t) = v0 + a*t representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de cinemática vetorial e gráficos movimento uniformemente variado."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT01."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação v(t) = v0 + a*t. Passo 2: Aplique o fundamento 'Equação horária da velocidade com aceleração constante'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação v(t) = v0 + a*t. Passo 2: Aplique o fundamento 'Equação horária da velocidade com aceleração constante'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-8EF-CNT-098",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF08CNT02",
@@ -4115,8 +4214,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • LEIS DE NEWTON, ATRITO DINÂMICO E PL</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">F_R = m * a</text>\n</svg>",
-    "figureCaption": "Figura 98: Representação gráfica calibrada para Leis de Newton, Atrito Dinâmico e Plano Inclinado (EF08CNT02).",
-    "text": "(UnB • 8º Ano EF • Habilidade EF08CNT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Leis de Newton, Atrito Dinâmico e Plano Inclinado. Considerando os parâmetros experimentais e a relação fundamental F_R = m * a, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Leis de Newton, Atrito Dinâmico e Plano Inclinado (EF08CNT02).",
+    "text": "(Simulado Áquila (estilo UnB) • 8º Ano EF • Habilidade EF08CNT02) Analise o diagrama abaixo referente ao estudo de Leis de Newton, Atrito Dinâmico e Plano Inclinado. Considerando a relação fundamental F_R = m * a, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4128,25 +4227,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Segunda Lei de Newton para sistemas com massa constante, obedecendo rigorosamente ao modelo F_R = m * a representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT02."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT02."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Segunda Lei de Newton para sistemas com massa constante, obedecendo ao modelo F_R = m * a representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_R = m * a. Passo 2: Aplique o fundamento 'Segunda Lei de Newton para sistemas com massa constante'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_R = m * a. Passo 2: Aplique o fundamento 'Segunda Lei de Newton para sistemas com massa constante'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-CNT-099",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF08CNT03",
@@ -4157,8 +4257,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • CIRCUITOS ELÉTRICOS, PRIMEIRA LEI DE</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">P = R * i^2</text>\n</svg>",
-    "figureCaption": "Figura 99: Representação gráfica calibrada para Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada (EF08CNT03).",
-    "text": "(UFG • 8º Ano EF • Habilidade EF08CNT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada. Considerando os parâmetros experimentais e a relação fundamental P = R * i^2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada (EF08CNT03).",
+    "text": "(Simulado Áquila (estilo UFG) • 8º Ano EF • Habilidade EF08CNT03) Analise o diagrama abaixo referente ao estudo de Circuitos Elétricos, Primeira Lei de Ohm e Potência Dissipada. Considerando a relação fundamental P = R * i^2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4170,11 +4270,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Efeito Joule em resistores ôhmicos sob corrente contínua, obedecendo rigorosamente ao modelo P = R * i^2 representado no diagrama."
+        "text": "Efeito Joule em resistores ôhmicos sob corrente contínua, obedecendo ao modelo P = R * i^2 representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT03."
       },
       {
         "letter": "E",
@@ -4182,13 +4282,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação P = R * i^2. Passo 2: Aplique o fundamento 'Efeito Joule em resistores ôhmicos sob corrente contínua'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação P = R * i^2. Passo 2: Aplique o fundamento 'Efeito Joule em resistores ôhmicos sob corrente contínua'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-CNT-100",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF08CNT04",
@@ -4199,38 +4300,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • TERMODINÂMICA, CICLO DE CARNOT E DIA</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">eta = 1 - T_fria / T_quente</text>\n</svg>",
-    "figureCaption": "Figura 100: Representação gráfica calibrada para Termodinâmica, Ciclo de Carnot e Diagramas P x V (EF08CNT04).",
-    "text": "(OBMEP • 8º Ano EF • Habilidade EF08CNT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Termodinâmica, Ciclo de Carnot e Diagramas P x V. Considerando os parâmetros experimentais e a relação fundamental eta = 1 - T_fria / T_quente, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Termodinâmica, Ciclo de Carnot e Diagramas P x V (EF08CNT04).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 8º Ano EF • Habilidade EF08CNT04) Analise o diagrama abaixo referente ao estudo de Termodinâmica, Ciclo de Carnot e Diagramas P x V. Considerando a relação fundamental eta = 1 - T_fria / T_quente, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola eta = 1 - T_fria / T_quente, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Rendimento máximo teórico de uma máquina térmica, obedecendo ao modelo eta = 1 - T_fria / T_quente representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de termodinâmica, ciclo de carnot e diagramas p x v."
+        "text": "O fenômeno viola eta = 1 - T_fria / T_quente, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Rendimento máximo teórico de uma máquina térmica, obedecendo rigorosamente ao modelo eta = 1 - T_fria / T_quente representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de termodinâmica, ciclo de carnot e diagramas p x v."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação eta = 1 - T_fria / T_quente. Passo 2: Aplique o fundamento 'Rendimento máximo teórico de uma máquina térmica'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação eta = 1 - T_fria / T_quente. Passo 2: Aplique o fundamento 'Rendimento máximo teórico de uma máquina térmica'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-8EF-CNT-101",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF08CNT05",
@@ -4241,8 +4343,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ÓPTICA GEOMÉTRICA, REFRAÇÃO (LEI DE </text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">n1 * sen(theta1) = n2 * sen(theta2</text>\n</svg>",
-    "figureCaption": "Figura 101: Representação gráfica calibrada para Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas (EF08CNT05).",
-    "text": "(OBA • 8º Ano EF • Habilidade EF08CNT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas. Considerando os parâmetros experimentais e a relação fundamental n1 * sen(theta1) = n2 * sen(theta2), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas (EF08CNT05).",
+    "text": "(Simulado Áquila (estilo OBA) • 8º Ano EF • Habilidade EF08CNT05) Analise o diagrama abaixo referente ao estudo de Óptica Geométrica, Refração (Lei de Snell) e Lentes Esféricas. Considerando a relação fundamental n1 * sen(theta1) = n2 * sen(theta2), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4254,25 +4356,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Conservação da frequência e desvio angular na refração, obedecendo rigorosamente ao modelo n1 * sen(theta1) = n2 * sen(theta2) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT05."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT05."
+        "text": "Conservação da frequência e desvio angular na refração, obedecendo ao modelo n1 * sen(theta1) = n2 * sen(theta2) representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação n1 * sen(theta1) = n2 * sen(theta2). Passo 2: Aplique o fundamento 'Conservação da frequência e desvio angular na refração'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação n1 * sen(theta1) = n2 * sen(theta2). Passo 2: Aplique o fundamento 'Conservação da frequência e desvio angular na refração'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-8EF-CNT-102",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF08CNT06",
@@ -4283,8 +4386,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ONDULATÓRIA, EFEITO DOPPLER E ACÚSTI</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">v = lambda * f</text>\n</svg>",
-    "figureCaption": "Figura 102: Representação gráfica calibrada para Ondulatória, Efeito Doppler e Acústica Musical (EF08CNT06).",
-    "text": "(UEG • 8º Ano EF • Habilidade EF08CNT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Ondulatória, Efeito Doppler e Acústica Musical. Considerando os parâmetros experimentais e a relação fundamental v = lambda * f, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Ondulatória, Efeito Doppler e Acústica Musical (EF08CNT06).",
+    "text": "(Simulado Áquila (estilo UEG) • 8º Ano EF • Habilidade EF08CNT06) Analise o diagrama abaixo referente ao estudo de Ondulatória, Efeito Doppler e Acústica Musical. Considerando a relação fundamental v = lambda * f, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4292,29 +4395,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de ondulatória, efeito doppler e acústica musical."
+        "text": "Equação fundamental da propagação ondulatória, obedecendo ao modelo v = lambda * f representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Equação fundamental da propagação ondulatória, obedecendo rigorosamente ao modelo v = lambda * f representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de ondulatória, efeito doppler e acústica musical."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT06."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT06."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = lambda * f. Passo 2: Aplique o fundamento 'Equação fundamental da propagação ondulatória'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = lambda * f. Passo 2: Aplique o fundamento 'Equação fundamental da propagação ondulatória'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-8EF-CNT-103",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF08CNT07",
@@ -4325,8 +4429,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ELETROMAGNETISMO, FORÇA DE LORENTZ E</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">epsilon = -d(Phi_B)/dt</text>\n</svg>",
-    "figureCaption": "Figura 103: Representação gráfica calibrada para Eletromagnetismo, Força de Lorentz e Indução de Faraday (EF08CNT07).",
-    "text": "(UFMG • 8º Ano EF • Habilidade EF08CNT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Eletromagnetismo, Força de Lorentz e Indução de Faraday. Considerando os parâmetros experimentais e a relação fundamental epsilon = -d(Phi_B)/dt, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Eletromagnetismo, Força de Lorentz e Indução de Faraday (EF08CNT07).",
+    "text": "(Simulado Áquila (estilo UFMG) • 8º Ano EF • Habilidade EF08CNT07) Analise o diagrama abaixo referente ao estudo de Eletromagnetismo, Força de Lorentz e Indução de Faraday. Considerando a relação fundamental epsilon = -d(Phi_B)/dt, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4338,25 +4442,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Força eletromotriz induzida pela variação de fluxo magnético, obedecendo rigorosamente ao modelo epsilon = -d(Phi_B)/dt representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT07."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT07."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Força eletromotriz induzida pela variação de fluxo magnético, obedecendo ao modelo epsilon = -d(Phi_B)/dt representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação epsilon = -d(Phi_B)/dt. Passo 2: Aplique o fundamento 'Força eletromotriz induzida pela variação de fluxo magnético'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação epsilon = -d(Phi_B)/dt. Passo 2: Aplique o fundamento 'Força eletromotriz induzida pela variação de fluxo magnético'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-CNT-104",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Física",
     "skillCode": "EF08CNT08",
@@ -4367,8 +4472,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <defs>\n    <linearGradient id=\"physGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\" stop-opacity=\"0.35\"/>\n      <stop offset=\"100%\" stop-color=\"#6366f1\" stop-opacity=\"0.05\"/>\n    </linearGradient>\n  </defs>\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">DIAGRAMA CIENTÍFICO CALIBRADO • ASTRONOMIA E GRAVITAÇÃO UNIVERSAL DE</text>\n  <!-- Eixos cartesianos v(t) / P(V) -->\n  <line x1=\"45\" y1=\"150\" x2=\"390\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"35\" stroke=\"#94a3b8\" stroke-width=\"1.8\"/>\n  <polygon points=\"45,35 390,150 45,150\" fill=\"url(#physGrad)\"/>\n  <line x1=\"45\" y1=\"115\" x2=\"290\" y2=\"45\" stroke=\"#38bdf8\" stroke-width=\"2.8\"/>\n  <circle cx=\"45\" cy=\"115\" r=\"4\" fill=\"#fde047\"/>\n  <circle cx=\"168\" cy=\"80\" r=\"4\" fill=\"#10b981\"/>\n  <circle cx=\"290\" cy=\"45\" r=\"4\" fill=\"#f43f5e\"/>\n  <line x1=\"168\" y1=\"80\" x2=\"168\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"290\" y1=\"45\" x2=\"290\" y2=\"150\" stroke=\"#64748b\" stroke-dasharray=\"4 3\"/>\n  <text x=\"20\" y=\"118\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">v0</text>\n  <text x=\"20\" y=\"48\" fill=\"#f43f5e\" font-size=\"10\" font-family=\"monospace\">vf</text>\n  <text x=\"160\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t1 = 4s</text>\n  <text x=\"275\" y=\"165\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">t2 = 8s</text>\n  <text x=\"298\" y=\"62\" fill=\"#a5f3fc\" font-size=\"10\" font-family=\"monospace\">T^2 / R^3 = constante</text>\n</svg>",
-    "figureCaption": "Figura 104: Representação gráfica calibrada para Astronomia e Gravitação Universal de Kepler-Newton (OBA) (EF08CNT08).",
-    "text": "(ENEM • 8º Ano EF • Habilidade EF08CNT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Astronomia e Gravitação Universal de Kepler-Newton (OBA). Considerando os parâmetros experimentais e a relação fundamental T^2 / R^3 = constante, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Astronomia e Gravitação Universal de Kepler-Newton (OBA) (EF08CNT08).",
+    "text": "(Simulado Áquila (estilo ENEM) • 8º Ano EF • Habilidade EF08CNT08) Analise o diagrama abaixo referente ao estudo de Astronomia e Gravitação Universal de Kepler-Newton (OBA). Considerando a relação fundamental T^2 / R^3 = constante, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4380,11 +4485,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Terceira Lei de Kepler para órbitas planetárias elípticas, obedecendo rigorosamente ao modelo T^2 / R^3 = constante representado no diagrama."
+        "text": "Terceira Lei de Kepler para órbitas planetárias elípticas, obedecendo ao modelo T^2 / R^3 = constante representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT08."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT08."
       },
       {
         "letter": "E",
@@ -4392,13 +4497,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação T^2 / R^3 = constante. Passo 2: Aplique o fundamento 'Terceira Lei de Kepler para órbitas planetárias elípticas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação T^2 / R^3 = constante. Passo 2: Aplique o fundamento 'Terceira Lei de Kepler para órbitas planetárias elípticas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-MAT-105",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF08MAT01",
@@ -4409,8 +4515,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • FUNÇÕES POLINOMIAIS DE 1º E 2º GRAU </text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">x_v = -b / (2a)</text>\n</svg>",
-    "figureCaption": "Figura 105: Representação gráfica calibrada para Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola (EF08MAT01).",
-    "text": "(UnB • 8º Ano EF • Habilidade EF08MAT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola. Considerando os parâmetros experimentais e a relação fundamental x_v = -b / (2a), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola (EF08MAT01).",
+    "text": "(Simulado Áquila (estilo UnB) • 8º Ano EF • Habilidade EF08MAT01) Analise o diagrama abaixo referente ao estudo de Funções Polinomiais de 1º e 2º Grau e Vértice da Parábola. Considerando a relação fundamental x_v = -b / (2a), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4422,11 +4528,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Abscissa do ponto de máximo ou mínimo da função quadrática, obedecendo rigorosamente ao modelo x_v = -b / (2a) representado no diagrama."
+        "text": "Abscissa do ponto de máximo ou mínimo da função quadrática, obedecendo ao modelo x_v = -b / (2a) representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08MAT01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08MAT01."
       },
       {
         "letter": "E",
@@ -4434,13 +4540,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação x_v = -b / (2a). Passo 2: Aplique o fundamento 'Abscissa do ponto de máximo ou mínimo da função quadrática'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação x_v = -b / (2a). Passo 2: Aplique o fundamento 'Abscissa do ponto de máximo ou mínimo da função quadrática'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-MAT-106",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF08MAT02",
@@ -4451,38 +4558,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • GEOMETRIA PLANA, SEMELHANÇA DE TRIÂN</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">a^2 = b^2 + c^2</text>\n</svg>",
-    "figureCaption": "Figura 106: Representação gráfica calibrada para Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras (EF08MAT02).",
-    "text": "(UFG • 8º Ano EF • Habilidade EF08MAT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras. Considerando os parâmetros experimentais e a relação fundamental a^2 = b^2 + c^2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras (EF08MAT02).",
+    "text": "(Simulado Áquila (estilo UFG) • 8º Ano EF • Habilidade EF08MAT02) Analise o diagrama abaixo referente ao estudo de Geometria Plana, Semelhança de Triângulos e Teorema de Pitágoras. Considerando a relação fundamental a^2 = b^2 + c^2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola a^2 = b^2 + c^2, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Relação métrica fundamental no triângulo retângulo, obedecendo ao modelo a^2 = b^2 + c^2 representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de geometria plana, semelhança de triângulos e teorema de pitágoras."
+        "text": "O fenômeno viola a^2 = b^2 + c^2, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Relação métrica fundamental no triângulo retângulo, obedecendo rigorosamente ao modelo a^2 = b^2 + c^2 representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de geometria plana, semelhança de triângulos e teorema de pitágoras."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08MAT02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08MAT02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação a^2 = b^2 + c^2. Passo 2: Aplique o fundamento 'Relação métrica fundamental no triângulo retângulo'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação a^2 = b^2 + c^2. Passo 2: Aplique o fundamento 'Relação métrica fundamental no triângulo retângulo'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-8EF-MAT-107",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF08MAT03",
@@ -4493,8 +4601,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • GEOMETRIA ESPACIAL: PRISMAS, CILINDR</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">V_esfera = (4/3) * pi * R^3</text>\n</svg>",
-    "figureCaption": "Figura 107: Representação gráfica calibrada para Geometria Espacial: Prismas, Cilindros, Cones e Esferas (EF08MAT03).",
-    "text": "(OBMEP • 8º Ano EF • Habilidade EF08MAT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Geometria Espacial: Prismas, Cilindros, Cones e Esferas. Considerando os parâmetros experimentais e a relação fundamental V_esfera = (4/3) * pi * R^3, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Geometria Espacial: Prismas, Cilindros, Cones e Esferas (EF08MAT03).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 8º Ano EF • Habilidade EF08MAT03) Analise o diagrama abaixo referente ao estudo de Geometria Espacial: Prismas, Cilindros, Cones e Esferas. Considerando a relação fundamental V_esfera = (4/3) * pi * R^3, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4506,25 +4614,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Volume de sólidos de revolução em problemas do ENEM, obedecendo rigorosamente ao modelo V_esfera = (4/3) * pi * R^3 representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08MAT03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08MAT03."
+        "text": "Volume de sólidos de revolução em problemas do ENEM, obedecendo ao modelo V_esfera = (4/3) * pi * R^3 representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação V_esfera = (4/3) * pi * R^3. Passo 2: Aplique o fundamento 'Volume de sólidos de revolução em problemas do ENEM'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação V_esfera = (4/3) * pi * R^3. Passo 2: Aplique o fundamento 'Volume de sólidos de revolução em problemas do ENEM'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-8EF-MAT-108",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF08MAT04",
@@ -4535,8 +4644,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • ANÁLISE COMBINATÓRIA, PERMUTAÇÕES E </text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">P(A|B) = P(A inter B) / P(B)</text>\n</svg>",
-    "figureCaption": "Figura 108: Representação gráfica calibrada para Análise Combinatória, Permutações e Probabilidade Condicional (EF08MAT04).",
-    "text": "(OBA • 8º Ano EF • Habilidade EF08MAT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Análise Combinatória, Permutações e Probabilidade Condicional. Considerando os parâmetros experimentais e a relação fundamental P(A|B) = P(A inter B) / P(B), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Análise Combinatória, Permutações e Probabilidade Condicional (EF08MAT04).",
+    "text": "(Simulado Áquila (estilo OBA) • 8º Ano EF • Habilidade EF08MAT04) Analise o diagrama abaixo referente ao estudo de Análise Combinatória, Permutações e Probabilidade Condicional. Considerando a relação fundamental P(A|B) = P(A inter B) / P(B), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4544,29 +4653,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de análise combinatória, permutações e probabilidade condicional."
+        "text": "Teorema da probabilidade condicional com redução amostral, obedecendo ao modelo P(A|B) = P(A inter B) / P(B) representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Teorema da probabilidade condicional com redução amostral, obedecendo rigorosamente ao modelo P(A|B) = P(A inter B) / P(B) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de análise combinatória, permutações e probabilidade condicional."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08MAT04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08MAT04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação P(A|B) = P(A inter B) / P(B). Passo 2: Aplique o fundamento 'Teorema da probabilidade condicional com redução amostral'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação P(A|B) = P(A inter B) / P(B). Passo 2: Aplique o fundamento 'Teorema da probabilidade condicional com redução amostral'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-8EF-MAT-109",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF08MAT05",
@@ -4577,8 +4687,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • PROGRESSÕES ARITMÉTICAS (PA) E GEOMÉ</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">a_n = a_1 * q^(n-1)</text>\n</svg>",
-    "figureCaption": "Figura 109: Representação gráfica calibrada para Progressões Aritméticas (PA) e Geométricas (PG) Financeiras (EF08MAT05).",
-    "text": "(UEG • 8º Ano EF • Habilidade EF08MAT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Progressões Aritméticas (PA) e Geométricas (PG) Financeiras. Considerando os parâmetros experimentais e a relação fundamental a_n = a_1 * q^(n-1), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Progressões Aritméticas (PA) e Geométricas (PG) Financeiras (EF08MAT05).",
+    "text": "(Simulado Áquila (estilo UEG) • 8º Ano EF • Habilidade EF08MAT05) Analise o diagrama abaixo referente ao estudo de Progressões Aritméticas (PA) e Geométricas (PG) Financeiras. Considerando a relação fundamental a_n = a_1 * q^(n-1), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4590,25 +4700,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Crescimento exponencial discreto em juros compostos, obedecendo rigorosamente ao modelo a_n = a_1 * q^(n-1) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08MAT05."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08MAT05."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Crescimento exponencial discreto em juros compostos, obedecendo ao modelo a_n = a_1 * q^(n-1) representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação a_n = a_1 * q^(n-1). Passo 2: Aplique o fundamento 'Crescimento exponencial discreto em juros compostos'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação a_n = a_1 * q^(n-1). Passo 2: Aplique o fundamento 'Crescimento exponencial discreto em juros compostos'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-MAT-110",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF08MAT06",
@@ -4619,8 +4730,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • TRIGONOMETRIA NO CICLO E FUNÇÕES PER</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">sen^2(x) + cos^2(x) = 1</text>\n</svg>",
-    "figureCaption": "Figura 110: Representação gráfica calibrada para Trigonometria no Ciclo e Funções Periódicas Senoidais (EF08MAT06).",
-    "text": "(UFMG • 8º Ano EF • Habilidade EF08MAT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Trigonometria no Ciclo e Funções Periódicas Senoidais. Considerando os parâmetros experimentais e a relação fundamental sen^2(x) + cos^2(x) = 1, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Trigonometria no Ciclo e Funções Periódicas Senoidais (EF08MAT06).",
+    "text": "(Simulado Áquila (estilo UFMG) • 8º Ano EF • Habilidade EF08MAT06) Analise o diagrama abaixo referente ao estudo de Trigonometria no Ciclo e Funções Periódicas Senoidais. Considerando a relação fundamental sen^2(x) + cos^2(x) = 1, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4632,11 +4743,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Relação fundamental da trigonometria circular, obedecendo rigorosamente ao modelo sen^2(x) + cos^2(x) = 1 representado no diagrama."
+        "text": "Relação fundamental da trigonometria circular, obedecendo ao modelo sen^2(x) + cos^2(x) = 1 representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08MAT06."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08MAT06."
       },
       {
         "letter": "E",
@@ -4644,13 +4755,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação sen^2(x) + cos^2(x) = 1. Passo 2: Aplique o fundamento 'Relação fundamental da trigonometria circular'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação sen^2(x) + cos^2(x) = 1. Passo 2: Aplique o fundamento 'Relação fundamental da trigonometria circular'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-MAT-111",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF08MAT07",
@@ -4661,38 +4773,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • ESTATÍSTICA DESCRITIVA: MÉDIA PONDER</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">Mediana = termo central ordenado</text>\n</svg>",
-    "figureCaption": "Figura 111: Representação gráfica calibrada para Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão (EF08MAT07).",
-    "text": "(ENEM • 8º Ano EF • Habilidade EF08MAT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão. Considerando os parâmetros experimentais e a relação fundamental Mediana = termo central ordenado, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão (EF08MAT07).",
+    "text": "(Simulado Áquila (estilo ENEM) • 8º Ano EF • Habilidade EF08MAT07) Analise o diagrama abaixo referente ao estudo de Estatística Descritiva: Média Ponderada, Mediana e Desvio Padrão. Considerando a relação fundamental Mediana = termo central ordenado, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Mediana = termo central ordenado, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Medida de tendência central robusta a valores extremos, obedecendo ao modelo Mediana = termo central ordenado representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de estatística descritiva: média ponderada, mediana e desvio padrão."
+        "text": "O fenômeno viola Mediana = termo central ordenado, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Medida de tendência central robusta a valores extremos, obedecendo rigorosamente ao modelo Mediana = termo central ordenado representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de estatística descritiva: média ponderada, mediana e desvio padrão."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08MAT07."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08MAT07."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Mediana = termo central ordenado. Passo 2: Aplique o fundamento 'Medida de tendência central robusta a valores extremos'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Mediana = termo central ordenado. Passo 2: Aplique o fundamento 'Medida de tendência central robusta a valores extremos'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-8EF-MAT-112",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "matematica",
     "discipline": "Matemática",
     "skillCode": "EF08MAT08",
@@ -4703,8 +4816,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">REPRESENTAÇÃO ANALÍTICA • LOGARITMOS, ESCALA RICHTER E DECIBÉI</text>\n  <line x1=\"35\" y1=\"145\" x2=\"385\" y2=\"145\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"90\" y1=\"165\" x2=\"90\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 90 145 Q 200 20 310 145\" fill=\"none\" stroke=\"#a855f7\" stroke-width=\"2.8\"/>\n  <circle cx=\"200\" cy=\"82\" r=\"4.5\" fill=\"#fde047\"/>\n  <line x1=\"200\" y1=\"82\" x2=\"200\" y2=\"145\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <line x1=\"90\" y1=\"82\" x2=\"200\" y2=\"82\" stroke=\"#fde047\" stroke-dasharray=\"4 3\"/>\n  <text x=\"208\" y=\"76\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">V(xv, yv)</text>\n  <text x=\"60\" y=\"86\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">ymáx</text>\n  <text x=\"285\" y=\"52\" fill=\"#e9d5ff\" font-size=\"10\" font-family=\"monospace\">log_b(x*y) = log_b(x) + log_b(y)</text>\n</svg>",
-    "figureCaption": "Figura 112: Representação gráfica calibrada para Logaritmos, Escala Richter e Decibéis Acústicos (EF08MAT08).",
-    "text": "(FUVEST • 8º Ano EF • Habilidade EF08MAT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Logaritmos, Escala Richter e Decibéis Acústicos. Considerando os parâmetros experimentais e a relação fundamental log_b(x*y) = log_b(x) + log_b(y), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Logaritmos, Escala Richter e Decibéis Acústicos (EF08MAT08).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 8º Ano EF • Habilidade EF08MAT08) Analise o diagrama abaixo referente ao estudo de Logaritmos, Escala Richter e Decibéis Acústicos. Considerando a relação fundamental log_b(x*y) = log_b(x) + log_b(y), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4716,25 +4829,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Transformação de produtos exponenciais em somas lineares, obedecendo rigorosamente ao modelo log_b(x*y) = log_b(x) + log_b(y) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08MAT08."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08MAT08."
+        "text": "Transformação de produtos exponenciais em somas lineares, obedecendo ao modelo log_b(x*y) = log_b(x) + log_b(y) representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação log_b(x*y) = log_b(x) + log_b(y). Passo 2: Aplique o fundamento 'Transformação de produtos exponenciais em somas lineares'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação log_b(x*y) = log_b(x) + log_b(y). Passo 2: Aplique o fundamento 'Transformação de produtos exponenciais em somas lineares'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-8EF-CNT-113",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UFG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF08CNT01",
@@ -4745,8 +4859,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • ESTEQUIOMETRIA, PUREZA DE REAGENTES </text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (1 mol = 6,02 x 10^23 entidades)</text>\n</svg>",
-    "figureCaption": "Figura 113: Representação gráfica calibrada para Estequiometria, Pureza de Reagentes e Rendimento Industrial (EF08CNT01).",
-    "text": "(UFG • 8º Ano EF • Habilidade EF08CNT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Estequiometria, Pureza de Reagentes e Rendimento Industrial. Considerando os parâmetros experimentais e a relação fundamental 1 mol = 6,02 x 10^23 entidades, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Estequiometria, Pureza de Reagentes e Rendimento Industrial (EF08CNT01).",
+    "text": "(Simulado Áquila (estilo UFG) • 8º Ano EF • Habilidade EF08CNT01) Analise o diagrama abaixo referente ao estudo de Estequiometria, Pureza de Reagentes e Rendimento Industrial. Considerando a relação fundamental 1 mol = 6,02 x 10^23 entidades, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4758,25 +4872,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Lei de Lavoisier e proporções molares em reações químicas, obedecendo rigorosamente ao modelo 1 mol = 6,02 x 10^23 entidades representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT01."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT01."
+        "text": "Lei de Lavoisier e proporções molares em reações químicas, obedecendo ao modelo 1 mol = 6,02 x 10^23 entidades representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação 1 mol = 6,02 x 10^23 entidades. Passo 2: Aplique o fundamento 'Lei de Lavoisier e proporções molares em reações químicas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação 1 mol = 6,02 x 10^23 entidades. Passo 2: Aplique o fundamento 'Lei de Lavoisier e proporções molares em reações químicas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-8EF-CNT-114",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF08CNT02",
@@ -4787,8 +4902,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • TERMOQUÍMICA, ENTALPIA DE COMBUSTÃO </text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (Delta_H = H_produtos - H_reagentes)</text>\n</svg>",
-    "figureCaption": "Figura 114: Representação gráfica calibrada para Termoquímica, Entalpia de Combustão e Lei de Hess (EF08CNT02).",
-    "text": "(OBMEP • 8º Ano EF • Habilidade EF08CNT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Termoquímica, Entalpia de Combustão e Lei de Hess. Considerando os parâmetros experimentais e a relação fundamental Delta_H = H_produtos - H_reagentes, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Termoquímica, Entalpia de Combustão e Lei de Hess (EF08CNT02).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 8º Ano EF • Habilidade EF08CNT02) Analise o diagrama abaixo referente ao estudo de Termoquímica, Entalpia de Combustão e Lei de Hess. Considerando a relação fundamental Delta_H = H_produtos - H_reagentes, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4796,29 +4911,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de termoquímica, entalpia de combustão e lei de hess."
+        "text": "Balanço energético em processos exotérmicos e endotérmicos, obedecendo ao modelo Delta_H = H_produtos - H_reagentes representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Balanço energético em processos exotérmicos e endotérmicos, obedecendo rigorosamente ao modelo Delta_H = H_produtos - H_reagentes representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de termoquímica, entalpia de combustão e lei de hess."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_H = H_produtos - H_reagentes. Passo 2: Aplique o fundamento 'Balanço energético em processos exotérmicos e endotérmicos'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_H = H_produtos - H_reagentes. Passo 2: Aplique o fundamento 'Balanço energético em processos exotérmicos e endotérmicos'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-8EF-CNT-115",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF08CNT03",
@@ -4829,8 +4945,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • ELETROQUÍMICA: PILHAS DE DANIELL E E</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (Delta_E0 = E0_red(maior) - E0_red()</text>\n</svg>",
-    "figureCaption": "Figura 115: Representação gráfica calibrada para Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa (EF08CNT03).",
-    "text": "(OBA • 8º Ano EF • Habilidade EF08CNT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa. Considerando os parâmetros experimentais e a relação fundamental Delta_E0 = E0_red(maior) - E0_red(menor), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa (EF08CNT03).",
+    "text": "(Simulado Áquila (estilo OBA) • 8º Ano EF • Habilidade EF08CNT03) Analise o diagrama abaixo referente ao estudo de Eletroquímica: Pilhas de Daniell e Eletrólise Ígnea/Aquosa. Considerando a relação fundamental Delta_E0 = E0_red(maior) - E0_red(menor), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4842,25 +4958,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Diferença de potencial espontânea em células galvânicas, obedecendo rigorosamente ao modelo Delta_E0 = E0_red(maior) - E0_red(menor) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT03."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Diferença de potencial espontânea em células galvânicas, obedecendo ao modelo Delta_E0 = E0_red(maior) - E0_red(menor) representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_E0 = E0_red(maior) - E0_red(menor). Passo 2: Aplique o fundamento 'Diferença de potencial espontânea em células galvânicas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Delta_E0 = E0_red(maior) - E0_red(menor). Passo 2: Aplique o fundamento 'Diferença de potencial espontânea em células galvânicas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-CNT-116",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF08CNT04",
@@ -4871,8 +4988,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • EQUILÍBRIO QUÍMICO, PH, POH E DESLOC</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (pH = -log10[H+])</text>\n</svg>",
-    "figureCaption": "Figura 116: Representação gráfica calibrada para Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier (EF08CNT04).",
-    "text": "(UEG • 8º Ano EF • Habilidade EF08CNT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier. Considerando os parâmetros experimentais e a relação fundamental pH = -log10[H+], assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier (EF08CNT04).",
+    "text": "(Simulado Áquila (estilo UEG) • 8º Ano EF • Habilidade EF08CNT04) Analise o diagrama abaixo referente ao estudo de Equilíbrio Químico, pH, pOH e Deslocamento de Le Chatelier. Considerando a relação fundamental pH = -log10[H+], assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4884,11 +5001,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Escala logarítmica de acidez em soluções aquosas a 25 °C, obedecendo rigorosamente ao modelo pH = -log10[H+] representado no diagrama."
+        "text": "Escala logarítmica de acidez em soluções aquosas a 25 °C, obedecendo ao modelo pH = -log10[H+] representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT04."
       },
       {
         "letter": "E",
@@ -4896,13 +5013,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação pH = -log10[H+]. Passo 2: Aplique o fundamento 'Escala logarítmica de acidez em soluções aquosas a 25 °C'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação pH = -log10[H+]. Passo 2: Aplique o fundamento 'Escala logarítmica de acidez em soluções aquosas a 25 °C'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-CNT-117",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF08CNT05",
@@ -4913,38 +5031,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • QUÍMICA ORGÂNICA: FUNÇÕES OXIGENADAS</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (Cadeia carbônica tetravalente (sp3)</text>\n</svg>",
-    "figureCaption": "Figura 117: Representação gráfica calibrada para Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros (EF08CNT05).",
-    "text": "(UFMG • 8º Ano EF • Habilidade EF08CNT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros. Considerando os parâmetros experimentais e a relação fundamental Cadeia carbônica tetravalente (sp3, sp2, sp), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros (EF08CNT05).",
+    "text": "(Simulado Áquila (estilo UFMG) • 8º Ano EF • Habilidade EF08CNT05) Analise o diagrama abaixo referente ao estudo de Química Orgânica: Funções Oxigenadas, Isomeria e Polímeros. Considerando a relação fundamental Cadeia carbônica tetravalente (sp3, sp2, sp), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Cadeia carbônica tetravalente (sp3, sp2, sp), reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila, obedecendo ao modelo Cadeia carbônica tetravalente (sp3, sp2, sp) representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de química orgânica: funções oxigenadas, isomeria e polímeros."
+        "text": "O fenômeno viola Cadeia carbônica tetravalente (sp3, sp2, sp), reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila, obedecendo rigorosamente ao modelo Cadeia carbônica tetravalente (sp3, sp2, sp) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de química orgânica: funções oxigenadas, isomeria e polímeros."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT05."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT05."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeia carbônica tetravalente (sp3, sp2, sp). Passo 2: Aplique o fundamento 'Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeia carbônica tetravalente (sp3, sp2, sp). Passo 2: Aplique o fundamento 'Reconhecimento de grupos funcionais hidroxila, carbonila e carboxila'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-8EF-CNT-118",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF08CNT06",
@@ -4955,8 +5074,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • SOLUÇÕES, CONCENTRAÇÃO MOLAR, DILUIÇ</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (C1 * V1 = C2 * V2)</text>\n</svg>",
-    "figureCaption": "Figura 118: Representação gráfica calibrada para Soluções, Concentração Molar, Diluição e Titulação Ácido-Base (EF08CNT06).",
-    "text": "(ENEM • 8º Ano EF • Habilidade EF08CNT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Soluções, Concentração Molar, Diluição e Titulação Ácido-Base. Considerando os parâmetros experimentais e a relação fundamental C1 * V1 = C2 * V2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Soluções, Concentração Molar, Diluição e Titulação Ácido-Base (EF08CNT06).",
+    "text": "(Simulado Áquila (estilo ENEM) • 8º Ano EF • Habilidade EF08CNT06) Analise o diagrama abaixo referente ao estudo de Soluções, Concentração Molar, Diluição e Titulação Ácido-Base. Considerando a relação fundamental C1 * V1 = C2 * V2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -4968,25 +5087,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Conservação da quantidade de soluto durante diluição, obedecendo rigorosamente ao modelo C1 * V1 = C2 * V2 representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT06."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT06."
+        "text": "Conservação da quantidade de soluto durante diluição, obedecendo ao modelo C1 * V1 = C2 * V2 representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação C1 * V1 = C2 * V2. Passo 2: Aplique o fundamento 'Conservação da quantidade de soluto durante diluição'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação C1 * V1 = C2 * V2. Passo 2: Aplique o fundamento 'Conservação da quantidade de soluto durante diluição'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-8EF-CNT-119",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF08CNT07",
@@ -4997,8 +5117,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • CINÉTICA QUÍMICA, ENERGIA DE ATIVAÇÃ</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (v = k * [A]^m * [B]^n)</text>\n</svg>",
-    "figureCaption": "Figura 119: Representação gráfica calibrada para Cinética Química, Energia de Ativação e Catálise Enzimática (EF08CNT07).",
-    "text": "(FUVEST • 8º Ano EF • Habilidade EF08CNT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Cinética Química, Energia de Ativação e Catálise Enzimática. Considerando os parâmetros experimentais e a relação fundamental v = k * [A]^m * [B]^n, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Cinética Química, Energia de Ativação e Catálise Enzimática (EF08CNT07).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 8º Ano EF • Habilidade EF08CNT07) Analise o diagrama abaixo referente ao estudo de Cinética Química, Energia de Ativação e Catálise Enzimática. Considerando a relação fundamental v = k * [A]^m * [B]^n, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5006,29 +5126,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de cinética química, energia de ativação e catálise enzimática."
+        "text": "Lei da velocidade e redução da barreira energética por catalisadores, obedecendo ao modelo v = k * [A]^m * [B]^n representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Lei da velocidade e redução da barreira energética por catalisadores, obedecendo rigorosamente ao modelo v = k * [A]^m * [B]^n representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de cinética química, energia de ativação e catálise enzimática."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT07."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT07."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = k * [A]^m * [B]^n. Passo 2: Aplique o fundamento 'Lei da velocidade e redução da barreira energética por catalisadores'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação v = k * [A]^m * [B]^n. Passo 2: Aplique o fundamento 'Lei da velocidade e redução da barreira energética por catalisadores'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-8EF-CNT-120",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Química",
     "skillCode": "EF08CNT08",
@@ -5039,8 +5160,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">CURVA DE ENTALPIA &amp; CINÉTICA • RADIOATIVIDADE: EMISSÕES ALFA, BETA,</text>\n  <line x1=\"45\" y1=\"150\" x2=\"385\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <line x1=\"45\" y1=\"150\" x2=\"45\" y2=\"32\" stroke=\"#94a3b8\" stroke-width=\"1.6\"/>\n  <path d=\"M 55 95 L 125 95 Q 195 25 265 130 L 355 130\" fill=\"none\" stroke=\"#10b981\" stroke-width=\"2.8\"/>\n  <path d=\"M 125 95 Q 195 55 265 130\" fill=\"none\" stroke=\"#38bdf8\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"60\" y=\"88\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Reagentes (HR)</text>\n  <text x=\"280\" y=\"124\" fill=\"#a7f3d0\" font-size=\"10\" font-family=\"monospace\">Produtos (HP)</text>\n  <text x=\"170\" y=\"42\" fill=\"#38bdf8\" font-size=\"10\" font-family=\"monospace\">Com Catalisador (Ea menor)</text>\n  <text x=\"150\" y=\"166\" fill=\"#cbd5e1\" font-size=\"10\" font-family=\"monospace\">Caminho da Reação (m = m0 / 2^x)</text>\n</svg>",
-    "figureCaption": "Figura 120: Representação gráfica calibrada para Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida (EF08CNT08).",
-    "text": "(UNICAMP • 8º Ano EF • Habilidade EF08CNT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida. Considerando os parâmetros experimentais e a relação fundamental m = m0 / 2^x, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida (EF08CNT08).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 8º Ano EF • Habilidade EF08CNT08) Analise o diagrama abaixo referente ao estudo de Radioatividade: Emissões Alfa, Beta, Gama e Tempo de Meia-Vida. Considerando a relação fundamental m = m0 / 2^x, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5052,25 +5173,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Decaimento nuclear estatístico aplicado à datação por Carbono-14, obedecendo rigorosamente ao modelo m = m0 / 2^x representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT08."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT08."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Decaimento nuclear estatístico aplicado à datação por Carbono-14, obedecendo ao modelo m = m0 / 2^x representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação m = m0 / 2^x. Passo 2: Aplique o fundamento 'Decaimento nuclear estatístico aplicado à datação por Carbono-14'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação m = m0 / 2^x. Passo 2: Aplique o fundamento 'Decaimento nuclear estatístico aplicado à datação por Carbono-14'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-CNT-121",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBMEP",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo OBMEP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF08CNT01",
@@ -5081,8 +5203,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • ECOLOGIA, CADEIAS TRÓFICAS, CICLOS B</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 121: Representação gráfica calibrada para Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização (EF08CNT01).",
-    "text": "(OBMEP • 8º Ano EF • Habilidade EF08CNT01) Analise o diagrama técnico-científico abaixo referente ao estudo de Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização. Considerando os parâmetros experimentais e a relação fundamental Fluxo unidirecional de energia (regra dos 10%), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização (EF08CNT01).",
+    "text": "(Simulado Áquila (estilo OBMEP) • 8º Ano EF • Habilidade EF08CNT01) Analise o diagrama abaixo referente ao estudo de Ecologia, Cadeias Tróficas, Ciclos Biogeoquímicos e Eutrofização. Considerando a relação fundamental Fluxo unidirecional de energia (regra dos 10%), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5094,25 +5216,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Pirâmides ecológicas e bioacumulação trófica em ecossistemas, obedecendo rigorosamente ao modelo Fluxo unidirecional de energia (regra dos 10%) representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT01."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT01."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Pirâmides ecológicas e bioacumulação trófica em ecossistemas, obedecendo ao modelo Fluxo unidirecional de energia (regra dos 10%) representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Fluxo unidirecional de energia (regra dos 10%). Passo 2: Aplique o fundamento 'Pirâmides ecológicas e bioacumulação trófica em ecossistemas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Fluxo unidirecional de energia (regra dos 10%). Passo 2: Aplique o fundamento 'Pirâmides ecológicas e bioacumulação trófica em ecossistemas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-CNT-122",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF08CNT02",
@@ -5123,8 +5246,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • CITOLOGIA, TRANSPORTE DE MEMBRANA (O</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 122: Representação gráfica calibrada para Citologia, Transporte de Membrana (Osmose) e Respiração Celular (EF08CNT02).",
-    "text": "(OBA • 8º Ano EF • Habilidade EF08CNT02) Analise o diagrama técnico-científico abaixo referente ao estudo de Citologia, Transporte de Membrana (Osmose) e Respiração Celular. Considerando os parâmetros experimentais e a relação fundamental Meio hipotônico -> hipertônico, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Citologia, Transporte de Membrana (Osmose) e Respiração Celular (EF08CNT02).",
+    "text": "(Simulado Áquila (estilo OBA) • 8º Ano EF • Habilidade EF08CNT02) Analise o diagrama abaixo referente ao estudo de Citologia, Transporte de Membrana (Osmose) e Respiração Celular. Considerando a relação fundamental Meio hipotônico -> hipertônico, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5136,11 +5259,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Movimento passivo do solvente através de membrana semipermeável, obedecendo rigorosamente ao modelo Meio hipotônico -> hipertônico representado no diagrama."
+        "text": "Movimento passivo do solvente através de membrana semipermeável, obedecendo ao modelo Meio hipotônico -> hipertônico representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT02."
       },
       {
         "letter": "E",
@@ -5148,13 +5271,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Meio hipotônico -> hipertônico. Passo 2: Aplique o fundamento 'Movimento passivo do solvente através de membrana semipermeável'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Meio hipotônico -> hipertônico. Passo 2: Aplique o fundamento 'Movimento passivo do solvente através de membrana semipermeável'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-CNT-123",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF08CNT03",
@@ -5165,38 +5289,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • GENÉTICA MENDELIANA, HEREDOGRAMAS, S</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 123: Representação gráfica calibrada para Genética Mendeliana, Heredogramas, Sistema ABO e Linkage (EF08CNT03).",
-    "text": "(UEG • 8º Ano EF • Habilidade EF08CNT03) Analise o diagrama técnico-científico abaixo referente ao estudo de Genética Mendeliana, Heredogramas, Sistema ABO e Linkage. Considerando os parâmetros experimentais e a relação fundamental Proporção F2 = 3:1 (monoibridismo), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Genética Mendeliana, Heredogramas, Sistema ABO e Linkage (EF08CNT03).",
+    "text": "(Simulado Áquila (estilo UEG) • 8º Ano EF • Habilidade EF08CNT03) Analise o diagrama abaixo referente ao estudo de Genética Mendeliana, Heredogramas, Sistema ABO e Linkage. Considerando a relação fundamental Proporção F2 = 3:1 (monoibridismo), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Proporção F2 = 3:1 (monoibridismo), reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Segregação independente de alelos na meiose, obedecendo ao modelo Proporção F2 = 3:1 (monoibridismo) representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de genética mendeliana, heredogramas, sistema abo e linkage."
+        "text": "O fenômeno viola Proporção F2 = 3:1 (monoibridismo), reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Segregação independente de alelos na meiose, obedecendo rigorosamente ao modelo Proporção F2 = 3:1 (monoibridismo) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de genética mendeliana, heredogramas, sistema abo e linkage."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT03."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Proporção F2 = 3:1 (monoibridismo). Passo 2: Aplique o fundamento 'Segregação independente de alelos na meiose'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Proporção F2 = 3:1 (monoibridismo). Passo 2: Aplique o fundamento 'Segregação independente de alelos na meiose'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-8EF-CNT-124",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF08CNT04",
@@ -5207,8 +5332,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • BIOTECNOLOGIA: PCR, CRISPR-CAS9, TRA</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 124: Representação gráfica calibrada para Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem (EF08CNT04).",
-    "text": "(UFMG • 8º Ano EF • Habilidade EF08CNT04) Analise o diagrama técnico-científico abaixo referente ao estudo de Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem. Considerando os parâmetros experimentais e a relação fundamental Enzimas de restrição e DNA recombinante, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem (EF08CNT04).",
+    "text": "(Simulado Áquila (estilo UFMG) • 8º Ano EF • Habilidade EF08CNT04) Analise o diagrama abaixo referente ao estudo de Biotecnologia: PCR, CRISPR-Cas9, Transgênicos e Clonagem. Considerando a relação fundamental Enzimas de restrição e DNA recombinante, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5220,25 +5345,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Edição gênica dirigida e aplicações biomédicas, obedecendo rigorosamente ao modelo Enzimas de restrição e DNA recombinante representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT04."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT04."
+        "text": "Edição gênica dirigida e aplicações biomédicas, obedecendo ao modelo Enzimas de restrição e DNA recombinante representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Enzimas de restrição e DNA recombinante. Passo 2: Aplique o fundamento 'Edição gênica dirigida e aplicações biomédicas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Enzimas de restrição e DNA recombinante. Passo 2: Aplique o fundamento 'Edição gênica dirigida e aplicações biomédicas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-8EF-CNT-125",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2024,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF08CNT05",
@@ -5249,8 +5375,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • FISIOLOGIA HUMANA: SISTEMAS CIRCULAT</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 125: Representação gráfica calibrada para Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas (EF08CNT05).",
-    "text": "(ENEM • 8º Ano EF • Habilidade EF08CNT05) Analise o diagrama técnico-científico abaixo referente ao estudo de Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas. Considerando os parâmetros experimentais e a relação fundamental Imunização ativa (vacina) vs passiva (soro), assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas (EF08CNT05).",
+    "text": "(Simulado Áquila (estilo ENEM) • 8º Ano EF • Habilidade EF08CNT05) Analise o diagrama abaixo referente ao estudo de Fisiologia Humana: Sistemas Circulatório, Imunológico e Vacinas. Considerando a relação fundamental Imunização ativa (vacina) vs passiva (soro), assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5258,29 +5384,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de fisiologia humana: sistemas circulatório, imunológico e vacinas."
+        "text": "Memória imunológica mediada por linfócitos B e T, obedecendo ao modelo Imunização ativa (vacina) vs passiva (soro) representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Memória imunológica mediada por linfócitos B e T, obedecendo rigorosamente ao modelo Imunização ativa (vacina) vs passiva (soro) representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de fisiologia humana: sistemas circulatório, imunológico e vacinas."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT05."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT05."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Imunização ativa (vacina) vs passiva (soro). Passo 2: Aplique o fundamento 'Memória imunológica mediada por linfócitos B e T'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Imunização ativa (vacina) vs passiva (soro). Passo 2: Aplique o fundamento 'Memória imunológica mediada por linfócitos B e T'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-8EF-CNT-126",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2025,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF08CNT06",
@@ -5291,8 +5418,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • EVOLUÇÃO BIOLÓGICA: SELEÇÃO NATURAL </text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 126: Representação gráfica calibrada para Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck) (EF08CNT06).",
-    "text": "(FUVEST • 8º Ano EF • Habilidade EF08CNT06) Analise o diagrama técnico-científico abaixo referente ao estudo de Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck). Considerando os parâmetros experimentais e a relação fundamental Pressão seletiva ambiental sobre variabilidade genética, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck) (EF08CNT06).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 8º Ano EF • Habilidade EF08CNT06) Analise o diagrama abaixo referente ao estudo de Evolução Biológica: Seleção Natural (Darwin) vs Uso e Desuso (Lamarck). Considerando a relação fundamental Pressão seletiva ambiental sobre variabilidade genética, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5304,25 +5431,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Resistência bacteriana a antibióticos por seleção diferencial, obedecendo rigorosamente ao modelo Pressão seletiva ambiental sobre variabilidade genética representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT06."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT06."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Resistência bacteriana a antibióticos por seleção diferencial, obedecendo ao modelo Pressão seletiva ambiental sobre variabilidade genética representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pressão seletiva ambiental sobre variabilidade genética. Passo 2: Aplique o fundamento 'Resistência bacteriana a antibióticos por seleção diferencial'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pressão seletiva ambiental sobre variabilidade genética. Passo 2: Aplique o fundamento 'Resistência bacteriana a antibióticos por seleção diferencial'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-CNT-127",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF08CNT07",
@@ -5333,8 +5461,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • BOTÂNICA, FOTOSSÍNTESE, TRANSPIRAÇÃO</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 127: Representação gráfica calibrada para Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas) (EF08CNT07).",
-    "text": "(UNICAMP • 8º Ano EF • Habilidade EF08CNT07) Analise o diagrama técnico-científico abaixo referente ao estudo de Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas). Considerando os parâmetros experimentais e a relação fundamental 6 CO2 + 6 H2O -> C6H12O6 + 6 O2, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas) (EF08CNT07).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 8º Ano EF • Habilidade EF08CNT07) Analise o diagrama abaixo referente ao estudo de Botânica, Fotossíntese, Transpiração Estomática e Hormônios (Auxinas). Considerando a relação fundamental 6 CO2 + 6 H2O -> C6H12O6 + 6 O2, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5346,11 +5474,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Fixação de carbono no Ciclo de Calvin e fotólise da água, obedecendo rigorosamente ao modelo 6 CO2 + 6 H2O -> C6H12O6 + 6 O2 representado no diagrama."
+        "text": "Fixação de carbono no Ciclo de Calvin e fotólise da água, obedecendo ao modelo 6 CO2 + 6 H2O -> C6H12O6 + 6 O2 representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT07."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT07."
       },
       {
         "letter": "E",
@@ -5358,13 +5486,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação 6 CO2 + 6 H2O -> C6H12O6 + 6 O2. Passo 2: Aplique o fundamento 'Fixação de carbono no Ciclo de Calvin e fotólise da água'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação 6 CO2 + 6 H2O -> C6H12O6 + 6 O2. Passo 2: Aplique o fundamento 'Fixação de carbono no Ciclo de Calvin e fotólise da água'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-CNT-128",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UnB",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UnB)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Biologia",
     "skillCode": "EF08CNT08",
@@ -5375,38 +5504,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 180\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MODELO SISTÊMICO BIOLÓGICO • PARASITOLOGIA E SAÚDE PÚBLICA: DENGU</text>\n  <rect x=\"45\" y=\"120\" width=\"240\" height=\"26\" rx=\"4\" fill=\"#059669\" stroke=\"#34d399\"/>\n  <rect x=\"75\" y=\"90\" width=\"180\" height=\"24\" rx=\"4\" fill=\"#0284c7\" stroke=\"#38bdf8\"/>\n  <rect x=\"110\" y=\"62\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#7c3aed\" stroke=\"#c084fc\"/>\n  <rect x=\"140\" y=\"36\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#e11d48\" stroke=\"#fda4af\"/>\n  <text x=\"95\" y=\"137\" fill=\"#ecfdf5\" font-size=\"10\" font-family=\"monospace\">Nível 1: Produtores (10.000 kcal)</text>\n  <text x=\"105\" y=\"106\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">Nível 2: Herbívoros (1.000 kcal)</text>\n  <text x=\"122\" y=\"77\" fill=\"#f3e8ff\" font-size=\"9.5\" font-family=\"monospace\">Carnívoros I (100)</text>\n  <text x=\"295\" y=\"95\" fill=\"#fde047\" font-size=\"10\" font-family=\"monospace\">Fluxo 10%</text>\n</svg>",
-    "figureCaption": "Figura 128: Representação gráfica calibrada para Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose (EF08CNT08).",
-    "text": "(UnB • 8º Ano EF • Habilidade EF08CNT08) Analise o diagrama técnico-científico abaixo referente ao estudo de Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose. Considerando os parâmetros experimentais e a relação fundamental Vetor biológico vs hospedeiro definitivo, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose (EF08CNT08).",
+    "text": "(Simulado Áquila (estilo UnB) • 8º Ano EF • Habilidade EF08CNT08) Analise o diagrama abaixo referente ao estudo de Parasitologia e Saúde Pública: Dengue, Malária, Chagas e Esquistossomose. Considerando a relação fundamental Vetor biológico vs hospedeiro definitivo, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Vetor biológico vs hospedeiro definitivo, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Profilaxia epidemiológica e saneamento ambiental, obedecendo ao modelo Vetor biológico vs hospedeiro definitivo representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de parasitologia e saúde pública: dengue, malária, chagas e esquistossomose."
+        "text": "O fenômeno viola Vetor biológico vs hospedeiro definitivo, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Profilaxia epidemiológica e saneamento ambiental, obedecendo rigorosamente ao modelo Vetor biológico vs hospedeiro definitivo representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de parasitologia e saúde pública: dengue, malária, chagas e esquistossomose."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CNT08."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CNT08."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Vetor biológico vs hospedeiro definitivo. Passo 2: Aplique o fundamento 'Profilaxia epidemiológica e saneamento ambiental'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Vetor biológico vs hospedeiro definitivo. Passo 2: Aplique o fundamento 'Profilaxia epidemiológica e saneamento ambiental'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-8EF-CI-129",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "OBA",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo OBA)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF08CI01",
@@ -5417,38 +5547,39 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • RIOS VOADORES, CICLO HIDROLÓGICO E E</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Evapotranspiração amazônica e tran</text>\n</svg>",
-    "figureCaption": "Figura 129: Representação gráfica calibrada para Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural (EF08CI01).",
-    "text": "(OBA • 8º Ano EF • Habilidade EF08CI01) Analise o diagrama técnico-científico abaixo referente ao estudo de Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural. Considerando os parâmetros experimentais e a relação fundamental Evapotranspiração amazônica e transporte de umidade, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural (EF08CI01).",
+    "text": "(Simulado Áquila (estilo OBA) • 8º Ano EF • Habilidade EF08CI01) Analise o diagrama abaixo referente ao estudo de Rios Voadores, Ciclo Hidrológico e Efeito Estufa Natural. Considerando a relação fundamental Evapotranspiração amazônica e transporte de umidade, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Evapotranspiração amazônica e transporte de umidade, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Regulação climática sul-americana e conservação da floresta, obedecendo ao modelo Evapotranspiração amazônica e transporte de umidade representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de rios voadores, ciclo hidrológico e efeito estufa natural."
+        "text": "O fenômeno viola Evapotranspiração amazônica e transporte de umidade, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Regulação climática sul-americana e conservação da floresta, obedecendo rigorosamente ao modelo Evapotranspiração amazônica e transporte de umidade representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de rios voadores, ciclo hidrológico e efeito estufa natural."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CI01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CI01."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Evapotranspiração amazônica e transporte de umidade. Passo 2: Aplique o fundamento 'Regulação climática sul-americana e conservação da floresta'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Evapotranspiração amazônica e transporte de umidade. Passo 2: Aplique o fundamento 'Regulação climática sul-americana e conservação da floresta'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   },
   {
     "id": "AQ-SVG-8EF-CI-130",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF08CI02",
@@ -5459,8 +5590,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • MÁQUINAS SIMPLES: ALAVANCAS INTERFIX</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: F_potente * d_potente = F_resisten</text>\n</svg>",
-    "figureCaption": "Figura 130: Representação gráfica calibrada para Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado (EF08CI02).",
-    "text": "(UEG • 8º Ano EF • Habilidade EF08CI02) Analise o diagrama técnico-científico abaixo referente ao estudo de Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado. Considerando os parâmetros experimentais e a relação fundamental F_potente * d_potente = F_resistente * d_resistente, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado (EF08CI02).",
+    "text": "(Simulado Áquila (estilo UEG) • 8º Ano EF • Habilidade EF08CI02) Analise o diagrama abaixo referente ao estudo de Máquinas Simples: Alavancas Interfixas, Polias e Plano Inclinado. Considerando a relação fundamental F_potente * d_potente = F_resistente * d_resistente, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5472,25 +5603,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Condição de equilíbrio rotacional (torque) em alavancas, obedecendo rigorosamente ao modelo F_potente * d_potente = F_resistente * d_resistente representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CI02."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CI02."
+        "text": "Condição de equilíbrio rotacional (torque) em alavancas, obedecendo ao modelo F_potente * d_potente = F_resistente * d_resistente representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_potente * d_potente = F_resistente * d_resistente. Passo 2: Aplique o fundamento 'Condição de equilíbrio rotacional (torque) em alavancas'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação F_potente * d_potente = F_resistente * d_resistente. Passo 2: Aplique o fundamento 'Condição de equilíbrio rotacional (torque) em alavancas'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-8EF-CI-131",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF08CI03",
@@ -5501,8 +5633,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • PLACAS TECTÔNICAS, DERIVA CONTINENTA</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Correntes de convecção no manto as</text>\n</svg>",
-    "figureCaption": "Figura 131: Representação gráfica calibrada para Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra (EF08CI03).",
-    "text": "(UFMG • 8º Ano EF • Habilidade EF08CI03) Analise o diagrama técnico-científico abaixo referente ao estudo de Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra. Considerando os parâmetros experimentais e a relação fundamental Correntes de convecção no manto astenosférico, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra (EF08CI03).",
+    "text": "(Simulado Áquila (estilo UFMG) • 8º Ano EF • Habilidade EF08CI03) Analise o diagrama abaixo referente ao estudo de Placas Tectônicas, Deriva Continental e Estrutura Interna da Terra. Considerando a relação fundamental Correntes de convecção no manto astenosférico, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5510,29 +5642,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de placas tectônicas, deriva continental e estrutura interna da terra."
+        "text": "Formação de cadeias montanhosas, fossas oceânicas e vulcanismo, obedecendo ao modelo Correntes de convecção no manto astenosférico representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Formação de cadeias montanhosas, fossas oceânicas e vulcanismo, obedecendo rigorosamente ao modelo Correntes de convecção no manto astenosférico representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de placas tectônicas, deriva continental e estrutura interna da terra."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CI03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CI03."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Correntes de convecção no manto astenosférico. Passo 2: Aplique o fundamento 'Formação de cadeias montanhosas, fossas oceânicas e vulcanismo'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Correntes de convecção no manto astenosférico. Passo 2: Aplique o fundamento 'Formação de cadeias montanhosas, fossas oceânicas e vulcanismo'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-8EF-CI-132",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "natureza",
     "discipline": "Ciências",
     "skillCode": "EF08CI04",
@@ -5543,8 +5676,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • MISTURAS HOMOGÊNEAS, HETEROGÊNEAS E </text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Destilação fracionada, filtração e</text>\n</svg>",
-    "figureCaption": "Figura 132: Representação gráfica calibrada para Misturas Homogêneas, Heterogêneas e Processos de Separação (EF08CI04).",
-    "text": "(ENEM • 8º Ano EF • Habilidade EF08CI04) Analise o diagrama técnico-científico abaixo referente ao estudo de Misturas Homogêneas, Heterogêneas e Processos de Separação. Considerando os parâmetros experimentais e a relação fundamental Destilação fracionada, filtração e decantação, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Misturas Homogêneas, Heterogêneas e Processos de Separação (EF08CI04).",
+    "text": "(Simulado Áquila (estilo ENEM) • 8º Ano EF • Habilidade EF08CI04) Analise o diagrama abaixo referente ao estudo de Misturas Homogêneas, Heterogêneas e Processos de Separação. Considerando a relação fundamental Destilação fracionada, filtração e decantação, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5556,25 +5689,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Separação física baseada em pontos de ebulição e densidade, obedecendo rigorosamente ao modelo Destilação fracionada, filtração e decantação representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CI04."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CI04."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Separação física baseada em pontos de ebulição e densidade, obedecendo ao modelo Destilação fracionada, filtração e decantação representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Destilação fracionada, filtração e decantação. Passo 2: Aplique o fundamento 'Separação física baseada em pontos de ebulição e densidade'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Destilação fracionada, filtração e decantação. Passo 2: Aplique o fundamento 'Separação física baseada em pontos de ebulição e densidade'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-CHS-133",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UEG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UEG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF08CHS01",
@@ -5585,8 +5719,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • BRASIL COLÔNIA, CICLOS ECONÔMICOS E </text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Pacto Colonial e plantation escrav</text>\n</svg>",
-    "figureCaption": "Figura 133: Representação gráfica calibrada para Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena (EF08CHS01).",
-    "text": "(UEG • 8º Ano EF • Habilidade EF08CHS01) Analise o diagrama técnico-científico abaixo referente ao estudo de Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena. Considerando os parâmetros experimentais e a relação fundamental Pacto Colonial e plantation escravista, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena (EF08CHS01).",
+    "text": "(Simulado Áquila (estilo UEG) • 8º Ano EF • Habilidade EF08CHS01) Analise o diagrama abaixo referente ao estudo de Brasil Colônia, Ciclos Econômicos e Resistência Quilombola/Indígena. Considerando a relação fundamental Pacto Colonial e plantation escravista, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5598,25 +5732,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Formação socioeconômica da América Portuguesa, obedecendo rigorosamente ao modelo Pacto Colonial e plantation escravista representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CHS01."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CHS01."
+        "text": "Formação socioeconômica da América Portuguesa, obedecendo ao modelo Pacto Colonial e plantation escravista representado no diagrama."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pacto Colonial e plantation escravista. Passo 2: Aplique o fundamento 'Formação socioeconômica da América Portuguesa'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "D",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Pacto Colonial e plantation escravista. Passo 2: Aplique o fundamento 'Formação socioeconômica da América Portuguesa'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa D."
   },
   {
     "id": "AQ-SVG-8EF-CHS-134",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF08CHS02",
@@ -5627,8 +5762,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • ERA VARGAS (1930-1945), INDUSTRIALIZ</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Estado Novo, DIP e trabalhismo urb</text>\n</svg>",
-    "figureCaption": "Figura 134: Representação gráfica calibrada para Era Vargas (1930-1945), Industrialização de Base e CLT (EF08CHS02).",
-    "text": "(UFMG • 8º Ano EF • Habilidade EF08CHS02) Analise o diagrama técnico-científico abaixo referente ao estudo de Era Vargas (1930-1945), Industrialização de Base e CLT. Considerando os parâmetros experimentais e a relação fundamental Estado Novo, DIP e trabalhismo urbano, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Era Vargas (1930-1945), Industrialização de Base e CLT (EF08CHS02).",
+    "text": "(Simulado Áquila (estilo UFMG) • 8º Ano EF • Habilidade EF08CHS02) Analise o diagrama abaixo referente ao estudo de Era Vargas (1930-1945), Industrialização de Base e CLT. Considerando a relação fundamental Estado Novo, DIP e trabalhismo urbano, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5636,29 +5771,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de era vargas (1930-1945), industrialização de base e clt."
+        "text": "Modernização conservadora e substituição de importações, obedecendo ao modelo Estado Novo, DIP e trabalhismo urbano representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Modernização conservadora e substituição de importações, obedecendo rigorosamente ao modelo Estado Novo, DIP e trabalhismo urbano representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de era vargas (1930-1945), industrialização de base e clt."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CHS02."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CHS02."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Estado Novo, DIP e trabalhismo urbano. Passo 2: Aplique o fundamento 'Modernização conservadora e substituição de importações'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Estado Novo, DIP e trabalhismo urbano. Passo 2: Aplique o fundamento 'Modernização conservadora e substituição de importações'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-8EF-CHS-135",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF08CHS03",
@@ -5669,8 +5805,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • REVOLUÇÃO INDUSTRIAL, ILUMINISMO E T</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Maquinofatura, cercamentos e tempo</text>\n</svg>",
-    "figureCaption": "Figura 135: Representação gráfica calibrada para Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho (EF08CHS03).",
-    "text": "(ENEM • 8º Ano EF • Habilidade EF08CHS03) Analise o diagrama técnico-científico abaixo referente ao estudo de Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho. Considerando os parâmetros experimentais e a relação fundamental Maquinofatura, cercamentos e tempo fabril, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho (EF08CHS03).",
+    "text": "(Simulado Áquila (estilo ENEM) • 8º Ano EF • Habilidade EF08CHS03) Analise o diagrama abaixo referente ao estudo de Revolução Industrial, Iluminismo e Transformações do Mundo do Trabalho. Considerando a relação fundamental Maquinofatura, cercamentos e tempo fabril, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5682,25 +5818,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Transição do capitalismo comercial para o industrial, obedecendo rigorosamente ao modelo Maquinofatura, cercamentos e tempo fabril representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CHS03."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CHS03."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Transição do capitalismo comercial para o industrial, obedecendo ao modelo Maquinofatura, cercamentos e tempo fabril representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Maquinofatura, cercamentos e tempo fabril. Passo 2: Aplique o fundamento 'Transição do capitalismo comercial para o industrial'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Maquinofatura, cercamentos e tempo fabril. Passo 2: Aplique o fundamento 'Transição do capitalismo comercial para o industrial'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-CHS-136",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "História",
     "skillCode": "EF08CHS04",
@@ -5711,8 +5848,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • REPÚBLICA VELHA, CORONELISMO, VOTO D</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Política dos Governadores e Café c</text>\n</svg>",
-    "figureCaption": "Figura 136: Representação gráfica calibrada para República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina (EF08CHS04).",
-    "text": "(FUVEST • 8º Ano EF • Habilidade EF08CHS04) Analise o diagrama técnico-científico abaixo referente ao estudo de República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina. Considerando os parâmetros experimentais e a relação fundamental Política dos Governadores e Café com Leite, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina (EF08CHS04).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 8º Ano EF • Habilidade EF08CHS04) Analise o diagrama abaixo referente ao estudo de República Velha, Coronelismo, Voto de Cabresto e Revolta da Vacina. Considerando a relação fundamental Política dos Governadores e Café com Leite, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5724,11 +5861,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Cidadania restrita e movimentos sociais na Primeira República, obedecendo rigorosamente ao modelo Política dos Governadores e Café com Leite representado no diagrama."
+        "text": "Cidadania restrita e movimentos sociais na Primeira República, obedecendo ao modelo Política dos Governadores e Café com Leite representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CHS04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CHS04."
       },
       {
         "letter": "E",
@@ -5736,13 +5873,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Política dos Governadores e Café com Leite. Passo 2: Aplique o fundamento 'Cidadania restrita e movimentos sociais na Primeira República'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Política dos Governadores e Café com Leite. Passo 2: Aplique o fundamento 'Cidadania restrita e movimentos sociais na Primeira República'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-CHS-137",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UFMG",
-    "year": 2020,
+    "exam": "Simulado Áquila (estilo UFMG)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF08CHS01",
@@ -5753,8 +5891,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 464,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • DINÂMICA DEMOGRÁFICA, TRANSIÇÃO ETÁR</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Queda da fecundidade e envelhecime</text>\n</svg>",
-    "figureCaption": "Figura 137: Representação gráfica calibrada para Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil (EF08CHS01).",
-    "text": "(UFMG • 8º Ano EF • Habilidade EF08CHS01) Analise o diagrama técnico-científico abaixo referente ao estudo de Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil. Considerando os parâmetros experimentais e a relação fundamental Queda da fecundidade e envelhecimento populacional, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil (EF08CHS01).",
+    "text": "(Simulado Áquila (estilo UFMG) • 8º Ano EF • Habilidade EF08CHS01) Analise o diagrama abaixo referente ao estudo de Dinâmica Demográfica, Transição Etária e Bônus Demográfico no Brasil. Considerando a relação fundamental Queda da fecundidade e envelhecimento populacional, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5762,29 +5900,30 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de dinâmica demográfica, transição etária e bônus demográfico no brasil."
+        "text": "Leitura de pirâmides etárias e impactos previdenciários, obedecendo ao modelo Queda da fecundidade e envelhecimento populacional representado no diagrama."
       },
       {
         "letter": "C",
-        "text": "Leitura de pirâmides etárias e impactos previdenciários, obedecendo rigorosamente ao modelo Queda da fecundidade e envelhecimento populacional representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de dinâmica demográfica, transição etária e bônus demográfico no brasil."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CHS01."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CHS01."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Queda da fecundidade e envelhecimento populacional. Passo 2: Aplique o fundamento 'Leitura de pirâmides etárias e impactos previdenciários'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "B",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Queda da fecundidade e envelhecimento populacional. Passo 2: Aplique o fundamento 'Leitura de pirâmides etárias e impactos previdenciários'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa B."
   },
   {
     "id": "AQ-SVG-8EF-CHS-138",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "ENEM",
-    "year": 2021,
+    "exam": "Simulado Áquila (estilo ENEM)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF08CHS02",
@@ -5795,8 +5934,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 489,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • GEOPOLÍTICA MUNDIAL, NOVA ORDEM MULT</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Cadeias globais de valor e blocos </text>\n</svg>",
-    "figureCaption": "Figura 138: Representação gráfica calibrada para Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional (EF08CHS02).",
-    "text": "(ENEM • 8º Ano EF • Habilidade EF08CHS02) Analise o diagrama técnico-científico abaixo referente ao estudo de Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional. Considerando os parâmetros experimentais e a relação fundamental Cadeias globais de valor e blocos econômicos, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional (EF08CHS02).",
+    "text": "(Simulado Áquila (estilo ENEM) • 8º Ano EF • Habilidade EF08CHS02) Analise o diagrama abaixo referente ao estudo de Geopolítica Mundial, Nova Ordem Multipolares e Comércio Internacional. Considerando a relação fundamental Cadeias globais de valor e blocos econômicos, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5808,25 +5947,26 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Fluxos financeiros, tecnológicos e tensões territoriais, obedecendo rigorosamente ao modelo Cadeias globais de valor e blocos econômicos representado no diagrama."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CHS02."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CHS02."
+        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       },
       {
         "letter": "E",
-        "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
+        "text": "Fluxos financeiros, tecnológicos e tensões territoriais, obedecendo ao modelo Cadeias globais de valor e blocos econômicos representado no diagrama."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeias globais de valor e blocos econômicos. Passo 2: Aplique o fundamento 'Fluxos financeiros, tecnológicos e tensões territoriais'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "E",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cadeias globais de valor e blocos econômicos. Passo 2: Aplique o fundamento 'Fluxos financeiros, tecnológicos e tensões territoriais'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa E."
   },
   {
     "id": "AQ-SVG-8EF-CHS-139",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "FUVEST",
-    "year": 2022,
+    "exam": "Simulado Áquila (estilo FUVEST)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF08CHS03",
@@ -5837,8 +5977,8 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 514,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • DOMÍNIOS MORFOCLIMÁTICOS BRASILEIROS</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Cerrado, Amazônia, Caatinga e Mata</text>\n</svg>",
-    "figureCaption": "Figura 139: Representação gráfica calibrada para Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola (EF08CHS03).",
-    "text": "(FUVEST • 8º Ano EF • Habilidade EF08CHS03) Analise o diagrama técnico-científico abaixo referente ao estudo de Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola. Considerando os parâmetros experimentais e a relação fundamental Cerrado, Amazônia, Caatinga e Mata dos Cocais, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola (EF08CHS03).",
+    "text": "(Simulado Áquila (estilo FUVEST) • 8º Ano EF • Habilidade EF08CHS03) Analise o diagrama abaixo referente ao estudo de Domínios Morfoclimáticos Brasileiros (Ab'Sáber) e Fronteira Agrícola. Considerando a relação fundamental Cerrado, Amazônia, Caatinga e Mata dos Cocais, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
@@ -5850,11 +5990,11 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       },
       {
         "letter": "C",
-        "text": "Interação entre relevo, hidrografia, clima e vegetação, obedecendo rigorosamente ao modelo Cerrado, Amazônia, Caatinga e Mata dos Cocais representado no diagrama."
+        "text": "Interação entre relevo, hidrografia, clima e vegetação, obedecendo ao modelo Cerrado, Amazônia, Caatinga e Mata dos Cocais representado no diagrama."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CHS03."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CHS03."
       },
       {
         "letter": "E",
@@ -5862,13 +6002,14 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
       }
     ],
     "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cerrado, Amazônia, Caatinga e Mata dos Cocais. Passo 2: Aplique o fundamento 'Interação entre relevo, hidrografia, clima e vegetação'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Cerrado, Amazônia, Caatinga e Mata dos Cocais. Passo 2: Aplique o fundamento 'Interação entre relevo, hidrografia, clima e vegetação'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa C."
   },
   {
     "id": "AQ-SVG-8EF-CHS-140",
     "stage": "EF_ANOS_FINAIS",
-    "exam": "UNICAMP",
-    "year": 2023,
+    "exam": "Simulado Áquila (estilo UNICAMP)",
+    "year": 2026,
+    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
     "area": "humanas",
     "discipline": "Geografia",
     "skillCode": "EF08CHS04",
@@ -5879,31 +6020,31 @@ export const GENERATED_ENEM_SVG_BANK: EnemSvgCalibratedItem[] = [
     "paramC": 0.18,
     "triScore": 539,
     "figureSvg": "<svg viewBox=\"0 0 420 165\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:460px;background:#090d16;border:1px solid #1e293b;border-radius:10px;padding:8px\">\n  <text x=\"16\" y=\"22\" fill=\"#e2e8f0\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\">MATRIZ ANALÍTICA BNCC/ENEM • URBANIZAÇÃO BRASILEIRA, METROPOLIZAÇ</text>\n  <rect x=\"24\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#1e1b4b\" stroke=\"#6366f1\"/>\n  <rect x=\"155\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#0f2942\" stroke=\"#38bdf8\"/>\n  <rect x=\"286\" y=\"42\" width=\"110\" height=\"54\" rx=\"8\" fill=\"#064e3b\" stroke=\"#10b981\"/>\n  <line x1=\"134\" y1=\"69\" x2=\"155\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <line x1=\"265\" y1=\"69\" x2=\"286\" y2=\"69\" stroke=\"#94a3b8\" stroke-width=\"2\"/>\n  <text x=\"36\" y=\"72\" fill=\"#e0e7ff\" font-size=\"10\" font-family=\"monospace\">1. Fenômeno</text>\n  <text x=\"167\" y=\"72\" fill=\"#e0f2fe\" font-size=\"10\" font-family=\"monospace\">2. Modelo/Lei</text>\n  <text x=\"296\" y=\"72\" fill=\"#d1fae5\" font-size=\"10\" font-family=\"monospace\">3. Síntese TRI</text>\n  <text x=\"24\" y=\"130\" fill=\"#fde047\" font-size=\"10.5\" font-family=\"monospace\">Relação-Chave: Macrocefalia urbana e conurbação</text>\n</svg>",
-    "figureCaption": "Figura 140: Representação gráfica calibrada para Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação (EF08CHS04).",
-    "text": "(UNICAMP • 8º Ano EF • Habilidade EF08CHS04) Analise o diagrama técnico-científico abaixo referente ao estudo de Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação. Considerando os parâmetros experimentais e a relação fundamental Macrocefalia urbana e conurbação, assinale a alternativa que apresenta a conclusão analítica correta:",
+    "figureCaption": "Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação (EF08CHS04).",
+    "text": "(Simulado Áquila (estilo UNICAMP) • 8º Ano EF • Habilidade EF08CHS04) Analise o diagrama abaixo referente ao estudo de Urbanização Brasileira, Metropolização, Ilhas de Calor e Segregação. Considerando a relação fundamental Macrocefalia urbana e conurbação, assinale a alternativa que apresenta a conclusão analítica correta:",
     "options": [
       {
         "letter": "A",
-        "text": "O fenômeno viola Macrocefalia urbana e conurbação, reduzindo-se a zero independentemente das variáveis iniciais."
+        "text": "Planejamento urbano, mobilidade e impactos socioambientais, obedecendo ao modelo Macrocefalia urbana e conurbação representado no diagrama."
       },
       {
         "letter": "B",
-        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de urbanização brasileira, metropolização, ilhas de calor e segregação."
+        "text": "O fenômeno viola Macrocefalia urbana e conurbação, reduzindo-se a zero independentemente das variáveis iniciais."
       },
       {
         "letter": "C",
-        "text": "Planejamento urbano, mobilidade e impactos socioambientais, obedecendo rigorosamente ao modelo Macrocefalia urbana e conurbação representado no diagrama."
+        "text": "A grandeza varia de modo inversamente quadrático, contradizendo o princípio de urbanização brasileira, metropolização, ilhas de calor e segregação."
       },
       {
         "letter": "D",
-        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na matriz EF08CHS04."
+        "text": "O equilíbrio depende exclusivamente de fatores externos não representados na habilidade EF08CHS04."
       },
       {
         "letter": "E",
         "text": "A taxa de variação permanece nula em todos os intervalos do gráfico analisado."
       }
     ],
-    "correctAnswer": "C",
-    "socraticExplanation": "Passo 1: Observe no diagrama a relação Macrocefalia urbana e conurbação. Passo 2: Aplique o fundamento 'Planejamento urbano, mobilidade e impactos socioambientais'. Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+    "correctAnswer": "A",
+    "socraticExplanation": "Passo 1: Observe no diagrama a relação Macrocefalia urbana e conurbação. Passo 2: Aplique o fundamento 'Planejamento urbano, mobilidade e impactos socioambientais'. Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa A."
   }
 ];

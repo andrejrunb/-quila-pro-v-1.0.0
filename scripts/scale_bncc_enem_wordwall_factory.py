@@ -5,13 +5,15 @@
 Gera:
 1. Catálogo expandido de pacotes de jogos Wordwall (7 séries x 8 disciplinas = 112 pacotes estruturados)
    em apps/electron/src/database/generated_games/bncc_wordwall_catalog_v2.json
-2. Banco calibrado de Itens Públicos (TIER1_PUBLIC_EXAM: ENEM, OBMEP, OBA, FUVEST, UNICAMP, UnB, UFG)
-   com Figuras Vetoriais Científicas (SVG inline), parâmetros TRI 3PL (a, b, c) e Andaime Socrático de 5 Níveis
-   em apps/electron/src/ui/utils/generatedEnemSvgBank.ts
-3. Expansão do Dataset SFT QLoRA (swarm/dataset/aquila_finetune_dataset.jsonl) para 650+ pares calibrados.
+2. Banco de Itens SINTÉTICOS "estilo" ENEM/vestibulares (gerados por template — NÃO são questões oficiais)
+   com Figuras ilustrativas SVG, parâmetros TRI 3PL ESTIMADOS (não calibrados com respostas reais)
+   e gabarito distribuído entre A..E, em apps/electron/src/ui/utils/generatedEnemSvgBank.ts
+3. Dataset SFT: só emite pares com a flag --emit-sft (padrão desligado); reclassifica linhas antigas
+   como SYNTHETIC_TEMPLATE_UNREVIEWED + exclude_from_training.
 """
 
 import json
+import sys
 import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
@@ -289,17 +291,31 @@ def main():
                 q_id = f"AQ-SVG-{grade['id']}-{disc['code']}-{item_counter:03d}"
                 item_counter += 1
 
+                # HONESTIDADE: itens gerados por template, NÃO são questões oficiais das bancas.
+                exam_label = f"Simulado Áquila (estilo {exam_board})"
                 question_text = (
-                    f"({exam_board} • {grade['label']} • Habilidade {bncc_code}) Analise o diagrama técnico-científico abaixo referente ao estudo de "
-                    f"{topic_title}. Considerando os parâmetros experimentais e a relação fundamental {formula}, assinale a alternativa que apresenta "
+                    f"({exam_label} • {grade['label']} • Habilidade {bncc_code}) Analise o diagrama abaixo referente ao estudo de "
+                    f"{topic_title}. Considerando a relação fundamental {formula}, assinale a alternativa que apresenta "
                     f"a conclusão analítica correta:"
                 )
+                correct_text = f"{explanation}, obedecendo ao modelo {formula} representado no diagrama."
+                wrong_texts = [
+                    f"O fenômeno viola {formula}, reduzindo-se a zero independentemente das variáveis iniciais.",
+                    f"A grandeza varia de modo inversamente quadrático, contradizendo o princípio de {topic_title.lower()}.",
+                    f"O equilíbrio depende exclusivamente de fatores externos não representados na habilidade {bncc_code}.",
+                    "A taxa de variação permanece nula em todos os intervalos do gráfico analisado.",
+                ]
+                correct_pos = (item_counter * 7 + t_idx) % 5  # distribui o gabarito entre A..E
+                option_texts = wrong_texts[:correct_pos] + [correct_text] + wrong_texts[correct_pos:]
+                letters = ["A", "B", "C", "D", "E"]
+                correct_letter = letters[correct_pos]
 
                 svg_exam_items.append({
                     "id": q_id,
                     "stage": grade["stage"],
-                    "exam": exam_board,
-                    "year": 2020 + (t_idx % 6),
+                    "exam": exam_label,
+                    "year": 2026,
+                    "reviewStatus": "SINTETICO_TEMPLATE_REVISAO_PENDENTE",
                     "area": "natureza" if disc["code"] in ("CNT", "CI") else ("matematica" if disc["code"] == "MAT" else ("humanas" if disc["code"] == "CHS" else "linguagens")),
                     "discipline": disc["name"],
                     "skillCode": bncc_code,
@@ -310,20 +326,14 @@ def main():
                     "paramC": param_c,
                     "triScore": tri_score,
                     "figureSvg": svg_rendered,
-                    "figureCaption": f"Figura {item_counter - 1}: Representação gráfica calibrada para {topic_title} ({bncc_code}).",
+                    "figureCaption": f"Figura ilustrativa (item sintético gerado por template • revisão pedagógica pendente) — {topic_title} ({bncc_code}).",
                     "text": question_text,
-                    "options": [
-                        {"letter": "A", "text": f"O fenômeno viola {formula}, reduzindo-se a zero independentemente das variáveis iniciais."},
-                        {"letter": "B", "text": f"A grandeza varia de modo inversamente quadrático, contradizendo o princípio de {topic_title.lower()}."},
-                        {"letter": "C", "text": f"{explanation}, obedecendo rigorosamente ao modelo {formula} representado no diagrama."},
-                        {"letter": "D", "text": f"O equilíbrio depende exclusivamente de fatores externos não representados na matriz {bncc_code}."},
-                        {"letter": "E", "text": f"A taxa de variação permanece nula em todos os intervalos do gráfico analisado."},
-                    ],
-                    "correctAnswer": "C",
+                    "options": [{"letter": letters[i], "text": option_texts[i]} for i in range(5)],
+                    "correctAnswer": correct_letter,
                     "socraticExplanation": (
                         f"Passo 1: Observe no diagrama a relação {formula}. "
                         f"Passo 2: Aplique o fundamento '{explanation}'. "
-                        f"Passo 3: Isso confirma diretamente a alternativa C sem necessidade de chute."
+                        f"Passo 3: Elimine as alternativas que contradizem esse fundamento; resta a alternativa {correct_letter}."
                     ),
                 })
 
@@ -332,7 +342,8 @@ def main():
                 new_sft_records.append({
                     "id": f"sft-{q_id.lower()}",
                     "hash": sft_hash,
-                    "license_tier": "TIER1_PUBLIC_EXAM",
+                    "license_tier": "SYNTHETIC_TEMPLATE_UNREVIEWED",
+                    "exclude_from_training": True,
                     "bncc_code": bncc_code,
                     "grade": grade["label"],
                     "discipline": disc["name"],
@@ -351,7 +362,7 @@ def main():
                                 f"**Diagnóstico TRI ({tri_score} pts | {bncc_code}):**\n"
                                 f"- **Princípio Central:** {explanation}\n"
                                 f"- **Modelo Analítico:** `{formula}`\n"
-                                f"- **Resolução Guiada:** Analisando o diagrama vetorial da questão, verificamos que {explanation.lower()}, o que valida a **Alternativa C**."
+                                f"- **Resolução Guiada:** Analisando o diagrama vetorial da questão, verificamos que {explanation.lower()}, o que valida a **Alternativa {correct_letter}**."
                             )
                         }
                     ]
@@ -385,6 +396,7 @@ def main():
         "  stage: 'EF_ANOS_INICIAIS' | 'EF_ANOS_FINAIS' | 'ENSINO_MEDIO' | 'VESTIBULAR_MEDICINA';\n"
         "  exam: string;\n"
         "  year: number;\n"
+        "  reviewStatus?: string;\n"
         "  area: 'matematica' | 'natureza' | 'linguagens' | 'humanas';\n"
         "  discipline: string;\n"
         "  skillCode: string;\n"
@@ -405,9 +417,12 @@ def main():
     )
     (UTILS_DIR / "generatedEnemSvgBank.ts").write_text(ts_content, encoding="utf-8")
 
-    # Mescla de forma idempotente no dataset SFT
+    # Dataset SFT: itens sintéticos de template NÃO entram no treino por padrão.
+    # As linhas antigas (rotuladas por engano como TIER1_PUBLIC_EXAM) são reclassificadas, não apagadas.
+    emit_sft = "--emit-sft" in sys.argv
     existing_lines = []
     existing_ids = set()
+    relabeled = 0
     if DATASET_PATH.exists():
         for line in DATASET_PATH.read_text(encoding="utf-8").splitlines():
             if not line.strip():
@@ -415,6 +430,11 @@ def main():
             try:
                 obj = json.loads(line)
                 rec_id = obj.get("id") or obj.get("hash")
+                if str(rec_id or "").startswith("sft-aq-svg") and obj.get("license_tier") != "SYNTHETIC_TEMPLATE_UNREVIEWED":
+                    obj["license_tier"] = "SYNTHETIC_TEMPLATE_UNREVIEWED"
+                    obj["exclude_from_training"] = True
+                    line = json.dumps(obj, ensure_ascii=False)
+                    relabeled += 1
                 if rec_id:
                     existing_ids.add(rec_id)
                 existing_lines.append(line)
@@ -422,11 +442,12 @@ def main():
                 existing_lines.append(line)
 
     added_sft = 0
-    for rec in new_sft_records:
-        if rec["id"] not in existing_ids:
-            existing_lines.append(json.dumps(rec, ensure_ascii=False))
-            existing_ids.add(rec["id"])
-            added_sft += 1
+    if emit_sft:
+        for rec in new_sft_records:
+            if rec["id"] not in existing_ids:
+                existing_lines.append(json.dumps(rec, ensure_ascii=False))
+                existing_ids.add(rec["id"])
+                added_sft += 1
 
     DATASET_PATH.write_text("\n".join(existing_lines) + "\n", encoding="utf-8")
 
@@ -438,7 +459,8 @@ def main():
                 "svg_exam_items_generated": len(svg_exam_items),
                 "ts_ui_items_exported": len(ts_subset),
                 "sft_pairs_added": added_sft,
-                "sft_total_pairs": len(existing_lines),
+                "sft_relabeled_as_synthetic": relabeled,
+                "sft_total_lines": len(existing_lines),
             },
             ensure_ascii=False,
         )

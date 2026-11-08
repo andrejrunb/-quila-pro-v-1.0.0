@@ -144,6 +144,7 @@ export const StudentBatchImportManager: React.FC = () => {
   const [preview, setPreview] = useState<ImportPreviewReport | null>(null);
   const [result, setResult] = useState<ImportResult | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isLocalPreviewMode, setIsLocalPreviewMode] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -227,6 +228,7 @@ export const StudentBatchImportManager: React.FC = () => {
             operatorUserId: 'user-sec-01'
           });
           if (res && typeof res.insertedCount === 'number') {
+            setIsLocalPreviewMode(false);
             setResult(res);
             if (fileInputRef.current) fileInputRef.current.value = '';
             return;
@@ -252,6 +254,7 @@ export const StudentBatchImportManager: React.FC = () => {
           }
         }
         window.localStorage.setItem('aquila_imported_students_v1', JSON.stringify(existingList));
+        setIsLocalPreviewMode(true);
         setResult({
           batchId: preview.batchId,
           success: true,
@@ -517,10 +520,14 @@ export const StudentBatchImportManager: React.FC = () => {
               <CheckCircle2 className="text-emerald-400 shrink-0 mt-1" size={24} />
               <div>
                 <h3 className="text-lg font-bold text-white">
-                  Importação concluída com sucesso! {result.insertedCount} alunos inseridos no banco escolar.
+                  {isLocalPreviewMode
+                    ? `Modo prévia: ${result.insertedCount} alunos salvos apenas neste navegador (localStorage).`
+                    : `Importação concluída com sucesso! ${result.insertedCount} alunos inseridos no banco escolar.`}
                 </h3>
                 <p className="text-xs text-zinc-300 mt-1">
-                  Transação atômica finalizada, Crachás QR-Code ANPD gerados e hash registrado na auditoria Zero-Bypass ({result.idempotentVerificationHash}).
+                  {isLocalPreviewMode
+                    ? 'O canal do banco SQLite não respondeu, então NADA foi gravado no banco escolar nem na auditoria Zero-Bypass. Repita a importação no aplicativo desktop para persistir.'
+                    : `Transação atômica finalizada e hash registrado na auditoria Zero-Bypass (${result.idempotentVerificationHash}).`}
                 </p>
                 {result.ignoredCount > 0 && (
                   <p className="text-xs text-amber-400 mt-1 font-mono">

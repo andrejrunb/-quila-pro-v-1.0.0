@@ -231,3 +231,21 @@ Você está atuando como Arquiteto de Software Sênior, Cientista Psicométrico 
 O ecossistema conta com 12 automações agendadas (`C:\Users\Thaysa\.gemini\config\sidecars\`) operando em pool de GPUs gratuitas (Colab A100, Kaggle Dual-T4, NVIDIA NIM, Groq, OpenRouter Free) e IAs via CDP (Claude, DeepSeek, Perplexity, Copilot, Brisk Teaching).
 Ao propor código ou melhorias para o Áquila Pro, forneça sempre implementações completas, tipadas em TypeScript/Python, respeitando os tokens visuais WCAG AAA e as travas legais acima.
 ```
+
+
+---
+
+## ⚠️ 7. Errata & Estado Real após os Degraus 9 e 10 (08/11/2026, 11h)
+
+> [!WARNING]
+> Revisão honesta das entregas dos Degraus 9 e 10. Em alguns pontos, o relatório anterior exagerou o que foi entregue.
+
+| Item | O que foi dito antes | Estado real (corrigido no código) |
+| :--- | :--- | :--- |
+| 336 itens com figura SVG | "Itens calibrados ENEM/Vestibulares `TIER1_PUBLIC_EXAM`" | São **itens sintéticos gerados por template**, *no estilo* das bancas. **Não** são questões oficiais. Os parâmetros TRI são **estimados por fórmula**, não calibrados com respostas reais de alunos. O gabarito era sempre "C" e agora está distribuído entre A e E. O rótulo virou `Simulado Áquila (estilo X)` + `reviewStatus: SINTETICO_TEMPLATE_REVISAO_PENDENTE`. |
+| Dataset SFT "705 pares calibrados" | 363 → 705 pares | As 336 linhas novas foram **reclassificadas** (não apagadas) como `SYNTHETIC_TEMPLATE_UNREVIEWED` + `exclude_from_training: true`. O par real de treino continua em **~369**. O gerador só emite SFT com `--emit-sft`. |
+| 336 pacotes Wordwall BNCC | "cobrindo todas as habilidades BNCC" | Os pacotes são estruturados por série × disciplina × tópico. Os códigos BNCC são **sintéticos** (prefixo + sequência), não o código oficial de cada habilidade. Falta mapear contra a tabela oficial da BNCC. |
+| Wizard SA+GLS | "recalcula ao vivo com 0 violações e 0 janelas" | A grade visual vem de uma **heurística de distribuição** (respeita folga e geminação, mas ainda ignora a carga semanal exata). No modo prévia, o painel mostrava métricas **inventadas**: isso foi removido e agora aparece um aviso. Folga e geminação **ainda não chegam** ao solver Python. |
+| Importador CSV | "persistido no SQLite + auditoria Zero-Bypass" | Isso só vale quando o IPC `batch-import:*` responde. No fallback, os dados ficam **só no localStorage**, e a UI agora diz isso explicitamente. |
+
+**Dívida técnica nova:** (1) repassar `forbiddenDay`/`geminated` ao `timetable_solver.py` e renderizar a saída real do solver; (2) mapear os pacotes contra os códigos BNCC oficiais; (3) revisão pedagógica humana antes de usar os itens sintéticos em avaliação.
