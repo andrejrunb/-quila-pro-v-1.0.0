@@ -64,7 +64,8 @@ $urls = @(
     "https://chatgpt.com",
     "https://chat.deepseek.com",
     "https://www.perplexity.ai",
-    "https://copilot.microsoft.com"
+    "https://copilot.microsoft.com",
+    "https://app.briskteaching.com"
 )
 
 $arguments = @(

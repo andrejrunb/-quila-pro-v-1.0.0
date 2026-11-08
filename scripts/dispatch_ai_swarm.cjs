@@ -220,6 +220,46 @@ ${baseBriefing}
 === TAREFA EXECUTIVA DE HOJE (${dateStr}) ===
 1. Audite e entregue a versão blindada do script PowerShell \`restore_edge.ps1\` com Atomic Swap, verificação de handles abertos no \`aquila.db\`, checagem \`PRAGMA foreign_key_check\` e \`PRAGMA integrity_check\`, e rollback automático em caso de falha.
 2. Forneça o script validador e gerador posicional/CSV para exportação contábil RPA compatível com Thomson Reuters Domínio (\`C:\\aquila\\storage\\dominio_out\`).`
+  },
+  {
+    id: 'brisk_teaching',
+    name: 'Brisk Next / Brisk Teaching (Diferenciação & PEI)',
+    domains: ['app.briskteaching.com', 'briskteaching.com'],
+    briefingFile: '06_BRISK_PEDAGOGICAL_SCAFFOLDING_PEI.md',
+    outputFile: 'brisk_pedagogical_scaffolding_result.md',
+    inputSelectors: [
+      'textarea[placeholder]',
+      'div[contenteditable="true"]',
+      'textarea',
+      'input[type="text"]'
+    ],
+    sendSelectors: [
+      'button[type="submit"]',
+      'button[aria-label*="Send"]',
+      'button[aria-label*="Generate"]',
+      'button[aria-label*="Brisk"]'
+    ],
+    schedule: 'Diário — 09:15 BRT',
+    parameters: {
+      dokLevels: [1, 2, 3, 4],
+      inclusionProfiles: ['TDAH', 'TEA', 'Dislexia', 'Altas Habilidades/Superdotação'],
+      feedbackModel: 'Glow & Grow + Actionable Next Step'
+    },
+    buildDailyPrompt: (baseBriefing, dateStr) => `[MISSÃO DIÁRIA AUTOMATIZADA — DATA: ${dateStr}]
+[AGENTE ALVO: BRISK NEXT (BRISK TEACHING) — DESIGN INSTRUCIONAL, RUBRICAS & EDUCAÇÃO INCLUSIVA (PEI/AEE)]
+
+Fontes Oficiais do Ecossistema Áquila Pro:
+- GitHub Oficial: ${CLOUD_LINKS.githubRepo}
+- Matriz de Portais e Pedagogia: ${CLOUD_LINKS.veracityMatrixRaw}
+- Google Drive Sovereign Vault: ${CLOUD_LINKS.driveVaultRoot}
+
+=== DIRETRIZES DE DIFERENCIAÇÃO E ANDAIME COGNITIVO ===
+${baseBriefing}
+
+=== TAREFA EXECUTIVA DE HOJE (${dateStr}) ===
+1. Crie uma Matriz de Adaptação Curricular (PEI / AEE) em 3 Níveis de Complexidade (DOK 1/2 Recuperação Guiada para TDAH/Dislexia; DOK 2/3 Consolidação Padrão; DOK 4 Desafio Olímpico) para as habilidades BNCC EM13MAT301 (Funções Exponenciais/Logarítmicas) e EF09CI03 (Estrutura da Matéria).
+2. Gere uma Rubrica Analítica em 4 níveis + Template de Devolutiva Formativa "Glow & Grow" pronta para o Portal Docente do Áquila Pro.
+3. Estruture um roteiro de Micro-Intervenção de 15 minutos (Gancho Socrático 3 min + Modelagem Visual 7 min + Ticket de Saída 5 min) para recomposição de aprendizagem pós-prova OMR.`
   }
 ];
 
@@ -238,7 +278,10 @@ class CdpBrowserClient {
     return new Promise((resolve, reject) => {
       const ws = new WebSocket(this.wsUrl);
       this.ws = ws;
-      const timer = setTimeout(() => reject(new Error('Timeout conectando ao Browser WS (clique em Allow no Chrome)')), 30000);
+      const timer = setTimeout(() => {
+        try { ws.close(); } catch {}
+        reject(new Error('Timeout conectando ao Browser WS (clique em Allow no Chrome)'));
+      }, 30000);
 
       ws.onopen = () => {
         clearTimeout(timer);
@@ -476,7 +519,7 @@ async function main() {
   let client = null;
   let pages = [];
 
-  if (wsUrl) {
+  if (wsUrl && (shouldInject || shouldCollect)) {
     console.log(`[1/4] Conectando ao Chrome Principal via DevToolsActivePort...`);
     console.log(`      Endpoint: ${wsUrl}`);
     try {
@@ -489,6 +532,8 @@ async function main() {
       console.warn(`[AVISO] Falha ao conectar no WebSocket: ${err.message}\n`);
       client = null;
     }
+  } else if (wsUrl) {
+    console.log(`[1/4] DevToolsActivePort detectado (${wsUrl}). Modo compilação rápida (use --inject ou --collect para conectar ao navegador).\n`);
   } else {
     console.warn(`[AVISO] DevToolsActivePort não encontrado. Ative em chrome://inspect/#remote-debugging.\n`);
   }
