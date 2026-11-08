@@ -18,8 +18,9 @@ import json
 import time
 import math
 import random
-from dataclasses import dataclass, field
-from typing import Dict, List, Tuple, Set, Optional, Any
+import argparse
+from dataclasses import dataclass
+from typing import Dict, List, Tuple, Set, Any
 
 
 HARD_WEIGHT = 100_000
@@ -106,12 +107,11 @@ class AquilaTimetableSolver:
 
             for req in reqs_sorted:
                 placed = 0
-                # Passada 1: slots livres de conflito hard
                 for s in list(available_slots):
                     if placed >= req.weekly_lessons:
                         break
                     if (
-                        s not in self.teacher_unavailable[req.teacher_id]
+                        s not in self.teacher_unavailable.get(req.teacher_id, set())
                         and req.teacher_id not in teacher_busy[s]
                         and req.room_id not in room_busy[s]
                     ):
@@ -121,7 +121,6 @@ class AquilaTimetableSolver:
                         available_slots.remove(s)
                         placed += 1
 
-                # Passada 2: aloca nos slots remanescentes da turma para preservar H4
                 while placed < req.weekly_lessons and available_slots:
                     s = available_slots.pop()
                     self.schedule[c_id][s] = req.req_id
@@ -135,7 +134,6 @@ class AquilaTimetableSolver:
         hard_violations = 0
         soft_cost = 0
 
-        # H1, H2, H3 por slot
         for s in range(self.total_slots):
             teachers_in_slot: Dict[int, int] = {}
             rooms_in_slot: Dict[int, int] = {}
@@ -144,7 +142,7 @@ class AquilaTimetableSolver:
                 if rid == -1:
                     continue
                 req = req_map[rid]
-                if s in self.teacher_unavailable[req.teacher_id]:
+                if s in self.teacher_unavailable.get(req.teacher_id, set()):
                     hard_violations += 1
                 teachers_in_slot[req.teacher_id] = teachers_in_slot.get(req.teacher_id, 0) + 1
                 rooms_in_slot[req.room_id] = rooms_in_slot.get(req.room_id, 0) + 1
@@ -156,7 +154,6 @@ class AquilaTimetableSolver:
                 if count > 1:
                     hard_violations += count - 1
 
-        # S2: excesso de aulas da mesma disciplina no mesmo dia para a mesma turma
         for c_id in range(self.num_classes):
             for d in range(self.days):
                 subj_counts: Dict[int, int] = {}
@@ -170,7 +167,6 @@ class AquilaTimetableSolver:
                     if cnt > 2:
                         soft_cost += W2_SUBJECT_CLUSTER * (cnt - 2)
 
-        # S1 (janelas docentes) e S3 (troca de prédio em slots adjacentes)
         teacher_day_slots: Dict[Tuple[int, int], List[Tuple[int, int]]] = {}
         for c_id in range(self.num_classes):
             for s in range(self.total_slots):
@@ -188,8 +184,8 @@ class AquilaTimetableSolver:
             p_list.sort(key=lambda x: x[0])
             first_p = p_list[0][0]
             last_p = p_list[-1][0]
-            active_Count = len(p_list)
-            gaps = (last_p - first_p + 1) - active_Count
+            active_count = len(p_list)
+            gaps = (last_p - first_p + 1) - active_count
             if gaps > 0:
                 soft_cost += W1_TEACHER_GAP * gaps
 
@@ -233,7 +229,6 @@ class AquilaTimetableSolver:
             if s1 == s2 or self.schedule[c_id][s1] == self.schedule[c_id][s2]:
                 continue
 
-            # Kempe-like intra-class swap (preserva H4 exatamente)
             self.schedule[c_id][s1], self.schedule[c_id][s2] = (
                 self.schedule[c_id][s2],
                 self.schedule[c_id][s1],
@@ -253,7 +248,6 @@ class AquilaTimetableSolver:
                     if best_hard == 0 and best_soft == 0:
                         break
             else:
-                # Reverte swap
                 self.schedule[c_id][s1], self.schedule[c_id][s2] = (
                     self.schedule[c_id][s2],
                     self.schedule[c_id][s1],
@@ -261,7 +255,6 @@ class AquilaTimetableSolver:
 
             temp = max(0.5, temp * alpha)
 
-            # A cada 80 iterações sem melhora, aplica pulso GLS nos slots conflitantes
             if iterations % 80 == 0 and best_hard > 0:
                 for s in range(self.total_slots):
                     seen_t: Dict[int, int] = {}
@@ -284,33 +277,65 @@ class AquilaTimetableSolver:
         }
 
 
-if __name__ == "__main__":
-    # Benchmark rápido determinístico
-    solver = AquilaTimetableSolver(num_classes=10, num_teachers=25, num_rooms=12)
-    req_counter = 1
-    for c in range(10):
-        for subj in range(7):
-            solver.add_requirement(
-                LessonRequirement(
-                    req_id=req_counter,
-                    class_id=c,
-                    teacher_id=(c * 2 + subj) % 25,
-                    subject_id=subj,
-                    room_id=c % 12,
-                    building_id=0 if c < 5 else 1,
-                    weekly_lessons=5,
-                )
-            )
-            req_counter += 1
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Áquila Pro SA+GLS Timetable Solver")
+    parser.add_argument("--stdin-json", action="store_true", help="Ler payload JSON via stdin")
+    parser.add_argument("--time-limit", type=float, default=1.2, help="Limite de tempo em segundos")
+    args = parser.parse_args()
 
-    res = solver.solve(time_limit_sec=1.2)
-    print(
-        json.dumps(
-            {
-                "hard_violations": res["hard_violations"],
-                "soft_cost": res["soft_cost"],
-                "iterations": res["iterations"],
-                "elapsed_ms": res["elapsed_ms"],
-            }
-        )
-    )
+    try:
+        if args.stdin_json:
+            payload = json.loads(sys.stdin.read())
+            solver = AquilaTimetableSolver(
+                num_classes=int(payload.get("num_classes", 10)),
+                num_teachers=int(payload.get("num_teachers", 25)),
+                num_rooms=int(payload.get("num_rooms", 12)),
+                days=int(payload.get("days", 5)),
+                periods_per_day=int(payload.get("periods_per_day", 7)),
+                seed=int(payload.get("seed", 42)),
+            )
+            for t_str, slots in payload.get("teacher_unavailable", {}).items():
+                solver.set_teacher_unavailability(int(t_str), [int(x) for x in slots])
+            for req in payload.get("requirements", []):
+                solver.add_requirement(
+                    LessonRequirement(
+                        req_id=int(req["req_id"]),
+                        class_id=int(req["class_id"]),
+                        teacher_id=int(req["teacher_id"]),
+                        subject_id=int(req["subject_id"]),
+                        room_id=int(req["room_id"]),
+                        building_id=int(req.get("building_id", 0)),
+                        weekly_lessons=int(req["weekly_lessons"]),
+                    )
+                )
+            res = solver.solve(time_limit_sec=float(payload.get("time_limit_sec", args.time_limit)))
+            print(json.dumps(res, ensure_ascii=False))
+            return
+
+        # Modo benchmark padrão
+        solver = AquilaTimetableSolver(num_classes=10, num_teachers=25, num_rooms=12)
+        req_counter = 1
+        for c in range(10):
+            for subj in range(7):
+                solver.add_requirement(
+                    LessonRequirement(
+                        req_id=req_counter,
+                        class_id=c,
+                        teacher_id=(c * 2 + subj) % 25,
+                        subject_id=subj,
+                        room_id=c % 12,
+                        building_id=0 if c < 5 else 1,
+                        weekly_lessons=5,
+                    )
+                )
+                req_counter += 1
+
+        res = solver.solve(time_limit_sec=args.time_limit)
+        print(json.dumps(res, ensure_ascii=False))
+    except Exception as exc:
+        print(json.dumps({"error": str(exc)}, ensure_ascii=False))
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

@@ -8,31 +8,31 @@ export default function Precos() {
     {
       id: "essencial",
       name: "Sovereign Essential",
-      price: "R$ 4,50",
-      period: "/aluno/mês (anual)",
+      price: "Sob Consulta",
+      period: "Dimensionado por Porte Escolar",
       description: "Núcleo operacional local para chamada assistida, diário e frequência.",
       features: [
-        "Chamada Assistida com Confirmação Docente",
-        "Alertas Preventivos de Infrequência (LDB Art. 12)",
-        "Portal Familiar & Justificativas de Ausência",
-        "Banco Local SQLite WAL + Rotina de Backup",
+        "Chamada Assistida com Confirmação Docente (CNE 15/2026)",
+        "Alertas Preventivos de Infrequência (LDB Art. 12, VIII, 'a')",
+        "Portal Familiar, Justificativas & Roteiros Semanais",
+        "Banco Local SQLite WAL + Recuperação Transacional",
       ],
-      cta: "Solicitar Piloto Essential",
+      cta: "Solicitar Proposta Essential",
       href: "/contato?plano=essential",
       highlight: false,
     },
     {
       id: "pro",
       name: "Sovereign Pro",
-      price: "R$ 8,90",
-      period: "/aluno/mês (anual)",
+      price: "Sob Consulta",
+      period: "Recomendado • Piloto H-01",
       description: "Controle operacional completo para Direção, Coordenação e Professores.",
       features: [
         "Tudo no plano Essential",
-        "Linha do Tempo Operacional da Coordenação",
-        "Provas A4 em 2 Colunas & Leitura Óptica OMR",
-        "Notificações Escolares via WhatsApp / Push",
-        "Suporte Técnico Prioritário no Piloto H-01",
+        "Linha do Tempo Operacional da Coordenação & Solver de Grade Horária",
+        "Provas A4 em 2 Colunas, Banco TRI 3PL & Leitura Óptica OMR Híbrida",
+        "Jogos Interativos Estilo Wordwall (8 Modos) & Câmara Aureus",
+        "Conectores Opcionais: WhatsApp Oficial (Meta API) & QR Code PIX / Stripe",
       ],
       cta: "Agendar Demonstração Pro",
       href: "/contato?plano=pro",
@@ -42,16 +42,16 @@ export default function Precos() {
       id: "elite",
       name: "Sovereign Elite",
       price: "Sob Consulta",
-      period: "",
+      period: "Redes & Grupos de Ensino",
       description: "Implantação dedicada para redes de ensino e múltiplos campi.",
       features: [
         "Tudo no plano Pro",
         "Topologia Multi-Unidade com Isolamento por Escola",
-        "Integração via API com ERP / Secretaria Escolar",
-        "Apoio Técnico ao DPO & Elaboração de RIPD/DPIA",
-        "Treinamento Presencial de Equipe Docente",
+        "Exportação Contábil RPA (Domínio / SigaWeb) & API Secretaria",
+        "Apoio Técnico ao DPO & Elaboração de RIPD/DPIA (ANPD 2026)",
+        "Treinamento Presencial de Equipe Docente & Coordenação",
       ],
-      cta: "Falar com Consultor",
+      cta: "Falar com Especialista",
       href: "/contato?plano=elite",
       highlight: false,
     },
@@ -62,10 +62,10 @@ export default function Precos() {
       <section className="pt-44 pb-16 px-8 flex flex-col items-center">
         <div className="max-w-4xl text-center">
           <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tighter mb-6 italic">
-            Investimento <span className="text-indigo-500 not-italic">Previsível e Transparente</span>.
+            Licenciamento <span className="text-indigo-500 not-italic">Consultivo e Transparente</span>.
           </h1>
           <p className="text-zinc-300 text-lg md:text-xl max-w-2xl mx-auto font-medium">
-            Dimensionado para escolas a partir de 20 salas (500 alunos), com licenciamento claro e operação local sem custos ocultos de nuvem.
+            Dimensionado conforme o número de alunos, turnos e módulos contratados (a partir de 20 salas / 500 alunos), com separação clara entre operação local e conectores de nuvem opcionais.
           </p>
         </div>
       </section>
@@ -87,10 +87,10 @@ export default function Precos() {
                 <p className="text-zinc-300 text-sm">{plan.description}</p>
               </div>
 
-              <div className="mb-10 flex items-baseline gap-2">
-                <span className="text-4xl md:text-5xl font-black tracking-tighter">{plan.price}</span>
+              <div className="mb-10 flex flex-col gap-1">
+                <span className="text-3xl md:text-4xl font-black tracking-tighter">{plan.price}</span>
                 {plan.period && (
-                  <span className="text-zinc-400 text-xs font-bold uppercase tracking-widest">
+                  <span className="text-indigo-400 text-xs font-bold uppercase tracking-widest">
                     {plan.period}
                   </span>
                 )}
@@ -132,10 +132,18 @@ export default function Precos() {
           <div className="flex flex-col gap-6">
             <div className="glass p-8 md:p-10 rounded-[32px] border border-white/10">
               <h3 className="text-lg font-black text-white mb-2 uppercase tracking-tighter">
+                Quais dados ficam no servidor local da escola e quais passam pela nuvem (Stripe / WhatsApp)?
+              </h3>
+              <p className="text-zinc-300 text-sm leading-relaxed font-medium">
+                Todos os prontuários pedagógicos, notas, frequência diária, planos PEI/AEE e registros disciplinares ficam 100% no banco SQLite local (WAL) dentro da escola. Caso a instituição opte por ativar o módulo financeiro via Stripe Connect ou avisos via WhatsApp Oficial (Meta Cloud API), trafegam pela nuvem exclusivamente os metadados estritos de cobrança/pagamento do responsável financeiro ou o texto do comunicado autorizado.
+              </p>
+            </div>
+            <div className="glass p-8 md:p-10 rounded-[32px] border border-white/10">
+              <h3 className="text-lg font-black text-white mb-2 uppercase tracking-tighter">
                 O Áquila Pro substitui o ERP contábil/fiscal atual da escola?
               </h3>
               <p className="text-zinc-300 text-sm leading-relaxed font-medium">
-                Não. O Áquila Pro atua como o sistema operacional pedagógico e de presença diária da escola, exportando relatórios padronizados (CSV/JSON) para integração com o sistema de secretaria ou contabilidade já utilizado pela instituição.
+                Não. O Áquila Pro atua como o sistema operacional pedagógico e de presença diária da escola, exportando arquivos posicionais e relatórios padronizados (incluindo layout pipe `|` para Thomson Reuters Domínio / SigaWeb, CSV e JSON) para integração com o sistema de secretaria ou contabilidade já utilizado pela instituição.
               </p>
             </div>
             <div className="glass p-8 md:p-10 rounded-[32px] border border-white/10">
@@ -143,7 +151,7 @@ export default function Precos() {
                 Qual a infraestrutura mínima para o piloto H-01 (20 salas / 500 alunos)?
               </h3>
               <p className="text-zinc-300 text-sm leading-relaxed font-medium">
-                Um servidor local Windows 10/11 Pro (ou estação dedicada na secretaria/TI) conectado à rede local (LAN) da escola. A chamada assistida, o diário docente e a coordenação operam mesmo sem conexão externa à internet.
+                Um servidor local Windows 10/11 Pro (ou estação dedicada na secretaria/TI) conectado à rede local (LAN) da escola. A chamada assistida, o diário docente, os jogos interativos e a coordenação operam na rede local mesmo sem conexão externa à internet.
               </p>
             </div>
           </div>

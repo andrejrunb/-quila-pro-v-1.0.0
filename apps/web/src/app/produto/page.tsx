@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Zap, CheckCircle2, ArrowRight, Camera, Clock, Lock } from "lucide-react";
+import { Zap, CheckCircle2, ArrowRight, Camera, Clock, Lock, Gamepad2 } from "lucide-react";
 
 export default function Produto() {
   const modules = [
@@ -11,10 +11,10 @@ export default function Produto() {
       tag: "Núcleo do Piloto H-01",
       icon: <Clock className="text-emerald-400" size={32} />,
       description:
-        "Sincronize a grade horária com o registro de presença em sala de aula. Cada falta, atraso ou saída antecipada alimenta automaticamente a linha do tempo operacional do estudante.",
+        "Sincronize a grade horária (solver híbrido SA+GLS) com o registro de presença em sala de aula. Cada falta, atraso ou saída antecipada alimenta automaticamente a linha do tempo operacional do estudante.",
       features: [
         "Chamada rápida com revisão e confirmação humana pelo professor",
-        "Encadeamento automático: Presença → Atraso → Ocorrência → Justificativa → Ação",
+        "Alertas preventivos de infrequência (>30%) conforme LDB Art. 12, VIII, 'a' (Lei 15.231/2025)",
         "Mapa visual de sala de aula (6×5) com indicadores de atenção pedagógica",
       ],
       href: "/contato?modulo=presenca",
@@ -22,44 +22,59 @@ export default function Produto() {
     },
     {
       id: "cortex",
-      name: "Estúdio Docente & Avaliações OMR",
-      tag: "Produtividade em Sala",
+      name: "Estúdio Docente, TRI 3PL & Avaliações OMR",
+      tag: "Produtividade & Psicometria",
       icon: <Zap className="text-amber-400" size={32} />,
       description:
-        "Diário de classe integrado ao gerador de avaliações impressas em 2 colunas (padrão INEP/ENEM) e leitura óptica de cartões-resposta (OMR).",
+        "Diário de classe integrado ao gerador de avaliações impressas em 2 colunas (padrão INEP/ENEM), banco calibrado pela TRI 3PL, andaimes inclusivos PEI/AEE (DOK 1–4) e leitura óptica híbrida (Kernel OpenCV Sauvola + Homografia 3×3).",
       features: [
-        "Lançamento ágil de notas por bimestre e cálculo imediato de médias",
-        "Correção óptica OMR de gabaritos com auditoria de confiança por questão",
-        "Atribuição rastreável de materiais de revisão entre séries pelo professor",
+        "Correção óptica OMR híbrida (Kernel determinístico local + GPU) com margem tau >= 0.35",
+        "Bloqueio HITL de itens em RASCUNHO_IA sem revisão docente (Parecer CNE/CP nº 15/2026)",
+        "Andaimes pedagógicos adaptados para TDAH, Dislexia, TEA Nível 1 e Altas Habilidades",
       ],
       href: "/contato?modulo=docente",
       color: "border-amber-500/20 bg-amber-500/5",
     },
     {
+      id: "wordwall",
+      name: "Jogos Interativos Estilo Wordwall & Câmara Aureus",
+      tag: "Engajamento Ético (ECA Digital)",
+      icon: <Gamepad2 className="text-pink-400" size={32} />,
+      description:
+        "Motor nativo com 8 mecânicas de jogos interativos e troca instantânea de estilo ('Switch Template'), integrado à Câmara de Cosméticos por mérito acadêmico (moeda Aureus) sem lootboxes ou microtransações pagas.",
+      features: [
+        "8 modos: Quiz TV, Classificação em Grupos, Labirinto, Aviãozinho, Pares, Esteira V/F, Caixa Misteriosa e Roleta",
+        "5 temas visuais desbloqueáveis e Mentores Históricos (Marie Curie, Santos Dumont, César Lattes)",
+        "100% aderente à Lei nº 15.211/2025 (ECA Digital): zero cobrança financeira ou mecânica de azar",
+      ],
+      href: "/contato?modulo=wordwall",
+      color: "border-pink-500/20 bg-pink-500/5",
+    },
+    {
       id: "governanca",
       name: "LGPD & Governança Soberana Local",
-      tag: "Privacy-by-Design (Art. 14 e 16)",
+      tag: "Privacy-by-Design (Art. 11, 14 e 16)",
       icon: <Lock className="text-indigo-400" size={32} />,
       description:
-        "Arquitetura desenhada para proteger dados de crianças e adolescentes com banco local SQLite (WAL), criptografia em repouso e trilha de auditoria verificável.",
+        "Arquitetura desenhada para proteger dados de crianças e adolescentes com banco local SQLite (WAL), criptografia AES-256-GCM em repouso, recuperação transacional blindada e trilha de auditoria verificável.",
       features: [
-        "Matriz de consentimento explícito de responsáveis legais (LGPD Art. 14)",
+        "Prontuários, frequência e notas mantidos 100% no servidor local da unidade escolar",
         "Rotina formal de expurgo de dados com hash de evidência SHA-256 (LGPD Art. 16)",
-        "Isolamento estrito de escopo curricular por estudante, turma e série",
+        "Exportação contábil padronizada para sistemas de secretaria e ERP (Domínio / SigaWeb)",
       ],
       href: "/seguranca-lgpd",
       color: "border-indigo-500/20 bg-indigo-500/5",
     },
     {
       id: "seguranca",
-      name: "Perímetro & Visão Computacional de Borda",
-      tag: "Módulo Opt-In Controlado",
+      name: "Controle de Acesso por Crachá QR & Borda",
+      tag: "Padrão Não-Biométrico (ANPD 2026)",
       icon: <Camera className="text-cyan-400" size={32} />,
       description:
-        "Processamento em borda local sob estrita quarentena e controle institucional, sem envio de vídeos ou imagens brutas de alunos para nuvens externas.",
+        "Operação padrão via Crachá QR Dinâmico e chamada nominal. Módulos biométricos permanecem desativados de fábrica (BIOMETRIC_ATTENDANCE_ENABLED=false), exigindo RIPD institucional aprovado e opt-in granular.",
       features: [
-        "Alternativa não-biométrica obrigatória (crachá/RFID/chamada nominal) sem distinção",
-        "Vetores 512-D cifrados em repouso (AES-256-GCM / DPAPI) quando habilitado",
+        "Caminho primário não-biométrico (Crachá QR Dinâmico e Chamada Nominal) sem qualquer penalidade",
+        "Vetores 512-D cifrados em repouso (AES-256-GCM / DPAPI) apenas quando formalmente habilitado via RIPD",
         "Auto-throttling térmico de hardware para operação contínua em servidor local",
       ],
       href: "/seguranca-lgpd#governanca",

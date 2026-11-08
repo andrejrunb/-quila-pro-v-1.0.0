@@ -6,27 +6,27 @@ import { ArrowRight, Quote, BarChart } from "lucide-react";
 export default function Casos() {
   const cases = [
     {
-      tag: "Cenário de Homologação 01 • Ensino Fundamental II & Médio",
-      school: "Unidade Modelo — 20 Salas / 500 Alunos",
-      location: "Ambiente de Bancada & Simulação Operacional",
+      tag: "Cenário de Bancada 01 • Ensino Fundamental II & Médio",
+      school: "Unidade Modelo Sintética — 20 Salas / 500 Alunos",
+      location: "Testes Internos Automatizados de Bancada (H-01)",
       challenge:
         "Divergência entre registros de entrada na portaria, chamadas em papel na 1ª aula e demora na identificação de alunos com faltas consecutivas.",
       result:
-        "Sincronização imediata entre chamada docente e fila de alertas da coordenação, com 100% dos eventos auditados em banco SQLite local (WAL).",
+        "Sincronização imediata em bancada entre chamada docente e fila de alertas da coordenação (20/20 casos de teste internos e 10/10 critérios de orquestração verificados em laboratório), com 100% dos eventos auditados em banco SQLite local (WAL).",
       quote:
         "A consolidação da linha do tempo do aluno permite que a coordenação visualize presença, atrasos, ocorrências e justificativas em uma única tela antes do fim do primeiro tempo de aula.",
-      author: "Relatório de Homologação H-01 • Coordenação Pedagógica",
+      author: "Relatório de Testes Internos H-01 • Coordenação Pedagógica",
     },
     {
-      tag: "Cenário de Homologação 02 • Avaliações & Secretaria",
-      school: "Fluxo Integrado CSV → Diário → OMR",
-      location: "Bateria Sintética Verificada (Fixtures H-01)",
+      tag: "Cenário de Bancada 02 • Avaliações OMR & Disaster Recovery",
+      school: "Fluxo Integrado CSV Sintético → Diário → Kernel OMR",
+      location: "Bateria Sintética Verificada em Bancada (Fixtures H-01)",
       challenge:
-        "Alto tempo gasto pelos professores na digitação manual de notas de simulados e risco de perda de dados em oscilações de rede.",
+        "Alto tempo gasto pelos professores na digitação manual de notas de simulados e risco de corrupção de banco em quedas de energia.",
       result:
-        "Importação validada de turmas via CSV, geração de provas A4 em 2 colunas e recuperação transacional do banco SQLite testada contra falhas abruptas.",
+        "Importação validada de 381 registros sintéticos via CSV, leitura óptica via Kernel OpenCV determinístico (Sauvola + Homografia 3×3) e recuperação transacional atômica do banco SQLite testada em bancada.",
       quote:
-        "Mesmo desconectado da internet externa, o aplicativo instalado mantém a chamada, o mapa de carteiras 6×5 e o lançamento de notas funcionando na rede local da escola.",
+        "Mesmo desconectado da internet externa, o aplicativo instalado mantém a chamada, o mapa de carteiras 6×5, os jogos interativos e o lançamento de notas funcionando na rede local.",
       author: "Dossiê Técnico de Estabilidade & DR • Engenharia Áquila",
     },
   ];
@@ -36,17 +36,17 @@ export default function Casos() {
       <section className="pt-44 pb-16 px-8 flex flex-col items-center">
         <div className="max-w-4xl text-center">
           <h2 className="text-xs font-black uppercase tracking-[0.4em] text-emerald-400 mb-6">
-            Cenários de Homologação &amp; Benchmarks Operacionais
+            Testes Internos de Bancada &amp; Homologação Técnica
           </h2>
           <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-8 leading-[0.95]">
             Evidências de{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 italic">
-              Execução Real
+              Bancada Verificáveis
             </span>
             .
           </h1>
           <p className="text-zinc-300 text-lg md:text-xl font-medium max-w-2xl mx-auto">
-            Estudos de caso baseados nos roteiros de homologação técnica do piloto H-01 com dados sintéticos auditáveis (respeitando o sigilo de instituições e dados de menores conforme LGPD Art. 14).
+            Resultados obtidos em bateria interna automatizada de bancada (roteiro H-01) utilizando exclusivamente dados sintéticos auditáveis, em estrito respeito ao Art. 14 da LGPD.
           </p>
         </div>
       </section>
@@ -71,7 +71,7 @@ export default function Casos() {
                 <div className="flex flex-col gap-5">
                   <div>
                     <h3 className="text-xs font-black text-indigo-400 uppercase tracking-widest mb-1">
-                      Cenário Avaliado
+                      Cenário Avaliado em Laboratório
                     </h3>
                     <p className="text-zinc-300 font-medium text-sm leading-relaxed">
                       {cs.challenge}
@@ -79,7 +79,7 @@ export default function Casos() {
                   </div>
                   <div>
                     <h3 className="text-xs font-black text-emerald-400 uppercase tracking-widest mb-1">
-                      Resultado Verificado em Bancada
+                      Resultado em Testes Internos de Bancada
                     </h3>
                     <div className="flex items-start gap-3 text-lg font-bold tracking-tight text-white">
                       <BarChart className="text-emerald-400 shrink-0 mt-1" size={24} />
@@ -113,9 +113,9 @@ export default function Casos() {
       <section className="py-20 px-8 border-y border-white/5">
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-10 text-center">
           <div>
-            <div className="text-4xl md:text-5xl font-black mb-2">20 Salas</div>
+            <div className="text-4xl md:text-5xl font-black mb-2">20/20</div>
             <p className="text-xs text-zinc-400 font-bold uppercase tracking-widest">
-              Escala Base do Piloto H-01
+              Casos Internos de Bancada H-01
             </p>
           </div>
           <div>
@@ -131,9 +131,9 @@ export default function Casos() {
             </p>
           </div>
           <div>
-            <div className="text-4xl md:text-5xl font-black mb-2">100% Local</div>
+            <div className="text-4xl md:text-5xl font-black mb-2">On-Premise</div>
             <p className="text-xs text-zinc-400 font-bold uppercase tracking-widest">
-              Operação Sem Nuvem Obrigatória
+              Prontuários &amp; Notas no Servidor Local
             </p>
           </div>
         </div>

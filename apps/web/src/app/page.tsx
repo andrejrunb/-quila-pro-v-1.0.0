@@ -53,7 +53,7 @@ export default function LandingPage() {
       href: "/portal/coordenacao",
       features: [
         "Linha do tempo operacional do aluno (presença → atraso → ocorrência → ação)",
-        "Alertas preventivos de infrequência e busca ativa (LDB Art. 12, VII)",
+        "Alertas preventivos de infrequência e busca ativa (LDB Art. 12, VIII, "a" — Lei 15.231/2025)",
         "Trilha de auditoria local com verificação de integridade SHA-256",
         "Exportação de relatórios gerenciais e integração contábil/secretaria",
       ],
@@ -64,7 +64,7 @@ export default function LandingPage() {
       features: [
         "Chamada rápida assistida com confirmação humana pelo docente",
         "Mapa visual de sala de aula (6×5), diário de classe e notas por bimestre",
-        "Criação de atividades, listas impressas A4 em 2 colunas e leitura OMR",
+        "Provas A4 em 2 colunas, banco TRI 3PL, andaimes PEI/AEE (DOK 1-4) e leitura OMR híbrida",
         "Comunicação direta de ocorrências pedagógicas para a coordenação",
       ],
     },
@@ -75,7 +75,7 @@ export default function LandingPage() {
         "Avisos de frequência, atrasos e comunicados oficiais da escola",
         "Acompanhamento de boletim, tarefas e cronograma de avaliações",
         "Envio de justificativas e ciência registrada com governança LGPD",
-        "Perguntas pedagógicas semanais para apoiar o estudo em casa",
+        "Roteiros semanais "Conversas para o Jantar" (6º EF à 3ª EM) sem jargão acadêmico",
       ],
     },
     {
@@ -84,7 +84,7 @@ export default function LandingPage() {
       features: [
         "Jornada de estudos escopada estritamente à série e turma do aluno",
         "Caderno digital de atividades, revisões espaçadas e simulados",
-        "Trilha gamificada com mentores históricos e acompanhamento BNCC",
+        "8 modos de jogos estilo Wordwall, mentores históricos e moeda Aureus por mérito (ECA Digital)",
         "Visualização clara de horários, entregas e metas da semana",
       ],
     },
