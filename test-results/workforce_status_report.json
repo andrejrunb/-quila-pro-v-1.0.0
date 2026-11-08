@@ -1,0 +1,368 @@
+{
+  "generated_at": "2026-11-08T11:30:48.657605+00:00",
+  "total_digital_employees": 12,
+  "total_gpu_llm_nodes": 11,
+  "employees": [
+    {
+      "id": "emp-01-wordwall-factory",
+      "sidecar_id": "aquila-employee-01-wordwall-factory",
+      "name": "Funcionário 01: Fábrica de Jogos Wordwall & Missões RPG (GPU Swarm)",
+      "role": "Gamificação Pedagógica & Cosméticos Aureus",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 */6 * * *",
+      "schedule_human": "A cada 6 horas",
+      "engine": "NVIDIA NIM + Qwen-2.5-Coder + WordwallSovereignEngine",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\scripts\\gpu_continuous_game_generator.py"
+      ],
+      "deliverables": [
+        "Jogos interativos em 8 estilos Wordwall (Quiz Show, Labirinto, Avião, Pares, Roleta, Caixas, V/F, Classificação)",
+        "Missões de cientistas históricos (Tesla, Marie Curie, Santos Dumont, César Lattes) e recompensas em Aureus (🪙)"
+      ]
+    },
+    {
+      "id": "emp-02-brisk-didactic",
+      "sidecar_id": "aquila-employee-02-brisk-didactic-producer",
+      "name": "Funcionário 02: Produtor de Material Didático Brisk (Listas, Resumos, Forms & Kahoot)",
+      "role": "Produção Didática Docente & Exportação Google Forms / Kahoot! / Quizizz",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 7 * * 1-5",
+      "schedule_human": "Seg–Sex às 07:00",
+      "engine": "Brisk Teaching (app.briskteaching.com) + Gemini 2.5 Flash + TRI 3PL Bank",
+      "command": [
+        "node",
+        "c:\\aquila\\scripts\\brisk_didactic_material_producer.cjs"
+      ],
+      "deliverables": [
+        "Resumos Estruturados (Guia de Estudo Cornell) e Listas de Exercícios Graduadas DOK 1–4",
+        "Scripts Google Forms (.gs) com pontuação/gabarito automático e planilhas oficiais Kahoot! (.csv) e Quizizz (.csv)"
+      ]
+    },
+    {
+      "id": "emp-03-enem-harvester",
+      "sidecar_id": "aquila-employee-03-enem-vestibular-harvester",
+      "name": "Funcionário 03: Minerador de Provas Oficiais ENEM, ITA, FUVEST & Olimpíadas",
+      "role": "Curadoria de Exames Oficiais & Calibração TRI 3PL",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 30 */6 * * *",
+      "schedule_human": "A cada 6 horas (minuto 30)",
+      "engine": "DeepSeek R1 + Perplexity Pro + SQLite Pedagogical Scaffolding",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\scripts\\build_1000_official_links_catalog.py"
+      ],
+      "deliverables": [
+        "1.200+ links oficiais verificados (INEP/ENEM, PAS-UnB, UFG, FUVEST, UNICAMP, ITA, OBMEP, OBF)",
+        "Itens calibrados TRI 3PL (parâmetros a, b, c) e distratores diagnosticados"
+      ]
+    },
+    {
+      "id": "emp-04-gpu-qlora-finetuner",
+      "sidecar_id": "aquila-employee-04-gpu-qlora-finetuner",
+      "name": "Funcionário 04: Engenheiro de Fine-Tuning QLoRA & Sincronia Multi-GPU (Colab A100 / NIM)",
+      "role": "Treinamento Contínuo Multi-LoRA BF16 & Sincronia de Tensores",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 15 */4 * * *",
+      "schedule_human": "A cada 4 horas (minuto 15)",
+      "engine": "Google Colab Pro A100-80GB + NVIDIA NIM + Kaggle Dual-T4 + Modal GPU",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\scripts\\swarm_router.py",
+        "--status"
+      ],
+      "deliverables": [
+        "Pacote SFT/QLoRA limpo (aquila_sft_v2.0_cleaned.jsonl) com hash SHA-256",
+        "Sincronia de 6 adaptadores LoRA com o cluster Google Colab A100 e pool NVIDIA NIM"
+      ]
+    },
+    {
+      "id": "emp-05-lgpd-copyright-guard",
+      "sidecar_id": "aquila-employee-05-lgpd-anpd-copyright-auditor",
+      "name": "Funcionário 05: Auditor Jurídico LGPD, Quarentena ANPD & Direitos Autorais (LDA Tier 1)",
+      "role": "Governança Legal, Quarentena Biométrica ANPD & Segregação Autoral",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 9 * * *",
+      "schedule_human": "Diariamente às 09:00",
+      "engine": "Claude 3.7 Sonnet + ZeroBypassAuditService + LicensePartitioner",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\scripts\\swarm_partition_license_tiers.py"
+      ],
+      "deliverables": [
+        "Trava técnica de quarentena biométrica ANPD (Nota Técnica nº 4/2026) ativa",
+        "Segregação 100% Tier 1 (Domínio Público / OER CC-BY) sem material comercial no dataset SFT"
+      ]
+    },
+    {
+      "id": "emp-06-ui-ux-sentinel",
+      "sidecar_id": "aquila-employee-06-ui-ux-accessibility-sentinel",
+      "name": "Funcionário 06: Sentinela Visual de UI/UX, Rotas RAG & Acessibilidade WCAG AAA",
+      "role": "Inspeção Visual 1920x1080, Grafo RAG de Rotas & Contraste WCAG AAA",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 10 * * *",
+      "schedule_human": "Diariamente às 10:00",
+      "engine": "Claude 3.7 + GitHub Copilot + Codebase Graph RAG Indexer",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\scripts\\dev_codebase_rag_indexer.py"
+      ],
+      "deliverables": [
+        "Grafo dev_codebase_graph.json atualizado (367+ componentes, 156+ rotas, 0 links quebrados)",
+        "Auditoria visual Full-HD dos 10 portais com validação de contraste WCAG AAA (7.8:1+)"
+      ]
+    },
+    {
+      "id": "emp-07-timetable-solver",
+      "sidecar_id": "aquila-employee-07-timetable-sa-gls-optimizer",
+      "name": "Funcionário 07: Otimizador Matemático de Grade Horária SA+GLS (Zero Janelas)",
+      "role": "Pesquisa Operacional & Compactação de Horários Docentes",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 30 6 * * 1-5",
+      "schedule_human": "Seg–Sex às 06:30",
+      "engine": "Motor Python SA+GLS (Simulated Annealing + Guided Local Search + Kempe Chains)",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\apps\\electron\\src\\main\\python\\timetable_solver.py",
+        "--time-limit",
+        "0.5"
+      ],
+      "deliverables": [
+        "Grade horária semanal sem conflitos hard (H1–H4 = 0) e minimização de janelas docentes (S1–S3)",
+        "Alocação inteligente de salas e laboratórios STEM por bloco"
+      ]
+    },
+    {
+      "id": "emp-08-youtube-oer-curator",
+      "sidecar_id": "aquila-employee-08-youtube-oer-curator",
+      "name": "Funcionário 08: Curador de Videoaulas YouTube & Ciência da Aprendizagem (OER)",
+      "role": "Curadoria de Videoaulas BNCC, Simulações PhET & Podcast NotebookLM",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 12 * * *",
+      "schedule_human": "Diariamente às 12:00",
+      "engine": "YouTube Pedagogical Radar + International OER Engine + PhET Colorado",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\scripts\\swarm_international_oer_learning_science_engine.py"
+      ],
+      "deliverables": [
+        "Playlists de videoaulas curadas por habilidade BNCC e série (6º Ano EF à 3ª Série EM)",
+        "Roteiros de Podcast Bivoice estilo NotebookLM e simulações interativas PhET"
+      ]
+    },
+    {
+      "id": "emp-09-family-cnv-mediator",
+      "sidecar_id": "aquila-employee-09-omni-workforce-dispatcher",
+      "name": "Funcionário 09: Mediador Escola-Família, Roteiros de Jantar & Alerta Precoce LDB",
+      "role": "Engajamento Familiar (7 Séries), Comunicação Não-Violenta (CNV) & LDB Art. 12 VIII 'a'",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 */2 * * *",
+      "schedule_human": "A cada 2 horas",
+      "engine": "Llama-3.3-70B (Groq/Cerebras Free) + ParentPortal Dinner Script Generator",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\scripts\\verify_pedagogical_journey.py"
+      ],
+      "deliverables": [
+        "Roteiros diários 'Conversa de Jantar' personalizados para as 7 séries (6º EF a 3ª EM)",
+        "Monitoramento preventivo de infrequência no limiar de 20% (pré-alerta) e 30% (LDB Art. 12, VIII, 'a' — Lei 15.231/2025)"
+      ]
+    },
+    {
+      "id": "emp-10-daily-bench-guardian",
+      "sidecar_id": "aquila-daily-guardian",
+      "name": "Funcionário 10: Guardião Diário de Bancada & Integridade SQLite (20 Casos Piloto)",
+      "role": "Engenharia de Confiabilidade, RBAC, Persistência WAL & Disaster Recovery",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 8 * * *",
+      "schedule_human": "Diariamente às 08:00",
+      "engine": "Node.js Pilot Acceptance Harness + SQLite WAL Integrity Verifier",
+      "command": [
+        "node",
+        "c:\\aquila\\scripts\\test_pilot_journey_suite.cjs"
+      ],
+      "deliverables": [
+        "Auditoria matinal 20/20 dos casos de bancada (RBAC, barreira IPC, backup cifrado AES-256-GCM e DR)",
+        "Verificação criptográfica da trilha zero_bypass_audits"
+      ]
+    },
+    {
+      "id": "emp-11-langgraph-gpu-sentinel",
+      "sidecar_id": "aquila-orchestrator-sentinel",
+      "name": "Funcionário 11: Sentinela do Orquestrador LangGraph, Checkpoints & Filas GPU",
+      "role": "Supervisão de Workflows Assíncronos & Human-in-the-Loop (HITL)",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 */4 * * *",
+      "schedule_human": "A cada 4 horas",
+      "engine": "LangGraph State Checkpoint Inspector + SovereignResilienceService",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\scripts\\gpu_dev_swarm.py",
+        "--status"
+      ],
+      "deliverables": [
+        "Monitoramento de filas GPU/NPU, temperatura de borda (<75°C) e aprovações HITL pendentes"
+      ]
+    },
+    {
+      "id": "emp-12-release-hash-notary",
+      "sidecar_id": "aquila-release-integrity-digest",
+      "name": "Funcionário 12: Tabelião Criptográfico de Release, Hashes SHA-256 & Homologação",
+      "role": "Auditoria de Fechamento de Expediente, Assinatura Ed25519 & Manifesto H01",
+      "schedule_cron": "CRON_TZ=America/Sao_Paulo 0 18 * * *",
+      "schedule_human": "Diariamente às 18:00",
+      "engine": "Ed25519 Signature Verifier + SHA256SUMS Auditor",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "c:\\aquila\\scripts\\verify_readiness.py"
+      ],
+      "deliverables": [
+        "Conferência diária de hashes SHA-256 dos artefatos e sincronia entre branches main e integration"
+      ]
+    }
+  ],
+  "execution_results": [
+    {
+      "id": "emp-01-wordwall-factory",
+      "name": "Funcionário 01: Fábrica de Jogos Wordwall & Missões RPG (GPU Swarm)",
+      "status": "ONLINE_COMPLETED",
+      "exit_code": 0,
+      "elapsed_ms": 214,
+      "last_output": "Sucesso! Gerados 6 jogos no formato JSON em: C:\\aquila\\apps\\electron\\src\\database\\generated_games | Inseridos +6 pares gamificados no dataset SFT das GPUs. | Total consolidado no dataset SFT/QLoRA: 369 pares."
+    },
+    {
+      "id": "emp-02-brisk-didactic",
+      "name": "Funcionário 02: Produtor de Material Didático Brisk (Listas, Resumos, Forms & Kahoot)",
+      "status": "ONLINE_COMPLETED",
+      "exit_code": 0,
+      "elapsed_ms": 181,
+      "last_output": "[BRISK-DIDACTIC] Kit de prompt didático salvo em: c:\\aquila\\docs\\materiais_didaticos_brisk\\PROMPT_KIT_DIDATICO_BRISK_FORMS_KAHOOT.md"
+    },
+    {
+      "id": "emp-03-enem-harvester",
+      "name": "Funcionário 03: Minerador de Provas Oficiais ENEM, ITA, FUVEST & Olimpíadas",
+      "status": "SCHEDULED_READY",
+      "exit_code": 0,
+      "elapsed_ms": 0,
+      "last_output": "Agendado via Automations (A cada 6 horas (minuto 30))"
+    },
+    {
+      "id": "emp-04-gpu-qlora-finetuner",
+      "name": "Funcionário 04: Engenheiro de Fine-Tuning QLoRA & Sincronia Multi-GPU (Colab A100 / NIM)",
+      "status": "ONLINE_COMPLETED",
+      "exit_code": 0,
+      "elapsed_ms": 2040,
+      "last_output": "   - Lightning AI Studio: NOT_CONFIGURED (Pronto para vincular no .env) |  | ========================================================================="
+    },
+    {
+      "id": "emp-05-lgpd-copyright-guard",
+      "name": "Funcionário 05: Auditor Jurídico LGPD, Quarentena ANPD & Direitos Autorais (LDA Tier 1)",
+      "status": "SCHEDULED_READY",
+      "exit_code": 0,
+      "elapsed_ms": 0,
+      "last_output": "Agendado via Automations (Diariamente às 09:00)"
+    },
+    {
+      "id": "emp-06-ui-ux-sentinel",
+      "name": "Funcionário 06: Sentinela Visual de UI/UX, Rotas RAG & Acessibilidade WCAG AAA",
+      "status": "SCHEDULED_READY",
+      "exit_code": 0,
+      "elapsed_ms": 0,
+      "last_output": "Agendado via Automations (Diariamente às 10:00)"
+    },
+    {
+      "id": "emp-07-timetable-solver",
+      "name": "Funcionário 07: Otimizador Matemático de Grade Horária SA+GLS (Zero Janelas)",
+      "status": "ONLINE_COMPLETED",
+      "exit_code": 0,
+      "elapsed_ms": 799,
+      "last_output": "{\"hard_violations\": 0, \"soft_cost\": 6250, \"iterations\": 781, \"elapsed_ms\": 500.01, \"schedule\": [[2, 7, 5, 6, 6, 5, 1, 7, 7, 6, 3, 2, 1, 5, 3, 5, 7, 4, 2, 1, 3, 1, 7, 4, 6, 4, 4, 3, 6, 2, 2, 5, 1, 3, 4], [10, 11, 11, 9, 10, 14, 8, 9, 8, 14, 14, 12, 11, 14, 12, 8, 9, 8, 13, 9, 13, "
+    },
+    {
+      "id": "emp-08-youtube-oer-curator",
+      "name": "Funcionário 08: Curador de Videoaulas YouTube & Ciência da Aprendizagem (OER)",
+      "status": "SCHEDULED_READY",
+      "exit_code": 0,
+      "elapsed_ms": 0,
+      "last_output": "Agendado via Automations (Diariamente às 12:00)"
+    },
+    {
+      "id": "emp-09-family-cnv-mediator",
+      "name": "Funcionário 09: Mediador Escola-Família, Roteiros de Jantar & Alerta Precoce LDB",
+      "status": "SCHEDULED_READY",
+      "exit_code": 0,
+      "elapsed_ms": 0,
+      "last_output": "Agendado via Automations (A cada 2 horas)"
+    },
+    {
+      "id": "emp-10-daily-bench-guardian",
+      "name": "Funcionário 10: Guardião Diário de Bancada & Integridade SQLite (20 Casos Piloto)",
+      "status": "SCHEDULED_READY",
+      "exit_code": 0,
+      "elapsed_ms": 0,
+      "last_output": "Agendado via Automations (Diariamente às 08:00)"
+    },
+    {
+      "id": "emp-11-langgraph-gpu-sentinel",
+      "name": "Funcionário 11: Sentinela do Orquestrador LangGraph, Checkpoints & Filas GPU",
+      "status": "SCHEDULED_READY",
+      "exit_code": 0,
+      "elapsed_ms": 0,
+      "last_output": "Agendado via Automations (A cada 4 horas)"
+    },
+    {
+      "id": "emp-12-release-hash-notary",
+      "name": "Funcionário 12: Tabelião Criptográfico de Release, Hashes SHA-256 & Homologação",
+      "status": "SCHEDULED_READY",
+      "exit_code": 0,
+      "elapsed_ms": 0,
+      "last_output": "Agendado via Automations (Diariamente às 18:00)"
+    }
+  ],
+  "gpu_llm_pool": [
+    {
+      "category": "GPU Cloud",
+      "provider": "Google Colab Pro A100-SXM4-80GB / T4",
+      "role": "Fine-Tuning Multi-LoRA BF16, InsightFace 512-d, YOLOv8, vLLM"
+    },
+    {
+      "category": "GPU Cloud",
+      "provider": "NVIDIA NIM Cloud Cluster (DGX H100)",
+      "role": "MiniMax-M3.1-Flash, Nemotron-3.5-Lightning, Llama-3.2-90B-Vision, Mistral-Large-2"
+    },
+    {
+      "category": "GPU Free",
+      "provider": "Kaggle Notebooks Dual-T4 (30h/semana)",
+      "role": "Extração de PDFs de Provas, Vetorização BGE-M3 e Treino Auxiliar"
+    },
+    {
+      "category": "GPU Free",
+      "provider": "Modal Serverless GPU ($30/mês Free Tier)",
+      "role": "Workers efêmeros de OCR OMR de cartões-resposta e solver SA+GLS"
+    },
+    {
+      "category": "GPU Free",
+      "provider": "Lightning AI Studio (Free GPU Hours)",
+      "role": "Prototipagem de modelos psicométricos TRI 3PL e benchmarks"
+    },
+    {
+      "category": "LLM Free API",
+      "provider": "Google AI Studio (Gemini 2.5 Flash / 2.0 Flash)",
+      "role": "Geração BNCC, Adaptação PEI/AEE DOK 1–4 e Roteiros de Jantar"
+    },
+    {
+      "category": "LLM Free API",
+      "provider": "Groq LPU Free Tier (Llama-3.3-70B / DeepSeek-R1-Distill)",
+      "role": "Tutor Socrático em Tempo Real (<150ms) e Feedback Glow & Grow"
+    },
+    {
+      "category": "LLM Free API",
+      "provider": "Cerebras Wafer-Scale Free (Llama-3.3-70B / Qwen-3-32B)",
+      "role": "Geração instantânea de Jogos Wordwall e Listas Kumon"
+    },
+    {
+      "category": "LLM Free API",
+      "provider": "OpenRouter Free Pool (DeepSeek-R1:free / Qwen-2.5-Coder-32B:free)",
+      "role": "Refatoração TypeScript/React, Testes Jest e Queries SQLite"
+    },
+    {
+      "category": "Agente Didático",
+      "provider": "Brisk Teaching (app.briskteaching.com)",
+      "role": "Exclusivo p/ Material Didático: Listas, Resumos, Quizzes e conexão Google Forms & Kahoot!"
+    },
+    {
+      "category": "Conselho de IAs",
+      "provider": "Claude 3.7 + ChatGPT 4o + DeepSeek R1 + Perplexity Pro + Copilot",
+      "role": "Auditoria de Arquitetura, UI/UX WCAG AAA, Segurança LGPD e Pesquisa Científica"
+    }
+  ]
+}
