@@ -17,13 +17,13 @@ import {
 } from "lucide-react";
 import { animate, stagger } from "animejs";
 
-const AScene: ElementType = "a-scene";
-const ASky: ElementType = "a-sky";
-const ABox: ElementType = "a-box";
-const APlane: ElementType = "a-plane";
-const ALight: ElementType = "a-light";
-const AEntity: ElementType = "a-entity";
-const ACamera: ElementType = "a-camera";
+const AScene = "a-scene" as unknown as ElementType;
+const ASky = "a-sky" as unknown as ElementType;
+const ABox = "a-box" as unknown as ElementType;
+const APlane = "a-plane" as unknown as ElementType;
+const ALight = "a-light" as unknown as ElementType;
+const AEntity = "a-entity" as unknown as ElementType;
+const ACamera = "a-camera" as unknown as ElementType;
 
 export default function LandingPage() {
   const [studentCount, setStudentCount] = useState(500);
@@ -53,7 +53,7 @@ export default function LandingPage() {
       href: "/portal/coordenacao",
       features: [
         "Linha do tempo operacional do aluno (presença → atraso → ocorrência → ação)",
-        "Alertas preventivos de infrequência e busca ativa (LDB Art. 12, VIII, "a" — Lei 15.231/2025)",
+        "Alertas preventivos de infrequência e busca ativa (LDB Art. 12, VIII, 'a' — Lei 15.231/2025)",
         "Trilha de auditoria local com verificação de integridade SHA-256",
         "Exportação de relatórios gerenciais e integração contábil/secretaria",
       ],
@@ -75,7 +75,7 @@ export default function LandingPage() {
         "Avisos de frequência, atrasos e comunicados oficiais da escola",
         "Acompanhamento de boletim, tarefas e cronograma de avaliações",
         "Envio de justificativas e ciência registrada com governança LGPD",
-        "Roteiros semanais "Conversas para o Jantar" (6º EF à 3ª EM) sem jargão acadêmico",
+        "Roteiros semanais 'Conversas para o Jantar' (6º EF à 3ª EM) sem jargão acadêmico",
       ],
     },
     {

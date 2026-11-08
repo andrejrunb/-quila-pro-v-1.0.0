@@ -5,8 +5,10 @@
  *  - Constituição v2.1 (AGENTS.md): Trilha Zero-Bypass para mutações sensíveis.
  *  - ECA Digital (Lei Federal 15.211/2025): Proteção integral, dignidade e restrição
  *    de perfil comportamental de crianças e adolescentes.
- *  - LGPD (Lei Federal 13.709/2018, Art. 14 e 16): Consentimento parental específico e
+ *  - LGPD (Lei Federal 13.709/2018, Art. 11, 14 e 16): Consentimento parental específico e
  *    expurgo auditável de dados biométricos.
+ *  - ANPD Caso Paraná (Despacho Decisório nº 2/2026/SFI & Nota Técnica nº 4/2026):
+ *    Quarentena biométrica de fábrica (BIOMETRIC_ATTENDANCE_ENABLED=false) e exigência de RIPD aprovado.
  *  - Encadeamento Criptográfico SHA-256 (Hash-Chain Forense).
  */
 
@@ -20,6 +22,8 @@ export type CriticalAuditAction =
   | 'BIOMETRIC_CONSENT_REVOKED'
   | 'HARD_DELETE_RECORDS'
   | 'ECA_DIGITAL_VIOLATION_BLOCKED'
+  | 'ANPD_PARANA_BIOMETRIC_QUARANTINE_BLOCKED'
+  | 'RIPD_INSTITUCIONAL_APROVADO'
   | 'BIOMETRIC_ACCESS'
   | 'ADMIN_AUTH_OVERRIDE'
   | 'STUDENT_ENROLLMENT'
@@ -31,7 +35,7 @@ export interface AuditRecordParams {
   action: CriticalAuditAction | string;
   details: string;
   metadata?: Record<string, unknown>;
-  legalBasis?: 'ECA_DIGITAL_LEI_15211' | 'LGPD_ART_14' | 'LGPD_ART_16' | 'LEGAL_OBLIGATION' | 'SECURITY_DEFENSE';
+  legalBasis?: 'ECA_DIGITAL_LEI_15211' | 'LGPD_ART_14' | 'LGPD_ART_16' | 'ANPD_NT_04_2026' | 'LEGAL_OBLIGATION' | 'SECURITY_DEFENSE';
   consentVerified?: boolean;
 }
 
@@ -42,6 +46,12 @@ export interface MinorComplianceCheckParams {
   parentConsentVerified: boolean;
   consentDocumentHash?: string;
   intendedAction: string;
+}
+
+export interface BiometricAttendanceGuardParams extends MinorComplianceCheckParams {
+  schoolId: string;
+  ripdDocumentHash?: string;
+  biometricEnvEnabled?: boolean;
 }
 
 export interface AuditChainBlock {
@@ -58,7 +68,7 @@ export interface AuditChainBlock {
 }
 
 export class EcaDigitalConsentError extends Error {
-  constructor(message: string, public readonly details: Record<string, any>) {
+  constructor(message: string, public readonly details: Record<string, unknown>) {
     super(`[ECA Digital / LGPD Art. 14 Violation] ${message}`);
     this.name = 'EcaDigitalConsentError';
   }
@@ -147,7 +157,6 @@ export class ZeroBypassAuditService {
       const isCompliant = Boolean(params.parentConsentVerified && params.parentUserId && params.consentDocumentHash);
 
       if (!isCompliant) {
-        // Registro forense compulsório do bloqueio de segurança
         await this.record({
           userId: params.parentUserId || 'UNVERIFIED_GUARDIAN',
           action: 'ECA_DIGITAL_VIOLATION_BLOCKED',
@@ -170,6 +179,51 @@ export class ZeroBypassAuditService {
     }
 
     return true;
+  }
+
+  /**
+   * Trava Técnica ANPD Caso Paraná (Despacho Decisório nº 2/2026/SFI & Nota Técnica nº 4/2026):
+   * Bloqueia reconhecimento facial para chamada/frequência de menores a menos que:
+   * 1. O flag institucional BIOMETRIC_ATTENDANCE_ENABLED esteja explicitamente ativo;
+   * 2. Exista hash de Relatório de Impacto (RIPD/DPIA) aprovado pela mantenedora;
+   * 3. O consentimento parental granular (Art. 14) esteja comprovado.
+   * Caso contrário, força o uso do caminho padrão primário (Crachá QR Dinâmico / Chamada Nominal).
+   */
+  public async assertBiometricAttendanceAllowed(params: BiometricAttendanceGuardParams): Promise<boolean> {
+    const envEnabled =
+      typeof params.biometricEnvEnabled === 'boolean'
+        ? params.biometricEnvEnabled
+        : process.env.BIOMETRIC_ATTENDANCE_ENABLED === 'true';
+
+    const hasApprovedRipd = Boolean(params.ripdDocumentHash && params.ripdDocumentHash.trim().length >= 16);
+
+    if (!envEnabled || !hasApprovedRipd) {
+      await this.record({
+        userId: params.parentUserId || 'SYSTEM_EDGE_GATE',
+        action: 'ANPD_PARANA_BIOMETRIC_QUARANTINE_BLOCKED',
+        details: `Reconhecimento facial em chamada bloqueado pela Quarentena ANPD (Despacho Decisório nº 2/2026/SFI). Utilize o caminho padrão primário: Crachá QR Dinâmico ou Chamada Nominal.`,
+        metadata: {
+          schoolId: params.schoolId,
+          studentId: params.studentId,
+          envEnabled,
+          hasApprovedRipd,
+          fallbackPath: 'QR_CARD_OR_NOMINAL_CALL',
+        },
+        legalBasis: 'ANPD_NT_04_2026',
+        consentVerified: false,
+      });
+
+      throw new EcaDigitalConsentError(
+        `Biometria facial em quarentena por padrão (ANPD Despacho Decisório nº 2/2026/SFI - Caso Paraná). Utilize Crachá QR Dinâmico ou Chamada Nominal, ou apresente RIPD institucional aprovado.`,
+        {
+          schoolId: params.schoolId,
+          studentId: params.studentId,
+          fallbackPath: 'QR_CARD_OR_NOMINAL_CALL',
+        }
+      );
+    }
+
+    return await this.assertMinorConsent(params);
   }
 
   /**

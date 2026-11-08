@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { CommunityMarketplace } from '../pages/CommunityMarketplace';
 import AcademicReportCard, { ReportCardStudent } from '../components/AcademicReportCard';
+import { DINNER_CONVERSATION_SCRIPTS, DinnerConversationScript } from '../../services/PedagogicalTriScaffoldingBank';
 import './ParentPortal.css';
 
 interface ParentPortalProps {
@@ -76,12 +77,12 @@ const typeLabels: Record<string, string> = {
 };
 
 export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentId }) => {
-  const [studentName, setStudentName] = useState<string>('Lucas Andrade');
+  const [studentName, setStudentName] = useState<string>('ALUNO SINTETICO 001');
   const [attendance, setAttendance] = useState<AttendanceSummary | null>({
     totalDays: 160,
     presentDays: 154,
     absences: 6,
-    lastEntry: '07:12 (Portaria Sul • Biometria)',
+    lastEntry: '07:12 (Portaria Sul • Crachá QR Dinâmico)',
     lastExit: '12:35 (Ontem)',
   });
   const [grades, setGrades] = useState<GradeSummary[]>(DEMO_GRADES);
@@ -104,6 +105,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
   });
   const [activeTab, setActiveTab] = useState<'resumo' | 'neuro-rotina' | 'presenca' | 'notas' | 'financeiro' | 'marketplace' | 'mensagens' | 'ocorrencias' | 'conquistas'>('resumo');
   const [dinnerCopied, setDinnerCopied] = useState(false);
+  const [selectedDinnerGradeIdx, setSelectedDinnerGradeIdx] = useState<number>(4);
   const [showBoletimModal, setShowBoletimModal] = useState(false);
   const [showPixModal, setShowPixModal] = useState(false);
   const [pixCopied, setPixCopied] = useState(false);
@@ -142,7 +144,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
       description: 'Nota 960 na Redação Dissertativa com excelente argumentação em repertório sociocultural.',
       actionTaken: 'Certificado de Excelência registrado em prontuário acadêmico.',
       signed: true,
-      signedAt: '17/10/2026 às 19:22 (Assinado por Marcos Costa)',
+      signedAt: '17/10/2026 às 19:22 (Assinado por Responsavel H01 001)',
     },
     {
       id: 'p-occ-3',
@@ -154,7 +156,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
       description: 'Entrada registrada às 07:32. Recomendamos atenção ao horário de abertura dos portões (07:00).',
       actionTaken: 'Orientação verbal sobre pontualidade e normas regimentais.',
       signed: true,
-      signedAt: '16/10/2026 às 12:40 (Assinado por Fernanda Costa)',
+      signedAt: '16/10/2026 às 12:40 (Assinado por Responsavel H01 001)',
     },
   ]);
 
@@ -165,7 +167,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
         return {
           ...o,
           signed: true,
-          signedAt: `${timestamp} (Assinado Digitalmente por Marcos Costa • ICP-Brasil / LGPD)`,
+          signedAt: `${timestamp} (Assinado Digitalmente por Responsavel H01 001 • Hash SHA-256 / LGPD)`,
         };
       }
       return o;
@@ -476,7 +478,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
             }}
             onClick={() => {
               navigator.clipboard?.writeText(
-                'Filho, me explica: quando você esfrega um balão no casaco de lã e encosta ele na parede, por que ele gruda se a parede é neutra e não foi esfregada em nada?'
+                DINNER_CONVERSATION_SCRIPTS[selectedDinnerGradeIdx]?.sparkQuestion || ''
               );
               setDinnerCopied(true);
               setTimeout(() => setDinnerCopied(false), 3000);
@@ -493,7 +495,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
   const renderPresenca = () => (
     <div className="pp-section">
       <div className="pp-section-header-row">
-        <h3 className="pp-section-title"><Clock size={14} color="#10B981" /> Presença & Portaria Biométrica</h3>
+        <h3 className="pp-section-title"><Clock size={14} color="#10B981" /> Presença & Portaria (Crachá QR Dinâmico • Padrão ANPD)</h3>
         <span className="pp-section-tag">NPU EDGE VERIFIED</span>
       </div>
       <div className="pp-presence-detail">
@@ -536,7 +538,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
           gap: 8
         }}>
           <CheckCircle2 size={14} color="#10B981" />
-          <span><strong>Conformidade LDB Art. 12, VII:</strong> Frequência em 96% (mínimo legal: 75%). Sem risco de retenção escolar.</span>
+          <span><strong>Conformidade LDB Art. 12, VIII, "a" (Lei 15.231/2025):</strong> Frequência em 96% (mínimo legal: 75%). Sem risco de retenção escolar.</span>
         </div>
       </div>
     </div>

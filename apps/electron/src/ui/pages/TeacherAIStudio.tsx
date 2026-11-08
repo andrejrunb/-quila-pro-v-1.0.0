@@ -14,6 +14,7 @@ import { NativePhETSimulationLab } from '../components/NativePhETSimulationLab';
 import { MultimodalPedagogicalStudio } from '../components/MultimodalPedagogicalStudio';
 import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
+import { CALIBRATED_TRI_3PL_ITEMS, BRISK_PEI_AEE_SCAFFOLDING_PROFILES } from '../../services/PedagogicalTriScaffoldingBank';
 import './TeacherAIStudio.css';
 
 interface TeacherAIStudioProps {
@@ -75,7 +76,7 @@ interface StudentWritingSubmission {
 const SAMPLE_SUBMISSIONS: StudentWritingSubmission[] = [
   {
     id: 'sub-1',
-    studentName: STUDENTS[0]?.name || 'ANA CLARA FERREIRA',
+    studentName: STUDENTS[0]?.name || 'ALUNO SINTETICO 001',
     className: STUDENTS[0]?.classRoom || '3 SERIE A',
     title: 'Redação ENEM: Desafios da Inteligência Artificial na Saúde Pública Brasileira',
     topic: 'Redação Dissertativo-Argumentativa (Padrão ENEM 1000 pts)',
@@ -142,7 +143,7 @@ const SAMPLE_SUBMISSIONS: StudentWritingSubmission[] = [
   },
   {
     id: 'sub-2',
-    studentName: STUDENTS[15]?.name || 'PEDRO HENRIQUE ALVES',
+    studentName: STUDENTS[15]?.name || 'ALUNO SINTETICO 016',
     className: STUDENTS[15]?.classRoom || '2 SERIE A',
     title: 'Relatório de Biologia: Termodinâmica Ecológica e Ciclo do Carbono no Cerrado',
     topic: 'Questão Discursiva BNCC EM13CNT101',

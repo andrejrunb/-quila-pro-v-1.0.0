@@ -1,6 +1,7 @@
 /**
  * LGPDService.ts
- * Gestão de Conformidade LGPD, Direitos do Titular (Art. 18), Consentimento e Purga de Dados.
+ * Gestão de Conformidade LGPD, Direitos do Titular (Art. 18), Consentimento,
+ * Quarentena Biométrica ANPD (Caso Paraná 2026) e Purga de Dados.
  */
 
 import Database from '../../database/Database';
@@ -17,17 +18,52 @@ export interface StudentPortabilityData {
   exportedAt: string;
   integrityChecksum: string;
   records: {
-    personalData: any;
-    academicHistory: any[];
-    attendanceSummary: any[];
-    consentHistory: any[];
+    personalData: Record<string, unknown>;
+    academicHistory: Record<string, unknown>[];
+    attendanceSummary: Record<string, unknown>[];
+    consentHistory: Record<string, unknown>[];
   };
 }
 
+export interface BiometricQuarantineStatus {
+  enabled: boolean;
+  defaultPath: 'QR_CARD_OR_NOMINAL_CALL';
+  ripdApproved: boolean;
+  envFlagEnabled: boolean;
+  legalReference: string;
+}
+
 export class LGPDService {
-  private readonly CURRENT_TERM_VERSION = '1.0.0';
+  private readonly CURRENT_TERM_VERSION = '2.2.0';
 
   constructor(private readonly db: Database) {}
+
+  /**
+   * Verifica o status da trava técnica de quarentena biométrica conforme
+   * Despacho Decisório nº 2/2026/SFI e Nota Técnica nº 4/2026/FIS/CGF/ANPD (Caso Paraná).
+   * Por padrão de fábrica, BIOMETRIC_ATTENDANCE_ENABLED=false e o caminho primário é Crachá QR / Chamada Nominal.
+   */
+  async getBiometricQuarantineStatus(): Promise<BiometricQuarantineStatus> {
+    const envFlagEnabled = process.env.BIOMETRIC_ATTENDANCE_ENABLED === 'true';
+    let ripdApproved = false;
+    try {
+      const row = await this.db.get(
+        `SELECT id FROM zero_bypass_audits WHERE action = 'RIPD_INSTITUCIONAL_APROVADO' ORDER BY id DESC LIMIT 1`
+      );
+      ripdApproved = Boolean(row);
+    } catch {
+      ripdApproved = false;
+    }
+
+    return {
+      enabled: envFlagEnabled && ripdApproved,
+      defaultPath: 'QR_CARD_OR_NOMINAL_CALL',
+      ripdApproved,
+      envFlagEnabled,
+      legalReference:
+        'ANPD Despacho Decisório nº 2/2026/SFI & Nota Técnica nº 4/2026/FIS/CGF/ANPD (Processo 00261.007049/2024-06) — LGPD Arts. 11 e 14',
+    };
+  }
 
   /**
    * Verifica se o usuário já aceitou a versão mais recente do termo
@@ -48,7 +84,6 @@ export class LGPDService {
                  VALUES (?, CURRENT_TIMESTAMP, ?, ?)`;
     await this.db.run(sql, [userId, this.CURRENT_TERM_VERSION, clientIp]);
 
-    // Registra na trilha de auditoria
     await this.recordAudit(userId, 'CONSENT_GRANTED', `Consentimento versão ${this.CURRENT_TERM_VERSION} registrado.`);
   }
 
@@ -62,7 +97,7 @@ export class LGPDService {
       await this.hardDeleteStudentBiometrics(userId);
       await this.recordAudit(userId, 'CONSENT_REVOKED', `Consentimento revogado formalmente. Vetores biométricos purgados.`);
       return true;
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error('[LGPDService] Erro ao revogar consentimento:', e);
       return false;
     }
@@ -72,12 +107,11 @@ export class LGPDService {
    * Exclusão definitiva de vetores biométricos (LGPD Art. 16)
    */
   async hardDeleteStudentBiometrics(studentId: string): Promise<void> {
-    // Purga de vetores biométricos do estudante no banco
     try {
       await this.db.run(`UPDATE students SET faceVector = NULL, photoUrl = NULL WHERE id = ?`, [studentId]);
       await this.db.run(`DELETE FROM student_encodings WHERE studentId = ?`, [studentId]);
       await this.recordAudit(studentId, 'BIOMETRIC_PURGE', `Vetores biométricos 512-D excluídos definitivamente.`);
-    } catch (e) {
+    } catch {
       // Ignora erro de tabela se não existir no momento
     }
   }
@@ -91,10 +125,10 @@ export class LGPDService {
     const consents = await this.db.all(`SELECT termVersion, consentedAt, clientIp FROM user_consent WHERE userId = ?`, [studentId]) || [];
 
     const rawData = {
-      personalData: student,
-      academicHistory: [],
-      attendanceSummary: attendance,
-      consentHistory: consents,
+      personalData: student as Record<string, unknown>,
+      academicHistory: [] as Record<string, unknown>[],
+      attendanceSummary: attendance as Record<string, unknown>[],
+      consentHistory: consents as Record<string, unknown>[],
     };
 
     const checksum = crypto.createHash('sha256').update(JSON.stringify(rawData)).digest('hex');
@@ -158,18 +192,18 @@ export class LGPDService {
     await this.db.run(logSql);
 
     console.log(`[LGPD] Purge concluído. Retenção: ${eventDays} dias para eventos, ${logDays} dias para logs.`);
-    return { deletedEvents: 0, deletedLogs: 0 }; 
+    return { deletedEvents: 0, deletedLogs: 0 };
   }
 
   getConsentTermText(): string {
     return `
-# Termo de Esclarecimento e Consentimento Escolar — Áquila Pro
-Em conformidade com a Lei Geral de Proteção de Dados (Lei 13.709/2018, Art. 14).
+# Termo de Esclarecimento e Governança de Dados Escolares — Áquila Pro (v2.2.0)
+Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, Arts. 11, 14 e 16), a Lei nº 15.211/2025 (ECA Digital), o Parecer CNE/CP nº 15/2026 e o Despacho Decisório nº 2/2026/SFI da ANPD (Caso Paraná).
 
-1. **Finalidade:** O tratamento de dados cadastrais e de presença visa estritamente a segurança física no perímetro escolar e o acompanhamento pedagógico.
-2. **Alternativa Obrigatória:** O responsável legal pode optar a qualquer momento pela validação de acesso não-biométrica (crachá ou RFID) sem restrição de acesso.
-3. **Revogabilidade:** Este consentimento pode ser revogado a qualquer momento pelo portal da família ou secretaria.
-4. **Armazenamento Seguro:** Vetores biométricos permanecem criptografados no servidor edge local e nunca são transmitidos para nuvens públicas.
+1. **Finalidade:** O tratamento de dados cadastrais e de presença visa estritamente o registro de frequência escolar (LDB Art. 12, VIII, "a" — Lei nº 15.231/2025) e o acompanhamento pedagógico.
+2. **Padrão Primário Não-Biométrico:** O caminho padrão e primário de controle de presença e acesso escolar é o **Crachá QR Dinâmico ou Chamada Nominal pelo Professor**, sem qualquer distinção, ônus ou restrição.
+3. **Quarentena Biométrica de Fábrica:** Módulos biométricos permanecem desativados por padrão (BIOMETRIC_ATTENDANCE_ENABLED=false), só podendo ser habilitados mediante Relatório de Impacto (RIPD/DPIA) aprovado pela instituição e consentimento parental granular específico e não condicionante.
+4. **Revogabilidade e Expurgo:** O consentimento pode ser revogado a qualquer momento pelo Portal da Família ou Secretaria, acionando o expurgo imediato com recibo criptográfico SHA-256.
     `.trim();
   }
 }

@@ -102,7 +102,6 @@ describe('ZeroBypassAuditService — Onda 6: Governança ECA Digital & Auditoria
       await auditService.record({ userId: 'u2', action: 'DATA_RETENTION_EXPIRATION', details: 'Regra original 2' });
       await auditService.record({ userId: 'u3', action: 'BIOMETRIC_CONSENT_REVOKED', details: 'Regra original 3' });
 
-      // Simula adulteração ilícita direta no SQLite por agente malicioso
       inMemoryRecords[1].details = 'Regra ADULTERADA maliciosamente';
 
       const auditCheck = await auditService.verifyChainIntegrity();
@@ -114,7 +113,6 @@ describe('ZeroBypassAuditService — Onda 6: Governança ECA Digital & Auditoria
       await auditService.record({ userId: 'u1', action: 'HARD_DELETE_RECORDS', details: 'Deleção 1' });
       await auditService.record({ userId: 'u2', action: 'HARD_DELETE_RECORDS', details: 'Deleção 2' });
 
-      // Corrompe previous_hash do segundo bloco
       inMemoryRecords[1].previous_hash = 'f'.repeat(64);
 
       const auditCheck = await auditService.verifyChainIntegrity();
@@ -123,7 +121,7 @@ describe('ZeroBypassAuditService — Onda 6: Governança ECA Digital & Auditoria
     });
   });
 
-  describe('2. Conformidade ECA Digital (Lei 15.211/2025) & LGPD Art. 14', () => {
+  describe('2. Conformidade ECA Digital (Lei 15.211/2025), LGPD Art. 14 & Quarentena ANPD Caso Paraná', () => {
     it('deve recusar e auditar tentativa de processamento de menor sem consentimento parental comprovado', async () => {
       const minorAttempt = {
         studentId: 'student_xyz_12',
@@ -135,12 +133,46 @@ describe('ZeroBypassAuditService — Onda 6: Governança ECA Digital & Auditoria
 
       await expect(auditService.assertMinorConsent(minorAttempt)).rejects.toThrow(EcaDigitalConsentError);
 
-      // Valida se o bloqueio compulsório foi registrado na trilha imutável
       const lastRecorded = inMemoryRecords[inMemoryRecords.length - 1];
       expect(lastRecorded.action).toBe('ECA_DIGITAL_VIOLATION_BLOCKED');
       expect(lastRecorded.legal_basis).toBe('ECA_DIGITAL_LEI_15211');
       expect(lastRecorded.consent_verified).toBe(0);
-      expect(lastRecorded.details).toContain('Tentativa de operação \'CAPTURE_BIOMETRICS_FACIAL_REC\' bloqueada');
+      expect(lastRecorded.details).toContain("Tentativa de operação 'CAPTURE_BIOMETRICS_FACIAL_REC' bloqueada");
+    });
+
+    it('deve bloquear biometria facial por padrão de fábrica (ANPD Caso Paraná) mesmo com consentimento parental se não houver RIPD aprovado', async () => {
+      await expect(
+        auditService.assertBiometricAttendanceAllowed({
+          schoolId: 'school_pr_01',
+          studentId: 'student_pr_10',
+          studentAge: 13,
+          parentUserId: 'parent_pr_10',
+          parentConsentVerified: true,
+          consentDocumentHash: 'sha256_consent_valid_1234567890',
+          intendedAction: 'BIOMETRIC_FACIAL_ATTENDANCE',
+          biometricEnvEnabled: false,
+          ripdDocumentHash: undefined,
+        })
+      ).rejects.toThrow('ANPD Despacho Decisório nº 2/2026/SFI');
+
+      const lastRecorded = inMemoryRecords[inMemoryRecords.length - 1];
+      expect(lastRecorded.action).toBe('ANPD_PARANA_BIOMETRIC_QUARANTINE_BLOCKED');
+      expect(lastRecorded.legal_basis).toBe('ANPD_NT_04_2026');
+    });
+
+    it('deve permitir biometria somente quando flag institucional, RIPD aprovado e consentimento parental estão todos presentes', async () => {
+      const allowed = await auditService.assertBiometricAttendanceAllowed({
+        schoolId: 'school_ripd_ok',
+        studentId: 'student_ripd_99',
+        studentAge: 15,
+        parentUserId: 'parent_mother_42',
+        parentConsentVerified: true,
+        consentDocumentHash: 'sha256_mock_consent_receipt_abc123',
+        ripdDocumentHash: 'sha256_approved_institutional_ripd_2026_xyz987',
+        biometricEnvEnabled: true,
+        intendedAction: 'BIOMETRIC_FACIAL_ATTENDANCE',
+      });
+      expect(allowed).toBe(true);
     });
 
     it('deve aprovar menor quando consentimento parental está verificado com documento comprovado', async () => {
@@ -189,7 +221,6 @@ describe('ZeroBypassAuditService — Onda 6: Governança ECA Digital & Auditoria
       const recorded = inMemoryRecords[0];
       const parsedMeta = JSON.parse(recorded.metadata);
 
-      // Verificação da higienização PII (Privacy by Design)
       expect(parsedMeta.cpf).toBe('[REDACTED_BY_LGPD_GUARD]');
       expect(parsedMeta.password).toBe('[REDACTED_BY_LGPD_GUARD]');
       expect(parsedMeta.faceVector).toBe('[REDACTED_BY_LGPD_GUARD]');

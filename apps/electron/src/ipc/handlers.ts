@@ -10107,5 +10107,27 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
 
   });
 
-}
 
+  protectedHandle('timetable:solve', async (_event, requestPayload: any) => {
+    const { timetableSolverService } = require('../main/services/TimetableSolverService');
+    const result = timetableSolverService.solveTimetable(requestPayload);
+    return { success: true, data: result };
+  });
+
+  protectedHandle('lgpd:get-biometric-quarantine-status', async () => {
+    if (context.lgpdService && typeof context.lgpdService.getBiometricQuarantineStatus === 'function') {
+      const status = await context.lgpdService.getBiometricQuarantineStatus();
+      return { success: true, data: status };
+    }
+    return {
+      success: true,
+      data: {
+        enabled: false,
+        defaultPath: 'QR_CARD_OR_NOMINAL_CALL',
+        ripdApproved: false,
+        envFlagEnabled: false,
+        legalReference: 'ANPD Despacho Decisório nº 2/2026/SFI & Nota Técnica nº 4/2026 (Caso Paraná)'
+      }
+    };
+  });
+}
