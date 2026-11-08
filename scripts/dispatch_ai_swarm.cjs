@@ -1,23 +1,15 @@
 /**
- * dispatch_ai_swarm.cjs — Orquestrador Diário e Motor de Templates do Swarm Multi-IA (Áquila Pro)
- * ===============================================================================================
- * 1. Conecta via Chrome DevTools Protocol (CDP) na porta 9222 (Chrome Cockpit Dedicado).
- * 2. Compila os Templates Exatos de Prompt Diário (com links GitHub + Google Drive Cloud Vault +
- *    alvos dinâmicos de código do dia) para:
- *    - Claude 3.7 Sonnet (Arquitetura Hexagonal, Tipagem Estrita, Isolamento RBAC, Vitest)
- *    - ChatGPT 4o / o1 (Psicometria TRI 3PL, Matriz BNCC, Tutor Socrático Albus, Engajamento Familiar)
- *    - DeepSeek R1 / V3 (Solver Combinatório NP-Hard de Grade Horária, Visão Computacional OMR)
- *    - Perplexity Pro (Radar Regulatório ANPD/MEC/CNE/LGPD Art. 14, Benchmark EdTech)
- *    - Microsoft Copilot (Windows DPAPI, Disaster Recovery Atômico PowerShell, RPA Contábil)
- * 3. Injeta automaticamente os prompts nas abas ativas via CDP WebSocket (quando --inject é usado)
- *    e salva os pacotes diários auditáveis em test-results/swarm_audits/YYYY-MM-DD/.
+ * dispatch_ai_swarm.cjs — Orquestrador Diário e Motor CDP do Swarm Multi-IA (Áquila Pro)
+ * ======================================================================================
+ * Conecta diretamente ao Chrome Principal da usuária via DevToolsActivePort WebSocket
+ * (Target.getTargets + Target.attachToTarget + Input.insertText), localiza as abas já
+ * logadas (Claude, ChatGPT, DeepSeek, Perplexity, GitHub/Microsoft Copilot), injeta os
+ * prompts cirúrgicos diários e dispara a execução em paralelo.
  */
 
-const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const CDP_PORT = 9222;
 const DEFAULT_CHROME_PORT_FILE = path.join(
   process.env.LOCALAPPDATA || 'C:\\Users\\Thaysa\\AppData\\Local',
   'Google\\Chrome\\User Data\\DevToolsActivePort'
@@ -30,33 +22,31 @@ const CLOUD_LINKS = {
   githubRawBase: 'https://raw.githubusercontent.com/andrejrunb/-quila-pro-v-1.0.0/main',
   driveVaultRoot: 'https://drive.google.com/drive/folders/1bO0QaWJMK3k2tQ1vefhijNSuEmLw_ApV',
   driveCleanZip: 'https://drive.google.com/file/d/1uARGNfYiImJ3-216XREfgLoe0dwjVfV5/view?usp=drivesdk',
-  driveDocsFolderId: '1YimvcNR265Uyj6jLUGcisSL2HQdNF8w1',
   veracityMatrixRaw: 'https://raw.githubusercontent.com/andrejrunb/-quila-pro-v-1.0.0/main/docs/MATRIZ_DE_VERACIDADE_E_PORTAIS.md'
 };
 
-/**
- * Configuração Mestre de Automação Diária com Templates Cirúrgicos e Parâmetros por IA
- */
 const DAILY_SWARM_CONFIG = [
   {
     id: 'claude_architect',
     name: 'Claude 3.7 Sonnet (Arquiteto & SQA)',
-    domain: 'claude.ai',
-    url: 'https://claude.ai/new',
+    domains: ['claude.ai'],
     briefingFile: '01_CLAUDE_ARCHITECTURE_AUDIT.md',
     outputFile: 'claude_architecture_audit_result.md',
-    selectorHint: 'div.ProseMirror[contenteditable="true"], fieldset div[contenteditable="true"]',
+    inputSelectors: [
+      'div.ProseMirror[contenteditable="true"]',
+      'fieldset div[contenteditable="true"]',
+      'div[contenteditable="true"]'
+    ],
+    sendSelectors: [
+      'button[aria-label*="Send"]',
+      'button[aria-label*="Enviar"]',
+      'fieldset button:not([disabled])'
+    ],
     schedule: 'Diário — 08:00 BRT',
     parameters: {
       temperature: 0.1,
       strictTypeCheck: true,
-      forbidAny: true,
-      targetFiles: [
-        'apps/electron/src/main/handlers.ts',
-        'apps/electron/src/main/services/OmrCorrectionService.ts',
-        'apps/electron/src/main/services/AuthenticationService.ts',
-        'apps/electron/src/database/Database.ts'
-      ]
+      forbidAny: true
     },
     buildDailyPrompt: (baseBriefing, dateStr) => `[MISSÃO DIÁRIA AUTOMATIZADA — DATA: ${dateStr}]
 [AGENTE ALVO: CLAUDE 3.7 SONNET — ARQUITETO DE SOFTWARE & AUDITOR SQA]
@@ -81,17 +71,26 @@ ${baseBriefing}
   {
     id: 'gpt_pedagogical',
     name: 'ChatGPT 4o / o1 (Diretor Pedagógico & TRI)',
-    domain: 'chatgpt.com',
-    url: 'https://chatgpt.com/',
+    domains: ['chatgpt.com'],
     briefingFile: '02_GPT_PEDAGOGICAL_TRI_BNCC.md',
     outputFile: 'gpt_pedagogical_tri_result.json',
-    selectorHint: '#prompt-textarea, div#prompt-textarea[contenteditable="true"]',
+    inputSelectors: [
+      '#prompt-textarea',
+      'div#prompt-textarea',
+      'div.ProseMirror[contenteditable="true"]',
+      'div[contenteditable="true"]',
+      'textarea'
+    ],
+    sendSelectors: [
+      'button[data-testid="send-button"]',
+      'button[aria-label*="Send"]',
+      'button[aria-label*="Enviar"]',
+      'form button[type="submit"]'
+    ],
     schedule: 'Diário — 08:15 BRT',
     parameters: {
       triModel: '3PL (Logistic 3-Parameter)',
-      scaleFactorD: 1.7,
-      bnccStages: ['Ensino Fundamental II (6º ao 9º)', 'Ensino Médio (1ª a 3ª série)'],
-      socraticSteps: 3
+      scaleFactorD: 1.7
     },
     buildDailyPrompt: (baseBriefing, dateStr) => `[MISSÃO DIÁRIA AUTOMATIZADA — DATA: ${dateStr}]
 [AGENTE ALVO: CHATGPT 4o / o1 — DIRETOR PEDAGÓGICO & ESPECIALISTA EM TRI/BNCC]
@@ -113,11 +112,17 @@ Retorne estritamente no schema JSON especificado.`
   {
     id: 'deepseek_math',
     name: 'DeepSeek R1 / V3 (Engenheiro Matemático & OMR)',
-    domain: 'deepseek.com',
-    url: 'https://chat.deepseek.com/',
+    domains: ['chat.deepseek.com', 'deepseek.com'],
     briefingFile: '03_DEEPSEEK_MATH_SOLVER_OMR.md',
     outputFile: 'deepseek_math_solver_result.py',
-    selectorHint: 'textarea#chat-input, textarea',
+    inputSelectors: [
+      'textarea#chat-input',
+      'textarea'
+    ],
+    sendSelectors: [
+      'div[role="button"][aria-disabled="false"]',
+      'button[type="submit"]'
+    ],
     schedule: 'Diário — 08:30 BRT',
     parameters: {
       maxConvergenceMs: 2000,
@@ -143,16 +148,24 @@ ${baseBriefing}
   {
     id: 'perplexity_radar',
     name: 'Perplexity Pro (Radar Regulatório & Benchmark)',
-    domain: 'perplexity.ai',
-    url: 'https://www.perplexity.ai/',
+    domains: ['perplexity.ai'],
     briefingFile: '04_PERPLEXITY_REGULATORY_RADAR.md',
     outputFile: 'perplexity_regulatory_radar.md',
-    selectorHint: 'textarea[placeholder], div[contenteditable="true"]',
+    inputSelectors: [
+      '#ask-input',
+      'div[contenteditable="true"]',
+      'textarea[placeholder]',
+      'textarea'
+    ],
+    sendSelectors: [
+      'button[aria-label="Submit"]',
+      'button[aria-label*="Send"]',
+      'button[type="submit"]'
+    ],
     schedule: 'Diário — 08:45 BRT',
     parameters: {
       requirePrimarySources: true,
-      jurisdictions: ['ANPD', 'MEC', 'CNE', 'MP-SP', 'MP-DFT', 'STJ'],
-      focusLaws: ['Lei 13.709/2018 (LGPD Art. 14)', 'Lei 9.394/1996 (LDB Art. 12 VII)']
+      jurisdictions: ['ANPD', 'MEC', 'CNE', 'MP-SP', 'MP-DFT']
     },
     buildDailyPrompt: (baseBriefing, dateStr) => `[MISSÃO DIÁRIA AUTOMATIZADA — DATA: ${dateStr}]
 [AGENTE ALVO: PERPLEXITY PRO — RADAR REGULATÓRIO E INTELIGÊNCIA DE MERCADO EDTECH]
@@ -172,20 +185,29 @@ Realize uma varredura atualizada com citações e links verificáveis:
   },
   {
     id: 'copilot_windows',
-    name: 'Microsoft Copilot (Plataforma Windows & RPA)',
-    domain: 'copilot.microsoft.com',
-    url: 'https://copilot.microsoft.com/',
+    name: 'GitHub / Microsoft Copilot (Windows & RPA)',
+    domains: ['github.com/copilot', 'copilot.microsoft.com'],
     briefingFile: '05_COPILOT_WINDOWS_RPA_PLATFORM.md',
     outputFile: 'copilot_windows_rpa_result.ps1',
-    selectorHint: 'textarea#userInput, textarea',
+    inputSelectors: [
+      'textarea#copilot-chat-textarea',
+      'textarea[placeholder*="Ask"]',
+      'textarea[placeholder*="Pergunte"]',
+      'textarea#userInput',
+      'textarea'
+    ],
+    sendSelectors: [
+      'button[type="submit"]',
+      'button[aria-label*="Send"]',
+      'button[aria-label*="Enviar"]'
+    ],
     schedule: 'Diário — 09:00 BRT',
     parameters: {
       targetOS: 'Windows 10/11 Pro & Windows Server',
-      encryptionApi: 'Windows DPAPI (System.Security.Cryptography.ProtectedData)',
-      rpaTargets: ['Thomson Reuters Domínio', 'SigaWeb']
+      encryptionApi: 'Windows DPAPI'
     },
     buildDailyPrompt: (baseBriefing, dateStr) => `[MISSÃO DIÁRIA AUTOMATIZADA — DATA: ${dateStr}]
-[AGENTE ALVO: MICROSOFT COPILOT — ENGENHEIRO WINDOWS, DPAPI & RPA CONTÁBIL]
+[AGENTE ALVO: COPILOT — ENGENHEIRO WINDOWS, DPAPI & RPA CONTÁBIL]
 
 Arquivos de Infraestrutura do Áquila Pro:
 - GitHub Oficial: ${CLOUD_LINKS.githubRepo}
@@ -201,121 +223,245 @@ ${baseBriefing}
   }
 ];
 
-function getActiveCdpPort() {
-  try {
-    if (fs.existsSync(DEFAULT_CHROME_PORT_FILE)) {
-      const lines = fs.readFileSync(DEFAULT_CHROME_PORT_FILE, 'utf-8').trim().split(/\r?\n/);
-      const port = parseInt(lines[0], 10);
-      if (port > 0) {
-        return { port, source: 'Chrome Principal (DevToolsActivePort)', wsPath: lines[1] || null };
-      }
-    }
-  } catch {}
-  return { port: CDP_PORT, source: 'Cockpit Dedicado (Porta 9222)', wsPath: null };
-}
-
-function checkCdpStatus() {
-  const { port, source } = getActiveCdpPort();
-  return new Promise((resolve) => {
-    const req = http.get(`http://127.0.0.1:${port}/json/list`, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        try {
-          const tabs = JSON.parse(data);
-          resolve({ online: true, port, source, tabs });
-        } catch {
-          resolve({ online: false, port, source, tabs: [] });
-        }
-      });
-    });
-    req.on('error', () => resolve({ online: false, port, source, tabs: [] }));
-    req.setTimeout(2000, () => {
-      req.destroy();
-      resolve({ online: false, port, source, tabs: [] });
-    });
-  });
-}
-
 /**
- * Injeta o prompt compilado na aba do navegador via CDP WebSocket (Node 22+ WebSocket nativo)
+ * Cliente CDP minimalista sobre o WebSocket do Browser (DevToolsActivePort)
  */
-async function injectPromptIntoTab(tab, promptText, selectorHint) {
-  if (!tab.webSocketDebuggerUrl || typeof WebSocket === 'undefined') {
-    return { injected: false, reason: 'WebSocket indisponível ou aba sem debuggerUrl' };
+class CdpBrowserClient {
+  constructor(wsUrl) {
+    this.wsUrl = wsUrl;
+    this.ws = null;
+    this.msgId = 0;
+    this.pending = new Map();
   }
 
-  return new Promise((resolve) => {
-    const ws = new WebSocket(tab.webSocketDebuggerUrl);
-    const timeout = setTimeout(() => {
-      try { ws.close(); } catch {}
-      resolve({ injected: false, reason: 'Timeout na conexão WebSocket CDP' });
-    }, 4000);
+  connect() {
+    return new Promise((resolve, reject) => {
+      const ws = new WebSocket(this.wsUrl);
+      this.ws = ws;
+      const timer = setTimeout(() => reject(new Error('Timeout conectando ao Browser WS (clique em Allow no Chrome)')), 30000);
 
-    ws.onopen = () => {
-      const escapedPrompt = JSON.stringify(promptText);
-      const escapedSelectors = JSON.stringify(selectorHint);
-      const jsExpression = `
-        (function() {
-          window.__AQUILA_DAILY_PROMPT__ = ${escapedPrompt};
-          const selectors = ${escapedSelectors}.split(',').map(s => s.trim());
-          for (const sel of selectors) {
-            const el = document.querySelector(sel);
-            if (el) {
-              el.focus();
-              if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
-                const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
-                if (nativeInputValueSetter) {
-                  nativeInputValueSetter.call(el, window.__AQUILA_DAILY_PROMPT__);
-                } else {
-                  el.value = window.__AQUILA_DAILY_PROMPT__;
-                }
-                el.dispatchEvent(new Event('input', { bubbles: true }));
-                return { status: 'FILLED_TEXTAREA', selector: sel };
-              } else if (el.isContentEditable) {
-                el.innerText = window.__AQUILA_DAILY_PROMPT__;
-                el.dispatchEvent(new Event('input', { bubbles: true }));
-                return { status: 'FILLED_CONTENTEDITABLE', selector: sel };
-              }
-            }
+      ws.onopen = () => {
+        clearTimeout(timer);
+        resolve();
+      };
+      ws.onerror = (err) => {
+        clearTimeout(timer);
+        reject(new Error(err.message || 'Erro de conexão WebSocket'));
+      };
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.id && this.pending.has(data.id)) {
+            const { resolve: res, reject: rej } = this.pending.get(data.id);
+            this.pending.delete(data.id);
+            if (data.error) rej(new Error(data.error.message));
+            else res(data.result);
           }
-          return { status: 'STORED_IN_WINDOW_ONLY', note: 'Use window.__AQUILA_DAILY_PROMPT__ ou cole do arquivo gerado' };
-        })()
-      `;
+        } catch {}
+      };
+    });
+  }
 
-      ws.send(JSON.stringify({
-        id: 1,
-        method: 'Runtime.evaluate',
-        params: {
-          expression: jsExpression,
-          returnByValue: true
+  send(method, params = {}, sessionId = undefined) {
+    return new Promise((resolve, reject) => {
+      const id = ++this.msgId;
+      const payload = { id, method, params };
+      if (sessionId) payload.sessionId = sessionId;
+
+      const timer = setTimeout(() => {
+        if (this.pending.has(id)) {
+          this.pending.delete(id);
+          reject(new Error(`Timeout em ${method}`));
         }
-      }));
-    };
+      }, 20000);
 
-    ws.onmessage = (event) => {
-      clearTimeout(timeout);
-      try {
-        const msg = JSON.parse(event.data);
-        const val = msg?.result?.result?.value;
-        ws.close();
-        resolve({ injected: true, detail: val });
-      } catch (e) {
-        ws.close();
-        resolve({ injected: false, reason: e.message });
-      }
-    };
+      this.pending.set(id, {
+        resolve: (res) => {
+          clearTimeout(timer);
+          resolve(res);
+        },
+        reject: (err) => {
+          clearTimeout(timer);
+          reject(err);
+        }
+      });
 
-    ws.onerror = (err) => {
-      clearTimeout(timeout);
-      resolve({ injected: false, reason: err.message || 'Erro WebSocket' });
-    };
+      this.ws.send(JSON.stringify(payload));
+    });
+  }
+
+  close() {
+    try { this.ws.close(); } catch {}
+  }
+}
+
+function getBrowserWsUrl() {
+  if (!fs.existsSync(DEFAULT_CHROME_PORT_FILE)) {
+    return null;
+  }
+  const lines = fs.readFileSync(DEFAULT_CHROME_PORT_FILE, 'utf-8').trim().split(/\r?\n/);
+  const port = parseInt(lines[0], 10);
+  const wsPath = lines[1];
+  if (!port || !wsPath) return null;
+  return `ws://127.0.0.1:${port}${wsPath}`;
+}
+
+async function injectAndSubmitOnTarget(client, targetId, promptText, inputSelectors, sendSelectors, shouldSubmit) {
+  const { sessionId } = await client.send('Target.attachToTarget', {
+    targetId,
+    flatten: true
   });
+
+  // Ativa a aba rapidamente para hidratar o DOM caso estivesse em background/hibernada
+  try {
+    await client.send('Page.bringToFront', {}, sessionId);
+    await new Promise(r => setTimeout(r, 800));
+  } catch {}
+
+  // 1. Foca o elemento de entrada e insere o texto de forma instantânea no DOM (compatível com ProseMirror/React)
+  const fastInsertExpr = `
+    (function() {
+      const selectors = ${JSON.stringify(inputSelectors)};
+      const text = ${JSON.stringify(promptText)};
+      for (const sel of selectors) {
+        const el = document.querySelector(sel);
+        if (el) {
+          el.focus();
+          if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+            const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
+            if (setter) setter.call(el, text);
+            else el.value = text;
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+            return { found: true, fastInserted: true, selector: sel, tag: el.tagName };
+          } else if (el.isContentEditable) {
+            el.innerHTML = '';
+            const ok = document.execCommand && document.execCommand('insertText', false, text);
+            if (!ok || !el.innerText.trim()) {
+              el.innerText = text;
+              el.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: text }));
+            }
+            return { found: true, fastInserted: true, selector: sel, tag: el.tagName };
+          }
+        }
+      }
+      return { found: false };
+    })()
+  `;
+
+  const focusRes = await client.send('Runtime.evaluate', {
+    expression: fastInsertExpr,
+    returnByValue: true
+  }, sessionId);
+
+  const focusInfo = focusRes?.result?.value || { found: false };
+  if (!focusInfo.found) {
+    return { status: 'INPUT_NOT_FOUND' };
+  }
+
+  if (!focusInfo.fastInserted) {
+    await client.send('Input.insertText', { text: promptText }, sessionId);
+  }
+
+  // Pequena pausa para os frameworks reativos (React/ProseMirror) habilitarem o botão Enviar
+  await new Promise(r => setTimeout(r, 700));
+
+  let submitted = false;
+  if (shouldSubmit) {
+    const submitExpr = `
+      (function() {
+        const sendSels = ${JSON.stringify(sendSelectors)};
+        for (const sel of sendSels) {
+          const btn = document.querySelector(sel);
+          if (btn && !btn.disabled && btn.getAttribute('aria-disabled') !== 'true') {
+            btn.click();
+            return { clicked: true, selector: sel };
+          }
+        }
+        return { clicked: false };
+      })()
+    `;
+    const subRes = await client.send('Runtime.evaluate', {
+      expression: submitExpr,
+      returnByValue: true
+    }, sessionId);
+
+    if (subRes?.result?.value?.clicked) {
+      submitted = true;
+    } else {
+      // Fallback: pressiona Enter nativo via CDP
+      await client.send('Input.dispatchKeyEvent', {
+        type: 'keyDown',
+        key: 'Enter',
+        code: 'Enter',
+        windowsVirtualKeyCode: 13,
+        nativeVirtualKeyCode: 13
+      }, sessionId);
+      await client.send('Input.dispatchKeyEvent', {
+        type: 'keyUp',
+        key: 'Enter',
+        code: 'Enter',
+        windowsVirtualKeyCode: 13,
+        nativeVirtualKeyCode: 13
+      }, sessionId);
+      submitted = true;
+    }
+  }
+
+  return {
+    status: submitted ? 'INJECTED_AND_SUBMITTED' : 'INJECTED_READY',
+    selector: focusInfo.selector
+  };
+}
+
+async function collectResponseFromTarget(client, targetId) {
+  const { sessionId } = await client.send('Target.attachToTarget', {
+    targetId,
+    flatten: true
+  });
+
+  const collectExpr = `
+    (function() {
+      // Seletores específicos das mensagens do assistente em Claude, ChatGPT, DeepSeek, Perplexity e Copilot
+      const candidateSelectors = [
+        '[data-message-author-role="assistant"]',
+        '.font-claude-message',
+        '[data-is-streaming]',
+        '.ds-markdown',
+        '.prose',
+        '.markdown-body',
+        'article',
+        'main'
+      ];
+      for (const sel of candidateSelectors) {
+        const nodes = Array.from(document.querySelectorAll(sel));
+        if (nodes.length > 0) {
+          const lastNode = nodes[nodes.length - 1];
+          const text = (lastNode.innerText || '').trim();
+          if (text.length > 100) {
+            return { collected: true, selector: sel, length: text.length, content: text };
+          }
+        }
+      }
+      const bodyText = (document.body?.innerText || '').trim();
+      return { collected: bodyText.length > 100, selector: 'body', length: bodyText.length, content: bodyText };
+    })()
+  `;
+
+  const res = await client.send('Runtime.evaluate', {
+    expression: collectExpr,
+    returnByValue: true
+  }, sessionId);
+
+  return res?.result?.value || { collected: false, length: 0, content: '' };
 }
 
 async function main() {
   const args = process.argv.slice(2);
   const shouldInject = args.includes('--inject');
+  const shouldSubmit = args.includes('--submit');
+  const shouldCollect = args.includes('--collect');
+  const onlyArg = args.find(a => a.startsWith('--only='));
+  const onlyId = onlyArg ? onlyArg.split('=')[1] : null;
 
   console.log('========================================================================');
   console.log('  ÁQUILA PRO — MOTOR DE AUTOMAÇÃO DIÁRIA DO SWARM MULTI-IA              ');
@@ -326,29 +472,41 @@ async function main() {
   const promptsOutDir = path.join(todayOutputDir, 'prompts');
   fs.mkdirSync(promptsOutDir, { recursive: true });
 
-  console.log(`[INFO] Pasta de auditorias do dia: ${todayOutputDir}`);
-  console.log(`[INFO] Pasta de prompts compilados: ${promptsOutDir}\n`);
+  const wsUrl = getBrowserWsUrl();
+  let client = null;
+  let pages = [];
 
-  console.log(`[1/4] Verificando conexão com o Chrome Cockpit (porta ${CDP_PORT})...`);
-  const status = await checkCdpStatus();
-
-  if (!status.online) {
-    console.warn(`[AVISO] Chrome Cockpit não detectado na porta ${CDP_PORT}.`);
-    console.log(`[DICA] Execute: powershell -ExecutionPolicy Bypass -File scripts/start_ai_cockpit.ps1\n`);
+  if (wsUrl) {
+    console.log(`[1/4] Conectando ao Chrome Principal via DevToolsActivePort...`);
+    console.log(`      Endpoint: ${wsUrl}`);
+    try {
+      client = new CdpBrowserClient(wsUrl);
+      await client.connect();
+      const targetsRes = await client.send('Target.getTargets');
+      pages = (targetsRes.targetInfos || []).filter(t => t.type === 'page');
+      console.log(`[OK] Conectado com sucesso! ${pages.length} abas ativas encontradas no seu Chrome.\n`);
+    } catch (err) {
+      console.warn(`[AVISO] Falha ao conectar no WebSocket: ${err.message}\n`);
+      client = null;
+    }
   } else {
-    console.log(`[OK] Chrome Cockpit CONECTADO! (${status.tabs.length} abas abertas na sessão)\n`);
+    console.warn(`[AVISO] DevToolsActivePort não encontrado. Ative em chrome://inspect/#remote-debugging.\n`);
   }
 
-  console.log('[2/4] Compilando Templates Cirúrgicos Diários para as 5 IAs...');
+  console.log('[2/4] Compilando e Despachando Missões Cirúrgicas para as IAs Abertas...');
   const manifest = {
     generatedAt: new Date().toISOString(),
     date: today,
-    cdpOnline: status.online,
+    wsConnected: Boolean(client),
     cloudLinks: CLOUD_LINKS,
     missions: []
   };
 
-  for (const agent of DAILY_SWARM_CONFIG) {
+  const activeAgents = onlyId
+    ? DAILY_SWARM_CONFIG.filter(a => a.id === onlyId)
+    : DAILY_SWARM_CONFIG;
+
+  for (const agent of activeAgents) {
     const briefingPath = path.join(BRIEFINGS_DIR, agent.briefingFile);
     const baseBriefing = fs.existsSync(briefingPath)
       ? fs.readFileSync(briefingPath, 'utf-8')
@@ -358,45 +516,66 @@ async function main() {
     const compiledPromptFile = path.join(promptsOutDir, `${agent.id}_${today}.prompt.md`);
     fs.writeFileSync(compiledPromptFile, compiledPrompt, 'utf-8');
 
-    const matchingTab = status.tabs.find(t => t.url && t.url.includes(agent.domain));
-    let injectionResult = null;
+    const matchingPage = pages.find(p =>
+      p.url && agent.domains.some(d => p.url.includes(d))
+    );
 
-    if (shouldInject && matchingTab) {
-      injectionResult = await injectPromptIntoTab(matchingTab, compiledPrompt, agent.selectorHint);
+    let dispatchResult = null;
+    if (client && matchingPage && shouldInject) {
+      try {
+        dispatchResult = await injectAndSubmitOnTarget(
+          client,
+          matchingPage.targetId,
+          compiledPrompt,
+          agent.inputSelectors,
+          agent.sendSelectors,
+          shouldSubmit
+        );
+      } catch (err) {
+        dispatchResult = { status: 'ERROR', error: err.message };
+      }
     }
 
-    const tabStatus = matchingTab
-      ? `[Aba Conectada: ${(matchingTab.title || agent.domain).substring(0, 28)}]`
-      : '[Aba Aguardando Abertura]';
+    if (client && matchingPage && shouldCollect) {
+      try {
+        const col = await collectResponseFromTarget(client, matchingPage.targetId);
+        if (col.collected && col.content) {
+          const outPath = path.join(todayOutputDir, agent.outputFile);
+          fs.writeFileSync(outPath, col.content, 'utf-8');
+          dispatchResult = { status: `COLLECTED (${(col.length / 1024).toFixed(1)} KB)`, selector: col.selector };
+        } else {
+          dispatchResult = { status: 'COLLECT_EMPTY' };
+        }
+      } catch (err) {
+        dispatchResult = { status: 'COLLECT_ERROR', error: err.message };
+      }
+    }
 
-    const injectInfo = injectionResult
-      ? ` -> Injeção CDP: ${injectionResult.injected ? injectionResult.detail?.status : injectionResult.reason}`
-      : '';
+    const tabLabel = matchingPage
+      ? `[Aba: ${(matchingPage.title || agent.domains[0]).substring(0, 30)}]`
+      : '[Aba Não Encontrada]';
+    const statusLabel = dispatchResult ? ` -> ${dispatchResult.status}` : '';
 
-    console.log(`  • ${agent.name.padEnd(44)} | Prompt: ${(compiledPrompt.length / 1024).toFixed(1)} KB | ${tabStatus}${injectInfo}`);
+    console.log(`  • ${agent.name.padEnd(44)} | ${(compiledPrompt.length / 1024).toFixed(1)} KB | ${tabLabel}${statusLabel}`);
 
     manifest.missions.push({
       id: agent.id,
       name: agent.name,
-      domain: agent.domain,
       schedule: agent.schedule,
-      parameters: agent.parameters,
       compiledPromptPath: compiledPromptFile,
       expectedOutputPath: path.join(todayOutputDir, agent.outputFile),
-      tabConnected: Boolean(matchingTab),
-      tabId: matchingTab ? matchingTab.id : null,
-      injectionResult
+      matchedTab: matchingPage ? { title: matchingPage.title, url: matchingPage.url, targetId: matchingPage.targetId } : null,
+      dispatchResult
     });
   }
+
+  if (client) client.close();
 
   const manifestPath = path.join(todayOutputDir, 'daily_swarm_dispatch_manifest.json');
   fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2), 'utf-8');
 
   console.log(`\n[3/4] Manifesto Diário Salvo em: ${manifestPath}`);
-  console.log('[4/4] Comandos Rápidos de Operação:');
-  console.log('  • Abrir Navegador Dedicado:  powershell -ExecutionPolicy Bypass -File scripts/start_ai_cockpit.ps1');
-  console.log('  • Gerar Prompts do Dia:      node scripts/dispatch_ai_swarm.cjs');
-  console.log('  • Injetar nas Abas Abertas:  node scripts/dispatch_ai_swarm.cjs --inject');
+  console.log('[4/4] Operação Concluída!');
   console.log('========================================================================\n');
 }
 
