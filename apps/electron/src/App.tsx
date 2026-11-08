@@ -503,7 +503,7 @@ export const App: React.FC = () => {
           // 2. Resolução Geral / Inter-Portais (Admin inspecionando ou atalhos transversais)
           if (isCoordinationPage && !isTeacherUser && !isStudentUser) return <CoordinationPortal currentPage={currentPage} onNavigate={handleNavigate} />;
           if (isTeacherPage && !isStudentUser) return <TeacherPortal currentPage={currentPage} onNavigate={handleNavigate} studentParams={searchParams} user={currentUser} />;
-          if (isStudentPage) return <StudentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={currentUser?.id} />;
+          if (isStudentPage) return <StudentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={isStudentUser ? currentUser?.id : 'demo_student_001'} />;
           if (isSecretaryPage) return <SecretariaPortal currentPage={currentPage} onNavigate={handleNavigate} user={currentUser} />;
           if (isAdminPage || isAdminUser) return <AdminPortal currentPage={currentPage} onNavigate={handleNavigate} userRole={currentUser?.role || ''} activeHub={currentHub} onLogout={handleLogout} />;
           

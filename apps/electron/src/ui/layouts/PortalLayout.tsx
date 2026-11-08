@@ -181,8 +181,8 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
           </button>
         ) : (
           <header className="portal-header-banner">
-            <div className="portal-header-row" style={{ flexWrap: 'wrap' }}>
-              <div className="portal-header-left" style={{ flexWrap: 'wrap' }}>
+            <div className="portal-header-row" style={{ flexWrap: 'nowrap' }}>
+              <div className="portal-header-left" style={{ flexWrap: 'nowrap' }}>
                 <div className="portal-badge">
                   <span className="badge-dot"></span>
                   <span className="badge-text">{portalName}</span>
@@ -211,7 +211,7 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
                     title="Prévia autorizada: mutações em nome de outro perfil estão bloqueadas e toda ação é auditada na sessão real"
                   >
                     <Eye size={11} />
-                    Modo de Prévia (Somente Leitura): {portalName.split('(')[0].trim()}
+                    Modo Prévia (Leitura)
                   </span>
                 )}
               </div>

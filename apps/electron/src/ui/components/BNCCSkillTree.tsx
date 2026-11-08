@@ -526,7 +526,7 @@ export const BNCC_SKILLS_DATA: BNCCSkillNode[] = [
     },
     status: 'locked',
     progressPct: 0
-  }
+  },
   {
     id: 'EM13MAT201',
     code: 'EM13MAT201',

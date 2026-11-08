@@ -284,7 +284,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             src="./avatars/face-1.jpg"
 
-            alt="Gabriel Rocha"
+            alt={studentCtx.studentName}
 
             className="rpg-student-photo-rect"
 

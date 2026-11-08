@@ -75,10 +75,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
   ];
 
   const liveFeed = [
-    { id: 1, title: 'João Pedro Silva — Matrícula Confirmada', sub: '3º Ano A • Biometria facial sincronizada', time: 'HÁ 04 MIN', photo: './avatars/face-5.jpg' },
-    { id: 2, title: 'Sofia Costa — Presença Portaria Sul', sub: '2º Ano B • Reconhecimento Edge NPU (99.4%)', time: 'HÁ 12 MIN', photo: './avatars/face-6.jpg' },
-    { id: 3, title: 'Mensalidade Quitada (PIX Soberano)', sub: 'Responsável por Miguel Santos • 1º Ano C', time: 'HÁ 28 MIN', photo: './avatars/face-7.jpg' },
-    { id: 4, title: 'Câmara de Maestria — Recorde de XP', sub: 'Beatriz Lima concluiu trilha de Física ENEM', time: 'HÁ 45 MIN', photo: './avatars/face-8.jpg' },
+    { id: 1, title: 'ALUNO SINTETICO 001 — Matrícula Confirmada', sub: '3º Ano A • Prontuário SHA-256 sincronizado (LGPD)', time: 'HÁ 04 MIN', photo: './avatars/face-5.jpg' },
+    { id: 2, title: 'ALUNO SINTETICO 002 — Presença Portaria Sul', sub: '2º Ano B • Cartão QR / Chamada Nominal (Quarentena Biométrica ANPD)', time: 'HÁ 12 MIN', photo: './avatars/face-6.jpg' },
+    { id: 3, title: 'Mensalidade Quitada (PIX Soberano)', sub: 'Responsavel H01 003 • ALUNO SINTETICO 003 (1º Ano C)', time: 'HÁ 28 MIN', photo: './avatars/face-7.jpg' },
+    { id: 4, title: 'Câmara de Maestria — Recorde de XP', sub: 'ALUNO SINTETICO 004 concluiu trilha TRI 3PL de Física ENEM', time: 'HÁ 45 MIN', photo: './avatars/face-8.jpg' },
     { id: 5, title: 'Mapa de Sala Otimizado por IA', sub: 'Turma 2º B • 4 grupos de estudo formados', time: 'HÁ 01 H', photo: './avatars/face-9.jpg' },
   ];
 

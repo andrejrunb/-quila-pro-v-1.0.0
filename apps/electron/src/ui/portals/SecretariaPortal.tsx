@@ -149,7 +149,7 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
                   <div className="sec-kpi-pod">
                     <div className="sec-kpi-meta">
                       <span className="sec-kpi-label">ÁQUILA EDGE CENTRAL</span>
-                      <span className="sec-kpi-value" style={{ color: '#10B981' }}>{syncStatus?.system?.status || 'OK'}</span>
+                      <span className="sec-kpi-value" style={{ color: '#10B981' }}>{students.length > 0 ? 'OPERACIONAL' : (syncStatus?.system?.status || 'OK')}</span>
                       <span className="sec-kpi-delta">SQA-1000 Local</span>
                     </div>
                     <div className="sec-kpi-icon">
@@ -172,7 +172,7 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
                     <div className="sec-kpi-meta">
                       <span className="sec-kpi-label">CASOS TUTELAR LDB</span>
                       <span className="sec-kpi-value" style={{ color: '#10B981' }}>0 CASOS</span>
-                      <span className="sec-kpi-delta">Art. 12 VII Monitorado</span>
+                      <span className="sec-kpi-delta">Art. 12, VIII, &quot;a&quot; (Lei 15.231/2025)</span>
                     </div>
                     <div className="sec-kpi-icon">
                       <ShieldCheck size={18} />

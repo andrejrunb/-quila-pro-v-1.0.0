@@ -31,7 +31,7 @@ export class SovereignEncryptionService {
         masterSecret = crypto.randomBytes(32).toString('hex');
       }
     }
-    this.key = crypto.scryptSync(masterSecret, 'aquila-pro-salt', 32);
+    this.key = crypto.scryptSync(masterSecret || '', 'aquila-pro-salt', 32);
     logger.info('[SECURITY] SovereignEncryptionService inicializado com AES-256-GCM.');
   }
 

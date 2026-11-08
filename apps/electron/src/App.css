@@ -4,12 +4,12 @@
   height: 100vh;
   overflow: hidden;
   background: var(--bg-gradient);
-  --sidebar-current-width: 180px;
+  --sidebar-current-width: 240px;
   box-sizing: border-box;
 }
 
 .app-layout.sidebar-collapsed {
-  --sidebar-current-width: 60px;
+  --sidebar-current-width: 76px;
 }
 
 /* [AGENTE-3 FIX-1] position:absolute → permite scroll correto em todos os tamanhos de tela */

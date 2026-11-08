@@ -31,7 +31,7 @@ export class SecurityService {
       }
     }
     const salt = crypto.createHash('sha256').update(secret + '-salt').digest();
-    this.key = crypto.pbkdf2Sync(secret, salt, 100000, 32, 'sha256');
+    this.key = crypto.pbkdf2Sync(secret || '', salt, 100000, 32, 'sha256');
   }
 
   /**

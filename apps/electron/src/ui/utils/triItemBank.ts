@@ -828,7 +828,7 @@ export const TRI_ITEM_BANK: TriQuestion[] = [
     ],
     correctAnswer: 'B',
     socraticExplanation: 'Para Montesquieu, "só o poder pode frear o poder". A tripartição impede que uma única instância exerça o despotismo, garantindo a liberdade civil por meio de freios e contrapesos mútuos.'
-  }
+  },
   // ==========================================
   // EXPANSÃO H-01 / SCIENCE ROYALE — NOVOS LOTES BNCC
   // ==========================================

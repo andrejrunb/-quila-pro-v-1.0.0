@@ -173,7 +173,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border-right: 1px solid rgba(59, 130, 246, 0.15);
-          width: 280px;
+          width: var(--sidebar-current-width, 240px); min-width: var(--sidebar-current-width, 240px); max-width: var(--sidebar-current-width, 240px); flex-shrink: 0; box-sizing: border-box;
           height: 100vh;
           display: flex;
           flex-direction: column;
@@ -183,7 +183,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           z-index: 50;
         }
         .eagle-sidebar.sidebar-collapsed {
-          width: 80px;
+          width: var(--sidebar-current-width, 76px); min-width: var(--sidebar-current-width, 76px); max-width: var(--sidebar-current-width, 76px);
         }
         .sidebar-header {
           display: flex;

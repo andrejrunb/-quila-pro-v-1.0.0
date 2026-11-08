@@ -74,7 +74,7 @@ export const CLASS_METADATA: Record<string, ClassCatalogEntry> = {
 };
 
 const KNOWN_DEMO_STUDENT_ALIASES: Record<string, { registrationNumber: string; name: string; classId: string }> = {
-  demo_student_001: { registrationNumber: '20261001', name: 'Gabriel Rocha', classId: 'M-EM3A' },
+  demo_student_001: { registrationNumber: '20261001', name: 'ALUNO SINTETICO 001', classId: 'M-EM3A' },
   stu_gabriel_3a:   { registrationNumber: '20261001', name: 'Gabriel Rocha', classId: 'M-EM3A' },
   stu_lucas_7a:     { registrationNumber: '20260701', name: 'Lucas Andrade', classId: 'F-EF27A' },
   stu_sofia_3ef:    { registrationNumber: '20260301', name: 'Sofia Martins', classId: 'F-EF13A' },
