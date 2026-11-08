@@ -23,21 +23,21 @@ Sua missão é blindar o Áquila Pro contra qualquer risco de desconformidade le
 ## 📋 MISSÕES ESPECÍFICAS E DIRETRIZES DE PESQUISA
 
 ### Missão 1: Varredura de Jurisprudência ANPD & Tribunais sobre Biometria Facial de Menores
-- **Foco:** Aplicação do Art. 14 da LGPD (Tratamento de dados pessoais de crianças e adolescentes) no ambiente escolar (catracas, controle de acesso e chamada).
+- **Foco:** Aplicação dos Arts. 11 e 14 da LGPD (Tratamento de dados biométricos de crianças e adolescentes) no ambiente escolar (catracas, controle de acesso e chamada), incluindo o precedente da **ANPD no Caso Paraná (Processo nº 00261.007049/2024-06, Nota Técnica nº 4/2026/FIS/CGF/ANPD e Despacho Decisório nº 2/2026/SFI)**.
 - **Perguntas a Responder:**
-  1. Quais são as decisões recentes (2024–2026) da ANPD, Procons ou Ministério Público (MP-SP, MP-RJ, MP-MG, MP-DF) sobre colégios que adotaram reconhecimento facial em alunos?
-  2. Qual é a exigência formal da ANPD quanto à alternativa não biométrica (cartão/crachá QR)?
+  1. Quais são as decisões recentes (2024–2026) da ANPD, Procons ou Ministério Público sobre colégios e redes que adotaram reconhecimento facial em alunos?
+  2. Qual é a exigência formal da ANPD quanto à alternativa não biométrica primária (cartão/crachá QR) e bloqueio de fábrica até aprovação de RIPD?
   3. Quais requisitos devem constar obrigatoriamente no Relatório de Impacto à Proteção de Dados Pessoais (RIPD)?
-- **Entrega Requerida:** Dossiê jurídico estruturado com links de acórdãos, números de procedimentos preparatórios e checklist de blindagem para o `RIPD_AQUILA_PRO.md`.
+- **Entrega Requerida:** Dossiê jurídico estruturado com links de acórdãos, números de processos e checklist de blindagem para o `RIPD_AQUILA_PRO.md`.
 
 ### Missão 2: Diretrizes do MEC e CNE sobre o Uso de Inteligência Artificial na Educação Básica
-- **Foco:** Resoluções do Conselho Nacional de Educação e Diretrizes Curriculares Nacionais para o Ensino Fundamental e Médio envolvendo IA generativa, tutores digitais e proteção à infância.
+- **Foco:** **Parecer CNE/CP nº 15/2026** (aprovado em 01/09/2026) e **Lei nº 15.211/2025 (ECA Digital)** envolvendo IA generativa, tutores digitais, supervisão humana docente e proteção à infância.
 - **Perguntas a Responder:**
-  1. Existem portarias ou orientações vigentes do MEC sobre o papel do tutor de IA como apoio (e não substituto) ao docente?
-  2. Como a LDB (Lei 9.394/96, Art. 12, VII — notificação de infrequência escolar ao Conselho Tutelar) se articula com sistemas preditivos de evasão?
+  1. Quais são as exigências do Parecer CNE/CP nº 15/2026 sobre a centralidade do professor, supervisão humana e direito de contestação de resultados automatizados?
+  2. Como a LDB (**Lei nº 9.394/1996, Art. 12, inciso VIII, alínea "a", atualizado pela Lei nº 15.231/2025** — notificação de infrequência escolar acima de 30% ao Conselho Tutelar) se articula com sistemas preditivos de busca ativa?
 
 ### Missão 3: Benchmark Competitivo de Mercado EdTech no Brasil (2025/2026)
-- **Foco:** Players estabelecidos (TOTVS Educacional, Sophia, Activesoft, SAE Digital, Bernouilli, SAS).
+- **Foco:** Players estabelecidos (TOTVS Educacional, Sophia, Activesoft, SAE Digital, Bernoulli, SAS).
 - **Aspectos a Levantar:**
   1. Modelos de precificação adotados (R$ por aluno/mês vs. licença fixa por escola).
   2. Principais reclamações de diretores e coordenadores sobre esses sistemas (ex: dependência de internet estável, lentidão no fechamento de notas, interfaces complexas).

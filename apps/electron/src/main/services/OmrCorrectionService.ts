@@ -1,11 +1,13 @@
 /**
  * OmrCorrectionService — Scanner Soberano de Provas & Gabaritos (Passos 141 a 146)
  * 
- * Integração entre Visão Computacional (GPU no Colab ou fallback local)
+ * Integração entre Visão Computacional (GPU no Colab ou Kernel OMR Determinístico Local)
  * e o banco de dados SQLite para correção automatizada de provas escolares.
  */
 
 import { EventEmitter } from 'events';
+import { spawnSync } from 'child_process';
+import * as path from 'path';
 import { db } from '../../database/Database';
 import { colabGpuBridge } from './ColabGpuBridge';
 import { colabTunnelWatchdog } from './ColabTunnelWatchdog';
@@ -110,26 +112,35 @@ export class OmrCorrectionService extends EventEmitter {
         detectedAnswers = scanResult.answers || {};
         confidence = scanResult.confidence_avg || 0.95;
       } catch (colabErr) {
-        console.warn('[OmrCorrectionService] Colab GPU falhou no scan OMR. Enfileirando watchdog:', colabErr);
-        await colabTunnelWatchdog.enqueueTask('image_process', {
-          templateId: params.templateId,
-          studentId: params.studentId,
-        });
-        const isTest = process.env.NODE_ENV === 'test' || Boolean(process.env.PLAYWRIGHT_TEST);
-        if (!isTest) {
-          throw new Error('[OmrCorrectionService] Falha na Visão Computacional Remota: worker GPU indisponível e motor de visão local desativado. Tarefa enfileirada no watchdog para reprocessamento assíncrono.');
+        console.warn('[OmrCorrectionService] Colab GPU falhou no scan OMR. Acionando Kernel OMR Determinístico Local (Sauvola + Homografia 3x3):', colabErr);
+        const localScan = this.runLocalDeterministicOmrKernel(
+          params.imageBuffer,
+          template.totalQuestions,
+          template.optionsCount || 5
+        );
+        if (localScan) {
+          detectedAnswers = localScan.answers;
+          confidence = localScan.confidenceAvg;
+        } else {
+          await colabTunnelWatchdog.enqueueTask('image_process', {
+            templateId: params.templateId,
+            studentId: params.studentId,
+          });
+          throw new Error('[OmrCorrectionService] Falha na Visão Computacional: worker GPU indisponível e imagem não pôde ser decodificada pelo Kernel OMR Determinístico local. Tarefa enfileirada no watchdog.');
         }
-        detectedAnswers = this.localFallbackOmrDetection(template.totalQuestions);
-        confidence = 0.70;
       }
     } else {
-      // Fallback local caso Colab esteja offline
-      const isTest = process.env.NODE_ENV === 'test' || Boolean(process.env.PLAYWRIGHT_TEST);
-      if (!isTest) {
-        throw new Error('[OmrCorrectionService] Leitura Óptica Offline Indisponível: o motor de visão computacional local não está inicializado e o worker GPU remoto está desconectado. Conecte o worker de visão antes de corrigir provas reais de alunos.');
+      // Executa Kernel OMR Determinístico Local (OpenCV Sauvola + Homografia 3x3)
+      const localScan = this.runLocalDeterministicOmrKernel(
+        params.imageBuffer,
+        template.totalQuestions,
+        template.optionsCount || 5
+      );
+      if (!localScan) {
+        throw new Error('[OmrCorrectionService] Leitura Óptica Offline Indisponível: a imagem fornecida não pôde ser processada pelo Kernel OMR Determinístico local (kernel_omr.py) e o worker GPU remoto está desconectado.');
       }
-      detectedAnswers = this.localFallbackOmrDetection(template.totalQuestions);
-      confidence = 0.70;
+      detectedAnswers = localScan.answers;
+      confidence = localScan.confidenceAvg;
     }
 
     // Avaliação questão a questão
@@ -196,28 +207,72 @@ export class OmrCorrectionService extends EventEmitter {
     return report;
   }
 
-  public async listTemplates(classId?: string): Promise<any[]> {
+  public async listTemplates(classId?: string): Promise<Record<string, unknown>[]> {
     return await db.listOmrTemplates(classId);
   }
 
   /**
-   * Algoritmo de fallback para leitura quando offline.
+   * Executa o Kernel OMR Determinístico Local em Python/OpenCV (`kernel_omr.py`):
+   * - Binarização adaptativa de Sauvola via Imagem Integral
+   * - Detecção de 4 fiduciais de canto + Homografia 3x3
+   * - Densidade óptica circular vetorizada + margem tau >= 0.35
+   * Proibido gerar respostas sequenciais (A, B, C, D, E) sem ler os pixels reais da imagem.
    */
-  /**
-   * Algoritmo de fallback para leitura quando offline em ambiente de teste/CI.
-   * AVISO DE GOVERNANÇA: Proibido gerar notas fictícias em produção ou em provas reais de alunos.
-   */
-  private localFallbackOmrDetection(totalQuestions: number): Record<string, string> {
-    const isTest = process.env.NODE_ENV === 'test' || Boolean(process.env.PLAYWRIGHT_TEST);
-    if (!isTest) {
-      throw new Error('[OmrCorrectionService] localFallbackOmrDetection bloqueado fora do ambiente de teste.');
+  public runLocalDeterministicOmrKernel(
+    imageBuffer: Buffer,
+    totalQuestions: number,
+    optionsCount: number
+  ): { answers: Record<string, string>; confidenceAvg: number } | null {
+    if (!imageBuffer || imageBuffer.length < 32) {
+      return null;
     }
-    const answers: Record<string, string> = {};
-    const options = ['A', 'B', 'C', 'D', 'E'];
-    for (let i = 1; i <= totalQuestions; i++) {
-      answers[String(i)] = options[(i - 1) % options.length];
+
+    const kernelPath = path.resolve(__dirname, '../python/kernel_omr.py');
+    const proc = spawnSync(
+      'python',
+      [
+        kernelPath,
+        '--stdin-base64',
+        '--questions',
+        String(totalQuestions),
+        '--options',
+        String(optionsCount),
+      ],
+      {
+        input: imageBuffer.toString('base64'),
+        encoding: 'utf-8',
+        timeout: 8000,
+      }
+    );
+
+    if (proc.status !== 0 || !proc.stdout) {
+      return null;
     }
-    return answers;
+
+    try {
+      const parsed = JSON.parse(proc.stdout.trim()) as {
+        answers?: Record<string, string | null>;
+        confidence_avg?: number;
+        error?: string;
+      };
+      if (parsed.error || !parsed.answers) {
+        return null;
+      }
+
+      const sanitizedAnswers: Record<string, string> = {};
+      for (const [qKey, val] of Object.entries(parsed.answers)) {
+        if (typeof val === 'string' && val.length > 0) {
+          sanitizedAnswers[qKey] = val;
+        }
+      }
+
+      return {
+        answers: sanitizedAnswers,
+        confidenceAvg: typeof parsed.confidence_avg === 'number' ? parsed.confidence_avg : 0.85,
+      };
+    } catch {
+      return null;
+    }
   }
 }
 

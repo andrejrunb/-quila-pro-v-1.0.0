@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-11-08T03:10:34.737Z",
+  "date": "2026-11-08",
+  "wsConnected": true,
+  "cloudLinks": {
+    "githubRepo": "https://github.com/andrejrunb/-quila-pro-v-1.0.0",
+    "githubRawBase": "https://raw.githubusercontent.com/andrejrunb/-quila-pro-v-1.0.0/main",
+    "driveVaultRoot": "https://drive.google.com/drive/folders/1bO0QaWJMK3k2tQ1vefhijNSuEmLw_ApV",
+    "driveCleanZip": "https://drive.google.com/file/d/1uARGNfYiImJ3-216XREfgLoe0dwjVfV5/view?usp=drivesdk",
+    "veracityMatrixRaw": "https://raw.githubusercontent.com/andrejrunb/-quila-pro-v-1.0.0/main/docs/MATRIZ_DE_VERACIDADE_E_PORTAIS.md"
+  },
+  "missions": [
+    {
+      "id": "claude_architect",
+      "name": "Claude 3.7 Sonnet (Arquiteto & SQA)",
+      "schedule": "Diário — 08:00 BRT",
+      "compiledPromptPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\prompts\\claude_architect_2026-11-08.prompt.md",
+      "expectedOutputPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\claude_architecture_audit_result.md",
+      "matchedTab": {
+        "title": "Auditoria de projeto GitHub - Claude",
+        "url": "https://claude.ai/chat/596368ee-fd25-409f-8045-de26d47fa2dc",
+        "targetId": "4AD66066E0DBA66C09A3BB845592E2BB"
+      },
+      "dispatchResult": {
+        "status": "COLLECTED (0.3 KB)",
+        "selector": "[data-is-streaming]"
+      }
+    },
+    {
+      "id": "gpt_pedagogical",
+      "name": "ChatGPT 4o / o1 (Diretor Pedagógico & TRI)",
+      "schedule": "Diário — 08:15 BRT",
+      "compiledPromptPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\prompts\\gpt_pedagogical_2026-11-08.prompt.md",
+      "expectedOutputPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\gpt_pedagogical_tri_result.json",
+      "matchedTab": {
+        "title": "Analisar projeto GitHub",
+        "url": "https://chatgpt.com/g/g-p-6aefe0d0f37481919d678f13da8b3347-aquila/c/6aefe1e4-f240-83e8-a564-c7a7c58eb867",
+        "targetId": "E58382BCD7C2B86BA5FA516ADECB1D83"
+      },
+      "dispatchResult": {
+        "status": "ERROR",
+        "error": "Timeout em Runtime.evaluate"
+      }
+    },
+    {
+      "id": "deepseek_math",
+      "name": "DeepSeek R1 / V3 (Engenheiro Matemático & OMR)",
+      "schedule": "Diário — 08:30 BRT",
+      "compiledPromptPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\prompts\\deepseek_math_2026-11-08.prompt.md",
+      "expectedOutputPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\deepseek_math_solver_result.py",
+      "matchedTab": {
+        "title": "Kernel OMR e Solver - DeepSeek",
+        "url": "https://chat.deepseek.com/a/chat/s/137cb160-5ff2-47ff-a7a0-a4c46e82ed50",
+        "targetId": "500D11C81EFE9D0F7E371B0846D84115"
+      },
+      "dispatchResult": {
+        "status": "COLLECTED (30.4 KB)",
+        "selector": ".ds-markdown"
+      }
+    },
+    {
+      "id": "perplexity_radar",
+      "name": "Perplexity Pro (Radar Regulatório & Benchmark)",
+      "schedule": "Diário — 08:45 BRT",
+      "compiledPromptPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\prompts\\perplexity_radar_2026-11-08.prompt.md",
+      "expectedOutputPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\perplexity_regulatory_radar.md",
+      "matchedTab": {
+        "title": "https://github.com/andrejrunb/-quila-pro-v-1.0.0",
+        "url": "https://www.perplexity.ai/session/8986b249-c0df-4ea8-a8c2-6c83a9fb56ef",
+        "targetId": "2CB021E12096FD192E7E2D339522045B"
+      },
+      "dispatchResult": {
+        "status": "COLLECTED (19.2 KB)",
+        "selector": ".prose"
+      }
+    },
+    {
+      "id": "copilot_windows",
+      "name": "GitHub / Microsoft Copilot (Windows & RPA)",
+      "schedule": "Diário — 09:00 BRT",
+      "compiledPromptPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\prompts\\copilot_windows_2026-11-08.prompt.md",
+      "expectedOutputPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\copilot_windows_rpa_result.ps1",
+      "matchedTab": {
+        "title": "Automatização de missões em Windows e · GitHub Copilot",
+        "url": "https://github.com/copilot/c/89aed773-39d5-4bd7-9b99-7a30532c595b",
+        "targetId": "E37A7FCC707D9F810BA606717EAAD4E3"
+      },
+      "dispatchResult": {
+        "status": "COLLECTED (18.3 KB)",
+        "selector": ".markdown-body"
+      }
+    },
+    {
+      "id": "brisk_teaching",
+      "name": "Brisk Next / Brisk Teaching (Diferenciação & PEI)",
+      "schedule": "Diário — 09:15 BRT",
+      "compiledPromptPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\prompts\\brisk_teaching_2026-11-08.prompt.md",
+      "expectedOutputPath": "c:\\aquila\\test-results\\swarm_audits\\2026-11-08\\brisk_pedagogical_scaffolding_result.md",
+      "matchedTab": {
+        "title": "Brisk Next | Brisk Teaching",
+        "url": "https://app.briskteaching.com/",
+        "targetId": "B983E0991613215836FA9BFCD39BB68B"
+      },
+      "dispatchResult": {
+        "status": "INJECTED_AND_SUBMITTED + COLLECTED (8.3 KB)",
+        "selector": "main"
+      }
+    }
+  ]
+}

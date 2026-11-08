@@ -96,4 +96,30 @@ describe('OmrCorrectionService Unit Tests (Passos 141-146)', () => {
     expect(report.questions[1].isCorrect).toBe(true);
     expect(report.questions[2].isCorrect).toBe(false);
   });
+
+  test('Deve rejeitar imagem inválida/corrompida quando offline sem inventar gabarito A,B,C,D,E', async () => {
+    const dbInstance = Database.getInstance();
+    jest.spyOn(dbInstance, 'getOmrTemplate').mockResolvedValue({
+      id: 'omr_tpl_offline',
+      title: 'Simulado Offline',
+      totalQuestions: 5,
+      optionsCount: 5,
+      answerKey: { '1': 'A', '2': 'B', '3': 'C', '4': 'D', '5': 'E' },
+      weights: { '1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5': 1.0 },
+    });
+
+    jest.spyOn(colabGpuBridge, 'getStatus').mockReturnValue({
+      online: false,
+      url: '',
+      health: null,
+      stats: { requests: 0, errors: 0 },
+    });
+
+    await expect(
+      service.correctExam({
+        templateId: 'omr_tpl_offline',
+        imageBuffer: Buffer.from('not_a_valid_png_image'),
+      })
+    ).rejects.toThrow('Kernel OMR Determinístico local');
+  });
 });

@@ -281,7 +281,7 @@ class CdpBrowserClient {
       const timer = setTimeout(() => {
         try { ws.close(); } catch {}
         reject(new Error('Timeout conectando ao Browser WS (clique em Allow no Chrome)'));
-      }, 30000);
+      }, 60000);
 
       ws.onopen = () => {
         clearTimeout(timer);
@@ -503,8 +503,9 @@ async function main() {
   const shouldInject = args.includes('--inject');
   const shouldSubmit = args.includes('--submit');
   const shouldCollect = args.includes('--collect');
+  const isDaemon = args.includes('--daemon');
   const onlyArg = args.find(a => a.startsWith('--only='));
-  const onlyId = onlyArg ? onlyArg.split('=')[1] : null;
+  const onlyIds = onlyArg ? onlyArg.split('=')[1].split(',').map(s => s.trim()) : null;
 
   console.log('========================================================================');
   console.log('  ÁQUILA PRO — MOTOR DE AUTOMAÇÃO DIÁRIA DO SWARM MULTI-IA              ');
@@ -547,11 +548,8 @@ async function main() {
     missions: []
   };
 
-  const activeAgents = onlyId
-    ? DAILY_SWARM_CONFIG.filter(a => a.id === onlyId)
-    : DAILY_SWARM_CONFIG;
-
-  for (const agent of activeAgents) {
+  for (const agent of DAILY_SWARM_CONFIG) {
+    const isTargetForInject = !onlyIds || onlyIds.includes(agent.id);
     const briefingPath = path.join(BRIEFINGS_DIR, agent.briefingFile);
     const baseBriefing = fs.existsSync(briefingPath)
       ? fs.readFileSync(briefingPath, 'utf-8')
@@ -566,7 +564,7 @@ async function main() {
     );
 
     let dispatchResult = null;
-    if (client && matchingPage && shouldInject) {
+    if (client && matchingPage && shouldInject && isTargetForInject) {
       try {
         dispatchResult = await injectAndSubmitOnTarget(
           client,
@@ -580,19 +578,18 @@ async function main() {
         dispatchResult = { status: 'ERROR', error: err.message };
       }
     }
-
     if (client && matchingPage && shouldCollect) {
       try {
         const col = await collectResponseFromTarget(client, matchingPage.targetId);
         if (col.collected && col.content) {
           const outPath = path.join(todayOutputDir, agent.outputFile);
           fs.writeFileSync(outPath, col.content, 'utf-8');
-          dispatchResult = { status: `COLLECTED (${(col.length / 1024).toFixed(1)} KB)`, selector: col.selector };
-        } else {
+          dispatchResult = { status: `${dispatchResult ? dispatchResult.status + ' + ' : ''}COLLECTED (${(col.length / 1024).toFixed(1)} KB)`, selector: col.selector };
+        } else if (!dispatchResult) {
           dispatchResult = { status: 'COLLECT_EMPTY' };
         }
       } catch (err) {
-        dispatchResult = { status: 'COLLECT_ERROR', error: err.message };
+        if (!dispatchResult) dispatchResult = { status: 'COLLECT_ERROR', error: err.message };
       }
     }
 
@@ -614,14 +611,71 @@ async function main() {
     });
   }
 
-  if (client) client.close();
-
   const manifestPath = path.join(todayOutputDir, 'daily_swarm_dispatch_manifest.json');
   fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2), 'utf-8');
 
   console.log(`\n[3/4] Manifesto Diário Salvo em: ${manifestPath}`);
-  console.log('[4/4] Operação Concluída!');
-  console.log('========================================================================\n');
+
+  if (client && isDaemon) {
+    console.log('[4/4] MODO DAEMON ATIVO: Mantendo WebSocket autenticado aberto e coletando a cada 2 minutos...');
+
+    const runCollectionCycle = async (label) => {
+      try {
+        const targetsRes = await client.send('Target.getTargets');
+        const currentPages = (targetsRes.targetInfos || []).filter(t => t.type === 'page');
+        const summary = [];
+        for (const agent of DAILY_SWARM_CONFIG) {
+          const match = currentPages.find(p => p.url && agent.domains.some(d => p.url.includes(d)));
+          if (match) {
+            try {
+              const col = await collectResponseFromTarget(client, match.targetId);
+              if (col.collected && col.content) {
+                const outPath = path.join(todayOutputDir, agent.outputFile);
+                fs.writeFileSync(outPath, col.content, 'utf-8');
+                summary.push(`${agent.id}: ${(col.length / 1024).toFixed(1)} KB`);
+              }
+            } catch {}
+          }
+        }
+        console.log(`[AUTO-COLLECT ${new Date().toISOString()}] (${label}) -> ${summary.join(' | ') || 'aguardando respostas'}`);
+        return summary;
+      } catch (e) {
+        console.warn(`[AUTO-COLLECT WARN] ${e.message}`);
+        return [];
+      }
+    };
+
+    // Heartbeat a cada 25s para manter o WebSocket vivo
+    setInterval(() => {
+      client.send('Target.getTargets').catch(() => {});
+    }, 25000);
+
+    // Coleta automática a cada 2 minutos (120s)
+    setInterval(() => {
+      runCollectionCycle('scheduled-2m');
+    }, 120000);
+
+    // Servidor HTTP local na porta 9229 para disparo/coleta instantânea sem novo popup no Chrome
+    const http = require('http');
+    const srv = http.createServer(async (req, res) => {
+      if (req.url === '/collect') {
+        const result = await runCollectionCycle('http-trigger');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, collected: result }));
+      } else {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, daemon: 'active', date: today }));
+      }
+    });
+    srv.on('error', () => {});
+    srv.listen(9229, '127.0.0.1', () => {
+      console.log('      Bridge HTTP local escutando em http://127.0.0.1:9229/collect');
+    });
+  } else {
+    if (client) client.close();
+    console.log('[4/4] Operação Concluída!');
+    console.log('========================================================================\n');
+  }
 }
 
 main().catch(console.error);
