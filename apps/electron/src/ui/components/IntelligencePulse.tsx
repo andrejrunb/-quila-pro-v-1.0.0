@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Brain, Sparkles, Check, RefreshCw, AlertCircle } from 'lucide-react';
+import { Brain, Sparkles, Check, RefreshCw, AlertCircle, Shield } from 'lucide-react';
 import './IntelligencePulse.css';
 
 interface Insight {

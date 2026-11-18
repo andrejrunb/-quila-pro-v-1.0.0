@@ -26,7 +26,7 @@ export const IntegrationHUB: React.FC = () => {
 
   const connectors = [
     { name: 'Setti Educacional', type: 'SIS/ERP', status: 'CONNECTED', lastSync: '10 min atrás', icon: <Database color="#3b82f6" /> },
-    { name: 'Urânia Grade', type: 'Scheduling', status: 'WARNING', lastSync: '2 horas atrás', icon: <RefreshCw color="#eab308" /> },
+    { name: 'Grade Inteligente Áquila Grade', type: 'Scheduling', status: 'WARNING', lastSync: '2 horas atrás', icon: <RefreshCw color="#eab308" /> },
     { name: 'SIESCOLA', type: 'Secretary', status: 'DISCONNECTED', lastSync: 'N/A', icon: <Link2 color="#ef4444" /> }
   ];
 

@@ -68,7 +68,7 @@ const UnifiedConsciousnessUI: React.FC = () => {
            <div className="layer-card glass-panel affective">
               <Sparkles size={24} />
               <div className="l-data">
-                 <label>Clima Afetivo</label>
+                 <label>Clima Pedagógico</label>
                  <strong>{syncState.emotionalClimate}%</strong>
               </div>
            </div>

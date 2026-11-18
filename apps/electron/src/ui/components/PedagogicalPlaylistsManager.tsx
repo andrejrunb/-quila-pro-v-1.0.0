@@ -290,7 +290,7 @@ export const PedagogicalPlaylistsManager: React.FC<PedagogicalPlaylistsManagerPr
           type: 'checkpoint',
           title: 'Etapa 3: Desafio em Pares (10 min)',
           durationMinutes: 10,
-          toolOrGame: 'Mesa de Seating Intelligence',
+          toolOrGame: 'Mesa de Organização de Carteiras',
           description: 'Duplas debatem o que ocorre com o glóbulo vermelho em água pura.',
         },
         {
@@ -459,7 +459,7 @@ export const PedagogicalPlaylistsManager: React.FC<PedagogicalPlaylistsManagerPr
           type: 'checkpoint',
           title: 'Etapa 3: Checkpoint Diagnóstico em Duplas (10 min)',
           durationMinutes: 10,
-          toolOrGame: 'Seating Intelligence & Quiz',
+          toolOrGame: 'Organização de Carteiras & Quiz',
           description: 'Discussão colaborativa para checagem imediata de compreensão.',
         },
         {

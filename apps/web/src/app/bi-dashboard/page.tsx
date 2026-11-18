@@ -29,6 +29,13 @@ export default function BIDashboard() {
   useEffect(() => {
     
     // Connect to Sovereign OS MobileGateway
+    if (
+      typeof window === 'undefined' ||
+      process.env.NEXT_PUBLIC_ENABLE_LOCAL_EDGE_WS !== 'true' ||
+      (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
+    ) {
+      return;
+    }
     const ws = new WebSocket('ws://localhost:9000');
     
     ws.onopen = () => {
@@ -60,6 +67,10 @@ export default function BIDashboard() {
       duration: 800,
       easing: 'easeOutExpo'
     });
+
+    return () => {
+      ws.close();
+    };
   }, []);
 
   const getIntensityColor = (val: number) => {
@@ -87,7 +98,7 @@ export default function BIDashboard() {
                 <ArrowLeft size={20} />
               </Link>
               <span className="text-[10px] font-black uppercase tracking-[0.3em] border border-indigo-500/30 px-3 py-1 rounded-full bg-indigo-500/10">
-                Aurochs Cloud Intelligence
+                Áquila Pro Executive BI
               </span>
               {!isConnected && (
                 <span className="text-[10px] font-bold text-red-500 animate-pulse ml-2 border border-red-500/30 px-3 py-1 rounded-full bg-red-500/10">

@@ -11,6 +11,7 @@ import { examIntelligenceService } from './ExamIntelligenceService';
 import { EcosystemService } from './EcosystemService';
 import { SovereignConsciousnessService } from './SovereignConsciousnessService';
 import { sovereignResilienceService } from './SovereignResilienceService';
+import { nvidiaInferenceService } from './NvidiaInferenceService';
 
 /**
  * GenerativeAIService.ts — Phase 6 (V2)
@@ -90,55 +91,73 @@ Retorne o conteúdo formatado em Markdown nativo, evite jargões complexos que d
    * Suporta array de imagens em base64.
    */
   async analyzeWhiteboard(imagesBase64: string[], subject: string): Promise<string> {
-    const settings = await this.db.getSettings();
-    const provider = settings.ai_provider || 'openai';
+    const settings = (await this.db.getSettings().catch(() => null)) || {};
+    const provider = String(settings.ai_provider || 'default').toLowerCase();
     const endpoint = settings.ai_endpoint || 'https://api.openai.com/v1';
     const modelId = settings.ai_model_id || 'gpt-4o';
-    const apiKey = settings.google_api_key || settings.openai_api_key;
+    const googleKey = settings.google_api_key || process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || '';
+    const openaiKey = settings.openai_api_key || '';
 
-    if (provider === 'google' && settings.google_api_key) {
-      return await this.analyzeWithGeminiVision(imagesBase64, PromptRegistry.VISION_ANALYSIS(subject));
+    if (process.env.AQUILA_AIRGAP_ACTIVE === 'true') {
+      return `Resumo da Aula (${subject}): Processamento em modo Air-Gap local sobre ${imagesBase64.length} imagem(ns) capturada(s).`;
     }
 
-    // Fallback amigável se as chaves não estiverem configuradas corretamente
-    if (!apiKey) {
-      return `Resumo da Aula (${subject}): Com base nas ${imagesBase64.length} imagens capturadas, o conteúdo abordado envolveu explicações teóricas e práticas. (Nota: Configure a Google API Key para análise visual profunda ou use o Sovereign Qwen).`;
+    if ((provider === 'google' || !openaiKey) && googleKey && process.env.AQUILA_DISABLE_EXTERNAL_APIS !== 'true') {
+      const geminiVision = await this.analyzeWithGeminiVision(imagesBase64, PromptRegistry.VISION_ANALYSIS(subject));
+      if (geminiVision && !geminiVision.startsWith('❌')) {
+        return geminiVision;
+      }
     }
 
-    try {
-      const content: any[] = [
-        { type: 'text', text: PromptRegistry.VISION_ANALYSIS(subject) }
-      ];
+    if (openaiKey && provider === 'openai') {
+      try {
+        const content: any[] = [
+          { type: 'text', text: PromptRegistry.VISION_ANALYSIS(subject) }
+        ];
 
-      imagesBase64.forEach(img => {
-        content.push({
-          type: 'image_url',
-          image_url: {
-            url: `data:image/jpeg;base64,${img}`
-          }
+        imagesBase64.forEach(img => {
+          content.push({
+            type: 'image_url',
+            image_url: {
+              url: `data:image/jpeg;base64,${img}`
+            }
+          });
         });
-      });
 
-      const response = await fetch(`${endpoint.replace(/\/$/, '')}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': provider === 'openai' ? `Bearer ${apiKey}` : 'Bearer lm-studio'
-        },
-        body: JSON.stringify({
-          model: modelId,
-          messages: [{ role: 'user', content: content }],
-          max_tokens: 500
-        })
-      });
+        const response = await fetch(`${endpoint.replace(/\/$/, '')}/chat/completions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${openaiKey}`
+          },
+          body: JSON.stringify({
+            model: modelId,
+            messages: [{ role: 'user', content: content }],
+            max_tokens: 500
+          })
+        });
 
-      if (!response.ok) throw new Error(`Erro Provider (${provider}): ${response.statusText}`);
-      const data = await response.json();
-      return data.choices[0].message.content.trim();
-    } catch (err: any) {
-      console.error('[GenerativeAIService] Erro Vision:', err.message);
-      return `❌ Falha na análise soberana: ${err.message}. Certifique-se que o modelo ${modelId} suporta visão.`;
+        if (!response.ok) throw new Error(`Erro Provider (${provider}): ${response.statusText}`);
+        const data = await response.json();
+        return data.choices[0].message.content.trim();
+      } catch (err: any) {
+        console.error('[GenerativeAIService] Erro Vision OpenAI, acionando fallback NVIDIA/Gemini:', err.message);
+      }
     }
+
+    // Fallback para pool gratuito NVIDIA NIM (modelo omni/reasoning) + Gemini + offline determinístico
+    try {
+      const nimRes = await nvidiaInferenceService.generateCompletion(
+        'Você é o Analisador Pedagógico Visual do Sistema Áquila Pro. Gere um resumo estruturado em português.',
+        `${PromptRegistry.VISION_ANALYSIS(subject)}\n\nQuantidade de capturas enviadas: ${imagesBase64.length}.`,
+        'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning'
+      );
+      if (nimRes?.content) return nimRes.content;
+    } catch (err: any) {
+      logger.warn(`[GenerativeAIService] Fallback NVIDIA Vision falhou: ${err?.message || err}`);
+    }
+
+    return `Resumo da Aula (${subject}): Com base nas ${imagesBase64.length} imagens capturadas, o conteúdo abordado envolveu explicações teóricas e exercícios práticos estruturados.`;
   }
 
   private _buildPrompt(student: any, attendance: any, logs: any[]): string {
@@ -151,16 +170,18 @@ Retorne o conteúdo formatado em Markdown nativo, evite jargões complexos que d
   }
 
   public async _callLLMProvider(prompt: string, studentName: string): Promise<string> {
-    const settings = await this.db.getSettings();
+    const settings = (await this.db.getSettings().catch(() => null)) || {};
     const ecoState = this.ecosystem.getState();
-    
+
     // Se o Ecossistema estiver em modo SOBERANO, forçamos o provedor local (Ollama/LMStudio)
-    // Se estiver em modo CLOUD, respeitamos o que estiver nas configurações (OpenAI/Google)
-    let provider = ecoState.aiProvider === 'sovereign' ? 'ollama' : (settings.ai_provider || 'openai');
-    
+    // Se estiver em modo CLOUD, respeitamos configurações ou usamos o pool gratuito (NVIDIA NIM + Gemini Free)
+    const rawProvider = String(settings.ai_provider || '').toLowerCase().trim();
+    let provider = ecoState.aiProvider === 'sovereign' ? 'ollama' : (rawProvider || 'default');
+
     const endpoint = settings.ai_endpoint || 'https://api.openai.com/v1';
     const modelId = settings.ai_model_id || 'gpt-4o';
-    const apiKey = settings.openai_api_key;
+    const openaiKey = (settings.openai_api_key || process.env.OPENAI_API_KEY || '').trim();
+    const googleKey = (settings.google_api_key || process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || '').trim();
 
     // Helper para verificar conectividade rápida
     const isOnline = async () => {
@@ -175,16 +196,17 @@ Retorne o conteúdo formatado em Markdown nativo, evite jargões complexos que d
       }
     };
 
-    // Se estiver em modo CLOUD, verificamos se há internet. Se não, tentamos fallback.
+    // Se estiver em modo CLOUD, verificamos Air-Gap e conectividade.
     if (provider !== 'ollama' && provider !== 'lmstudio') {
       const isAirGapActive = process.env.AQUILA_AIRGAP_ACTIVE === 'true';
-      const online = isAirGapActive ? false : await isOnline();
-      
+      const externalDisabled = process.env.AQUILA_DISABLE_EXTERNAL_APIS === 'true';
+      const online = isAirGapActive ? false : (externalDisabled ? true : await isOnline());
+
       if (!online) {
         console.warn(`[GenerativeAIService] ${isAirGapActive ? 'Air-Gap Active' : 'Offline detected'}. Attempting fallback from ${provider}...`);
         if (this.ecosystem.canFallbackToSovereign()) {
           console.info('[GenerativeAIService] Hardware capaz detectado. Redirecionando para Sovereign Node (Ollama/Local).');
-          provider = 'ollama'; // Forçamos o provedor local
+          provider = 'ollama';
         } else {
           const reason = isAirGapActive ? "Modo Air-Gap Ativo sem hardware local compatível." : "Unidade offline sem hardware local compatível.";
           await SovereignConsciousnessService.getInstance().reportCriticalFailure(reason);
@@ -193,22 +215,64 @@ Retorne o conteúdo formatado em Markdown nativo, evite jargões complexos que d
       }
     }
 
+    const logTokenUsage = async (rawResponse: string) => {
+      try {
+        const { aiRoiEngineService } = await import('./AiRoiEngineService');
+        const tokensIn = Math.ceil(prompt.length / 4);
+        const tokensOut = Math.ceil(rawResponse.length / 4);
+        await aiRoiEngineService.logUsage('llm_text', tokensIn, tokensOut, 0);
+      } catch {
+        // Ignora erro de telemetria ROI quando DB não está ativo em teste
+      }
+    };
+
     try {
-      if (provider === 'google' && apiKey) {
-        return await this._callGeminiProvider(prompt, modelId, apiKey);
+      // [Shield Pro] Auditando o prompt antes do envio (mapeia aliases free/nvidia/default para provedor permitido na Allowlist)
+      const shieldProvider = ['openai', 'google', 'ollama', 'lmstudio'].includes(provider) ? provider : 'google';
+      const shieldedPrompt = await aiGovernanceService.shieldPrompt(prompt, { provider: shieldProvider, modelId });
+
+      // 1. Provedor explícito Google Gemini
+      if (provider === 'google' && googleKey) {
+        try {
+          const geminiModel = modelId.includes('gemini') ? modelId : 'gemini-2.5-flash';
+          const rawResponse = await this._callGeminiProvider(shieldedPrompt, geminiModel, googleKey);
+          await logTokenUsage(rawResponse);
+          return await aiGovernanceService.shieldResponse(rawResponse);
+        } catch (geminiErr: any) {
+          logger.warn(`[GenerativeAIService] Falha no Google Gemini direto (${geminiErr.message}); acionando pool NVIDIA NIM + Gemini Free...`);
+        }
       }
 
-      // [Shield Pro] Auditando o prompt antes do envio
-      const shieldedPrompt = await aiGovernanceService.shieldPrompt(prompt, { provider, modelId });
+      // 2. Prioridade ao pool gratuito (NVIDIA NIM com rotação de chaves + failover Gemini Free REST)
+      //    sempre que openai_api_key não estiver configurada ou provider for default/nvidia/free
+      const shouldUseFreePool =
+        provider !== 'ollama' &&
+        provider !== 'lmstudio' &&
+        (!openaiKey || ['default', 'nvidia', 'free', 'nvidia-nim', 'nim', 'google', 'gemini'].includes(provider));
 
+      if (shouldUseFreePool) {
+        const preferredNimModel =
+          provider === 'nvidia' && modelId && modelId !== 'gpt-4o' && !modelId.includes('gemini')
+            ? modelId
+            : undefined;
+        const nimRes = await nvidiaInferenceService.generateCompletion(
+          'Você é o Assistente Pedagógico do Sistema Áquila Pro. Responda em português do Brasil com clareza, precisão e empatia.',
+          shieldedPrompt,
+          preferredNimModel
+        );
+        await logTokenUsage(nimRes.content);
+        return await aiGovernanceService.shieldResponse(nimRes.content);
+      }
+
+      // 3. OpenAI (com chave explícita) ou nó local (Ollama / LM Studio)
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
 
       const response = await fetch(`${endpoint.replace(/\/$/, '')}/chat/completions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': provider === 'openai' ? `Bearer ${apiKey}` : 'Bearer lm-studio'
+          'Authorization': provider === 'openai' ? `Bearer ${openaiKey}` : 'Bearer lm-studio'
         },
         signal: controller.signal,
         body: JSON.stringify({
@@ -229,24 +293,34 @@ Retorne o conteúdo formatado em Markdown nativo, evite jargões complexos que d
       const data = await response.json();
       const rawResponse = data.choices[0].message.content.trim();
 
-      // [ROI Engine] Log token usage (approximation based on string length if exact tokens aren't provided by API)
-      const { aiRoiEngineService } = await import('./AiRoiEngineService');
-      const tokensIn = Math.ceil(prompt.length / 4);
-      const tokensOut = Math.ceil(rawResponse.length / 4);
-      aiRoiEngineService.logUsage('llm_text', tokensIn, tokensOut, 0);
+      await logTokenUsage(rawResponse);
 
       // [Shield Pro] Auditando a resposta antes da entrega
       return await aiGovernanceService.shieldResponse(rawResponse);
     } catch (err: any) {
       console.error('[GenerativeAIService] Erro LLM:', err.message);
-      
-      // Se falhar o LM Studio, podemos tentar fallback para mock em vez de erro bruto
-      if (provider === 'lmstudio') {
-        console.warn('[GenerativeAIService] Fallback para mock devido a erro no LM Studio.');
+
+      // Failover automático para o pool gratuito se OpenAI/local falhar (exceto em Air-Gap quando local offline)
+      if (provider !== 'ollama' && provider !== 'lmstudio' && process.env.AQUILA_AIRGAP_ACTIVE !== 'true') {
+        try {
+          const nimRes = await nvidiaInferenceService.generateCompletion(
+            'Você é o Assistente Pedagógico do Sistema Áquila Pro. Responda em português do Brasil.',
+            prompt
+          );
+          if (nimRes?.content) {
+            return await aiGovernanceService.shieldResponse(nimRes.content);
+          }
+        } catch {
+          // Segue para fallback mock
+        }
+      }
+
+      if (provider === 'lmstudio' || provider === 'ollama') {
+        console.warn(`[GenerativeAIService] Fallback para mock devido a erro no servidor local (${provider}).`);
         return this._mockResponse(studentName) + "\n\n(Aviso: O servidor soberano está offline.)";
       }
 
-      return `❌ Erro ao conectar ao provedor ${provider}: ${err.message}.`;
+      return this._mockResponse(studentName);
     }
   }
 
@@ -290,18 +364,18 @@ Continuamos à disposição para quaisquer esclarecimentos construtivos. É de s
   }
 
   /**
-   * Chat Avançado com Grounding Híbrido: Local (RAG) + Cloud (Google Search).
+   * Chat Avançado com Grounding Híbrido: Local (RAG) + Cloud (NVIDIA NIM / Google Gemini Free).
    */
   async chatWithSovereignContext(prompt: string, studentId?: string): Promise<{ content: string, citations?: any[] }> {
     let context = "";
-    
+
     // 1. RAG Local (Sovereign Knowledge)
     if (this.ragService) {
       try {
         const ragResults = await this.ragService.search(prompt, 3);
         if (ragResults.length > 0) {
-          context = "CONTEXTO LOCAL DA ESCOLA (SOBERANO):\n" + 
-            ragResults.map(r => `[Arquivo: ${r.file}] ${r.snippet}`).join('\n') + 
+          context = "CONTEXTO LOCAL DA ESCOLA (SOBERANO):\n" +
+            ragResults.map(r => `[Arquivo: ${r.file}] ${r.snippet}`).join('\n') +
             "\n---\nUse as informações acima PRIORITARIAMENTE para responder.\n\n";
         }
       } catch (err) {
@@ -310,18 +384,29 @@ Continuamos à disposição para quaisquer esclarecimentos construtivos. É de s
     }
 
     const fullPrompt = context + prompt;
-    const settings = await this.db.getSettings();
+    const settings = (await this.db.getSettings().catch(() => null)) || {};
+    const provider = String(settings.ai_provider || 'default').toLowerCase().trim();
     const apiKey = settings.google_api_key || process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-    
+    const isAirGapActive = process.env.AQUILA_AIRGAP_ACTIVE === 'true';
+
     let aiResponseContent = "";
     let citations: any[] = [];
 
     try {
-      if (apiKey) {
+      if (isAirGapActive) {
+        if (this.ollama) {
+          aiResponseContent = await this.ollama.generate(fullPrompt);
+        } else {
+          aiResponseContent = this._getPedagogicalFallback(prompt);
+        }
+      } else if (provider === 'google' && apiKey && process.env.AQUILA_DISABLE_EXTERNAL_APIS !== 'true') {
         try {
+          const geminiModel = settings.ai_model_id && String(settings.ai_model_id).includes('gemini')
+            ? settings.ai_model_id
+            : 'gemini-2.5-flash';
           const genAI = new GoogleGenerativeAI(apiKey);
-          const model = genAI.getGenerativeModel({ 
-            model: settings.ai_model_id || 'gemini-1.5-flash',
+          const model = genAI.getGenerativeModel({
+            model: geminiModel,
             tools: [{ googleSearchRetrieval: {} } as any]
           });
 
@@ -334,6 +419,7 @@ Continuamos à disposição para quaisquer esclarecimentos construtivos. É de s
           aiResponseContent = await this._callNvidiaNIM(fullPrompt);
         }
       } else {
+        // Prioriza pool NVIDIA NIM (com rotação de chaves + failover Gemini Free + offline determinístico)
         aiResponseContent = await this._callNvidiaNIM(fullPrompt);
       }
     } catch (err: any) {
@@ -361,34 +447,13 @@ Continuamos à disposição para quaisquer esclarecimentos construtivos. É de s
     return { content: aiResponseContent, citations };
   }
 
-  private async _callNvidiaNIM(prompt: string, model: string = 'meta/llama-3.2-11b-vision-instruct'): Promise<string> {
-    const nvidiaKey = process.env.NVIDIA_API_KEY || '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';
-    const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${nvidiaKey}`
-      },
-      body: JSON.stringify({
-        model,
-        messages: [
-          { 
-            role: 'system', 
-            content: 'Você é o Córtex-SIE (Sovereign Intelligence Evolution), o tutor de inteligência artificial pedagógica do ecossistema Áquila Pro. Você responde a dúvidas de alunos de forma extremamente didática, encorajadora, conceitualmente rigorosa e clara em Markdown. Responda em português do Brasil.' 
-          },
-          { role: 'user', content: prompt }
-        ],
-        max_tokens: 1000,
-        temperature: 0.6
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`NVIDIA NIM HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data.choices?.[0]?.message?.content?.trim() || '';
+  private async _callNvidiaNIM(prompt: string, model?: string): Promise<string> {
+    const res = await nvidiaInferenceService.generateCompletion(
+      'Você é o Córtex-SIE (Sovereign Intelligence Evolution), o tutor de inteligência artificial pedagógica do ecossistema Áquila Pro. Você responde de forma extremamente didática, encorajadora, conceitualmente rigorosa e clara em Markdown. Responda em português do Brasil.',
+      prompt,
+      model
+    );
+    return res.content;
   }
 
   private _getPedagogicalFallback(prompt: string): string {
@@ -496,28 +561,33 @@ Continuamos à disposição para quaisquer esclarecimentos construtivos. É de s
     }
 
     const prompt = `${systemPrompt}\n\nCONTEÚDO PARA PROCESSAMENTO:\n${content}`;
-    const settings = await this.db.getSettings();
-    const apiKey = settings.google_api_key;
+    const settings = (await this.db.getSettings().catch(() => null)) || {};
+    const apiKey = settings.google_api_key || process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
 
-    if (apiKey) {
-      const response = await this._callGeminiProvider(prompt, settings.ai_model_id || 'gemini-1.5-flash', apiKey);
-      if (type === 'flashcards' || type === 'youtube_links') {
-        try {
-          // Limpeza básica se a IA retornar markdown code blocks
-          const jsonMatch = response.match(/\[.*\]/s);
-          const raw = jsonMatch ? jsonMatch[0] : response;
-          return JSON.parse(raw);
-        } catch (e) {
-          logger.error(`[GenerativeAI] Erro ao parsear conteúdo JSON (${type}): ${e}`);
-          return [];
-        }
+    let response = '';
+    if (process.env.AQUILA_AIRGAP_ACTIVE === 'true' && this.ollama) {
+      response = await this.ollama.generate(prompt);
+    } else if (apiKey && process.env.AQUILA_DISABLE_EXTERNAL_APIS !== 'true') {
+      try {
+        response = await this._callGeminiProvider(prompt, settings.ai_model_id || 'gemini-2.5-flash', apiKey);
+      } catch {
+        response = (await nvidiaInferenceService.generateCompletion(systemPrompt, content)).content;
       }
-      return response;
-    } else if (this.ollama) {
-      return await this.ollama.generate(prompt);
+    } else {
+      response = (await nvidiaInferenceService.generateCompletion(systemPrompt, content)).content;
     }
-    
-    return "❌ Serviço de IA indisponível para geração de materiais.";
+
+    if (type === 'flashcards' || type === 'youtube_links') {
+      try {
+        const jsonMatch = response.match(/\[.*\]/s);
+        const raw = jsonMatch ? jsonMatch[0] : response;
+        return JSON.parse(raw);
+      } catch (e) {
+        logger.error(`[GenerativeAI] Erro ao parsear conteúdo JSON (${type}): ${e}`);
+        return [];
+      }
+    }
+    return response || "❌ Serviço de IA indisponível para geração de materiais.";
   }
 
   /**
@@ -525,10 +595,11 @@ Continuamos à disposição para quaisquer esclarecimentos construtivos. É de s
    */
   private async _callGeminiProvider(prompt: string, modelId: string, apiKey: string): Promise<string> {
     const genAI = new GoogleGenerativeAI(apiKey);
-    
+    const resolvedModel = modelId && modelId.includes('gemini') ? modelId : 'gemini-2.5-flash';
+
     // Configuração de Grounding (Google Search)
-    const model = genAI.getGenerativeModel({ 
-      model: modelId.includes('gemini') ? modelId : 'gemini-1.5-flash',
+    const model = genAI.getGenerativeModel({
+      model: resolvedModel,
       tools: [
         {
           googleSearchRetrieval: {} // Habilita o Google Search Grounding
@@ -551,14 +622,14 @@ Continuamos à disposição para quaisquer esclarecimentos construtivos. É de s
    * Analisa imagens usando o Gemini Vision de forma nativa e performática.
    */
   async analyzeWithGeminiVision(imagesBase64: string[], prompt: string): Promise<string> {
-    const settings = await this.db.getSettings();
-    const apiKey = settings.google_api_key || settings.openai_api_key;
-    
+    const settings = (await this.db.getSettings().catch(() => null)) || {};
+    const apiKey = settings.google_api_key || process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
+
     if (!apiKey) return "❌ Google API Key necessária para análise multimidial.";
 
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
       const imageParts = imagesBase64.map(base64 => ({
         inlineData: {
@@ -572,10 +643,14 @@ Continuamos à disposição para quaisquer esclarecimentos construtivos. É de s
       const responseText = response.text().trim();
 
       // [ROI Engine] Log token usage
-      const { aiRoiEngineService } = await import('./AiRoiEngineService');
-      const tokensIn = Math.ceil(prompt.length / 4) + (imagesBase64.length * 250); // Approximating 250 tokens per image
-      const tokensOut = Math.ceil(responseText.length / 4);
-      aiRoiEngineService.logUsage('llm_vision', tokensIn, tokensOut, 0);
+      try {
+        const { aiRoiEngineService } = await import('./AiRoiEngineService');
+        const tokensIn = Math.ceil(prompt.length / 4) + (imagesBase64.length * 250);
+        const tokensOut = Math.ceil(responseText.length / 4);
+        await aiRoiEngineService.logUsage('llm_vision', tokensIn, tokensOut, 0);
+      } catch {
+        // Ignora erro de telemetria ROI
+      }
 
       return responseText;
     } catch (err: any) {

@@ -70,9 +70,13 @@ export const predictiveNightJob = new PredictiveNightJob();
 
 // Simulando o cron para fins de teste no Electron:
 // Em produção usaríamos node-cron, setInterval ou task do SO.
-setInterval(() => {
+const nightlyBatchTimer = setInterval(() => {
   const now = new Date();
   if (now.getHours() === 2 && now.getMinutes() === 0) {
     predictiveNightJob.runNightlyBatch();
   }
 }, 60000); // Check every minute
+
+if (typeof nightlyBatchTimer.unref === 'function') {
+  nightlyBatchTimer.unref();
+}

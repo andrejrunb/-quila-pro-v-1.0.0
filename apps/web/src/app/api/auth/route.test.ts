@@ -1,9 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { POST } from './route';
 import { verifySession } from '@/lib/session';
+import { resetRateLimitBuckets } from '@/lib/rateLimit';
 
 describe('portal login route', () => {
   beforeEach(() => {
+    resetRateLimitBuckets();
     process.env.AQUILA_AUTH_SECRET = 'test-session-signing-key-with-at-least-32-bytes';
     process.env.AQUILA_STUDENT_USERNAME = 'student-test';
     process.env.AQUILA_STUDENT_PASSWORD = 'a-unique-student-password';
@@ -50,5 +52,33 @@ describe('portal login route', () => {
       body: JSON.stringify({ username: 'admin', password: 'known-demo-password-no-longer-configured', portalId: 'coordenacao' }),
     }));
     expect(response.status).toBe(401);
+  });
+
+  it('returns 400 for malformed JSON payloads', async () => {
+    const response = await POST(new Request('http://localhost/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: '{invalid-json',
+    }));
+    expect(response.status).toBe(400);
+  });
+
+  it('enforces sliding-window rate limits with 429 after 15 attempts', async () => {
+    for (let i = 0; i < 15; i += 1) {
+      const res = await POST(new Request('http://localhost/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-forwarded-for': '203.0.113.10' },
+        body: JSON.stringify({ username: 'student-test', password: 'wrong-password', portalId: 'aluno' }),
+      }));
+      expect(res.status).toBe(401);
+    }
+
+    const blocked = await POST(new Request('http://localhost/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-forwarded-for': '203.0.113.10' },
+      body: JSON.stringify({ username: 'student-test', password: 'a-unique-student-password', portalId: 'aluno' }),
+    }));
+    expect(blocked.status).toBe(429);
+    expect(blocked.headers.get('Retry-After')).toBeTruthy();
   });
 });

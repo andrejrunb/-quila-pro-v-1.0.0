@@ -184,3 +184,21 @@ html.high-contrast button:not(:disabled) {
 .skip-link:focus {
   top: 0;
 }
+
+
+/* [SOVEREIGN-A11Y-OVERLAY-FIX] Prevenção de bloqueio de cliques por camadas decorativas */
+.presence-glow-overlay,
+.ambient-glow,
+.background-canvas-ambient {
+  pointer-events: none !important;
+}
+
+/* Foco visível padronizado WCAG 2.2 AA */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #38bdf8 !important;
+  outline-offset: 2px !important;
+}

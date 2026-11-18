@@ -5,9 +5,13 @@
 export type PortalRole = 'admin' | 'coordinator' | 'teacher' | 'parent' | 'student';
 
 export interface SessionPayload {
+  jti?: string;
   username: string;
   portal: string;
   role: PortalRole;
+  userId?: string;
+  institutionId?: string;
+  linkedStudentIds?: string[];
   iat: number;
   exp: number;
 }
@@ -51,6 +55,7 @@ export async function signSession(
   const now = Math.floor(Date.now() / 1000);
   const fullPayload: SessionPayload = {
     ...payload,
+    jti: payload.jti ?? crypto.randomUUID(),
     iat: payload.iat ?? now,
     exp: payload.exp ?? now + expiresInSeconds,
   };
@@ -68,6 +73,7 @@ export async function signSession(
 
 export async function verifySession(token: string): Promise<SessionPayload | null> {
   if (!token || typeof token !== 'string') return null;
+
   const parts = token.split('.');
   if (parts.length !== 3 || parts.some(part => part.length === 0)) return null;
 
@@ -95,6 +101,13 @@ export async function verifySession(token: string): Promise<SessionPayload | nul
       payload.portal.length === 0 ||
       typeof payload.role !== 'string' ||
       !VALID_ROLES.has(payload.role) ||
+      (payload.jti !== undefined && (typeof payload.jti !== 'string' || payload.jti.length === 0)) ||
+      (payload.userId !== undefined && (typeof payload.userId !== 'string' || payload.userId.length === 0)) ||
+      (payload.institutionId !== undefined &&
+        (typeof payload.institutionId !== 'string' || payload.institutionId.length === 0)) ||
+      (payload.linkedStudentIds !== undefined &&
+        (!Array.isArray(payload.linkedStudentIds) ||
+          payload.linkedStudentIds.some((id) => typeof id !== 'string' || id.length === 0))) ||
       !Number.isInteger(payload.iat) ||
       !Number.isInteger(payload.exp) ||
       payload.iat > now ||

@@ -243,6 +243,20 @@ export const TaskScheduler: React.FC<TaskSchedulerProps> = ({ onBack, user }) =>
     }
   };
 
+  const generateSovereignPedagogicalFallback = (topic: string): string => {
+    const t = topic.toLowerCase();
+    if (t.includes('molusco') || t.includes('biologia') || t.includes('ciência') || t.includes('celula') || t.includes('animais')) {
+      return `### Atividade Pedagógica: Estudo de ${topic}\n\n**Objetivo:** Investigar as características morfofisiológicas, classificação sistemática e importância ecológica de ${topic}.\n\n**Tópicos de Exercício:**\n1. Descreva as principais características anatômicas e adaptações evolutivas de ${topic} ao seu habitat natural.\n2. Faça um quadro comparativo entre os principais grupos/classes de ${topic}, destacando locomoção, respiração e nutrição.\n3. Discuta a importância ecológica e os impactos socioambientais da preservação dessas espécies.`;
+    }
+    if (t.includes('física') || t.includes('cinemática') || t.includes('energia') || t.includes('termo')) {
+      return `### Atividade de Física: ${topic}\n\n**Objetivo:** Analisar os princípios fundamentais e equações aplicadas a ${topic}.\n\n**Tópicos de Exercício:**\n1. Enuncie os conceitos e grandezas físicas envolvidas em ${topic} com suas respectivas unidades no SI.\n2. Resolva uma situação-problema prática aplicando as leis fundamentais de ${topic}.\n3. Elabore um mapa conceitual correlacionando teoria e aplicações tecnológicas no cotidiano.`;
+    }
+    if (t.includes('matemática') || t.includes('álgebra') || t.includes('geometria') || t.includes('função')) {
+      return `### Atividade de Matemática: ${topic}\n\n**Objetivo:** Desenvolver raciocínio lógico-matemático e resolução de problemas sobre ${topic}.\n\n**Tópicos de Exercício:**\n1. Identifique as propriedades algébricas e deduções centrais de ${topic}.\n2. Resolva 3 exercícios propostos do livro didático aplicando as fórmulas de ${topic}.\n3. Construa a representação gráfica e interprete os resultados analiticamente.`;
+    }
+    return `### Roteiro de Estudos & Atividade: ${topic}\n\n**Objetivo:** Compreender os conceitos essenciais, contextualização histórica e prática sobre ${topic}.\n\n**Tópicos de Exercício:**\n1. Conceitue os pontos centrais de ${topic} e explique sua relevância na disciplina.\n2. Cite 2 exemplos práticos do cotidiano onde os conceitos de ${topic} são observados.\n3. Redija uma síntese explicativa (mínimo de 15 linhas) com suas próprias palavras para debate em sala.`;
+  };
+
   const handleGenerateAI = async () => {
     if (!title) {
       alert('Insira um assunto/título para a tarefa para que a IA possa elaborar.');
@@ -250,16 +264,18 @@ export const TaskScheduler: React.FC<TaskSchedulerProps> = ({ onBack, user }) =>
     }
     setIsGenerating(true);
     try {
-      const prompt = `Gere uma tarefa escolar sobre o assunto "${title}". Forneça uma descrição curta e 3 tópicos de exercício.`;
+      const prompt = `Gere uma tarefa escolar estruturada sobre o assunto "${title}". Forneça uma descrição curta e 3 tópicos de exercício.`;
       const aiResponse = await (window as any).aquila.invoke('ai:chat', prompt);
-      if (aiResponse && (typeof aiResponse === 'string' ? aiResponse : aiResponse.content)) {
-        const text = typeof aiResponse === 'string' ? aiResponse : aiResponse.content;
+      const text = typeof aiResponse === 'string' ? aiResponse : aiResponse?.content;
+      
+      // Validação: se o backend retornou mensagem de erro de configuração, aplicar fallback pedagógico soberano
+      if (text && !text.includes('não está disponível') && !text.includes('indisponível') && !text.includes('Erro ao processar')) {
         setDescription(text);
       } else {
-        setDescription(`Pesquise e responda às questões sobre ${title}.`);
+        setDescription(generateSovereignPedagogicalFallback(title));
       }
     } catch (e) {
-      setDescription(`Pesquise e faça um resumo crítico sobre ${title}.`);
+      setDescription(generateSovereignPedagogicalFallback(title));
     } finally {
       setIsGenerating(false);
     }

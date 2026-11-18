@@ -3,9 +3,11 @@
 .tp-cockpit {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 6px;
+  gap: 6px;
+  padding: 4px 6px;
   min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
   color: var(--stitch-text-primary, #F8FAFC);
   font-family: 'Inter', sans-serif;
 }
@@ -15,8 +17,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 6px 10px;
   background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
   border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
   border-radius: 8px;
@@ -61,14 +63,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  height: 32px;
-  padding: 0 12px;
+  gap: 5px;
+  height: 28px;
+  padding: 0 10px;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: #141B2D;
   color: #E2E8F0;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -97,14 +99,14 @@
 .tp-kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 6px;
 }
 
 .tp-kpi-pod {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
+  padding: 6px 12px;
   background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
   border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
   border-radius: 8px;
@@ -132,7 +134,7 @@
 
 .tp-kpi-value {
   font-family: var(--font-mono, monospace);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   color: #F8FAFC;
   line-height: 1.1;
@@ -157,7 +159,7 @@
 .tp-main-grid {
   display: grid;
   grid-template-columns: 7fr 5fr;
-  gap: 10px;
+  gap: 8px;
   flex: 1;
   min-height: 0;
 }
@@ -175,17 +177,17 @@
   background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
   border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
   border-radius: 8px;
-  padding: 12px;
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .tp-panel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -211,15 +213,15 @@
 .tp-schedule-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .tp-schedule-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: 8px;
+  padding: 6px 10px;
   background: #141B2D;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 6px;
@@ -334,7 +336,7 @@
 .tp-right-stack {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 /* Student Attention Roster — Rectangular Portraits ("Sem Bolinha") */
@@ -353,7 +355,7 @@
   overflow: hidden;
   cursor: pointer;
   transition: all 0.15s ease;
-  min-height: 54px;
+  min-height: 48px;
 }
 
 .tp-student-card:hover {
@@ -362,8 +364,8 @@
 }
 
 .tp-student-photo {
-  width: 48px;
-  height: 56px;
+  width: 44px;
+  height: 50px;
   object-fit: cover;
   object-position: center 20%;
   flex-shrink: 0;
@@ -415,7 +417,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 6px 10px;
+  padding: 5px 8px;
   background: #141B2D;
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 6px;
@@ -453,7 +455,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -462,7 +464,7 @@
   align-items: center;
   gap: 4px;
   background: rgba(0, 0, 0, 0.28);
-  padding: 3px;
+  padding: 2px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -470,9 +472,9 @@
 .tp-cat-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  height: 28px;
-  padding: 0 10px;
+  gap: 5px;
+  height: 26px;
+  padding: 0 9px;
   border-radius: 6px;
   border: 1px solid transparent;
   background: transparent;

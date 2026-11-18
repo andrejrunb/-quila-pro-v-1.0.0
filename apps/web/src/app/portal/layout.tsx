@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Shield, GraduationCap, Users, Briefcase, Award,
   LogOut, ChevronDown
 } from "lucide-react";
+import type { PortalRole } from "@/lib/session";
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -14,11 +15,34 @@ interface PortalLayoutProps {
 
 export default function PortalLayout({ children }: PortalLayoutProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [gatewayOnline, setGatewayOnline] = useState(false);
   const [showPortalMenu, setShowPortalMenu] = useState(false);
+  const [sessionRole, setSessionRole] = useState<PortalRole | null>(null);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   useEffect(() => {
-    // Check connection with Áquila Gateway
+    let active = true;
+    fetch("/api/auth/session", { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (active && data?.authenticated && data?.user?.role) {
+          setSessionRole(data.user.role as PortalRole);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (process.env.NEXT_PUBLIC_ENABLE_LOCAL_EDGE_WS !== "true") return;
+    const isLocalHost =
+      window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    if (!isLocalHost) return;
+
     let ws: WebSocket | null = null;
     try {
       ws = new WebSocket("ws://localhost:9000");
@@ -33,6 +57,15 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
       if (ws) ws.close();
     };
   }, []);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      router.push("/login");
+    }
+  };
 
   const portals = [
     {
@@ -70,6 +103,8 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
   ];
 
   const currentPortal = portals.find((p) => pathname.startsWith(p.href)) || portals[0];
+  const canSwitchPortals = sessionRole === "admin" || sessionRole === "coordinator";
+  const visiblePortals = canSwitchPortals ? portals : [currentPortal];
 
   return (
     <div className="min-h-screen bg-[#07090e] text-white flex flex-col font-sans selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
@@ -92,29 +127,38 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                 Áquila<span className="text-indigo-400 not-italic font-bold">Pro</span>
               </span>
               <span className="text-[9px] uppercase tracking-[0.2em] text-zinc-400 font-bold">
-                Elite Cloud OS
+                BFF Portal Cloud
               </span>
             </div>
           </Link>
 
-          {/* Current Portal Badge & Quick Switcher */}
+          {/* Current Portal Badge & Role-Scoped Switcher */}
           <div className="relative">
-            <button
-              onClick={() => setShowPortalMenu(!showPortalMenu)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-xs font-semibold"
-            >
-              <currentPortal.icon size={14} className="text-indigo-400" />
-              <span className="hidden sm:inline text-zinc-200">{currentPortal.name}</span>
-              <span className="sm:hidden text-zinc-200">{currentPortal.role}</span>
-              <ChevronDown size={12} className="text-zinc-400 ml-0.5" />
-            </button>
+            {canSwitchPortals ? (
+              <button
+                type="button"
+                onClick={() => setShowPortalMenu(!showPortalMenu)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all text-xs font-semibold cursor-pointer"
+              >
+                <currentPortal.icon size={14} className="text-indigo-400" />
+                <span className="hidden sm:inline text-zinc-200">{currentPortal.name}</span>
+                <span className="sm:hidden text-zinc-200">{currentPortal.role}</span>
+                <ChevronDown size={12} className="text-zinc-400 ml-0.5" />
+              </button>
+            ) : (
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-xs font-semibold">
+                <currentPortal.icon size={14} className="text-indigo-400" />
+                <span className="hidden sm:inline text-zinc-200">{currentPortal.name}</span>
+                <span className="sm:hidden text-zinc-200">{currentPortal.role}</span>
+              </div>
+            )}
 
-            {showPortalMenu && (
+            {canSwitchPortals && showPortalMenu && (
               <div className="absolute left-0 mt-2 w-64 bg-zinc-900/95 border border-white/15 rounded-2xl shadow-2xl backdrop-blur-2xl p-2 z-50 flex flex-col gap-1 animate-fade-in">
                 <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-400 px-3 py-1.5">
                   Alternar Portal Educacional
                 </span>
-                {portals.map((portal) => {
+                {visiblePortals.map((portal) => {
                   const Icon = portal.icon;
                   const isActive = pathname.startsWith(portal.href);
                   return (
@@ -145,32 +189,34 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
 
         {/* Right Status Controls */}
         <div className="flex items-center gap-3 sm:gap-5">
-          {/* Gateway Status Badge */}
           <div
             className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
               gatewayOnline
                 ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
-                : "bg-amber-500/10 text-amber-300 border-amber-500/30"
+                : "bg-indigo-500/10 text-indigo-300 border-indigo-500/30"
             }`}
           >
             <span
               className={`w-1.5 h-1.5 rounded-full ${
-                gatewayOnline ? "bg-emerald-400 animate-pulse" : "bg-amber-400"
+                gatewayOnline ? "bg-emerald-400 animate-pulse" : "bg-indigo-400"
               }`}
             />
             <span className="hidden sm:inline">
-              {gatewayOnline ? "Gateway 9000 Conectado" : "Nuvem Sincronizada"}
+              {gatewayOnline ? "Gateway Local Ativo" : "BFF Sync Seletivo (LGPD)"}
             </span>
-            <span className="sm:hidden">{gatewayOnline ? "Online" : "Cloud"}</span>
+            <span className="sm:hidden">{gatewayOnline ? "Local" : "BFF"}</span>
           </div>
 
-          <Link
-            href="/login"
-            className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white px-3 py-1.5 rounded-lg border border-transparent hover:border-white/10 hover:bg-white/5 transition-all"
+          <button
+            type="button"
+            aria-label="Sair da sessão"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white px-3 py-1.5 rounded-lg border border-transparent hover:border-white/10 hover:bg-white/5 transition-all cursor-pointer disabled:opacity-50"
           >
             <LogOut size={13} />
-            <span className="hidden sm:inline">Sair</span>
-          </Link>
+            <span className="hidden sm:inline">{isLoggingOut ? "Saindo..." : "Sair"}</span>
+          </button>
         </div>
       </header>
 
@@ -183,10 +229,10 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
       <footer className="relative z-10 border-t border-white/5 py-4 px-8 text-center text-xs text-zinc-400 flex flex-col sm:flex-row items-center justify-between gap-2 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
-          <span>Áquila Pro Enterprise v2.4 • Segurança de Dados LGPD</span>
+          <span>Áquila Pro • Governança LGPD Art. 14 &amp; 16</span>
         </div>
         <div className="flex items-center gap-4 text-[11px]">
-          <span>Portaria Biocêntrica</span>
+          <span>Crachá QR &amp; Chamada Digital</span>
           <span>•</span>
           <span>SigaWeb RPA</span>
           <span>•</span>

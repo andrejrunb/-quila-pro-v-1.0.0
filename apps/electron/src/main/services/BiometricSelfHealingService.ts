@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
 import Database from '../../database/Database';
 import { logger } from '../logger';
+import { securityService } from './SecurityService';
 import { identityRecaptureService, IdentityRefinement } from './IdentityRecaptureService';
 
 /**
@@ -78,16 +79,35 @@ export class BiometricSelfHealingService extends EventEmitter {
    */
   private async getDiversityAngles(studentId: string): Promise<string[]> {
     const db = Database.getInstance();
-    const rows = await db.all('SELECT faceId FROM face_embeddings WHERE studentId = ?', [studentId]);
-    return rows.map(r => r.faceId.split('_')[1] || 'default');
+    const rows = await db.all('SELECT face_id FROM face_embeddings WHERE student_id = ?', [studentId]);
+    return rows.map((r: any) => {
+      const fid = String(r.face_id || r.faceId || '');
+      return fid.split('_')[1] || 'default';
+    });
   }
 
   /**
    * [Nível 14] Tenta curar uma identidade que está apresentando 'drift' (deriva biométrica).
    * Isso acontece quando o aluno cresce ou muda drasticamente o estilo (cabelo, óculos).
    */
-  public async attemptSelfHealing(studentId: string, currentEmbedding: number[], matchedEmbedding: number[]) {
+  public async attemptSelfHealing(
+    studentId: string,
+    currentEmbedding: number[],
+    matchedEmbedding: number[],
+    faceId?: string
+  ) {
+    if (
+      !Array.isArray(currentEmbedding) ||
+      !Array.isArray(matchedEmbedding) ||
+      currentEmbedding.length === 0 ||
+      matchedEmbedding.length === 0 ||
+      currentEmbedding.length !== matchedEmbedding.length
+    ) {
+      return;
+    }
+
     const distance = this.calculateDistance(currentEmbedding, matchedEmbedding);
+    if (!Number.isFinite(distance)) return;
     
     if (distance > this.driftThreshold) {
       logger.warn(`[Self-Healing] Drift detectado para ${studentId} (Distância: ${distance.toFixed(3)}). Iniciando cura gradual.`);
@@ -98,13 +118,22 @@ export class BiometricSelfHealingService extends EventEmitter {
       );
 
       const db = Database.getInstance();
+      let storedHealed: string;
+      try {
+        const encrypted = securityService.encryptBuffer(Buffer.from(JSON.stringify(healedEmbedding)));
+        storedHealed = encrypted.toString('hex');
+      } catch {
+        storedHealed = JSON.stringify(healedEmbedding);
+      }
+      const targetFaceId = faceId || studentId;
       await db.run(
-        'UPDATE face_embeddings SET embedding = ? WHERE studentId = ? AND faceId = ?',
-        [JSON.stringify(healedEmbedding), studentId, studentId]
+        'UPDATE face_embeddings SET embedding = ?, timestamp = ? WHERE student_id = ? AND face_id = ?',
+        [storedHealed, new Date().toISOString(), studentId, targetFaceId]
       );
 
       this.emit('identity-healed', {
         studentId,
+        faceId: targetFaceId,
         distance,
         timestamp: new Date()
       });
@@ -112,22 +141,28 @@ export class BiometricSelfHealingService extends EventEmitter {
   }
 
   private calculateDistance(a: number[], b: number[]): number {
-    return Math.sqrt(a.reduce((acc, val, i) => acc + Math.pow(val - b[i], 2), 0));
+    if (!a || !b || a.length === 0 || b.length === 0 || a.length !== b.length) {
+      return Infinity;
+    }
+    const dist = Math.sqrt(a.reduce((acc, val, i) => acc + Math.pow(val - b[i], 2), 0));
+    return Number.isFinite(dist) ? dist : Infinity;
   }
 
   public async getMeshHealthReport(): Promise<IdentityHealthScore[]> {
     // Em um cenário real, isso buscaria de uma tabela de telemetria
     // Por enquanto, simulamos baseado nos dados do banco
     const db = Database.getInstance();
-    const students = await db.all('SELECT DISTINCT studentId FROM face_embeddings LIMIT 50');
+    const students = await db.all('SELECT DISTINCT student_id FROM face_embeddings LIMIT 50');
     
     const reports: IdentityHealthScore[] = [];
     for (const s of students) {
+      const sid = String((s as any).student_id || (s as any).studentId || '');
+      if (!sid) continue;
       reports.push({
-        studentId: s.studentId,
+        studentId: sid,
         health: 0.9 + Math.random() * 0.1,
         lastUpdate: new Date(),
-        diversityAngles: await this.getDiversityAngles(s.studentId),
+        diversityAngles: await this.getDiversityAngles(sid),
         refinementCount: Math.floor(Math.random() * 10),
         status: 'stable'
       });

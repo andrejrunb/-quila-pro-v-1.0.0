@@ -1,12 +1,12 @@
 # Relatório de Impacto à Proteção de Dados Pessoais (RIPD / DPIA) — Áquila Pro
 
-**Versão:** 2.2.0 (Homologação Pós-Auditoria ANPD / CNE 2026)  
+**Versão:** 2.3.0 (Homologação MEC Parecer CNE/CP nº 15/2026 — DOU 11/11/2026)  
 **Fundamentação Legal:**  
 - **Lei nº 13.709/2018 (LGPD):** Arts. 5º, XVII, 6º, 11, 14, 16, 38 e 46.  
 - **ANPD — Processo nº 00261.007049/2024-06 (Caso Paraná):** Nota Técnica nº 4/2026/FIS/CGF/ANPD e Despacho Decisório nº 2/2026/SFI (agosto de 2026).  
 - **Lei nº 15.211/2025 (ECA Digital):** Proteção integral de crianças e adolescentes em ambientes digitais.  
 - **Lei nº 9.394/1996 (LDB), Art. 12, VIII, "a" (atualizado pela Lei nº 15.231/2025):** Notificação de infrequência escolar superior a 30% ao Conselho Tutelar.  
-- **Parecer CNE/CP nº 15/2026 (aprovado em 01/09/2026):** Diretrizes para uso de Inteligência Artificial na Educação Básica com supervisão humana obrigatória.
+- **Parecer CNE/CP nº 15/2026 (aprovado em 01/09/2026; homologado por Despacho MEC de 10/11/2026, DOU de 11/11/2026, Ed. 212, Seção 1, p. 141):** Diretrizes Nacionais para IA na Educação (classificação em 4 níveis de risco, supervisão docente, vedações imediatas de risco excessivo, proteção etária Infantil/1º–5º ano EF, direito à contestação e adequação contratual em 12 meses).
 
 ---
 
@@ -58,6 +58,10 @@ Em observância estrita ao **Despacho Decisório nº 2/2026/SFI e à Nota Técni
    - O estudante e sua família possuem direito garantido de revisão e contestação manual de qualquer leitura óptica de cartão-resposta (OMR).
 2. **Design Ético Livre de Mecânicas Predatórias (Lei nº 15.211/2025 — ECA Digital):**
    - O motor de jogos interativos (`WordwallGameEngine`) e a Câmara de Cosméticos (`StudentCosmeticsChamber`) utilizam exclusivamente a moeda de mérito acadêmico `Aureus`, conquistada por resolução de atividades curriculares BNCC, com **zero microtransações financeiras, zero caixas de recompensa aleatória (*lootboxes*) e zero perfilamento comportamental comercial**.
+3. **Vedações Imediatas & Restrição Etária (CNE/CP nº 15/2026):**
+   - **Zero Inferência Emocional / Vigilância Contínua / Social Scoring:** Módulos de inferência emocional (`MicroExpressionAnalyzer`, `AffectiveAnalyticsService`, `EmotionBridgeService`) permanecem bloqueados por norma imediata (`CNE_15_2026_PROHIBITED_EMOTION_INFERENCE`), sendo proibido ranqueamento social/comportamental e punição fundada exclusivamente em detector de texto de IA.
+   - **Proteção Etária em IA Generativa:** Acesso autônomo a chatbots/tutores de IA é vedado na **Educação Infantil** e nos **Anos Iniciais (1º ao 5º ano EF)** via `evaluateStageAiPolicy()`.
+   - **Proibição de Treinamento Externo e Prazo de 12 Meses:** Proibido utilizar dados ou produções escolares para treinamento de modelos terceiros ou publicidade; contratos e governança revisados dentro do prazo de 12 meses com transparência algorítmica e auditoria (`docs/DIRETRIZES_CNE_MEC_IA_2026.md`).
 
 ---
 
@@ -69,6 +73,7 @@ Em observância estrita ao **Despacho Decisório nº 2/2026/SFI e à Nota Técni
 | Publicação de nota ou questão gerada por IA sem revisão docente | Baixa | Alto | Trava `RASCUNHO_IA` em `OmrCorrectionService.ts` + Kernel OMR determinístico local (`kernel_omr.py`) auditável por questão. | **Mitigado em Código** |
 | Corrupção do banco local SQLite em queda de energia na escola | Média | Alto | Modo `PRAGMA journal_mode=WAL` + script transacional `scripts/restore_edge.ps1` com verificação de Magic Header, `PRAGMA integrity_check` e rollback atômico. | **Mitigado em Código** |
 | Retenção excessiva de registros após encerramento do vínculo escolar | Baixa | Médio | `LGPDPolicyEngine` e `LGPDService.runDataPurge()` com expurgo programado e recibo `SHA-256` em `zero_bypass_audits`. | **Mitigado em Código** |
+| Inferência emocional automatizada, social scoring, acesso autônomo Infantil/1º–5º ano EF ou punição isolada por detector de IA (CNE/CP nº 15/2026) | Baixa | Crítico | Serviços afetivos neutralizados em código, trava etária `evaluateStageAiPolicy()`, revisão docente HITL obrigatória e vedação a retreinamento externo. | **Mitigado em Código** |
 
 ---
 

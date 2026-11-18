@@ -2,7 +2,8 @@ import React from 'react';
 import logo from '../../assets/logo.png';
 import './PortalLayout.css';
 import { SysHealth } from '../components/SysHealth';
-import { HelpCircle, ChevronUp, ChevronDown, GraduationCap, Compass, Shield, Users, Sparkles, FileText, Wifi, Lock, ZoomIn, ZoomOut, Eye } from 'lucide-react';
+import { HelpCircle, ChevronUp, ChevronDown, GraduationCap, Compass, Shield, Users, Sparkles, FileText, Wifi, Lock, ZoomIn, ZoomOut, Eye, Tv, Minimize2 } from 'lucide-react';
+import { QuickActions } from '../components/QuickActions';
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -10,6 +11,7 @@ interface PortalLayoutProps {
   themeColor?: string;
   onNavigate?: (page: string) => void;
   sessionUser?: { id?: string; username?: string; name?: string; role?: string } | null;
+  hideHeader?: boolean;
 }
 
 const PORTAL_SHORTCUTS = [
@@ -87,7 +89,8 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
   portalName, 
   themeColor = 'var(--stitch-cyan)',
   onNavigate,
-  sessionUser
+  sessionUser,
+  hideHeader = false
 }) => {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [showHelp, setShowHelp] = React.useState(false);
@@ -95,6 +98,32 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
   const [liveTime, setLiveTime] = React.useState('');
   const [zoomPercent, setZoomPercent] = React.useState<number>(100);
   const [resolvedUser, setResolvedUser] = React.useState<any>(sessionUser || null);
+  const [isProjectionMode, setIsProjectionMode] = React.useState<boolean>(false);
+
+  // Escuta de Modo Projeção em Tela Cheia & Foco Imersivo
+  React.useEffect(() => {
+    const handleToggle = (e: any) => {
+      if (typeof e.detail === 'boolean') {
+        setIsProjectionMode(e.detail);
+      } else if (typeof e.detail?.active === 'boolean') {
+        setIsProjectionMode(e.detail.active);
+      } else {
+        setIsProjectionMode(prev => !prev);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isProjectionMode) {
+        setIsProjectionMode(false);
+        window.dispatchEvent(new CustomEvent('aquila:toggle-projection-mode', { detail: false }));
+      }
+    };
+    window.addEventListener('aquila:toggle-projection-mode', handleToggle);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('aquila:toggle-projection-mode', handleToggle);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isProjectionMode]);
 
   React.useEffect(() => {
     if (sessionUser) {
@@ -166,10 +195,37 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
   );
 
   return (
-    <div className="portal-wrapper aquila-ui" ref={wrapperRef} data-preview-mode={previewState.isPreviewMode ? 'true' : 'false'}>
-      <SysHealth />
+    <div 
+      className={`portal-wrapper aquila-ui ${isProjectionMode ? 'projection-mode-active' : ''}`} 
+      ref={wrapperRef} 
+      data-preview-mode={previewState.isPreviewMode ? 'true' : 'false'}
+    >
+      <QuickActions onSelectAction={(id) => triggerNavigate(id)} />
+      {!isProjectionMode && <SysHealth />}
+      {isProjectionMode && (
+        <div className="portal-projection-floating-badge" role="status" aria-live="polite">
+          <div className="projection-badge-info">
+            <span className="projection-live-pulse" />
+            <Tv size={14} color="#00F0FF" />
+            <span className="projection-badge-text">MODO PROJEÇÃO / FOCO ATIVO</span>
+            <span className="projection-badge-hint">• Pressione ESC para sair</span>
+          </div>
+          <button
+            type="button"
+            className="projection-exit-btn"
+            onClick={() => {
+              setIsProjectionMode(false);
+              window.dispatchEvent(new CustomEvent('aquila:toggle-projection-mode', { detail: false }));
+            }}
+            title="Sair da Projeção em Tela Cheia (Esc)"
+          >
+            <Minimize2 size={13} />
+            <span>Sair da Projeção</span>
+          </button>
+        </div>
+      )}
       <div className="portal-glass-container">
-        {isHeaderCollapsed ? (
+        {!hideHeader && (isHeaderCollapsed ? (
           <button
             className="portal-collapsed-pill"
             onClick={() => setIsHeaderCollapsed(false)}
@@ -181,8 +237,8 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
           </button>
         ) : (
           <header className="portal-header-banner">
-            <div className="portal-header-row" style={{ flexWrap: 'nowrap' }}>
-              <div className="portal-header-left" style={{ flexWrap: 'nowrap' }}>
+            <div className="portal-header-row">
+              <div className="portal-header-left">
                 <div className="portal-badge">
                   <span className="badge-dot"></span>
                   <span className="badge-text">{portalName}</span>
@@ -316,7 +372,7 @@ export const PortalLayout: React.FC<PortalLayoutProps> = ({
               </div>
             )}
           </header>
-        )}
+        ))}
 
         <div 
           className="portal-content-area"

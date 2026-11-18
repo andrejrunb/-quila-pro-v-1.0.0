@@ -49,80 +49,46 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNav
     switch (currentPage) {
 
       case 'mastery-chamber':
-
         return <StudentMasteryChamber studentId={studentId} onBack={() => onNavigate('student-portal')} />;
-
       case 'knowledge-canvas':
-
       case 'albus-canvas':
-
         return <StudentMasteryChamber studentId={studentId} initialMode="canvas" onBack={() => onNavigate('student-portal')} />;
-
       case 'ai-lab':
-
         return <StudentAILab studentId={studentId} onBack={() => onNavigate('student-portal')} />;
-
       case 'arena':
-
       case 'pvp-arena':
-
         return <SovereignPvPArena studentId={studentId} onBack={() => onNavigate('student-portal')} />;
-
       case 'skill-tree':
-
       case 'bncc-skills':
-
         return <BNCCSkillTree studentId={studentId} onBack={() => onNavigate('student-portal')} />;
-
       case 'essay-lab':
-
       case 'redacao':
-
         return <EssayLab1000 studentId={studentId} onBack={() => onNavigate('student-portal')} />;
-
       case 'phet-mastery':
-
       case 'stem-lab':
-
         return <PhetKumonMasteryLab />;
-
       case 'multimodal-studio':
-
       case 'podcast-wordwall':
-
         return <MultimodalPedagogicalStudio />;
-
       case 'native-phet':
-
         return <NativePhETSimulationLab />;
-
       case 'cosmetics-chamber':
-
       case 'battle-banner':
-
       case 'skins-shop':
-
         return <StudentCosmeticsChamber studentId={studentId} onBack={() => onNavigate('student-portal')} />;
-
       case 'youtube-radar':
-
       case 'video-finder':
-
         return <YouTubePedagogicalFinder onBack={() => onNavigate('student-portal')} />;
-
       case 'playlists-live':
-
       case 'pedagogical-playlists':
-
       case 'game-maker-play':
-
         return <StudentPlaylistsViewer studentId={studentId} onBack={() => onNavigate('student-portal')} onNavigate={onNavigate} />;
 
             case 'gemini-notebook':
       case 'notebook-lm':
       case 'caderno-inteligente':
         return (
-          <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ padding: '10px 14px', maxWidth: '100%', width: '100%', boxSizing: 'border-box' }}>
             <button
               onClick={() => onNavigate('student-portal')}
               style={{
@@ -143,21 +109,13 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNav
         );
 
       case 'h5p-perseus-lab':
-
       case 'interactive-applets':
-
       case 'perseus-lab':
-
       case 'h5p-lab':
-
         return <H5PPerseusAppletLab studentId={studentId} onBack={() => onNavigate('student-portal')} />;
-
       case 'student-portal':
-
       case 'dashboard':
-
       default:
-
         return <StudentRPGPortal studentId={studentId} onNavigate={onNavigate} />;
 
     }

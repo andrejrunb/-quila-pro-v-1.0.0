@@ -44,7 +44,7 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div style={{
+        <div className="error-boundary" role="alert" style={{
           minHeight: '100vh',
           display: 'flex',
           alignItems: 'center',

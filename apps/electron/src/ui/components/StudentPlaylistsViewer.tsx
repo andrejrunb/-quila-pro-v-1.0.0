@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import {
   Layers, Play, CheckCircle2, Award, Coins, Flame, Sparkles, ChevronRight,
   ArrowLeft, Gamepad2, Compass, BookOpen, Users, HelpCircle, Send, Check,
-  RotateCcw, Trophy, Star, ShieldCheck, Clock
+  RotateCcw, Trophy, Star, ShieldCheck, Clock, Lightbulb
 } from 'lucide-react';
 import { resolveStudentGradeContext, matchesStudentGradeScope } from '../utils/studentGradeScope';
 

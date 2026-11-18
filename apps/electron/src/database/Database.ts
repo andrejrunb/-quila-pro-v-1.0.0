@@ -1644,6 +1644,24 @@ export class Database {
 
                 scanImagePath TEXT,
 
+                review_status TEXT DEFAULT 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+
+                requires_human_teacher_validation INTEGER DEFAULT 1,
+
+                contestation_channel_enabled INTEGER DEFAULT 1,
+
+                legal_compliance_notice TEXT,
+
+                teacher_approved_by TEXT,
+
+                teacher_approved_at DATETIME,
+
+                contestation_reason TEXT,
+
+                contested_by TEXT,
+
+                contested_at DATETIME,
+
                 processedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
 
                 FOREIGN KEY (templateId) REFERENCES omr_exam_templates(id),
@@ -1745,6 +1763,32 @@ export class Database {
                 repertoireHitsJson TEXT DEFAULT '[]',
 
                 status TEXT DEFAULT 'audited',
+
+                review_status TEXT DEFAULT 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+
+                requires_human_teacher_validation INTEGER DEFAULT 1,
+
+                contestation_channel_enabled INTEGER DEFAULT 1,
+
+                legal_compliance_notice TEXT,
+
+                teacher_approved_by TEXT,
+
+                teacher_approved_at DATETIME,
+
+                contestation_reason TEXT,
+
+                contested_by TEXT,
+
+                contested_at DATETIME,
+
+                pending_xp_reward INTEGER DEFAULT 0,
+
+                pending_coins_reward INTEGER DEFAULT 0,
+
+                pending_badge_reward TEXT,
+
+                rewards_released INTEGER DEFAULT 0,
 
                 createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
 
@@ -2573,6 +2617,62 @@ export class Database {
 
             console.warn("[Migration] Erro ao migrar behavioral_logs:", e);
 
+        }
+
+        // Migração CNE/CP nº 15/2026 HITL para omr_exam_corrections
+        try {
+            const omrCols = await this.all("PRAGMA table_info(omr_exam_corrections)");
+            if (omrCols && omrCols.length > 0) {
+                const existing = omrCols.map((c: any) => c.name);
+                const omrMigrations: Array<[string, string]> = [
+                    ['review_status', "TEXT DEFAULT 'PRE_CORRECAO_IA_PENDENTE_DOCENTE'"],
+                    ['requires_human_teacher_validation', 'INTEGER DEFAULT 1'],
+                    ['contestation_channel_enabled', 'INTEGER DEFAULT 1'],
+                    ['legal_compliance_notice', 'TEXT'],
+                    ['teacher_approved_by', 'TEXT'],
+                    ['teacher_approved_at', 'DATETIME'],
+                    ['contestation_reason', 'TEXT'],
+                    ['contested_by', 'TEXT'],
+                    ['contested_at', 'DATETIME'],
+                ];
+                for (const [col, def] of omrMigrations) {
+                    if (!existing.includes(col)) {
+                        await this.run(`ALTER TABLE omr_exam_corrections ADD COLUMN ${col} ${def}`);
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn("[Migration] Erro ao migrar omr_exam_corrections (HITL):", e);
+        }
+
+        // Migração CNE/CP nº 15/2026 HITL para student_essays
+        try {
+            const essayCols = await this.all("PRAGMA table_info(student_essays)");
+            if (essayCols && essayCols.length > 0) {
+                const existing = essayCols.map((c: any) => c.name);
+                const essayMigrations: Array<[string, string]> = [
+                    ['review_status', "TEXT DEFAULT 'PRE_CORRECAO_IA_PENDENTE_DOCENTE'"],
+                    ['requires_human_teacher_validation', 'INTEGER DEFAULT 1'],
+                    ['contestation_channel_enabled', 'INTEGER DEFAULT 1'],
+                    ['legal_compliance_notice', 'TEXT'],
+                    ['teacher_approved_by', 'TEXT'],
+                    ['teacher_approved_at', 'DATETIME'],
+                    ['contestation_reason', 'TEXT'],
+                    ['contested_by', 'TEXT'],
+                    ['contested_at', 'DATETIME'],
+                    ['pending_xp_reward', 'INTEGER DEFAULT 0'],
+                    ['pending_coins_reward', 'INTEGER DEFAULT 0'],
+                    ['pending_badge_reward', 'TEXT'],
+                    ['rewards_released', 'INTEGER DEFAULT 0'],
+                ];
+                for (const [col, def] of essayMigrations) {
+                    if (!existing.includes(col)) {
+                        await this.run(`ALTER TABLE student_essays ADD COLUMN ${col} ${def}`);
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn("[Migration] Erro ao migrar student_essays (HITL):", e);
         }
 
     }
@@ -5227,55 +5327,65 @@ export class Database {
 
 
     async saveFaceEmbedding512(studentId: string, vector: number[], model: string = 'ArcFace-512', qualityScore: number = 1.0): Promise<string> {
-
         const id = 'emb512_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-
         const vectorJson = JSON.stringify(vector);
+        // Cifragem AES-256-GCM em conformidade com LGPD Art. 14 e Áquila Constitution v2.1
+        let storedVector: string;
+        try {
+            const encrypted = securityService.encryptBuffer(Buffer.from(vectorJson));
+            storedVector = 'enc:' + encrypted.toString('hex');
+        } catch (e) {
+            storedVector = vectorJson;
+        }
 
         await this.run(
-
             `INSERT INTO student_face_embeddings_512 (id, studentId, vector, model, qualityScore)
-
              VALUES (?, ?, ?, ?, ?)`,
-
-            [id, studentId, vectorJson, model, qualityScore]
-
+            [id, studentId, storedVector, model, qualityScore]
         );
-
         return id;
-
     }
 
 
 
     async getFaceEmbeddings512(studentId?: string): Promise<Array<{ id: string; studentId: string; vector: number[]; model: string; qualityScore: number; createdAt: string }>> {
-
         const sql = studentId
-
             ? `SELECT * FROM student_face_embeddings_512 WHERE studentId = ? ORDER BY createdAt DESC`
-
             : `SELECT * FROM student_face_embeddings_512 ORDER BY createdAt DESC`;
-
         const params = studentId ? [studentId] : [];
-
         const rows = await this.all(sql, params);
 
-        return rows.map((r: any) => ({
+        return rows.map((r: any) => {
+            let parsedVector: number[] = [];
+            if (typeof r.vector === 'string') {
+                if (r.vector.startsWith('enc:')) {
+                    try {
+                        const hexData = r.vector.slice(4);
+                        const decrypted = securityService.decryptBuffer(Buffer.from(hexData, 'hex'));
+                        parsedVector = JSON.parse(decrypted.toString('utf8'));
+                    } catch (e) {
+                        parsedVector = [];
+                    }
+                } else {
+                    try {
+                        parsedVector = JSON.parse(r.vector);
+                    } catch (e) {
+                        parsedVector = [];
+                    }
+                }
+            } else if (Array.isArray(r.vector)) {
+                parsedVector = r.vector;
+            }
 
-            id: r.id,
-
-            studentId: r.studentId,
-
-            vector: typeof r.vector === 'string' ? JSON.parse(r.vector) : r.vector,
-
-            model: r.model,
-
-            qualityScore: r.qualityScore,
-
-            createdAt: r.createdAt
-
-        }));
-
+            return {
+                id: r.id,
+                studentId: r.studentId,
+                vector: parsedVector,
+                model: r.model,
+                qualityScore: r.qualityScore,
+                createdAt: r.createdAt
+            };
+        });
     }
 
 
@@ -5458,15 +5568,30 @@ export class Database {
 
         scanImagePath?: string;
 
+        reviewStatus?: string;
+
+        requiresHumanTeacherValidation?: boolean;
+
+        contestationChannelEnabled?: boolean;
+
+        legalComplianceNotice?: string;
+
     }): Promise<string> {
 
         const id = data.id || 'omr_cor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
 
+        const defaultNotice =
+            data.legalComplianceNotice ||
+            'Pré-correção óptica assistida por IA (Parecer CNE/CP nº 15/2026). A nota oficial exige validação humana docente, com canal de contestação habilitado.';
+
         await this.run(
 
-            `INSERT INTO omr_exam_corrections (id, templateId, studentId, studentName, detectedAnswers, score, totalPoints, accuracyPct, confidence, scanImagePath)
+            `INSERT INTO omr_exam_corrections (
+                id, templateId, studentId, studentName, detectedAnswers, score, totalPoints, accuracyPct, confidence, scanImagePath,
+                review_status, requires_human_teacher_validation, contestation_channel_enabled, legal_compliance_notice
+             )
 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
 
             [
 
@@ -5488,7 +5613,15 @@ export class Database {
 
                 data.confidence ?? 1.0,
 
-                data.scanImagePath || null
+                data.scanImagePath || null,
+
+                data.reviewStatus || 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+
+                data.requiresHumanTeacherValidation === false ? 0 : 1,
+
+                data.contestationChannelEnabled === false ? 0 : 1,
+
+                defaultNotice
 
             ]
 
@@ -5514,10 +5647,50 @@ export class Database {
 
             ...r,
 
-            detectedAnswers: typeof r.detectedAnswers === 'string' ? JSON.parse(r.detectedAnswers) : r.detectedAnswers
+            detectedAnswers: typeof r.detectedAnswers === 'string' ? JSON.parse(r.detectedAnswers) : r.detectedAnswers,
+
+            reviewStatus: r.review_status || 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+
+            requiresHumanTeacherValidation: r.requires_human_teacher_validation !== 0,
+
+            contestationChannelEnabled: r.contestation_channel_enabled !== 0,
+
+            legalComplianceNotice: r.legal_compliance_notice || null,
+
+            teacherApprovedBy: r.teacher_approved_by || null,
+
+            teacherApprovedAt: r.teacher_approved_at || null,
+
+            contestationReason: r.contestation_reason || null,
 
         }));
 
+    }
+
+    async approveOmrCorrectionReview(correctionId: string, teacherId: string): Promise<{ success: boolean; changes: number }> {
+        const res = await this.run(
+            `UPDATE omr_exam_corrections
+             SET review_status = 'APROVADA_DOCENTE',
+                 requires_human_teacher_validation = 0,
+                 teacher_approved_by = ?,
+                 teacher_approved_at = CURRENT_TIMESTAMP
+             WHERE id = ?`,
+            [teacherId, correctionId]
+        );
+        return { success: (res?.changes ?? 0) > 0, changes: res?.changes ?? 0 };
+    }
+
+    async contestOmrCorrection(correctionId: string, reason: string, actorId: string): Promise<{ success: boolean; changes: number }> {
+        const res = await this.run(
+            `UPDATE omr_exam_corrections
+             SET review_status = 'CONTESTADA',
+                 contestation_reason = ?,
+                 contested_by = ?,
+                 contested_at = CURRENT_TIMESTAMP
+             WHERE id = ?`,
+            [reason, actorId, correctionId]
+        );
+        return { success: (res?.changes ?? 0) > 0, changes: res?.changes ?? 0 };
     }
 
 
@@ -5816,9 +5989,35 @@ export class Database {
 
         status?: string;
 
+        reviewStatus?: string;
+
+        requiresHumanTeacherValidation?: boolean;
+
+        contestationChannelEnabled?: boolean;
+
+        legalComplianceNotice?: string;
+
+        teacherApprovedBy?: string;
+
+        teacherApprovedAt?: string;
+
+        contestationReason?: string;
+
+        pendingXpReward?: number;
+
+        pendingCoinsReward?: number;
+
+        pendingBadgeReward?: string | null;
+
+        rewardsReleased?: boolean;
+
     }) {
 
         const id = data.id || `essay-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+
+        const defaultNotice =
+            data.legalComplianceNotice ||
+            'Pré-correção diagnóstica assistida por IA. A atribuição oficial de nota é exclusiva do docente humano, com direito à contestação garantido (Parecer CNE/CP nº 15/2026, DOU 11/11/2026).';
 
         await this.run(
 
@@ -5828,9 +6027,13 @@ export class Database {
 
                 ocrConfidence, c1Score, c2Score, c3Score, c4Score, c5Score, totalScore,
 
-                feedbackText, c5ElementsJson, repertoireHitsJson, status, auditedAt
+                feedbackText, c5ElementsJson, repertoireHitsJson, status,
+                review_status, requires_human_teacher_validation, contestation_channel_enabled,
+                legal_compliance_notice, teacher_approved_by, teacher_approved_at, contestation_reason,
+                pending_xp_reward, pending_coins_reward, pending_badge_reward, rewards_released,
+                auditedAt
 
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
 
             [
 
@@ -5868,7 +6071,29 @@ export class Database {
 
                 typeof data.repertoireHitsJson === 'string' ? data.repertoireHitsJson : JSON.stringify(data.repertoireHitsJson || []),
 
-                data.status || 'audited'
+                data.status || 'audited',
+
+                data.reviewStatus || 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+
+                data.requiresHumanTeacherValidation === false ? 0 : 1,
+
+                data.contestationChannelEnabled === false ? 0 : 1,
+
+                defaultNotice,
+
+                data.teacherApprovedBy || null,
+
+                data.teacherApprovedAt || null,
+
+                data.contestationReason || null,
+
+                data.pendingXpReward ?? 0,
+
+                data.pendingCoinsReward ?? 0,
+
+                data.pendingBadgeReward || null,
+
+                data.rewardsReleased ? 1 : 0,
 
             ]
 
@@ -5896,7 +6121,29 @@ export class Database {
 
             c5Elements: typeof r.c5ElementsJson === 'string' ? JSON.parse(r.c5ElementsJson) : r.c5ElementsJson || {},
 
-            repertoireHits: typeof r.repertoireHitsJson === 'string' ? JSON.parse(r.repertoireHitsJson) : r.repertoireHitsJson || []
+            repertoireHits: typeof r.repertoireHitsJson === 'string' ? JSON.parse(r.repertoireHitsJson) : r.repertoireHitsJson || [],
+
+            reviewStatus: r.review_status || 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+
+            requiresHumanTeacherValidation: r.requires_human_teacher_validation !== 0,
+
+            contestationChannelEnabled: r.contestation_channel_enabled !== 0,
+
+            legalComplianceNotice: r.legal_compliance_notice || null,
+
+            teacherApprovedBy: r.teacher_approved_by || null,
+
+            teacherApprovedAt: r.teacher_approved_at || null,
+
+            contestationReason: r.contestation_reason || null,
+
+            pendingXpReward: r.pending_xp_reward ?? 0,
+
+            pendingCoinsReward: r.pending_coins_reward ?? 0,
+
+            pendingBadgeReward: r.pending_badge_reward || null,
+
+            rewardsReleased: Boolean(r.rewards_released),
 
         }));
 
@@ -5916,10 +6163,65 @@ export class Database {
 
             c5Elements: typeof r.c5ElementsJson === 'string' ? JSON.parse(r.c5ElementsJson) : r.c5ElementsJson || {},
 
-            repertoireHits: typeof r.repertoireHitsJson === 'string' ? JSON.parse(r.repertoireHitsJson) : r.repertoireHitsJson || []
+            repertoireHits: typeof r.repertoireHitsJson === 'string' ? JSON.parse(r.repertoireHitsJson) : r.repertoireHitsJson || [],
+
+            reviewStatus: r.review_status || 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+
+            requiresHumanTeacherValidation: r.requires_human_teacher_validation !== 0,
+
+            contestationChannelEnabled: r.contestation_channel_enabled !== 0,
+
+            legalComplianceNotice: r.legal_compliance_notice || null,
+
+            teacherApprovedBy: r.teacher_approved_by || null,
+
+            teacherApprovedAt: r.teacher_approved_at || null,
+
+            contestationReason: r.contestation_reason || null,
+
+            pendingXpReward: r.pending_xp_reward ?? 0,
+
+            pendingCoinsReward: r.pending_coins_reward ?? 0,
+
+            pendingBadgeReward: r.pending_badge_reward || null,
+
+            rewardsReleased: Boolean(r.rewards_released),
 
         };
 
+    }
+
+    async approveStudentEssayReview(essayId: string, teacherId: string): Promise<{ success: boolean; changes: number }> {
+        const res = await this.run(
+            `UPDATE student_essays
+             SET review_status = 'APROVADA_DOCENTE',
+                 requires_human_teacher_validation = 0,
+                 teacher_approved_by = ?,
+                 teacher_approved_at = CURRENT_TIMESTAMP
+             WHERE id = ?`,
+            [teacherId, essayId]
+        );
+        return { success: (res?.changes ?? 0) > 0, changes: res?.changes ?? 0 };
+    }
+
+    async markStudentEssayRewardsReleased(essayId: string): Promise<void> {
+        await this.run(
+            `UPDATE student_essays SET rewards_released = 1 WHERE id = ?`,
+            [essayId]
+        );
+    }
+
+    async contestStudentEssay(essayId: string, reason: string, actorId: string): Promise<{ success: boolean; changes: number }> {
+        const res = await this.run(
+            `UPDATE student_essays
+             SET review_status = 'CONTESTADA',
+                 contestation_reason = ?,
+                 contested_by = ?,
+                 contested_at = CURRENT_TIMESTAMP
+             WHERE id = ?`,
+            [reason, actorId, essayId]
+        );
+        return { success: (res?.changes ?? 0) > 0, changes: res?.changes ?? 0 };
     }
 
 

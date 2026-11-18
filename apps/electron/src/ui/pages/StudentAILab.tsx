@@ -21,11 +21,13 @@ import {
   Zap,
   Users,
   Compass,
-  Award
+  Award,
+  ShieldAlert
 } from 'lucide-react';
 import { HistoricalMentorsGallery } from '../components/HistoricalMentorsGallery';
 import { ScienceSimulators } from '../components/ScienceSimulators';
 import { EssayLab1000 } from '../components/EssayLab1000';
+import { resolveStudentGradeContext, evaluateStageAiPolicy } from '../utils/studentGradeScope';
 import './StudentAILab.css';
 
 interface Message {
@@ -40,6 +42,8 @@ export type LabTab = 'mentors' | 'simulators' | 'essay' | 'chat' | 'library';
 
 interface StudentAILabProps {
   studentId?: string;
+  classId?: string;
+  studentAge?: number;
   initialTab?: LabTab;
   onBack?: () => void;
 }
@@ -133,7 +137,20 @@ O atrito estático ($f_e \\le \\mu_e \\cdot N$) impede o início do deslizamento
   }
 ];
 
-export const StudentAILab: React.FC<StudentAILabProps> = ({ studentId, initialTab = 'mentors', onBack }) => {
+export const StudentAILab: React.FC<StudentAILabProps> = ({
+  studentId,
+  classId,
+  studentAge,
+  initialTab = 'mentors',
+  onBack
+}) => {
+  const gradeContext = resolveStudentGradeContext(studentId, classId);
+  const stagePolicy = evaluateStageAiPolicy(gradeContext.stage);
+  const isUnderageBlocked = typeof studentAge === 'number' && studentAge < 11;
+  const isAutonomousAiBlocked =
+    isUnderageBlocked ||
+    !stagePolicy.directStudentAiAllowed ||
+    !stagePolicy.autonomousChatbotAllowed;
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'ai',
@@ -157,7 +174,9 @@ export const StudentAILab: React.FC<StudentAILabProps> = ({ studentId, initialTa
       if ((window as any).aquila?.student?.addXp && studentId) {
         (window as any).aquila.student.addXp(studentId, amount, reason);
       }
-    } catch {}
+    } catch (err) {
+      console.warn('[StudentAILab] Falha ao registrar XP:', err);
+    }
     setTimeout(() => setXpToast(null), 4000);
   };
   
@@ -207,6 +226,7 @@ export const StudentAILab: React.FC<StudentAILabProps> = ({ studentId, initialTa
   }, [messages, isLoading]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isAutonomousAiBlocked) return;
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -218,6 +238,7 @@ export const StudentAILab: React.FC<StudentAILabProps> = ({ studentId, initialTa
   };
 
   const executeSend = async (textToSend: string, imageToSend?: string | null) => {
+    if (isAutonomousAiBlocked) return;
     const text = textToSend.trim();
     const image = imageToSend || selectedImage;
     if (!text && !image) return;
@@ -283,10 +304,12 @@ export const StudentAILab: React.FC<StudentAILabProps> = ({ studentId, initialTa
   };
 
   const handleSend = () => {
+    if (isAutonomousAiBlocked) return;
     executeSend(inputText, selectedImage);
   };
 
   const handleChipClick = (prompt: string) => {
+    if (isAutonomousAiBlocked) return;
     setInputText(prompt);
     executeSend(prompt);
   };
@@ -297,11 +320,12 @@ export const StudentAILab: React.FC<StudentAILabProps> = ({ studentId, initialTa
       if ((window as any).aquila?.pedagogical?.completeTask && studentId) {
         await (window as any).aquila.pedagogical.completeTask(studentId, taskId);
       }
-    } catch (e) {}
+    } catch { /* conclusão de tarefa local opcional */ }
   };
 
   const handleAskAboutMaterial = (mat: Material) => {
     setActiveTab('chat');
+    if (isAutonomousAiBlocked) return;
     const prompt = `Poderia me explicar os principais conceitos do material "${mat.title}" e como eles caem na prova?`;
     setInputText(prompt);
     executeSend(prompt);
@@ -406,7 +430,7 @@ Como você prefere prosseguir?${groundingNote}`;
               className={`tab-btn ${activeTab === 'simulators' ? 'active' : ''}`} 
               onClick={() => setActiveTab('simulators')}
             >
-              🔬 Simuladores PhET
+              🔬 Simuladores Científicos Áquila
             </button>
             <button 
               className={`tab-btn ${activeTab === 'essay' ? 'active' : ''}`} 
@@ -454,6 +478,37 @@ Como você prefere prosseguir?${groundingNote}`;
           </div>
         </div>
       </header>
+
+      {isAutonomousAiBlocked && (
+        <div
+          role="alert"
+          style={{
+            margin: '12px 24px 0',
+            padding: '14px 18px',
+            borderRadius: '12px',
+            border: '1px solid rgba(245, 158, 11, 0.45)',
+            background: 'rgba(245, 158, 11, 0.12)',
+            color: '#fde68a',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '12px',
+            fontSize: '0.88rem',
+            lineHeight: 1.45,
+          }}
+        >
+          <ShieldAlert size={20} style={{ flexShrink: 0, marginTop: 2, color: '#fbbf24' }} />
+          <div>
+            <strong style={{ display: 'block', color: '#fef3c7', marginBottom: 4 }}>
+              Uso Autônomo de IA Restrito por Etapa/Idade ({stagePolicy.legalReference})
+            </strong>
+            <span>
+              {isUnderageBlocked
+                ? 'Estudantes com menos de 11 anos ou sem etapa verificada (Anos Finais EF / Ensino Médio) não podem utilizar chat ou análise visual autônoma de IA. Solicite atividade mediada pelo docente.'
+                : stagePolicy.guidance}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Renderização Condicional das 4 Abas Soberanas */}
       {activeTab === 'mentors' && (
@@ -538,24 +593,28 @@ Como você prefere prosseguir?${groundingNote}`;
               <div className="quick-chips-container">
                 <button 
                   className="quick-chip"
+                  disabled={isAutonomousAiBlocked}
                   onClick={() => handleChipClick("Explique as Leis de Newton com exemplos práticos")}
                 >
                   ⚛️ Leis de Newton
                 </button>
                 <button 
                   className="quick-chip"
+                  disabled={isAutonomousAiBlocked}
                   onClick={() => handleChipClick("Como funciona a Função Quadrática e o Vértice da parábola?")}
                 >
                   📐 Função Quadrática
                 </button>
                 <button 
                   className="quick-chip"
+                  disabled={isAutonomousAiBlocked}
                   onClick={() => handleChipClick("Monte um resumo rápido para minha prova de amanhã")}
                 >
                   📝 Resumo para Prova
                 </button>
                 <button 
                   className="quick-chip"
+                  disabled={isAutonomousAiBlocked}
                   onClick={() => handleChipClick("Como posso enviar uma foto da lousa ou caderno para análise?")}
                 >
                   📸 Analisar Lousa / Caderno
@@ -581,7 +640,8 @@ Como você prefere prosseguir?${groundingNote}`;
                   <button 
                     className="action-btn" 
                     onClick={() => fileInputRef.current?.click()}
-                    title="Analisar Imagem (Caderno ou Lousa)"
+                    disabled={isLoading || isAutonomousAiBlocked}
+                    title={isAutonomousAiBlocked ? 'Análise visual autônoma bloqueada para esta etapa/idade' : 'Analisar Imagem (Caderno ou Lousa)'}
                   >
                     <Camera size={18} />
                   </button>
@@ -590,6 +650,7 @@ Como você prefere prosseguir?${groundingNote}`;
                     hidden 
                     ref={fileInputRef} 
                     accept="image/*" 
+                    disabled={isAutonomousAiBlocked}
                     onChange={handleImageUpload} 
                   />
                   
@@ -597,18 +658,18 @@ Como você prefere prosseguir?${groundingNote}`;
                     ref={inputRef}
                     type="text" 
                     className="ai-input" 
-                    placeholder="Digite sua dúvida, conceito ou questão (Enter para enviar)..."
+                    placeholder={isAutonomousAiBlocked ? 'Uso autônomo bloqueado nesta etapa/idade (CNE/CP nº 15/2026) — solicite mediação docente' : 'Digite sua dúvida, conceito ou questão (Enter para enviar)...'}
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-                    disabled={isLoading}
+                    disabled={isLoading || isAutonomousAiBlocked}
                   />
                   
                   <button 
                     className="send-btn" 
                     onClick={handleSend} 
-                    disabled={isLoading || (!inputText.trim() && !selectedImage)}
-                    title="Enviar pergunta ao Córtex"
+                    disabled={isLoading || isAutonomousAiBlocked || (!inputText.trim() && !selectedImage)}
+                    title={isAutonomousAiBlocked ? 'Envio bloqueado nesta etapa/idade (CNE/CP nº 15/2026)' : 'Enviar pergunta ao Córtex'}
                   >
                     <Send size={16} />
                     <span className="hidden sm:inline">Enviar</span>
@@ -634,12 +695,14 @@ Como você prefere prosseguir?${groundingNote}`;
                   </p>
                 </div>
                 <button 
+                  disabled={isAutonomousAiBlocked}
                   onClick={() => {
+                    if (isAutonomousAiBlocked) return;
                     setActiveTab('chat');
                     handleChipClick("Gere um resumo de estudo com exercícios sobre o último conteúdo ensinado.");
                   }}
                   className="quick-chip"
-                  style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', color: '#fff', border: 'none' }}
+                  style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)', color: '#fff', border: 'none', opacity: isAutonomousAiBlocked ? 0.45 : 1 }}
                 >
                   <Sparkles size={14} /> Gerar Novo com IA
                 </button>
@@ -677,8 +740,9 @@ Como você prefere prosseguir?${groundingNote}`;
                         </button>
                         <button 
                           className="mat-btn mat-btn-ask"
+                          disabled={isAutonomousAiBlocked}
                           onClick={() => handleAskAboutMaterial(mat)}
-                          title="Perguntar sobre este tema no Chat"
+                          title={isAutonomousAiBlocked ? 'Chat autônomo restrito por etapa/idade' : 'Perguntar sobre este tema no Chat'}
                         >
                           <Brain size={13} /> Dúvida
                         </button>
@@ -746,10 +810,11 @@ Como você prefere prosseguir?${groundingNote}`;
             <h3 className="card-title">
               <Lightbulb size={13} /> Dicas do Córtex (Clique para testar)
             </h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', opacity: isAutonomousAiBlocked ? 0.5 : 1 }}>
               <div 
                 className="interactive-tip-item"
-                onClick={() => handleChipClick("Como tirar foto de uma página de exercício para ajuda passo-a-passo?")}
+                style={{ cursor: isAutonomousAiBlocked ? 'not-allowed' : 'pointer' }}
+                onClick={() => !isAutonomousAiBlocked && handleChipClick("Como tirar foto de uma página de exercício para ajuda passo-a-passo?")}
               >
                 <span>📸 Como analisar foto do caderno</span>
                 <ChevronRight size={13} />
@@ -757,7 +822,8 @@ Como você prefere prosseguir?${groundingNote}`;
 
               <div 
                 className="interactive-tip-item"
-                onClick={() => handleChipClick("Qual a diferença entre calor e temperatura na Física?")}
+                style={{ cursor: isAutonomousAiBlocked ? 'not-allowed' : 'pointer' }}
+                onClick={() => !isAutonomousAiBlocked && handleChipClick("Qual a diferença entre calor e temperatura na Física?")}
               >
                 <span>⚛️ Calor vs Temperatura (Física)</span>
                 <ChevronRight size={13} />
@@ -765,7 +831,8 @@ Como você prefere prosseguir?${groundingNote}`;
 
               <div 
                 className="interactive-tip-item"
-                onClick={() => handleChipClick("Como calcular a área de um triângulo qualquer com trigonometria?")}
+                style={{ cursor: isAutonomousAiBlocked ? 'not-allowed' : 'pointer' }}
+                onClick={() => !isAutonomousAiBlocked && handleChipClick("Como calcular a área de um triângulo qualquer com trigonometria?")}
               >
                 <span>📐 Área de Triângulos com Seno</span>
                 <ChevronRight size={13} />
@@ -773,7 +840,8 @@ Como você prefere prosseguir?${groundingNote}`;
 
               <div 
                 className="interactive-tip-item"
-                onClick={() => handleChipClick("Pesquise as principais notícias sobre inteligência artificial nesta semana")}
+                style={{ cursor: isAutonomousAiBlocked ? 'not-allowed' : 'pointer' }}
+                onClick={() => !isAutonomousAiBlocked && handleChipClick("Pesquise as principais notícias sobre inteligência artificial nesta semana")}
               >
                 <span>🌐 Notícias com Grounding Web</span>
                 <ChevronRight size={13} />

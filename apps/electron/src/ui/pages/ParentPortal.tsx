@@ -195,10 +195,10 @@ export const ParentPortal: React.FC = () => {
 
                    <EagleCard variant="kpi" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                      <div style={{ position: 'relative', width: '60px', height: '60px', borderRadius: '50%', background: 'conic-gradient(#10b981 100%, rgba(255,255,255,0.1) 0)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                       <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem', fontWeight: 800 }}>100%</div>
+                       <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 800 }}>CNE</div>
                      </div>
-                     <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.5rem' }}>Comportamento</span>
-                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: '#10b981', fontSize: '0.65rem', marginTop: '0.25rem' }}>Excelente</div>
+                     <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.5rem', textAlign: 'center' }}>Mediação Docente</span>
+                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: '#10b981', fontSize: '0.65rem', marginTop: '0.25rem' }}>Sem scoring</div>
                    </EagleCard>
                  </div>
 
@@ -360,7 +360,7 @@ export const ParentPortal: React.FC = () => {
 
             {activeTab === 'analytics' && (
                <div className="analytics-view animate-fade-in">
-                  <h3 className="analytics-title">COMPREENSÃO QUANTITATIVA</h3>
+                  <h3 className="analytics-title">RESUMO OBJETIVO DE ASSIDUIDADE</h3>
                   <BehavioralEvidenceReport studentId="std-001" />
                </div>
             )}

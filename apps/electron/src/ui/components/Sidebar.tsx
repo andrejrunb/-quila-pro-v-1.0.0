@@ -3,7 +3,7 @@ import {
   LayoutDashboard, BarChart3, Bell, Users, BookOpen,
   Camera, Map, FileText, Settings, ShieldCheck, 
   Search, ChevronRight, LogOut, CreditCard, Globe, UserPlus, Box, Radio, Activity, Sparkles, ScanFace, DoorOpen, ShoppingBag, Brain, Moon, Command, TrendingUp,
-  Cctv, Leaf, Infinity, Clock, Share2, Cpu, Eye, FileCheck, LayoutGrid, Key, Shield, Wind, Briefcase, Heart, History, Library, Zap, User, Crown, Tv
+  Cctv, Leaf, Infinity as InfinityIcon, Clock, Share2, Cpu, Eye, FileCheck, LayoutGrid, Key, Shield, Wind, Briefcase, Heart, History, Library, Zap, User, Crown, Tv
 } from 'lucide-react';
 import { LogoffProtocol } from './LogoffProtocol';
 import './Sidebar.css';
@@ -74,10 +74,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'dashboard', label: 'Início', icon: <LayoutDashboard size={20} />, hub: 'security', roles: ['admin', 'security', 'director'] },
     { id: 'cameras', label: 'Câmeras ao Vivo', icon: <Camera size={20} />, hub: 'security', roles: ['admin', 'security'] },
     { id: 'alerts', label: 'Ocorrências', icon: <Bell size={20} />, hub: 'security', roles: ['admin', 'security'] },
-    { id: 'night-sentry', label: 'Night Sentry', icon: <Moon size={20} />, hub: 'security', roles: ['admin', 'security'] },
+    { id: 'night-sentry', label: 'Vigilância Noturna', icon: <Moon size={20} />, hub: 'security', roles: ['admin', 'security'] },
     { id: 'security-monitor', label: 'Estado do Sistema', icon: <ShieldCheck size={20} />, hub: 'security', roles: ['admin', 'security'] },
-    { id: 'load-testing', label: 'Auditoria de Performance', icon: <Zap size={20} />, hub: 'security', roles: ['admin'] },
-    { id: 'social-nexus', label: 'Social Nexus', icon: <Radio size={20} />, hub: 'security', roles: ['admin'] },
+    { id: 'load-testing', label: 'Auditoria de Desempenho', icon: <Zap size={20} />, hub: 'security', roles: ['admin'] },
+    { id: 'social-nexus', label: 'Comunidade Escolar', icon: <Radio size={20} />, hub: 'security', roles: ['admin'] },
 
     // ═══ GESTÃO & PORTAIS SOBERANOS ═══
     { id: 'executive-cockpit-portal', label: 'Portal da Direção', icon: <Shield size={20} />, hub: 'admin', roles: ['admin', 'director'] },
@@ -85,41 +85,41 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'teacher-dashboard', label: 'Portal do Professor', icon: <BookOpen size={20} />, hub: 'admin', roles: ['admin', 'director', 'coordinator', 'teacher', 'docente'] },
     { id: 'parent-portal', label: 'Portal dos Pais', icon: <Users size={20} />, hub: 'admin', roles: ['admin', 'director', 'coordinator', 'parent', 'responsavel'] },
     { id: 'student-portal', label: 'Portal do Aluno', icon: <Sparkles size={20} />, hub: 'admin', roles: ['admin', 'director', 'coordinator', 'teacher', 'student', 'aluno'] },
-    { id: 'zenith-cockpit', label: 'Córtex Transcendente', icon: <Brain size={20} />, hub: 'admin', roles: ['admin'] },
-    { id: 'zenith-final', label: 'Zenith Cockpit', icon: <Infinity size={20} />, hub: 'admin', roles: ['admin'] },
-    { id: 'executive-pulse', label: 'Cockpit Executivo', icon: <Activity size={20} />, hub: 'admin', roles: ['admin'] },
+    { id: 'zenith-cockpit', label: 'Inteligência Estratégica', icon: <Brain size={20} />, hub: 'admin', roles: ['admin'] },
+    { id: 'zenith-final', label: 'Painel Integrado', icon: <InfinityIcon size={20} />, hub: 'admin', roles: ['admin'] },
+    { id: 'executive-pulse', label: 'Painel Executivo', icon: <Activity size={20} />, hub: 'admin', roles: ['admin'] },
     { id: 'executive-finance-bi', label: 'BI Financeiro', icon: <TrendingUp size={20} />, hub: 'admin', roles: ['admin', 'director'] },
     { id: 'finance', label: 'Financeiro', icon: <CreditCard size={20} />, hub: 'admin', roles: ['admin', 'director'] },
     { id: 'user-management', label: 'Controle de Acessos', icon: <UserPlus size={20} />, hub: 'admin', roles: ['admin', 'hr', 'rh', 'secretary', 'director'] },
     { id: 'secretaria-portal', label: 'Secretaria Digital', icon: <FileText size={20} />, hub: 'admin', roles: ['admin', 'director', 'secretary', 'hr', 'rh'] },
-    { id: 'collective-brain', label: 'Cérebro Coletivo', icon: <Brain size={20} />, hub: 'admin', roles: ['admin'] },
-    { id: 'lgpd', label: 'Proteção de Dados', icon: <Globe size={20} />, hub: 'admin', roles: ['admin'] },
-    { id: 'ecosystem', label: 'Ecossistema', icon: <LayoutGrid size={20} />, hub: 'admin', roles: ['admin'] },
+    { id: 'collective-brain', label: 'Base de Conhecimento', icon: <Brain size={20} />, hub: 'admin', roles: ['admin'] },
+    { id: 'lgpd', label: 'Proteção de Dados & LGPD', icon: <Globe size={20} />, hub: 'admin', roles: ['admin'] },
+    { id: 'ecosystem', label: 'Integrações do Sistema', icon: <LayoutGrid size={20} />, hub: 'admin', roles: ['admin'] },
     { id: 'settings', label: 'Configurações', icon: <Settings size={20} />, hub: 'admin', roles: ['admin', 'director'] },
     { id: 'help', label: 'Central de Ajuda', icon: <BookOpen size={20} />, hub: 'admin', roles: ['admin', 'director', 'secretary', 'security', 'coordinator', 'teacher'] },
 
     // ═══ ENSINO ═══
-    { id: 'seating-intelligence', label: 'Mapa de Assentos IA', icon: <LayoutDashboard size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'director'] },
-    { id: 'teacher-dashboard', label: 'Cockpit Docente (Prof)', icon: <BookOpen size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'docente', 'director'] },
+    { id: 'seating-intelligence', label: 'Mapa de Sala & Assentos', icon: <LayoutDashboard size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'director'] },
+    { id: 'teacher-dashboard', label: 'Painel do Professor', icon: <BookOpen size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'docente', 'director'] },
     { id: 'gradebook', label: 'Planilha de Notas', icon: <FileCheck size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'docente', 'director', 'secretary'] },
-    { id: 'coordination', label: 'Cockpit Coordenação', icon: <BarChart3 size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director'] },
-    { id: 'parent-portal', label: 'Portal Família (Pais)', icon: <Heart size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director', 'parent', 'responsavel'] },
-    { id: 'student-portal', label: 'Portal do Aluno (RPG)', icon: <Sparkles size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'director', 'student', 'aluno'] },
+    { id: 'coordination', label: 'Painel da Coordenação', icon: <BarChart3 size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director'] },
+    { id: 'parent-portal', label: 'Espaço da Família (Pais)', icon: <Heart size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director', 'parent', 'responsavel'] },
+    { id: 'student-portal', label: 'Espaço do Aluno', icon: <Sparkles size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'director', 'student', 'aluno'] },
     { id: 'students', label: 'Gestão de Alunos', icon: <Users size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'director', 'secretary'] },
-    { id: 'attendance', label: 'Chamada Inteligente', icon: <BarChart3 size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'director'] },
+    { id: 'attendance', label: 'Chamada Eletrônica', icon: <BarChart3 size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'director'] },
     { id: 'tasks', label: 'Tarefas & Agendamentos', icon: <Clock size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher'] },
     ...( !(window as any).aquila ? [{ id: 'whiteboard', label: 'Quadro IA (Scanner)', icon: <Camera size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher'] }] : []),
-    { id: 'daily-report', label: 'Relatório Diário IA', icon: <FileText size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher'] },
-    { id: 'intelligence-hub', label: 'Inteligência Ativa', icon: <Brain size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director'] },
-    { id: 'reports-hub', label: 'Relatórios & Laudos', icon: <FileText size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director', 'secretary'] },
+    { id: 'daily-report', label: 'Relatório Diário da Aula', icon: <FileText size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher'] },
+    { id: 'intelligence-hub', label: 'Apoio Pedagógico Inteligente', icon: <Brain size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director'] },
+    { id: 'reports-hub', label: 'Boletins & Relatórios', icon: <FileText size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director', 'secretary'] },
     { id: 'diary', label: 'Diário de Classe', icon: <BookOpen size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher'] },
-    { id: 'ai-lab', label: 'Córtex AI Lab', icon: <Sparkles size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student'] },
-    { id: 'cosmetics-chamber', label: 'Banners & Cosméticos', icon: <Crown size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student', 'aluno'] },
-    { id: 'youtube-radar', label: 'Videoaulas YouTube', icon: <Tv size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student', 'aluno', 'director'] },
-    { id: 'predictive-dashboard', label: 'Radar de Evasão', icon: <Activity size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director'] },
+    { id: 'ai-lab', label: 'Laboratório de IA', icon: <Sparkles size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student'] },
+    { id: 'cosmetics-chamber', label: 'Conquistas & Personalização', icon: <Crown size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student', 'aluno'] },
+    { id: 'youtube-radar', label: 'Videoaulas & Acervo', icon: <Tv size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student', 'aluno', 'director'] },
+    { id: 'predictive-dashboard', label: 'Radar de Prevenção de Evasão', icon: <Activity size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director'] },
     { id: 'sovereign-library', label: 'Biblioteca Pedagógica', icon: <Library size={20} />, hub: 'pedagogical', roles: ['admin', 'teacher', 'coordinator', 'student', 'director'] },
     { id: 'classroom-dashboard', label: 'Painel da Sala', icon: <Clock size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'docente', 'secretary'] },
-    { id: 'lifecycle-dashboard', label: 'Ciclo de Vida', icon: <History size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator'] },
+    { id: 'lifecycle-dashboard', label: 'Histórico & Ciclo Escolar', icon: <History size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator'] },
   ];
 
   const userRole = user?.role?.toLowerCase() || '';
@@ -515,7 +515,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button 
               className={`hub-btn ${currentHub === 'security' ? 'active' : ''}`} 
               onClick={() => onHubChange('security')}
-              title="Hub de Segurança"
+              title="Segurança & Operação"
             >
               <ShieldCheck size={20} />
               {!isCollapsed && <span className="hub-label-mini">SEGURANÇA</span>}
@@ -525,7 +525,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button 
               className={`hub-btn ${currentHub === 'admin' ? 'active' : ''}`} 
               onClick={() => onHubChange('admin')}
-              title="Hub Administrativo"
+              title="Gestão & Secretaria"
             >
               <Activity size={20} />
               {!isCollapsed && <span className="hub-label-mini">GESTÃO</span>}
@@ -535,7 +535,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button 
               className={`hub-btn ${currentHub === 'pedagogical' ? 'active' : ''}`} 
               onClick={() => onHubChange('pedagogical')}
-              title="Hub Pedagógico"
+              title="Ensino & Sala de Aula"
             >
               <BookOpen size={20} />
               {!isCollapsed && <span className="hub-label-mini">ENSINO</span>}

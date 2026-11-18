@@ -383,6 +383,10 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
   const [isLoadingHistory, setIsLoadingHistory] = useState<boolean>(false);
 
   const [lastPersistedMirror, setLastPersistedMirror] = useState<any | null>(null);
+  const [isContestModalOpen, setIsContestModalOpen] = useState<boolean>(false);
+  const [contestationReason, setContestationReason] = useState<string>('');
+  const [contestationSubmitting, setContestationSubmitting] = useState<boolean>(false);
+  const [contestationFeedback, setContestationFeedback] = useState<string | null>(null);
 
 
 
@@ -400,7 +404,7 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
 
       }
 
-    } catch {}
+    } catch { /* erro não-crítico de persistência local */ }
 
     loadEssaysHistory();
 
@@ -538,7 +542,7 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
 
       localStorage.setItem(`aquila_essay_draft_${selectedTheme.id}`, text);
 
-    } catch {}
+    } catch { /* erro não-crítico de persistência local */ }
 
   };
 
@@ -908,9 +912,11 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
 
 
 
-      const xpEarned = mirror?.xpAwarded || Math.round(analysis.totalScore / 3);
+      const isPendingTeacherValidation = mirror?.reviewStatus !== 'VALIDADA_DOCENTE';
 
-      const coinsEarned = mirror?.coinsAwarded || 30;
+      const xpEarned = isPendingTeacherValidation ? 0 : (mirror?.xpAwarded ?? Math.round(analysis.totalScore / 3));
+
+      const coinsEarned = isPendingTeacherValidation ? 0 : (mirror?.coinsAwarded ?? 30);
 
 
 
@@ -918,15 +924,19 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
 
         amount: xpEarned,
 
-        message: `Redação Nota ${mirror?.totalScore || analysis.totalScore} Auditada! (+${coinsEarned} Coins)`
+        message: isPendingTeacherValidation
+
+          ? `Pré-correção IA (${mirror?.totalScore ?? analysis.totalScore} pts • RASCUNHO_IA) salva. Nota oficial e XP dependem de validação docente.`
+
+          : `Redação Nota ${mirror?.totalScore ?? analysis.totalScore} Auditada! (+${coinsEarned} Coins)`
 
       });
 
 
 
-      if (onRewardXp) {
+      if (!isPendingTeacherValidation && onRewardXp && xpEarned > 0) {
 
-        onRewardXp(xpEarned, `Redação Nota ${mirror?.totalScore || analysis.totalScore}`);
+        onRewardXp(xpEarned, `Redação Nota ${mirror?.totalScore ?? analysis.totalScore}`);
 
       }
 
@@ -1092,7 +1102,7 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
 
               <Zap size={14} color="#F59E0B" />
 
-              <span>+{xpToast.amount} XP • {xpToast.message}</span>
+              <span>{xpToast.amount > 0 ? `+${xpToast.amount} XP • ` : ''}{xpToast.message}</span>
 
             </div>
 
@@ -1690,6 +1700,342 @@ export const EssayLab1000: React.FC<EssayLab1000Props> = ({
         {/* Painel Direito: Diagnóstico das 5 Competências & Machado de Assis */}
 
         <div className="diagnostics-panel">
+
+          {/* Governança HITL & Direito de Contestação (Parecer CNE/CP nº 15/2026) */}
+
+          {lastPersistedMirror && (
+
+            <div
+
+              style={{
+
+                marginBottom: '14px',
+
+                padding: '14px 16px',
+
+                borderRadius: '12px',
+
+                border: '1px solid rgba(245, 158, 11, 0.4)',
+
+                background: 'rgba(245, 158, 11, 0.08)',
+
+                color: '#fde68a',
+
+                fontSize: '0.84rem',
+
+                lineHeight: 1.45,
+
+              }}
+
+            >
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '6px' }}>
+
+                <strong style={{ color: '#fef3c7' }}>
+
+                  Status de Revisão (CNE/CP nº 15/2026)
+
+                </strong>
+
+                <span
+
+                  style={{
+
+                    padding: '2px 8px',
+
+                    borderRadius: '999px',
+
+                    fontSize: '0.74rem',
+
+                    fontWeight: 700,
+
+                    background: lastPersistedMirror.reviewStatus === 'VALIDADA_DOCENTE'
+
+                      ? 'rgba(16, 185, 129, 0.2)'
+
+                      : 'rgba(245, 158, 11, 0.2)',
+
+                    color: lastPersistedMirror.reviewStatus === 'VALIDADA_DOCENTE' ? '#6ee7b7' : '#fde68a',
+
+                    border: '1px solid currentColor',
+
+                  }}
+
+                >
+
+                  {lastPersistedMirror.reviewStatus || 'PRE_CORRECAO_IA_PENDENTE_DOCENTE'}
+
+                </span>
+
+              </div>
+
+              <p style={{ margin: '0 0 6px 0', color: '#fef3c7' }}>
+
+                <strong>Regra Avaliativa:</strong> Nota oficial e XP definitivo dependem de validação docente (HITL).
+
+              </p>
+
+              <p style={{ margin: '0 0 10px 0', color: '#fde68a', opacity: 0.92 }}>
+
+                {lastPersistedMirror.legalComplianceNotice || 'Pré-correção gerada por IA apenas em caráter de apoio formativo (RASCUNHO_IA), garantido o direito de contestação junto ao docente.'}
+
+              </p>
+
+              {contestationFeedback && (
+
+                <div
+
+                  style={{
+
+                    marginBottom: '10px',
+
+                    padding: '8px 10px',
+
+                    borderRadius: '8px',
+
+                    background: 'rgba(16, 185, 129, 0.14)',
+
+                    border: '1px solid rgba(16, 185, 129, 0.35)',
+
+                    color: '#a7f3d0',
+
+                    fontSize: '0.8rem',
+
+                  }}
+
+                >
+
+                  {contestationFeedback}
+
+                </div>
+
+              )}
+
+              {!isContestModalOpen ? (
+
+                <button
+
+                  type="button"
+
+                  onClick={() => {
+
+                    setContestationFeedback(null);
+
+                    setIsContestModalOpen(true);
+
+                  }}
+
+                  style={{
+
+                    padding: '7px 12px',
+
+                    borderRadius: '8px',
+
+                    border: '1px solid rgba(251, 191, 36, 0.5)',
+
+                    background: 'rgba(245, 158, 11, 0.16)',
+
+                    color: '#fef3c7',
+
+                    fontWeight: 600,
+
+                    fontSize: '0.8rem',
+
+                    cursor: 'pointer',
+
+                  }}
+
+                >
+
+                  Contestar Pré-correção
+
+                </button>
+
+              ) : (
+
+                <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+
+                  <textarea
+
+                    rows={3}
+
+                    value={contestationReason}
+
+                    onChange={(e) => setContestationReason(e.target.value)}
+
+                    placeholder="Descreva os pontos da redação ou competência ENEM que deseja submeter à revisão do professor..."
+
+                    style={{
+
+                      width: '100%',
+
+                      padding: '8px 10px',
+
+                      borderRadius: '8px',
+
+                      border: '1px solid rgba(255, 255, 255, 0.18)',
+
+                      background: 'rgba(15, 23, 42, 0.75)',
+
+                      color: '#f8fafc',
+
+                      fontSize: '0.82rem',
+
+                      resize: 'vertical',
+
+                    }}
+
+                  />
+
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+
+                    <button
+
+                      type="button"
+
+                      disabled={contestationSubmitting || !contestationReason.trim()}
+
+                      onClick={async () => {
+
+                        const reason = contestationReason.trim();
+
+                        if (!reason) return;
+
+                        const essayId = lastPersistedMirror.id || lastPersistedMirror.essayId || '';
+
+                        setContestationSubmitting(true);
+
+                        try {
+
+                          const aquilaApi = (window as any).aquila;
+
+                          let res: any = null;
+
+                          if (aquilaApi?.essay?.contestEssayPrecorrection && essayId) {
+
+                            res = await aquilaApi.essay.contestEssayPrecorrection({
+
+                              essayId,
+
+                              reason,
+
+                              actorId: studentId || 'student',
+
+                            });
+
+                          } else if (aquilaApi?.invoke && essayId) {
+
+                            res = await aquilaApi.invoke('essay:contest-precorrection', {
+
+                              essayId,
+
+                              reason,
+
+                              actorId: studentId || 'student',
+
+                            });
+
+                          }
+
+                          if (res && res.success === false) {
+
+                            setContestationFeedback(res.error || 'Não foi possível registrar a contestação.');
+
+                          } else {
+
+                            setLastPersistedMirror((prev: any) => (
+
+                              prev ? { ...prev, reviewStatus: res?.data?.reviewStatus || 'CONTESTADA_ESTUDANTE' } : prev
+
+                            ));
+
+                            setContestationFeedback('Contestação registrada na trilha de auditoria e encaminhada ao docente regente.');
+
+                            setContestationReason('');
+
+                            setIsContestModalOpen(false);
+
+                          }
+
+                        } catch (err: any) {
+
+                          setContestationFeedback('Erro ao enviar contestação: ' + (err?.message || 'falha inesperada'));
+
+                        } finally {
+
+                          setContestationSubmitting(false);
+
+                        }
+
+                      }}
+
+                      style={{
+
+                        padding: '7px 12px',
+
+                        borderRadius: '8px',
+
+                        border: 'none',
+
+                        background: '#f59e0b',
+
+                        color: '#0f172a',
+
+                        fontWeight: 700,
+
+                        fontSize: '0.8rem',
+
+                        cursor: contestationSubmitting || !contestationReason.trim() ? 'not-allowed' : 'pointer',
+
+                        opacity: contestationSubmitting || !contestationReason.trim() ? 0.6 : 1,
+
+                      }}
+
+                    >
+
+                      {contestationSubmitting ? 'Enviando...' : 'Enviar Contestação ao Docente'}
+
+                    </button>
+
+                    <button
+
+                      type="button"
+
+                      onClick={() => setIsContestModalOpen(false)}
+
+                      style={{
+
+                        padding: '7px 12px',
+
+                        borderRadius: '8px',
+
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+
+                        background: 'transparent',
+
+                        color: '#cbd5e1',
+
+                        fontSize: '0.8rem',
+
+                        cursor: 'pointer',
+
+                      }}
+
+                    >
+
+                      Cancelar
+
+                    </button>
+
+                  </div>
+
+                </div>
+
+              )}
+
+            </div>
+
+          )}
 
           {/* Card de Machado de Assis */}
 

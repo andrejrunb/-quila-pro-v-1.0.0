@@ -424,11 +424,11 @@ export const NativePhETSimulationLab: React.FC = () => {
         <div className="header-meta">
           <div className="tech-badge">
             <Zap size={13} className="text-amber-400" />
-            <span>ENGENHARIA REVERSA REA • PhET JAVA DESCOMPILADO & TRANSPILADO</span>
+            <span>LABORATÓRIO CIENTÍFICO VIRTUAL ÁQUILA • FÍSICA E QUÍMICA INTERATIVA</span>
           </div>
           <h2>Laboratório Nativo: Eletrostática, Atrito & Polarização Induzida</h2>
           <p>
-            Simulação física executada 100% offline em HTML5 Canvas, reconstruída diretamente a partir do código fonte Java original do PhET (<em>BalloonForces.java</em>).
+            Simulação física executada 100% offline em HTML5 Canvas para o motor pedagógico soberano Áquila.
           </p>
         </div>
 
@@ -455,7 +455,7 @@ export const NativePhETSimulationLab: React.FC = () => {
           onClick={() => setActiveTab('drills')}
         >
           <Flame size={14} />
-          <span>Desafios Kumon L1/L2/L3</span>
+          <span>Desafios de Maestria Áquila L1/L2/L3</span>
         </button>
         <button
           className={`mode-btn ${activeTab === 'xray' ? 'active' : ''}`}
@@ -625,7 +625,7 @@ export const NativePhETSimulationLab: React.FC = () => {
           <div className="xray-intro">
             <Code size={18} className="text-cyan-400" />
             <div>
-              <h3>Engenharia Reversa: Java PhET Bytecode ➔ TypeScript Nativo</h3>
+              <h3>Arquitetura da Simulação: Modelagem Matemática ➔ TypeScript Nativo</h3>
               <p>
                 Demonstração da dissecação de <code>balloons_pt_BR.jar</code> descompilado via CFR e mapeado para o motor vetorial 2D do Áquila.
               </p>
@@ -635,7 +635,7 @@ export const NativePhETSimulationLab: React.FC = () => {
           <div className="code-split-grid">
             <div className="code-panel">
               <div className="code-header">
-                <span className="badge-lang java">JAVA (CFR DECOMPILED PHET)</span>
+                <span className="badge-lang java">MODELO MATEMÁTICO ORIGINAL</span>
                 <span>BalloonForces.java</span>
               </div>
               <pre className="code-block">

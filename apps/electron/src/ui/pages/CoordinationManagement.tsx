@@ -212,10 +212,10 @@ export const CoordinationManagement: React.FC<CoordinationManagementProps> = ({ 
             <div 
               className={`tab-item ${activeTab === 'evidence' ? 'tab-active-evidence' : ''}`} 
               onClick={() => setActiveTab('evidence')}
-              aria-label="Aba de Relatórios de Evidência"
+              aria-label="Aba de Resumo Pedagógico e Assiduidade"
             >
               <BarChart3 className="tab-icon icon-purple" />
-              <span className="tab-label">Evidência</span>
+              <span className="tab-label">Assiduidade</span>
             </div>
             <div 
               className={`tab-item ${activeTab === 'plans' ? 'tab-active-plans' : ''}`} 
@@ -452,26 +452,26 @@ export const CoordinationManagement: React.FC<CoordinationManagementProps> = ({ 
           {activeTab === 'evidence' && (
             <div className="animate-fade-in">
               <h2 className="section-title mb-6">
-                <BarChart3 className="icon-purple" size={24} /> Motor de Accountability & Evidência
+                <BarChart3 className="icon-purple" size={24} /> Resumo Pedagógico & Frequência (CNE/CP nº 15/2026)
               </h2>
               
               <div className="search-wrapper">
                  <Search className="search-icon" size={20} />
                  <input 
                     type="text" 
-                    placeholder="Buscar aluno para comparar com a média da turma..." 
+                    placeholder="Informar ID ou matrícula do estudante..." 
                     className="search-input"
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
-                    title="Buscar aluno para relatório"
+                    title="Consultar resumo objetivo de assiduidade"
                  />
               </div>
 
-              {searchTerm ? (
-                 <BehavioralEvidenceReport studentId="std-001" />
+              {searchTerm.trim() ? (
+                 <BehavioralEvidenceReport studentId={searchTerm.trim()} />
               ) : (
                 <div className="placeholder-area">
-                   <p>Digite o nome do aluno para gerar o comparativo quantitativo.</p>
+                   <p>Informe o ID ou matrícula do estudante para consultar o resumo objetivo de frequência (sem pontuação comportamental ou ranking).</p>
                 </div>
               )}
             </div>

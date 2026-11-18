@@ -48,6 +48,10 @@ export const TelemetryPulse: React.FC = () => {
   const [isLoadingStrategy, setIsLoadingStrategy] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined' || !window.aquila || typeof window.aquila.getRecentPulse !== 'function') {
+      return;
+    }
+
     // 1. Carregar Estado Inicial
     const loadInitialData = async () => {
       try {
@@ -94,6 +98,9 @@ export const TelemetryPulse: React.FC = () => {
   };
 
   const handleGenerateStrategy = async () => {
+    if (typeof window === 'undefined' || !window.aquila?.generateOrganizationalStrategy) {
+      return;
+    }
     setIsLoadingStrategy(true);
     try {
       const result = await window.aquila.generateOrganizationalStrategy();

@@ -23,6 +23,10 @@ import { BNCCProficiencyHeatmap } from '../components/BNCCProficiencyHeatmap';
 import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
 import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder';
 import { PedagogicalPlaylistsManager } from '../components/PedagogicalPlaylistsManager';
+import { ClassroomDashboard } from '../pages/ClassroomDashboard';
+import { StudentAILab } from '../pages/StudentAILab';
+import { StudentCosmeticsChamber } from '../components/StudentCosmeticsChamber';
+import SovereignLibrarianUI from '../pages/SovereignLibrarianUI';
 import {
   Layers,
   Clock, Users, AlertCircle, CheckCircle2, Calendar,
@@ -460,13 +464,29 @@ export const TeacherPortal: React.FC<TeacherPortalProps> = ({ currentPage, onNav
       case 'playlists':
       case 'gamemaker':
         return <PedagogicalPlaylistsManager onBack={onBack} onNavigate={onNavigate} user={user} />;
+      case 'classroom-dashboard':
+        return <ClassroomDashboard user={user} />;
+      case 'ai-lab':
+        return (
+          <StudentAILab
+            studentId={studentParams?.studentId || 'demo_student_001'}
+            classId={studentParams?.classId || user?.classId}
+            onBack={onBack}
+          />
+        );
+      case 'cosmetics-chamber':
+      case 'battle-banner':
+      case 'skins-shop':
+        return <StudentCosmeticsChamber studentId={studentParams?.studentId || user?.id} onBack={onBack} />;
+      case 'sovereign-library':
+        return <SovereignLibrarianUI />;
       default:
         return <PremiumDashboard onNavigate={onNavigate} />;
     }
   };
 
   return (
-    <PortalLayout portalName="Portal Pedagógico (Neuro-IA)" themeColor="#3b82f6" onNavigate={onNavigate}>
+    <PortalLayout portalName="Portal Pedagógico (Neuro-IA)" themeColor="#3b82f6" onNavigate={onNavigate} hideHeader={currentPage === 'seating-intelligence'}>
       {renderTeacherPage()}
     </PortalLayout>
   );

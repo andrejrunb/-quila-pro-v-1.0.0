@@ -11,7 +11,7 @@ export type CosmeticCategory =
   | 'moldura_frame'
   | 'emblema_badge'
   | 'emote_animado'
-  | 'tema_wordwall';
+  | 'tema_jogos';
 
 export interface CosmeticCardItem {
   id: string;
@@ -21,6 +21,7 @@ export interface CosmeticCardItem {
   rarityColor: string;
   category: CosmeticCategory;
   previewIcon: string;
+  imageSrc?: string;
   historicalRef: string;
   bnccSkill: string;
   costAureus: number;
@@ -57,6 +58,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   // AVATARES & SKINS (MODALIDADE PERSONAGEM HISTÓRICO/CIENTÍFICO)
   {
     id: 'cosm_tesla_master',
+    imageSrc: '/assets/heroes/tesla/tesla_happy.png',
     title: 'Nikola Tesla • Mestre dos Raios',
     discipline: 'Física',
     rarity: 'Campeão',
@@ -72,6 +74,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   },
   {
     id: 'cosm_marie_curie',
+    imageSrc: '/assets/heroes/curie/curie_happy.png',
     title: 'Marie Curie • Duplo Nobel Luminescente',
     discipline: 'Química & Física Nuclear',
     rarity: 'Campeão',
@@ -87,6 +90,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   },
   {
     id: 'cosm_santos_dumont',
+    imageSrc: '/assets/heroes/santos_dumont/santos_dumont_happy.png',
     title: 'Santos Dumont • Pioneiro dos Céus (14-Bis)',
     discipline: 'Física & Engenharia Aeronáutica',
     rarity: 'Lendária',
@@ -102,6 +106,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   },
   {
     id: 'cosm_cesar_lattes',
+    imageSrc: '/assets/clash/heroes/arquimedes.png',
     title: 'César Lattes • Caçador do Méson Pi',
     discipline: 'Física de Partículas',
     rarity: 'Lendária',
@@ -117,6 +122,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   },
   {
     id: 'cosm_firmina_guardia',
+    imageSrc: '/assets/clash/heroes/cecilia.png',
     title: 'Maria Firmina dos Reis • Pioneira das Letras',
     discipline: 'Literatura',
     rarity: 'Lendária',
@@ -132,6 +138,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   },
   {
     id: 'cosm_ada_lovelace',
+    imageSrc: '/assets/heroes/ada_lovelace/ada_lovelace_happy.png',
     title: 'Ada Lovelace • Tecelã de Algoritmos',
     discipline: 'Matemática & Computação',
     rarity: 'Épica',
@@ -196,6 +203,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   // MOLDURAS DE PERFIL / FRAMES (CHAMPION & EVOLUTION TIERS)
   {
     id: 'frame_plasma_arc',
+    imageSrc: '/assets/cosmetics/frames/tesla_frame.png',
     title: 'Moldura Arco de Plasma Trifásico',
     discipline: 'Física',
     rarity: 'Campeão',
@@ -211,6 +219,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   },
   {
     id: 'frame_louros_literarios',
+    imageSrc: '/assets/clash/cosmetics/laurel_gold.png',
     title: 'Moldura Ramos de Louro Dourado',
     discipline: 'Humanidades',
     rarity: 'Rara',
@@ -228,6 +237,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   // EMBLEMAS & BADGES DE MAESTRIA (3 SLOTS EXIBÍVEIS)
   {
     id: 'badge_resolucao_problemas',
+    imageSrc: '/assets/clash/cosmetics/royal_prism.png',
     title: 'Emblema Coerência em Resolução de Problemas',
     discipline: 'Exames & Vestibulares',
     rarity: 'Lendária',
@@ -243,6 +253,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   },
   {
     id: 'badge_olimpiada_oba',
+    imageSrc: '/assets/clash/cosmetics/olympiad_gold.png',
     title: 'Distintivo Prática Astro-Física (Preparatório OBA)',
     discipline: 'Astronomia',
     rarity: 'Campeão',
@@ -260,6 +271,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   // EMOTES ANIMADOS DE REAÇÃO EM DUELOS PEDAGÓGICOS
   {
     id: 'emote_tesla_eureca',
+    imageSrc: '/assets/clash/cosmetics/cosmic_ring.png',
     title: 'Emote Tesla Eureca! (Relâmpago na Lâmpada)',
     discipline: 'Física',
     rarity: 'Comum',
@@ -275,6 +287,7 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   },
   {
     id: 'emote_machado_ironia',
+    imageSrc: '/assets/clash/cosmetics/scholar_glasses.png',
     title: 'Emote Machado da Piscadela Irônica',
     discipline: 'Literatura',
     rarity: 'Épica',
@@ -292,11 +305,12 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   // TEMAS VISUAIS DOS JOGOS WORDWALL & ARENA PVP
   {
     id: 'theme_ww_galaxy',
-    title: 'Tema Wordwall: Galáxia Quântica',
+    imageSrc: '/assets/clash/cosmetics/elemental_aura.png',
+    title: 'Tema dos Jogos: Galáxia Quântica',
     discipline: 'Jogos & Arena',
     rarity: 'Épica',
     rarityColor: '#a855f7',
-    category: 'tema_wordwall',
+    category: 'tema_jogos',
     previewIcon: '🌌',
     historicalRef: 'Cosmologia & Espaço Profundo (Telescópio James Webb)',
     bnccSkill: 'EM13CNT204',
@@ -304,15 +318,16 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
     unlocked: true,
     equipped: true,
     wordwallThemeId: 'cosmic_galaxy',
-    description: 'Aplica a estética espacial nebulosa em todos os 8 modos de jogo do Wordwall Sovereign Engine.'
+    description: 'Aplica a estética espacial nebulosa em todos os 8 modos de jogo do Motor de Jogos Educativos Áquila.'
   },
   {
     id: 'theme_ww_tesla',
-    title: 'Tema Wordwall: Laboratório Cyberpunk de Tesla',
+    imageSrc: '/assets/clash/cosmetics/steampunk_gear.png',
+    title: 'Tema dos Jogos: Laboratório Cyberpunk de Tesla',
     discipline: 'Jogos & Arena',
     rarity: 'Campeão',
     rarityColor: '#06b6d4',
-    category: 'tema_wordwall',
+    category: 'tema_jogos',
     previewIcon: '⚡',
     historicalRef: 'Colorado Springs High-Voltage Lab (1899)',
     bnccSkill: 'EM13CNT106',
@@ -320,15 +335,16 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
     unlocked: false,
     equipped: false,
     wordwallThemeId: 'tesla_cyberlab',
-    description: 'Transforma os jogos Wordwall (Quiz, Labirinto, Aviãozinho, Roleta) em um laboratório neon de alta tensão.'
+    description: 'Transforma os jogos educativos Áquila (Quiz, Labirinto, Aviãozinho, Roleta) em um laboratório neon de alta tensão.'
   },
   {
     id: 'theme_ww_amazon',
-    title: 'Tema Wordwall: Expedição Bioma Amazônico',
+    imageSrc: '/assets/clash/cosmetics/laurel_emerald.png',
+    title: 'Tema dos Jogos: Expedição Bioma Amazônico',
     discipline: 'Ciências & Ecologia',
     rarity: 'Rara',
     rarityColor: '#10b981',
-    category: 'tema_wordwall',
+    category: 'tema_jogos',
     previewIcon: '🌿',
     historicalRef: 'Rios Voadores & Biodiversidade Equatorial',
     bnccSkill: 'EF07CI13',
@@ -340,11 +356,11 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
   },
   {
     id: 'theme_ww_arcade',
-    title: 'Tema Wordwall: Arcade Retrô Synthwave 80s',
+    title: 'Tema dos Jogos: Arcade Retrô Synthwave 80s',
     discipline: 'Matemática & Lógica',
     rarity: 'Lendária',
     rarityColor: '#eab308',
-    category: 'tema_wordwall',
+    category: 'tema_jogos',
     previewIcon: '🕹️',
     historicalRef: 'Era de Ouro dos Arcades & Computação Gráfica Vetorial',
     bnccSkill: 'EM13MAT401',
@@ -353,7 +369,170 @@ export const CLASH_ROYALE_STYLE_COSMETICS: CosmeticCardItem[] = [
     equipped: false,
     wordwallThemeId: 'arcade_neon',
     description: 'Visual synthwave magenta/neon com alto contraste para partidas de reflexo rápido e Roleta Soberana.'
-  }
+  },
+  // ========================================================================
+  // COSMÉTICOS EXCLUSIVOS DO JOGUINHO AI STUDIO (LUDOAULA)
+  // ========================================================================
+  {
+    id: 'cosm_chapeu_bruxo',
+    title: 'Chapéu Arcano de Arquimedes',
+    discipline: 'Física & Matemática',
+    rarity: 'Lendária',
+    rarityColor: '#eab308',
+    category: 'skin_avatar',
+    previewIcon: '🧙',
+    imageSrc: '/assets/clash/cosmetics/wizard_hat.png',
+    historicalRef: 'Princípio do Empuxo & Geometria Espacial Clássica',
+    bnccSkill: 'EM13CNT101',
+    costAureus: 950,
+    unlocked: true,
+    equipped: false,
+    description: 'Chapéu místico estrelado concedido aos mestres do cálculo e princípios físicos.'
+  },
+  {
+    id: 'cosm_oculos_steampunk',
+    title: 'Óculos Retrofuturistas Steampunk',
+    discipline: 'Engenharia & Mecânica',
+    rarity: 'Épica',
+    rarityColor: '#a855f7',
+    category: 'skin_avatar',
+    previewIcon: '🥽',
+    imageSrc: '/assets/clash/cosmetics/steampunk_goggles.png',
+    historicalRef: 'Revolução Industrial & Termodinâmica das Máquinas a Vapor',
+    bnccSkill: 'EM13CNT203',
+    costAureus: 850,
+    unlocked: false,
+    equipped: false,
+    description: 'Lentes reforçadas de latão e engrenagens móveis com medidor barométrico acoplado.'
+  },
+  {
+    id: 'cosm_boina_darwin',
+    title: 'Boina de Campo do Naturalista (Darwin)',
+    discipline: 'Biologia & Evolução',
+    rarity: 'Rara',
+    rarityColor: '#f97316',
+    category: 'skin_avatar',
+    previewIcon: '🧢',
+    imageSrc: '/assets/clash/cosmetics/explorer_cap.png',
+    historicalRef: 'Viagem do HMS Beagle & A Origem das Espécies (1859)',
+    bnccSkill: 'EM13CNT202',
+    costAureus: 600,
+    unlocked: true,
+    equipped: false,
+    description: 'Acessório de expedição com lupa de bolso e pequenas amostras botânicas bordadas.'
+  },
+  {
+    id: 'cosm_oculos_academicos',
+    title: 'Óculos Acadêmicos de Machado',
+    discipline: 'Literatura',
+    rarity: 'Comum',
+    rarityColor: '#9ca3af',
+    category: 'skin_avatar',
+    previewIcon: '👓',
+    imageSrc: '/assets/clash/cosmetics/scholar_glasses.png',
+    historicalRef: 'Fundação da ABL & Ironia Fina Realista',
+    bnccSkill: 'EM13LP01',
+    costAureus: 300,
+    unlocked: true,
+    equipped: false,
+    description: 'Armação de tartaruga com hastes douradas clássicas dos mestres da oratória.'
+  },
+  {
+    id: 'cosm_albert_einstein',
+    title: 'Albert Einstein • Tecelão do Espaço-Tempo',
+    discipline: 'Física & Relatividade',
+    rarity: 'Campeão',
+    rarityColor: '#06b6d4',
+    category: 'skin_avatar',
+    previewIcon: '⚛️',
+    imageSrc: '/assets/heroes/einstein/einstein_happy.png',
+    historicalRef: 'Relatividade Especial e Efeito Fotoelétrico (Nobel 1921)',
+    bnccSkill: 'EM13CNT301',
+    costAureus: 1500,
+    unlocked: true,
+    equipped: false,
+    description: 'Avatar lendário do físico teórico mais influente do século XX com equações cósmicas.'
+  },
+  {
+    id: 'cosm_charles_darwin',
+    title: 'Charles Darwin • Observador da Evolução',
+    discipline: 'Biologia',
+    rarity: 'Lendária',
+    rarityColor: '#eab308',
+    category: 'skin_avatar',
+    previewIcon: '🐢',
+    imageSrc: '/assets/heroes/darwin/darwin_happy.png',
+    historicalRef: 'Seleção Natural & Ilhas Galápagos',
+    bnccSkill: 'EM13CNT202',
+    costAureus: 1100,
+    unlocked: true,
+    equipped: false,
+    description: 'Avatar clássico do naturalista britânico com caderno de campo ilustrado.'
+  },
+  {
+    id: 'cosm_isaac_newton',
+    title: 'Isaac Newton • Guardião da Gravitação',
+    discipline: 'Física Clássica & Cálculo',
+    rarity: 'Campeão',
+    rarityColor: '#06b6d4',
+    category: 'skin_avatar',
+    previewIcon: '🍎',
+    imageSrc: '/assets/heroes/newton/newton_happy.png',
+    historicalRef: 'Principia Mathematica (1687) & Leis do Movimento',
+    bnccSkill: 'EM13CNT101',
+    costAureus: 1400,
+    unlocked: false,
+    equipped: false,
+    description: 'Avatar do pai da mecânica clássica com prisma óptico e a icônica macieira.'
+  },
+  {
+    id: 'cosm_alan_turing',
+    title: 'Alan Turing • Decifrador da Enigma',
+    discipline: 'Lógica & Ciência da Computação',
+    rarity: 'Campeão',
+    rarityColor: '#06b6d4',
+    category: 'skin_avatar',
+    previewIcon: '📻',
+    imageSrc: '/assets/heroes/alan_turing/alan_turing_happy.png',
+    historicalRef: 'Máquina de Turing & Bletchley Park (1940)',
+    bnccSkill: 'EM13MAT504',
+    costAureus: 1300,
+    unlocked: true,
+    equipped: false,
+    description: 'Avatar do pioneiro da inteligência artificial e computação moderna com circuitos lógicos.'
+  },
+  {
+    id: 'cosm_stephen_hawking',
+    title: 'Stephen Hawking • Mestre dos Buracos Negros',
+    discipline: 'Astrofísica',
+    rarity: 'Campeão',
+    rarityColor: '#06b6d4',
+    category: 'skin_avatar',
+    previewIcon: '🌌',
+    imageSrc: '/assets/heroes/stephen_hawking/stephen_hawking_happy.png',
+    historicalRef: 'Radiação Hawking & Breve História do Tempo',
+    bnccSkill: 'EM13CNT204',
+    costAureus: 1500,
+    unlocked: false,
+    equipped: false,
+    description: 'Avatar do visionário cosmólogo com horizonte de eventos e sintetizador de voz estelar.'
+  },
+  {
+    id: 'cosm_pombo_tesla',
+    title: 'Pombo Eletromagnético de Tesla (Pet Fiel)',
+    discipline: 'Física & Pets',
+    rarity: 'Lendária',
+    rarityColor: '#eab308',
+    category: 'skin_avatar',
+    previewIcon: '🕊️',
+    imageSrc: '/assets/pets/tesla_pet_pigeon.png',
+    historicalRef: 'Companheiro inseparável de Nikola Tesla no Hotel New Yorker',
+    bnccSkill: 'EM13CNT106',
+    costAureus: 1000,
+    unlocked: true,
+    equipped: false,
+    description: 'O fiel pombo branco com olhos que emitem feixes suaves de luz coerente.'
+  },
 ];
 
 function getAquilaCosmeticsApi(): AquilaCosmeticsBridge | undefined {
@@ -391,7 +570,7 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
             profile_theme: 'banner_bg',
             title: 'emblema_badge',
             emote: 'emote_animado',
-            arena_theme: 'tema_wordwall'
+            arena_theme: 'tema_jogos'
           };
           const rarityMap: Record<string, CosmeticCardItem['rarity']> = {
             common: 'Comum',
@@ -444,7 +623,7 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
               description: cat.description || cat.name
             };
           });
-          setItems([...mapped, ...CLASH_ROYALE_STYLE_COSMETICS.filter(c => c.category === 'tema_wordwall')]);
+          setItems([...mapped, ...CLASH_ROYALE_STYLE_COSMETICS.filter(c => c.category === 'tema_jogos')]);
         }
       } catch {
         // Fallback gracioso para os itens locais
@@ -461,7 +640,7 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
   const equippedBanner = items.find(i => i.category === 'banner_bg' && i.equipped);
   const equippedFrame = items.find(i => i.category === 'moldura_frame' && i.equipped);
   const equippedBadges = items.filter(i => i.category === 'emblema_badge' && i.equipped);
-  const equippedWordwallTheme = items.find(i => i.category === 'tema_wordwall' && i.equipped);
+  const equippedGamesTheme = items.find(i => i.category === 'tema_jogos' && i.equipped);
 
   const playSfx = (type: 'equip' | 'unlock' | 'warn') => {
     try {
@@ -530,8 +709,8 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
     });
     playSfx('equip');
     setFeedbackMsg({
-      text: targetItem?.category === 'tema_wordwall'
-        ? `🎮 Tema '${targetItem.title}' ativado nos Jogos Wordwall!`
+      text: targetItem?.category === 'tema_jogos'
+        ? `🎮 Tema '${targetItem.title}' ativado nos Jogos Educativos Áquila!`
         : 'Item equipado no seu Battle Banner de Estudante!',
       type: 'success'
     });
@@ -563,7 +742,7 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
 
     if (aureusBalance < item.costAureus) {
       playSfx('warn');
-      setFeedbackMsg({ text: `Saldo insuficiente (${aureusBalance} Aureus). Jogue atividades Wordwall ou conclua missões BNCC para ganhar moedas!`, type: 'warn' });
+      setFeedbackMsg({ text: `Saldo insuficiente (${aureusBalance} Aureus). Jogue atividades de jogos educativos ou conclua missões BNCC para ganhar moedas!`, type: 'warn' });
       setTimeout(() => setFeedbackMsg(null), 3500);
       return;
     }
@@ -614,7 +793,7 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
           </div>
           <h1 className="cr-title">Coleção de Avatares, Banners, Emblemas & Temas de Jogos</h1>
           <p className="cr-subtitle">
-            Personalize seu Battle Banner e desbloqueie Temas Visuais para o Wordwall Sovereign Engine. Recompensas 100% conquistadas por mérito cognitivo e estudo BNCC, sem microtransações com dinheiro real (Conformidade ECA Digital Lei nº 15.211/2025).
+            Personalize seu Battle Banner e desbloqueie Temas Visuais para o Motor de Jogos Educativos Áquila. Recompensas 100% conquistadas por mérito cognitivo e estudo BNCC, sem microtransações com dinheiro real (Conformidade ECA Digital Lei nº 15.211/2025).
           </p>
         </div>
 
@@ -645,13 +824,17 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
             <div className="cr-banner-bg-art">
               <span className="cr-banner-bg-icon" aria-hidden="true">{equippedBanner?.previewIcon || '🌌'}</span>
               <span className="cr-banner-bg-name">
-                {equippedBanner?.title || 'Banner Padrão Áquila'} • Tema Wordwall: {equippedWordwallTheme?.previewIcon || '🌌'} {equippedWordwallTheme?.title.replace('Tema Wordwall: ', '') || 'Galáxia Quântica'}
+                {equippedBanner?.title || 'Banner Padrão Áquila'} • Tema dos Jogos: {equippedGamesTheme?.previewIcon || '🌌'} {equippedGamesTheme?.title.replace('Tema dos Jogos: ', '') || 'Galáxia Quântica'}
               </span>
             </div>
 
             <div className="cr-banner-profile-strip">
               <div className="cr-avatar-frame-wrap" style={{ borderColor: equippedFrame?.rarityColor || '#06b6d4' }}>
-                <span className="cr-avatar-emoji" aria-hidden="true">{equippedAvatar?.previewIcon || '⚡'}</span>
+                {equippedAvatar?.imageSrc ? (
+                  <img src={equippedAvatar.imageSrc} alt="Avatar" className="cr-avatar-img" />
+                ) : (
+                  <span className="cr-avatar-emoji" aria-hidden="true">{equippedAvatar?.previewIcon || '⚡'}</span>
+                )}
               </div>
               <div className="cr-profile-texts">
                 <div className="cr-profile-name">
@@ -665,7 +848,11 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
             <div className="cr-banner-badges-rack" aria-label="Emblemas de Maestria em exibição">
               {equippedBadges.map(b => (
                 <div key={b.id} className="cr-mini-badge-slot" title={`${b.title} (${b.rarity})`} aria-label={`Emblema: ${b.title}`}>
-                  <span aria-hidden="true">{b.previewIcon}</span>
+                  {b.imageSrc ? (
+                    <img src={b.imageSrc} alt={b.title} className="cr-mini-badge-img" />
+                  ) : (
+                    <span aria-hidden="true">{b.previewIcon}</span>
+                  )}
                 </div>
               ))}
               {equippedBadges.length === 0 && <span className="text-xs text-gray-400">Nenhum emblema equipado</span>}
@@ -680,7 +867,7 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
         {[
           { id: 'all', label: 'Tudo', icon: <Box className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
           { id: 'skin_avatar', label: 'Mentores & Skins', icon: <User className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
-          { id: 'tema_wordwall', label: 'Temas Wordwall & Arena', icon: <Gamepad2 className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
+          { id: 'tema_jogos', label: 'Temas Jogos Educativos Áquila & Arena', icon: <Gamepad2 className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
           { id: 'banner_bg', label: 'Banners de Fundo', icon: <Palette className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
           { id: 'moldura_frame', label: 'Molduras Animadas', icon: <Layers className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
           { id: 'emblema_badge', label: 'Emblemas BNCC', icon: <Award className="w-4 h-4 mr-1.5" aria-hidden="true" /> },
@@ -716,7 +903,11 @@ export const StudentCosmeticsChamber: React.FC<{ studentId?: string; onBack?: ()
             </div>
 
             <div className="cr-card-art-box">
-              <span className="cr-card-art-emoji" aria-hidden="true">{item.previewIcon}</span>
+              {item.imageSrc ? (
+                <img src={item.imageSrc} alt={item.title} className="cr-card-art-img" />
+              ) : (
+                <span className="cr-card-art-emoji" aria-hidden="true">{item.previewIcon}</span>
+              )}
               {item.equipped && (
                 <div className="cr-equipped-ribbon" role="status" aria-label="Item atualmente equipado">
                   <CheckCircle className="w-4 h-4 mr-1 inline" aria-hidden="true" /> EQUIPADO

@@ -10,6 +10,8 @@ import { FaceWorkerBridge } from './FaceWorkerBridge';
 import { colabGpuBridge } from './ColabGpuBridge';
 import { identityRecaptureService } from './IdentityRecaptureService';
 import { systemHealthService } from './SystemHealthService';
+import { LGPDService } from './LGPDService';
+import { securityService } from './SecurityService';
 
 /**
  * Interface para resultado de reconhecimento
@@ -43,13 +45,21 @@ export class FaceRecognition extends EventEmitter {
   private confidenceThreshold: number = 0.6; // 60% de confiança mínima
   private modelLoaded: boolean = false;
   private readonly indexPath: string;
+  private readonly lgpdService: LGPDService | null;
 
-  constructor(db: Database, workerBridge?: FaceWorkerBridge, userDataPath?: string) {
+  constructor(db: Database, workerBridge?: FaceWorkerBridge, userDataPath?: string, lgpdService?: LGPDService) {
     super();
     this.db = db;
     this.workerBridge = workerBridge || null;
-    this.index = new FaceVectorIndex(128, 16, 64, 'cosine');
+    this.lgpdService = lgpdService || (process.env.JEST_WORKER_ID ? null : new LGPDService(this.db));
+    this.index = new FaceVectorIndex(512, 16, 64, 'cosine');
     this.indexPath = userDataPath ? path.join(userDataPath, 'face_index.hnsw') : path.join(os.homedir(), '.aquilapro', 'face_index.hnsw');
+  }
+
+  private emitErrorSafely(payload: unknown): void {
+    if (this.listenerCount('error') > 0) {
+      this.emit('error', payload);
+    }
   }
 
   /**
@@ -58,6 +68,11 @@ export class FaceRecognition extends EventEmitter {
    */
   async loadModel(): Promise<void> {
     try {
+      if (this.lgpdService) {
+        await this.lgpdService.assertBiometricAttendanceAllowed({
+          actorId: 'SYSTEM_FACE_RECOGNITION_LOAD',
+        });
+      }
       console.log('Carregando modelo de reconhecimento facial...');
 
       // Simular carregamento de modelo
@@ -81,7 +96,7 @@ export class FaceRecognition extends EventEmitter {
 
       console.log(`Modelo carregado com ${this.index.size} embeddings indexados no HNSW`);
     } catch (error) {
-      this.emit('error', {
+      this.emitErrorSafely( {
         type: 'model:load',
         error: error instanceof Error ? error.message : 'Erro ao carregar modelo',
       });
@@ -129,6 +144,11 @@ export class FaceRecognition extends EventEmitter {
    * Retorna o aluno mais provável
    */
   async recognize(faceData: Buffer): Promise<FaceMatch | null> {
+    if (this.lgpdService) {
+      await this.lgpdService.assertBiometricAttendanceAllowed({
+        actorId: 'SYSTEM_FACE_RECOGNITION_RECOGNIZE',
+      });
+    }
     if (!this.modelLoaded) {
       throw new Error('Modelo não carregado. Chame loadModel() primeiro');
     }
@@ -161,28 +181,24 @@ export class FaceRecognition extends EventEmitter {
           
           // Nível 14: Auto-Cura Biométrica
           const { biometricSelfHealingService } = await import('./BiometricSelfHealingService');
-          biometricSelfHealingService.attemptSelfHealing(match.studentId, embedding, match.faceId ? await this.getEmbeddingById(match.faceId) : []);
+          biometricSelfHealingService.attemptSelfHealing(
+            match.studentId,
+            embedding,
+            match.faceId ? await this.getEmbeddingById(match.faceId) : [],
+            match.faceId
+          );
 
           // [LEVEL 34] Seamless Presence Integration
           const { seamlessIdentityService } = require('./SeamlessIdentityService');
           seamlessIdentityService.reportPresence({
             userId: match.studentId,
-            name: match.studentName || 'User',
-            role: 'teacher',
+            name: match.studentName || 'Aluno',
+            role: 'student',
             confidence: match.confidence,
             lastSeen: Date.now()
           });
 
-          // [LEVEL 37] Emotional Resonance Integration
-          const { microExpressionAnalyzer } = require('./MicroExpressionAnalyzer');
-          const { emotionalClimateService } = require('./EmotionalClimateService');
-          const state = await microExpressionAnalyzer.analyzeEmotion(faceData);
-          emotionalClimateService.reportLocalEmotion('Terminal Central', state.emotion);
-          
-          this.emit('recognition:affective-state', {
-            studentId: match.studentId,
-            state
-          });
+          // Conformidade CNE/CP nº 15/2026: inferência automatizada de emoções bloqueada.
         }
 
 
@@ -197,7 +213,7 @@ export class FaceRecognition extends EventEmitter {
         return null;
       }
     } catch (error) {
-      this.emit('error', {
+      this.emitErrorSafely( {
         type: 'recognition',
         error: error instanceof Error ? error.message : 'Erro ao reconhecer rosto',
       });
@@ -262,12 +278,16 @@ export class FaceRecognition extends EventEmitter {
    * Calcula distância euclidiana entre dois vetores
    */
   private euclideanDistance(a: number[], b: number[]): number {
+    if (!Array.isArray(a) || !Array.isArray(b) || a.length === 0 || b.length === 0 || a.length !== b.length) {
+      return Infinity;
+    }
     let sum = 0;
     for (let i = 0; i < a.length; i++) {
       const diff = a[i] - b[i];
       sum += diff * diff;
     }
-    return Math.sqrt(sum);
+    const dist = Math.sqrt(sum);
+    return Number.isFinite(dist) ? dist : Infinity;
   }
 
   /**
@@ -275,6 +295,13 @@ export class FaceRecognition extends EventEmitter {
    */
   async addMultiAngleFace(studentId: string, images: { front: string; left: string; right: string }): Promise<void> {
     try {
+      if (this.lgpdService) {
+        await this.lgpdService.assertBiometricAttendanceAllowed({
+          studentId,
+          actorId: 'SYSTEM_FACE_RECOGNITION_ENROLL',
+        });
+      }
+
       const totalStudents = await this.db.getStudentCount();
       await licenseService.assertStudentLimit(totalStudents);
 
@@ -283,8 +310,10 @@ export class FaceRecognition extends EventEmitter {
         const imageData = images[angle];
         if (!imageData) continue;
 
-        // Converter DataURL para Buffer se necessário, ou passar direto se o extrator suportar
-        const buffer = Buffer.from(imageData.split(',')[1], 'base64');
+        // Suporta DataURL (data:image/...;base64,XXX) ou payload base64 puro sem prefixo
+        const base64Payload = imageData.includes(',') ? imageData.split(',')[1] : imageData;
+        if (!base64Payload) continue;
+        const buffer = Buffer.from(base64Payload, 'base64');
         const embedding = await this.extractEmbedding(buffer);
         
         if (embedding) {
@@ -307,6 +336,12 @@ export class FaceRecognition extends EventEmitter {
    */
   async addFace(studentId: string, faceData: Buffer): Promise<string> {
     try {
+      if (this.lgpdService) {
+        await this.lgpdService.assertBiometricAttendanceAllowed({
+          studentId,
+          actorId: 'SYSTEM_FACE_RECOGNITION_ENROLL',
+        });
+      }
       // Verificar limite da licença (Phase 3 - Step 51)
       const totalStudents = await this.db.getStudentCount();
       await licenseService.assertStudentLimit(totalStudents);
@@ -333,7 +368,7 @@ export class FaceRecognition extends EventEmitter {
       console.log(`Rosto adicionado e indexado no HNSW para aluno ${studentId}`);
       return faceId;
     } catch (error) {
-      this.emit('error', {
+      this.emitErrorSafely( {
         type: 'face:add',
         studentId,
         error: error instanceof Error ? error.message : 'Erro ao adicionar rosto',
@@ -389,7 +424,10 @@ export class FaceRecognition extends EventEmitter {
       if (current) {
         // 3. Mesclar embeddings (Média Móvel - Alpha 0.2 para evitar 'drift' rápido)
         const alpha = 0.2;
-        const refined = current.embedding.map((val, i) => val * (1 - alpha) + newEmbedding[i] * alpha);
+        const refined =
+          Array.isArray(current.embedding) && current.embedding.length === newEmbedding.length
+            ? current.embedding.map((val, i) => val * (1 - alpha) + newEmbedding[i] * alpha)
+            : newEmbedding;
 
         // 4. Salvar no Banco
         await this.db.saveFaceEmbedding(studentId, refined, targetFaceId);
@@ -429,7 +467,7 @@ export class FaceRecognition extends EventEmitter {
 
       console.log(`Rosto ${faceId} removido`);
     } catch (error) {
-      this.emit('error', {
+      this.emitErrorSafely( {
         type: 'face:remove',
         faceId,
         error: error instanceof Error ? error.message : 'Erro ao remover rosto',
@@ -478,9 +516,21 @@ export class FaceRecognition extends EventEmitter {
    */
   public async getEmbeddingById(faceId: string): Promise<number[]> {
     try {
-      const rows = await this.db.all('SELECT embedding FROM face_embeddings WHERE faceId = ?', [faceId]);
-      if (rows.length > 0) {
-        return JSON.parse(rows[0].embedding);
+      const rows = await this.db.all('SELECT embedding FROM face_embeddings WHERE face_id = ?', [faceId]);
+      if (rows.length > 0 && rows[0]?.embedding) {
+        const raw = String(rows[0].embedding);
+        let parsed: any;
+        try {
+          if (raw.startsWith('[') || raw.includes(',')) {
+            parsed = JSON.parse(raw);
+          } else {
+            const decrypted = securityService.decryptBuffer(Buffer.from(raw, 'hex'));
+            parsed = JSON.parse(decrypted.toString('utf8'));
+          }
+        } catch {
+          parsed = JSON.parse(raw);
+        }
+        return Array.isArray(parsed) ? parsed : [];
       }
       return [];
     } catch (error) {
@@ -494,7 +544,7 @@ export class FaceRecognition extends EventEmitter {
    */
   clearCache(): void {
     // Para HNSW, 'limpar cache' significa resetar o índice
-    this.index = new FaceVectorIndex(128, 16, 64, 'cosine');
+    this.index = new FaceVectorIndex(512, 16, 64, 'cosine');
     console.log('Cache de embeddings (HNSW) limpo');
   }
 }

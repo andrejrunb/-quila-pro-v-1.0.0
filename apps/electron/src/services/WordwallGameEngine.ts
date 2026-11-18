@@ -241,7 +241,10 @@ export class WordwallGameEngine {
       { id: 'matching_pairs', name: 'Encontre os Pares', category: 'Memória & Associação', description: 'Conecte conceitos científicos às suas fórmulas ou definições.', switchable: true },
       { id: 'true_false_run', name: 'Esteira Verdadeiro ou Falso', category: 'Reflexo Rápido', description: 'Julgue afirmações científicas contra o relógio em alta velocidade.', switchable: true },
       { id: 'open_the_box', name: 'Abra a Caixa Misteriosa', category: 'Descoberta', description: 'Escolha caixas numeradas com desafios TRI e bônus de moedas Aureus.', switchable: true },
-      { id: 'random_wheel', name: 'Roleta Soberana', category: 'Sorteio & Arguição', description: 'Gire a roda animada para sortear desafios e multiplicar XP.', switchable: true }
+      { id: 'random_wheel', name: 'Roleta Soberana', category: 'Sorteio & Arguição', description: 'Gire a roda animada para sortear desafios e multiplicar XP.', switchable: true },
+      { id: 'diagram_labeling', name: 'Rotulagem de Diagramas', category: 'Anatomia & Esquemas', description: 'Arraste os rótulos conceituais para os pinos corretos na imagem ou diagrama anatômico.', switchable: false },
+      { id: 'cloze_sentence', name: 'Preenchimento de Lacunas', category: 'Linguagem & Conceitos', description: 'Complete as lacunas do texto científico com termos de alta precisão conceitual.', switchable: true },
+      { id: 'flashcards_srs', name: 'Flashcards de Repetição Espaçada', category: 'Memorização Ativa', description: 'Pratique retenção com cartões mnemônicos e algoritmo de intervalo SM-2.', switchable: true }
     ];
   }
 

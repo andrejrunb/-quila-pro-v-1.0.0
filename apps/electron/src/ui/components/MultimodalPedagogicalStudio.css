@@ -289,7 +289,7 @@
   color: #38bdf8;
 }
 
-/* Fracionamento Cognitivo Brisk */
+/* Fracionamento Cognitivo Assistente Docente Áquila */
 .mms-chunk-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -351,7 +351,7 @@
   line-height: 1.45;
 }
 
-/* Jogos Wordwall */
+/* Jogos Educativos Áquila */
 .mms-wordwall-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

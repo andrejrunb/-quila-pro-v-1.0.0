@@ -502,3 +502,31 @@
 
 .custom-scrollbar::-webkit-scrollbar { width: 4px; }
 .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+
+
+/* Estilos de Projeção em Tela Cheia para a Lista de Alunos */
+.students-page.is-projected {
+  padding: 1.5rem 2.5rem;
+  max-width: 100vw !important;
+  background: #090e1a !important;
+}
+
+.students-page.is-projected .header-info h1 {
+  font-size: 1.85rem;
+}
+
+.students-page.is-projected .students-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+  gap: 1.5rem !important;
+}
+
+.students-page.is-projected .student-card {
+  padding: 1.25rem;
+  border-width: 1.5px;
+  background: rgba(15, 23, 42, 0.85);
+}
+
+.students-page.is-projected .student-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+}

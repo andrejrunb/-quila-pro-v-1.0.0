@@ -16,6 +16,13 @@ import HRPortalComponent from '../components/HRPortal';
 import FinancialGlassUI from '../components/FinancialGlassUI';
 import { FileUploader } from '../components/FileUploader';
 import { StudentBatchImportManager } from '../components/StudentBatchImportManager';
+import { UserManagement } from '../pages/UserManagement';
+import { ScheduleUpload } from '../pages/ScheduleUpload';
+import { TeacherGradebook } from '../pages/TeacherGradebook';
+import { Students } from '../pages/Students';
+import { ReportingHub } from '../pages/ReportingHub';
+import { ClassroomDashboard } from '../pages/ClassroomDashboard';
+import HelpCenter from '../pages/HelpCenter';
 import { UploadCloud } from 'lucide-react';
 import './SecretariaPortal.css';
 import './HRPortal.css';
@@ -41,6 +48,17 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
       setActiveTab('hr');
     }
   }, [user]);
+
+  useEffect(() => {
+    if (currentPage === 'hr' || currentPage === 'hr-portal') {
+      setActiveTab('hr');
+    } else if (currentPage === 'secretaria-portal') {
+      const role = user?.role?.toLowerCase();
+      if (role !== 'hr' && role !== 'rh') {
+        setActiveTab('overview');
+      }
+    }
+  }, [currentPage, user?.role]);
 
   useEffect(() => {
     const win = window as any;
@@ -77,8 +95,34 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
     { id: 'tutelary', label: 'Conselho Tutelar', icon: <AlertOctagon size={16} /> },
   ];
 
+  const onBack = () => onNavigate('secretaria-portal');
+
+  const renderSecretariaSubPage = () => {
+    switch (currentPage) {
+      case 'user-management':
+        return <UserManagement onBack={onBack} />;
+      case 'schedule-upload':
+        return <ScheduleUpload onBack={onBack} />;
+      case 'gradebook':
+        return <TeacherGradebook onBack={onBack} onNavigate={onNavigate} user={user} />;
+      case 'students':
+        return <Students onNavigate={onNavigate} onBack={onBack} user={user} />;
+      case 'reports-hub':
+        return <ReportingHub onBack={onBack} userRole={user?.role || 'secretary'} userCoordinationId={null} />;
+      case 'classroom-dashboard':
+        return <ClassroomDashboard user={user} />;
+      case 'help':
+        return <HelpCenter onBack={onBack} />;
+      default:
+        return null;
+    }
+  };
+
+  const subPage = renderSecretariaSubPage();
+
   return (
     <PortalLayout portalName="Secretaria Digital" themeColor="#10b981" onNavigate={onNavigate}>
+      {subPage ?? (
       <div className="sec-cockpit">
         {/* Command Bar */}
         <div className="sec-command-bar">
@@ -132,7 +176,7 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
         {/* Tab Contents */}
         <div className="w-full">
            {activeTab === 'overview' && (
-             <div className="flex flex-col gap-4 animate-fade-in">
+             <div className="flex flex-col gap-3 animate-fade-in">
                 {/* 4-Column KPI Grid */}
                 <div className="sec-kpi-grid">
                   <div className="sec-kpi-pod">
@@ -266,13 +310,13 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
            )}
 
            {activeTab === 'teachers' && (
-             <div className="bg-black/20 p-6 rounded-2xl border border-white/5 animate-fade-in">
+             <div className="bg-black/20 p-3 rounded-2xl border border-white/5 animate-fade-in">
                 <TeacherManagement />
              </div>
            )}
 
            {activeTab === 'hr' && (
-             <div className="bg-black/20 p-6 rounded-2xl border border-white/5 animate-fade-in flex flex-col gap-8">
+             <div className="bg-black/20 p-3 rounded-2xl border border-white/5 animate-fade-in flex flex-col gap-3">
                {/* KPIs de RH — people-school-analytics */}
                <HRKPIBar />
 
@@ -280,7 +324,7 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
                <HRPortalComponent />
 
                {/* Acessos Rápidos */}
-               <section className="hr-doc-management-section mt-6">
+               <section className="hr-doc-management-section mt-2">
                  <div className="hr-section-header">
                    <div className="hr-icon-box">
                      <UserPlus className="hr-icon-pink" size={24} />
@@ -334,7 +378,7 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
            )}
 
            {activeTab === 'boletins' && (
-              <div className="bg-black/20 p-6 rounded-2xl border border-white/5">
+              <div className="bg-black/20 p-3 rounded-2xl border border-white/5">
                  <SecretariatBoletimManager />
               </div>
            )}
@@ -346,37 +390,38 @@ export const SecretariaPortal: React.FC<SecretariaPortalProps> = ({ currentPage,
            )}
 
            {activeTab === 'cadastro' && (
-              <div className="bg-black/20 p-6 rounded-2xl border border-white/5">
+              <div className="bg-black/20 p-3 rounded-2xl border border-white/5">
                  <SecretariatRegistrationManager />
               </div>
            )}
 
            {activeTab === 'analytics' && (
-              <div className="bg-black/20 p-6 rounded-2xl border border-white/5">
+              <div className="bg-black/20 p-3 rounded-2xl border border-white/5">
                  <SecretariatAcademicAnalytics />
               </div>
            )}
 
            {activeTab === 'grade' && (
-              <div className="bg-black/20 p-6 rounded-2xl border border-white/5">
+              <div className="bg-black/20 p-3 rounded-2xl border border-white/5">
                  <TeacherClassLinkManager />
               </div>
            )}
 
            {activeTab === 'config' && (
-              <div className="bg-black/20 p-6 rounded-2xl border border-white/5">
+              <div className="bg-black/20 p-3 rounded-2xl border border-white/5">
                  <GradeWeightConfig />
               </div>
            )}
 
            {activeTab === 'tutelary' && (
-              <div className="bg-black/20 p-6 rounded-2xl border border-white/5">
+              <div className="bg-black/20 p-3 rounded-2xl border border-white/5">
                  <TutelaryCouncilReport />
               </div>
            )}
 
         </div>
       </div>
+      )}
     </PortalLayout>
   );
 };

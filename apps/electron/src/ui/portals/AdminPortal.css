@@ -3,20 +3,20 @@
 .ap-cockpit {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 6px;
+  gap: 6px;
+  padding: 4px 6px;
   min-height: 100%;
   color: var(--stitch-text-primary, #F8FAFC);
   font-family: 'Inter', sans-serif;
 }
 
-/* Executive Command Bar — Uniform 32px Buttons */
+/* Executive Command Bar — Uniform 26px Compact Buttons */
 .ap-command-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 5px 10px;
   background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
   border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
   border-radius: 8px;
@@ -26,16 +26,16 @@
 .ap-cmd-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .ap-cmd-badge {
   font-family: var(--font-mono, monospace);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 3px 8px;
+  padding: 2px 7px;
   border-radius: 4px;
   background: rgba(0, 240, 255, 0.14);
   color: #00F0FF;
@@ -43,7 +43,7 @@
 }
 
 .ap-cmd-title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #F8FAFC;
@@ -53,7 +53,7 @@
 .ap-cmd-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   flex-wrap: wrap;
 }
 
@@ -61,14 +61,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  height: 32px;
-  padding: 0 12px;
+  gap: 5px;
+  height: 26px;
+  padding: 0 9px;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: #141B2D;
   color: #E2E8F0;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -92,14 +92,14 @@
 .ap-kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 6px;
 }
 
 .ap-kpi-pod {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
+  padding: 6px 12px;
   background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
   border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
   border-radius: 8px;
@@ -113,12 +113,12 @@
 .ap-kpi-meta {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .ap-kpi-label {
   font-family: var(--font-mono, monospace);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -127,7 +127,7 @@
 
 .ap-kpi-value {
   font-family: var(--font-mono, monospace);
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 800;
   color: #F8FAFC;
   line-height: 1.1;
@@ -135,13 +135,13 @@
 
 .ap-kpi-delta {
   font-family: var(--font-mono, monospace);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 600;
 }
 
 .ap-kpi-icon {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -153,7 +153,7 @@
 .ap-bento-grid {
   display: grid;
   grid-template-columns: 7fr 5fr;
-  gap: 10px;
+  gap: 6px;
   flex: 1;
   min-height: 0;
 }
@@ -170,30 +170,30 @@
 .ap-left-col {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .ap-charts-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 6px;
 }
 
 .ap-panel {
   background: var(--stitch-surface, rgba(14, 19, 31, 0.85));
   border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
   border-radius: 8px;
-  padding: 12px;
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .ap-panel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -201,7 +201,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -211,17 +211,17 @@
 
 .ap-panel-badge {
   font-family: var(--font-mono, monospace);
-  font-size: 10px;
+  font-size: 9.5px;
   color: #00F0FF;
 }
 
 .ap-chart-box {
-  height: 135px;
+  height: 92px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 8px;
-  padding-top: 8px;
+  padding-top: 4px;
 }
 
 .ap-bar-col {
@@ -253,11 +253,17 @@
 /* 5-Portal Sovereign Matrix inside Executive Cockpit */
 .ap-portals-matrix {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+  .ap-portals-matrix {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
   .ap-portals-matrix {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -267,14 +273,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 6px;
-  padding: 10px;
+  gap: 4px;
+  padding: 7px 8px;
   background: #141B2D;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 6px;
   cursor: pointer;
   text-align: left;
   transition: all 0.15s ease;
+  min-width: 0;
 }
 
 .ap-portal-tile:hover {
@@ -291,7 +298,7 @@
 
 .ap-portal-tile-tag {
   font-family: var(--font-mono, monospace);
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 800;
   letter-spacing: 0.06em;
   padding: 2px 5px;
@@ -299,33 +306,35 @@
 }
 
 .ap-portal-tile-name {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: #F8FAFC;
+  line-height: 1.2;
 }
 
 .ap-portal-tile-desc {
-  font-size: 10px;
+  font-size: 9.5px;
   color: #94A3B8;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 /* Right Column: Live Institutional Feed with Rectangular Portraits ("Sem Bolinha") */
 .ap-feed-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .ap-feed-row {
   display: flex;
-  align-items: stretch;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
   background: #141B2D;
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 6px;
   overflow: hidden;
   transition: border-color 0.15s ease;
-  min-height: 54px;
 }
 
 .ap-feed-row:hover {
@@ -333,34 +342,35 @@
 }
 
 .ap-feed-photo {
-  width: 48px;
-  height: 56px;
+  width: 32px;
+  height: 38px;
   object-fit: cover;
   object-position: center 20%;
   flex-shrink: 0;
   display: block;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .ap-feed-content {
   flex: 1;
-  padding: 6px 10px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
 }
 
 .ap-feed-info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   min-width: 0;
 }
 
 .ap-feed-title {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #F8FAFC;
   white-space: nowrap;
@@ -369,8 +379,9 @@
 }
 
 .ap-feed-sub {
-  font-size: 11px;
+  font-size: 10.5px;
   color: #94A3B8;
+  line-height: 1.25;
 }
 
 .ap-feed-time {

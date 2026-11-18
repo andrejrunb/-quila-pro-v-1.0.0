@@ -13,7 +13,7 @@ export interface HnswSearchResult {
 export class FaceVectorIndex {
   private vectors = new Map<string, Float32Array>();
   private neighbors = new Map<string, Set<string>>();
-  private readonly dimensions: number;
+  private dimensions: number;
   private readonly maxNeighbors: number;
   private readonly efConstruction: number;
   private readonly metric: 'cosine' | 'euclidean' | 'dot';
@@ -34,13 +34,31 @@ export class FaceVectorIndex {
     return this.vectors.size;
   }
 
+  getDimensions(): number {
+    return this.dimensions;
+  }
+
   /**
    * Adds an embedding to the index.
+   * Adapta dinamicamente entre 128-dim (fallback) e 512-dim (InsightFace/Colab) sem lançar erro de incompatibilidade.
    */
   add(id: string, vector: number[] | Float32Array): void {
     const v = vector instanceof Float32Array ? vector : new Float32Array(vector);
+    if (v.length === 0) {
+      throw new Error('Embedding cannot be empty');
+    }
+
     if (v.length !== this.dimensions) {
-      throw new Error(`Embedding dimension mismatch: expected ${this.dimensions}, got ${v.length}`);
+      if (this.vectors.size === 0) {
+        this.dimensions = v.length;
+      } else {
+        console.warn(
+          `[FaceVectorIndex] Mudança de dimensionalidade (${this.dimensions} -> ${v.length}); reiniciando índice HNSW para evitar incompatibilidade vetorial.`
+        );
+        this.vectors.clear();
+        this.neighbors.clear();
+        this.dimensions = v.length;
+      }
     }
 
     this.vectors.set(id, v);
@@ -89,6 +107,9 @@ export class FaceVectorIndex {
     if (this.vectors.size === 0) return [];
     
     const v = query instanceof Float32Array ? query : new Float32Array(query);
+    if (v.length === 0 || v.length !== this.dimensions) {
+      return [];
+    }
 
     // Fallback to brute force for very small collections
     if (this.vectors.size <= k * 4) {
@@ -242,6 +263,7 @@ export class FaceVectorIndex {
   }
 
   private _cosineSimilarity(a: Float32Array, b: Float32Array): number {
+    if (a.length === 0 || b.length === 0 || a.length !== b.length) return 0;
     let dot = 0;
     let normA = 0;
     let normB = 0;
@@ -251,24 +273,28 @@ export class FaceVectorIndex {
       normB += b[i] * b[i];
     }
     if (normA === 0 || normB === 0) return 0;
-    return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+    const score = dot / (Math.sqrt(normA) * Math.sqrt(normB));
+    return Number.isFinite(score) ? score : 0;
   }
 
   private _dotProduct(a: Float32Array, b: Float32Array): number {
+    if (a.length === 0 || b.length === 0 || a.length !== b.length) return 0;
     let sum = 0;
     for (let i = 0; i < a.length; i++) {
-        sum += a[i] * b[i];
+      sum += a[i] * b[i];
     }
-    return sum;
+    return Number.isFinite(sum) ? sum : 0;
   }
 
   private _euclideanDistance(a: Float32Array, b: Float32Array): number {
+    if (a.length === 0 || b.length === 0 || a.length !== b.length) return Infinity;
     let sum = 0;
     for (let i = 0; i < a.length; i++) {
       const d = a[i] - b[i];
       sum += d * d;
     }
-    return Math.sqrt(sum);
+    const dist = Math.sqrt(sum);
+    return Number.isFinite(dist) ? dist : Infinity;
   }
 }
 

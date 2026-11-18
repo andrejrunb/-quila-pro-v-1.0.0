@@ -244,7 +244,7 @@ export const H5PPerseusAppletLab: React.FC<H5PPerseusAppletLabProps> = ({
           <div className="applet-title-wrap">
             <h1>
               <Layers size={24} color="#a78bfa" />
-              Laboratório de Applets H5P & Perseus
+              Laboratório de Módulos e Exercícios Interativos Áquila
               <span className="applet-badge-offline">100% Offline Soberano</span>
             </h1>
           </div>
@@ -299,13 +299,13 @@ export const H5PPerseusAppletLab: React.FC<H5PPerseusAppletLabProps> = ({
               className={`subnav-btn ${filterType === 'PERSEUS' ? 'active' : ''}`}
               onClick={() => setFilterType('PERSEUS')}
             >
-              🎯 Khan Academy Perseus (STEM)
+              🎯 Exercícios Formativos STEM Áquila
             </button>
             <button
               className={`subnav-btn ${filterType === 'H5P' ? 'active' : ''}`}
               onClick={() => setFilterType('H5P')}
             >
-              📦 H5P Interactive Packages
+              📦 Módulos Interativos Didáticos Áquila
             </button>
           </div>
 

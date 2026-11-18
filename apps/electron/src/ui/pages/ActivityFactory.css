@@ -1,12 +1,12 @@
-.af-shell { padding: 28px; color: #f8fafc; display: flex; flex-direction: column; gap: 22px; }
-.af-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.af-header-left { display: flex; align-items: center; gap: 14px; }
-.af-header h1 { margin: 4px 0 0; font-size: 1.5rem; font-weight: 800; }
-.af-orb { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(16,185,129,0.22), rgba(59,130,246,0.22)); border: 1px solid rgba(16,185,129,0.4); color: #34d399; }
+.af-shell { padding: 10px 14px; width: 100%; max-width: 100%; box-sizing: border-box; color: #f8fafc; display: flex; flex-direction: column; gap: 12px; }
+.af-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.af-header-left { display: flex; align-items: center; gap: 12px; }
+.af-header h1 { margin: 4px 0 0; font-size: 1.4rem; font-weight: 800; }
+.af-orb { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(16,185,129,0.22), rgba(59,130,246,0.22)); border: 1px solid rgba(16,185,129,0.4); color: #34d399; }
 .af-pill { font-size: 0.68rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; background: rgba(16,185,129,0.16); color: #34d399; border: 1px solid rgba(16,185,129,0.35); letter-spacing: 0.05em; }
-.af-icon-btn { width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #e2e8f0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-.af-grid { display: grid; grid-template-columns: 360px 1fr; gap: 22px; }
-.af-card { background: rgba(15,23,42,0.55); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 20px; }
+.af-icon-btn { width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #e2e8f0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.af-grid { display: grid; grid-template-columns: 330px 1fr; gap: 14px; }
+.af-card { background: rgba(15,23,42,0.55); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 14px; }
 .af-source h3 { margin: 0 0 4px; }
 .af-sub { margin: 0 0 12px; color: #94a3b8; font-size: 0.8rem; }
 .af-input { width: 100%; background: rgba(15,23,42,0.9); border: 1px solid rgba(255,255,255,0.14); color: #f8fafc; padding: 9px 12px; border-radius: 10px; font-size: 0.85rem; outline: none; margin-bottom: 10px; }

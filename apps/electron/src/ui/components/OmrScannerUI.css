@@ -95,34 +95,47 @@
 
 /* ── Filter Bar ── */
 .omr-filter-bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(260px, 1.8fr) minmax(190px, 1.2fr) minmax(210px, 1.4fr);
   align-items: center;
   gap: 16px;
-  flex-wrap: wrap;
   padding: 12px 18px;
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.filter-group {
+@media (max-width: 1050px) {
+  .omr-filter-bar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+.omr-filter-bar .filter-group {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex: 1;
-  min-width: 200px;
+  min-width: 0;
+  width: 100%;
 }
 
-.filter-group label {
+.omr-filter-bar .filter-group label {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: #64748b;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.aquila-select {
+.omr-filter-bar .aquila-select {
   flex: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
   padding: 8px 12px;
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -131,10 +144,14 @@
   font-size: 0.85rem;
   outline: none;
   cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
-.aquila-select:focus {
+.omr-filter-bar .aquila-select:focus {
   border-color: #06b6d4;
 }
 

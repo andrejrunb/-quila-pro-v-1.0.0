@@ -5,6 +5,76 @@ import { registerIPCHandlers } from '../ipc/handlers';
 import * as path from 'path';
 import { getSessionSecret } from './services/sessionCrypto';
 
+export interface BiometricQuarantineGateParams {
+  lgpdService?: {
+    getBiometricQuarantineStatus: () => Promise<{
+      enabled: boolean;
+      defaultPath: string;
+      ripdApproved: boolean;
+      envFlagEnabled: boolean;
+      legalReference: string;
+    }>;
+  };
+  auditService?: {
+    record: (params: {
+      userId: string;
+      action: any;
+      details: string;
+      metadata?: Record<string, unknown>;
+      legalBasis?: 'ECA_DIGITAL_LEI_15211' | 'LGPD_ART_14' | 'LGPD_ART_16' | 'ANPD_NT_04_2026' | 'CNE_CP_15_2026' | 'LEGAL_OBLIGATION' | 'SECURITY_DEFENSE';
+      consentVerified?: boolean;
+    }) => Promise<any>;
+  };
+  startBiometricPipeline: () => Promise<void>;
+  onQuarantined?: (status: any) => void;
+}
+
+/**
+ * Gate soberano de inicialização biométrica (ANPD Despacho Decisório nº 2/2026 & NT 4/2026).
+ * Mantém FaceWorkerBridge, relay face-detected e FaceRecognition desligados por padrão.
+ */
+export async function initializeBiometricPipelineWithQuarantineGate(
+  params: BiometricQuarantineGateParams
+): Promise<{ started: boolean; status: any }> {
+  const status = params.lgpdService
+    ? await params.lgpdService.getBiometricQuarantineStatus()
+    : {
+        enabled: false,
+        defaultPath: 'QR_CARD_OR_NOMINAL_CALL',
+        ripdApproved: false,
+        envFlagEnabled: process.env.BIOMETRIC_ATTENDANCE_ENABLED === 'true',
+        legalReference:
+          'ANPD Despacho Decisório nº 2/2026/SFI & Nota Técnica nº 4/2026/FIS/CGF/ANPD (Processo 00261.007049/2024-06) — LGPD Arts. 11 e 14',
+      };
+
+  if (!status.enabled) {
+    console.warn(
+      `[ORCHESTRATOR] Quarentena biométrica ANPD ativa (${status.defaultPath}). FaceWorkerBridge, relay face-detected e FaceRecognition bloqueados na inicialização.`
+    );
+    try {
+      await params.auditService?.record({
+        userId: 'SYSTEM_ORCHESTRATOR',
+        action: 'ANPD_PARANA_BIOMETRIC_QUARANTINE_BLOCKED',
+        details: 'Startup biométrico bloqueado pela Quarentena ANPD (Despacho 2/2026 & NT 4/2026). Crachá QR e Chamada Nominal permanecem operacionais.',
+        metadata: {
+          envFlagEnabled: status.envFlagEnabled,
+          ripdApproved: status.ripdApproved,
+          defaultPath: status.defaultPath,
+        },
+        legalBasis: 'ANPD_NT_04_2026',
+        consentVerified: false,
+      });
+    } catch (auditErr) {
+      console.warn('[ORCHESTRATOR] Falha ao registrar auditoria de quarentena biométrica ANPD:', auditErr);
+    }
+    params.onQuarantined?.(status);
+    return { started: false, status };
+  }
+
+  await params.startBiometricPipeline();
+  return { started: true, status };
+}
+
 export class SovereignOrchestrator {
   /**
    * Fase 1: Boot Crítico (DB + Auth + Janela)
@@ -92,23 +162,48 @@ export class SovereignOrchestrator {
         const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
         const resourcesPath = process.resourcesPath || '';
 
-        // 1. FaceWorker (IA)
-        const { FaceWorkerBridge } = await import('./services/FaceWorkerBridge');
-        const faceWorker = new FaceWorkerBridge(isDev, resourcesPath);
-        sovereignRegistry.registerInstance('faceWorker', faceWorker);
-        
-        // Detect hardware and start workers
-        await faceWorker.detectHardware();
-        await faceWorker.start();
-        
-        faceWorker.on('face-detected', (payload: any) => {
-          const win = sovereignRegistry.getContext().mainWindow;
-          if (win && !win.isDestroyed()) {
-            win.webContents.send('face-detected', payload);
-          }
-        });
+        // 1. FaceWorker & FaceRecognition — Gate ANPD Despacho 2/2026 & NT 4/2026
+        const database = sovereignRegistry.getDatabase();
+        const registryCtx = sovereignRegistry.getContext();
+        const { ZeroBypassAuditService } = await import('./services/ZeroBypassAuditService');
+        await initializeBiometricPipelineWithQuarantineGate({
+          lgpdService: registryCtx.lgpdService,
+          auditService: ZeroBypassAuditService.getInstance(database),
+          startBiometricPipeline: async () => {
+            const { FaceWorkerBridge } = await import('./services/FaceWorkerBridge');
+            const faceWorker = new FaceWorkerBridge(isDev, resourcesPath);
+            sovereignRegistry.registerInstance('faceWorker', faceWorker);
 
-        console.log('[ORCHESTRATOR] FaceWorkerBridge inicializado e pronto.');
+            await faceWorker.detectHardware();
+            await faceWorker.start();
+
+            faceWorker.on('face-detected', (payload: any) => {
+              const win = sovereignRegistry.getContext().mainWindow;
+              if (win && !win.isDestroyed()) {
+                win.webContents.send('face-detected', payload);
+              }
+            });
+
+            console.log('[ORCHESTRATOR] FaceWorkerBridge inicializado e pronto.');
+
+            const { FaceRecognition } = await import('./services/FaceRecognition');
+            const faceRecognition = new FaceRecognition(database, faceWorker, undefined, registryCtx.lgpdService);
+            await faceRecognition.loadModel();
+            sovereignRegistry.registerInstance('faceRecognition', faceRecognition);
+            console.log('[ORCHESTRATOR] FaceRecognition (Biometric Mesh) inicializado.');
+
+            const { FaceWorkerHealthMonitor } = await import('./services/FaceWorkerHealthMonitor');
+            const faceWorkerHealthMonitor = new FaceWorkerHealthMonitor(faceWorker);
+            faceWorkerHealthMonitor.start();
+            sovereignRegistry.registerInstance('faceWorkerHealthMonitor', faceWorkerHealthMonitor);
+          },
+          onQuarantined: (status) => {
+            const win = sovereignRegistry.getContext().mainWindow;
+            if (win && !win.isDestroyed()) {
+              win.webContents.send('biometric:quarantine-status', status);
+            }
+          },
+        });
 
         // 1.2 LocateAnything (IA)
         const { LocateAnythingBridge } = await import('./services/LocateAnythingBridge');
@@ -120,20 +215,6 @@ export class SovereignOrchestrator {
         } catch (laErr) {
           console.error('[ORCHESTRATOR] Erro ao iniciar LocateAnythingBridge:', laErr);
         }
-
-        // 1.1 FaceRecognition (Biometric Mesh Core) - v1000
-        const { FaceRecognition } = await import('./services/FaceRecognition');
-        const database = sovereignRegistry.getDatabase();
-        const faceRecognition = new FaceRecognition(database, faceWorker);
-        await faceRecognition.loadModel();
-        sovereignRegistry.registerInstance('faceRecognition', faceRecognition);
-        console.log('[ORCHESTRATOR] FaceRecognition (Biometric Mesh) inicializado.');
-
-        // 2. Health Monitor (Self-Healing)
-        const { FaceWorkerHealthMonitor } = await import('./services/FaceWorkerHealthMonitor');
-        const faceWorkerHealthMonitor = new FaceWorkerHealthMonitor(faceWorker);
-        faceWorkerHealthMonitor.start();
-        sovereignRegistry.registerInstance('faceWorkerHealthMonitor', faceWorkerHealthMonitor);
 
         // 3. Stress Test Service
         const { StressTestService } = await import('./services/StressTestService');
@@ -319,6 +400,27 @@ export class SovereignOrchestrator {
         sovereignRegistry.registerInstance('sovereignConsciousnessService', consciousnessService);
         sovereignRegistry.registerInstance('sovereignResilienceService', sovereignResilienceService);
         sovereignRegistry.registerInstance('sentinel', sovereignResilienceService);
+
+        // [Constituição v2.1] Auto-Throttling de Hardware e Telemetria Térmica para FaceWorker & UI
+        sovereignResilienceService.on('framerate-changed', (evt: any) => {
+          const activeFaceWorker = sovereignRegistry.getContext().faceWorker;
+          if (activeFaceWorker && typeof activeFaceWorker.setThrottle === 'function') {
+            activeFaceWorker.setThrottle(evt.isThrottled).catch((err: any) => {
+              console.warn('[ORCHESTRATOR] Falha ao acionar throttle térmico no FaceWorker:', err);
+            });
+          }
+          const win = sovereignRegistry.getContext().mainWindow;
+          if (win && !win.isDestroyed()) {
+            win.webContents.send('resilience:framerate-changed', evt);
+          }
+        });
+
+        sovereignResilienceService.on('thermal-anomaly', (evt: any) => {
+          const win = sovereignRegistry.getContext().mainWindow;
+          if (win && !win.isDestroyed()) {
+            win.webContents.send('resilience:thermal-anomaly', evt);
+          }
+        });
         sovereignRegistry.registerInstance('sovereignMeshService', sovereignMeshService);
         const { parentPortal } = await import('./services/ParentPortalService');
         const { WhatsAppMessagingService } = await import('./services/WhatsAppMessagingService');

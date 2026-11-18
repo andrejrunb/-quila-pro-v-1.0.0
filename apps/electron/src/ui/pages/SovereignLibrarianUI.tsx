@@ -476,9 +476,9 @@ const SovereignLibrarianUI: React.FC = () => {
           {activeTab === 'local' ? (
             <>
               <div className="map-controls">
-                <button className="map-btn"><Maximize2 size={18} /></button>
-                <button className="map-btn"><Layers size={18} /></button>
-                <button className="map-btn" onClick={loadPedagogicalContext}><Info size={18} /></button>
+                <button className="map-btn" aria-label="Expandir Mapa"><Maximize2 size={18} /></button>
+                <button className="map-btn" aria-label="Alternar Camadas"><Layers size={18} /></button>
+                <button className="map-btn" onClick={loadPedagogicalContext} aria-label="Informações Pedagógicas"><Info size={18} /></button>
               </div>
 
               <div className="semantic-search-overlay">

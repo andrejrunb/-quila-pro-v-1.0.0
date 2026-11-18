@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  FileText, 
   Smile, 
   Meh, 
   Frown, 
@@ -12,7 +11,8 @@ import {
   Sparkles,
   ClipboardList,
   CheckCircle,
-  BookOpen
+  BookOpen,
+  Tv
 } from 'lucide-react';
 import './TeacherDailyReport.css';
 
@@ -79,6 +79,22 @@ export const TeacherDailyReport: React.FC<TeacherDailyReportProps> = ({ onBack, 
 
   // Submission State
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isProjectionMode, setIsProjectionMode] = useState(false);
+
+  useEffect(() => {
+    const syncProjection = (ev: Event) => {
+      const detail = (ev as CustomEvent<{ active?: boolean } | boolean>).detail;
+      if (typeof detail === 'boolean') {
+        setIsProjectionMode(detail);
+      } else if (typeof detail === 'object' && detail && typeof detail.active === 'boolean') {
+        setIsProjectionMode(detail.active);
+      } else {
+        setIsProjectionMode(prev => !prev);
+      }
+    };
+    window.addEventListener('aquila:toggle-projection-mode', syncProjection);
+    return () => window.removeEventListener('aquila:toggle-projection-mode', syncProjection);
+  }, []);
 
   useEffect(() => {
     loadClasses();
@@ -326,7 +342,7 @@ export const TeacherDailyReport: React.FC<TeacherDailyReportProps> = ({ onBack, 
   };
 
   return (
-    <div className="teacher-daily-report-container animate-fade-in">
+    <div className={`teacher-daily-report-container animate-fade-in ${isProjectionMode ? 'projection-mode' : ''}`}>
       <header className="page-header flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button onClick={onBack} className="back-btn" title="Voltar ao Painel">
@@ -334,17 +350,34 @@ export const TeacherDailyReport: React.FC<TeacherDailyReportProps> = ({ onBack, 
           </button>
           <div>
             <h1>Relatório Diário IA <span>v1.0</span></h1>
-            <p className="subtitle">Pareceres socioemocionais e comportamentais • Portal Pedagógico</p>
+            <p className="subtitle">Registros pedagógicos diários • Portal Pedagógico</p>
           </div>
         </div>
-        <button 
-          className="send-btn flex items-center gap-2" 
-          onClick={handleSendToCoordination}
-          disabled={isSubmitting}
-        >
-          <Send size={16} />
-          <span>{isSubmitting ? 'Enviando...' : 'Enviar para Coordenação'}</span>
-        </button>
+        <div className="flex items-center gap-3">
+          <button 
+            type="button"
+            className={`btn-projection-toggle ${isProjectionMode ? 'active' : ''}`}
+            onClick={() => {
+              setIsProjectionMode(prev => {
+                const next = !prev;
+                window.dispatchEvent(new CustomEvent('aquila:toggle-projection-mode', { detail: { active: next } }));
+                return next;
+              });
+            }}
+            title="Projetar Relatório em Tela Cheia para Apresentação em Reunião Pedagógica"
+          >
+            <Tv size={16} />
+            <span>{isProjectionMode ? 'Sair da Projeção' : 'Projetar em Tela Cheia'}</span>
+          </button>
+          <button 
+            className="send-btn flex items-center gap-2" 
+            onClick={handleSendToCoordination}
+            disabled={isSubmitting}
+          >
+            <Send size={16} />
+            <span>{isSubmitting ? 'Enviando...' : 'Enviar para Coordenação'}</span>
+          </button>
+        </div>
       </header>
 
       {/* Select class */}
@@ -449,8 +482,8 @@ export const TeacherDailyReport: React.FC<TeacherDailyReportProps> = ({ onBack, 
                           <div className="flex items-center justify-between mb-2">
                             <label>Parecer / Observações do Professor</label>
                             <div className="flex gap-2">
-                              {/* Ditar - Apenas Mobile/Touch, Oculto no Desktop (Electron) */}
-                              {!(window as any).aquila && (
+                              {/* Ditar - Disponível quando Web Speech API estiver presente */}
+                              {('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) && (
                                 <button 
                                   type="button"
                                   className={`btn-voice-record flex items-center gap-1 ${isRecording ? 'recording' : ''}`}
@@ -548,7 +581,7 @@ export const TeacherDailyReport: React.FC<TeacherDailyReportProps> = ({ onBack, 
               <h3 className="text-sm font-bold flex items-center gap-2">
                 <BookOpen className="text-blue-400" size={16} /> Tópicos & Conteúdo Ministrado
               </h3>
-              {!(window as any).aquila && (
+              {Boolean((window as any).aquila?.invoke) && (
                 <button className="btn-autofill flex items-center gap-1.5 text-xs" onClick={handleAutofillContent}>
                   <Sparkles size={14} />
                   <span>Autopreencher via IA / Lousa</span>

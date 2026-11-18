@@ -8,9 +8,11 @@
 import { EventEmitter } from 'events';
 import { spawnSync } from 'child_process';
 import * as path from 'path';
+import * as fs from 'fs';
 import { db } from '../../database/Database';
 import { colabGpuBridge } from './ColabGpuBridge';
 import { colabTunnelWatchdog } from './ColabTunnelWatchdog';
+import { ZeroBypassAuditService } from './ZeroBypassAuditService';
 
 export interface ExamQuestionResult {
   questionNumber: number;
@@ -31,6 +33,13 @@ export interface ExamCorrectionReport {
   accuracyPct: number;
   confidence: number;
   questions: ExamQuestionResult[];
+  reviewStatus: 'PRE_CORRECAO_IA_PENDENTE_DOCENTE' | 'APROVADA_DOCENTE' | 'CONTESTADA';
+  requiresHumanTeacherValidation: boolean;
+  contestationChannelEnabled: boolean;
+  legalComplianceNotice: string;
+  teacherApprovedBy?: string;
+  teacherApprovedAt?: string;
+  contestationReason?: string;
   processedAt: string;
 }
 
@@ -136,11 +145,23 @@ export class OmrCorrectionService extends EventEmitter {
         template.totalQuestions,
         template.optionsCount || 5
       );
-      if (!localScan) {
-        throw new Error('[OmrCorrectionService] Leitura Óptica Offline Indisponível: a imagem fornecida não pôde ser processada pelo Kernel OMR Determinístico local (kernel_omr.py) e o worker GPU remoto está desconectado.');
+      if (localScan) {
+        detectedAnswers = localScan.answers;
+        confidence = localScan.confidenceAvg;
+      } else {
+        // Fallback Resiliente Tier 3: NVIDIA NIM Multimodal Vision (meta/llama-3.2-90b-vision-instruct)
+        const nvidiaScan = this.runNvidiaNimVisionOmr(
+          params.imageBuffer,
+          template.totalQuestions,
+          template.optionsCount || 5
+        );
+        if (nvidiaScan) {
+          detectedAnswers = nvidiaScan.answers;
+          confidence = nvidiaScan.confidenceAvg;
+        } else {
+          throw new Error('[OmrCorrectionService] Leitura Óptica Offline Indisponível: a imagem fornecida não pôde ser processada pelo Kernel OMR Determinístico local (kernel_omr.py), pelo NVIDIA NIM Vision nem pelo worker GPU remoto.');
+        }
       }
-      detectedAnswers = localScan.answers;
-      confidence = localScan.confidenceAvg;
     }
 
     // Avaliação questão a questão
@@ -178,7 +199,10 @@ export class OmrCorrectionService extends EventEmitter {
 
     const accuracyPct = totalPoints > 0 ? Math.round((earnedPoints / totalPoints) * 10000) / 100 : 0;
 
-    // Salvar correção no banco de dados SQLite
+    const legalComplianceNotice =
+      'Pré-correção óptica assistida por IA (Parecer CNE/CP nº 15/2026). A atribuição definitiva de nota depende de validação humana docente, com canal de contestação garantido.';
+
+    // Salvar correção no banco de dados SQLite com estado HITL obrigatório
     const correctionId = await db.saveOmrCorrection({
       templateId: params.templateId,
       studentId: params.studentId,
@@ -188,6 +212,10 @@ export class OmrCorrectionService extends EventEmitter {
       totalPoints,
       accuracyPct,
       confidence,
+      reviewStatus: 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+      requiresHumanTeacherValidation: true,
+      contestationChannelEnabled: true,
+      legalComplianceNotice,
     });
 
     const report: ExamCorrectionReport = {
@@ -200,11 +228,90 @@ export class OmrCorrectionService extends EventEmitter {
       accuracyPct,
       confidence,
       questions: questionsReport,
+      reviewStatus: 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+      requiresHumanTeacherValidation: true,
+      contestationChannelEnabled: true,
+      legalComplianceNotice,
       processedAt: new Date().toISOString(),
     };
 
     this.emit('exam:corrected', report);
     return report;
+  }
+
+  /**
+   * Validação humana docente obrigatória (Parecer CNE/CP nº 15/2026) sobre pré-correção OMR.
+   */
+  public async approveTeacherReview(correctionId: string, teacherId: string) {
+    if (!correctionId || !teacherId) {
+      throw new Error('[OmrCorrectionService] correctionId e teacherId são obrigatórios para validação docente.');
+    }
+
+    const dbRes = await db.approveOmrCorrectionReview(correctionId, teacherId);
+    const approvedAt = new Date().toISOString();
+
+    try {
+      const audit = ZeroBypassAuditService.getInstance(db);
+      await audit.record({
+        userId: teacherId,
+        action: 'OMR_CORRECTION_TEACHER_APPROVED',
+        details: `Pré-correção OMR ${correctionId} validada por docente humano (${teacherId}).`,
+        metadata: { correctionId, teacherId, approvedAt },
+        legalBasis: 'CNE_CP_15_2026',
+        consentVerified: true,
+      });
+    } catch {
+      // Fallback gracioso em testes sem trilha audit inicializada
+    }
+
+    const payload = {
+      success: dbRes.success,
+      correctionId,
+      reviewStatus: 'APROVADA_DOCENTE' as const,
+      requiresHumanTeacherValidation: false,
+      teacherApprovedBy: teacherId,
+      approvedAt,
+    };
+    this.emit('exam:teacher-approved', payload);
+    return payload;
+  }
+
+  /**
+   * Canal formal de contestação da pré-correção OMR (Parecer CNE/CP nº 15/2026).
+   */
+  public async contestCorrection(correctionId: string, reason: string, actorId: string) {
+    if (!correctionId || !reason || !reason.trim()) {
+      throw new Error('[OmrCorrectionService] correctionId e motivo da contestação são obrigatórios.');
+    }
+
+    const cleanActor = actorId || 'ACTOR_UNSPECIFIED';
+    const dbRes = await db.contestOmrCorrection(correctionId, reason.trim(), cleanActor);
+    const contestedAt = new Date().toISOString();
+
+    try {
+      const audit = ZeroBypassAuditService.getInstance(db);
+      await audit.record({
+        userId: cleanActor,
+        action: 'OMR_CORRECTION_CONTESTED',
+        details: `Pré-correção OMR ${correctionId} contestada: ${reason.trim()}`,
+        metadata: { correctionId, actorId: cleanActor, reason: reason.trim(), contestedAt },
+        legalBasis: 'CNE_CP_15_2026',
+        consentVerified: true,
+      });
+    } catch {
+      // Fallback gracioso em testes sem trilha audit inicializada
+    }
+
+    const payload = {
+      success: dbRes.success,
+      correctionId,
+      reviewStatus: 'CONTESTADA' as const,
+      contestationReason: reason.trim(),
+      contestedBy: cleanActor,
+      contestedAt,
+    };
+    this.emit('exam:contested', payload);
+    return payload;
   }
 
   public async listTemplates(classId?: string): Promise<Record<string, unknown>[]> {
@@ -270,6 +377,66 @@ export class OmrCorrectionService extends EventEmitter {
         answers: sanitizedAnswers,
         confidenceAvg: typeof parsed.confidence_avg === 'number' ? parsed.confidence_avg : 0.85,
       };
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Executa fallback de Visão Multimodal com NVIDIA NIM (Llama 3.2 90B Vision)
+   * quando o gabarito apresenta rasuras, baixa iluminação ou fiduciais danificados.
+   */
+  public runNvidiaNimVisionOmr(
+    imageBuffer: Buffer,
+    totalQuestions: number,
+    optionsCount: number
+  ): { answers: Record<string, string>; confidenceAvg: number } | null {
+    if (!imageBuffer || imageBuffer.length < 32) return null;
+
+    try {
+      const tempPath = path.resolve(process.env.TEMP || 'C:\\Windows\\Temp', `aquila_omr_${Date.now()}.jpg`);
+      fs.writeFileSync(tempPath, imageBuffer);
+
+      const workerPath = path.resolve(process.cwd(), 'scripts/nvidia_vision_worker.py');
+      if (!fs.existsSync(workerPath)) {
+        try { fs.unlinkSync(tempPath); } catch {}
+        return null;
+      }
+
+      const proc = spawnSync(
+        'python',
+        [
+          workerPath,
+          '--image',
+          tempPath,
+          '--omr',
+          '--questions',
+          String(totalQuestions)
+        ],
+        {
+          encoding: 'utf-8',
+          timeout: 45000,
+        }
+      );
+
+      try { fs.unlinkSync(tempPath); } catch {}
+
+      if (proc.status !== 0 || !proc.stdout) {
+        return null;
+      }
+
+      const parsed = JSON.parse(proc.stdout.trim()) as {
+        answers?: Record<string, string>;
+        confidence_avg?: number;
+      };
+
+      if (parsed.answers && Object.keys(parsed.answers).length > 0) {
+        return {
+          answers: parsed.answers,
+          confidenceAvg: typeof parsed.confidence_avg === 'number' ? parsed.confidence_avg : 0.92,
+        };
+      }
+      return null;
     } catch {
       return null;
     }

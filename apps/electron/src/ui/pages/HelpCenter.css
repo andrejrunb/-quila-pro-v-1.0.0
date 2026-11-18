@@ -3,9 +3,10 @@
    ═══════════════════════════════════════════════════════════ */
 
 .help-center {
-  padding: 32px;
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 16px;
   color: var(--text-primary, #f1f5f9);
 }
 
@@ -14,8 +15,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 28px;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 .hc-header-left {
@@ -64,11 +65,11 @@
 }
 
 /* ─── Search ───────────────────────────────────────────── */
-.hc-search-container { margin-bottom: 20px; }
+.hc-search-container { margin-bottom: 12px; }
 
 .hc-search-bar {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 20px; border-radius: 16px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: 12px;
   background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
   color: #94a3b8; transition: all 0.3s;
 }
@@ -95,8 +96,8 @@
 
 /* ─── Role Filter ─────────────────────────────────────── */
 .hc-role-filter {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
 }
 
@@ -123,8 +124,8 @@
 
 /* ─── Category Pills ───────────────────────────────────── */
 .hc-categories {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  margin-bottom: 20px;
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 14px;
 }
 
 .hc-cat-pill {
@@ -162,7 +163,7 @@
 
 .hc-article-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px; width: 100%;
+  padding: 11px 16px; width: 100%;
   background: none; border: none; color: #94a3b8; cursor: pointer;
   text-align: left;
 }
@@ -250,9 +251,9 @@
 
 /* ─── Shortcuts ────────────────────────────────────────── */
 .hc-shortcuts-section {
-  margin-top: 28px;
+  margin-top: 16px;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -290,12 +291,12 @@
 /* ─── Footer ───────────────────────────────────────────── */
 .hc-footer {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 14px; margin-top: 28px;
+  gap: 12px; margin-top: 16px;
 }
 
 .hc-footer-card {
-  display: flex; align-items: center; gap: 14px;
-  padding: 18px 22px; border-radius: 16px;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; border-radius: 14px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
   color: #94a3b8;

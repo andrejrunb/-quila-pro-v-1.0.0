@@ -1,13 +1,16 @@
 import { EventEmitter } from 'events';
 
 /**
- * Phase 241 — MicroExpressionService
- * Análise de micro-expressões faciais em tempo real via Computer Vision.
- * Detecta sinais de stress, ansiedade, agressividade ou fadiga.
+ * Phase 241 — MicroExpressionService (Neutralizado CNE/CP nº 15/2026)
+ * Inferência de micro-expressões, stress, ansiedade, agressividade, fadiga ou engajamento
+ * é VEDADA com vigência imediata pelo Parecer CNE/CP nº 15/2026 (Risco Excessivo).
  */
 export interface FacialAnalysis {
   faceId: string;
   timestamp: number;
+  blocked?: boolean;
+  complianceCode?: 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE';
+  reason?: string;
   emotions: {
     stress: number;      // 0-1
     anxiety: number;     // 0-1
@@ -25,76 +28,52 @@ export interface FacialAnalysis {
   riskScore: number; // 0-100
 }
 
+const CNE_PROHIBITED_REASON =
+  'Análise de micro-expressões e inferência emocional/afetiva vedadas pelo Parecer CNE/CP nº 15/2026 (Risco Excessivo).';
+
 class MicroExpressionService extends EventEmitter {
+  private readonly complianceCode = 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE' as const;
+
   constructor() {
     super();
-    this.startAnalysisLoop();
+    // Loop contínuo de inferência facial removido por determinação normativa CNE/CP nº 15/2026.
   }
 
-  private startAnalysisLoop() {
-    // Production Phase 321: Conecta com o Socket IPC do Edge Hub NPU
-    // O hardware envia vetores de características faciais via streaming
-    this.connectToEdgeHub();
+  public stop(): void {
+    // No-op: nenhum timer ou stream de micro-expressões é inicializado.
   }
 
-  private connectToEdgeHub() {
-    console.log('[AI-Sovereignty] Conectando ao fluxo de inferência do Edge Hub NPU...');
-    
-    // Simulação de hook de hardware v321 (Pronto para real-time socket)
-    const mockHwStream = setInterval(() => {
-      // Em produção, isso recebe dados binários do NPU e descompacta
-      const rawInference = this.generateSafeInference('stud-001');
-      this.processHardwareStream(rawInference);
-    }, 2000); 
-
-    // Guard para cleanup
-    process.on('SIGINT', () => clearInterval(mockHwStream));
-  }
-
-  private processHardwareStream(data: FacialAnalysis) {
-    if (data.riskScore > 75) {
-      console.warn(`[AI-Sovereignty] ALERTA DE ALTO RISCO: Estudante ${data.faceId} em ${data.riskScore}%`);
-      this.emit('high-risk-detected', data);
-    }
-    
-    this.emit('analysis-updated', data);
-    
-    // Encaminha para o Log Soberano (SovereignLog.ts)
-    this.emit('persist-inference', data);
+  public isBlocked(): boolean {
+    return true;
   }
 
   private generateSafeInference(studentId: string): FacialAnalysis {
-    const stress = 0.1 + Math.random() * 0.3; // Base realística
-    const anxiety = Math.random() * 0.2;
-    const aggression = 0.05; // Mínimo para evitar falso-positivo agressivo sem HW
-    const fatigue = 0.2 + Math.random() * 0.4;
-    const engagement = Math.max(0.1, 1 - (stress + fatigue) / 1.5);
-    
-    const riskScore = (stress * 30) + (anxiety * 20) + (aggression * 50) + (fatigue * 40);
-
     return {
-      faceId: studentId,
+      faceId: studentId || 'neutralized',
       timestamp: Date.now(),
+      blocked: true,
+      complianceCode: this.complianceCode,
+      reason: CNE_PROHIBITED_REASON,
       emotions: {
-        stress: parseFloat(stress.toFixed(2)),
-        anxiety: parseFloat(anxiety.toFixed(2)),
-        aggression: parseFloat(aggression.toFixed(2)),
-        fatigue: parseFloat(fatigue.toFixed(2)),
-        engagement: parseFloat(engagement.toFixed(2)),
-        neutral: 1 - Math.max(stress, anxiety, aggression, fatigue)
+        stress: 0,
+        anxiety: 0,
+        aggression: 0,
+        fatigue: 0,
+        engagement: 0,
+        neutral: 1,
       },
       physicalSigns: {
-        pupilDilation: stress > 0.8,
-        heavyBreathingDetected: stress > 0.9,
-        rapidEyeMovement: anxiety > 0.7,
-        eyeClosureRate: fatigue > 0.8 ? 0.6 : 0.1
+        pupilDilation: false,
+        heavyBreathingDetected: false,
+        rapidEyeMovement: false,
+        eyeClosureRate: 0,
       },
-      riskScore: Math.min(100, Math.round(riskScore))
+      riskScore: 0,
     };
   }
 
-  public getLiveAnalysis(): FacialAnalysis {
-    return this.generateSafeInference('stud-001');
+  public getLiveAnalysis(studentId = 'neutralized'): FacialAnalysis {
+    return this.generateSafeInference(studentId);
   }
 }
 

@@ -101,8 +101,8 @@ export default function Blog() {
       setNewsletterConsent(false);
     } catch {
       setNewsletterStatus({
-        state: "success",
-        message: "Inscrição registrada localmente com sucesso.",
+        state: "error",
+        message: "Falha de conexão ao registrar inscrição. Tente novamente.",
       });
     }
   }

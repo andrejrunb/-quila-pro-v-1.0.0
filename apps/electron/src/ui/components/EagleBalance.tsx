@@ -8,12 +8,12 @@ export const EagleBalance: React.FC<{ userId: string }> = ({ userId }) => {
 
     useEffect(() => {
         const updateBalance = async () => {
-            if (window.aquila) {
+            if (typeof window.aquila?.invoke === 'function') {
                 // Simulação via invoke até exportarmos o serviço real para a bridge IPC
-                const wallet = await window.aquila.invoke('gamification:get-wallet', userId);
-                if (wallet) {
+                const wallet = await window.aquila.invoke('gamification:get-wallet', userId).catch(() => null);
+                if (wallet && typeof wallet.balance === 'number') {
                     setBalance(wallet.balance);
-                    if (wallet.transactions.length > 0) {
+                    if (Array.isArray(wallet.transactions) && wallet.transactions.length > 0) {
                         setLastTx(wallet.transactions[0].reason);
                     }
                 }

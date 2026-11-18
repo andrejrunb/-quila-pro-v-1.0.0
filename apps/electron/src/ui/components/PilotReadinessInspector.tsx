@@ -39,7 +39,7 @@ export const PilotReadinessInspector: React.FC = () => {
     },
     {
       id: 'p1_applets',
-      title: 'Motor Khan Academy Perseus & H5P Offline',
+      title: 'Motor Exercícios Formativos Áquila & H5P Offline',
       description: '6 modalidades interativas: plano cartesiano SVG, retas e hotspots.',
       status: 'READY',
       details: 'Execução 100% offline-first sem tráfego de rede externo (LGPD Art. 14).'
@@ -153,7 +153,7 @@ Veredito da Governança: ${auditVerdict === 'APPROVED' ? '🟢 APROVADO PARA PRO
 - Importação em Lote SQLite: [OK] Validação 5 Fases, Idempotência Ativa
 - Playlists em 5 Atos & Game Maker: [OK] XP e Sovereign Coins integrados
 - Sovereign Essay Lab 1000: [OK] 5 Competências do ENEM + OCR Neural
-- Khan Academy Perseus & H5P Offline: [OK] 6 Modalidades STEM 100% offline
+- Exercícios Formativos Áquila & H5P Offline: [OK] 6 Modalidades STEM 100% offline
 - Radar de Provas & SFT Contínuo: [OK] 2.325 links e 345 pares SFT consolidados
 
 ================================================================================

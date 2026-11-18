@@ -4,7 +4,7 @@ import {
   MapPin, Send, LogIn, LogOut, Clock,
   Star, AlertTriangle, CheckCircle2, ChevronLeft,
   Wallet, QrCode, Copy, Check, Users, ShieldCheck,
-  FileSignature, Sparkles, RefreshCw
+  FileSignature, Sparkles, RefreshCw, UserCheck
 } from 'lucide-react';
 import './MobileParentApp.css';
 
@@ -212,7 +212,7 @@ export const MobileParentApp: React.FC<MobileParentAppProps> = ({
     const userQuery = chatInput.trim();
     setChatInput('');
 
-    // Resposta inteligente da Secretaria / Albus IA
+    // Resposta inteligente da Secretaria / Mapeador Curricular Áquila IA
     setTimeout(() => {
       let reply = 'Recebemos sua mensagem! Nossa equipe retornará em breve. Em caso de urgência, contate a portaria interna.';
       if (userQuery.toLowerCase().includes('nota') || userQuery.toLowerCase().includes('boletim')) {
@@ -775,7 +775,7 @@ export const MobileParentApp: React.FC<MobileParentAppProps> = ({
         {/* TAB 7: CHAT COM ESCOLA & ALBUS IA */}
         {activeTab === 'chat' && (
           <>
-            <p className="mpa-section-title">Canal Direto com Secretaria & Albus IA</p>
+            <p className="mpa-section-title">Canal Direto com Secretaria & Mapeador Curricular Áquila IA</p>
             <div className="mpa-chat-window">
               <div className="mpa-chat-messages">
                 {chatMessages.map(msg => (

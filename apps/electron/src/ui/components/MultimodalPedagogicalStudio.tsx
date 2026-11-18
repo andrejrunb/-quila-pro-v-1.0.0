@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   Sparkles, Radio, Play, Pause, Square, Volume2, Copy, Check,
   Send, Layers, Box, HelpCircle, ArrowRight, Share2, Printer,
-  RotateCcw, Sliders, Brain, BookOpen, Trophy, CheckCircle2, ChevronRight
+  RotateCcw, Sliders, Brain, BookOpen, Trophy, CheckCircle2, ChevronRight, Video
 } from 'lucide-react';
 import './MultimodalPedagogicalStudio.css';
 
@@ -19,7 +19,7 @@ interface ChunkCard {
   content: string;
 }
 
-interface WordwallBox {
+interface GameMysteryBox {
   id: number;
   term: string;
   definition: string;
@@ -34,7 +34,7 @@ interface PresetData {
   everydayHook: string;
   podcast: PodcastLine[];
   chunks: ChunkCard[];
-  boxes: WordwallBox[];
+  boxes: GameMysteryBox[];
 }
 
 const PRESETS: Record<string, PresetData> = {
@@ -230,7 +230,7 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
   const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
   const [currentLineIdx, setCurrentLineIdx] = useState<number>(-1);
   const [openedBoxes, setOpenedBoxes] = useState<Record<number, boolean>>({});
-  const [selectedBoxModal, setSelectedBoxModal] = useState<WordwallBox | null>(null);
+  const [selectedBoxModal, setSelectedBoxModal] = useState<GameMysteryBox | null>(null);
   const [readingLevel, setReadingLevel] = useState<'em' | 'tdah' | 'med'>('em');
   const [copiedText, setCopiedText] = useState<string | null>(null);
   const [customTopicInput, setCustomTopicInput] = useState<string>('');
@@ -302,7 +302,7 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
     setTimeout(() => setCopiedText(null), 2500);
   };
 
-  const toggleBox = (box: WordwallBox) => {
+  const toggleBox = (box: GameMysteryBox) => {
     setOpenedBoxes(prev => ({ ...prev, [box.id]: true }));
     setSelectedBoxModal(box);
   };
@@ -445,7 +445,7 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
           onClick={() => setActiveTab('chunks')}
         >
           <Sliders size={16} />
-          <span>2. Fracionamento & Nivelamento (Estilo Brisk)</span>
+          <span>2. Fracionamento & Nivelamento Áquila</span>
         </button>
 
         <button
@@ -454,7 +454,7 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
           onClick={() => setActiveTab('wordwall')}
         >
           <Box size={16} />
-          <span>3. Jogos Gamificados (Estilo Wordwall)</span>
+          <span>3. Jogos Didáticos & Desafios Áquila</span>
         </button>
 
         <button
@@ -463,7 +463,7 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
           onClick={() => setActiveTab('video-quiz')}
         >
           <Video size={16} />
-          <span>4. Vídeo para Quiz & Notas (Estilo Brisk)</span>
+          <span>4. Vídeo para Quiz & Síntese Áquila</span>
         </button>
       </div>
 
@@ -649,7 +649,7 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
             <div>
               <h4 style={{ margin: 0, fontSize: '1rem', color: '#f8fafc', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Video size={18} color="#a855f7" />
-                Brisk Video-to-Quiz & Descompressor de Videoaulas
+                Gerador de Quiz por Vídeo & Descompressor Áquila
               </h4>
               <p style={{ margin: '4px 0 0 0', fontSize: '0.82rem', color: '#94a3b8' }}>
                 Extrai marcos cognitivos por timestamp, gera 3 perguntas calibradas (DOK 1-3) e resumo para os alunos.
@@ -710,7 +710,7 @@ export const MultimodalPedagogicalStudio: React.FC = () => {
             <div className="mms-milestone-item">
               <span className="mms-milestone-time">09:15 — 12:00</span>
               <strong style={{ fontSize: '0.85rem', color: '#f8fafc' }}>Fechamento & Síntese</strong>
-              <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Resolução guiada passo a passo pelo método Kumon.</span>
+              <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Resolução guiada passo a passo pelo método de maestria progressiva Áquila.</span>
             </div>
           </div>
 

@@ -17,7 +17,8 @@ import {
   ChevronRight,
   TrendingUp,
   HelpCircle,
-  Zap
+  Zap,
+  Users
 } from 'lucide-react';
 import {
   TRI_ITEM_BANK,
@@ -77,6 +78,7 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
   const [report, setReport] = useState<FullOmrReport | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [syncStatus, setSyncStatus] = useState<boolean>(false);
+  const [teacherHitlConfirmed, setTeacherHitlConfirmed] = useState<boolean>(false);
   const [printMode, setPrintMode] = useState<'SINGLE' | 'BATCH'>('SINGLE');
 
   // Estados do Criador de Simulado
@@ -99,7 +101,7 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
         if (cachedStr) {
           activeFromFoundry = JSON.parse(cachedStr);
         }
-      } catch (_) {}
+      } catch { /* gabarito ativo em sessão opcional */ }
 
       let loadedList: any[] = [];
       if ((window as any).aquila?.omr?.listTemplates) {
@@ -226,20 +228,20 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
 
       const totalQ = currentTemplate.totalQuestions || 10;
       const answerKey: Record<string, string> = currentTemplate.answerKey || {};
-      const options = ['A', 'B', 'C', 'D', 'E'];
 
-      // Mapeamento com questões do TRI Item Bank
+      // Mapeamento com questões do TRI Item Bank (sem fabricação sintética de respostas)
       const responsesForTri: { question: TriQuestion; isCorrect: boolean }[] = [];
       const questionsReport: OmrQuestionResult[] = [];
 
       for (let i = 1; i <= totalQ; i++) {
         const qKey = String(i);
         const expected = (answerKey[qKey] || 'C').toUpperCase();
-        
-        // Simulação com base na semente do estudante para consistência realista
-        const seed = (studentName.charCodeAt(0) + i * 3) % 10;
-        const detected = rawReport?.questions?.[i - 1]?.detectedAnswer || (seed > 2 ? expected : options[(seed + 1) % 5]);
-        const isCorrect = detected === expected;
+        const rawDetected = rawReport?.questions?.[i - 1]?.detectedAnswer;
+        const detected =
+          typeof rawDetected === 'string' && rawDetected.trim()
+            ? rawDetected.trim().toUpperCase()
+            : null;
+        const isCorrect = detected !== null && detected === expected;
 
         // Associar a um item do Banco TRI para calibração
         const triItem = TRI_ITEM_BANK[(i - 1) % TRI_ITEM_BANK.length];
@@ -274,6 +276,8 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
         processedAt: new Date().toLocaleTimeString('pt-BR')
       };
 
+      setSyncStatus(false);
+      setTeacherHitlConfirmed(false);
       setReport(fullReport);
       stopCamera();
       (window as any).showToast?.(`Gabarito de ${studentName} corrigido com sucesso!`, 'success');
@@ -310,9 +314,16 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
     }
   };
 
-  // Sincronizar Nota no Diário do Professor
+  // Sincronizar Nota no Diário do Professor (exige confirmação explícita HITL)
   const handleSyncToGradebook = async () => {
     if (!report) return;
+    if (!teacherHitlConfirmed) {
+      (window as any).showToast?.(
+        'Confirme a revisão docente (HITL) antes de lançar a nota oficial no Diário.',
+        'warning'
+      );
+      return;
+    }
 
     try {
       const studentId = report.studentId || selectedStudentId;
@@ -328,7 +339,7 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
             type: 'SIMULADO_TRI_OMR',
             weight: 1.0
           });
-        } catch (_) {}
+        } catch { /* gabarito ativo em sessão opcional */ }
       }
 
       // 2. Sincronizar no localStorage de todas as disciplinas ativas no TeacherGradebook
@@ -355,7 +366,7 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
                 });
                 localStorage.setItem(key, JSON.stringify(updated));
               }
-            } catch (_) {}
+            } catch { /* gabarito ativo em sessão opcional */ }
           }
         });
       });
@@ -373,7 +384,7 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
             accuracyPct: report.accuracyPct,
             processedAt: new Date().toISOString()
           });
-        } catch (_) {}
+        } catch { /* gabarito ativo em sessão opcional */ }
       }
 
       // 4. Emitir evento local para atualização reativa do Diário
@@ -700,14 +711,66 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
                     </div>
                   </div>
 
+                  {/* Banner CNE/CP nº 15/2026 & Confirmação Docente Obrigatória (HITL) */}
+                  {(() => {
+                    const unverifiedCount = report.questions.filter((q) => !q.detectedAnswer).length;
+                    return (
+                      <div
+                        style={{
+                          marginBottom: '12px',
+                          padding: '12px 14px',
+                          borderRadius: '10px',
+                          border: '1px solid rgba(245, 158, 11, 0.4)',
+                          background: 'rgba(245, 158, 11, 0.08)',
+                          color: '#fde68a',
+                          fontSize: '0.84rem',
+                          lineHeight: 1.45,
+                        }}
+                      >
+                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '6px' }}>
+                          <strong style={{ color: '#fef3c7' }}>
+                            RASCUNHO_IA / Pré-correção OMR — Pendente de Validação Docente
+                          </strong>
+                          <span style={{ fontSize: '0.75rem', opacity: 0.9 }}>
+                            CNE/CP nº 15/2026
+                          </span>
+                        </div>
+                        <p style={{ margin: '0 0 8px 0', color: '#fef3c7', opacity: 0.9 }}>
+                          A leitura óptica gera apenas pré-correção instrumental. O estudante/responsável tem direito à contestação e revisão pelo professor regente antes do lançamento oficial.
+                          {unverifiedCount > 0 && ` (${unverifiedCount} questão(ões) sem marcação detectada exigem revisão manual.)`}
+                        </p>
+                        <label
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            cursor: 'pointer',
+                            fontWeight: 600,
+                            color: '#ffffff',
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={teacherHitlConfirmed}
+                            onChange={(e) => setTeacherHitlConfirmed(e.target.checked)}
+                          />
+                          <span>Aprovar e Publicar como Docente (conferi gabarito e marcações)</span>
+                        </label>
+                      </div>
+                    );
+                  })()}
+
                   {/* Ação de Sincronia com o Diário */}
                   <div className="sync-action-strip">
                     <button
                       className={`btn-sync-gradebook ${syncStatus ? 'synced' : ''}`}
                       onClick={handleSyncToGradebook}
+                      disabled={!teacherHitlConfirmed || syncStatus}
+                      style={{ opacity: !teacherHitlConfirmed && !syncStatus ? 0.55 : 1, cursor: !teacherHitlConfirmed && !syncStatus ? 'not-allowed' : 'pointer' }}
+                      title={!teacherHitlConfirmed ? 'Marque a confirmação docente (HITL) acima para habilitar o lançamento oficial' : 'Confirmar e lançar nota validada no Diário de Classe'}
                     >
                       {syncStatus ? <Check size={18} /> : <Save size={18} />}
-                      {syncStatus ? 'Sincronizado no Diário e Mobile!' : 'Lançar Nota no Diário de Classe'}
+                      {syncStatus ? 'Sincronizado no Diário e Mobile!' : 'Aprovar e Lançar Nota no Diário'}
                     </button>
                     {onNavigate && (
                       <button
@@ -743,8 +806,8 @@ export const OmrScannerUI: React.FC<OmrScannerUIProps> = ({ onNavigate, onBack }
                               <strong>{q.expectedAnswer}</strong>
                             </div>
                             <div className={`ans-tag detected ${q.isCorrect ? 'ok' : 'err'}`}>
-                              <small>RESPOSTA</small>
-                              <strong>{q.detectedAnswer || '—'}</strong>
+                              <small>{q.detectedAnswer ? 'RESPOSTA' : 'REVISÃO MANUAL'}</small>
+                              <strong>{q.detectedAnswer || 'Não detectado / Revisão manual'}</strong>
                             </div>
                           </div>
                         </div>

@@ -38,8 +38,13 @@ export class LocateAnythingBridge extends EventEmitter {
   async start(): Promise<void> {
     if (this.worker) return;
 
-    if (process.env.PLAYWRIGHT !== 'true' && !fs.existsSync(this.workerScript) && this.isDev) {
-      throw new Error(`locate_anything_worker.py não encontrado: ${this.workerScript}`);
+    if (process.env.PLAYWRIGHT !== 'true') {
+      if (this.isDev && !fs.existsSync(this.workerScript)) {
+        throw new Error(`locate_anything_worker.py não encontrado: ${this.workerScript}`);
+      }
+      if (!this.isDev && !fs.existsSync(this.pythonBin)) {
+        throw new Error(`aquila_locate_anything.exe não encontrado: ${this.pythonBin}`);
+      }
     }
 
     console.log(`[LocateAnythingBridge] Iniciando worker LocateAnything...`);

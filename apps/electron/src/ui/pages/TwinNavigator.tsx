@@ -132,7 +132,7 @@ export const TwinNavigator: React.FC = () => {
                <div className={`sync-status ${isSyncing ? 'syncing' : ''}`}>
                  <div className="pulse-dot" /> SYNC-PULSE ACTIVE
                </div>
-               <button className="header-btn"><Maximize2 size={18} /></button>
+               <button className="header-btn" aria-label="Tela Cheia"><Maximize2 size={18} /></button>
             </div>
           </div>
 
@@ -143,9 +143,9 @@ export const TwinNavigator: React.FC = () => {
              </div>
 
              <div className="map-controls-floating">
-                <button className="float-btn"><BrainCircuit size={20} /></button>
-                <button className="float-btn"><Search size={20} /></button>
-                <button className="float-btn"><Cpu size={20} /></button>
+                <button className="float-btn" aria-label="Circuito Cognitivo"><BrainCircuit size={20} /></button>
+                <button className="float-btn" aria-label="Buscar"><Search size={20} /></button>
+                <button className="float-btn" aria-label="Status de Hardware"><Cpu size={20} /></button>
              </div>
           </div>
         </main>

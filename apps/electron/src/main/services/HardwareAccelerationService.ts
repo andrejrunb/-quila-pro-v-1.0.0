@@ -73,12 +73,16 @@ export class HardwareAccelerationService {
     // 1. Testa NVIDIA NIM Cloud
     let nvidiaOnline = false;
     let nvidiaLatency = 0;
-    const nvidiaKey = process.env.NVIDIA_API_KEY || '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';
-    
-    if (nvidiaKey) {
+    let availableModelsCount = 33;
+    const nvidiaKey = nvidiaInferenceService.getPrimaryNimKey();
+    const externalDisabled =
+      process.env.AQUILA_DISABLE_EXTERNAL_APIS === 'true' ||
+      process.env.AQUILA_AIRGAP_ACTIVE === 'true';
+
+    if (nvidiaKey && !externalDisabled) {
       const t0 = Date.now();
       try {
-        const resp = await new Promise<boolean>((resolve) => {
+        const resp = await new Promise<{ ok: boolean; count?: number }>((resolve) => {
           const req = https.request({
             hostname: 'integrate.api.nvidia.com',
             path: '/v1/models',
@@ -86,13 +90,28 @@ export class HardwareAccelerationService {
             headers: { 'Authorization': `Bearer ${nvidiaKey}` },
             timeout: 5000
           }, (res) => {
-            resolve(res.statusCode === 200);
+            let body = '';
+            res.on('data', (chunk) => { body += chunk; });
+            res.on('end', () => {
+              if (res.statusCode === 200) {
+                try {
+                  const parsed = JSON.parse(body);
+                  const count = Array.isArray(parsed?.data) ? parsed.data.length : undefined;
+                  resolve({ ok: true, count });
+                } catch {
+                  resolve({ ok: true });
+                }
+              } else {
+                resolve({ ok: false });
+              }
+            });
           });
-          req.on('error', () => resolve(false));
-          req.on('timeout', () => { req.destroy(); resolve(false); });
+          req.on('error', () => resolve({ ok: false }));
+          req.on('timeout', () => { req.destroy(); resolve({ ok: false }); });
           req.end();
         });
-        nvidiaOnline = resp;
+        nvidiaOnline = resp.ok;
+        if (resp.count) availableModelsCount = resp.count;
         nvidiaLatency = Date.now() - t0;
       } catch {
         nvidiaOnline = false;
@@ -108,8 +127,8 @@ export class HardwareAccelerationService {
       nvidiaCloud: {
         status: nvidiaOnline ? 'ONLINE' : 'OFFLINE',
         latencyMs: nvidiaLatency,
-        activeModel: 'minimaxai/minimax-m3.1-flash',
-        availableModelsCount: 85
+        activeModel: 'nvidia/nemotron-3.5-lightning-30b-a3b',
+        availableModelsCount
       },
       colabGpu: {
         status: (colabHealth?.status === 'HEALTHY' || colabHealth?.status === 'DEGRADED') ? 'ONLINE' : 'STANDBY',
@@ -157,10 +176,14 @@ export class HardwareAccelerationService {
   }> {
     const t0 = Date.now();
     try {
+      const targetModel =
+        role === 'vision'
+          ? 'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning'
+          : 'nvidia/nemotron-3.5-lightning-30b-a3b';
       const res = await nvidiaInferenceService.generateCompletion(
         `Você é o Agente Especialista '${role}' do Áquila Pro operando no cluster DGX H100. Gere soluções de alta fidelidade e código limpo.`,
         prompt,
-        role === 'vision' ? 'meta/llama-3.2-90b-vision-instruct' : 'minimaxai/minimax-m3.1-flash'
+        targetModel
       );
       return {
         success: true,

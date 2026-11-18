@@ -41,7 +41,7 @@ export const SecurityPortal: React.FC<SecurityPortalProps> = ({ currentPage, onN
         return <IoTManager />;
       case 'diagnostics':
         return <HardwareDiagnostics />;
-      case 'infrastructure':
+      case 'infrastructure': {
         const isDirectorAdminInfra = ['director', 'admin', 'diretoria', 'executive'].includes(userRole.toLowerCase());
         if (!isDirectorAdminInfra) {
           return (
@@ -57,7 +57,8 @@ export const SecurityPortal: React.FC<SecurityPortalProps> = ({ currentPage, onN
           );
         }
         return <InfrastructureDashboard onBack={onBack} />;
-      case 'hardware':
+      }
+      case 'hardware': {
         const isDirectorOrAdmin = ['director', 'admin', 'diretoria', 'executive'].includes(userRole.toLowerCase());
         if (!isDirectorOrAdmin) {
           return (
@@ -73,6 +74,7 @@ export const SecurityPortal: React.FC<SecurityPortalProps> = ({ currentPage, onN
           );
         }
         return <HardwareCalculator onBack={onBack} />;
+      }
       case 'predictive-absence':
         return <PredictiveAbsenceDashboard onBack={onBack} />;
       case 'visitor-management':

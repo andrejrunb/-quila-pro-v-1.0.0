@@ -74,8 +74,9 @@
 
 .areas-filter-strip {
   display: flex;
-  gap: 0.25rem;
-  overflow-x: auto;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  overflow-x: hidden;
   padding-bottom: 0.25rem;
 }
 

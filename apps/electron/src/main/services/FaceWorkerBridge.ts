@@ -71,8 +71,9 @@ export class FaceWorkerBridge extends EventEmitter {
     await this.detectHardware();
 
     // 2. Validar Estrutura Básica
-    if (process.env.PLAYWRIGHT !== 'true' && !fs.existsSync(this.workerScript)) {
-      throw new Error(`face_worker.py não encontrado: ${this.workerScript}`);
+    const targetPath = this.workerScript || this.pythonBin;
+    if (process.env.PLAYWRIGHT !== 'true' && !fs.existsSync(targetPath)) {
+      throw new Error(`${this.workerScript ? 'face_worker.py' : 'aquila_face_worker.exe'} não encontrado: ${targetPath}`);
     }
 
     // 3. Validar Modelos Críticos (Aviso se faltar para NPU)
@@ -178,7 +179,10 @@ export class FaceWorkerBridge extends EventEmitter {
         const rl = readline.createInterface({ input: worker.stdout });
         rl.on('line', (line: string) => this._handleLine(line));
 
+        let startupTimer: NodeJS.Timeout | undefined;
+
         worker.on('error', (err) => {
+            if (startupTimer) clearTimeout(startupTimer);
             console.error(`[FaceWorkerBridge] Erro no Worker ${index}:`, err);
             this.emit('error', err);
             reject(err);
@@ -197,6 +201,7 @@ export class FaceWorkerBridge extends EventEmitter {
 
         const onReady = (data: any) => {
             if (data.type === 'ready') {
+                if (startupTimer) clearTimeout(startupTimer);
                 this.readyCount++;
                 this.workers.push(worker);
                 this.off('_raw', onReady);
@@ -205,8 +210,8 @@ export class FaceWorkerBridge extends EventEmitter {
         };
         this.on('_raw', onReady);
 
-        const startupTimeout = process.env.NODE_ENV === 'test' ? 45_000 : 15_000;
-        setTimeout(() => {
+        const startupTimeout = 45_000;
+        startupTimer = setTimeout(() => {
             this.off('_raw', onReady);
             reject(new Error(`Worker ${index} timeout ao inicializar`));
         }, startupTimeout);

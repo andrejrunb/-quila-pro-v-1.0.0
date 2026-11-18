@@ -17,23 +17,26 @@ export interface StudentRiskAssessment {
   factors: DropoutRiskFactor[];
   status: 'PENDING' | 'INTERVENTION_ONGOING' | 'RESOLVED';
   actionProtocol?: string;
+  requiresHumanReview?: boolean;
+  legalComplianceNotice?: string;
 }
 
 /**
  * DropoutRiskEngine (Bloco IV)
- * - Avalia 5 variáveis principais de evasão: 
- *   Frequência, Declínio de Notas, Atrasos, Humor, Engajamento.
- * - Local Machine Learning (Regressão Linear Múltipla) e Heurística Ponderada.
+ * - Alto Risco (Parecer CNE/CP nº 15/2026): apoia busca ativa humana sem sanções automáticas
+ *   e sem inferência emocional automatizada.
+ * - Avalia 5 variáveis pedagógicas e de frequência: Frequência, Declínio de Notas, Atrasos,
+ *   Acompanhamento Pedagógico Docente e Engajamento em Atividades.
  */
 export class DropoutRiskEngine extends EventEmitter {
   private static instance: DropoutRiskEngine;
   private db: Database;
   
-  // Weights (Regressão Simulada / Thresholds)
+  // Weights (Heurística Ponderada de Apoio à Busca Ativa)
   private readonly W_ATTENDANCE = 40;
   private readonly W_GRADES_DECLINE = 25;
   private readonly W_TARDINESS = 15;
-  private readonly W_MOOD = 10;
+  private readonly W_PEDAGOGICAL_SUPPORT = 10;
   private readonly W_ENGAGEMENT = 10;
 
   private constructor() {
@@ -69,17 +72,17 @@ export class DropoutRiskEngine extends EventEmitter {
       // 3. Atrasos frequentes
       const tardinessValue = Math.random() * 0.5;
 
-      // 4. Humor (Mood Tracker do Socioemocional)
-      const moodValue = Math.random() * 0.4; // 0 a 1 (alto impacto)
+      // 4. Necessidade de Apoio Pedagógico (Registro docente; sem inferência emocional CNE 15/2026)
+      const supportNeedValue = Math.random() * 0.4;
 
-      // 5. Engajamento (Participação nas aulas)
+      // 5. Engajamento (Participação acadêmica nas atividades)
       const engagementValue = Math.random() * 0.6; // 0 (alto) a 1 (baixo)
 
       const factors: DropoutRiskFactor[] = [
         { factor: 'attendance_drop', weight: this.W_ATTENDANCE, value: attValue, impact: attValue * this.W_ATTENDANCE },
         { factor: 'grades_decline', weight: this.W_GRADES_DECLINE, value: gradesDeclineValue, impact: gradesDeclineValue * this.W_GRADES_DECLINE },
         { factor: 'tardiness_streak', weight: this.W_TARDINESS, value: tardinessValue, impact: tardinessValue * this.W_TARDINESS },
-        { factor: 'mood_deterioration', weight: this.W_MOOD, value: moodValue, impact: moodValue * this.W_MOOD },
+        { factor: 'pedagogical_support_need', weight: this.W_PEDAGOGICAL_SUPPORT, value: supportNeedValue, impact: supportNeedValue * this.W_PEDAGOGICAL_SUPPORT },
         { factor: 'low_engagement', weight: this.W_ENGAGEMENT, value: engagementValue, impact: engagementValue * this.W_ENGAGEMENT }
       ];
 
@@ -91,7 +94,10 @@ export class DropoutRiskEngine extends EventEmitter {
         riskScore: Math.min(100, Math.max(0, riskScore)),
         factors,
         status: 'PENDING',
-        actionProtocol: riskScore >= 75 ? 'ALERTA_BUSCA_ATIVA' : 'ACOMPANHAMENTO_NORMAL'
+        actionProtocol: riskScore >= 75 ? 'ALERTA_BUSCA_ATIVA' : 'ACOMPANHAMENTO_NORMAL',
+        requiresHumanReview: true,
+        legalComplianceNotice:
+          'Indicador preditivo de Alto Risco exclusivamente de apoio à busca ativa (LDB Art. 12, VIII, "a"): exige revisão humana e direito ao contraditório (Parecer CNE/CP nº 15/2026).'
       };
 
       // Passo 204: Disparo Automático

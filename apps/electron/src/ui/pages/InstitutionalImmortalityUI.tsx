@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Infinity, 
+  Infinity as InfinityIcon, 
   Sparkles, 
   ShieldCheck, 
   ArrowRightLeft, 
@@ -38,7 +38,7 @@ const InstitutionalImmortalityUI: React.FC = () => {
       <header className="immortality-header">
         <div className="flex items-center gap-6">
           <div className="icon-wrap">
-             <Infinity size={40} className="text-indigo-400" />
+             <InfinityIcon size={40} className="text-indigo-400" />
           </div>
           <div>
             <h1>Institutional Immortality</h1>
@@ -109,7 +109,7 @@ const InstitutionalImmortalityUI: React.FC = () => {
       </div>
 
       <footer className="immortality-footer">
-         <Infinity size={14} className="text-indigo-400" />
+         <InfinityIcon size={14} className="text-indigo-400" />
          <span>Collective Legacy: Garantindo que a alma da escola sobreviva ao tempo.</span>
       </footer>
     </div>

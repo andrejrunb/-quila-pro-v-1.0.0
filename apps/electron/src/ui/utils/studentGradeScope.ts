@@ -13,7 +13,84 @@
 
 import { STUDENTS } from '../../database/studentsData';
 
-export type EducationStageScope = 'EF_ANOS_INICIAIS' | 'EF_ANOS_FINAIS' | 'ENSINO_MEDIO' | 'UNVERIFIED';
+export type EducationStageScope = 'EDUCACAO_INFANTIL' | 'EF_ANOS_INICIAIS' | 'EF_ANOS_FINAIS' | 'ENSINO_MEDIO' | 'UNVERIFIED';
+
+export interface StageAiPolicy {
+  stage: EducationStageScope;
+  riskTier: 'RISCO_EXCESSIVO_BLOQUEADO' | 'ALTO_RISCO_RESTRITO' | 'RISCO_MODERADO';
+  directStudentAiAllowed: boolean;
+  autonomousChatbotAllowed: boolean;
+  teacherMediationRequired: boolean;
+  policyMode:
+    | 'BLOCKED_INFANTIL_DOCENTE_ONLY'
+    | 'SUPERVISED_TEACHER_MEDIATED_ONLY'
+    | 'TEACHER_MEDIATED_SOCRATIC'
+    | 'UNVERIFIED_FAIL_SECURE';
+  legalReference: string;
+  guidance: string;
+}
+
+/**
+ * Avalia a permissão etária de uso de IA conforme Parecer CNE/CP nº 15/2026
+ * (homologado pelo MEC em 10/11/2026, DOU de 11/11/2026, Ed. 212, p. 141):
+ * - Educação Infantil: vedado uso direto por estudantes (apenas planejamento/acessibilidade docente).
+ * - Anos Iniciais (1º ao 5º ano EF): vedado acesso autônomo a IA generativa/chatbots; uso apenas sob mediação direta docente.
+ * - Anos Finais e Ensino Médio: uso pedagógico estruturado sob supervisão humana.
+ */
+export function evaluateStageAiPolicy(stage: EducationStageScope): StageAiPolicy {
+  const legalReference = 'Parecer CNE/CP nº 15/2026 (Despacho MEC 10/11/2026, DOU 11/11/2026)';
+  switch (stage) {
+    case 'EDUCACAO_INFANTIL':
+      return {
+        stage,
+        riskTier: 'RISCO_EXCESSIVO_BLOQUEADO',
+        directStudentAiAllowed: false,
+        autonomousChatbotAllowed: false,
+        teacherMediationRequired: true,
+        policyMode: 'BLOCKED_INFANTIL_DOCENTE_ONLY',
+        legalReference,
+        guidance:
+          'Educação Infantil: vedado o uso direto de IA por estudantes; recurso habilitado apenas para planejamento e acessibilidade docente.',
+      };
+    case 'EF_ANOS_INICIAIS':
+      return {
+        stage,
+        riskTier: 'ALTO_RISCO_RESTRITO',
+        directStudentAiAllowed: false,
+        autonomousChatbotAllowed: false,
+        teacherMediationRequired: true,
+        policyMode: 'SUPERVISED_TEACHER_MEDIATED_ONLY',
+        legalReference,
+        guidance:
+          'Anos Iniciais (1º ao 5º ano EF): vedado o acesso autônomo de crianças a chatbots e IA generativa; uso restrito a atividades conduzidas diretamente pelo professor.',
+      };
+    case 'EF_ANOS_FINAIS':
+    case 'ENSINO_MEDIO':
+      return {
+        stage,
+        riskTier: 'RISCO_MODERADO',
+        directStudentAiAllowed: true,
+        autonomousChatbotAllowed: true,
+        teacherMediationRequired: true,
+        policyMode: 'TEACHER_MEDIATED_SOCRATIC',
+        legalReference,
+        guidance:
+          'Anos Finais / Ensino Médio: uso socrático complementar sob mediação docente, sem atribuição autônoma de notas e com direito à contestação.',
+      };
+    default:
+      return {
+        stage: 'UNVERIFIED',
+        riskTier: 'ALTO_RISCO_RESTRITO',
+        directStudentAiAllowed: false,
+        autonomousChatbotAllowed: false,
+        teacherMediationRequired: true,
+        policyMode: 'UNVERIFIED_FAIL_SECURE',
+        legalReference,
+        guidance:
+          'Etapa escolar não verificada: acesso autônomo bloqueado por princípio fail-secure até confirmação de turma/etapa.',
+      };
+  }
+}
 
 export const DEFAULT_SCHOOL_TIMEZONE = 'America/Sao_Paulo';
 

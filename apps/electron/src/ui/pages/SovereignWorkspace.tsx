@@ -110,7 +110,7 @@ const SovereignWorkspace: React.FC = () => {
                onChange={(e) => setInput(e.target.value)}
                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
              />
-             <button onClick={handleSend} className="btn-send"><Send size={20} /></button>
+             <button onClick={handleSend} className="btn-send" aria-label="Enviar Mensagem"><Send size={20} /></button>
           </div>
           <p className="footer-disclaimer">
              <Info size={12} /> Áquila Pro v2.0.0 — IA Preditiva e Soberana.

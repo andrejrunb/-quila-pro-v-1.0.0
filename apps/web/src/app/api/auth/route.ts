@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
+import { authenticateDbUser, resolveEnvIdentityContext, tryRecordLoginAudit } from '@/lib/authDb';
 import { signSession } from '@/lib/session';
 import { timingSafeEqual } from 'crypto';
 import { PORTAL_ID_ROLES, ROLE_DESTINATIONS } from '@/lib/portalAccess';
 import type { PortalRole } from '@/lib/session';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 interface ConfiguredAccount {
   username: string;
@@ -47,8 +49,18 @@ function verifyPassword(provided: string, expected: string): boolean {
 }
 
 export async function POST(request: Request) {
+  let body: Record<string, unknown>;
   try {
-    const body = await request.json();
+    const parsed = await request.json();
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      return NextResponse.json({ error: 'Payload JSON inválido.' }, { status: 400 });
+    }
+    body = parsed as Record<string, unknown>;
+  } catch {
+    return NextResponse.json({ error: 'Corpo JSON inválido.' }, { status: 400 });
+  }
+
+  try {
     const { username, password, portalId } = body;
 
     if (typeof username !== 'string' || typeof password !== 'string' || !username.trim() || !password) {
@@ -56,38 +68,90 @@ export async function POST(request: Request) {
     }
 
     const cleanUser = username.trim().toLowerCase();
-    const userAccount = getConfiguredAccounts().get(cleanUser);
+    const rate = checkRateLimit(`auth:${getClientIp(request)}:${cleanUser}`, {
+      maxRequests: 15,
+      windowMs: 60_000,
+    });
+    if (!rate.allowed) {
+      return NextResponse.json(
+        { error: 'Muitas tentativas de autenticação. Aguarde alguns instantes.' },
+        { status: 429, headers: { 'Retry-After': String(rate.retryAfterSeconds) } }
+      );
+    }
 
-    if (!userAccount || !verifyPassword(password, userAccount.password)) {
+    const userAccount = getConfiguredAccounts().get(cleanUser);
+    let resolvedRole: PortalRole | null = null;
+    let resolvedUsername = cleanUser;
+    let resolvedUserId: string | undefined;
+    let resolvedInstitutionId: string | undefined;
+    let resolvedLinkedStudentIds: string[] | undefined;
+
+    if (userAccount && verifyPassword(password, userAccount.password)) {
+      resolvedRole = userAccount.role;
+      const envContext = await resolveEnvIdentityContext(cleanUser, userAccount.role);
+      resolvedUserId = envContext.userId;
+      resolvedInstitutionId = envContext.institutionId;
+      resolvedLinkedStudentIds = envContext.linkedStudentIds;
+    } else {
+      const dbUser = await authenticateDbUser(cleanUser, password);
+      if (dbUser) {
+        resolvedRole = dbUser.role;
+        resolvedUsername = dbUser.username;
+        resolvedUserId = dbUser.userId;
+        resolvedInstitutionId = dbUser.institutionId;
+        resolvedLinkedStudentIds = dbUser.linkedStudentIds;
+      }
+    }
+
+    if (!resolvedRole) {
       return NextResponse.json({ error: 'Credenciais inválidas. Verifique usuário e senha.' }, { status: 401 });
     }
 
-    const expectedPortalId = userAccount.role === 'admin'
+    const expectedPortalId = resolvedRole === 'admin'
       ? 'coordenacao'
-      : Object.entries(PORTAL_ID_ROLES).find(([, role]) => role === userAccount.role)?.[0];
+      : Object.entries(PORTAL_ID_ROLES).find(([, role]) => role === resolvedRole)?.[0];
     const requestedPortalId = typeof portalId === 'string' ? portalId : expectedPortalId;
     const requestedRole = !requestedPortalId
       ? undefined
-      : requestedPortalId === 'coordenacao' && userAccount.role === 'admin'
+      : requestedPortalId === 'coordenacao' && resolvedRole === 'admin'
         ? 'admin'
         : PORTAL_ID_ROLES[requestedPortalId];
-    if (!requestedPortalId || requestedRole !== userAccount.role) {
+    if (!requestedPortalId || requestedRole !== resolvedRole) {
       return NextResponse.json({ error: 'Este perfil não pode acessar o portal selecionado.' }, { status: 403 });
     }
 
-    const role = userAccount.role;
+    const role = resolvedRole;
     const destination = ROLE_DESTINATIONS[role];
 
     const sessionToken = await signSession({
-      username: cleanUser,
+      username: resolvedUsername,
       portal: destination,
       role,
+      userId: resolvedUserId,
+      institutionId: resolvedInstitutionId,
+      linkedStudentIds: resolvedLinkedStudentIds,
     });
+
+    if (resolvedUserId) {
+      await tryRecordLoginAudit({
+        userId: resolvedUserId,
+        username: resolvedUsername,
+        role,
+        portal: destination,
+        ipAddress: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? undefined,
+      });
+    }
 
     const response = NextResponse.json({
       success: true,
       redirect: destination,
-      user: { username: cleanUser, role }
+      user: {
+        username: resolvedUsername,
+        role,
+        userId: resolvedUserId,
+        institutionId: resolvedInstitutionId,
+        linkedStudentIds: resolvedLinkedStudentIds,
+      }
     });
 
     response.cookies.set('aquila_session', sessionToken, {

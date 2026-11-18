@@ -6,6 +6,18 @@ import {
   Upload, Cpu, X, Zap, Loader2, ShieldCheck
 } from 'lucide-react';
 import './ExamPaperFoundry.css';
+import {
+  generateCylinderSVG,
+  generateTitrationCurveSVG,
+  generateRayDiagramSVG,
+  generateInclinedPlaneSVG,
+  generateElectricCircuitSVG,
+  generateCoordinateGridSVG,
+  generateGeometricSolidsSVG,
+  generateBoxPlotSVG,
+  generateHistogramSVG
+} from '../../figures';
+
 
 export type QuestionReviewStatus = 'RASCUNHO_IA' | 'REVISADO_PROFESSOR' | 'APROVADO' | 'PUBLICADO';
 
@@ -25,6 +37,9 @@ export interface ExamQuestionItem {
   status?: QuestionReviewStatus;
   reviewedAt?: string;
   reviewedBy?: string;
+  figureType?: 'cylinder' | 'titration' | 'ray_diagram' | 'inclined_plane' | 'circuit' | 'coordinate_grid' | 'solid' | 'boxplot' | 'histogram';
+  figureParams?: Record<string, any>;
+  figureSvg?: string;
 }
 
 const MASTER_EXAM_ITEMS: ExamQuestionItem[] = [
@@ -33,6 +48,8 @@ const MASTER_EXAM_ITEMS: ExamQuestionItem[] = [
     exam: 'ENEM',
     subject: 'Física',
     topic: 'Eletrodinâmica & Consumo Residencial',
+    figureType: 'circuit',
+    figureParams: { voltage: 220, r1: 11, r2: 0 },
     statement: '(ENEM — Matriz Histórica Eletrodinâmica) Em uma residência com tensão nominal de 220 V, um chuveiro elétrico de potência 4.400 W opera durante 15 minutos diários. Para evitar o desarme do disjuntor e calcular a energia consumida em 30 dias, a corrente elétrica exigida pelo aparelho e o consumo mensal em kWh são, respectivamente:',
     alternatives: {
       A: '10 A e 16,5 kWh',
@@ -411,6 +428,53 @@ export interface ExamPaperFoundryProps {
   onBack?: () => void;
 }
 
+
+function renderQuestionFigure(q: ExamQuestionItem) {
+  if (q.figureSvg) {
+    return <div className="epf-q-figure" dangerouslySetInnerHTML={{ __html: q.figureSvg }} />;
+  }
+  if (!q.figureType) return null;
+
+  let svgHtml = '';
+  const p = q.figureParams || {};
+  switch (q.figureType) {
+    case 'cylinder':
+      svgHtml = generateCylinderSVG(p);
+      break;
+    case 'titration':
+      svgHtml = generateTitrationCurveSVG(p);
+      break;
+    case 'ray_diagram':
+      svgHtml = generateRayDiagramSVG(p);
+      break;
+    case 'inclined_plane':
+      svgHtml = generateInclinedPlaneSVG(p);
+      break;
+    case 'circuit':
+      svgHtml = generateElectricCircuitSVG(p);
+      break;
+    case 'coordinate_grid':
+      svgHtml = generateCoordinateGridSVG(p);
+      break;
+    case 'solid':
+      svgHtml = generateGeometricSolidsSVG(p);
+      break;
+    case 'boxplot':
+      svgHtml = generateBoxPlotSVG(p);
+      break;
+    case 'histogram':
+      svgHtml = generateHistogramSVG(p);
+      break;
+  }
+  if (!svgHtml) return null;
+  return (
+    <div className="epf-q-figure">
+      <div dangerouslySetInnerHTML={{ __html: svgHtml }} />
+      <span className="epf-q-figure-caption">Figura I — Representação Esquemática Vetorial em Escala</span>
+    </div>
+  );
+}
+
 export const ExamPaperFoundry: React.FC<ExamPaperFoundryProps> = ({ onNavigate, onBack }) => {
   const [allQuestions, setAllQuestions] = useState<ExamQuestionItem[]>(MASTER_EXAM_ITEMS);
   const [selectedBanca, setSelectedBanca] = useState<string>('all');
@@ -709,10 +773,10 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
           <div className="epf-control-title">
             <h3>
               <FileText size={18} color="#00F0FF" />
-              Áquila Exam & Assessment Foundry (Padrão ENEM / PAS / SOMOS Plurall)
+              Fábrica de Avaliações Áquila (Padrão ENEM / PAS / Avaliações Nacionais)
             </h3>
             <p>
-              Gerador soberano de cadernos de avaliação diagramados em 2 colunas A4, com folha de respostas OMR e guia de resolução Kumon.
+              Gerador soberano de cadernos de avaliação diagramados em 2 colunas A4, com folha de respostas OMR e guia de resolução formativa Áquila.
             </p>
           </div>
 
@@ -966,6 +1030,8 @@ Retorne APENAS o JSON puro sem markdown, sem explicações extras.`;
                 </div>
 
                 <p className="epf-q-statement">{q.statement}</p>
+
+                {renderQuestionFigure(q)}
 
                 <div className="epf-q-alternatives">
                   {(['A', 'B', 'C', 'D', 'E'] as const).map(letter => (

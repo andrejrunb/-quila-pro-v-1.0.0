@@ -3,7 +3,7 @@ import {
   Sparkles, BookOpen, TrendingUp, Award, Copy, Check,
   Send, Share2, FileText, Camera, Brain, ExternalLink,
   ShieldCheck, Layers, Flame, RefreshCw, Globe, Users,
-  CheckCircle2, BookmarkCheck, ArrowRight, Lightbulb, PenTool
+  CheckCircle2, BookmarkCheck, ArrowLeft, ArrowRight, Lightbulb, PenTool
 } from 'lucide-react';
 import './SchoolGrowthAgentSuite.css';
 
@@ -256,7 +256,7 @@ Imagine a receita de brigadeiro:
 * Se você comprar 5 latas de leite condensado mas tiver apenas 4 colheres de cacau, quantos brigadeiros você faz? Apenas uma receita!
 
 Na química, o cacau é o que chamamos de **Reagente Limitante**. Ele acaba primeiro e determina a quantidade exata de produto formado. O leite condensado que sobrou é o **Reagente em Excesso**. Entender estequiometria nada mais é do que aprender a não desperdiçar matéria e prever o rendimento exato de qualquer reação do universo.`,
-    weeklyChallenge: 'Olhe os rótulos de 3 alimentos na sua despensa e descubra qual deles contém proporções rigorosas entre sódio e porção. Discuta com a turma no Albus Tutor!'
+    weeklyChallenge: 'Olhe os rótulos de 3 alimentos na sua despensa e descubra qual deles contém proporções rigorosas entre sódio e porção. Discuta com a turma no Mapeador Curricular Áquila Tutor!'
   }
 ];
 

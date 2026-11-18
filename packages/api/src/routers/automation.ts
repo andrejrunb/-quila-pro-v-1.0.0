@@ -1,28 +1,35 @@
+import { randomUUID } from 'node:crypto';
 import { router, adminProcedure } from '../trpc';
 import { z } from 'zod';
-import { createHash } from 'node:crypto';
+import {
+  biometricConsentLogs,
+  biometricPurgeLogs,
+  edgeSyncEvents,
+  students,
+} from '@aquila/db';
+import { and, desc, eq } from 'drizzle-orm';
+import { computeSha256, recordAuditEvent } from '../lib/governance';
 
 export const automationRouter = router({
-  getSystemStatus: adminProcedure.query(async () => {
+  getSystemStatus: adminProcedure.query(async ({ ctx }) => {
+    let recentSyncCount = 0;
+    if (ctx.db) {
+      const recent = await ctx.db
+        .select({ id: edgeSyncEvents.id })
+        .from(edgeSyncEvents)
+        .orderBy(desc(edgeSyncEvents.receivedAt))
+        .limit(20);
+      recentSyncCount = recent.length;
+    }
+
     return {
-      evolutionApi: { status: 'online', port: 8080, instance: 'aquila' },
-      n8nEngine: { status: 'online', port: 5678, activeWorkflows: 12 },
-      postgresDb: { status: 'online', port: 5432 },
-      sqsShield: { status: 'active', quantumEncrypted: true },
+      cloudConnectorsEnabled: process.env.AQUILA_ENABLE_CLOUD_CONNECTORS === 'true',
+      biometricAttendanceEnabled: process.env.BIOMETRIC_ATTENDANCE_ENABLED === 'true',
+      edgeSyncMode: 'selective_tls_hmac',
+      recentSyncEventsCount: recentSyncCount,
+      sqsShield: { status: 'active', quantumEncrypted: false, transport: 'TLS-1.3 / HMAC-SHA256' },
     };
   }),
-
-  triggerWhatsAppTest: adminProcedure
-    .input(z.object({ phone: z.string(), message: z.string() }))
-    .mutation(async ({ input }) => {
-      return { success: true, deliveredAt: new Date().toISOString(), ...input };
-    }),
-
-  triggerN8nWorkflow: adminProcedure
-    .input(z.object({ webhookName: z.string(), payload: z.record(z.any()) }))
-    .mutation(async ({ input }) => {
-      return { success: true, triggeredAt: new Date().toISOString(), ...input };
-    }),
 
   exportOfflineObservability: adminProcedure
     .input(z.object({ includeMetricsWindowHours: z.number().min(1).max(720).default(24) }).optional())
@@ -38,12 +45,11 @@ export const automationRouter = router({
         sqliteWalMode: 'WAL',
         metrics: {
           uptimeSeconds: Math.floor(process.uptime()),
-          ipcP95LatencyMs: 14.2,
           integrityCheck: 'ok',
-          biometricQuarantineH01: true,
+          biometricQuarantineH01: process.env.BIOMETRIC_ATTENDANCE_ENABLED !== 'true',
         },
       };
-      const sha256 = createHash('sha256').update(JSON.stringify(payload)).digest('hex');
+      const sha256 = computeSha256(payload);
       return {
         ...payload,
         sha256,
@@ -58,18 +64,71 @@ export const automationRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const executedAt = new Date().toISOString();
+      const executedAt = new Date();
+      let purgedTemplates = 0;
+
+      if (ctx.db && !input.dryRun) {
+        const instFilter = ctx.user.institutionId
+          ? eq(students.institutionId, ctx.user.institutionId)
+          : undefined;
+        const rowsWithBiometrics = await ctx.db
+          .select({ id: students.id, institutionId: students.institutionId })
+          .from(students)
+          .where(instFilter);
+
+        for (const s of rowsWithBiometrics) {
+          const revocations = await ctx.db
+            .select()
+            .from(biometricConsentLogs)
+            .where(
+              and(
+                eq(biometricConsentLogs.studentId, s.id),
+                eq(biometricConsentLogs.status, 'revoked')
+              )
+            )
+            .limit(1);
+
+          if (revocations[0]) {
+            await ctx.db
+              .update(students)
+              .set({ faceEncoding: null, faceEmbeddingHash: null })
+              .where(eq(students.id, s.id));
+            purgedTemplates += 1;
+
+            await ctx.db.insert(biometricPurgeLogs).values({
+              id: `prg_${randomUUID().slice(0, 12)}`,
+              studentId: s.id,
+              institutionId: s.institutionId,
+              reason: 'retention_ttl_expired',
+              purgedByUserId: ctx.user.id,
+              purgedAt: executedAt,
+              evidenceHashSha256: computeSha256({ studentId: s.id, executedAt: executedAt.toISOString() }),
+            });
+          }
+        }
+      }
+
       const auditPayload = {
         action: 'DATA_RETENTION_EXPIRATION',
         lawReference: 'LGPD Art. 16 & Art. 14',
         retentionDays: input.retentionDays,
         dryRun: input.dryRun,
-        purgedBiometricTemplates: input.dryRun ? 0 : 3,
-        purgedExpiredSessions: input.dryRun ? 0 : 18,
-        operatorId: ctx.user?.id ?? 'system-dpo',
-        executedAt,
+        purgedBiometricTemplates: purgedTemplates,
+        operatorId: ctx.user.id,
+        executedAt: executedAt.toISOString(),
       };
-      const auditHash = createHash('sha256').update(JSON.stringify(auditPayload)).digest('hex');
+
+      const auditHash = ctx.db
+        ? await recordAuditEvent(ctx.db, {
+            userId: ctx.user.id,
+            action: 'DATA_RETENTION_EXPIRATION',
+            entity: 'biometric_purge_logs',
+            entityId: ctx.user.institutionId || 'global',
+            details: auditPayload,
+            ipAddress: ctx.ipAddress,
+          })
+        : computeSha256(auditPayload);
+
       return {
         success: true,
         ...auditPayload,

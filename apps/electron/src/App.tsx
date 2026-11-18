@@ -22,7 +22,7 @@ import PredictiveDashboard from './ui/pages/PredictiveDashboard';
 import { SeatingIntelligence } from './ui/pages/SeatingIntelligence';
 import AuditLogViewer from './ui/pages/AuditLogViewer';
 import HardwareDiagnostics from './ui/pages/HardwareDiagnostics';
-import { RankingBoard } from './ui/pages/RankingBoard';
+// RankingBoard removido por vedação de social scoring (CNE/CP nº 15/2026)
 import { GlobalSearch } from './ui/components/GlobalSearch';
 import { LoginPage } from './ui/pages/LoginPage';
 import { UserManagement } from './ui/pages/UserManagement';
@@ -179,7 +179,8 @@ export type Page =
   | 'photo-batch' | 'help' | 'infrastructure' | 'support' | 'partners' | 'consent' | 'multi-site' 
   | 'analytics-bi' | 'event-mode' | 'sustainability' | 'cameras' | 'rooms' | 'schedule' | 'executive-pulse'
   | 'executive-cockpit-portal' | 'parent-portal' | 'student-portal'
-  | 'diagnostics' | 'mobile' | 'finance' | 'biometric-enrollment' | 'diary' | 'gradebook' | 'visitor-management' | 'security-monitor' | 'iot-manager' | 'unified-command' | 'teacher-dashboard' | 'indoor-mapping' | 'ai-lab' | 'coordination-dashboard' | 'coordination-overview' | 'attendance-audit' | 'scientific-attendance' | 'predictive-dashboard' | 'seating-intelligence' | 'secretaria-portal' | 'hr-portal' | 'global-trends' | 'nexus-mesh' | 'night-sentry' | 'identity-recapture' | 'cross-audit' | 'help-hub' | 'sovereign-library' | 'social-nexus' | 'collective-brain' | 'ecosystem' | 'identity-governance' | 'eco-dashboard' | 'forensics' | 'council' | 'global-radar' | 'twin-navigator' | 'playbook' | 'swarm-intelligence' | 'shield-pro' | 'sovereign-workspace' | 'smart-campus' | 'vault-management' | 'neuro-campus' | 'app-store' | 'predictive-5y' | 'nexus-mesh-global' | 'zenith-cockpit' | 'sensory-mesh' | 'infra-architect' | 'empathic-cockpit' | 'dreamspace-cockpit' | 'omnipresence-hub' | 'wellness-portal' | 'adaptive-classroom' | 'nexus-community' | 'institutional-heritage' | 'institutional-immortality' | 'neural-library' | 'institutional-serendipity' | 'sovereign-conscience' | 'outer-nexus' | 'zenith-final' | 'camera-deployment' | 'infrastructure-pro' | 'institutional-wiki' | 'executive-finance-bi' | 'load-testing' | 'lifecycle-dashboard' | 'network-traffic' | 'mobile-parent-app' | 'classroom-dashboard' | 'ai-studio' | 'activity-factory';
+  | 'diagnostics' | 'mobile' | 'finance' | 'biometric-enrollment' | 'diary' | 'gradebook' | 'visitor-management' | 'security-monitor' | 'iot-manager' | 'unified-command' | 'teacher-dashboard' | 'indoor-mapping' | 'ai-lab' | 'coordination-dashboard' | 'coordination-overview' | 'attendance-audit' | 'scientific-attendance' | 'predictive-dashboard' | 'seating-intelligence' | 'secretaria-portal' | 'hr-portal' | 'global-trends' | 'nexus-mesh' | 'night-sentry' | 'identity-recapture' | 'cross-audit' | 'help-hub' | 'sovereign-library' | 'social-nexus' | 'collective-brain' | 'ecosystem' | 'identity-governance' | 'eco-dashboard' | 'forensics' | 'council' | 'global-radar' | 'twin-navigator' | 'playbook' | 'swarm-intelligence' | 'shield-pro' | 'sovereign-workspace' | 'smart-campus' | 'vault-management' | 'neuro-campus' | 'app-store' | 'predictive-5y' | 'nexus-mesh-global' | 'zenith-cockpit' | 'sensory-mesh' | 'infra-architect' | 'empathic-cockpit' | 'dreamspace-cockpit' | 'omnipresence-hub' | 'wellness-portal' | 'adaptive-classroom' | 'nexus-community' | 'institutional-heritage' | 'institutional-immortality' | 'neural-library' | 'institutional-serendipity' | 'sovereign-conscience' | 'outer-nexus' | 'zenith-final' | 'camera-deployment' | 'infrastructure-pro' | 'institutional-wiki' | 'executive-finance-bi' | 'load-testing' | 'lifecycle-dashboard' | 'network-traffic' | 'mobile-parent-app' | 'classroom-dashboard' | 'ai-studio' | 'activity-factory'
+  | 'schedule-upload' | 'executive' | 'cosmetics-chamber' | 'battle-banner' | 'skins-shop' | 'youtube-radar' | 'video-finder' | 'timetable' | 'urania-timetable' | 'growth-agents' | 'school-growth-agents' | 'pricing' | 'sovereign-nexus' | 'intelligence-hub' | 'student-profile' | 'messenger' | 'camera-live-view' | 'playlists-gamemaker';
 
 
 
@@ -283,6 +284,23 @@ export const App: React.FC = () => {
           setIsLoggedIn(false);
         }
 
+        // 2.5 Sincronia de Terminal / Tipo de Uso do Computador
+        try {
+          const wsRes = await (window as any).aquila?.invoke?.('workstation:get-config');
+          const localProfile = localStorage.getItem('aquila_terminal_profile');
+          const serverConfiguredProfile = wsRes?.success && wsRes?.config?.configured ? wsRes.config.usageType : null;
+          const profile = localProfile || serverConfiguredProfile;
+          if (serverConfiguredProfile && !localProfile) {
+            localStorage.setItem('aquila_terminal_profile', serverConfiguredProfile);
+          }
+          if (wsRes?.success && wsRes.config?.configured && wsRes.config?.classId && !localStorage.getItem('classroom_class_id')) {
+            localStorage.setItem('classroom_class_id', wsRes.config.classId);
+          }
+          if (profile === 'classroom') {
+            setCurrentPage('classroom-dashboard');
+          }
+        } catch {}
+
         // 3. Hardware / System Status (Non-blocking)
         (window as any).aquila?.invoke('system:get-info')
           .then((info: any) => console.log('[BOOT] System Info Sync:', info))
@@ -336,23 +354,29 @@ export const App: React.FC = () => {
 
   const handleLogin = async (user: any) => {
     console.log('[E2E-DEBUG] Entering handleLogin for user:', user.username);
-    try { sessionStorage.setItem('aquila_session_user', JSON.stringify(user)); } catch (_e) {}
+    try { sessionStorage.setItem('aquila_session_user', JSON.stringify(user)); } catch (err) { console.warn('[App] Falha ao salvar sessão:', err); }
     setCurrentUser(user);
     setIsLoggedIn(true);
     console.log('[E2E-DEBUG] isLoggedIn set to true');
+    const terminalProfile = localStorage.getItem('aquila_terminal_profile');
     const role = user.role?.toLowerCase();
-    if (role === 'secretary' || role === 'hr' || role === 'rh') setCurrentPage('secretaria-portal');
+    if (terminalProfile === 'classroom') setCurrentPage('classroom-dashboard');
+    else if (role === 'secretary' || role === 'hr' || role === 'rh') setCurrentPage('secretaria-portal');
     else if (role === 'docente' || role === 'teacher') setCurrentPage('seating-intelligence');
     else if (role === 'coordinator') setCurrentPage('coordination');
     else if (role === 'parent' || role === 'responsavel') setCurrentPage('parent-portal');
     else if (role === 'student' || role === 'aluno') setCurrentPage('student-portal');
+    else if (terminalProfile === 'coordination') setCurrentPage('coordination');
+    else if (terminalProfile === 'secretariat') setCurrentPage('secretaria-portal');
+    else if (terminalProfile === 'teachers_room') setCurrentPage('teacher-dashboard');
+    else if (terminalProfile === 'portaria') setCurrentPage('security-monitor');
     else setCurrentPage('executive-cockpit-portal');
     console.log('[E2E-DEBUG] currentPage set to:', role);
   };
 
   // Centralized LGPD trigger
   useEffect(() => {
-    try { if (currentUser) sessionStorage.setItem('aquila_session_user', JSON.stringify(currentUser)); else sessionStorage.removeItem('aquila_session_user'); } catch (_e) {}
+    try { if (currentUser) sessionStorage.setItem('aquila_session_user', JSON.stringify(currentUser)); else sessionStorage.removeItem('aquila_session_user'); } catch (err) { console.warn('[App] Falha ao sincronizar sessão:', err); }
   }, [currentUser]);
   useEffect(() => {
     if (isLoggedIn && currentUser?.id) {
@@ -471,12 +495,14 @@ export const App: React.FC = () => {
             'teacher-dashboard', 'rooms', 'schedule', 'diary', 'gradebook', 'student-portfolio', 
             'attendance', 'students', 'photos', 'ranking-board', 'seating-intelligence',
             'tasks', 'whiteboard', 'daily-report', 'mastery-chamber', 'ai-studio', 'activity-factory',
-            'slide-studio', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'omr-scanner', 'bncc-heatmap', 'knowledge-canvas', 'albus-canvas', 'exam-foundry', 'banco-provas', 'youtube-radar', 'video-finder', 'omr'
+            'slide-studio', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'omr-scanner', 'bncc-heatmap', 'knowledge-canvas', 'albus-canvas', 'exam-foundry', 'banco-provas', 'youtube-radar', 'video-finder', 'omr',
+            'classroom-dashboard', 'ai-lab', 'cosmetics-chamber', 'sovereign-library', 'playlists-gamemaker'
           ].includes(currentPage);
           
           const isCoordinationPage = ['coordination', 'academic-calendar', 'curriculum', 'coordination-dashboard', 'coordination-overview', 'bncc-heatmap', 'skills-heatmap', 'heatmap', 'timetable', 'urania-timetable', 'growth-agents', 'school-growth-agents', 'calendar', 'reports-hub', 'seating-intelligence', 'mastery-chamber', 'exam-foundry', 'banco-provas', 'omr', 'omr-scanner', 'students'].includes(currentPage);
-          const isSecretaryPage = ['secretaria-portal', 'hr-portal', 'hr', 'schedule-upload'].includes(currentPage);
-          const isParentPage = ['parent-portal'].includes(currentPage);
+          const isSecretaryPage = ['secretaria-portal', 'hr-portal', 'hr', 'schedule-upload', 'user-management'].includes(currentPage);
+          const isSecretaryAllowedRoute = isSecretaryPage || ['gradebook', 'students', 'reports-hub', 'classroom-dashboard', 'help'].includes(currentPage);
+          const isParentPage = ['parent-portal', 'mobile-parent-app'].includes(currentPage);
           const isStudentPage = ['student-portal', 'mastery-chamber', 'ai-lab', 'arena', 'pvp-arena', 'essay-lab', 'redacao', 'skill-tree', 'bncc-skills', 'knowledge-canvas', 'albus-canvas', 'cosmetics-chamber', 'battle-banner', 'skins-shop', 'phet-mastery', 'stem-lab', 'multimodal-studio', 'podcast-wordwall', 'native-phet', 'youtube-radar', 'video-finder', 'playlists-live', 'pedagogical-playlists', 'game-maker-play', 'h5p-perseus-lab', 'interactive-applets', 'perseus-lab', 'h5p-lab'].includes(currentPage);
 
           const isSustainabilityPage = ['sustainability', 'analytics-bi', 'event-mode', 'consent'].includes(currentPage);
@@ -491,10 +517,10 @@ export const App: React.FC = () => {
 
           // 1. Resolução por Perfil Logado (evita que professor caia em tela de aluno em rotas compartilhadas)
           // 1. Resolução por Perfil Logado (confinamento estrito para student, parent, secretaria)
-          if (isParentUser) return <ParentPortal currentPage={isParentPage ? currentPage : 'parent-portal'} onNavigate={handleNavigate} studentId={currentUser?.studentId || currentUser?.id} />;
+          if (isParentUser) return <ParentPortal currentPage={isParentPage ? currentPage : 'parent-portal'} onNavigate={handleNavigate} studentId={currentUser?.studentId || currentUser?.id} sessionUser={currentUser} />;
           if (isStudentUser) return <StudentPortal currentPage={isStudentPage ? currentPage : 'student-portal'} onNavigate={handleNavigate} studentId={currentUser?.id} />;
-          if (isSecUser) return <SecretariaPortal currentPage={isSecretaryPage ? currentPage : 'secretaria-portal'} onNavigate={handleNavigate} user={currentUser} />;
-          if (isParentPage) return <ParentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={currentUser?.studentId || currentUser?.id} />;
+          if (isSecUser) return <SecretariaPortal currentPage={isSecretaryAllowedRoute ? currentPage : 'secretaria-portal'} onNavigate={handleNavigate} user={currentUser} />;
+          if (isParentPage) return <ParentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={searchParams?.studentId || undefined} sessionUser={currentUser} />;
           if (isCoordUser && isCoordinationPage) return <CoordinationPortal currentPage={currentPage} onNavigate={handleNavigate} />;
           if (isTeacherUser && isTeacherPage) return <TeacherPortal currentPage={currentPage} onNavigate={handleNavigate} studentParams={searchParams} user={currentUser} />;
           if (isSecUser && isSecretaryPage) return <SecretariaPortal currentPage={currentPage} onNavigate={handleNavigate} user={currentUser} />;
@@ -504,7 +530,7 @@ export const App: React.FC = () => {
           if (isCoordinationPage && !isTeacherUser && !isStudentUser) return <CoordinationPortal currentPage={currentPage} onNavigate={handleNavigate} />;
           if (isTeacherPage && !isStudentUser) return <TeacherPortal currentPage={currentPage} onNavigate={handleNavigate} studentParams={searchParams} user={currentUser} />;
           if (isStudentPage) return <StudentPortal currentPage={currentPage} onNavigate={handleNavigate} studentId={isStudentUser ? currentUser?.id : 'demo_student_001'} />;
-          if (isSecretaryPage) return <SecretariaPortal currentPage={currentPage} onNavigate={handleNavigate} user={currentUser} />;
+          if (isSecretaryPage && !(isAdminUser && isAdminPage)) return <SecretariaPortal currentPage={currentPage} onNavigate={handleNavigate} user={currentUser} />;
           if (isAdminPage || isAdminUser) return <AdminPortal currentPage={currentPage} onNavigate={handleNavigate} userRole={currentUser?.role || ''} activeHub={currentHub} onLogout={handleLogout} />;
           
           // Adicionar portal de sustentabilidade/BI futuro
@@ -519,7 +545,7 @@ export const App: React.FC = () => {
             case 'dashboard':
               return <Dashboard onNavigate={handleNavigate} onLogout={handleLogout} userRole={currentUser?.role || ''} user={currentUser} activeHub={currentHub} />;
             case 'executive-finance-bi':
-              return <ExecutiveFinanceBI onBack={onBack} />;
+              return <ExecutiveFinanceBI />;
             case 'students':
               return <Students onNavigate={handleNavigate} onSearchParams={setSearchParams} onBack={onBack} />;
             case 'schedule-upload':
@@ -539,7 +565,7 @@ export const App: React.FC = () => {
             case 'executive':
               return <ExecutiveCockpit onBack={onBack} />;
             case 'ai-lab':
-              return <StudentAILab studentId={currentUser?.id} onBack={onBack} />;
+              return <StudentAILab studentId={currentUser?.studentId || currentUser?.id} classId={currentUser?.classId} studentAge={currentUser?.age} onBack={onBack} />;
             case 'cosmetics-chamber':
             case 'battle-banner':
             case 'skins-shop':
@@ -721,6 +747,13 @@ export const App: React.FC = () => {
       <SetupWizard onComplete={() => {
         // [FIX-AUTH-001] Mantém localStorage como cache rápido mas não como fonte de verdade
         localStorage.setItem('aquila_setup_complete', 'true');
+        const profile = localStorage.getItem('aquila_terminal_profile');
+        if (profile === 'classroom') setCurrentPage('classroom-dashboard');
+        else if (profile === 'coordination') setCurrentPage('coordination');
+        else if (profile === 'secretariat') setCurrentPage('secretaria-portal');
+        else if (profile === 'teachers_room') setCurrentPage('teacher-dashboard');
+        else if (profile === 'portaria') setCurrentPage('security-monitor');
+        else if (profile === 'direction') setCurrentPage('executive-cockpit-portal');
         setShowSetup(false);
       }} />
     );

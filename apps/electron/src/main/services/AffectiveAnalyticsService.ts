@@ -1,7 +1,8 @@
 /**
- * AffectiveAnalyticsService (v1941)
- * Processes micro-expression data into institutional sentiment pulses.
- * Core for empathetic pedagogical adjustments.
+ * AffectiveAnalyticsService
+ * Neutralizado em cumprimento imediato ao Parecer CNE/CP nº 15/2026
+ * (homologado pelo MEC em 10/11/2026, DOU de 11/11/2026, p. 141):
+ * inferência automatizada de estados emocionais de estudantes é classificada como Risco Excessivo e proibida.
  */
 
 export enum EmotionalState {
@@ -10,15 +11,17 @@ export enum EmotionalState {
   NEUTRAL = 'NEUTRAL',
   FRUSTRATED = 'FRUSTRATED',
   BORED = 'BORED',
-  ANXIOUS = 'ANXIOUS'
+  ANXIOUS = 'ANXIOUS',
 }
 
 export interface AffectiveMetric {
   studentId: string;
-  valence: number; // -1 to 1 (Negative to Positive)
-  arousal: number; // 0 to 1 (Intensity/Energy)
+  valence: number;
+  arousal: number;
   state: EmotionalState;
   timestamp: string;
+  blocked?: boolean;
+  complianceCode?: 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE';
 }
 
 class AffectiveAnalyticsService {
@@ -33,41 +36,34 @@ class AffectiveAnalyticsService {
     return AffectiveAnalyticsService.instance;
   }
 
-  /**
-   * Analyzes raw micro-expression points.
-   */
-  public async analyzeAffect(studentId: string, expressionData: any): Promise<AffectiveMetric> {
-    // Logic: In production, maps landmark movements (AU) to emotional states.
-    // Normalized mock for v1941:
+  public async analyzeAffect(studentId: string, _expressionData: unknown): Promise<AffectiveMetric> {
     return {
       studentId,
-      valence: 0.6,
-      arousal: 0.8,
-      state: EmotionalState.OPTIMISTIC,
-      timestamp: new Date().toISOString()
+      valence: 0,
+      arousal: 0,
+      state: EmotionalState.NEUTRAL,
+      timestamp: new Date().toISOString(),
+      blocked: true,
+      complianceCode: 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE',
     };
   }
 
-  /**
-   * Aggregates the general atmosphere of a classroom.
-   */
-  public async getClassroomAtmosphere(classId: string): Promise<EmotionalState> {
-     return EmotionalState.CONTENT;
+  public async getClassroomAtmosphere(_classId: string): Promise<EmotionalState> {
+    return EmotionalState.NEUTRAL;
   }
 
-  /**
-   * [SQA-AFF-1100] Retorna telemetria emocional para o portal de pais.
-   */
-  public async getStudentTelemetry(studentId: string) {
+  public async getStudentTelemetry(_studentId: string) {
     return {
-      valence: 0.75,
-      arousal: 0.6,
-      state: EmotionalState.CONTENT,
-      momentum: 'POSITIVO',
-      lastUpdate: new Date().toISOString()
+      valence: 0,
+      arousal: 0,
+      state: EmotionalState.NEUTRAL,
+      momentum: 'BLOQUEADO_CNE_15_2026',
+      telemetryBlocked: true,
+      complianceCode: 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE',
+      reason: 'Inferência emocional e vigilância afetiva vedadas imediatamente pelo Parecer CNE/CP nº 15/2026.',
+      lastUpdate: new Date().toISOString(),
     };
   }
 }
 
 export const affectiveAnalyticsService = AffectiveAnalyticsService.getInstance();
-

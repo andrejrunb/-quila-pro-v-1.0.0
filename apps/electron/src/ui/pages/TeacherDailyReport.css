@@ -1,7 +1,8 @@
 .teacher-daily-report-container {
-  padding: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 16px;
   color: #f4f4f5;
 }
 

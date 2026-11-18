@@ -4,14 +4,18 @@ export type EmotionType = 'JOY' | 'STRESS' | 'FRUSTRATION' | 'ENGAGEMENT' | 'NEU
 
 export interface EmotionalState {
   emotion: EmotionType;
-  intensity: number; // 0 a 1
+  intensity: number; // 0 a 1 (sempre 0 sob bloqueio normativo CNE/CP nº 15/2026)
   timestamp: number;
+  blocked?: boolean;
+  complianceCode?: 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE';
+  reason?: string;
 }
 
 /**
- * MicroExpressionAnalyzer (Nível 37)
- * Analisa frames para detectar micro-expressões faciais e estados afetivos.
- * Processamento local e anonimizado para conformidade LGPD.
+ * MicroExpressionAnalyzer
+ * Neutralizado em cumprimento imediato ao Parecer CNE/CP nº 15/2026
+ * (homologado pelo MEC em 10/11/2026, DOU de 11/11/2026, p. 141):
+ * é vedada a inferência ou reconhecimento automatizado de emoções de estudantes.
  */
 export class MicroExpressionAnalyzer {
   private static instance: MicroExpressionAnalyzer;
@@ -26,19 +30,17 @@ export class MicroExpressionAnalyzer {
   }
 
   /**
-   * Analisa um buffer de face e retorna o estado emocional provável.
+   * Análise afetiva bloqueada por vedação imediata do Parecer CNE/CP nº 15/2026.
    */
-  public async analyzeEmotion(faceData: Buffer): Promise<EmotionalState> {
-    logger.debug('[Affective] Analisando micro-expressões no frame...');
-    
-    // Simulação de inferência de IA afetiva
-    const emotions: EmotionType[] = ['JOY', 'STRESS', 'ENGAGEMENT', 'NEUTRAL'];
-    const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
-    
+  public async analyzeEmotion(_faceData: Buffer): Promise<EmotionalState> {
+    logger.warn('[Compliance CNE 15/2026] Tentativa de inferência emocional bloqueada (Risco Excessivo).');
     return {
-      emotion: randomEmotion,
-      intensity: Math.random(),
-      timestamp: Date.now()
+      emotion: 'NEUTRAL',
+      intensity: 0,
+      timestamp: Date.now(),
+      blocked: true,
+      complianceCode: 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE',
+      reason: 'Reconhecimento ou inferência automatizada de emoções vedado pelo Parecer CNE/CP nº 15/2026.',
     };
   }
 }

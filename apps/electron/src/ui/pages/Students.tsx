@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Users, UserPlus, Trash2, Edit2, Search, 
-  Camera, Phone, X, Upload, CheckCircle, AlertCircle, Wand2, ArrowLeft, FileText, Calendar, BadgeCheck 
+  UserPlus, Trash2, Edit2, Search, 
+  Phone, X, Upload, CheckCircle, AlertCircle, Wand2, ArrowLeft, FileText, Calendar, BadgeCheck, Tv 
 } from 'lucide-react';
 import { useIPC } from '../hooks/useIPC';
 import './Students.css';
@@ -26,7 +26,7 @@ export const Students: React.FC<{
   onSearchParams?: (params: any) => void,
   onBack?: () => void,
   user?: any 
-}> = ({ onNavigate, onSearchParams, onBack, user }) => {
+}> = ({ onBack, user }) => {
   const ipc = useIPC();
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(false);
@@ -52,6 +52,23 @@ export const Students: React.FC<{
   const [selectedStudentName, setSelectedStudentName] = useState('');
 
   const [classes, setClasses] = useState<any[]>([]);
+  const [isProjected, setIsProjected] = useState(false);
+
+  useEffect(() => {
+    const handleProjEvent = (e: any) => {
+      if (typeof e.detail === 'boolean') {
+        setIsProjected(e.detail);
+      }
+    };
+    window.addEventListener('aquila:toggle-projection-mode', handleProjEvent);
+    return () => window.removeEventListener('aquila:toggle-projection-mode', handleProjEvent);
+  }, []);
+
+  const toggleProjection = () => {
+    const next = !isProjected;
+    setIsProjected(next);
+    window.dispatchEvent(new CustomEvent('aquila:toggle-projection-mode', { detail: next }));
+  };
 
   useEffect(() => {
     loadStudents();
@@ -87,11 +104,22 @@ export const Students: React.FC<{
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (previewUrl && previewUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      setPreviewUrl(URL.createObjectURL(file));
+      setPreviewUrl(prev => {
+        if (prev && prev.startsWith('blob:')) URL.revokeObjectURL(prev);
+        return URL.createObjectURL(file);
+      });
     }
   };
 
@@ -112,9 +140,14 @@ export const Students: React.FC<{
       }
 
       if (selectedFile && studentId) {
-        const photoResult = await ipc.uploadStudentPhoto(studentId, (selectedFile as any).path);
-        if (!photoResult.success) {
-          console.error('Erro ao subir foto:', photoResult.error);
+        const filePath = (selectedFile as { path?: string }).path;
+        if (!filePath) {
+          setError('Envio de foto por caminho local requer execução no aplicativo desktop Electron.');
+        } else {
+          const photoResult = await ipc.uploadStudentPhoto(studentId, filePath);
+          if (!photoResult.success) {
+            console.error('Erro ao subir foto:', photoResult.error);
+          }
         }
       }
 
@@ -195,7 +228,8 @@ export const Students: React.FC<{
   });
 
   return (
-    <div className="students-page">
+    <div className={`students-page ${isProjected ? "is-projected" : ""}`}>
+
       <header className="page-header">
         <div className="flex items-center gap-4">
           {onBack && (
@@ -209,14 +243,27 @@ export const Students: React.FC<{
           </div>
         </div>
 
-        <button 
-          className={`btn-header-add ${showForm ? 'btn-header-cancel' : ''}`} 
-          onClick={() => showForm ? resetForm() : setShowForm(true)}
-          title={showForm ? "Cancelar" : "Adicionar Novo Aluno"}
-          aria-label={showForm ? "Cancelar cadastro" : "Adicionar um novo aluno ao sistema"}
-        >
-          {showForm ? <X size={24} /> : <UserPlus size={24} />}
-        </button>
+        <div className="flex items-center gap-3">
+          <button 
+            type="button"
+            className={`btn-projection-toggle ${isProjected ? 'active' : ''}`}
+            onClick={toggleProjection}
+            title={isProjected ? "Sair da Projeção de Alunos (Esc)" : "Projetar Lista de Alunos em Tela Cheia no Telão da Sala"}
+            aria-label="Projetar lista de alunos em tela cheia"
+          >
+            <Tv size={17} />
+            <span>{isProjected ? "Sair da Projeção" : "Projetar em Tela Cheia"}</span>
+          </button>
+
+          <button 
+            className={`btn-header-add ${showForm ? 'btn-header-cancel' : ''}`} 
+            onClick={() => showForm ? resetForm() : setShowForm(true)}
+            title={showForm ? "Cancelar" : "Adicionar Novo Aluno"}
+            aria-label={showForm ? "Cancelar cadastro" : "Adicionar um novo aluno ao sistema"}
+          >
+            {showForm ? <X size={24} /> : <UserPlus size={24} />}
+          </button>
+        </div>
       </header>
 
       {error && (
@@ -453,11 +500,11 @@ export const Students: React.FC<{
                 </h5>
                 <div className="flex justify-between items-center text-xs pt-1">
                   <span className="text-slate-400">Assiduidade Global:</span>
-                  <span className="font-bold text-emerald-400">96.5% de Presença</span>
+                  <span className="font-bold text-slate-300">Consultar Diário Oficial</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-400">Parecer Socioemocional:</span>
-                  <span className="font-bold text-cyan-300">Bom / Focado nas Aulas</span>
+                  <span className="text-slate-400">Acompanhamento Pedagógico:</span>
+                  <span className="font-bold text-cyan-300">Mediação Docente (CNE/CP nº 15/2026)</span>
                 </div>
               </div>
             </div>
@@ -503,7 +550,7 @@ export const Students: React.FC<{
               {generatingAI ? (
                 <div className="ai-loading-state">
                   <div className="spinner-ai"></div>
-                  <p className="ai-loading-text">Processando registros acadêmicos e frequência via Visão Computacional...</p>
+                  <p className="ai-loading-text">Organizando histórico escolar e registros oficiais de frequência...</p>
                 </div>
               ) : (
                 <textarea 
@@ -518,7 +565,7 @@ export const Students: React.FC<{
             
             {!generatingAI && (
               <footer className="modal-footer-ai">
-                 <p className="disclaimer-ai">Este texto foi gerado por IA e não substitui a avaliação final da coordenação. Recomenda-se revisão técnica antes do envio para os pais via WhatsApp.</p>
+                 <p className="disclaimer-ai">Rascunho gerado por IA (RASCUNHO_IA — CNE/CP nº 15/2026). Requer revisão e aprovação explícita do docente ou coordenação (HITL) antes de qualquer compartilhamento no Portal da Família.</p>
                  <div className="modal-actions-ai">
                    <button 
                      className="btn-plain" 

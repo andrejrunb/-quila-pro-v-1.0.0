@@ -274,6 +274,178 @@ export class SeatingIntelligenceService {
     async suggestLayoutChanges(classId: string): Promise<SeatingRecommendation[]> {
         return this.getRecommendations(classId);
     }
+
+    /**
+     * Inicializa a tabela de sugestões de mudança de assento (submetidas por professores para aprovação da coordenação)
+     */
+    async ensureSuggestionsTable(): Promise<void> {
+        try {
+            await this.db.run(`
+                CREATE TABLE IF NOT EXISTS seating_change_suggestions (
+                    id TEXT PRIMARY KEY,
+                    classId TEXT NOT NULL,
+                    studentId TEXT NOT NULL,
+                    studentName TEXT,
+                    currentRow INTEGER,
+                    currentCol INTEGER,
+                    targetStudentId TEXT,
+                    targetStudentName TEXT,
+                    targetRow INTEGER,
+                    targetCol INTEGER,
+                    reason TEXT NOT NULL,
+                    teacherId TEXT,
+                    teacherName TEXT,
+                    status TEXT DEFAULT 'PENDENTE',
+                    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    authorizedBy TEXT,
+                    authorizedAt DATETIME,
+                    notes TEXT
+                )
+            `);
+        } catch (e) {
+            logger.warn(`[SeatingService] Erro ao verificar tabela seating_change_suggestions: ${e}`);
+        }
+    }
+
+    /**
+     * Registra uma nova sugestão de alteração de mapeamento enviada pelo professor para a coordenação
+     */
+    async submitChangeSuggestion(params: {
+        classId: string;
+        studentId: string;
+        studentName: string;
+        currentRow?: number;
+        currentCol?: number;
+        targetStudentId?: string;
+        targetStudentName?: string;
+        targetRow?: number;
+        targetCol?: number;
+        reason: string;
+        teacherId?: string;
+        teacherName?: string;
+        notes?: string;
+    }): Promise<{ success: boolean; suggestionId?: string; error?: string }> {
+        await this.ensureSuggestionsTable();
+        const id = `sug_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        try {
+            await this.db.run(`
+                INSERT INTO seating_change_suggestions (
+                    id, classId, studentId, studentName, currentRow, currentCol,
+                    targetStudentId, targetStudentName, targetRow, targetCol,
+                    reason, teacherId, teacherName, status, notes
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'PENDENTE', ?)
+            `, [
+                id,
+                params.classId,
+                params.studentId,
+                params.studentName || 'Aluno',
+                params.currentRow ?? null,
+                params.currentCol ?? null,
+                params.targetStudentId ?? null,
+                params.targetStudentName ?? null,
+                params.targetRow ?? null,
+                params.targetCol ?? null,
+                params.reason,
+                params.teacherId ?? null,
+                params.teacherName ?? 'Docente',
+                params.notes ?? null
+            ]);
+            logger.info(`[SeatingService] Sugestão ${id} registrada com sucesso para turma ${params.classId}`);
+            return { success: true, suggestionId: id };
+        } catch (error: any) {
+            logger.error(`[SeatingService] Falha ao registrar sugestão: ${error}`);
+            return { success: false, error: error?.message || String(error) };
+        }
+    }
+
+    /**
+     * Lista sugestões de alteração de mapeamento (pendentes ou todas)
+     */
+    async getChangeSuggestions(classId?: string, status?: string): Promise<any[]> {
+        await this.ensureSuggestionsTable();
+        try {
+            let sql = 'SELECT * FROM seating_change_suggestions WHERE 1=1';
+            const params: any[] = [];
+            if (classId) {
+                sql += ' AND classId = ?';
+                params.push(classId);
+            }
+            if (status) {
+                sql += ' AND status = ?';
+                params.push(status);
+            }
+            sql += ' ORDER BY createdAt DESC';
+            const rows = await this.db.all(sql, params);
+            return rows || [];
+        } catch (error) {
+            logger.error(`[SeatingService] Falha ao buscar sugestões: ${error}`);
+            return [];
+        }
+    }
+
+    /**
+     * Coordenação autoriza ou recusa a sugestão.
+     * Quando autorizada (action === 'APPROVE'), altera a posição do aluno no aplicativo/banco de dados imediatamente.
+     */
+    async authorizeSuggestion(
+        suggestionId: string,
+        action: 'APPROVE' | 'REJECT',
+        authorizedBy: string,
+        notes?: string
+    ): Promise<{ success: boolean; message?: string; error?: string }> {
+        await this.ensureSuggestionsTable();
+        try {
+            const suggestion = await this.db.get(
+                'SELECT * FROM seating_change_suggestions WHERE id = ?',
+                [suggestionId]
+            );
+            if (!suggestion) {
+                return { success: false, error: 'Sugestão não encontrada.' };
+            }
+
+            if (action === 'APPROVE') {
+                // Atualiza a posição do aluno (e faz swap se houver aluno alvo)
+                if (suggestion.targetStudentId) {
+                    // Troca mútua (swap)
+                    await this.db.run(
+                        'UPDATE students SET row = ?, col = ? WHERE id = ?',
+                        [suggestion.targetRow, suggestion.targetCol, suggestion.studentId]
+                    );
+                    await this.db.run(
+                        'UPDATE students SET row = ?, col = ? WHERE id = ?',
+                        [suggestion.currentRow, suggestion.currentCol, suggestion.targetStudentId]
+                    );
+                } else if (suggestion.targetRow !== null && suggestion.targetCol !== null) {
+                    // Mudança simples para assento livre
+                    await this.db.run(
+                        'UPDATE students SET row = ?, col = ? WHERE id = ?',
+                        [suggestion.targetRow, suggestion.targetCol, suggestion.studentId]
+                    );
+                }
+
+                await this.db.run(`
+                    UPDATE seating_change_suggestions
+                    SET status = 'AUTORIZADA', authorizedBy = ?, authorizedAt = CURRENT_TIMESTAMP, notes = COALESCE(?, notes)
+                    WHERE id = ?
+                `, [authorizedBy || 'Coordenação', notes ?? null, suggestionId]);
+
+                logger.info(`[SeatingService] Sugestão ${suggestionId} AUTORIZADA por ${authorizedBy}. Posições atualizadas no banco.`);
+                return { success: true, message: 'Sugestão autorizada pela Coordenação! Mapeamento atualizado com sucesso.' };
+            } else {
+                await this.db.run(`
+                    UPDATE seating_change_suggestions
+                    SET status = 'RECUSADA', authorizedBy = ?, authorizedAt = CURRENT_TIMESTAMP, notes = COALESCE(?, notes)
+                    WHERE id = ?
+                `, [authorizedBy || 'Coordenação', notes ?? null, suggestionId]);
+
+                logger.info(`[SeatingService] Sugestão ${suggestionId} RECUSADA por ${authorizedBy}.`);
+                return { success: true, message: 'Sugestão recusada pela Coordenação.' };
+            }
+        } catch (error: any) {
+            logger.error(`[SeatingService] Erro ao autorizar sugestão: ${error}`);
+            return { success: false, error: error?.message || String(error) };
+        }
+    }
 }
 
 export const seatingIntelligenceService = SeatingIntelligenceService.getInstance();

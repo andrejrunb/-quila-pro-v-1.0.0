@@ -230,8 +230,17 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           </form>
 
           <div className="form-footer">
-            <a href="#" className="forgot-password">Esqueceu a senha?</a>
-            <p className="version-text">v2.1.0 (H-01 Edition)</p>
+            <a
+              href="#"
+              className="forgot-password"
+              onClick={(e) => {
+                e.preventDefault();
+                setError('Para redefinir a senha, contate o administrador escolar ou suporte local.');
+              }}
+            >
+              Esqueceu a senha?
+            </a>
+            <p className="version-text">Áquila Pro • Edição Institucional</p>
           </div>
         </div>
       </div>

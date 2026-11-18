@@ -120,7 +120,7 @@ export const TutelaryCouncilReport: React.FC = () => {
             <span>Relatório Especial: Conselho Tutelar (ECA Art. 56 & LDB Art. 12)</span>
           </h2>
           <p className="text-xs text-slate-400 mt-1">
-            Identificação automatizada de infrequência escolar acima de 25% e geração de dossiês formais para comunicação ao Conselho Tutelar.
+            Comunicação preventiva de infrequência escolar acima de 30% e geração de dossiês formais para ciência ao Conselho Tutelar (Lei nº 15.231/2025).
           </p>
         </div>
         <div className="bg-red-500/10 border border-red-500/30 px-4 py-2 rounded-xl flex items-center gap-3">
@@ -136,7 +136,7 @@ export const TutelaryCouncilReport: React.FC = () => {
       <div className="bg-orange-500/10 border border-orange-500/20 rounded-xl p-4 flex gap-3 text-sm text-orange-200">
         <Scale className="text-orange-500 flex-shrink-0 mt-0.5" />
         <p className="text-xs leading-relaxed">
-          <strong>Fundamentação Legal (Art. 56, II do ECA e Art. 12, VII da LDB):</strong> Os dirigentes de estabelecimentos de ensino fundamental e médio comunicarão ao Conselho Tutelar os casos de reiteração de faltas injustificadas e de evasão escolar, esgotados os recursos escolares. Todos os acessos e emissões são protegidos sob sigilo funcional e conformidade da LGPD.
+          <strong>Fundamentação Legal (Art. 56, II do ECA e Art. 12, VIII, &quot;a&quot; da LDB — Lei nº 15.231/2025):</strong> Os dirigentes de estabelecimentos de ensino fundamental e médio comunicarão ao Conselho Tutelar os casos de reiteração de faltas injustificadas acima de 30% e de evasão escolar, esgotados os recursos escolares. Todos os acessos e emissões são protegidos sob sigilo funcional e conformidade da LGPD.
         </p>
       </div>
 
@@ -250,7 +250,7 @@ export const TutelaryCouncilReport: React.FC = () => {
               <div>
                 <h4 className="font-bold text-white text-sm mb-1">1. Fundamentação de Fato e de Direito</h4>
                 <p>
-                  Vimos por meio deste ofício formalizar a comunicação prevista no <strong>Artigo 56, inciso II, da Lei Federal nº 8.069/1990 (Estatuto da Criança e do Adolescente - ECA)</strong> e no <strong>Artigo 12, inciso VII, da Lei Federal nº 9.394/1996 (LDB)</strong>, tendo em vista a constatação de infrequência escolar superior a 25% (vinte e cinco por cento) do total de horas letivas exigidas por lei.
+                  Vimos por meio deste ofício formalizar a comunicação prevista no <strong>Artigo 56, inciso II, da Lei Federal nº 8.069/1990 (Estatuto da Criança e do Adolescente - ECA)</strong> e no <strong>Artigo 12, inciso VIII, alínea &quot;a&quot;, da Lei Federal nº 9.394/1996 (LDB, com redação dada pela Lei nº 15.231/2025)</strong>, tendo em vista a constatação de infrequência escolar superior a 30% (trinta por cento) do total de horas letivas exigidas por lei.
                 </p>
               </div>
 

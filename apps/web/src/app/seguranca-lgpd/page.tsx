@@ -20,7 +20,7 @@ export default function SegurancaLGPD() {
     {
       title: "Supervisão Docente CNE & Auditoria (Art. 16)",
       description:
-        "Alinhado ao Parecer CNE/CP nº 15/2026 e à Lei nº 15.211/2025 (ECA Digital): nenhuma nota ou questão gerada por IA é publicada sem revisão humana docente (bloqueio RASCUNHO_IA), garantindo direito de contestação, TLS 1.3, AES-256-GCM em repouso e trilha de auditoria imutável com hash SHA-256.",
+        "Alinhado ao Parecer CNE/CP nº 15/2026 (homologado pelo MEC em 10/11/2026, DOU de 11/11/2026, Ed. 212, p. 141) e à Lei nº 15.211/2025 (ECA Digital): nenhuma nota ou questão gerada por IA é publicada sem revisão humana docente (bloqueio RASCUNHO_IA), garantindo direito de contestação, proibição de inferência emocional, punição apenas por detector de IA ou acesso autônomo até o 5º ano EF, além de TLS 1.3, AES-256-GCM em repouso e trilha SHA-256.",
       icon: <Lock className="text-indigo-400" size={28} />,
     },
   ];
@@ -37,7 +37,7 @@ export default function SegurancaLGPD() {
             Privacidade por <span className="italic text-indigo-400">Padrão</span> e Desenho Técnico.
           </h1>
           <p className="text-zinc-300 text-lg md:text-xl max-w-3xl mx-auto font-medium leading-relaxed">
-            Arquitetura construída em conformidade com os artigos 11, 14 e 16 da LGPD (Lei nº 13.709/2018), o artigo 12, inciso VIII, alínea &ldquo;a&rdquo; da LDB (atualizado pela Lei nº 15.231/2025), a Lei nº 15.211/2025 (ECA Digital) e o Parecer CNE/CP nº 15/2026, sujeita à validação pelo DPO e RIPD/DPIA institucional de cada escola.
+            Arquitetura construída em conformidade com os artigos 11, 14 e 16 da LGPD (Lei nº 13.709/2018), o artigo 12, inciso VIII, alínea &ldquo;a&rdquo; da LDB (atualizado pela Lei nº 15.231/2025), a Lei nº 15.211/2025 (ECA Digital) e o Parecer CNE/CP nº 15/2026 (homologado pelo MEC em 10/11/2026, DOU 11/11/2026), sujeita à validação pelo DPO e RIPD/DPIA institucional de cada escola (adequação contratual e regimental de 12 meses).
           </p>
         </div>
       </section>
@@ -82,7 +82,7 @@ export default function SegurancaLGPD() {
                 </div>
                 <div className="flex items-center gap-3 text-xs font-black uppercase tracking-widest text-white">
                   <CheckCircle2 className="text-indigo-400 shrink-0" size={20} />
-                  Zero Lootboxes / Microtransações Pagas para Menores (Lei 15.211/2025)
+                  Zero Inferência Emocional, Zero Social Scoring &amp; Bloqueio Etário até 5º Ano EF (CNE/CP nº 15/2026) e Zero Lootboxes (Lei 15.211/2025)
                 </div>
               </div>
             </div>

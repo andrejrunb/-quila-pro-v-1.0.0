@@ -1,49 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './AITutorHologram.css';
 
 /**
- * AI TUTOR HOLOGRAM (v3702)
- * ------------------------
- * Avatar 3D de alta fidelidade que serve como interface de apoio ao aluno.
- * Reage dinamicamente às emoções detectadas pelo EmotionBridgeService.
- * Utiliza o sistema de design 'Sovereign Eagle' para máxima imersão.
+ * AI TUTOR HOLOGRAM (CNE/CP nº 15/2026 Compliant)
+ * ----------------------------------------------
+ * Interface visual neutra do Tutor Socrático de apoio pedagógico.
+ * Não utiliza inferência de emoções nem telemetria afetiva de atenção/engajamento.
  */
 interface HologramProps {
-  emotion?: string; // 'Focused', 'Bored', 'Frustrated'
+  /** Mantido apenas por compatibilidade de assinatura; ignorado conforme CNE/CP nº 15/2026. */
+  emotion?: string;
+  /** Mantido apenas por compatibilidade de assinatura; ignorado conforme CNE/CP nº 15/2026. */
   engagement?: number;
+  statusLabel?: string;
 }
 
-export const AITutorHologram: React.FC<HologramProps> = ({ emotion = 'Focused', engagement = 0.85 }) => {
-  const [pulseColor, setPulseColor] = useState('var(--cyan-cyber)');
-
-  useEffect(() => {
-    // Reação cromática às emoções (v3647)
-    if (emotion === 'Frustrated') setPulseColor('var(--safety-red)');
-    else if (emotion === 'Bored') setPulseColor('rgba(0, 255, 255, 0.4)');
-    else setPulseColor('var(--cyan-cyber)');
-  }, [emotion]);
+export const AITutorHologram: React.FC<HologramProps> = ({
+  statusLabel = 'TUTOR SOCRÁTICO ÁQUILA • MODO APOIO'
+}) => {
+  const pulseColor = 'var(--cyan-cyber)';
 
   return (
-    <div className="hologram-container" data-aura={emotion.toLowerCase()}>
+    <div className="hologram-container" data-aura="neutral">
       <div className="hologram-aura" />
-      
-      <div className="hologram-avatar" style={{ '--pulse-glow': pulseColor } as any}>
-         <div className="avatar-core" style={{ '--pulse-glow': pulseColor } as any} />
-         <div className="avatar-wings" />
+
+      <div className="hologram-avatar" style={{ '--pulse-glow': pulseColor } as React.CSSProperties}>
+        <div className="avatar-core" style={{ '--pulse-glow': pulseColor } as React.CSSProperties} />
+        <div className="avatar-wings" />
       </div>
 
       <div className="hologram-status holographic-card">
-         <p className="metric-label">AI ASSISTANT STATE: {emotion.toUpperCase()}</p>
-         <div className="engagement-bar">
-            <div 
-              className="engagement-fill holographic-engagement-fill" 
-              style={{ '--engagement-width': `${engagement * 100}%` } as any}
-              aria-label={`Engajamento: ${engagement * 100}%`}
-            />
-         </div>
-         <p className="metric-label hologram-engagement-text">
-            ENGAGEMENT: {Math.round(engagement * 100)}%
-         </p>
+        <p className="metric-label">{statusLabel}</p>
+        <p className="metric-label hologram-engagement-text">
+          MEDIAÇÃO PEDAGÓGICA • SEM INFERÊNCIA AFETIVA
+        </p>
       </div>
 
       <div className="hologram-glitch-effect" />

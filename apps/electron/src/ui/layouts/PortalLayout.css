@@ -26,8 +26,8 @@
 }
 
 .portal-header-banner {
-  padding: 4px 10px;
-  min-height: 34px;
+  padding: 2px 8px;
+  min-height: 30px;
   background: linear-gradient(90deg, rgba(20, 27, 45, 0.95), rgba(14, 19, 31, 0.95));
   border-bottom: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.08));
   display: flex;
@@ -37,31 +37,43 @@
 }
 
 .portal-header-row {
+  flex-wrap: nowrap;
+  min-height: 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .portal-header-row {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
 }
 
 .portal-header-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
+  flex-shrink: 1;
 }
 
 .portal-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background: rgba(8, 11, 17, 0.75);
-  height: 24px;
-  padding: 0 10px;
+  height: 22px;
+  padding: 0 7px;
+  font-size: 9.5px;
   border-radius: 6px;
   border: 1px solid var(--portal-accent, #00F0FF);
   box-shadow: 0 0 10px -4px var(--portal-accent, #00F0FF);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .badge-dot {
@@ -76,27 +88,37 @@
 
 .badge-text {
   font-family: var(--font-mono, monospace);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: #F8FAFC;
 }
 
 .portal-sovereign-tag {
+  min-width: 0;
+  max-width: 165px;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   background: rgba(16, 185, 129, 0.08);
   border: 1px solid rgba(16, 185, 129, 0.25);
-  height: 24px;
-  padding: 0 8px;
+  height: 22px;
+  padding: 0 6px;
   border-radius: 6px;
   color: #10B981;
   font-family: var(--font-mono, monospace);
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 1;
+}
+
+.portal-sovereign-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -117,17 +139,18 @@
 .portal-time-display {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  height: 24px;
-  padding: 0 8px;
+  gap: 4px;
+  height: 22px;
+  padding: 0 6px;
   border-radius: 5px;
   background: rgba(8, 11, 17, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: #94A3B8;
   font-family: var(--font-mono, monospace);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 .portal-wifi-icon {
@@ -138,37 +161,38 @@
 .portal-switcher-bar {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   background: rgba(8, 11, 17, 0.65);
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
 }
 
 .portal-switcher-caption {
   font-family: var(--font-mono, monospace);
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: #64748B;
-  margin-right: 2px;
+  margin-right: 1px;
 }
 
 .portal-switch-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  height: 22px;
-  padding: 0 8px;
+  gap: 3px;
+  height: 20px;
+  padding: 0 6px;
   border-radius: 4px;
   border: 1px solid transparent;
   background: transparent;
   color: #94A3B8;
   font-family: var(--font-mono, monospace);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
@@ -231,7 +255,8 @@
 .portal-header-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+  flex-shrink: 0;
 }
 
 .portal-help-btn,
@@ -240,16 +265,17 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  height: 24px;
-  padding: 0 8px;
+  height: 22px;
+  padding: 0 7px;
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.03);
   color: #94A3B8;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .portal-help-btn:hover,
@@ -346,9 +372,9 @@
   align-items: center;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
+  border-radius: 5px;
   overflow: hidden;
-  height: 24px;
+  height: 22px;
 }
 
 .portal-zoom-btn {
@@ -384,4 +410,132 @@
 
 .portal-zoom-pill:hover {
   color: var(--portal-accent, #00F0FF);
+}
+
+
+/* ========================================================================= */
+/* MODO PROJECAO EM TELA CHEIA & FOCO IMERSIVO (ZEN PROJECTOR MODE)          */
+/* ========================================================================= */
+.portal-wrapper.projection-mode-active {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #080B11 !important;
+}
+
+.portal-wrapper.projection-mode-active .portal-glass-container {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+}
+
+.portal-wrapper.projection-mode-active .portal-header-banner,
+.portal-wrapper.projection-mode-active .portal-collapsed-pill {
+  display: none !important;
+}
+
+.portal-wrapper.projection-mode-active .portal-content-area {
+  padding: 16px 24px !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: auto !important;
+}
+
+.portal-projection-floating-badge {
+  position: fixed;
+  top: 14px;
+  right: 20px;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 240, 255, 0.18);
+  padding: 6px 14px;
+  border-radius: 30px;
+  backdrop-filter: blur(14px);
+  animation: fadeIn 0.25s ease-out;
+}
+
+.projection-badge-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f1f5f9;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.projection-live-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00F0FF;
+  box-shadow: 0 0 10px #00F0FF;
+  animation: pulse 1.5s infinite;
+}
+
+.projection-badge-hint {
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.projection-exit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.projection-exit-btn:hover {
+  background: rgba(239, 68, 68, 0.35);
+  color: #ffffff;
+  transform: scale(1.03);
+}
+
+/* Botao padrao reutilizavel de projecao em paginas */
+.btn-projection-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  color: #00F0FF;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-projection-toggle:hover {
+  background: rgba(0, 240, 255, 0.22);
+  border-color: #00F0FF;
+  box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-projection-toggle.active {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
 }

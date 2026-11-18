@@ -1,26 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import {
   Shield, Lock, User, GraduationCap, Users,
   ArrowRight, Activity, X, Briefcase, Award
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { resolvePostLoginRedirect } from "@/lib/portalAccess";
+import type { PortalRole } from "@/lib/session";
 
-export default function Login() {
+const PORTAL_BY_PREFIX: Array<{ prefix: string; id: string }> = [
+  { prefix: "/portal/coordenacao", id: "coordenacao" },
+  { prefix: "/portal/professor", id: "professores" },
+  { prefix: "/portal/pais", id: "pais" },
+  { prefix: "/portal/aluno", id: "aluno" },
+  { prefix: "/soc", id: "coordenacao" },
+  { prefix: "/bi-dashboard", id: "coordenacao" },
+];
+
+function LoginContent() {
   const router = useRouter();
-  const [selectedPortal, setSelectedPortal] = useState<{
-    id: string;
-    name: string;
-    description: string;
-    route: string;
-    icon: React.ReactNode;
-    color: string;
-  } | null>(null);
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const requestedRedirect = searchParams.get("redirect");
+  const authError = searchParams.get("error");
 
   const portalOptions = [
     {
@@ -34,7 +36,7 @@ export default function Login() {
     {
       id: "professores",
       name: "Portal do Professor",
-      description: "Chamada IA zero-typing, diário BNCC e exportação SigaWeb.",
+      description: "Chamada digital ágil, diário BNCC e exportação SigaWeb.",
       route: "/portal/professor",
       icon: <Briefcase className="text-blue-400" size={32} />,
       color: "blue"
@@ -42,7 +44,7 @@ export default function Login() {
     {
       id: "pais",
       name: "Portal de Pais",
-      description: "Segurança de portaria, boletim, mensalidade PIX e ocorrências.",
+      description: "Segurança de portaria QR, boletim, mensalidade PIX e ocorrências.",
       route: "/portal/pais",
       icon: <Users className="text-emerald-400" size={32} />,
       color: "emerald"
@@ -50,14 +52,26 @@ export default function Login() {
     {
       id: "aluno",
       name: "Portal do Aluno",
-      description: "Jornada gamificada, tutor IA Córtex, simulados e grade horária.",
+      description: "Jornada gamificada, tutor Socrático, simulados e grade horária.",
       route: "/portal/aluno",
       icon: <GraduationCap className="text-purple-400" size={32} />,
       color: "purple"
     }
   ];
 
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [selectedPortal, setSelectedPortal] = useState<(typeof portalOptions)[number] | null>(() => {
+    if (!requestedRedirect) return null;
+    const matched = PORTAL_BY_PREFIX.find((item) => requestedRedirect.startsWith(item.prefix));
+    return matched ? portalOptions.find((opt) => opt.id === matched.id) || null : null;
+  });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(
+    authError === "invalid_session"
+      ? "Sua sessão expirou ou é inválida. Autentique-se novamente."
+      : null
+  );
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,7 +93,12 @@ export default function Login() {
         setIsLoading(false);
         return;
       }
-      router.push(data.redirect || selectedPortal?.route || "/portal/aluno");
+      const fallbackRoute = data.redirect || selectedPortal?.route || "/portal/aluno";
+      const role = data.user?.role as PortalRole | undefined;
+      const target = role
+        ? resolvePostLoginRedirect(requestedRedirect, fallbackRoute, role)
+        : fallbackRoute;
+      router.push(target);
     } catch {
       setErrorMessage("Erro de rede ao conectar com o serviço de autenticação.");
       setIsLoading(false);
@@ -89,11 +108,11 @@ export default function Login() {
   return (
     <div className="flex flex-col min-h-screen bg-black text-white items-center justify-center p-8 relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-indigo-500/5 blur-[160px] rounded-full -z-10" />
-      
+
       <div className="max-w-md w-full flex flex-col gap-10">
         <div className="text-center">
           <div className="w-20 h-20 bg-indigo-500/10 rounded-[32px] flex items-center justify-center mx-auto mb-6 border border-indigo-500/10 shadow-[0_0_40px_rgba(79,70,229,0.1)]">
-             <Shield className="text-indigo-500" size={40} />
+            <Shield className="text-indigo-500" size={40} />
           </div>
           <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tighter mb-2">
             Sovereign <span className="text-indigo-400">Access</span>
@@ -103,33 +122,47 @@ export default function Login() {
           </p>
         </div>
 
+        {errorMessage && !selectedPortal && (
+          <div role="alert" className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl text-center">
+            {errorMessage}
+          </div>
+        )}
+
         <div className="flex flex-col gap-4">
-           {portalOptions.map((opt) => (
-             <button 
-               key={opt.id} 
-               onClick={() => setSelectedPortal(opt)}
-               className="group glass p-5 sm:p-6 rounded-[28px] border-white/5 hover:border-indigo-500/40 hover:bg-white/5 transition-all flex items-center gap-5 text-left bg-zinc-950/40 shadow-xl text-white cursor-pointer"
-             >
-                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                   {opt.icon}
-                </div>
-                <div className="flex-grow min-w-0">
-                   <h3 className="text-base font-black uppercase tracking-tight text-white">{opt.name}</h3>
-                   <p className="text-zinc-400 text-[11px] font-medium leading-tight mt-0.5">{opt.description}</p>
-                </div>
-                <ArrowRight size={18} className="text-zinc-600 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
-             </button>
-           ))}
+          {portalOptions.map((opt) => (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => {
+                setSelectedPortal(opt);
+                setErrorMessage(
+                  authError === "invalid_session"
+                    ? "Sua sessão expirou ou é inválida. Autentique-se novamente."
+                    : null
+                );
+              }}
+              className="group glass p-5 sm:p-6 rounded-[28px] border-white/5 hover:border-indigo-500/40 hover:bg-white/5 transition-all flex items-center gap-5 text-left bg-zinc-950/40 shadow-xl text-white cursor-pointer"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                {opt.icon}
+              </div>
+              <div className="flex-grow min-w-0">
+                <h3 className="text-base font-black uppercase tracking-tight text-white">{opt.name}</h3>
+                <p className="text-zinc-400 text-[11px] font-medium leading-tight mt-0.5">{opt.description}</p>
+              </div>
+              <ArrowRight size={18} className="text-zinc-600 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
+            </button>
+          ))}
         </div>
 
         <div className="text-center border-t border-white/5 pt-8">
-           <div className="flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-4 font-bold">
-              <Activity size={12} className="text-emerald-500 animate-pulse" />
-              Ghost-Vision Nodes Online • Portaria 9000
-           </div>
-           <p className="text-zinc-600 text-[10px] font-bold uppercase tracking-widest">
-             © 2026 Áquila Pro — Sovereignty First Architecture
-           </p>
+          <div className="flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mb-4 font-bold">
+            <Activity size={12} className="text-emerald-500 animate-pulse" />
+            Autenticação Soberana • BFF HTTPS &amp; Sync Seletivo
+          </div>
+          <p className="text-zinc-600 text-[10px] font-bold uppercase tracking-widest">
+            © 2026 Áquila Pro — Sovereignty First Architecture
+          </p>
         </div>
       </div>
 
@@ -137,7 +170,9 @@ export default function Login() {
       {selectedPortal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4 animate-fade-in">
           <div className="max-w-md w-full bg-zinc-950 border border-white/10 p-8 rounded-[36px] shadow-2xl relative flex flex-col gap-6">
-            <button 
+            <button
+              type="button"
+              aria-label="Fechar modal de login"
               onClick={() => setSelectedPortal(null)}
               className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/10 text-zinc-400 hover:text-white transition-colors"
             >
@@ -159,10 +194,10 @@ export default function Login() {
                 <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Usuário / CPF / Matrícula</label>
                 <div className="relative">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     required
-                    placeholder="Digite seu usuário..." 
+                    placeholder="Digite seu usuário..."
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 transition-colors"
@@ -174,10 +209,10 @@ export default function Login() {
                 <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Senha</label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
-                  <input 
-                    type="password" 
+                  <input
+                    type="password"
                     required
-                    placeholder="••••••••" 
+                    placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-12 pr-4 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500 transition-colors"
@@ -185,9 +220,13 @@ export default function Login() {
                 </div>
               </div>
 
-              {errorMessage && <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl">{errorMessage}</div>}
+              {errorMessage && (
+                <div role="alert" className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl">
+                  {errorMessage}
+                </div>
+              )}
 
-              <button 
+              <button
                 type="submit"
                 disabled={isLoading}
                 className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 mt-2 cursor-pointer"
@@ -196,10 +235,23 @@ export default function Login() {
                 <ArrowRight size={18} />
               </button>
             </form>
-
           </div>
         </div>
       )}
     </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen bg-black text-zinc-400 items-center justify-center text-xs uppercase tracking-widest">
+          Carregando autenticação soberana...
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
   );
 }

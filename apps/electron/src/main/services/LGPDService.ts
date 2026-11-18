@@ -5,6 +5,7 @@
  */
 
 import Database from '../../database/Database';
+import { ZeroBypassAuditService } from './ZeroBypassAuditService';
 import * as crypto from 'crypto';
 
 export interface DataRetentionSettings {
@@ -63,6 +64,32 @@ export class LGPDService {
       legalReference:
         'ANPD Despacho Decisório nº 2/2026/SFI & Nota Técnica nº 4/2026/FIS/CGF/ANPD (Processo 00261.007049/2024-06) — LGPD Arts. 11 e 14',
     };
+  }
+
+  /**
+   * Impõe trava técnica obrigatória de quarentena biométrica ANPD (Despacho 2/2026 & NT 4/2026).
+   * Registra tentativa na trilha ZeroBypass e lança ANPD_BIOMETRIC_QUARANTINE_ACTIVE quando bloqueada.
+   */
+  async assertBiometricAttendanceAllowed(context?: {
+    schoolId?: string;
+    studentId?: string;
+    actorId?: string;
+  }): Promise<BiometricQuarantineStatus> {
+    const status = await this.getBiometricQuarantineStatus();
+    if (!status.enabled) {
+      await this.recordAudit(
+        context?.studentId || context?.actorId || 'SYSTEM_EDGE_GATE',
+        'ANPD_PARANA_BIOMETRIC_QUARANTINE_BLOCKED',
+        `Biometria facial bloqueada pela Quarentena ANPD (${status.legalReference}). Caminho primário: ${status.defaultPath}. envFlagEnabled=${status.envFlagEnabled}, ripdApproved=${status.ripdApproved}.`
+      );
+      const err: any = new Error(
+        `ANPD_BIOMETRIC_QUARANTINE_ACTIVE: Reconhecimento facial em quarentena por padrão (${status.legalReference}). Utilize Crachá QR Dinâmico ou Chamada Nominal.`
+      );
+      err.code = 'ANPD_BIOMETRIC_QUARANTINE_ACTIVE';
+      err.status = status;
+      throw err;
+    }
+    return status;
   }
 
   /**
@@ -148,11 +175,13 @@ export class LGPDService {
    */
   private async recordAudit(targetId: string, action: string, details: string): Promise<void> {
     try {
-      const sql = `INSERT INTO zero_bypass_audits (id, targetId, action, details, timestamp, checksum) 
-                   VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, ?)`;
-      const id = `audit_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-      const checksum = crypto.createHash('sha256').update(`${targetId}:${action}:${details}`).digest('hex');
-      await this.db.run(sql, [id, targetId, action, details, checksum]);
+      const auditService = ZeroBypassAuditService.getInstance();
+      await auditService.record({
+        userId: targetId,
+        action: action as any,
+        details,
+        legalBasis: 'LGPD_ART_16'
+      });
     } catch {
       // Fallback gracioso
     }

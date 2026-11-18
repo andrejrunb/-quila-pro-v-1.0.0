@@ -1,20 +1,24 @@
 {
   "appId": "com.aquilapro.desktop",
   "productName": "Aquila Pro",
-  "npmRebuild": false,
+  "npmRebuild": true,
   "asar": true,
   "asarUnpack": [
+    "**/node_modules/sqlite3/**/*",
     "**/node_modules/better-sqlite3/**/*",
-    "**/node_modules/sharp/**/*"
+    "**/node_modules/onnxruntime-node/**/*",
+    "**/node_modules/sharp/**/*",
+    "**/node_modules/@serialport/**/*"
   ],
   "artifactName": "AquilaPro-Setup-${version}.${ext}",
   "copyright": "Copyright © 2026 André Jr - Áquila Pro",
   "directories": {
     "buildResources": "resources",
-    "output": "release_out"
+    "output": "release_v2_2"
   },
   "files": [
     "dist/**/*",
+    "!dist/python_workers/**",
     "package.json"
   ],
   "extraResources": [
@@ -45,7 +49,8 @@
         ]
       }
     ],
-    "icon": "resources/icon.ico"
+    "icon": "resources/icon.ico",
+    "requestedExecutionLevel": "asInvoker"
   },
   "nsis": {
     "installerHeader": "resources/installerHeader.png",
@@ -62,9 +67,24 @@
     ],
     "language": "1046",
     "perMachine": true,
-    "runAfterFinish": true
+    "runAfterFinish": true,
+    "include": "resources/installer.nsh"
   },
   "portable": {
     "artifactName": "AquilaPro-Portable-${version}.exe"
-  }
+  },
+  "linux": {
+    "target": [
+      "AppImage",
+      "deb"
+    ],
+    "icon": "resources/icons/",
+    "category": "Education"
+  },
+  "publish": {
+    "provider": "generic",
+    "url": "https://updates.aquilapro.com.br/releases/",
+    "channel": "latest"
+  },
+  "afterPack": "scripts/apply-fuses.js"
 }

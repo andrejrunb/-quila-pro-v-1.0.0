@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AlertTriangle, Activity, Search, Crosshair, Users, BrainCircuit } from 'lucide-react';
+import { AlertTriangle, Crosshair, BrainCircuit } from 'lucide-react';
 import './CoordinationAlerts.css'; // Será criado em breve ou vamos injetar inline para simplificar? Usarei inline minimalista padrão React.
 
 interface RiskAlert {
@@ -70,7 +70,7 @@ export const CoordinationAlerts: React.FC = () => {
             <Crosshair className="text-red-500" />
             Radar Anti-Evasão
           </h1>
-          <p style={{ color: '#9ca3af', margin: '4px 0 0 0' }}>Sovereign Predictor • Nível de Risco >= 75%</p>
+          <p style={{ color: '#9ca3af', margin: '4px 0 0 0' }}>Sovereign Predictor • Nível de Risco &gt;= 75%</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <div style={{ background: '#111827', padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid #374151' }}>

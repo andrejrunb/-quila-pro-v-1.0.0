@@ -40,6 +40,20 @@ import TwinNavigator from '../pages/TwinNavigator';
 import { NightSentry } from '../pages/NightSentry';
 import { LoadTesting } from '../pages/LoadTesting';
 import NetworkTrafficDashboard from '../pages/NetworkTrafficDashboard';
+import { SocialNexus } from '../pages/SocialNexus';
+import { Students } from '../pages/Students';
+import { SeatingIntelligence } from '../pages/SeatingIntelligence';
+import { ClassroomDashboard } from '../pages/ClassroomDashboard';
+import { LGPDCompliance } from '../pages/LGPDCompliance';
+import WhatsAppIntegration from '../pages/WhatsAppIntegration';
+import { AlertsPage } from '../pages/AlertsPage';
+import ExecutiveFinanceBI from '../pages/ExecutiveFinanceBI';
+import { EcosystemManager } from '../pages/EcosystemManager';
+import { PedagogicalIntelligenceHub } from '../pages/PedagogicalIntelligenceHub';
+import SovereignLibrarianUI from '../pages/SovereignLibrarianUI';
+import LifecycleDashboard from '../pages/LifecycleDashboard';
+import { StudentCosmeticsChamber } from '../components/StudentCosmeticsChamber';
+import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder';
 
 import {
   Users, BarChart3, DollarSign, Heart,
@@ -309,7 +323,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
       case 'calendar':
         return <AcademicCalendar onBack={onBack} />;
       case 'reports-hub':
-        return <ReportingHub onBack={onBack} />;
+        return <ReportingHub onBack={onBack} userRole={userRole || 'admin'} userCoordinationId={null} />;
       case 'multi-site':
         return <MultiSiteManager onBack={onBack} />;
       case 'nexus-mesh':
@@ -378,12 +392,45 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ currentPage, onNavigat
       case 'growth-agents':
       case 'school-growth-agents':
         return <SchoolGrowthAgentSuite onBack={onBack} />;
+      case 'social-nexus':
+        return <SocialNexus onBack={onBack} />;
+      case 'students':
+        return <Students onNavigate={onNavigate} onBack={onBack} />;
+      case 'seating-intelligence':
+        return <SeatingIntelligence onNavigate={onNavigate} onBack={onBack} />;
+      case 'classroom-dashboard':
+        return <ClassroomDashboard user={{ role: userRole }} />;
+      case 'lgpd':
+        return <LGPDCompliance />;
+      case 'whatsapp':
+        return <WhatsAppIntegration />;
+      case 'alerts':
+        return <AlertsPage onBack={onBack} />;
+      case 'executive-finance-bi':
+        return <ExecutiveFinanceBI />;
+      case 'ecosystem':
+        return <EcosystemManager />;
+      case 'intelligence-hub':
+        return <PedagogicalIntelligenceHub />;
+      case 'sovereign-library':
+        return <SovereignLibrarianUI />;
+      case 'lifecycle-dashboard':
+        return <LifecycleDashboard />;
+      case 'cosmetics-chamber':
+      case 'battle-banner':
+      case 'skins-shop':
+        return <StudentCosmeticsChamber studentId="ADMIN_PREVIEW" onBack={onBack} />;
+      case 'youtube-radar':
+      case 'video-finder':
+        return <YouTubePedagogicalFinder onBack={onBack} />;
+      case 'executive-pulse':
+        return renderExecutiveDashboard();
       default:
         return renderExecutiveDashboard();
     }
   };
 
-  const isAdmin = ['admin', 'director'].includes(userRole) || !userRole;
+  const isAdmin = ['admin', 'director'].includes((userRole || '').toLowerCase()) || !userRole;
 
   return (
     <PortalLayout

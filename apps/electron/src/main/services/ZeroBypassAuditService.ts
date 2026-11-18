@@ -28,14 +28,19 @@ export type CriticalAuditAction =
   | 'ADMIN_AUTH_OVERRIDE'
   | 'STUDENT_ENROLLMENT'
   | 'CONSENT_GRANTED'
-  | 'CONSENT_REVOKED';
+  | 'CONSENT_REVOKED'
+  | 'CNE_15_2026_EARLY_STAGE_AI_BLOCKED'
+  | 'OMR_CORRECTION_TEACHER_APPROVED'
+  | 'OMR_CORRECTION_CONTESTED'
+  | 'ESSAY_TEACHER_APPROVED'
+  | 'ESSAY_PRECORRECTION_CONTESTED';
 
 export interface AuditRecordParams {
   userId: string;
   action: CriticalAuditAction | string;
   details: string;
   metadata?: Record<string, unknown>;
-  legalBasis?: 'ECA_DIGITAL_LEI_15211' | 'LGPD_ART_14' | 'LGPD_ART_16' | 'ANPD_NT_04_2026' | 'LEGAL_OBLIGATION' | 'SECURITY_DEFENSE';
+  legalBasis?: 'ECA_DIGITAL_LEI_15211' | 'LGPD_ART_14' | 'LGPD_ART_16' | 'ANPD_NT_04_2026' | 'CNE_CP_15_2026' | 'LEGAL_OBLIGATION' | 'SECURITY_DEFENSE';
   consentVerified?: boolean;
 }
 
@@ -76,13 +81,20 @@ export class EcaDigitalConsentError extends Error {
 
 export class ZeroBypassAuditService {
   private static instance: ZeroBypassAuditService;
-  private readonly db: any;
+  private db: any;
   public static readonly GENESIS_HASH = '0'.repeat(64);
   private lastHash: string = ZeroBypassAuditService.GENESIS_HASH;
   private initialized: boolean = false;
 
   public constructor(db?: any) {
-    this.db = db || Database.getInstance();
+    this.db = db || (Database && typeof Database.getInstance === 'function' ? Database.getInstance() : null);
+  }
+
+  private resolveDb(): any {
+    if (!this.db && Database && typeof Database.getInstance === 'function') {
+      this.db = Database.getInstance();
+    }
+    return this.db;
   }
 
   public static resetInstance(): void {
@@ -101,8 +113,14 @@ export class ZeroBypassAuditService {
    */
   public async initialize(): Promise<void> {
     try {
+      const activeDb = this.resolveDb();
+      if (!activeDb) {
+        this.lastHash = ZeroBypassAuditService.GENESIS_HASH;
+        this.initialized = true;
+        return;
+      }
       await this.ensureSchema();
-      const lastEntry = await this.db.get(
+      const lastEntry = await activeDb.get(
         'SELECT hash FROM zero_bypass_audits WHERE hash IS NOT NULL ORDER BY id DESC LIMIT 1'
       );
       if (lastEntry && lastEntry.hash) {
@@ -125,20 +143,22 @@ export class ZeroBypassAuditService {
    */
   private async ensureSchema(): Promise<void> {
     try {
-      const tableInfo = await this.db.all('PRAGMA table_info(zero_bypass_audits)');
+      const activeDb = this.resolveDb();
+      if (!activeDb) return;
+      const tableInfo = await activeDb.all('PRAGMA table_info(zero_bypass_audits)');
       if (tableInfo && tableInfo.length > 0) {
         const columns = tableInfo.map((col: any) => col.name);
         if (!columns.includes('previous_hash')) {
-          await this.db.run(`ALTER TABLE zero_bypass_audits ADD COLUMN previous_hash TEXT DEFAULT '${ZeroBypassAuditService.GENESIS_HASH}'`);
+          await activeDb.run(`ALTER TABLE zero_bypass_audits ADD COLUMN previous_hash TEXT DEFAULT '${ZeroBypassAuditService.GENESIS_HASH}'`);
         }
         if (!columns.includes('hash')) {
-          await this.db.run('ALTER TABLE zero_bypass_audits ADD COLUMN hash TEXT');
+          await activeDb.run('ALTER TABLE zero_bypass_audits ADD COLUMN hash TEXT');
         }
         if (!columns.includes('legal_basis')) {
-          await this.db.run('ALTER TABLE zero_bypass_audits ADD COLUMN legal_basis TEXT');
+          await activeDb.run('ALTER TABLE zero_bypass_audits ADD COLUMN legal_basis TEXT');
         }
         if (!columns.includes('consent_verified')) {
-          await this.db.run('ALTER TABLE zero_bypass_audits ADD COLUMN consent_verified INTEGER DEFAULT 0');
+          await activeDb.run('ALTER TABLE zero_bypass_audits ADD COLUMN consent_verified INTEGER DEFAULT 0');
         }
       }
     } catch (e: any) {
@@ -252,7 +272,11 @@ export class ZeroBypassAuditService {
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    const result = await this.db.run(sql, [
+    const activeDb = this.resolveDb();
+    if (!activeDb) {
+      throw new Error('[ZeroBypassAudit] Database instance unavailable for audit record');
+    }
+    const result = await activeDb.run(sql, [
       params.userId,
       params.action,
       sanitizedDetails,
@@ -289,7 +313,8 @@ export class ZeroBypassAuditService {
     expectedHash?: string;
     actualHash?: string;
   }> {
-    const blocks: AuditChainBlock[] = await this.db.all(
+    const activeDb = this.resolveDb();
+    const blocks: AuditChainBlock[] = await activeDb.all(
       'SELECT id, userId, action, details, metadata, timestamp, previous_hash, hash, legal_basis, consent_verified FROM zero_bypass_audits ORDER BY id ASC'
     );
 

@@ -147,15 +147,28 @@ export class SovereignLibrarianService {
     return await this.db.all(`SELECT * FROM pedagogical_resources WHERE classId = ? ORDER BY createdAt DESC`, [classId]);
   }
 
-  async browseLibrary(filters?: { type?: string, collectionId?: string, isFavorite?: boolean }) {
+  async browseLibrary(filters?: { type?: string, collectionId?: string, isFavorite?: boolean, search?: string, limit?: number, offset?: number }) {
     let sql = `SELECT * FROM pedagogical_resources WHERE 1=1`;
     const params: any[] = [];
 
     if (filters?.type) { sql += ` AND type = ?`; params.push(filters.type); }
     if (filters?.collectionId) { sql += ` AND collectionId = ?`; params.push(filters.collectionId); }
     if (filters?.isFavorite !== undefined) { sql += ` AND isFavorite = ?`; params.push(filters.isFavorite ? 1 : 0); }
+    if (filters?.search && filters.search.trim().length > 0) {
+      sql += ` AND (title LIKE ? OR aiSummary LIKE ? OR content LIKE ?)`;
+      const term = `%${filters.search.trim()}%`;
+      params.push(term, term, term);
+    }
 
     sql += ` ORDER BY createdAt DESC`;
+    if (filters?.limit) {
+      sql += ` LIMIT ?`;
+      params.push(filters.limit);
+      if (filters?.offset) {
+        sql += ` OFFSET ?`;
+        params.push(filters.offset);
+      }
+    }
     return await this.db.all(sql, params);
   }
 

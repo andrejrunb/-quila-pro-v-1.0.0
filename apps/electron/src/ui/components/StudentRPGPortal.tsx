@@ -7,6 +7,7 @@ import SovereignShop from './SovereignShop';
 import { Proposal } from '../../services/SovereignCouncilService';
 
 import { resolveStudentGradeContext, matchesStudentGradeScope, formatSafeDatePtBr } from '../utils/studentGradeScope';
+import { StudentFocusCard } from './StudentFocusCard';
 
 import { Sparkles, Brain, Trophy, Flame, Target, BookOpen, ShoppingBag, Vote, Swords, PenTool, GitFork, Network, Crown, Tv, Gamepad2, Layers, CheckCircle2, Clock, MessageSquare } from 'lucide-react';
 
@@ -342,8 +343,28 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
             <Sparkles size={14} />
 
-            <span>Praticar &amp; Wordwall (8 Estilos)</span>
+            <span>Praticar &amp; Jogos Educativos Áquila (8 Estilos)</span>
 
+          </button>
+
+          <button
+            className="rpg-action-btn"
+            title="Projetar em Tela Cheia (Foco / Telão)"
+            onClick={() => {
+              window.dispatchEvent(
+                new CustomEvent('aquila:toggle-projection-mode', {
+                  detail: { active: true, title: 'Modo Projeção: Portal do Aluno' }
+                })
+              );
+            }}
+            style={{
+              borderColor: 'rgba(56, 189, 248, 0.4)',
+              background: 'rgba(56, 189, 248, 0.1)',
+              color: '#38BDF8'
+            }}
+          >
+            <Tv size={14} />
+            <span>Projetar Telão</span>
           </button>
 
           <button className="rpg-action-btn" onClick={() => onNavigate?.('ai-lab')}>
@@ -424,29 +445,16 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
           marginBottom: '12px'
         }}
       >
-        {/* 1. Continue de onde parou */}
-        <div className="rpg-panel" style={{ padding: '14px 16px', borderLeft: '3px solid #2563EB' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: '#93C5FD', textTransform: 'uppercase' }}>
-              Continue de onde parou • {studentCtx.seriesLabel}
-            </span>
-            <Clock size={14} color="#60A5FA" />
-          </div>
-          <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#F1F5F9', margin: '0 0 4px 0' }}>
-            {assignedTasks[0]?.title || 'Prática de questões da sua série'}
-          </h3>
-          <p style={{ fontSize: '12px', color: '#CBD5E1', margin: '0 0 12px 0' }}>
-            Disciplina: <strong>{assignedTasks[0]?.subject || 'Matemática'}</strong> • Prazo: {assignedTasks[0]?.dueDate || 'Amanhã'}
-          </p>
-          <button
-            className="rpg-action-btn primary"
-            style={{ width: '100%', justifyContent: 'center', height: '36px' }}
-            onClick={() => onNavigate?.('mastery-chamber')}
-          >
-            <Sparkles size={14} />
-            <span>Continuar atividade</span>
-          </button>
-        </div>
+        {/* 1. Continue de onde parou (StudentFocusCard) */}
+        <StudentFocusCard
+          subject={`Disciplina: ${assignedTasks[0]?.subject || 'Matemática'} • ${studentCtx.seriesLabel}`}
+          title={assignedTasks[0]?.title || 'Prática de questões da sua série'}
+          progress={assignedTasks[0]?.status === 'completed' ? 100 : 45}
+          dueLabel={`Prazo: ${assignedTasks[0]?.dueDate || 'Amanhã'}`}
+          className="rpg-panel"
+          style={{ padding: '14px 16px', borderLeft: '3px solid #2563EB', margin: 0 }}
+          onContinue={() => onNavigate?.('mastery-chamber')}
+        />
 
         {/* 2. Para entregar (Somente tarefas da série do estudante) */}
         <div className="rpg-panel" style={{ padding: '14px 16px', borderLeft: '3px solid #F59E0B' }}>
@@ -538,7 +546,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
               <Crown size={15} color="#FBBF24" />
 
-              <span>Abrir Câmara de Banners & Cosméticos Clash Royale (Avatares, Molduras, Emblemas)</span>
+              <span>Abrir Câmara de Personalização e Conquistas Clash Royale (Avatares, Molduras, Emblemas)</span>
 
             </button>
 
@@ -860,7 +868,7 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
                 <span className="q-badge">🔬 PHET & KUMON • +350 XP</span>
 
-                <h4>Laboratório PhET & Micro-Drills Kumon</h4>
+                <h4>Laboratório Científico Áquila & Micro-drills de maestria Áquila</h4>
 
                 <span className="quest-sub">Simulações de Física, Eletrostática Nativa e Desafios Diários de 3 min</span>
 
@@ -880,11 +888,11 @@ const StudentRPGPortal: React.FC<StudentRPGPortalProps> = ({ studentId: propStud
 
               <div className="quest-left">
 
-                <span className="q-badge">🎙️ PODCAST & WORDWALL • +200 XP</span>
+                <span className="q-badge">🎙️ PODCAST & JOGOS ÁQUILA • +200 XP</span>
 
                 <h4>Estúdio Multimodal & Gamificação</h4>
 
-                <span className="quest-sub">Podcast Sofia & Lucas, Pílulas Cognitivas Brisk e Abra a Caixa 30s</span>
+                <span className="quest-sub">Podcast Sofia & Lucas, Pílulas Cognitivas Áquila e Desafio Áquila 30s</span>
 
               </div>
 

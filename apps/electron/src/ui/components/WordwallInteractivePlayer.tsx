@@ -229,7 +229,7 @@ export const WordwallInteractivePlayer: React.FC<WordwallInteractivePlayerProps>
     return () => clearInterval(timer);
   }, [activeGame.templateType, gameshowTimeRemaining, gameOver]);
 
-  // Switch Template (Wordwall signature capability)
+  // Switch Template (Jogos Educativos Áquila signature capability)
   const handleSwitchTemplate = (targetTemplate: WordwallTemplateType) => {
     if (targetTemplate === activeGame.templateType) return;
     const converted = WordwallGameEngine.convertGameToTemplate(activeGame, targetTemplate);
@@ -524,7 +524,7 @@ export const WordwallInteractivePlayer: React.FC<WordwallInteractivePlayerProps>
           <div>
             <div className="flex items-center gap-2">
               <span className={`text-xs font-bold uppercase tracking-wider ${activeTheme.accentText}`}>
-                {activeTheme.badge} Wordwall Sovereign Engine • {activeGame.grade} ({activeGame.discipline})
+                {activeTheme.badge} Motor de Jogos Educativos Áquila • {activeGame.grade} ({activeGame.discipline})
               </span>
               <span className="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 border border-slate-700 text-slate-300">
                 BNCC {activeGame.bnccSkillCode}
@@ -590,12 +590,12 @@ export const WordwallInteractivePlayer: React.FC<WordwallInteractivePlayerProps>
         ))}
       </div>
 
-      {/* BARRA 2: Wordwall "Trocar Modelo" (Switch Template para o MESMO conteúdo) + Tema Visual */}
+      {/* BARRA 2: Jogos Educativos Áquila "Trocar Modelo" (Switch Template para o MESMO conteúdo) + Tema Visual */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-900/70 border border-slate-800 rounded-xl mb-5">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-[11px] font-bold text-indigo-300 uppercase tracking-wider flex items-center gap-1 mr-2">
             <Shuffle className="w-3.5 h-3.5" />
-            Trocar Estilo (Wordwall Switcher):
+            Trocar Estilo de Jogo Áquila:
           </span>
           {switchableModalities.map((mod) => (
             <button
@@ -1312,3 +1312,6 @@ export const WordwallInteractivePlayer: React.FC<WordwallInteractivePlayerProps>
     </div>
   );
 };
+
+export const AquilaGameInteractivePlayer = WordwallInteractivePlayer;
+export default WordwallInteractivePlayer;

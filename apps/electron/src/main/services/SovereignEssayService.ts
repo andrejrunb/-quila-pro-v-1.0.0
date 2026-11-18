@@ -114,9 +114,31 @@ export interface EssayCorrectionMirror {
 
   xpAwarded: number;
 
-  badgeAwarded?: string;
+  badgeAwarded?: string | null;
+
+  pendingCoinsReward?: number;
+
+  pendingXpReward?: number;
+
+  pendingBadgeReward?: string | null;
+
+  rewardsReleased?: boolean;
 
   status: 'audited';
+
+  reviewStatus: 'PRE_CORRECAO_IA_PENDENTE_DOCENTE' | 'APROVADA_DOCENTE' | 'CONTESTADA';
+
+  requiresHumanTeacherValidation: boolean;
+
+  contestationChannelEnabled: boolean;
+
+  legalComplianceNotice: string;
+
+  teacherApprovedBy?: string;
+
+  teacherApprovedAt?: string;
+
+  contestationReason?: string;
 
   createdAt: string;
 
@@ -272,103 +294,61 @@ export class SovereignEssayService extends EventEmitter {
 
 
 
-    // Recompensas de gamificação soberana
-
-    let coinsAwarded = 15;
-
-    let xpAwarded = Math.round(evaluation.totalScore / 3);
-
-    let badgeAwarded: string | undefined = undefined;
-
-
+    // Recompensas de gamificação soberana — CNE/CP nº 15/2026:
+    // Ficam RETIDAS como pendentes até validação humana docente (approveTeacherReview).
+    let pendingCoinsReward = 15;
+    const pendingXpReward = Math.round(evaluation.totalScore / 3);
+    let pendingBadgeReward: string | null = null;
 
     if (evaluation.totalScore >= 920) {
-
-      coinsAwarded = 80;
-
-      badgeAwarded = 'Mestre da Escrita Nota 1000';
-
+      pendingCoinsReward = 80;
+      pendingBadgeReward = 'Mestre da Escrita Nota 1000';
     } else if (evaluation.totalScore >= 800) {
-
-      coinsAwarded = 45;
-
-      badgeAwarded = 'Redator de Excelência ENEM';
-
+      pendingCoinsReward = 45;
+      pendingBadgeReward = 'Redator de Excelência ENEM';
     } else if (evaluation.totalScore >= 640) {
-
-      coinsAwarded = 25;
-
-      badgeAwarded = 'Argumentador em Ascensão';
-
+      pendingCoinsReward = 25;
+      pendingBadgeReward = 'Argumentador em Ascensão';
     }
 
+    // Enquanto PRE_CORRECAO_IA_PENDENTE_DOCENTE, nenhuma recompensa ou nota definitiva é consolidada
+    const coinsAwarded = 0;
+    const xpAwarded = 0;
+    const badgeAwarded: string | null = null;
+    const legalComplianceNotice =
+      'Pré-correção diagnóstica assistida por IA. A atribuição oficial de nota é exclusiva do docente humano, com direito à contestação garantido (Parecer CNE/CP nº 15/2026, DOU 11/11/2026).';
 
-
-    // Persistência no SQLite WAL
-
+    // Persistência no SQLite WAL com colunas HITL e recompensas pendentes
     const essayId = `essay-${Date.now()}-${Math.random().toString(36).substring(7)}`;
 
     await db.saveStudentEssay({
-
       id: essayId,
-
       studentId,
-
       themeId: params.themeId,
-
       themeTitle: params.themeTitle,
-
       text: essayText,
-
       photoPath: savedPhotoPath,
-
       submissionType,
-
       ocrConfidence,
-
       c1Score: evaluation.c1Score,
-
       c2Score: evaluation.c2Score,
-
       c3Score: evaluation.c3Score,
-
       c4Score: evaluation.c4Score,
-
       c5Score: evaluation.c5Score,
-
       totalScore: evaluation.totalScore,
-
       feedbackText: evaluation.feedbackText,
-
       c5ElementsJson: evaluation.c5Elements,
-
       repertoireHitsJson: evaluation.repertoireHits,
-
       status: 'audited',
-
+      reviewStatus: 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+      requiresHumanTeacherValidation: true,
+      contestationChannelEnabled: true,
+      legalComplianceNotice,
+      pendingXpReward,
+      pendingCoinsReward,
+      pendingBadgeReward,
+      rewardsReleased: false,
     });
-
-
-
-    // Concessão de Moedas, XP e Emblema no Banco
-
-    try {
-
-      await db.updateStudentXP(studentId, xpAwarded);
-
-      await db.addStudentCoins(studentId, coinsAwarded);
-
-      if (badgeAwarded) {
-
-        await db.awardStudentBadge(studentId, `badge-${Date.now()}`, badgeAwarded);
-
-      }
-
-    } catch (e) {
-
-      console.warn('[SovereignEssayService] Erro ao creditar economia do aluno:', e);
-
-    }
 
 
 
@@ -386,7 +366,7 @@ export class SovereignEssayService extends EventEmitter {
 
         action: 'ESSAY_AUDITED',
 
-        details: `Redação ID ${essayId} auditada com nota ${evaluation.totalScore}/1000 no tema "${params.themeTitle}".`,
+        details: `Redação ID ${essayId} pré-corrigida por IA (${evaluation.totalScore}/1000, pendente de validação docente CNE/CP nº 15/2026) no tema "${params.themeTitle}".`,
 
         metadata: {
 
@@ -484,9 +464,25 @@ export class SovereignEssayService extends EventEmitter {
 
       badgeAwarded,
 
+      pendingCoinsReward,
+
+      pendingXpReward,
+
+      pendingBadgeReward,
+
+      rewardsReleased: false,
+
       status: 'audited',
 
       createdAt: new Date().toISOString(),
+
+      reviewStatus: 'PRE_CORRECAO_IA_PENDENTE_DOCENTE',
+
+      requiresHumanTeacherValidation: true,
+
+      contestationChannelEnabled: true,
+
+      legalComplianceNotice,
 
       auditedAt: new Date().toISOString(),
 
@@ -854,6 +850,135 @@ export class SovereignEssayService extends EventEmitter {
 
     return db.getStudentEssayById(id);
 
+  }
+
+  /**
+   * Validação humana docente (Parecer CNE/CP nº 15/2026).
+   * Somente após aprovação explícita do professor as recompensas pendentes (XP, Coins e Emblema) são creditadas.
+   */
+  public async approveTeacherReview(essayId: string, teacherId: string) {
+    if (!essayId || !teacherId) {
+      throw new Error('[SovereignEssayService] essayId e teacherId são obrigatórios para aprovação docente.');
+    }
+
+    const essay = await db.getStudentEssayById(essayId);
+    if (!essay) {
+      throw new Error(`[SovereignEssayService] Redação ${essayId} não encontrada.`);
+    }
+
+    const approvalRes = await db.approveStudentEssayReview(essayId, teacherId);
+    const approvedAt = new Date().toISOString();
+
+    let releasedXp = 0;
+    let releasedCoins = 0;
+    let releasedBadge: string | null = null;
+
+    if (!essay.rewardsReleased) {
+      const pendingXp = Number(essay.pendingXpReward ?? 0);
+      const pendingCoins = Number(essay.pendingCoinsReward ?? 0);
+      const pendingBadge = essay.pendingBadgeReward || null;
+
+      try {
+        if (pendingXp > 0) {
+          await db.updateStudentXP(essay.studentId, pendingXp);
+          releasedXp = pendingXp;
+        }
+        if (pendingCoins > 0) {
+          await db.addStudentCoins(essay.studentId, pendingCoins);
+          releasedCoins = pendingCoins;
+        }
+        if (pendingBadge) {
+          await db.awardStudentBadge(essay.studentId, `badge-${Date.now()}`, pendingBadge);
+          releasedBadge = pendingBadge;
+        }
+        await db.markStudentEssayRewardsReleased(essayId);
+      } catch (e) {
+        console.warn('[SovereignEssayService] Erro ao liberar recompensas após aprovação docente:', e);
+      }
+    }
+
+    try {
+      const audit = ZeroBypassAuditService.getInstance(db);
+      await audit.record({
+        userId: teacherId,
+        action: 'ESSAY_TEACHER_APPROVED',
+        details: `Pré-correção da redação ${essayId} validada por docente (${teacherId}); recompensas liberadas (${releasedXp} XP, ${releasedCoins} coins).`,
+        metadata: {
+          essayId,
+          studentId: essay.studentId,
+          teacherId,
+          releasedXp,
+          releasedCoins,
+          releasedBadge,
+          approvedAt,
+        },
+        legalBasis: 'CNE_CP_15_2026',
+        consentVerified: true,
+      });
+    } catch {
+      // Fallback gracioso em testes sem audit inicializada
+    }
+
+    const payload = {
+      success: approvalRes.success,
+      essayId,
+      studentId: essay.studentId,
+      reviewStatus: 'APROVADA_DOCENTE' as const,
+      requiresHumanTeacherValidation: false,
+      teacherApprovedBy: teacherId,
+      approvedAt,
+      xpAwarded: releasedXp,
+      coinsAwarded: releasedCoins,
+      badgeAwarded: releasedBadge,
+      rewardsReleased: true,
+    };
+
+    this.emit('essay:teacher-approved', payload);
+    return payload;
+  }
+
+  /**
+   * Canal formal de contestação de pré-correção de redação (Parecer CNE/CP nº 15/2026).
+   */
+  public async contestPreCorrection(essayId: string, reason: string, actorId: string) {
+    if (!essayId || !reason || !reason.trim()) {
+      throw new Error('[SovereignEssayService] essayId e motivo de contestação são obrigatórios.');
+    }
+
+    const cleanActor = actorId || 'ACTOR_UNSPECIFIED';
+    const contestRes = await db.contestStudentEssay(essayId, reason.trim(), cleanActor);
+    const contestedAt = new Date().toISOString();
+
+    try {
+      const audit = ZeroBypassAuditService.getInstance(db);
+      await audit.record({
+        userId: cleanActor,
+        action: 'ESSAY_PRECORRECTION_CONTESTED',
+        details: `Pré-correção de redação ${essayId} contestada: ${reason.trim()}`,
+        metadata: {
+          essayId,
+          actorId: cleanActor,
+          reason: reason.trim(),
+          contestedAt,
+        },
+        legalBasis: 'CNE_CP_15_2026',
+        consentVerified: true,
+      });
+    } catch {
+      // Fallback gracioso
+    }
+
+    const payload = {
+      success: contestRes.success,
+      essayId,
+      reviewStatus: 'CONTESTADA' as const,
+      contestationReason: reason.trim(),
+      contestedBy: cleanActor,
+      contestedAt,
+    };
+
+    this.emit('essay:contested', payload);
+    return payload;
   }
 
 

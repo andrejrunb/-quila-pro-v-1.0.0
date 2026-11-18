@@ -1,6 +1,6 @@
 "use client";
 
-import type { ElementType, FormEvent } from "react";
+import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
@@ -17,13 +17,7 @@ import {
 } from "lucide-react";
 import { animate, stagger } from "animejs";
 
-const AScene = "a-scene" as unknown as ElementType;
-const ASky = "a-sky" as unknown as ElementType;
-const ABox = "a-box" as unknown as ElementType;
-const APlane = "a-plane" as unknown as ElementType;
-const ALight = "a-light" as unknown as ElementType;
-const AEntity = "a-entity" as unknown as ElementType;
-const ACamera = "a-camera" as unknown as ElementType;
+
 
 export default function LandingPage() {
   const [studentCount, setStudentCount] = useState(500);
@@ -197,9 +191,8 @@ export default function LandingPage() {
       setLeadConsent(false);
     } catch {
       setLeadStatus({
-        state: "success",
-        protocol: "AQ-LOCAL-DEMO",
-        message: "Solicitação registrada localmente para avaliação de piloto.",
+        state: "error",
+        message: "Não foi possível enviar sua solicitação no momento. Tente novamente.",
       });
     }
   }
@@ -439,22 +432,33 @@ export default function LandingPage() {
               twinExpanded ? "aspect-[16/10]" : "aspect-video"
             } rounded-[36px] overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.15)] animate-on-scroll bg-slate-950 transition-all`}
           >
-            <AScene embedded style={{ height: "100%", width: "100%" }}>
-              <ASky color="#040816" />
-              <ABox
-                position="0 0.5 -3"
-                rotation="0 45 0"
-                color="#3b82f6"
-                scale="1.5 1.5 1.5"
-                animation="property: rotation; to: 0 405 0; loop: true; dur: 10000; easing: linear"
-              />
-              <APlane position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#0a0f1c" />
-              <ALight type="ambient" color="#333" />
-              <ALight type="point" intensity="1.5" position="2 4 -3" color="#3b82f6" />
-              <AEntity position="0 1.6 0">
-                <ACamera look-controls="enabled: true" wasd-controls="enabled: true" />
-              </AEntity>
-            </AScene>
+            <div className="flex h-full w-full flex-col justify-between rounded-2xl bg-[#040816] p-5 text-slate-200">
+              <div className="flex items-center justify-between text-xs text-slate-400">
+                <span className="font-semibold uppercase tracking-wider text-blue-400">Mapa Pedagógico 6×5 (Demo)</span>
+                <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-emerald-300">Crachá QR e Chamada Digital</span>
+              </div>
+              <div className="my-4 grid grid-cols-6 gap-2">
+                {Array.from({ length: 30 }, (_, index) => {
+                  const isPresent = index % 7 !== 4;
+                  return (
+                    <div
+                      key={index}
+                      className={`flex h-9 items-center justify-center rounded-lg border text-[11px] font-semibold ${
+                        isPresent
+                          ? "border-blue-500/30 bg-blue-500/15 text-blue-200"
+                          : "border-amber-500/30 bg-amber-500/10 text-amber-300"
+                      }`}
+                    >
+                      C{String(index + 1).padStart(2, "0")}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex items-center justify-between text-[11px] text-slate-400">
+                <span>26 presentes • 4 pendentes (simulação)</span>
+                <span>Zero vídeo bruto na nuvem</span>
+              </div>
+            </div>
             <div className="absolute top-6 left-6 eagle-glass-card px-5 py-2.5 rounded-2xl flex items-center gap-3">
               <Activity className="text-blue-400 animate-pulse" size={18} />
               <span className="text-xs font-bold text-white uppercase tracking-widest">
@@ -612,9 +616,11 @@ export default function LandingPage() {
               <h3 className="text-xl font-bold text-zinc-200 mb-2 uppercase tracking-widest">
                 Sovereign Essential
               </h3>
-              <div className="text-4xl font-black text-white mb-6">
-                {isAnnual ? "R$ 4,50" : "R$ 5,60"}
-                <span className="text-sm font-normal text-zinc-400">/aluno/mês</span>
+              <div className="mb-6">
+                <div className="text-3xl font-black text-white">Sob consulta</div>
+                <p className="text-xs font-medium text-zinc-400 mt-1">
+                  {isAnnual ? "Ciclo Anual • Licenciamento por estudante" : "Ciclo Mensal • Licenciamento por estudante"}
+                </p>
               </div>
               <ul className="space-y-4 mb-10 flex-1">
                 <li className="flex items-center gap-3 text-sm text-zinc-300 font-medium">
@@ -644,9 +650,11 @@ export default function LandingPage() {
               <h3 className="text-xl font-bold text-blue-400 mb-2 uppercase tracking-widest">
                 Sovereign Pro
               </h3>
-              <div className="text-4xl font-black text-white mb-6">
-                {isAnnual ? "R$ 8,90" : "R$ 10,90"}
-                <span className="text-sm font-normal text-zinc-400">/aluno/mês</span>
+              <div className="mb-6">
+                <div className="text-3xl font-black text-white">Sob consulta</div>
+                <p className="text-xs font-medium text-zinc-400 mt-1">
+                  {isAnnual ? "Ciclo Anual • Implantação assistida" : "Ciclo Mensal • Implantação assistida"}
+                </p>
               </div>
               <ul className="space-y-4 mb-10 flex-1">
                 <li className="flex items-center gap-3 text-sm text-zinc-200 font-medium">

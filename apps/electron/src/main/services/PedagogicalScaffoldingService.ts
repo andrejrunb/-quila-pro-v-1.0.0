@@ -103,7 +103,10 @@ export class PedagogicalScaffoldingService {
     try {
       if (fs.existsSync(this.dbPath)) {
         this.db = new DatabaseSQLite(this.dbPath);
-        logger.info(`[PedagogicalScaffoldingService] Conectado ao banco: ${this.dbPath}`);
+        this.db.pragma('journal_mode = WAL');
+        this.db.pragma('synchronous = NORMAL');
+        this.db.pragma('busy_timeout = 5000');
+        logger.info(`[PedagogicalScaffoldingService] Conectado ao banco (modo WAL): ${this.dbPath}`);
       } else {
         logger.warn(`[PedagogicalScaffoldingService] Banco não encontrado em: ${this.dbPath}`);
       }

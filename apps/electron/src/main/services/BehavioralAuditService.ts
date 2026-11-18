@@ -21,6 +21,10 @@ export class BehavioralAuditService {
    * Gera uma justificativa técnica para um alerta de risco comportamental.
    */
   public explainDecision(analysis: FacialAnalysis): string {
+    if (analysis?.blocked || analysis?.complianceCode === 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE') {
+      return 'Inferência emocional/afetiva bloqueada em conformidade com o Parecer CNE/CP nº 15/2026 (Risco Excessivo). Nenhuma métrica biométrica emocional foi processada.';
+    }
+
     const reasons: string[] = [];
     const { emotions, physicalSigns, riskScore } = analysis;
 
@@ -52,6 +56,7 @@ export class BehavioralAuditService {
    */
   public getEthicalSafeguards(): string[] {
     return [
+      "Conformidade CNE/CP nº 15/2026 — Inferência Emocional e Social Scoring Desativados",
       "Processamento 100% Local (Edge)",
       "Anonymized by Design para compartilhamento externo",
       "Intervenção Humana Sugerida (Human-in-the-loop)",

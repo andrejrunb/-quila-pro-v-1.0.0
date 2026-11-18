@@ -25,7 +25,7 @@ describe('P2 UX & Portal Enhancements — Professor, Família e Aluno', () => {
     expect(screen.getByTestId('lgpd-onboarding-card')).toBeTruthy();
     const revokeBtn = screen.getByTestId('lgpd-revoke-purge-btn');
     fireEvent.click(revokeBtn);
-    expect(screen.getByRole('status').textContent).toContain('Expurgo Art. 16 registrado');
+    expect(screen.getByRole('status').textContent).toContain('revogação Art. 16');
 
     const dinnerTab = screen.getByRole('tab', { name: /Conversas para o Jantar/i });
     fireEvent.click(dinnerTab);

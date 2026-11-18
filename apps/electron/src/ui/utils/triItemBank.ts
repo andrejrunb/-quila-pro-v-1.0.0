@@ -108,7 +108,7 @@ export const TRI_ITEM_BANK: TriQuestion[] = [
     correctAnswer: 'B',
     socraticExplanation: 'Com velocidade constante de 1,5 m/s, a cada segundo percorrido a distância aumenta em 1,5 m: d = v · t = 1,5t.'
   },
-  // --- Ciências 7º Ano (Básica SPE / Positivo On - Volumes 1 a 4) ---
+  // --- Ciências 7º Ano (Sistema Didático Áquila - Volumes 1 a 4) ---
   {
     id: 'TRI-FUND2-CIEN-01',
     stage: 'EF_ANOS_FINAIS',

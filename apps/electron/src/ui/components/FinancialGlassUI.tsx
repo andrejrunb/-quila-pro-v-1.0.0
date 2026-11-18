@@ -8,6 +8,7 @@ import {
 import { STUDENTS } from '../../database/studentsData';
 import { COLEGIO_VISAO_TEACHERS_PRESET as PRESET_VISAO_TEACHERS } from '../../services/TimetableEngine';
 import rawVisaoScheduleJson from '../../database/schedule_data.json';
+import { RtcFiscalAdapterPanel } from './RtcFiscalAdapterPanel';
 import './FinancialGlassUI.css';
 
 interface BillingRecord {
@@ -63,21 +64,25 @@ interface FinanceProps {
  */
 function countRealTeacherWeeklyLessons(): Record<string, number> {
   const counts: Record<string, number> = {};
-  const raw = rawVisaoScheduleJson as Record<string, Array<Array<string | null>>>;
-  const sheet = raw['GRADE INSTITUCIONAL MODELO'] || Object.values(raw)[0] || [];
+  const pages = Array.isArray(rawVisaoScheduleJson)
+    ? rawVisaoScheduleJson
+    : Array.isArray((rawVisaoScheduleJson as unknown as Record<string, unknown>)?.['GRADE INSTITUCIONAL MODELO'])
+      ? [{ rows: (rawVisaoScheduleJson as unknown as Record<string, Array<Array<string | null>>>)['GRADE INSTITUCIONAL MODELO'] }]
+      : [];
 
-  for (const row of sheet) {
-    if (!Array.isArray(row)) continue;
-    const dayCol = String(row[0] || '').trim().toUpperCase();
-    if (!['SEGUNDA', 'TERÇA', 'TERCA', 'QUARTA', 'QUINTA', 'SEXTA'].includes(dayCol)) continue;
-
-    for (let colIdx = 3; colIdx < row.length; colIdx++) {
-      const cell = String(row[colIdx] || '').trim();
-      if (!cell || cell.includes('INTERVALO')) continue;
-      const match = cell.match(/^(.+?)\s*\((.+?)\)$/);
-      if (match) {
-        const teacher = match[2].trim().toUpperCase();
-        counts[teacher] = (counts[teacher] || 0) + 1;
+  for (const page of pages) {
+    const rows = Array.isArray(page?.rows) ? page.rows : [];
+    for (let rIdx = 1; rIdx < rows.length; rIdx++) {
+      const row = rows[rIdx];
+      if (!Array.isArray(row) || row.length < 3) continue;
+      for (let colIdx = 2; colIdx < row.length; colIdx++) {
+        const cell = String(row[colIdx] || '').trim();
+        if (!cell || cell === '-' || cell === '---' || cell.toUpperCase().includes('INTERVALO')) continue;
+        const match = cell.match(/^(.+?)\s*\((.+?)\)$/);
+        const teacher = (match ? match[2] : cell).trim().toUpperCase();
+        if (teacher) {
+          counts[teacher] = (counts[teacher] || 0) + 1;
+        }
       }
     }
   }
@@ -172,7 +177,7 @@ const PATRIMONY_ASSETS: PatrimonyAsset[] = [
  * e Conector REA Thomson Reuters Domínio Web (`TRPlugin://` & Onvio).
  */
 const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
-  const [activeTab, setActiveTab] = useState<'billing' | 'payroll' | 'accounting' | 'patrimony' | 'dominio-bridge'>('billing');
+  const [activeTab, setActiveTab] = useState<'billing' | 'payroll' | 'accounting' | 'patrimony' | 'dominio-bridge' | 'rtc-fiscal'>('billing');
   const [searchTerm, setSearchTerm] = useState('');
   const [classFilter, setClassFilter] = useState('ALL');
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'paid' | 'pending' | 'overdue'>('ALL');
@@ -212,8 +217,9 @@ const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
   // 2. Geração da Folha Docente Real (41 Professores do Colégio Áquila Modelo + Aulas da Grade)
   const teacherPayrolls = useMemo<TeacherPayrollRecord[]>(() => {
     const lessonCounts = countRealTeacherWeeklyLessons();
-    return PRESET_VISAO_TEACHERS.map((t, idx) => {
-      const weeklyLessons = lessonCounts[t.name.toUpperCase()] || 12;
+    return PRESET_VISAO_TEACHERS.map((t, idx): TeacherPayrollRecord => {
+      const teacherKey = String(t.teacherId || ('DOCENTE-' + (idx + 1))).trim();
+      const weeklyLessons = lessonCounts[teacherKey.toUpperCase()] || t.maxWeekly || 12;
       const hourlyRate = 48.50; // Hora-aula padrão CCT
       const baseSalary = Math.round(weeklyLessons * 4.5 * hourlyRate * 100) / 100;
       const horaAtividade = Math.round(baseSalary * 0.05 * 100) / 100; // 5% Hora-Atividade
@@ -222,11 +228,12 @@ const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
       const { inss, irrf } = calculateTaxes(grossSalary);
       const fgts = Math.round(grossSalary * 0.08 * 100) / 100;
       const netSalary = Math.round((grossSalary - inss - irrf) * 100) / 100;
+      const esocialStatus: TeacherPayrollRecord['esocialStatus'] = idx % 9 === 0 ? 'S-1210 OK' : 'S-1200 OK';
 
       return {
-        id: t.id,
-        name: t.name,
-        subjects: t.subjects,
+        id: teacherKey,
+        name: teacherKey,
+        subjects: t.subject ? [t.subject] : [],
         weeklyLessons,
         hourlyRate,
         baseSalary,
@@ -237,7 +244,7 @@ const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
         irrf,
         fgts,
         netSalary,
-        esocialStatus: idx % 9 === 0 ? 'S-1210 OK' : 'S-1200 OK',
+        esocialStatus,
       };
     }).sort((a, b) => b.weeklyLessons - a.weeklyLessons);
   }, []);
@@ -270,7 +277,7 @@ const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
     const totalPayrollGross = teacherPayrolls.reduce((acc, t) => acc + t.grossSalary, 0);
     const totalFgts = teacherPayrolls.reduce((acc, t) => acc + t.fgts, 0);
     const totalDepreciation = PATRIMONY_ASSETS.reduce((acc, a) => acc + a.monthlyDepreciation, 0);
-    const operationalExpenses = 42800.00; // Água, Energia, Link Dedicado, Licenças Positivo/Áquila
+    const operationalExpenses = 42800.00; // Água, Energia, Link Dedicado, Licenças Didáticas Áquila
     const netResult = grossRevenue - totalIss - pisCofins - totalPayrollGross - totalFgts - operationalExpenses - totalDepreciation;
 
     return {
@@ -443,6 +450,13 @@ const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
         >
           <Terminal size={16} />
           <span>5. Conector REA Domínio Web (TRPlugin & Onvio)</span>
+        </button>
+        <button
+          className={`dom-tab-btn ${activeTab === 'rtc-fiscal' ? 'active' : ''}`}
+          onClick={() => setActiveTab('rtc-fiscal')}
+        >
+          <Calculator size={16} />
+          <span>6. Adaptador Fiscal RTC (RFB)</span>
         </button>
       </nav>
 
@@ -814,6 +828,18 @@ const FinancialGlassUI: React.FC<FinanceProps> = ({ onBack }) => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* =====================================================================
+          ABA 6: ADAPTADOR FISCAL INDEPENDENTE RTC (RECEITA FEDERAL)
+          ===================================================================== */}
+      {activeTab === 'rtc-fiscal' && (
+        <RtcFiscalAdapterPanel
+          onNotify={(msg) => {
+            setExportedTxtNotice(msg);
+            setTimeout(() => setExportedTxtNotice(null), 4000);
+          }}
+        />
       )}
 
       {/* MODAL DETALHAMENTO DE FATURA PIX + NFS-e (v4.0) */}

@@ -95,9 +95,9 @@ const MASTER_TOPICS: MasteryTopic[] = [
       }
     ],
     spacedSchedule: [
-      { day: 'Sexta-feira (+24h)', focus: 'Reativação Conceitual PhET', duration: '3 min', description: 'Abrir a simulação Gravidade e Órbitas e alterar a massa do Sol para observar a trajetória elíptica.' },
-      { day: 'Sábado (+48h)', focus: 'Automaticidade Kumon L1', duration: '5 min', description: 'Treino de fluência em potências de 10 e notação científica no app mobile sem calculadora.' },
-      { day: 'Segunda-feira (+96h)', focus: 'Raciocínio Algébrico Kumon L2', duration: '5 min', description: 'Manipulação de proporções inversas ao quadrado (distância vs intensidade de campo).' },
+      { day: 'Sexta-feira (+24h)', focus: 'Reativação Conceitual Áquila', duration: '3 min', description: 'Abrir a simulação Gravidade e Órbitas e alterar a massa do Sol para observar a trajetória elíptica.' },
+      { day: 'Sábado (+48h)', focus: 'Automaticidade e Maestria L1', duration: '5 min', description: 'Treino de fluência em potências de 10 e notação científica no app mobile sem calculadora.' },
+      { day: 'Segunda-feira (+96h)', focus: 'Raciocínio Algébrico Áquila L2', duration: '5 min', description: 'Manipulação de proporções inversas ao quadrado (distância vs intensidade de campo).' },
       { day: 'Quarta-feira (+144h)', focus: 'Desafio Integrado PAS-UnB / ENEM', duration: '6 min', description: 'Resolução completa de questão de gravitação contextualizada pronta para debate em aula.' }
     ]
   },
@@ -160,9 +160,9 @@ const MASTER_TOPICS: MasteryTopic[] = [
       }
     ],
     spacedSchedule: [
-      { day: 'Sexta-feira (+24h)', focus: 'Montagem de Circuitos PhET', duration: '3 min', description: 'Construir no simulador uma lâmpada em série com resistor e medir a corrente com amperímetro virtual.' },
-      { day: 'Sábado (+48h)', focus: 'Automaticidade Kumon L1', duration: '5 min', description: 'Conversão rápida de unidades: W para kW, minutos para fração de hora decimal.' },
-      { day: 'Segunda-feira (+96h)', focus: 'Equações de Potência Kumon L2', duration: '5 min', description: 'Manipulação simultânea de P = U·i, P = R·i² e P = U²/R sem decorar tabela.' },
+      { day: 'Sexta-feira (+24h)', focus: 'Montagem de Circuitos Áquila', duration: '3 min', description: 'Construir no simulador uma lâmpada em série com resistor e medir a corrente com amperímetro virtual.' },
+      { day: 'Sábado (+48h)', focus: 'Automaticidade e Maestria L1', duration: '5 min', description: 'Conversão rápida de unidades: W para kW, minutos para fração de hora decimal.' },
+      { day: 'Segunda-feira (+96h)', focus: 'Equações de Potência Áquila L2', duration: '5 min', description: 'Manipulação simultânea de P = U·i, P = R·i² e P = U²/R sem decorar tabela.' },
       { day: 'Quarta-feira (+144h)', focus: 'Simulado ENEM / UFG L3', duration: '6 min', description: 'Cálculo de custo da conta de energia elétrica com tarifas e bandeiras tarifárias da Neoenergia.' }
     ]
   },
@@ -218,8 +218,8 @@ const MASTER_TOPICS: MasteryTopic[] = [
       }
     ],
     spacedSchedule: [
-      { day: 'Sexta-feira (+24h)', focus: 'Disparo Parabólico PhET', duration: '3 min', description: 'Testar no simulador PhET disparos com 30°, 45° e 60° para verificar o alcance máximo.' },
-      { day: 'Sábado (+48h)', focus: 'Automaticidade Kumon L1', duration: '5 min', description: 'Decomposição trigonométrica com ângulos notáveis (30°, 45°, 60°).' },
+      { day: 'Sexta-feira (+24h)', focus: 'Disparo Parabólico Simulado', duration: '3 min', description: 'Testar no simulador científico Áquila disparos com 30°, 45° e 60° para verificar o alcance máximo.' },
+      { day: 'Sábado (+48h)', focus: 'Automaticidade e Maestria L1', duration: '5 min', description: 'Decomposição trigonométrica com ângulos notáveis (30°, 45°, 60°).' },
       { day: 'Segunda-feira (+96h)', focus: 'Independência dos Movimentos L2', duration: '5 min', description: 'Princípio de Galileu: MRU horizontal + MRUV vertical desacoplados.' },
       { day: 'Quarta-feira (+144h)', focus: 'Questão Cebraspe / PAS-UnB L3', duration: '6 min', description: 'Julgamento de itens CERTO/ERRADO típicos do Cebraspe sobre conservação de vx.' }
     ]
@@ -276,9 +276,9 @@ const MASTER_TOPICS: MasteryTopic[] = [
       }
     ],
     spacedSchedule: [
-      { day: 'Sexta-feira (+24h)', focus: 'Gráficos de Barras no PhET', duration: '3 min', description: 'Ligar o gráfico de pizza de energia e acompanhar a conversão mútua de Ep em Ec.' },
-      { day: 'Sábado (+48h)', focus: 'Automaticidade Kumon L1', duration: '5 min', description: 'Raízes quadradas perfeitas e ordens de grandeza em Joules.' },
-      { day: 'Segunda-feira (+96h)', focus: 'Sistemas Dissipativos Kumon L2', duration: '5 min', description: 'Trabalho da força de atrito: Emec_final - Emec_inicial = - Fat · d.' },
+      { day: 'Sexta-feira (+24h)', focus: 'Gráficos de Barras Simulados', duration: '3 min', description: 'Ligar o gráfico de pizza de energia e acompanhar a conversão mútua de Ep em Ec.' },
+      { day: 'Sábado (+48h)', focus: 'Automaticidade e Maestria L1', duration: '5 min', description: 'Raízes quadradas perfeitas e ordens de grandeza em Joules.' },
+      { day: 'Segunda-feira (+96h)', focus: 'Sistemas Dissipativos Áquila L2', duration: '5 min', description: 'Trabalho da força de atrito: Emec_final - Emec_inicial = - Fat · d.' },
       { day: 'Quarta-feira (+144h)', focus: 'Questão ENEM / UniRV L3', duration: '6 min', description: 'Análise de montanha-russa com looping circular e força centrípeta.' }
     ]
   }
@@ -342,9 +342,9 @@ const MASTER_TOPICS: MasteryTopic[] = [
       }
     ],
     spacedSchedule: [
-      { day: 'Sexta-feira (+24h)', focus: 'Visualização de Ondas PhET', duration: '3 min', description: 'Abrir a simulação Introdução às Ondas e alternar entre gotejador de água e gerador de som.' },
-      { day: 'Sábado (+48h)', focus: 'Fluência Kumon L1', duration: '5 min', description: 'Manipulação rápida de grandezas inversas T = 1/f e notação científica de frequências em Hz, kHz e MHz.' },
-      { day: 'Segunda-feira (+96h)', focus: 'Interferência & Difração Kumon L2', duration: '5 min', description: 'Identificação de nós e ventres em tubos sonoros abertos e fechados.' },
+      { day: 'Sexta-feira (+24h)', focus: 'Visualização de Ondas Áquila', duration: '3 min', description: 'Abrir a simulação Introdução às Ondas e alternar entre gotejador de água e gerador de som.' },
+      { day: 'Sábado (+48h)', focus: 'Fluência Áquila L1', duration: '5 min', description: 'Manipulação rápida de grandezas inversas T = 1/f e notação científica de frequências em Hz, kHz e MHz.' },
+      { day: 'Segunda-feira (+96h)', focus: 'Interferência & Difração Áquila L2', duration: '5 min', description: 'Identificação de nós e ventres em tubos sonoros abertos e fechados.' },
       { day: 'Quarta-feira (+144h)', focus: 'Questão Discursiva PAS-UnB L3', duration: '6 min', description: 'Análise de radar Doppler meteorológico monitorando tempestades no Planalto Central.' }
     ]
   },
@@ -407,9 +407,9 @@ const MASTER_TOPICS: MasteryTopic[] = [
       }
     ],
     spacedSchedule: [
-      { day: 'Sexta-feira (+24h)', focus: 'Cinética de Moléculas PhET', duration: '3 min', description: 'Bombear moléculas pesadas e leves no simulador e acompanhar o termômetro e manômetro.' },
-      { day: 'Sábado (+48h)', focus: 'Fluência Kumon L1', duration: '5 min', description: 'Cálculo instantâneo de rendimento percentual η = (1 - T2/T1) e calores sensíveis.' },
-      { day: 'Segunda-feira (+96h)', focus: 'Diagramas p-V Kumon L2', duration: '5 min', description: 'Cálculo de trabalho através da área sob a curva no ciclo de Carnot e Otto.' },
+      { day: 'Sexta-feira (+24h)', focus: 'Cinética de Moléculas Áquila', duration: '3 min', description: 'Bombear moléculas pesadas e leves no simulador e acompanhar o termômetro e manômetro.' },
+      { day: 'Sábado (+48h)', focus: 'Fluência Áquila L1', duration: '5 min', description: 'Cálculo instantâneo de rendimento percentual η = (1 - T2/T1) e calores sensíveis.' },
+      { day: 'Segunda-feira (+96h)', focus: 'Diagramas p-V Áquila L2', duration: '5 min', description: 'Cálculo de trabalho através da área sob a curva no ciclo de Carnot e Otto.' },
       { day: 'Quarta-feira (+144h)', focus: 'Questão Estilo UFG / UEG L3', duration: '6 min', description: 'Resolução de balanço térmico e umidade relativa do ar no inverno goiano.' }
     ]
   }
@@ -432,10 +432,15 @@ export const PhetKumonMasteryLab: React.FC = () => {
   useEffect(() => {
     async function checkGpu() {
       try {
-        // @ts-ignore
-        if (window.aquila?.colab?.getGpuStatus) {
-          // @ts-ignore
-          const status = await window.aquila.colab.getGpuStatus();
+        const aquilaWin = window as unknown as {
+          aquila?: {
+            colab?: {
+              getGpuStatus?: () => Promise<{ online?: boolean; health?: { gpu?: { utilization_pct?: number } } }>;
+            };
+          };
+        };
+        if (aquilaWin.aquila?.colab?.getGpuStatus) {
+          const status = await aquilaWin.aquila.colab.getGpuStatus();
           setColabStatus({ online: status?.online || false, gpu: status?.health?.gpu?.utilization_pct !== undefined ? 'NVIDIA A100/T4 Conectada' : 'Edge Local' });
         }
       } catch {
@@ -480,11 +485,11 @@ export const PhetKumonMasteryLab: React.FC = () => {
           <div className="phet-kumon-badges">
             <span className="phet-badge cyan">
               <Atom size={12} />
-              PHET COLORADO SOBERANO (165 SIMULAÇÕES HTML5)
+              SIMULAÇÕES CIENTÍFICAS ÁQUILA (165 SIMULAÇÕES INTERATIVAS)
             </span>
             <span className="phet-badge purple">
               <Brain size={12} />
-              MÉTODO KUMON: MICRO-PASSOS L1, L2 & L3
+              MÉTODO DE MAESTRIA: MICRO-PASSOS L1, L2 & L3
             </span>
             <span className="phet-badge emerald">
               <Zap size={12} />
@@ -536,7 +541,7 @@ export const PhetKumonMasteryLab: React.FC = () => {
           onClick={() => setActiveTab('phet')}
         >
           <Atom size={16} />
-          <span>1. Laboratório PhET Interativo</span>
+          <span>1. Laboratório de Simulações Áquila</span>
         </button>
 
         <button
@@ -545,7 +550,7 @@ export const PhetKumonMasteryLab: React.FC = () => {
           onClick={() => setActiveTab('kumon')}
         >
           <Brain size={16} />
-          <span>2. Micro-Drills Kumon (L1, L2, L3)</span>
+          <span>2. Micro-Drills de Maestria Áquila (L1, L2, L3)</span>
         </button>
 
         <button
@@ -574,7 +579,13 @@ export const PhetKumonMasteryLab: React.FC = () => {
                 className="phet-tool-btn"
                 onClick={() => {
                   const iframe = document.getElementById('phet-viewer-frame') as HTMLIFrameElement;
-                  if (iframe) iframe.src = iframe.src;
+                  if (iframe) {
+                    const targetSrc = currentTopic.phetUrl;
+                    iframe.src = 'about:blank';
+                    setTimeout(() => {
+                      iframe.src = targetSrc;
+                    }, 0);
+                  }
                 }}
                 title="Reiniciar simulação"
               >
@@ -628,7 +639,7 @@ export const PhetKumonMasteryLab: React.FC = () => {
         </div>
       )}
 
-      {/* ABA 2: MICRO-DRILLS KUMON (L1, L2, L3) */}
+      {/* ABA 2: MICRO-drills de maestria Áquila (L1, L2, L3) */}
       {activeTab === 'kumon' && (
         <div className="kumon-drills-container">
           {/* NÍVEL L1: AUTOMATICIDADE ARITMÉTICA */}
@@ -692,7 +703,7 @@ export const PhetKumonMasteryLab: React.FC = () => {
 
                 {showExplanation[drill.id] && (
                   <div style={{ width: '100%', marginTop: 8, padding: '8px 12px', background: 'rgba(56, 189, 248, 0.08)', borderRadius: 6, fontSize: '0.78rem', color: '#7dd3fc' }}>
-                    💡 <strong>Raciocínio Kumon:</strong> {drill.explanation} (Gabarito: <code>{drill.ans}</code>)
+                    💡 <strong>Raciocínio Passo a Passo:</strong> {drill.explanation} (Gabarito: <code>{drill.ans}</code>)
                   </div>
                 )}
               </div>

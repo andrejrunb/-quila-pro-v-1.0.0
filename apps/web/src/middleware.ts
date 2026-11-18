@@ -1,14 +1,29 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifySession } from '@/lib/session';
-import { canAccessPortal, ROLE_DESTINATIONS } from '@/lib/portalAccess';
+import {
+  canAccessPortal,
+  isPortalPublicExposureBlocked,
+  isPrivilegedRole,
+  ROLE_DESTINATIONS,
+} from '@/lib/portalAccess';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const sessionCookie = request.cookies.get('aquila_session');
+  const requiresAuth =
+    pathname.startsWith('/portal') ||
+    pathname.startsWith('/soc') ||
+    pathname.startsWith('/bi-dashboard');
 
-  // Proteger rotas de portais e SOC
-  if (pathname.startsWith('/portal') || pathname.startsWith('/soc')) {
+  if (requiresAuth && isPortalPublicExposureBlocked()) {
+    const blockedUrl = new URL('/login', request.url);
+    blockedUrl.searchParams.set('error', 'portals_blocked_pending_phase2');
+    return NextResponse.redirect(blockedUrl);
+  }
+
+  // Proteger rotas de portais, SOC e BI
+  if (requiresAuth) {
     if (!sessionCookie || !sessionCookie.value) {
       const loginUrl = new URL('/login', request.url);
       loginUrl.searchParams.set('redirect', pathname);
@@ -27,7 +42,10 @@ export async function middleware(request: NextRequest) {
       return response;
     }
 
-    if (pathname.startsWith('/soc') && session.role !== 'admin' && session.role !== 'coordinator') {
+    if (
+      (pathname.startsWith('/soc') || pathname.startsWith('/bi-dashboard')) &&
+      !isPrivilegedRole(session.role)
+    ) {
       return NextResponse.redirect(new URL(ROLE_DESTINATIONS[session.role], request.url));
     }
 
@@ -40,5 +58,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/portal/:path*', '/soc/:path*'],
+  matcher: ['/portal/:path*', '/soc/:path*', '/bi-dashboard/:path*'],
 };

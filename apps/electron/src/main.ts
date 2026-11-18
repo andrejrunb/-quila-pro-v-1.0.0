@@ -49,6 +49,14 @@ function initEnvironmentAndSecrets(userDataPath?: string) {
       }
     }
   }
+
+  // Garantir chaves de encriptação e licenciamento alinhadas (Zero-Bypass)
+  if (!process.env.AQUILA_ENCRYPTION_SECRET) {
+    process.env.AQUILA_ENCRYPTION_SECRET = process.env.AQUILA_AUTH_SECRET || crypto.randomBytes(32).toString('hex');
+  }
+  if (!process.env.AQUILA_LICENSE_HMAC_SECRET) {
+    process.env.AQUILA_LICENSE_HMAC_SECRET = process.env.AQUILA_ENCRYPTION_SECRET;
+  }
 }
 
 // Inicialização imediata com caminhos conhecidos de desenvolvimento
@@ -93,6 +101,7 @@ const gotTheLock = isPlaywright ? true : app.requestSingleInstanceLock();
 if (!gotTheLock) {
   console.warn(`[${APP_NAME}] Outra instância detectada. Finalizando.`);
   app.quit();
+  app.exit(0);
 } else {
   app.on('second-instance', () => {
     try {
@@ -106,44 +115,44 @@ if (!gotTheLock) {
       console.warn('[BOOT] Erro ao focar janela na segunda instância:', e);
     }
   });
+
+  // ============================================================================
+  // BOOT SEQUENCE (PHASED INITIALIZATION)
+  // ============================================================================
+
+  app.whenReady().then(async () => {
+    console.log(`[${APP_NAME}] app.whenReady() - Iniciando Orquestração Soberana.`);
+
+    const userDataPath = app.getPath('userData');
+    ensureDirectories(userDataPath);
+    initEnvironmentAndSecrets(userDataPath);
+
+    try {
+      // Fase 1: Boot Crítico (DB, Auth, Window)
+      if (isPlaywright) {
+        console.log('[BOOT] E2E Mode: Suprimindo Splash Window');
+      } else {
+        WindowManager.createSplashWindow();
+      }
+
+      await SovereignOrchestrator.startPhase1(userDataPath);
+
+      // Fase 2: Background Services
+      await SovereignOrchestrator.startPhase2();
+
+      console.log(`[${APP_NAME}] Sistema inicializado com sucesso.`);
+    } catch (error: any) {
+      console.error(`[BOOT] Erro CRÍTICO na inicialização:`, error);
+      if (isPlaywright) {
+        process.stderr.write(`FATAL_E2E_ERROR: ${error.stack}\n`);
+        app.quit();
+      } else {
+        dialog.showErrorBox('Erro de Inicialização', `O Áquila Pro não pôde iniciar:\n\n${error.message}`);
+        app.quit();
+      }
+    }
+  });
 }
-
-// ============================================================================
-// BOOT SEQUENCE (PHASED INITIALIZATION)
-// ============================================================================
-
-app.whenReady().then(async () => {
-  console.log(`[${APP_NAME}] app.whenReady() - Iniciando Orquestração Soberana.`);
-  
-  const userDataPath = app.getPath('userData');
-  ensureDirectories(userDataPath);
-  initEnvironmentAndSecrets(userDataPath);
-
-  try {
-    // Fase 1: Boot Crítico (DB, Auth, Window)
-    if (isPlaywright) {
-       console.log('[BOOT] E2E Mode: Suprimindo Splash Window');
-    } else {
-       WindowManager.createSplashWindow();
-    }
-
-    await SovereignOrchestrator.startPhase1(userDataPath);
-    
-    // Fase 2: Background Services
-    await SovereignOrchestrator.startPhase2();
-
-    console.log(`[${APP_NAME}] Sistema inicializado com sucesso.`);
-  } catch (error: any) {
-    console.error(`[BOOT] Erro CRÍTICO na inicialização:`, error);
-    if (isPlaywright) {
-      process.stderr.write(`FATAL_E2E_ERROR: ${error.stack}\n`);
-      app.quit();
-    } else {
-      dialog.showErrorBox('Erro de Inicialização', `O Áquila Pro não pôde iniciar:\n\n${error.message}`);
-      app.quit();
-    }
-  }
-});
 
 // ============================================================================
 // UTILS & HANDLERS

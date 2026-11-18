@@ -474,7 +474,7 @@ INSTRUÇÕES OBRIGATÓRIAS:
       .join('\n');
 
     const appsScript = `/**
- * ÁQUILA PRO ↔ CONEXÃO GOOGLE FORMS (PADRÃO BRISK TEACHING)
+ * ÁQUILA PRO ↔ CONEXÃO GOOGLE FORMS (PADRÃO ASSISTENTE DOCENTE ÁQUILA)
  * Tema: ${topic.toUpperCase()} | Turma: ${grade} | Habilidade: ${dynamicPedagogy.lessonPlan.bnccCode}
  * Como usar: Abra https://script.new, cole este código e clique em "Executar".
  */
@@ -492,7 +492,7 @@ ${questionsCode}
     showToast(`Quiz exportado para Google Forms (.gs baixado + copiado para a área de transferência)!`);
   };
 
-  const handleExportKahootCsv = () => {
+  const handleExportGincanaCsv = () => {
     const safeTopic = topic.replace(/[^a-zA-Z0-9_-]/g, '_');
     const header = 'Question,Answer 1,Answer 2,Answer 3,Answer 4,Time limit (sec),Correct answer(s)';
     const letterToIndex: Record<string, number> = { A: 1, B: 2, C: 3, D: 4, E: 4 };
@@ -510,11 +510,11 @@ ${questionsCode}
       ].join(',');
     });
     const csvContent = '\uFEFF' + [header, ...rows].join('\r\n');
-    downloadFileBlob(`aquila_kahoot_${safeTopic}.csv`, csvContent, 'text/csv;charset=utf-8');
-    showToast(`Planilha oficial Kahoot! (.csv) gerada e baixada para "${topic}"!`);
+    downloadFileBlob(`aquila_gincana_${safeTopic}.csv`, csvContent, 'text/csv;charset=utf-8');
+    showToast(`Planilha de Gincana Áquila (.csv) gerada com sucesso para "${topic}"!`);
   };
 
-  const handleExportQuizizzCsv = () => {
+  const handleExportQuizCsv = () => {
     const safeTopic = topic.replace(/[^a-zA-Z0-9_-]/g, '_');
     const header = 'Question Text,Question Type,Option 1,Option 2,Option 3,Option 4,Option 5,Correct Answer,Time in seconds';
     const letterToIndex: Record<string, number> = { A: 1, B: 2, C: 3, D: 4, E: 5 };
@@ -533,8 +533,8 @@ ${questionsCode}
       ].join(',');
     });
     const csvContent = '\uFEFF' + [header, ...rows].join('\r\n');
-    downloadFileBlob(`aquila_quizizz_${safeTopic}.csv`, csvContent, 'text/csv;charset=utf-8');
-    showToast(`Planilha oficial Quizizz/Wayground (.csv) baixada com sucesso!`);
+    downloadFileBlob(`aquila_quiz_${safeTopic}.csv`, csvContent, 'text/csv;charset=utf-8');
+    showToast(`Planilha de Quiz Interativo Áquila (.csv) baixada com sucesso!`);
   };
 
   const handleExportDidacticSummaryAndWorksheet = () => {
@@ -573,7 +573,7 @@ ${q.statement}
 `;
     navigator.clipboard.writeText(md);
     downloadFileBlob(`material_didatico_${safeTopic}.md`, md, 'text/markdown;charset=utf-8');
-    showToast(`Resumo + Lista + Quiz baixados (.md) e copiados para colar no Google Docs / Brisk!`);
+    showToast(`Resumo + Lista + Quiz baixados (.md) e copiados para sua área de transferência!`);
   };
 
   return (
@@ -582,7 +582,7 @@ ${q.statement}
       <header className="tai-header">
         <div className="tai-header-left">
           {onBack && (
-            <button className="tai-back-btn" onClick={onBack} title="Voltar ao Cockpit Docente">
+            <button className="tai-back-btn" onClick={onBack} title="Voltar ao Painel do Professor">
               <ArrowLeft size={18} />
             </button>
           )}
@@ -667,7 +667,7 @@ ${q.statement}
           onClick={() => setActiveStation('aquila-multimodal-studio')}
         >
           <Sparkles size={16} />
-          <span>8. Estúdio Multimodal & Gamificação (Brisk • NotebookLM Podcast • Wordwall)</span>
+          <span>8. Estúdio Multimodal & Jogos Áquila (Podcast Sofia & Lucas • Desafios Interativos)</span>
         </button>
         <button
           className={`tai-station-btn ${activeStation === 'aquila-growth-agents' ? 'active' : ''}`}
@@ -681,7 +681,7 @@ ${q.statement}
           onClick={() => setActiveStation('aquila-exam-foundry')}
         >
           <Printer size={16} />
-          <span>10. Gerador de Provas A4 & OMR (Padrão ENEM / PAS / SOMOS Plurall)</span>
+          <span>10. Gerador de Provas A4 & Gabaritos OMR (Padrão ENEM / PAS / Vestibulares)</span>
         </button>
       </nav>
 
@@ -698,7 +698,7 @@ ${q.statement}
             <div className="tai-tool-list">
               {[
                 { id: 'bncc-lesson', name: 'Plano de Aula BNCC + Sequência Didática', badge: 'BNCC Oficial', icon: <BookOpen size={16} /> },
-                { id: 'brisk-didactic-hub', name: 'Fábrica Didática Brisk (Lista, Resumo, Quiz + Forms & Kahoot!)', badge: 'Google Forms • Kahoot • Quizizz', icon: <Zap size={16} /> },
+                { id: 'brisk-didactic-hub', name: 'Fábrica Didática Áquila (Lista, Resumo, Quiz Interativo)', badge: 'Formatos Prontos', icon: <Zap size={16} /> },
                 { id: 'slide-deck', name: 'Gerador de Apresentação de Slides (8 Slides)', badge: 'Pronto p/ Projetar', icon: <Presentation size={16} /> },
                 { id: 'pei-inclusive', name: 'Adaptador Inclusivo & PEI (TDAH / TEA / Dislexia)', badge: 'Educação Inclusiva', icon: <Brain size={16} /> },
                 { id: 'paper-exam-ocr', name: 'Corretor de Provas em Papel (OCR Gabarito)', badge: 'Visão Computacional', icon: <Camera size={16} /> },
@@ -767,7 +767,7 @@ ${q.statement}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, padding: '10px 14px', borderRadius: 12, background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(56, 189, 248, 0.25)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                 <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                  ⚡ Hub Material Didático &amp; Conexões (Estilo Brisk):
+                  ⚡ Hub de Material Didático &amp; Exportações Áquila:
                 </span>
                 <button
                   type="button"
@@ -783,21 +783,21 @@ ${q.statement}
                   type="button"
                   className="af-btn"
                   style={{ background: 'rgba(236, 72, 153, 0.2)', border: '1px solid rgba(236, 72, 153, 0.45)', color: '#fbcfe8', fontSize: '0.76rem', padding: '6px 10px' }}
-                  onClick={handleExportKahootCsv}
-                  title="Baixa a planilha oficial de importação direta no Kahoot! Creator"
+                  onClick={handleExportGincanaCsv}
+                  title="Baixa a planilha oficial de importação direta no Criador de Gincanas Áquila"
                 >
                   <Zap size={13} />
-                  <span>🎮 Exportar Kahoot! (.csv)</span>
+                  <span>🎮 Exportar Gincana Áquila (.csv)</span>
                 </button>
                 <button
                   type="button"
                   className="af-btn"
                   style={{ background: 'rgba(245, 158, 11, 0.2)', border: '1px solid rgba(245, 158, 11, 0.45)', color: '#fde68a', fontSize: '0.76rem', padding: '6px 10px' }}
-                  onClick={handleExportQuizizzCsv}
-                  title="Baixa a planilha oficial de importação direta no Quizizz / Wayground"
+                  onClick={handleExportQuizCsv}
+                  title="Baixa a planilha oficial de importação direta no Quiz Áquila / Wayground"
                 >
                   <Award size={13} />
-                  <span>⚡ Exportar Quizizz (.csv)</span>
+                  <span>⚡ Exportar Quiz Áquila (.csv)</span>
                 </button>
                 <button
                   type="button"
@@ -835,7 +835,7 @@ ${q.statement}
               </div>
             </div>
 
-                        {/* 1B. FÁBRICA DIDÁTICA BRISK (LISTA, RESUMO, QUIZ + CONEXÃO GOOGLE FORMS, KAHOOT! & QUIZIZZ) */}
+                        {/* 1B. FÁBRICA DIDÁTICA ÁQUILA (LISTA, RESUMO, QUIZ + CONEXÃO GOOGLE FORMS, KAHOOT! & QUIZIZZ) */}
             {selectedTool === 'brisk-didactic-hub' && (
               <div className="tai-output-box">
                 <div className="tai-output-header">
@@ -860,7 +860,7 @@ ${q.statement}
                   </div>
 
                   <div className="tai-sec-card">
-                    <h4>🎯 2. Exportação Direta de Quiz &amp; Jogos (Google Forms, Kahoot!, Quizizz &amp; Wordwall)</h4>
+                    <h4>🎯 2. Exportação Direta de Quiz &amp; Jogos (Google Forms, Gincana Áquila, Quiz Áquila &amp; Jogos Educativos Áquila)</h4>
                     <p style={{ fontSize: '0.84rem', color: '#cbd5e1', marginBottom: 10 }}>
                       Exporte instantaneamente as <strong>{dynamicPedagogy.questions.length} questões calibradas</strong> deste tópico para suas plataformas favoritas de avaliação e gamificação em sala:
                     </p>
@@ -878,19 +878,19 @@ ${q.statement}
                         type="button"
                         className="af-btn"
                         style={{ justifyContent: 'center', padding: '10px 14px', background: 'rgba(236, 72, 153, 0.22)', border: '1px solid rgba(236, 72, 153, 0.5)' }}
-                        onClick={handleExportKahootCsv}
+                        onClick={handleExportGincanaCsv}
                       >
                         <Zap size={15} />
-                        <span>Exportar Kahoot! (.csv)</span>
+                        <span>Exportar Gincana Áquila (.csv)</span>
                       </button>
                       <button
                         type="button"
                         className="af-btn"
                         style={{ justifyContent: 'center', padding: '10px 14px', background: 'rgba(245, 158, 11, 0.22)', border: '1px solid rgba(245, 158, 11, 0.5)' }}
-                        onClick={handleExportQuizizzCsv}
+                        onClick={handleExportQuizCsv}
                       >
                         <Award size={15} />
-                        <span>Exportar Quizizz (.csv)</span>
+                        <span>Exportar Quiz Interativo Áquila (.csv)</span>
                       </button>
                       <button
                         type="button"
@@ -899,7 +899,7 @@ ${q.statement}
                         onClick={() => setActiveStation('aquila-multimodal-studio')}
                       >
                         <Sparkles size={15} />
-                        <span>Abrir no Wordwall &amp; Podcast</span>
+                        <span>Abrir no Jogos Educativos Áquila &amp; Podcast</span>
                       </button>
                     </div>
                   </div>
@@ -1342,7 +1342,7 @@ ${q.statement}
       )}
 
             {/* =====================================================================
-          ESTAÇÃO 8: ESTÚDIO MULTIMODAL (BRISK + NOTEBOOKLM + WORDWALL)
+          ESTAÇÃO 8: ESTÚDIO MULTIMODAL ÁQUILA (ROTEIROS, ÁUDIO E JOGOS EDUCATIVOS)
           ===================================================================== */}
       {activeStation === 'aquila-multimodal-studio' && (
         <MultimodalPedagogicalStudio />
@@ -1356,7 +1356,7 @@ ${q.statement}
       )}
 
       {/* =====================================================================
-          ESTAÇÃO 10: GERADOR DE PROVAS A4 & OMR (ENEM / PAS / PLURALL)
+          ESTAÇÃO 10: GERADOR DE PROVAS A4 & OMR (ENEM / PAS / VESTIBULARES)
           ===================================================================== */}
       {activeStation === 'aquila-exam-foundry' && (
         <ExamPaperFoundry />
@@ -1373,7 +1373,7 @@ ${q.statement}
               style={{ padding: '8px 16px', borderRadius: 8, fontSize: '0.82rem' }}
               onClick={() => setStemSubTab('official-phet')}
             >
-              🌐 1. Catálogo PhET HTML5 & Desafios Kumon (+24h/+48h/+96h)
+              🌐 1. Catálogo de Simulações Científicas Áquila & Desafios de Maestria Áquila (+24h/+48h/+96h)
             </button>
             <button
               className={`tai-station-btn ${stemSubTab === 'native-rea' ? 'active' : ''}`}
@@ -1384,7 +1384,7 @@ ${q.statement}
             </button>
           </div>
 
-          {/* LABORATÓRIO SOBERANO PHET COLORADO & KUMON MASTERY */}
+          {/* LABORATÓRIO SOBERANO DE SIMULAÇÕES CIENTÍFICAS & MAESTRIA ÁQUILA */}
           <div style={{ gridColumn: '1 / -1' }}>
             {stemSubTab === 'official-phet' ? <PhetKumonMasteryLab /> : <NativePhETSimulationLab />}
           </div>

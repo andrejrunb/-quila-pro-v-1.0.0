@@ -75,7 +75,7 @@ export const CommunityMarketplace: React.FC<{ onBack?: () => void }> = ({ onBack
     <div className="cm-container animate-fade-in">
       <header className="cm-header glass">
         <div className="cm-header-left">
-          {onBack && <button className="cm-back-btn" onClick={onBack}><ArrowLeft size={20} /></button>}
+          {onBack && <button className="cm-back-btn" onClick={onBack} aria-label="Voltar"><ArrowLeft size={20} /></button>}
           <div>
             <h1>Marketplace da Comunidade</h1>
             <p>Troca e venda segura entre pais e responsáveis</p>

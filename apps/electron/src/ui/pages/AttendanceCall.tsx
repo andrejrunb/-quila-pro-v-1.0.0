@@ -718,10 +718,10 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400 bg-slate-900/50">
-                    <th className="py-2.5 px-3 w-12">Nº</th>
-                    <th className="py-2.5 px-3">Estudante / Matrícula</th>
-                    <th className="py-2.5 px-3 w-44">Faltas Acumuladas</th>
-                    <th className="py-2.5 px-3 text-right">Estado na Aula</th>
+                    <th className="py-1.5 px-3 w-12">Nº</th>
+                    <th className="py-1.5 px-3">Estudante / Matrícula</th>
+                    <th className="py-1.5 px-3 w-44">Faltas Acumuladas</th>
+                    <th className="py-1.5 px-3 text-right">Estado na Aula</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 text-xs">
@@ -737,10 +737,10 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
                         className="hover:bg-slate-800/30 transition-colors"
                         data-testid={`attendance-row-${student.id}`}
                       >
-                        <td className="py-2.5 px-3 font-mono text-slate-400 font-bold">
+                        <td className="py-1.5 px-3 font-mono text-slate-400 font-bold">
                           #{idx + 1}
                         </td>
-                        <td className="py-2.5 px-3">
+                        <td className="py-1.5 px-3">
                           <div className="font-bold text-slate-100">{student.name}</div>
                           {student.registrationNumber && (
                             <div className="text-[11px] font-mono text-slate-400">
@@ -748,7 +748,7 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
                             </div>
                           )}
                         </td>
-                        <td className="py-2.5 px-3">
+                        <td className="py-1.5 px-3">
                           <div className="flex items-center gap-2">
                             <span className="font-mono text-slate-300">{absences} faltas</span>
                             {isLdbAlert && (
@@ -764,7 +764,7 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
                             )}
                           </div>
                         </td>
-                        <td className="py-2.5 px-3 text-right">
+                        <td className="py-1.5 px-3 text-right">
                           <div className="inline-flex items-center gap-1.5 flex-wrap justify-end">
                             <span
                               onClick={() => cycleStatus(student.id)}

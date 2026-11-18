@@ -16,7 +16,10 @@ import {
   ShieldCheck,
   Ticket,
   Globe,
-  Plus
+  Plus,
+  Tv,
+  Minimize2,
+  Maximize2
 } from 'lucide-react';
 import AcademicReportCard, { ReportCardStudent } from '../components/AcademicReportCard';
 import { STUDENTS } from '../../database/studentsData';
@@ -280,6 +283,23 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   const [showExitConfirmModal, setShowExitConfirmModal] = useState<boolean>(false);
   const [auditHistory, setAuditHistory] = useState<Array<{ timestamp: string; actor: string; detail: string; ruleVersion: string }>>([]);
+  const [isFocusMode, setIsFocusMode] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleProjEvent = (e: any) => {
+      if (typeof e.detail === 'boolean') {
+        setIsFocusMode(e.detail);
+      }
+    };
+    window.addEventListener('aquila:toggle-projection-mode', handleProjEvent);
+    return () => window.removeEventListener('aquila:toggle-projection-mode', handleProjEvent);
+  }, []);
+
+  const toggleFocusMode = () => {
+    const next = !isFocusMode;
+    setIsFocusMode(next);
+    window.dispatchEvent(new CustomEvent('aquila:toggle-projection-mode', { detail: next }));
+  };
 
   // Estado da Central REA (SigaWeb + JR Sistemas iWeb CSC)
   const [showReaPortalDrawer, setShowReaPortalDrawer] = useState<boolean>(false);
@@ -351,7 +371,7 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
           setRows(parsed);
           return;
         }
-      } catch (_) {}
+      } catch { /* fallback local indisponível */ }
     }
 
     let studentList: { id: string; name: string; ra?: string }[] = [];
@@ -383,7 +403,7 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
             }));
           }
         }
-      } catch (_) {}
+      } catch { /* fallback local indisponível */ }
     }
 
     if (studentList.length === 0) {
@@ -482,7 +502,7 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
         auditHistory,
         rows
       });
-    } catch (_) {}
+    } catch { /* persistência local via IPC opcional */ }
     (window as any).showToast?.(`Planilha de ${selectedSubject} (${selectedBimester}) salva e sincronizada!`, 'success');
     setSaveBanner(`Planilha de ${selectedSubject} (${selectedBimester}) salva (${rows.length} alunos • ${GRADEBOOK_RULE_VERSION})!`);
     setTimeout(() => setSaveBanner(null), 4000);
@@ -739,6 +759,15 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
             ))}
           </div>
 
+          <button
+            type="button"
+            className={`tg-btn ${isFocusMode ? 'primary' : 'secondary'}`}
+            onClick={toggleFocusMode}
+            title="Alternar modo foco / projeção em sala"
+          >
+            <span>{isFocusMode ? 'Sair Modo Foco' : 'Modo Foco'}</span>
+          </button>
+
           <div style={{ position: 'relative' }}>
             <button
               className="tg-btn secondary"
@@ -752,7 +781,8 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
                 style={{
                   position: 'absolute',
                   top: 'calc(100% + 6px)',
-                  right: 0,
+                  left: 0,
+                  right: 'auto',
                   minWidth: '250px',
                   background: '#172033',
                   border: '1px solid #334155',
@@ -820,7 +850,7 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
       )}
 
       {/* Gaveta de Integração REA: SigaWeb + Central de Serviços CSC */}
-      {showReaPortalDrawer && (
+      {!isFocusMode && showReaPortalDrawer && (
         <section className="tg-rea-drawer">
           <div className="tg-rea-grid">
             {/* Card 1: Conector SigaWeb & Simulado TRI Soberano */}
@@ -917,6 +947,7 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
       )}
 
       {/* 4-Column KPI Strip */}
+      {!isFocusMode && (
       <section className="tg-kpi-grid">
         <div className="tg-kpi-pod">
           <div>
@@ -968,6 +999,7 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
           </div>
         </div>
       </section>
+      )}
 
       {/* Main Editable Spreadsheet Card */}
       <section className="tg-sheet-panel">
@@ -991,21 +1023,21 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
             <thead>
               <tr>
                 <th style={{ width: '42px' }}>Nº</th>
-                <th style={{ minWidth: '220px' }}>Aluno / Identificação (RA Activesoft)</th>
-                <th style={{ width: '88px' }}>N1 (Trab.)</th>
-                <th style={{ width: '88px' }}>N2 (TRI)</th>
-                <th style={{ width: '88px' }}>N3 (Prova)</th>
-                <th style={{ width: '88px' }}>Rec. Paral.</th>
-                <th style={{ width: '70px' }}>Faltas</th>
-                <th style={{ width: '92px' }}>Média {selectedBimester}</th>
-                <th style={{ width: '60px' }}>1º B</th>
-                <th style={{ width: '60px' }}>2º B</th>
-                <th style={{ width: '60px' }}>3º B</th>
-                <th style={{ width: '60px' }}>4º B</th>
-                <th style={{ width: '96px' }}>Média Acumulada</th>
-                <th style={{ width: '140px' }}>Situação ({selectedBimester})</th>
-                <th style={{ minWidth: '170px' }}>Observação Pedagógica</th>
-                <th style={{ width: '125px', textAlign: 'right' }}>Ações</th>
+                <th style={{ minWidth: '190px' }}>Aluno / Identificação (RA Activesoft)</th>
+                <th style={{ width: '68px' }}>N1 (Trab.)</th>
+                <th style={{ width: '68px' }}>N2 (TRI)</th>
+                <th style={{ width: '68px' }}>N3 (Prova)</th>
+                <th style={{ width: '68px' }}>Rec. Paral.</th>
+                <th style={{ width: '54px' }}>Faltas</th>
+                <th style={{ width: '78px' }}>Média {selectedBimester}</th>
+                <th style={{ width: '46px' }}>1º B</th>
+                <th style={{ width: '46px' }}>2º B</th>
+                <th style={{ width: '46px' }}>3º B</th>
+                <th style={{ width: '46px' }}>4º B</th>
+                <th style={{ width: '84px' }}>Média Acumulada</th>
+                <th style={{ width: '115px' }}>Situação ({selectedBimester})</th>
+                <th style={{ minWidth: '135px' }}>Observação Pedagógica</th>
+                <th style={{ width: '105px', textAlign: 'right' }}>Ações</th>
               </tr>
             </thead>
             <tbody>

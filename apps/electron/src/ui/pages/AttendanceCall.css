@@ -1,12 +1,14 @@
 .attendance-call-container {
-  padding: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 0.85rem 1.5rem;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
   color: #f4f4f5;
 }
 
 .page-header h1 {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: -0.025em;
   margin: 0;
@@ -16,25 +18,25 @@
   background: linear-gradient(135deg, #10b981, #14b8a6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 900;
   margin-left: 0.5rem;
 }
 
 .page-header .subtitle {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #a1a1aa;
-  margin: 0.2rem 0 0 0;
+  margin: 0.15rem 0 0 0;
 }
 
 .save-btn {
   background: linear-gradient(135deg, #059669, #0f766e);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
+  padding: 0.55rem 1.25rem;
+  border-radius: 10px;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
@@ -49,10 +51,10 @@
 .controls-panel {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  border-radius: 16px;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
   background: rgba(24, 24, 27, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
@@ -488,22 +490,22 @@
 /* ── Métricas Rápidas de Frequência ── */
 .attendance-metrics-bar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.75rem;
-  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .metric-chip {
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
-  padding: 0.6rem 0.85rem;
+  padding: 0.35rem 0.65rem;
   display: flex;
   flex-direction: column;
 }
 
 .metric-chip .chip-label {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: #94a3b8;
   text-transform: uppercase;
   font-weight: 700;
@@ -511,9 +513,9 @@
 }
 
 .metric-chip .chip-val {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 800;
-  margin-top: 0.15rem;
+  margin-top: 0.1rem;
 }
 
 /* ── Folha Oficial Oculta em Tela (Só Aparece no Print) ── */

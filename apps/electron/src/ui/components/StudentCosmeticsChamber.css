@@ -449,3 +449,34 @@
     position: static;
   }
 }
+
+
+/* ==========================================================================
+   IMAGENS REAIS DOS COSMÉTICOS (PARIDADE COM O JOGUINHO DO AI STUDIO)
+   ========================================================================== */
+.cr-card-art-img {
+  max-width: 82px;
+  max-height: 82px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 14px var(--rarity-glow, #06b6d4));
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cr-cosmetic-card:hover .cr-card-art-img {
+  transform: scale(1.15) translateY(-3px);
+}
+
+.cr-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 9999px;
+  filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.5));
+}
+
+.cr-mini-badge-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(234, 179, 8, 0.7));
+}

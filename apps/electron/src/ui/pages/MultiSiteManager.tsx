@@ -269,7 +269,7 @@ export const MultiSiteManager: React.FC<MultiSiteManagerProps> = ({ onBack, onSe
               <div className="ms-unit-actions">
                 <button 
                   className="ms-unit-btn secondary"
-                  onClick={() => alert(`Configurações de rede da ${unit.name}: Gateway ${unit.ipEndpoint}`)}
+                  aria-label={`Configurações de rede da unidade ${unit.name}`} onClick={() => alert(`Configurações de rede da ${unit.name}: Gateway ${unit.ipEndpoint}`)}
                 >
                   <Settings size={14} /> Conectividade
                 </button>

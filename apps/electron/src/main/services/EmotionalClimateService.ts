@@ -2,16 +2,20 @@ import { logger } from '../logger';
 import { EmotionType } from './MicroExpressionAnalyzer';
 
 export interface CampusPulse {
-  globalHappiness: number; // 0-100
-  stressLevel: number; // 0-100
+  globalHappiness: number;
+  stressLevel: number;
   activeHotspots: { location: string; dominantEmotion: EmotionType }[];
   lastUpdate: number;
+  blocked?: boolean;
+  complianceCode?: 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE';
+  legalReference?: string;
 }
 
 /**
- * EmotionalClimateService (Nível 37)
- * Monitora o "batimento cardíaco emocional" da escola.
- * Agrega dados anonimizados para fornecer insights sobre o bem-estar coletivo.
+ * EmotionalClimateService
+ * Bloqueado em observância imediata ao Parecer CNE/CP nº 15/2026
+ * (homologado pelo MEC em 10/11/2026, DOU de 11/11/2026, p. 141), que veda
+ * reconhecimento ou inferência automatizada de emoções em ambiente escolar.
  */
 export class EmotionalClimateService {
   private static instance: EmotionalClimateService;
@@ -19,13 +23,13 @@ export class EmotionalClimateService {
 
   private constructor() {
     this.currentPulse = {
-      globalHappiness: 75,
-      stressLevel: 20,
-      activeHotspots: [
-        { location: 'Refeitório', dominantEmotion: 'JOY' },
-        { location: 'Laboratório de IA', dominantEmotion: 'ENGAGEMENT' }
-      ],
-      lastUpdate: Date.now()
+      globalHappiness: 0,
+      stressLevel: 0,
+      activeHotspots: [],
+      lastUpdate: Date.now(),
+      blocked: true,
+      complianceCode: 'CNE_15_2026_PROHIBITED_EMOTION_INFERENCE',
+      legalReference: 'Parecer CNE/CP nº 15/2026 (homologado em 10/11/2026, DOU Ed. 212, p. 141)',
     };
   }
 
@@ -36,17 +40,15 @@ export class EmotionalClimateService {
     return EmotionalClimateService.instance;
   }
 
-  /**
-   * Atualiza o pulso coletivo com base em novas amostras.
-   */
-  public reportLocalEmotion(location: string, emotion: EmotionType) {
-    logger.debug(`[Climate] Novo reporte emocional em ${location}: ${emotion}`);
-    // Lógica de agregação estatística
-    this.currentPulse.lastUpdate = Date.now();
+  public reportLocalEmotion(location: string, _emotion: EmotionType) {
+    logger.warn(`[Climate] Reporte emocional ignorado em ${location}: proibido pelo Parecer CNE/CP nº 15/2026.`);
   }
 
   public getPulse(): CampusPulse {
-    return this.currentPulse;
+    return {
+      ...this.currentPulse,
+      lastUpdate: Date.now(),
+    };
   }
 }
 

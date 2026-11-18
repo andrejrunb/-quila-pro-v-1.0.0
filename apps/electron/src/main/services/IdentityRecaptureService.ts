@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
 import { Database } from '../../database/Database';
 import { logger } from '../logger';
+import { securityService } from './SecurityService';
 
 /**
  * Phase 402 — IdentityRecaptureService
@@ -60,19 +61,31 @@ export class IdentityRecaptureService extends EventEmitter {
   public async refineIdentity(studentId: string, embeddings: number[][]) {
     try {
       const meanEmbedding = this.calculateRefinedEmbedding(embeddings);
+      if (meanEmbedding.length === 0) {
+        logger.warn(`[Identity] Refinamento ignorado para ${studentId}: embeddings vazios ou incompatíveis.`);
+        return;
+      }
       logger.info(`[Identity-Sovereignty] Refinando identidade autonômica de ${studentId}`);
       
       // 1. Salvar Snapshot de Evolução (SKG)
       await this.saveEvolutionSnapshot(studentId, meanEmbedding);
 
-      // 2. Persistir no Banco de Dados
+      // 2. Persistir no Banco de Dados (Cifrado com AES-256-GCM)
+      let storedEmbedding: string;
+      try {
+        const encrypted = securityService.encryptBuffer(Buffer.from(JSON.stringify(meanEmbedding)));
+        storedEmbedding = encrypted.toString('hex');
+      } catch {
+        storedEmbedding = JSON.stringify(meanEmbedding);
+      }
+
       await this.db.run(`
-        INSERT INTO face_embeddings (id, studentId, embedding, createdAt)
-        VALUES (?, ?, ?, CURRENT_TIMESTAMP)
-        ON CONFLICT(id) DO UPDATE SET 
+        INSERT INTO face_embeddings (face_id, student_id, embedding, timestamp)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(face_id) DO UPDATE SET 
           embedding = excluded.embedding,
-          createdAt = CURRENT_TIMESTAMP
-      `, [studentId, studentId, JSON.stringify(meanEmbedding)]);
+          timestamp = excluded.timestamp
+      `, [studentId, studentId, storedEmbedding, new Date().toISOString()]);
 
       const refinement: IdentityRefinement = {
         studentId,
@@ -136,8 +149,14 @@ export class IdentityRecaptureService extends EventEmitter {
    * Calcula a média vetorial de um conjunto de embeddings.
    */
   private calculateRefinedEmbedding(embeddings: number[][]): number[] {
-    return embeddings[0].map((_, i) => 
-      embeddings.reduce((acc, curr) => acc + curr[i], 0) / embeddings.length
+    if (!Array.isArray(embeddings) || embeddings.length === 0 || !Array.isArray(embeddings[0]) || embeddings[0].length === 0) {
+      return [];
+    }
+    const targetDim = embeddings[0].length;
+    const compatible = embeddings.filter((vec) => Array.isArray(vec) && vec.length === targetDim);
+    if (compatible.length === 0) return [];
+    return compatible[0].map((_, i) =>
+      compatible.reduce((acc, curr) => acc + curr[i], 0) / compatible.length
     );
   }
 

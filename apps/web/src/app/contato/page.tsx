@@ -1,15 +1,35 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Mail, Phone, ArrowRight, CheckCircle2 } from "lucide-react";
 
-export default function Contato() {
+function ContatoContent() {
+  const searchParams = useSearchParams();
+  const plano = searchParams.get("plano");
+  const modulo = searchParams.get("modulo");
+  const perfil = searchParams.get("perfil");
+  const assunto = searchParams.get("assunto");
+  const documento = searchParams.get("documento");
+
+  const contextLabel = useMemo(() => {
+    const parts: string[] = [];
+    if (plano) parts.push(`Plano: ${plano}`);
+    if (modulo) parts.push(`Módulo: ${modulo}`);
+    if (perfil) parts.push(`Perfil: ${perfil}`);
+    if (assunto) parts.push(`Assunto: ${assunto}`);
+    if (documento) parts.push(`Documento: ${documento}`);
+    return parts.join(" • ");
+  }, [plano, modulo, perfil, assunto, documento]);
+
   const [name, setName] = useState("");
   const [school, setSchool] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(() =>
+    contextLabel ? `[Contexto selecionado: ${contextLabel}] ` : ""
+  );
   const [lgpdConsent, setLgpdConsent] = useState(false);
   const [status, setStatus] = useState<{
     state: "idle" | "submitting" | "success" | "error";
@@ -44,6 +64,7 @@ export default function Contato() {
           school,
           email,
           message,
+          context: contextLabel,
           lgpdConsent,
           type: "contact_page",
         }),
@@ -68,9 +89,8 @@ export default function Contato() {
       setLgpdConsent(false);
     } catch {
       setStatus({
-        state: "success",
-        protocol: "AQ-LOCAL-CONTACT",
-        message: "Solicitação registrada localmente para atendimento técnico.",
+        state: "error",
+        message: "Falha de conexão ao enviar sua solicitação. Tente novamente em instantes.",
       });
     }
   }
@@ -101,6 +121,12 @@ export default function Contato() {
           {/* Form */}
           <div className="glass p-10 md:p-12 rounded-[40px] border border-white/10 bg-zinc-950/40">
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              {contextLabel && (
+                <div className="px-4 py-2.5 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-bold">
+                  Interesse selecionado: {contextLabel}
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label
@@ -275,5 +301,19 @@ export default function Contato() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function Contato() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen bg-black text-zinc-400 items-center justify-center text-xs uppercase tracking-widest">
+          Carregando canal de atendimento...
+        </div>
+      }
+    >
+      <ContatoContent />
+    </Suspense>
   );
 }

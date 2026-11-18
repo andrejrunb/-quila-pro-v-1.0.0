@@ -1,26 +1,29 @@
 /* ═══════════════════════════════════════════════════════════════════
    ÁQUILA EXAM & ASSESSMENT FOUNDRY — CSS
-   Padrão ENEM / PAS-UnB / SOMOS Plurall com Impressão A4 2 Colunas
+   Padrão ENEM / PAS-UnB / Ecossistema Didático Áquila com Impressão A4 2 Colunas
    ═══════════════════════════════════════════════════════════════════ */
 
 .epf-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 6px 10px;
   color: var(--stitch-text-primary, #F8FAFC);
   font-family: 'Inter', -apple-system, sans-serif;
 }
 
 /* Painel de Controle de Geração (Oculto na impressão) */
 .epf-control-panel {
-  padding: 16px 20px;
+  padding: 10px 14px;
   background: var(--stitch-surface, rgba(14, 19, 31, 0.9));
   border: 1px solid var(--stitch-border, rgba(255, 255, 255, 0.1));
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
 }
 
 .epf-control-header {
@@ -58,10 +61,10 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 34px;
-  padding: 0 14px;
+  height: 30px;
+  padding: 0 12px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -96,8 +99,8 @@
 .epf-filters-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-  padding-top: 10px;
+  gap: 8px;
+  padding-top: 8px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -118,7 +121,7 @@
 
 .epf-filter-item select,
 .epf-filter-item input {
-  height: 32px;
+  height: 30px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
@@ -167,13 +170,15 @@
 .epf-paper-preview {
   background: #FFFFFF;
   color: #111827;
-  padding: 28px 32px;
+  padding: 20px 24px;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   font-family: 'Times New Roman', Times, serif;
-  margin: 0 auto;
-  max-width: 900px;
-  min-height: 1000px;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 820px;
 }
 
 /* Cabeçalho da Prova */
@@ -739,3 +744,50 @@
   color: #C084FC;
 }
 
+
+
+/* ==========================================================================
+   ÁQUILA PRO v2.2 — FIGURAS VETORIAIS MATEMÁTICAS, QUÍMICAS E FÍSICAS (SVG)
+   ========================================================================== */
+.epf-q-figure {
+  margin: 12px auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.epf-q-figure svg {
+  max-width: 100%;
+  height: auto;
+  max-height: 220px;
+}
+
+.epf-q-figure-caption {
+  font-size: 10px;
+  font-style: italic;
+  color: #64748b;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+@media print {
+  .epf-q-figure {
+    border: none;
+    padding: 4px 0;
+    margin: 8px auto;
+    page-break-inside: avoid;
+  }
+  .epf-q-figure svg {
+    max-height: 180px;
+  }
+  .epf-q-figure-caption {
+    font-size: 9px;
+    color: #334155;
+  }
+}

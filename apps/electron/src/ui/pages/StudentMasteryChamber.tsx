@@ -32,10 +32,13 @@ import {
   Sliders,
   Grid,
   Trophy,
-  Timer
+  Timer,
+  Tv,
+  Video
 } from 'lucide-react';
 import './StudentMasteryChamber.css';
 import { WordwallInteractivePlayer } from '../components/WordwallInteractivePlayer';
+import { OpuscarPhysicsCinema } from '../components/OpuscarPhysicsCinema';
 
 interface Exercise {
   drill: string;
@@ -174,7 +177,7 @@ const BNCC_CODES_BY_SUBJECT: Record<string, string> = {
 const FALLBACK_CONCEPTS: VestibularConceptRow[] = [
   {
     concept_id: 'cie_7ano_pos_v1',
-    exam: 'Positivo SPE',
+    exam: 'Sistema Didático Áquila',
     decade_span: '2020-2025',
     subject: 'Ciências',
     macro_topic: 'Ecossistemas, Rios Voadores e Dinâmica Atmosférica (Vol. 1)',
@@ -185,7 +188,7 @@ const FALLBACK_CONCEPTS: VestibularConceptRow[] = [
   },
   {
     concept_id: 'cie_7ano_pos_v2',
-    exam: 'Positivo SPE',
+    exam: 'Sistema Didático Áquila',
     decade_span: '2020-2025',
     subject: 'Ciências',
     macro_topic: 'Morfologia Vegetal, Biomas e Tectônica Global (Vol. 2)',
@@ -196,7 +199,7 @@ const FALLBACK_CONCEPTS: VestibularConceptRow[] = [
   },
   {
     concept_id: 'cie_7ano_pos_v3',
-    exam: 'Positivo SPE',
+    exam: 'Sistema Didático Áquila',
     decade_span: '2020-2025',
     subject: 'Ciências',
     macro_topic: 'Saúde Pública, Imunidade e Máquinas Simples (Vol. 3)',
@@ -207,7 +210,7 @@ const FALLBACK_CONCEPTS: VestibularConceptRow[] = [
   },
   {
     concept_id: 'cie_7ano_pos_v4',
-    exam: 'Positivo SPE',
+    exam: 'Sistema Didático Áquila',
     decade_span: '2020-2025',
     subject: 'Ciências',
     macro_topic: 'Termologia, Propagação de Calor e Máquinas Térmicas (Vol. 4)',
@@ -349,6 +352,7 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
 
   // Zoom & Visual Scaffolding States (Fundamental I, II & Medicina)
   const [zoomLevel, setZoomLevel] = useState<number>(100);
+  const [showPhysicsCinema, setShowPhysicsCinema] = useState<boolean>(false);
   const [concreteBlocks, setConcreteBlocks] = useState<{ hundreds: number; tens: number; units: number }>({
     hundreds: 0,
     tens: 2,
@@ -749,6 +753,35 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
           </div>
 
           <button
+            className="mastery-projection-btn"
+            title="Projetar Jogos Educativos e Itens em Tela Cheia"
+            onClick={() => {
+              window.dispatchEvent(
+                new CustomEvent('aquila:toggle-projection-mode', {
+                  detail: { active: true, title: 'Modo Projeção: Jogos Educativos & Maestria' }
+                })
+              );
+            }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              background: 'rgba(56, 189, 248, 0.15)',
+              border: '1px solid rgba(56, 189, 248, 0.4)',
+              color: '#38bdf8',
+              fontSize: '12px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <Tv size={14} />
+            <span>Projetar Telão</span>
+          </button>
+
+          <button
             className="gpu-train-live-btn"
             onClick={handleRunGpuTraining}
             disabled={isTrainingGpu}
@@ -1094,7 +1127,7 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
                 className={`arena-template-btn ${arenaTemplate === "wordwall_games" ? "active" : ""}`}
                 onClick={() => setArenaTemplate("wordwall_games")}
               >
-                <Gamepad2 size={15} /> Jogos Wordwall (28 Dinâmicas)
+                <Gamepad2 size={15} /> Jogos Educativos Áquila (28 Dinâmicas)
               </button>
             </div>
 
@@ -1377,7 +1410,37 @@ export const StudentMasteryChamber: React.FC<StudentMasteryChamberProps> = ({ st
                     📐 {currentTrack.figureCaption}
                   </span>
                 )}
+
+                <button
+                  type="button"
+                  onClick={() => setShowPhysicsCinema(prev => !prev)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 14px',
+                    borderRadius: '8px',
+                    background: showPhysicsCinema ? 'rgba(56, 189, 248, 0.25)' : 'rgba(56, 189, 248, 0.1)',
+                    border: '1px solid rgba(56, 189, 248, 0.45)',
+                    color: '#38bdf8',
+                    fontSize: '0.8rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    marginTop: '4px'
+                  }}
+                  title="Renderizar o fenômeno em movimento dinâmico via código (Cinema Físico Áquila)"
+                >
+                  <Video size={14} />
+                  <span>{showPhysicsCinema ? 'Ocultar Animação Cinema Físico Áquila' : '🎬 Animar Fenômeno em Vídeo (Cinema Físico Áquila 60 FPS)'}</span>
+                </button>
               </div>
+            )}
+
+            {showPhysicsCinema && (
+              <OpuscarPhysicsCinema
+                track={currentTrack}
+                onClose={() => setShowPhysicsCinema(false)}
+              />
             )}
 
             {/* Módulo Manipulativo Concreto & Blocos Numéricos (Fundamental I - Matific / Educacross) */}

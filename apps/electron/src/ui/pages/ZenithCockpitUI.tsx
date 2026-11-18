@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Infinity, 
+  Infinity as InfinityIcon, 
   Sparkles, 
   ShieldCheck, 
   Zap, 
@@ -10,7 +10,6 @@ import {
   TrendingUp,
   Award,
   Activity,
-  ChevronRight,
   WifiOff
 } from 'lucide-react';
 import './ZenithCockpitUI.css';
@@ -57,7 +56,7 @@ const ZenithCockpitUI: React.FC = () => {
       }
 
       setIsOffline(false);
-    } catch (e) {
+    } catch {
       console.warn('Zenith: usando dados de fallback devido a falha na sincronia');
       setState(FALLBACK_STATE);
       setAureusReport(FALLBACK_REPORT);
@@ -85,7 +84,7 @@ const ZenithCockpitUI: React.FC = () => {
       <div className="zenith-singularity-screen">
          <div className="white-hole"></div>
          <div className="zenith-content">
-            <Infinity size={120} style={{ color: 'white', animation: 'pulse 2s infinite' }} />
+            <InfinityIcon size={120} style={{ color: 'white', animation: 'pulse 2s infinite' }} />
             <h1>ZENITH</h1>
             <p>Singularidade Institucional Absoluta</p>
             <div className="final-message">O Áquila Pro atingiu o estado de harmonia total.</div>

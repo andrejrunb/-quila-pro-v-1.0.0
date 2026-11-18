@@ -4,9 +4,10 @@ import {
   ChevronUp, ChevronDown, Copy, RefreshCw, Shield, Smartphone, FileText,
   TrendingUp, Wallet, Receipt, Zap, Check, Building2, GraduationCap,
   Crown, Star, Percent, Globe, Sparkles, X,
-  MessageCircle, BarChart, ExternalLink, Calculator, ShieldAlert, History
+  MessageCircle, MessageSquare, BarChart, ExternalLink, Calculator, ShieldAlert, History
 } from 'lucide-react';
 import { FileUploader } from '../components/FileUploader';
+import { RtcFiscalAdapterPanel } from '../components/RtcFiscalAdapterPanel';
 import { useToast } from '../hooks/ToastContext';
 import './FinanceModule.css';
 
@@ -199,7 +200,7 @@ export const FinanceModule: React.FC<FinanceProps> = ({ onBack }) => {
   const [showComparison, setShowComparison] = useState(false);
   const [roi, setRoi] = useState<any>(null);
   const [loadingRoi, setLoadingRoi] = useState(false);
-  const [view, setView] = useState<'licensing' | 'student-fees' | 'automation' | 'rpa-dominio'>('licensing');
+  const [view, setView] = useState<'licensing' | 'student-fees' | 'automation' | 'rpa-dominio' | 'negotiation' | 'rtc-fiscal'>('licensing');
   const [rpaStatus, setRpaStatus] = useState<any>(null);
   const [isExportingDominio, setIsExportingDominio] = useState(false);
   const [dominioResult, setDominioResult] = useState<any>(null);
@@ -591,6 +592,12 @@ export const FinanceModule: React.FC<FinanceProps> = ({ onBack }) => {
             }}
           >
             Domínio Sistemas (RPA)
+          </button>
+          <button 
+            className={`view-btn ${view === 'rtc-fiscal' ? 'active' : ''}`}
+            onClick={() => setView('rtc-fiscal')}
+          >
+            Adaptador Fiscal RTC (RFB)
           </button>
           <button 
             className={`view-btn ${view === 'licensing' ? 'active' : ''}`}
@@ -1413,6 +1420,10 @@ export const FinanceModule: React.FC<FinanceProps> = ({ onBack }) => {
               </div>
             </div>
           </div>
+        )}
+
+        {view === 'rtc-fiscal' && (
+          <RtcFiscalAdapterPanel onNotify={showToast} />
         )}
       {/* Footer (Always Visible) */}
       <footer className="security-note">

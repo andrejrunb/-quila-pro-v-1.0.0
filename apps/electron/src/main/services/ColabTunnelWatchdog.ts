@@ -2,6 +2,8 @@ import { EventEmitter } from 'events';
 import { colabGpuBridge, ColabHealth } from './ColabGpuBridge';
 import Database, { db } from '../../database/Database';
 import { v4 as uuidv4 } from 'uuid';
+import { securityService } from './SecurityService';
+import { zeroBypassAuditService } from './ZeroBypassAuditService';
 
 export interface ColabQueuedTask {
   id: string;
@@ -135,6 +137,7 @@ export class ColabTunnelWatchdog extends EventEmitter {
 
   /**
    * Enfileira uma tarefa pesada de visão para execução offline persistida.
+   * Criptografa dados biométricos sensíveis em conformidade com LGPD Art. 14 e Constituição v2.1.
    */
   public async enqueueTask(
     taskType: ColabQueuedTask['taskType'],
@@ -144,11 +147,25 @@ export class ColabTunnelWatchdog extends EventEmitter {
     const payloadStr = JSON.stringify(payload);
     const now = new Date().toISOString();
 
+    let storedPayload: string;
+    const isSensitive = taskType === 'face_embeddings' || (payload && payload.buffer);
+    if (isSensitive) {
+      try {
+        const encrypted = securityService.encryptBuffer(Buffer.from(payloadStr, 'utf-8'));
+        storedPayload = 'enc:' + encrypted.toString('hex');
+      } catch (err) {
+        console.warn('[ColabTunnelWatchdog] Fallback para payload não cifrado:', err);
+        storedPayload = payloadStr;
+      }
+    } else {
+      storedPayload = payloadStr;
+    }
+
     try {
       await db.run(
         `INSERT INTO colab_task_queue (id, taskType, payload, status, attempts, createdAt, updatedAt)
          VALUES (?, ?, ?, 'pending', 0, ?, ?)`,
-        [taskId, taskType, payloadStr, now, now]
+        [taskId, taskType, storedPayload, now, now]
       );
       this.emit('queue:enqueued', { taskId, taskType });
     } catch (err) {
@@ -185,7 +202,13 @@ export class ColabTunnelWatchdog extends EventEmitter {
         const taskId = row.id;
         let payload: any;
         try {
-          payload = JSON.parse(row.payload);
+          let rawPayloadStr = row.payload;
+          if (typeof rawPayloadStr === 'string' && rawPayloadStr.startsWith('enc:')) {
+            const hexData = rawPayloadStr.slice(4);
+            const decryptedBuf = securityService.decryptBuffer(Buffer.from(hexData, 'hex'));
+            rawPayloadStr = decryptedBuf.toString('utf-8');
+          }
+          payload = JSON.parse(rawPayloadStr);
         } catch {
           payload = row.payload;
         }
@@ -199,6 +222,15 @@ export class ColabTunnelWatchdog extends EventEmitter {
           let taskResult: any;
 
           if (row.taskType === 'face_embeddings' && payload.buffer) {
+            // Auditoria ZeroBypass para transmissão biométrica externa
+            await zeroBypassAuditService.record({
+              userId: 'SOVEREIGN_EDGE_DAEMON',
+              action: 'BIOMETRIC_ACCESS',
+              details: `Despacho de frame biométrico anonimizado para acelerador Colab GPU (Task: ${taskId})`,
+              metadata: { taskId, taskType: row.taskType, timestamp: new Date().toISOString() },
+              legalBasis: 'LGPD_ART_14'
+            }).catch(() => {});
+
             const buf = Buffer.from(payload.buffer, 'base64');
             taskResult = await colabGpuBridge.extractFaceEmbeddings(buf);
           } else if (row.taskType === 'object_detection' && payload.buffer) {

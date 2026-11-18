@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Cpu, Server, Cloud, Zap } from 'lucide-react';
+import { Cpu, Server, Cloud, Zap, Activity } from 'lucide-react';
 import './Swarm3DView.css';
 
 interface SwarmNode {

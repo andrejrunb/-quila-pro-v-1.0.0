@@ -60,6 +60,19 @@ describe('ColabTunnelWatchdog Unit Tests (Passo 101 & 120)', () => {
     expect(taskRow.status).toBe('pending');
   });
 
+  test('Deve enfileirar tarefas biométricas (face_embeddings) com payload cifrado com prefixo enc:', async () => {
+    (colabGpuBridge as any).isOnline = false;
+    const dbInstance = Database.getInstance();
+    const runSpy = jest.spyOn(dbInstance, 'run').mockResolvedValue({ changes: 1, lastID: 2 });
+
+    const taskId = await watchdog.enqueueTask('face_embeddings', { buffer: Buffer.from('dummy_raw_face').toString('base64') });
+    expect(taskId).toBeDefined();
+    expect(runSpy).toHaveBeenCalledWith(
+      expect.stringContaining('INSERT INTO colab_task_queue'),
+      expect.arrayContaining(['face_embeddings', expect.stringMatching(/^enc:/)])
+    );
+  });
+
   test('Deve retornar métricas consolidadas com pendingTasksCount', async () => {
     const dbInstance = Database.getInstance();
     jest.spyOn(dbInstance, 'get').mockResolvedValue({ count: 2 });

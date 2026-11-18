@@ -391,22 +391,44 @@ Formato esperado: JSON array de objetos { "speaker": "Teacher" | "Assistant", "t
   }
 
   /**
-   * ---- NOVO: DETECTOR DE IA (FASE 709) ----
-   * Analisa a probabilidade de uma resposta ter sido gerada por IA.
-   * Baseado em heurísticas de estilo, verbosidade e precisão técnica excessiva.
+   * ---- ANÁLISE ESTILÍSTICA AUXILIAR (FASE 709 — CNE/CP nº 15/2026) ----
+   * Indicador estritamente consultivo/pedagógico.
+   * Parecer CNE/CP nº 15/2026 VEDA sanções acadêmicas ou disciplinares
+   * fundamentadas unicamente em detectores de conteúdo gerado por IA.
    */
-  async detectAIUsage(answer: string, context: string): Promise<{ likelihood: number; reasoning: string }> {
-    // Simulação de análise local v3.6.9
+  async detectAIUsage(
+    answer: string,
+    _context: string
+  ): Promise<{
+    likelihood: number;
+    reasoning: string;
+    advisoryOnly: true;
+    aiDetectionAdvisoryOnly: true;
+    punitiveSanctionProhibited: true;
+    complianceCode: 'CNE_15_2026_AI_DETECTOR_ADVISORY_ONLY';
+    legalNotice: string;
+  }> {
     const aiIndicators = ['portanto', 'desta forma', 'em conclusão', 'vale ressaltar'];
     let count = 0;
-    aiIndicators.forEach(ind => { if (answer.toLowerCase().includes(ind)) count++; });
+    const normalized = String(answer || '').toLowerCase();
+    aiIndicators.forEach(ind => { if (normalized.includes(ind)) count++; });
 
     const likelihood = Math.min((count / aiIndicators.length) * 100, 100);
-    const reasoning = likelihood > 50 
-      ? 'Padrão de escrita excessivement formal e estruturado' 
-      : 'Resposta condizente com escrita humana padrão';
+    const legalNotice =
+      'Aviso CNE/CP nº 15/2026: detectores de texto por IA são meramente indicativos/consultivos; é expressamente vedada qualquer sanção acadêmica ou disciplinar baseada exclusivamente nesta métrica.';
+    const reasoning = likelihood > 50
+      ? 'Sinalização estilística meramente consultiva (texto formal/estruturado). Não constitui prova nem autoriza sanção sem diálogo pedagógico docente.'
+      : 'Escrita sem marcadores estilísticos recorrentes. Uso estritamente formativo.';
 
-    return { likelihood: Math.round(likelihood), reasoning };
+    return {
+      likelihood: Math.round(likelihood),
+      reasoning,
+      advisoryOnly: true,
+      aiDetectionAdvisoryOnly: true,
+      punitiveSanctionProhibited: true,
+      complianceCode: 'CNE_15_2026_AI_DETECTOR_ADVISORY_ONLY',
+      legalNotice,
+    };
   }
 
   /**

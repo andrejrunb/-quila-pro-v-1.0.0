@@ -1,8 +1,8 @@
 {
   "homologacao": "H-01",
   "versao": "2.2.0-ALIGNED",
-  "commit": "8077fc5e",
-  "data": "2026-10-29 17:08:19Z",
+  "commit": "87ace3fa",
+  "data": "2026-11-11 18:07:03Z",
   "decisao": "APROVADO COM RESSALVAS PARA PILOTO PEDAGÓGICO CONTROLADO — A H-01 NÃO ESTÁ INTEGRALMENTE FECHADA (AC-03 pendente de execução E2E real; Aceite Humano pendente)",
   "passed": 14,
   "total": 15,
@@ -10,7 +10,7 @@
     "AC-01": {
       "title": "Instalação Reproduzível",
       "status": "PASS",
-      "evidence": "Commit 8077fc5e; monorepo verificado em Windows x64; node v22 / pnpm v12.",
+      "evidence": "Commit 87ace3fa; monorepo verificado em Windows x64; node v22 / pnpm v12.",
       "limitation": "Testado exclusivamente no ambiente Windows de homologação."
     },
     "AC-02": {
@@ -64,7 +64,7 @@
     "AC-10": {
       "title": "Backup é Verificável",
       "status": "PASS",
-      "evidence": "Snapshot gerado via VACUUM INTO com banco ativo; SHA-256: badc11e8ac826967...; integrity_check = ok; 2 submissões contidas.",
+      "evidence": "Snapshot gerado via VACUUM INTO com banco ativo; SHA-256: 627616798ad63b5a...; integrity_check = ok; 2 submissões contidas.",
       "limitation": "Snapshot reflete o estado exato no momento de sua criação."
     },
     "AC-11": {

@@ -10,6 +10,17 @@ import { BNCCProficiencyHeatmap } from '../components/BNCCProficiencyHeatmap';
 import { SchoolGrowthAgentSuite } from '../components/SchoolGrowthAgentSuite';
 import { ExamPaperFoundry } from '../components/ExamPaperFoundry';
 import { OmrScannerUI } from '../components/OmrScannerUI';
+import { Students } from '../pages/Students';
+import { TeacherGradebook } from '../pages/TeacherGradebook';
+import { AttendanceCall } from '../pages/AttendanceCall';
+import { StudentAILab } from '../pages/StudentAILab';
+import { StudentCosmeticsChamber } from '../components/StudentCosmeticsChamber';
+import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder';
+import PredictiveDashboard from '../pages/PredictiveDashboard';
+import SovereignLibrarianUI from '../pages/SovereignLibrarianUI';
+import { ClassroomDashboard } from '../pages/ClassroomDashboard';
+import LifecycleDashboard from '../pages/LifecycleDashboard';
+import HelpCenter from '../pages/HelpCenter';
 import './CoordinationPortal.css';
 import {
   Users, TrendingDown, AlertTriangle, BookOpen,
@@ -77,6 +88,31 @@ export const CoordinationPortal: React.FC<CoordinationPortalProps> = ({ currentP
             <OmrScannerUI onNavigate={onNavigate} onBack={onBack} />
           </div>
         );
+      case 'students':
+        return <Students onNavigate={onNavigate} onBack={onBack} />;
+      case 'gradebook':
+        return <TeacherGradebook onBack={onBack} onNavigate={onNavigate} />;
+      case 'attendance':
+        return <AttendanceCall onBack={onBack} />;
+      case 'ai-lab':
+        return <StudentAILab studentId="COORD_PREVIEW" onBack={onBack} />;
+      case 'cosmetics-chamber':
+      case 'battle-banner':
+      case 'skins-shop':
+        return <StudentCosmeticsChamber studentId="COORD_PREVIEW" onBack={onBack} />;
+      case 'youtube-radar':
+      case 'video-finder':
+        return <YouTubePedagogicalFinder onBack={onBack} />;
+      case 'predictive-dashboard':
+        return <PredictiveDashboard onNavigate={onNavigate} />;
+      case 'sovereign-library':
+        return <SovereignLibrarianUI />;
+      case 'classroom-dashboard':
+        return <ClassroomDashboard />;
+      case 'lifecycle-dashboard':
+        return <LifecycleDashboard />;
+      case 'help':
+        return <HelpCenter onBack={onBack} />;
       default:
         return (
           <div className="coord-portal-shell">
@@ -169,7 +205,7 @@ const CoordKPIBar: React.FC<{ onNavigate: (page: string) => void }> = ({ onNavig
         <div className="coord-cmd-actions">
           <button className="coord-cmd-btn primary" onClick={() => onNavigate('timetable')}>
             <Clock size={13} />
-            <span>Grade Horária (Urânia+ IA)</span>
+            <span>Grade Horária (Grade Inteligente Áquila+ IA)</span>
           </button>
           <button className="coord-cmd-btn primary" onClick={() => onNavigate('exam-foundry')}>
             <Printer size={13} />

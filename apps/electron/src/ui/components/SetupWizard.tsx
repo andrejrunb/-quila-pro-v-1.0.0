@@ -1,10 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  Check, ChevronRight, ChevronLeft, Shield, Globe, 
+  Check, ChevronLeft, Shield, Globe, 
   Camera, Smartphone, Zap, Sparkles, Building2, 
-  MessageCircle, Key, Users, CheckCircle, ArrowRight
+  Users, CheckCircle, ArrowRight, Monitor,
+  GraduationCap, Briefcase, FileText, Power, Image
 } from 'lucide-react';
 import './SetupWizard.css';
+
+export type WorkstationUsageType =
+  | 'classroom'
+  | 'teachers_room'
+  | 'coordination'
+  | 'direction'
+  | 'secretariat'
+  | 'portaria';
+
+export const WORKSTATION_USAGE_OPTIONS: Array<{
+  id: WorkstationUsageType;
+  label: string;
+  subtitle: string;
+  route: string;
+}> = [
+  {
+    id: 'classroom',
+    label: 'Sala de Aula',
+    subtitle: 'Painel da turma, energia automática (-10m/+10m) e fundo do Desktop',
+    route: 'classroom-dashboard',
+  },
+  {
+    id: 'teachers_room',
+    label: 'Sala dos Professores',
+    subtitle: 'Planilha de notas, diário docente e Estúdio IA',
+    route: 'teacher-dashboard',
+  },
+  {
+    id: 'coordination',
+    label: 'Coordenação',
+    subtitle: 'Grade horária, retenção e aprovações pedagógicas',
+    route: 'coordination',
+  },
+  {
+    id: 'direction',
+    label: 'Direção',
+    subtitle: 'BI financeiro, governança institucional e portais',
+    route: 'executive-cockpit-portal',
+  },
+  {
+    id: 'secretariat',
+    label: 'Secretaria',
+    subtitle: 'Matrículas, prontuários e gestão de turmas',
+    route: 'secretaria-portal',
+  },
+  {
+    id: 'portaria',
+    label: 'Portaria / Segurança',
+    subtitle: 'Catracas, câmeras e controle de acesso ao campus',
+    route: 'security-monitor',
+  },
+];
+
+export const DEFAULT_WORKSTATION_CLASSES = [
+  { id: '1-ano-a', name: '1º Ano A — Ensino Fundamental', grade: '1º Ano EF' },
+  { id: '2-ano-a', name: '2º Ano A — Ensino Fundamental', grade: '2º Ano EF' },
+  { id: '6-ano-a', name: '6º Ano A — Ensino Fundamental II', grade: '6º Ano' },
+  { id: '7-ano-a', name: '7º Ano A — Ensino Fundamental II', grade: '7º Ano' },
+  { id: '8-ano-a', name: '8º Ano A — Ensino Fundamental II', grade: '8º Ano' },
+  { id: '9-ano-a', name: '9º Ano A — Ensino Fundamental II', grade: '9º Ano' },
+  { id: '1-serie-a', name: '1ª Série A — Ensino Médio', grade: '1ª Série EM' },
+  { id: '1-serie-b', name: '1 SERIE B (1ª Série EM)', grade: '1ª Série EM' },
+  { id: '2-serie-a', name: '2ª Série A — Ensino Médio', grade: '2ª Série EM' },
+  { id: '3-serie-a', name: '3ª Série A — Ensino Médio', grade: '3ª Série EM' },
+];
 
 export interface SetupData {
   schoolName: string;
@@ -13,60 +79,72 @@ export interface SetupData {
   adminPassword: string;
   rtspUrl: string;
   whatsappNumber: string;
+  usageType: WorkstationUsageType;
+  classroomClassId: string;
+  autoStartOs: boolean;
+  projectWallpaper: boolean;
+  autoPowerSchedule: boolean;
 }
 
 interface SetupWizardProps {
   onComplete: () => void;
 }
 
-  const STEPS = [
+const STEPS = [
   {
     id: 'welcome',
     title: 'Bem-vindo ao Áquila Pro',
-    desc: 'Configure seu campus em menos de 3 minutos com total segurança soberana.',
-    icon: <Shield size={48} />,
+    desc: 'Configure seu campus e este terminal em menos de 3 minutos com total segurança soberana.',
+    icon: <Shield size={42} />,
     color: '#3b82f6',
+  },
+  {
+    id: 'workstation',
+    title: 'Tipo de Uso deste Computador',
+    desc: 'Informe onde este equipamento está instalado para automatizar inicialização, energia e tela.',
+    icon: <Monitor size={42} />,
+    color: '#10b981',
   },
   {
     id: 'school',
     title: 'Identidade do Campus',
     desc: 'Forneça os dados institucionais para personalizar o sistema.',
-    icon: <Globe size={48} />,
+    icon: <Globe size={42} />,
     color: '#8b5cf6',
   },
   {
     id: 'admin',
     title: 'Conta do Administrador',
     desc: 'Crie as credenciais de acesso para o gestor principal do sistema.',
-    icon: <Smartphone size={48} />,
+    icon: <Smartphone size={42} />,
     color: '#06b6d4',
   },
   {
     id: 'camera',
     title: 'Nó Primário (Câmera)',
     desc: 'Conecte sua câmera IP (Tapo, Hikvision etc.) ou pule esta etapa.',
-    icon: <Camera size={48} />,
+    icon: <Camera size={42} />,
     color: '#f97316',
   },
   {
     id: 'whatsapp',
     title: 'Gateway de Alertas',
     desc: 'Informe o número que enviará notificações soberanas via WhatsApp.',
-    icon: <Smartphone size={48} />,
+    icon: <Smartphone size={42} />,
     color: '#22c55e',
   },
   {
     id: 'optimization',
     title: 'Aceleração de Hardware',
     desc: 'Otimizando o motor de IA local para o seu hardware NPU/GPU.',
-    icon: <Zap size={48} />,
+    icon: <Zap size={42} />,
     color: '#f59e0b',
   },
   {
     id: 'success',
     title: 'Pronto para Deploy',
     desc: 'Seu School OS foi finalizado e está totalmente soberano.',
-    icon: <CheckCircle size={48} />,
+    icon: <CheckCircle size={42} />,
     color: '#10b981',
   }
 ];
@@ -75,6 +153,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
   const [step, setStep] = useState(0);
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [availableClasses, setAvailableClasses] = useState(DEFAULT_WORKSTATION_CLASSES);
   const [data, setData] = useState<SetupData>({
     schoolName: '',
     cnpj: '',
@@ -82,21 +161,43 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
     adminPassword: '',
     rtspUrl: '',
     whatsappNumber: '',
+    usageType: 'classroom',
+    classroomClassId: '1-serie-b',
+    autoStartOs: true,
+    projectWallpaper: true,
+    autoPowerSchedule: true,
   });
+
+  useEffect(() => {
+    const loadClasses = async () => {
+      try {
+        const res = await (window as any).aquila?.invoke?.('get-classes', '');
+        if (Array.isArray(res) && res.length > 0) {
+          setAvailableClasses(res);
+          setData(d => ({ ...d, classroomClassId: res[0].id }));
+        }
+      } catch {}
+    };
+    loadClasses();
+  }, []);
 
   const current = STEPS[step];
   const isLast = step === STEPS.length - 1;
   const progress = ((step + 1) / STEPS.length) * 100;
 
-  const set = (field: keyof SetupData) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setData(d => ({ ...d, [field]: e.target.value }));
+  const set = (field: 'schoolName' | 'cnpj' | 'adminEmail' | 'adminPassword' | 'rtspUrl' | 'whatsappNumber') =>
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      setData(d => ({ ...d, [field]: e.target.value }));
 
   const validate = (): boolean => {
     const errs: Record<string, string> = {};
-    if (step === 1) {
+    if (current.id === 'workstation' && data.usageType === 'classroom' && !data.classroomClassId) {
+      errs.classroomClassId = 'Selecione a turma desta sala de aula';
+    }
+    if (current.id === 'school') {
       if (!data.schoolName.trim()) errs.schoolName = 'Nome da instituição é obrigatório';
     }
-    if (step === 2) {
+    if (current.id === 'admin') {
       if (!data.adminEmail.trim()) errs.adminEmail = 'Usuário ou e-mail é obrigatório';
       if (data.adminPassword.length < 8) errs.adminPassword = 'Mínimo de 8 caracteres';
     }
@@ -142,13 +243,34 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
     try {
       setIsSaving(true);
       const api = (window as any).aquila;
+      const selectedClassObj = availableClasses.find(c => c.id === data.classroomClassId);
+      const workstationConfig = {
+        usageType: data.usageType,
+        classId: data.usageType === 'classroom' ? data.classroomClassId : '',
+        className: data.usageType === 'classroom' ? (selectedClassObj?.name || '1 SERIE B') : '',
+        autoStartOs: data.autoStartOs,
+        projectWallpaper: data.usageType === 'classroom' ? data.projectWallpaper : false,
+        wakeOffsetMinutes: data.autoPowerSchedule ? 10 : 0,
+        shutdownOffsetMinutes: data.autoPowerSchedule ? 10 : 0,
+        shutdownConfirmSeconds: 60,
+      };
+
+      localStorage.setItem('aquila_terminal_profile', data.usageType);
+      if (data.usageType === 'classroom' && data.classroomClassId) {
+        localStorage.setItem('classroom_class_id', data.classroomClassId);
+      }
+      localStorage.setItem('aquila_workstation_config', JSON.stringify(workstationConfig));
 
       if (api?.invoke) {
+        await api.invoke('workstation:configure', workstationConfig).catch(() => {});
+
         await api.invoke('save-settings', {
           schoolName: data.schoolName,
           cnpj: data.cnpj,
           whatsappNumber: data.whatsappNumber,
           adminEmail: data.adminEmail,
+          terminalUsageType: data.usageType,
+          classroomClassId: workstationConfig.classId,
         });
 
         if (data.adminEmail && data.adminPassword) {
@@ -190,7 +312,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 
   return (
     <div className="setup-wizard-overlay" role="dialog" aria-modal="true" aria-labelledby="setup-title">
-      <div className="setup-wizard-card">
+      <div className={`setup-wizard-card ${current.id === 'workstation' ? 'setup-card-wide' : ''}`}>
         <div className="setup-progress-bar" aria-label={`Step ${step + 1} of ${STEPS.length}`}>
           <div
             className="setup-progress-fill"
@@ -209,6 +331,73 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 
           <h1 id="setup-title" className="setup-title">{current.title}</h1>
           <p className="setup-description">{current.desc}</p>
+
+          {current.id === 'workstation' && (
+            <div className="setup-form-group workstation-setup-panel">
+              <div className="workstation-usage-grid">
+                {WORKSTATION_USAGE_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => setData(d => ({ ...d, usageType: opt.id }))}
+                    className={`workstation-usage-card ${data.usageType === opt.id ? 'selected' : ''}`}
+                  >
+                    <div className="usage-card-top">
+                      <span className="usage-card-title">{opt.label}</span>
+                      {data.usageType === opt.id && <Check size={14} className="text-emerald-400" />}
+                    </div>
+                    <span className="usage-card-sub">{opt.subtitle}</span>
+                  </button>
+                ))}
+              </div>
+
+              {data.usageType === 'classroom' && (
+                <div className="workstation-classroom-box">
+                  <div className="setup-input-group">
+                    <label htmlFor="classroomClassId">Turma Vinculada a esta Sala de Aula *</label>
+                    <select
+                      id="classroomClassId"
+                      value={data.classroomClassId}
+                      onChange={(e) => setData(d => ({ ...d, classroomClassId: e.target.value }))}
+                      className="setup-text-input setup-select-input"
+                    >
+                      {availableClasses.map(c => (
+                        <option key={c.id} value={c.id}>{c.name} ({c.grade})</option>
+                      ))}
+                    </select>
+                    {errors.classroomClassId && <span className="setup-error">{errors.classroomClassId}</span>}
+                  </div>
+
+                  <div className="workstation-auto-features">
+                    <label className="ws-check-row">
+                      <input
+                        type="checkbox"
+                        checked={data.autoStartOs}
+                        onChange={(e) => setData(d => ({ ...d, autoStartOs: e.target.checked }))}
+                      />
+                      <span>Inicializar automaticamente com o Sistema Operacional (Windows)</span>
+                    </label>
+                    <label className="ws-check-row">
+                      <input
+                        type="checkbox"
+                        checked={data.autoPowerSchedule}
+                        onChange={(e) => setData(d => ({ ...d, autoPowerSchedule: e.target.checked }))}
+                      />
+                      <span>Ligar 10 min antes da 1ª aula e desligar 10 min após a última aula (timer 60s)</span>
+                    </label>
+                    <label className="ws-check-row">
+                      <input
+                        type="checkbox"
+                        checked={data.projectWallpaper}
+                        onChange={(e) => setData(d => ({ ...d, projectWallpaper: e.target.checked }))}
+                      />
+                      <span>Projetar tela atualizada da sala no Plano de Fundo do Desktop</span>
+                    </label>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           {current.id === 'school' && (
             <div className="setup-form-group">

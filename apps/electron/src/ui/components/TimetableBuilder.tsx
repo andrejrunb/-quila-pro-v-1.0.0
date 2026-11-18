@@ -90,7 +90,7 @@ const DAY_SHORT_TO_ID: Record<string, string> = {
 
 /**
  * Converte o JSON real "GRADE INSTITUCIONAL MODELO" do Colégio Áquila Modelo
- * diretamente para a estrutura de grades do Urânia+ Engine.
+ * diretamente para a estrutura de grades do Grade Inteligente Áquila+ Engine.
  */
 function buildRealVisaoScheduleFromJson(): {
   schedules: Record<string, GridSlot[]>;
@@ -179,7 +179,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
   const [selectedTeacherId, setSelectedTeacherId] = useState<string>('DANIELLE');
   const [selectedMosaicDay, setSelectedMosaicDay] = useState<string>('monday');
 
-  // Estado de Permutação Inteligente 2-opt (Clique Guiado Urânia)
+  // Estado de Permutação Inteligente 2-opt (Clique Guiado Grade Inteligente Áquila)
   const [swapOrigin, setSwapOrigin] = useState<{
     classId: string;
     day: string;
@@ -187,7 +187,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
     slot: GridSlot;
   } | null>(null);
 
-  // Pesos do Motor Urânia+ (pos[0..39] simplificados para controle da Coordenação)
+  // Pesos do Motor Grade Inteligente Áquila+ (pos[0..39] simplificados para controle da Coordenação)
   const [weights, setWeights] = useState({
     weightJanelas: 10,
     weightGeminadas: 8,
@@ -195,7 +195,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
     weightLAP: 9
   });
 
-  // Versão Sandbox ("Horário Experimental" Urânia)
+  // Versão Sandbox ("Horário Experimental" Grade Inteligente Áquila)
   const [experimentalMode, setExperimentalMode] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [aiInsight, setAiInsight] = useState<{
@@ -204,7 +204,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
   } | null>({
     type: 'success',
     message:
-      'Motor Soberano Urânia+ v2.0 carregado com a grade oficial do Colégio Áquila Modelo (22 turmas • 41 professores • 1º ao 10º horário). Clique em qualquer aula para testar a Permutação Guiada Sem Conflito!'
+      'Motor Soberano Grade Inteligente Áquila+ v2.0 carregado com a grade oficial do Colégio Áquila Modelo (22 turmas • 41 professores • 1º ao 10º horário). Clique em qualquer aula para testar a Permutação Guiada Sem Conflito!'
   });
 
   const aquila = (window as any).aquila;
@@ -245,7 +245,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
     loadFromDatabaseIfPresent();
   }, []);
 
-  // Auditoria em tempo real "Situação do Horário" (Urânia+)
+  // Auditoria em tempo real "Situação do Horário" (Grade Inteligente Áquila+)
   const qualityReport = useMemo(
     () => engine.analyzeScheduleQuality(generatedSchedules, teachers),
     [generatedSchedules, teachers, engine]
@@ -293,7 +293,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
     if (!candidate || candidate.status === 'BLOCKED') {
       setAiInsight({
         type: 'error',
-        message: `Permutação bloqueada pelo Urânia+ Engine: ${candidate?.reason || 'Conflito de horário'}.`
+        message: `Permutação bloqueada pelo Grade Inteligente Áquila+ Engine: ${candidate?.reason || 'Conflito de horário'}.`
       });
       return;
     }
@@ -326,7 +326,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
 
     setAiInsight({
       type: 'success',
-      message: `Permuta Urânia+ concluída em ${getClassName(classId)}: [${swapOrigin.slot.teacherId} ⇄ ${slot.teacherId}] (${candidate.reason}).`
+      message: `Permuta Grade Inteligente Áquila+ concluída em ${getClassName(classId)}: [${swapOrigin.slot.teacherId} ⇄ ${slot.teacherId}] (${candidate.reason}).`
     });
     setSwapOrigin(null);
   };
@@ -351,7 +351,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
         const newAudit = engine.analyzeScheduleQuality(result, teachers);
         setAiInsight({
           type: 'success',
-          message: `Otimização Urânia+ (3 Fases CSP + 2-opt) concluída! Índice Global de Qualidade: ${newAudit.globalScore}% • ${newAudit.totalGeminadasAchieved} dobradinhas preservadas.`
+          message: `Otimização Grade Inteligente Áquila+ (3 Fases CSP + 2-opt) concluída! Índice Global de Qualidade: ${newAudit.globalScore}% • ${newAudit.totalGeminadasAchieved} dobradinhas preservadas.`
         });
       } catch (err: any) {
         setAiInsight({
@@ -426,7 +426,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
       await Promise.all(promises);
       setAiInsight({
         type: 'success',
-        message: `Grade Urânia+ persistida no banco SQLite com sucesso (${count} aulas sincronizadas em todos os portais)!`
+        message: `Grade Grade Inteligente Áquila+ persistida no banco SQLite com sucesso (${count} aulas sincronizadas em todos os portais)!`
       });
     } catch (err: any) {
       setAiInsight({
@@ -453,7 +453,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `grade_urania_colegio_visao_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `grade_horaria_escolar_${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -488,7 +488,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
 
   return (
     <div className="timetable-builder urania-sovereign-shell animate-fade-in">
-      {/* Top Header Urânia+ */}
+      {/* Top Header Grade Inteligente Áquila+ */}
       <header className="builder-header urania-header">
         <div className="title-section">
           {onBack && (
@@ -505,7 +505,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
           <Calendar size={30} className="text-emerald-400" />
           <div>
             <div className="urania-badge-row">
-              <span className="urania-version-pill">MOTOR SOBERANO URÂNIA+ v2.0</span>
+              <span className="urania-version-pill">MOTOR INTELIGENTE DE HORÁRIOS ÁQUILA v2.0</span>
               <span className="urania-quality-pill">
                 Qualidade da Grade: <strong>{qualityReport.globalScore}%</strong>
               </span>
@@ -527,7 +527,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
           <button
             className={`btn-setup ${experimentalMode ? 'experimental-active' : ''}`}
             onClick={() => setExperimentalMode(prev => !prev)}
-            title="Alternar Modo Horário Experimental (Sandbox Urânia)"
+            title="Alternar Modo Horário Experimental (Sandbox Grade Inteligente Áquila)"
           >
             <Sparkles size={16} />
             {experimentalMode ? 'Sandbox Experimental (Ativo)' : 'Modo Horário Experimental'}
@@ -537,7 +537,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
             <RefreshCw size={16} /> Grade Oficial Visão
           </button>
 
-          <button className="btn-setup" onClick={handleExportUraniaCsv} title="Exportar CSV Compatível Urânia / Activesoft">
+          <button className="btn-setup" onClick={handleExportUraniaCsv} title="Exportar Grade Horária em CSV (Padrão Interoperável)">
             <Download size={16} /> Exportar CSV
           </button>
 
@@ -555,12 +555,12 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
             onClick={handleGenerate}
             disabled={isGenerating}
           >
-            <Play size={16} /> {isGenerating ? 'Otimizando CSP...' : 'Otimizar Grade (Urânia IA)'}
+            <Play size={16} /> {isGenerating ? 'Otimizando CSP...' : 'Otimizar Grade (Grade Inteligente Áquila IA)'}
           </button>
         </div>
       </header>
 
-      {/* Barra de Navegação das 4 Visões do Urânia+ */}
+      {/* Barra de Navegação das 4 Visões do Grade Inteligente Áquila+ */}
       <div className="urania-mode-tabs">
         <button
           className={`urania-tab-btn ${viewMode === 'by_class' ? 'active' : ''}`}
@@ -601,7 +601,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
         >
           <BarChart3 size={16} />
           <div>
-            <strong>Situação do Horário & Pesos (Urânia+)</strong>
+            <strong>Situação do Horário & Pesos (Grade Inteligente Áquila+)</strong>
             <small>Diagnóstico de Janelas, LAP & Sugestões IA</small>
           </div>
         </button>
@@ -616,7 +616,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
             {aiInsight.type === 'error' && <Lock size={20} />}
           </div>
           <div className="insight-content">
-            <h4>Motor Urânia+ Soberano • Diagnóstico em Tempo Real</h4>
+            <h4>Motor Grade Inteligente Áquila+ Soberano • Diagnóstico em Tempo Real</h4>
             <p>{aiInsight.message}</p>
           </div>
           {swapOrigin && (
@@ -759,7 +759,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
                                       title={
                                         slot.locked
                                           ? 'Aula Fixada (Clique para desafixar)'
-                                          : 'Fixar aula com cadeado (Urânia)'
+                                          : 'Fixar aula com cadeado (Grade Inteligente Áquila)'
                                       }
                                     >
                                       {slot.locked ? <Lock size={12} /> : <Unlock size={12} />}
@@ -1015,12 +1015,12 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
       {viewMode === 'quality_audit' && (
         <section className="urania-quality-section">
           <div className="urania-quality-grid">
-            {/* Painel de Pesos Urânia pos[0..39] */}
+            {/* Painel de Pesos Grade Inteligente Áquila pos[0..39] */}
             <div className="class-schedule-card urania-weights-card">
               <div className="class-header-flex">
                 <h2>
                   <Sliders size={18} style={{ display: 'inline', marginRight: '8px' }} />
-                  Vetor de Pesos do Otimizador (Urânia+ [-10 a +10])
+                  Vetor de Pesos do Otimizador (Grade Inteligente Áquila+ [-10 a +10])
                 </h2>
               </div>
               <div className="urania-sliders-body">
@@ -1100,7 +1100,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
             {/* Sugestões Automáticas de Flexibilização (verSugestoesController) */}
             <div className="class-schedule-card urania-suggestions-card">
               <div className="class-header-flex">
-                <h2>💡 Sugestões de Melhoria & Flexibilização (Urânia IA)</h2>
+                <h2>💡 Sugestões de Melhoria & Flexibilização (Grade Inteligente Áquila IA)</h2>
               </div>
               <div className="urania-suggestions-list">
                 {qualityReport.suggestions.map(sug => (

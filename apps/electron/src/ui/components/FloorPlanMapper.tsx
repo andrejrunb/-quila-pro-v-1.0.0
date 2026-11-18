@@ -45,13 +45,12 @@ export const FloorPlanMapper: React.FC<FloorPlanMapperProps> = ({
     useEffect(() => {
         const activeZones = zones.filter(z => z.active);
         if (activeZones.length > 0) {
-            anime({
-                targets: '.konva-active-zone', // Usaremos nome de classe se possível ou refs
+            animate('.konva-active-zone', {
                 opacity: [0.4, 0.7],
                 duration: 1500,
-                direction: 'alternate',
+                alternate: true,
                 loop: true,
-                easing: 'easeInOutQuad'
+                ease: 'inOutQuad'
             });
         }
     }, [zones]);

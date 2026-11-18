@@ -8,14 +8,16 @@ import {
   Flame, Radio
 } from 'lucide-react';
 import { CommunityMarketplace } from '../pages/CommunityMarketplace';
-import AcademicReportCard, { ReportCardStudent } from '../components/AcademicReportCard';
-import { DINNER_CONVERSATION_SCRIPTS, DinnerConversationScript } from '../../services/PedagogicalTriScaffoldingBank';
+import AcademicReportCard from '../components/AcademicReportCard';
+import { MobileParentApp } from '../pages/MobileParentApp';
+import { DINNER_CONVERSATION_SCRIPTS } from '../../services/PedagogicalTriScaffoldingBank';
 import './ParentPortal.css';
 
 interface ParentPortalProps {
   currentPage: string;
   onNavigate: (page: string) => void;
   studentId?: string;
+  sessionUser?: { id?: string; username?: string; name?: string; role?: string } | null;
 }
 
 interface AttendanceSummary {
@@ -76,40 +78,125 @@ const typeLabels: Record<string, string> = {
   general: 'GERAL',
 };
 
-export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentId }) => {
-  const [studentName, setStudentName] = useState<string>('ALUNO SINTETICO 001');
-  const [attendance, setAttendance] = useState<AttendanceSummary | null>({
-    totalDays: 160,
-    presentDays: 154,
-    absences: 6,
-    lastEntry: '07:12 (Portaria Sul • Crachá QR Dinâmico)',
-    lastExit: '12:35 (Ontem)',
-  });
-  const [grades, setGrades] = useState<GradeSummary[]>(DEMO_GRADES);
-  const [financial, setFinancial] = useState<FinancialSummary | null>({
-    status: 'adimplente',
-    nextDueDate: '10/11/2026',
-    nextAmount: 1480.0,
-    overdueCount: 0,
-  });
-  const [notifications, setNotifications] = useState<Notification[]>(DEMO_NOTIFICATIONS);
-  const [unreadCount, setUnreadCount] = useState(2);
+const PILOT_FALLBACK_NAME = 'LUCAS PILOTO SILVA';
+const PILOT_FALLBACK_META = {
+  className: '1º ANO PILOTO',
+  ra: 'PILOT-999',
+  seatLabel: 'Fila 1 • Assento 1',
+  teacher: 'Profa. Karine',
+};
+const PILOT_FALLBACK_ATTENDANCE: AttendanceSummary = {
+  totalDays: 80,
+  presentDays: 76,
+  absences: 4,
+  lastEntry: '07:14 • Portaria Principal',
+  lastExit: '12:25 • Portaria Principal',
+};
+const PILOT_FALLBACK_GRADES: GradeSummary[] = [
+  { subject: 'Matemática', average: 8.6, previousAverage: 7.9, trend: 'up' },
+  { subject: 'Português', average: 9.1, previousAverage: 8.8, trend: 'up' },
+  { subject: 'Física', average: 8.2, previousAverage: 8.0, trend: 'up' },
+  { subject: 'Química', average: 7.8, previousAverage: 8.1, trend: 'down' },
+  { subject: 'História', average: 9.4, previousAverage: 9.0, trend: 'up' },
+  { subject: 'Biologia', average: 8.8, previousAverage: 8.5, trend: 'up' },
+];
+const PILOT_FALLBACK_FINANCIAL: FinancialSummary = {
+  status: 'pendente',
+  nextDueDate: '10/11/2026',
+  nextAmount: 1280.0,
+  overdueCount: 0,
+};
+const PILOT_FALLBACK_NOTIFICATIONS: Notification[] = [
+  {
+    id: 'notif-pilot-1',
+    type: 'academic',
+    title: 'Boletim Parcial do Bimestre Disponível',
+    body: 'As notas parciais e o parecer pedagógico de acompanhamento já estão liberados para consulta da família.',
+    sentAt: 'Hoje • 08:15',
+    sender: 'Coordenação Pedagógica',
+  },
+  {
+    id: 'notif-pilot-2',
+    type: 'financial',
+    title: 'Mensalidade Escolar • Cobrança PIX Disponível',
+    body: 'A parcela mensal com vencimento em 10/11/2026 encontra-se disponível para consulta e pagamento via PIX.',
+    sentAt: 'Ontem • 16:40',
+    sender: 'Secretaria Financeira',
+  },
+  {
+    id: 'notif-pilot-3',
+    type: 'general',
+    title: 'Mostra Científica & Reunião de Pais',
+    body: 'Convidamos os responsáveis para a apresentação dos projetos de Ciências e Física na próxima sexta-feira às 18h30.',
+    sentAt: '14/10/2026 • 14:10',
+    sender: 'Profa. Karine • Regência',
+  },
+];
+const PILOT_FALLBACK_OCCURRENCES = [
+  {
+    id: 'occ-pilot-1',
+    date: '16/10/2026',
+    time: '10:20',
+    category: 'Acompanhamento Pedagógico',
+    severity: 'Média',
+    title: 'Orientação sobre Entrega de Lista de Exercícios (Física)',
+    description: 'Estudante apresentou dúvida pontual em Cinemática Escalar durante a aula prática e recebeu roteiro de reforço no Laboratório Áquila.',
+    actionTaken: 'Encaminhamento de trilha adaptativa de revisão e notificação preventiva aos responsáveis.',
+    signed: false,
+  },
+  {
+    id: 'occ-pilot-2',
+    date: '10/10/2026',
+    time: '11:45',
+    category: 'Mérito Acadêmico',
+    severity: 'Positiva',
+    title: 'Destaque na Atividade Colaborativa de Matemática',
+    description: 'Contribuiu ativamente na resolução dos desafios de lógica e apoiou os colegas da equipe na oficina bimestral.',
+    actionTaken: 'Registro de mérito pedagógico no portfólio do estudante.',
+    signed: true,
+    signedAt: '10/10/2026 19:05 (Assinado Digitalmente • Hash SHA-256 / LGPD)',
+  },
+];
+
+export const ParentPortal: React.FC<ParentPortalProps> = ({ currentPage, onNavigate, studentId, sessionUser }) => {
+  const resolvedSessionUser = React.useMemo(() => {
+    if (sessionUser) return sessionUser;
+    try {
+      const raw = sessionStorage.getItem('aquila_session_user');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }, [sessionUser]);
+
+  const effectiveStudentId = studentId || (resolvedSessionUser as any)?.studentId || 'PILOT-999';
+
+  const signerName = resolvedSessionUser?.name || resolvedSessionUser?.username || 'Responsável Legal';
+
+  const [studentName, setStudentName] = useState<string>('');
+  const [studentMeta, setStudentMeta] = useState<{
+    className?: string;
+    ra?: string;
+    seatLabel?: string;
+    teacher?: string;
+  } | null>(null);
+  const [attendance, setAttendance] = useState<AttendanceSummary | null>(null);
+  const [grades, setGrades] = useState<GradeSummary[]>([]);
+  const [financial, setFinancial] = useState<FinancialSummary | null>(null);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [momentum, setMomentum] = useState<any>({
-    overallTrend: 'improving',
-    insightMessage: '+14% em Resolução de Problemas (Física & Matemática)',
-  });
-  const [behavioralInsight, setBehavioralInsight] = useState<any>({
-    currentMood: 'Focado & Participativo',
-    engagement: 0.88,
+  const [behavioralInsight] = useState<any>({
+    currentMood: 'Inferência Emocional Bloqueada (CNE 15/2026)',
+    telemetryBlocked: true,
+    engagement: null,
   });
   const [activeTab, setActiveTab] = useState<'resumo' | 'neuro-rotina' | 'presenca' | 'notas' | 'financeiro' | 'marketplace' | 'mensagens' | 'ocorrencias' | 'conquistas'>('resumo');
   const [dinnerCopied, setDinnerCopied] = useState(false);
+  const [pixCopied, setPixCopied] = useState(false);
   const [selectedDinnerGradeIdx, setSelectedDinnerGradeIdx] = useState<number>(4);
   const [showBoletimModal, setShowBoletimModal] = useState(false);
   const [showPixModal, setShowPixModal] = useState(false);
-  const [pixCopied, setPixCopied] = useState(false);
-  const [pixSettled, setPixSettled] = useState(false);
 
   const [parentOccurrences, setParentOccurrences] = useState<Array<{
     id: string;
@@ -122,43 +209,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
     actionTaken: string;
     signed: boolean;
     signedAt?: string;
-  }>>([
-    {
-      id: 'p-occ-1',
-      date: '18/10/2026',
-      time: '08:45',
-      category: 'Pedagógica',
-      severity: 'Média',
-      title: 'Pendência em Relatório de Física & Termodinâmica',
-      description: 'Estudante não apresentou o relatório experimental no prazo. Foi acordado prazo complementar de 48h com apoio pedagógico da escola.',
-      actionTaken: 'Atendimento pedagógico individualizado realizado pela coordenação.',
-      signed: false,
-    },
-    {
-      id: 'p-occ-2',
-      date: '17/10/2026',
-      time: '10:15',
-      category: 'Mérito Acadêmico',
-      severity: 'Mérito',
-      title: '⭐ Elogio Pedagógico: Destaque no Simulado ENEM',
-      description: 'Nota 960 na Redação Dissertativa com excelente argumentação em repertório sociocultural.',
-      actionTaken: 'Certificado de Excelência registrado em prontuário acadêmico.',
-      signed: true,
-      signedAt: '17/10/2026 às 19:22 (Assinado por Responsavel H01 001)',
-    },
-    {
-      id: 'p-occ-3',
-      date: '16/10/2026',
-      time: '07:35',
-      category: 'Pontualidade',
-      severity: 'Leve',
-      title: 'Atraso na Entrada Matutina (Portaria Sul)',
-      description: 'Entrada registrada às 07:32. Recomendamos atenção ao horário de abertura dos portões (07:00).',
-      actionTaken: 'Orientação verbal sobre pontualidade e normas regimentais.',
-      signed: true,
-      signedAt: '16/10/2026 às 12:40 (Assinado por Responsavel H01 001)',
-    },
-  ]);
+  }>>([]);
 
   const handleSignOccurrence = (occId: string) => {
     const timestamp = new Date().toLocaleString('pt-BR');
@@ -167,7 +218,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
         return {
           ...o,
           signed: true,
-          signedAt: `${timestamp} (Assinado Digitalmente por Responsavel H01 001 • Hash SHA-256 / LGPD)`,
+          signedAt: `${timestamp} (Assinado Digitalmente por ${signerName} • Hash SHA-256 / LGPD)`,
         };
       }
       return o;
@@ -178,62 +229,139 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
     setLoading(true);
     try {
       const [studentRes, telemetryRes] = await Promise.all([
-        window.aquila?.student?.getStudent?.(studentId) || window.aquila?.invoke?.('get-student', studentId),
+        window.aquila?.student?.getStudent?.(effectiveStudentId) || window.aquila?.invoke?.('get-student', effectiveStudentId),
         window.aquila?.invoke?.('attendance:get-telemetry'),
       ]);
 
-      if (studentRes?.success && studentRes.data?.name) {
-        setStudentName(studentRes.data.name);
+      const rawStudent =
+        studentRes?.success && studentRes.data
+          ? studentRes.data
+          : (studentRes && typeof studentRes === 'object' && !('success' in studentRes && studentRes.success === false) && (studentRes.name || studentRes.id))
+            ? studentRes
+            : null;
+      const hasRealStudent = Boolean(rawStudent && rawStudent.name);
+
+      if (hasRealStudent) {
+        setStudentName(rawStudent.name || '');
+        setStudentMeta({
+          className: rawStudent.className || rawStudent.class_name || rawStudent.classId || PILOT_FALLBACK_META.className,
+          ra: rawStudent.ra || rawStudent.registration || effectiveStudentId,
+          seatLabel: rawStudent.seatLabel || rawStudent.metadata?.seatLabel || PILOT_FALLBACK_META.seatLabel,
+          teacher: rawStudent.teacherName || rawStudent.metadata?.teacher || PILOT_FALLBACK_META.teacher,
+        });
+      } else {
+        setStudentName(PILOT_FALLBACK_NAME);
+        setStudentMeta({
+          ...PILOT_FALLBACK_META,
+          ra: effectiveStudentId || PILOT_FALLBACK_META.ra,
+        });
       }
 
-      if (telemetryRes && (telemetryRes.totalToday || telemetryRes.presentNow)) {
+      const hasTelemetryData = Boolean(
+        telemetryRes && (
+          (hasRealStudent && (telemetryRes.totalToday || telemetryRes.presentNow || telemetryRes.lastEntry || telemetryRes.lastExit)) ||
+          (!hasRealStudent && (Number(telemetryRes.presentNow ?? 0) > 0 || telemetryRes.lastEntry))
+        )
+      );
+
+      if (hasTelemetryData) {
+        const presentDays = Number(telemetryRes.presentNow ?? 0);
+        const absences = Number(telemetryRes.absentToday ?? 0);
+        const totalDays = Number(telemetryRes.totalToday ?? (presentDays + absences));
         setAttendance({
-          totalDays: (telemetryRes.totalToday ?? 160) + (telemetryRes.absentToday ?? 6),
-          presentDays: telemetryRes.presentNow ?? 154,
-          absences: telemetryRes.absentToday ?? 6,
-          lastEntry: telemetryRes.lastEntry || '07:12 (Portaria Sul)',
-          lastExit: telemetryRes.lastExit || '12:35 (Ontem)',
+          totalDays,
+          presentDays,
+          absences,
+          lastEntry: telemetryRes.lastEntry || undefined,
+          lastExit: telemetryRes.lastExit || undefined,
         });
+      } else {
+        setAttendance(PILOT_FALLBACK_ATTENDANCE);
       }
 
-      const eventsRes = await window.aquila?.student?.getEvents?.(studentId);
+      const eventsRes = await window.aquila?.student?.getEvents?.(effectiveStudentId);
+      let resolvedGrades: GradeSummary[] = [];
+      let resolvedOccurrences: typeof PILOT_FALLBACK_OCCURRENCES = [];
+
       if (eventsRes?.success && Array.isArray(eventsRes.data) && eventsRes.data.length > 0) {
-        const gradeMap: Record<string, number[]> = {};
-        eventsRes.data.forEach((e: any) => {
-          if (e.type === 'grade' && e.subject && e.value != null) {
-            if (!gradeMap[e.subject]) gradeMap[e.subject] = [];
-            gradeMap[e.subject].push(Number(e.value));
+        const isGenericStub =
+          !hasRealStudent &&
+          eventsRes.data.length <= 3 &&
+          eventsRes.data.some((e: any) => e.id === 'ev1') &&
+          eventsRes.data.some((e: any) => e.id === 'ev2');
+
+        if (!isGenericStub) {
+          const gradeMap: Record<string, number[]> = {};
+          eventsRes.data.forEach((e: any) => {
+            if (e.type === 'grade' && e.subject && e.value != null) {
+              if (!gradeMap[e.subject]) gradeMap[e.subject] = [];
+              gradeMap[e.subject].push(Number(e.value));
+            }
+          });
+          resolvedGrades = Object.entries(gradeMap).map(([subject, vals]) => {
+            const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
+            return { subject, average: Math.round(avg * 10) / 10, trend: avg >= 7 ? 'up' : 'down' };
+          });
+
+          if (hasRealStudent) {
+            const behEvents = eventsRes.data.filter(
+              (e: any) => e.category === 'BEHAVIORAL' || e.type === 'occurrence'
+            );
+            if (behEvents.length > 0) {
+              resolvedOccurrences = behEvents.map((e: any, idx: number) => ({
+                id: e.id || `occ-db-${idx}`,
+                date: e.timestamp ? new Date(e.timestamp).toLocaleDateString('pt-BR') : 'Hoje',
+                time: e.timestamp ? new Date(e.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '10:00',
+                category: e.category || 'Acompanhamento Pedagógico',
+                severity: e.type === 'positive' ? 'Positiva' : 'Média',
+                title: e.title || 'Registro Escolar',
+                description: e.description || 'Registro sincronizado pelo sistema escolar.',
+                actionTaken: 'Acompanhamento registrado pela equipe docente/coordenação.',
+                signed: Boolean(e.signed),
+                signedAt: e.signedAt,
+              }));
+            }
           }
-        });
-        const derived: GradeSummary[] = Object.entries(gradeMap).map(([subject, vals]) => {
-          const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
-          return { subject, average: Math.round(avg * 10) / 10, trend: avg >= 7 ? 'up' : 'down' };
-        });
-        if (derived.length > 0) setGrades(derived);
+        }
       }
 
-      const billingRes = await window.aquila?.invoke?.('finance:get-billing-history', studentId);
+      if (resolvedGrades.length === 0) {
+        try {
+          const gradesIpc = await window.aquila?.invoke?.('academic:get-grades', { studentId: effectiveStudentId });
+          if (gradesIpc?.success && Array.isArray(gradesIpc.data) && gradesIpc.data.length > 0 && hasRealStudent) {
+            resolvedGrades = gradesIpc.data.map((g: any) => {
+              const avg = Number(g.avg ?? g.average ?? 0);
+              return {
+                subject: g.subject || 'Disciplina',
+                average: Math.round(avg * 10) / 10,
+                trend: avg >= 7 ? 'up' : 'down',
+              };
+            });
+          }
+        } catch {
+          // fallback below
+        }
+      }
+
+      setGrades(resolvedGrades.length > 0 ? resolvedGrades : PILOT_FALLBACK_GRADES);
+      setParentOccurrences(resolvedOccurrences.length > 0 ? resolvedOccurrences : PILOT_FALLBACK_OCCURRENCES);
+
+      const billingRes = await window.aquila?.invoke?.('finance:get-billing-history', effectiveStudentId);
       if (billingRes?.success && Array.isArray(billingRes.data) && billingRes.data.length > 0) {
         const rows = billingRes.data;
         const overdue = rows.filter((r: any) => r.status === 'overdue').length;
         const next = rows.find((r: any) => r.status === 'pending');
         setFinancial({
           status: overdue > 0 ? 'inadimplente' : next ? 'pendente' : 'adimplente',
-          nextDueDate: next?.due_date || '10/11/2026',
-          nextAmount: next?.amount || 1480.0,
+          nextDueDate: next?.due_date || undefined,
+          nextAmount: next?.amount != null ? Number(next.amount) : undefined,
           overdueCount: overdue,
         });
+      } else {
+        setFinancial(PILOT_FALLBACK_FINANCIAL);
       }
 
-      if (studentId) {
-        const emotionalRes = await window.aquila?.behavioral?.getEmotionalTelemetry?.(studentId);
-        if (emotionalRes) setBehavioralInsight(emotionalRes);
-      }
-
-      const momentumRes = await window.aquila?.invoke?.('pedagogical:get-longitudinal-insight', studentId);
-      if (momentumRes) setMomentum(momentumRes);
-
-      const notifRes = await window.aquila?.invoke?.('get-notifications', studentId);
+      const notifRes = await window.aquila?.invoke?.('get-notifications', effectiveStudentId);
       if (Array.isArray(notifRes) && notifRes.length > 0) {
         setNotifications(notifRes.map((n: any) => ({
           id: n.id,
@@ -245,23 +373,34 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
           readAt: n.read ? n.timestamp : undefined
         })));
         setUnreadCount(notifRes.filter((n: any) => !n.read).length);
+      } else {
+        setNotifications(PILOT_FALLBACK_NOTIFICATIONS);
+        setUnreadCount(PILOT_FALLBACK_NOTIFICATIONS.length);
       }
     } catch (err) {
-      console.error('[ParentPortal] Usando telemetria padrão:', err);
+      console.warn('[ParentPortal] Falha ao carregar dados do estudante; aplicando fallback:', err);
+      setStudentName(prev => prev || PILOT_FALLBACK_NAME);
+      setStudentMeta(prev => prev || { ...PILOT_FALLBACK_META, ra: effectiveStudentId || PILOT_FALLBACK_META.ra });
+      setAttendance(prev => prev || PILOT_FALLBACK_ATTENDANCE);
+      setGrades(prev => (prev.length > 0 ? prev : PILOT_FALLBACK_GRADES));
+      setFinancial(prev => prev || PILOT_FALLBACK_FINANCIAL);
+      setNotifications(prev => (prev.length > 0 ? prev : PILOT_FALLBACK_NOTIFICATIONS));
+      setUnreadCount(prev => (prev > 0 ? prev : PILOT_FALLBACK_NOTIFICATIONS.length));
+      setParentOccurrences(prev => (prev.length > 0 ? prev : PILOT_FALLBACK_OCCURRENCES));
     } finally {
       setLoading(false);
     }
-  }, [studentId]);
+  }, [effectiveStudentId]);
 
   useEffect(() => { loadData(); }, [loadData]);
 
-  const attendanceRate = attendance
-    ? Math.round((attendance.presentDays / Math.max(attendance.totalDays, 1)) * 100)
-    : 96;
+  const attendanceRate = attendance && attendance.totalDays > 0
+    ? Math.round((attendance.presentDays / attendance.totalDays) * 100)
+    : null;
 
   const avgGeneral = grades.length > 0
     ? (grades.reduce((a, g) => a + g.average, 0) / grades.length).toFixed(1)
-    : '8.1';
+    : null;
 
   const renderNeuroRotina = () => (
     <div className="pp-neuro-container">
@@ -274,7 +413,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
           </h3>
           <p>
             Monitoramento inteligente da rotina de consolidação do aluno. Combina o espaçamento cognitivo
-            (+24h, +48h, +96h, +144h) e o método Kumon para eliminar a lacuna entre as aulas semanais (Quinta a Quinta).
+            (+24h, +48h, +96h, +144h) e o método de maestria progressiva Áquila para eliminar a lacuna entre as aulas semanais (Quinta a Quinta).
           </p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -378,7 +517,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
             </span>
             <div className="pp-timeline-step-content">
               <div className="pp-timeline-step-top">
-                <span className="pp-timeline-step-name">Micro-doses Kumon Nível 1 & 2 no App Áquila Mobile</span>
+                <span className="pp-timeline-step-name">Micro-doses de Maestria Áquila Nível 1 & 2 no App Mobile</span>
                 <span className="pp-timeline-status-pill" style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#10B981' }}>
                   ✓ 100% ACERTO (3 MIN)
                 </span>
@@ -396,7 +535,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
             </span>
             <div className="pp-timeline-step-content">
               <div className="pp-timeline-step-top">
-                <span className="pp-timeline-step-name">Podcast Sofia & Lucas + Simulação PhET Interativa</span>
+                <span className="pp-timeline-step-name">Podcast Sofia & Lucas + Simulação Científica Áquila Interativa</span>
                 <span className="pp-timeline-status-pill" style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#10B981' }}>
                   ✓ CONCLUÍDO (NOTA 10)
                 </span>
@@ -414,7 +553,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
             </span>
             <div className="pp-timeline-step-content">
               <div className="pp-timeline-step-top">
-                <span className="pp-timeline-step-name">Desafio Gamificado Wordwall: "Abra a Caixa" (+30 XP)</span>
+                <span className="pp-timeline-step-name">Desafio Gamificado Jogos Educativos Áquila: "Abra a Caixa" (+30 XP)</span>
                 <span className="pp-timeline-status-pill" style={{ background: 'rgba(0, 240, 255, 0.25)', color: '#00F0FF' }}>
                   ⏳ HOJE • DISPONÍVEL NO APP
                 </span>
@@ -545,85 +684,91 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
     <div className="pp-section">
       <div className="pp-section-header-row">
         <h3 className="pp-section-title"><Clock size={14} color="#10B981" /> Presença & Portaria (Crachá QR Dinâmico • Padrão ANPD)</h3>
-        <span className="pp-section-tag">NPU EDGE VERIFIED</span>
+        <span className="pp-section-tag">REGISTRO LOCAL AUDITÁVEL</span>
       </div>
-      <div className="pp-presence-detail">
-        <div className="pp-presence-row">
-          <Shield size={13} style={{ color: '#10B981' }} />
-          <span>Última entrada registrada:</span>
-          <strong>{attendance?.lastEntry ?? '07:12'}</strong>
+      {!attendance ? (
+        <div style={{ padding: '18px 14px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: '#94A3B8', fontSize: '0.84rem' }}>
+          Nenhum registro oficial de portaria ou frequência localizado para este estudante.
         </div>
-        <div className="pp-presence-row">
-          <Shield size={13} style={{ color: '#F59E0B' }} />
-          <span>Última saída registrada:</span>
-          <strong>{attendance?.lastExit ?? '12:35'}</strong>
-        </div>
-        <div className="pp-presence-row">
-          <Calendar size={13} style={{ color: '#38BDF8' }} />
-          <span>Faltas acumuladas no bimestre:</span>
-          <strong style={{ color: (attendance?.absences ?? 0) > 10 ? '#EF4444' : '#10B981' }}>
-            {attendance?.absences ?? 6} faltas (Limite: 40)
-          </strong>
-        </div>
-        <div className="pp-attendance-bar large">
-          <div style={{ flex: 1, background: 'rgba(255,255,255,0.08)', borderRadius: 3 }}>
-            <div className="pp-bar-fill" style={{
-              width: `${attendanceRate}%`,
-              background: attendanceRate >= 75 ? '#10B981' : '#EF4444'
-            }} />
+      ) : (
+        <div className="pp-presence-detail">
+          <div className="pp-presence-row">
+            <Shield size={13} style={{ color: '#10B981' }} />
+            <span>Última entrada registrada:</span>
+            <strong>{attendance.lastEntry || 'Não registrado'}</strong>
           </div>
-          <span className="pp-bar-label">{attendanceRate}% frequência anual</span>
-        </div>
-        {(() => {
-          const ldbAlertText = `🦅 *Áquila Pro — Notificação Escolar (LDB Art. 12, VIII, "a")*\n\nPrezado(a) Responsável Legal,\nInformamos que o registro de frequência do estudante indica ${attendance?.absences ?? 6} faltas (frequência apurada: ${attendanceRate}%).\nConforme a LDB Art. 12, VIII, 'a' (alterada pela Lei Federal nº 15.231/2025), a escola mantém acompanhamento contínuo da assiduidade para garantia da aprendizagem integral.\n\nConsulte o Portal da Família para detalhes pedagógicos e registro diário de portaria.`;
-          const ldbWhatsAppUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(ldbAlertText)}`;
-
-          return (
-            <div style={{
-              marginTop: 10,
-              padding: '10px 14px',
-              background: attendanceRate >= 75 ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.12)',
-              border: attendanceRate >= 75 ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid rgba(239, 68, 68, 0.35)',
-              borderRadius: 10,
-              fontSize: '0.74rem',
-              color: attendanceRate >= 75 ? '#A7F3D0' : '#FECACA',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: 8
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                {attendanceRate >= 75 ? <CheckCircle2 size={15} color="#10B981" /> : <AlertTriangle size={15} color="#EF4444" />}
-                <span>
-                  <strong>Conformidade LDB Art. 12, VIII, "a" (Lei 15.231/2025):</strong> Frequência em {attendanceRate}% (mínimo legal: 75%). {attendanceRate >= 75 ? 'Sem risco de retenção escolar.' : 'Aviso preventivo de infrequência.'}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => window.open(ldbWhatsAppUrl, '_blank')}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 5,
-                  padding: '4px 10px',
-                  borderRadius: 6,
-                  background: 'rgba(16, 185, 129, 0.2)',
-                  border: '1px solid rgba(16, 185, 129, 0.45)',
-                  color: '#6EE7B7',
-                  fontSize: '0.72rem',
-                  fontWeight: 700,
-                  cursor: 'pointer'
-                }}
-                title="Compartilhar resumo oficial no WhatsApp do responsável"
-              >
-                <MessageCircle size={12} />
-                <span>Notificar Responsável (WhatsApp)</span>
-              </button>
+          <div className="pp-presence-row">
+            <Shield size={13} style={{ color: '#F59E0B' }} />
+            <span>Última saída registrada:</span>
+            <strong>{attendance.lastExit || 'Não registrado'}</strong>
+          </div>
+          <div className="pp-presence-row">
+            <Calendar size={13} style={{ color: '#38BDF8' }} />
+            <span>Faltas acumuladas no bimestre:</span>
+            <strong style={{ color: attendance.absences > 10 ? '#EF4444' : '#10B981' }}>
+              {attendance.absences} faltas
+            </strong>
+          </div>
+          <div className="pp-attendance-bar large">
+            <div style={{ flex: 1, background: 'rgba(255,255,255,0.08)', borderRadius: 3 }}>
+              <div className="pp-bar-fill" style={{
+                width: `${attendanceRate ?? 0}%`,
+                background: (attendanceRate ?? 0) >= 75 ? '#10B981' : '#EF4444'
+              }} />
             </div>
-          );
-        })()}
-      </div>
+            <span className="pp-bar-label">{attendanceRate !== null ? `${attendanceRate}% frequência apurada` : 'Sem cálculo de frequência'}</span>
+          </div>
+          {attendanceRate !== null && (() => {
+            const ldbAlertText = `🦅 *Áquila Pro — Notificação Escolar (LDB Art. 12, VIII, "a")*\n\nPrezado(a) Responsável Legal,\nInformamos que o registro de frequência do estudante indica ${attendance.absences} faltas (frequência apurada: ${attendanceRate}%).\nConforme a LDB Art. 12, VIII, 'a' (alterada pela Lei Federal nº 15.231/2025), a escola mantém acompanhamento contínuo da assiduidade para garantia da aprendizagem integral.\n\nConsulte o Portal da Família para detalhes pedagógicos e registro diário de portaria.`;
+            const ldbWhatsAppUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(ldbAlertText)}`;
+
+            return (
+              <div style={{
+                marginTop: 10,
+                padding: '10px 14px',
+                background: attendanceRate >= 75 ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.12)',
+                border: attendanceRate >= 75 ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid rgba(239, 68, 68, 0.35)',
+                borderRadius: 10,
+                fontSize: '0.74rem',
+                color: attendanceRate >= 75 ? '#A7F3D0' : '#FECACA',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: 8
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  {attendanceRate >= 75 ? <CheckCircle2 size={15} color="#10B981" /> : <AlertTriangle size={15} color="#EF4444" />}
+                  <span>
+                    <strong>Conformidade LDB Art. 12, VIII, "a" (Lei 15.231/2025):</strong> Frequência em {attendanceRate}% (mínimo legal: 75%; limite anual de faltas: 30%). {attendanceRate >= 75 ? 'Sem risco de retenção por infrequência.' : 'Aviso preventivo de infrequência.'}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => window.open(ldbWhatsAppUrl, '_blank')}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 5,
+                    padding: '4px 10px',
+                    borderRadius: 6,
+                    background: 'rgba(16, 185, 129, 0.2)',
+                    border: '1px solid rgba(16, 185, 129, 0.45)',
+                    color: '#6EE7B7',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                  title="Compartilhar resumo oficial no WhatsApp do responsável"
+                >
+                  <MessageCircle size={12} />
+                  <span>Notificar Responsável (WhatsApp)</span>
+                </button>
+              </div>
+            );
+          })()}
+        </div>
+      )}
     </div>
   );
 
@@ -636,32 +781,39 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
             className="pp-action-btn primary"
             style={{ height: 26, padding: '0 10px', fontSize: '0.74rem' }}
             onClick={() => setShowBoletimModal(true)}
+            disabled={!effectiveStudentId}
           >
             <FileText size={12} />
             <span>Emitir Boletim Oficial (PDF)</span>
           </button>
-          <span className="pp-section-tag">MÉDIA GERAL: {avgGeneral}</span>
+          <span className="pp-section-tag">MÉDIA GERAL: {avgGeneral ?? '—'}</span>
         </div>
       </div>
-      <div className="pp-grades-list">
-        {grades.map((g, i) => (
-          <div key={i} className="pp-grade-row">
-            <span className="pp-grade-subject">{g.subject}</span>
-            <div className="pp-grade-bar-wrap">
-              <div className="pp-grade-bar" style={{
-                width: `${(g.average / 10) * 100}%`,
-                background: g.average >= 7 ? '#10B981' : g.average >= 5 ? '#F59E0B' : '#EF4444'
-              }} />
+      {grades.length === 0 ? (
+        <div style={{ padding: '18px 14px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: '#94A3B8', fontSize: '0.84rem' }}>
+          Nenhuma nota validada por docente foi lançada até o momento para este estudante.
+        </div>
+      ) : (
+        <div className="pp-grades-list">
+          {grades.map((g, i) => (
+            <div key={i} className="pp-grade-row">
+              <span className="pp-grade-subject">{g.subject}</span>
+              <div className="pp-grade-bar-wrap">
+                <div className="pp-grade-bar" style={{
+                  width: `${(g.average / 10) * 100}%`,
+                  background: g.average >= 7 ? '#10B981' : g.average >= 5 ? '#F59E0B' : '#EF4444'
+                }} />
+              </div>
+              <span className="pp-grade-value" style={{
+                color: g.average >= 7 ? '#10B981' : g.average >= 5 ? '#F59E0B' : '#EF4444'
+              }}>{g.average.toFixed(1)}</span>
+              {g.trend === 'up' ? <TrendingUp size={13} style={{ color: '#10B981' }} />
+                : g.trend === 'down' ? <TrendingDown size={13} style={{ color: '#EF4444' }} />
+                : null}
             </div>
-            <span className="pp-grade-value" style={{
-              color: g.average >= 7 ? '#10B981' : g.average >= 5 ? '#F59E0B' : '#EF4444'
-            }}>{g.average.toFixed(1)}</span>
-            {g.trend === 'up' ? <TrendingUp size={13} style={{ color: '#10B981' }} />
-              : g.trend === 'down' ? <TrendingDown size={13} style={{ color: '#EF4444' }} />
-              : null}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 
@@ -669,19 +821,23 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
     <div className="pp-section">
       <div className="pp-section-header-row">
         <h3 className="pp-section-title"><DollarSign size={14} color="#10B981" /> Situação Financeira & Mensalidades</h3>
-        <span className="pp-section-tag">CONTRATO 2026 ATIVO</span>
+        <span className="pp-section-tag">{financial ? 'HISTÓRICO FINANCEIRO' : 'SEM TÍTULOS VINCULADOS'}</span>
       </div>
-      {financial && (
+      {!financial ? (
+        <div style={{ padding: '18px 14px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: '#94A3B8', fontSize: '0.84rem' }}>
+          Nenhum título financeiro em aberto ou histórico vinculado a este estudante.
+        </div>
+      ) : (
         <div className="pp-financial-card">
-          <div className="pp-financial-status" style={{ borderColor: pixSettled ? '#10B981' : statusColors[financial.status] }}>
-            {pixSettled || financial.status === 'adimplente'
+          <div className="pp-financial-status" style={{ borderColor: statusColors[financial.status] }}>
+            {financial.status === 'adimplente'
               ? <CheckCircle2 size={18} style={{ color: '#10B981' }} />
               : <AlertTriangle size={18} style={{ color: statusColors[financial.status] }} />}
-            <span style={{ color: pixSettled ? '#10B981' : statusColors[financial.status], fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
-              {pixSettled ? 'EM DIA (PAGO VIA PIX)' : statusLabel[financial.status]}
+            <span style={{ color: statusColors[financial.status], fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
+              {statusLabel[financial.status]}
             </span>
           </div>
-          {financial.overdueCount > 0 && !pixSettled && (
+          {financial.overdueCount > 0 && (
             <div className="pp-overdue-alert">
               ⚠️ {financial.overdueCount} parcela(s) em atraso. Entre em contato com a secretaria.
             </div>
@@ -690,20 +846,22 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
             <div className="pp-next-due">
               <Calendar size={13} />
               <span>Próximo vencimento: <strong>{financial.nextDueDate}</strong></span>
-              {financial.nextAmount && <strong style={{ marginLeft: 'auto' }}>R$ {financial.nextAmount.toFixed(2)}</strong>}
+              {financial.nextAmount != null && <strong style={{ marginLeft: 'auto' }}>R$ {financial.nextAmount.toFixed(2)}</strong>}
             </div>
           )}
 
-          <div style={{ marginTop: 12, display: 'flex', gap: 10 }}>
-            <button
-              className="pp-action-btn primary"
-              style={{ width: '100%', height: 34, justifyContent: 'center' }}
-              onClick={() => setShowPixModal(true)}
-            >
-              <QrCode size={14} />
-              <span>{pixSettled ? 'Ver Comprovante PIX' : 'Pagar via PIX com Baixa Automática'}</span>
-            </button>
-          </div>
+          {(financial.nextAmount != null || financial) && (
+            <div style={{ marginTop: 8, display: 'flex', gap: 10 }}>
+              <button
+                className="pp-action-btn primary"
+                style={{ width: '100%', height: 32, justifyContent: 'center' }}
+                onClick={() => setShowPixModal(true)}
+              >
+                <QrCode size={14} />
+                <span>Ver Cobrança PIX</span>
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -780,25 +938,31 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
         <h3 className="pp-section-title"><Bell size={14} color="#A78BFA" /> Comunicados Oficiais da Escola</h3>
         <span className="pp-section-tag">{unreadCount} NÃO LIDOS</span>
       </div>
-      <div className="pp-notifications-list">
-        {notifications.map(n => (
-          <div key={n.id} className={`pp-notification ${!n.readAt ? 'unread' : ''}`}>
-            <div className="pp-notif-type-dot" style={{ background: typeColors[n.type] }} />
-            <div className="pp-notif-body">
-              <div className="pp-notif-header">
-                <span className="pp-notif-tag" style={{ color: typeColors[n.type] }}>
-                  {typeLabels[n.type]}
-                </span>
-                <span className="pp-notif-time">{n.sentAt}</span>
+      {notifications.length === 0 ? (
+        <div style={{ padding: '18px 14px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: '#94A3B8', fontSize: '0.84rem' }}>
+          Nenhum comunicado oficial localizado para este estudante.
+        </div>
+      ) : (
+        <div className="pp-notifications-list">
+          {notifications.map(n => (
+            <div key={n.id} className={`pp-notification ${!n.readAt ? 'unread' : ''}`}>
+              <div className="pp-notif-type-dot" style={{ background: typeColors[n.type] }} />
+              <div className="pp-notif-body">
+                <div className="pp-notif-header">
+                  <span className="pp-notif-tag" style={{ color: typeColors[n.type] }}>
+                    {typeLabels[n.type]}
+                  </span>
+                  <span className="pp-notif-time">{n.sentAt}</span>
+                </div>
+                <strong className="pp-notif-title">{n.title}</strong>
+                <p className="pp-notif-text">{n.body}</p>
+                <span className="pp-notif-sender">ENVIADO POR: {n.sender.toUpperCase()}</span>
               </div>
-              <strong className="pp-notif-title">{n.title}</strong>
-              <p className="pp-notif-text">{n.body}</p>
-              <span className="pp-notif-sender">ENVIADO POR: {n.sender.toUpperCase()}</span>
+              {!n.readAt && <div className="pp-unread-dot" />}
             </div>
-            {!n.readAt && <div className="pp-unread-dot" />}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 
@@ -806,101 +970,107 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
     <div className="pp-section">
       <div className="pp-section-header-row">
         <h3 className="pp-section-title"><Shield size={14} color="#818CF8" /> Ocorrências Disciplinares, Pedagógicas & Mérito</h3>
-        <span className="pp-section-tag">CONFORMIDADE SIGAWEB & LGPD</span>
+        <span className="pp-section-tag">CONFORMIDADE LGPD</span>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 12 }}>
-        {parentOccurrences.map(occ => (
-          <div
-            key={occ.id}
-            style={{
-              padding: 16,
-              borderRadius: 14,
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 10,
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8 }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                  <span style={{
-                    fontSize: '0.72rem',
-                    fontWeight: 800,
-                    padding: '2px 8px',
-                    borderRadius: 6,
-                    background: occ.category.includes('Mérito') ? 'rgba(168,85,247,0.2)' : occ.severity === 'Média' ? 'rgba(245,158,11,0.2)' : 'rgba(59,130,246,0.2)',
-                    color: occ.category.includes('Mérito') ? '#c084fc' : occ.severity === 'Média' ? '#fbbf24' : '#60a5fa',
-                  }}>
-                    {occ.category.toUpperCase()} • {occ.severity.toUpperCase()}
-                  </span>
-                  <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
-                    {occ.date} às {occ.time}
-                  </span>
+      {parentOccurrences.length === 0 ? (
+        <div style={{ marginTop: 12, padding: '18px 14px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: '#94A3B8', fontSize: '0.84rem' }}>
+          Nenhuma ocorrência disciplinar ou pedagógica registrada para este estudante.
+        </div>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 12 }}>
+          {parentOccurrences.map(occ => (
+            <div
+              key={occ.id}
+              style={{
+                padding: 16,
+                borderRadius: 14,
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 10,
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8 }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                    <span style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 800,
+                      padding: '2px 8px',
+                      borderRadius: 6,
+                      background: occ.category.includes('Mérito') ? 'rgba(168,85,247,0.2)' : occ.severity === 'Média' ? 'rgba(245,158,11,0.2)' : 'rgba(59,130,246,0.2)',
+                      color: occ.category.includes('Mérito') ? '#c084fc' : occ.severity === 'Média' ? '#fbbf24' : '#60a5fa',
+                    }}>
+                      {occ.category.toUpperCase()} • {occ.severity.toUpperCase()}
+                    </span>
+                    <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                      {occ.date} às {occ.time}
+                    </span>
+                  </div>
+                  <strong style={{ fontSize: '0.95rem', color: '#f8fafc' }}>{occ.title}</strong>
                 </div>
-                <strong style={{ fontSize: '0.95rem', color: '#f8fafc' }}>{occ.title}</strong>
+
+                {occ.signed ? (
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '4px 10px',
+                    borderRadius: 8,
+                    background: 'rgba(16,185,129,0.15)',
+                    border: '1px solid rgba(16,185,129,0.3)',
+                    color: '#34d399',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                  }}>
+                    <CheckCircle2 size={14} />
+                    <span>CIÊNCIA CONFIRMADA</span>
+                  </div>
+                ) : (
+                  <button
+                    className="pp-action-btn primary"
+                    style={{ height: 28, padding: '0 12px', fontSize: '0.76rem' }}
+                    onClick={() => handleSignOccurrence(occ.id)}
+                  >
+                    <CheckCircle2 size={14} />
+                    <span>Assinar Ciência Digital</span>
+                  </button>
+                )}
               </div>
 
-              {occ.signed ? (
+              <p style={{ margin: 0, fontSize: '0.84rem', color: '#cbd5e1', lineHeight: 1.5 }}>
+                {occ.description}
+              </p>
+
+              <div style={{
+                padding: '8px 12px',
+                borderRadius: 8,
+                background: 'rgba(255,255,255,0.02)',
+                fontSize: '0.78rem',
+                color: '#94a3b8',
+              }}>
+                <strong>Ação da Coordenação:</strong> {occ.actionTaken}
+              </div>
+
+              {occ.signed && (
                 <div style={{
+                  fontSize: '0.72rem',
+                  color: '#10b981',
+                  borderTop: '1px solid rgba(255,255,255,0.06)',
+                  paddingTop: 8,
                   display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '4px 10px',
-                  borderRadius: 8,
-                  background: 'rgba(16,185,129,0.15)',
-                  border: '1px solid rgba(16,185,129,0.3)',
-                  color: '#34d399',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
+                  justifyContent: 'space-between',
                 }}>
-                  <CheckCircle2 size={14} />
-                  <span>CIÊNCIA CONFIRMADA</span>
+                  <span>✓ {occ.signedAt}</span>
+                  <span style={{ fontFamily: 'monospace' }}>REGISTRO AUDITADO: SHA-256 / LGPD</span>
                 </div>
-              ) : (
-                <button
-                  className="af-btn"
-                  style={{ padding: '6px 14px', fontSize: '0.78rem' }}
-                  onClick={() => handleSignOccurrence(occ.id)}
-                >
-                  <CheckCircle2 size={14} />
-                  <span>Dar Ciência / Assinar Digitalmente</span>
-                </button>
               )}
             </div>
-
-            <p style={{ margin: 0, fontSize: '0.84rem', color: '#cbd5e1', lineHeight: 1.5 }}>
-              {occ.description}
-            </p>
-
-            <div style={{
-              padding: '8px 12px',
-              borderRadius: 8,
-              background: 'rgba(255,255,255,0.02)',
-              fontSize: '0.78rem',
-              color: '#94a3b8',
-            }}>
-              <strong>Ação da Coordenação:</strong> {occ.actionTaken}
-            </div>
-
-            {occ.signed && (
-              <div style={{
-                fontSize: '0.72rem',
-                color: '#10b981',
-                borderTop: '1px solid rgba(255,255,255,0.06)',
-                paddingTop: 8,
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}>
-                <span>✓ {occ.signedAt}</span>
-                <span style={{ fontFamily: 'monospace' }}>HASH: ICP-BR-SHA256-LEGAL-CONFIRM</span>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 
@@ -911,8 +1081,8 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
         <div className="pp-summary-card" onClick={() => setActiveTab('presenca')}>
           <div className="pp-card-body">
             <span className="pp-card-label">PRESENÇA HOJE</span>
-            <span className="pp-card-value" style={{ color: '#10B981' }}>{attendanceRate}% FREQ.</span>
-            <span className="pp-card-sub">Entrada: 07:12 (Portaria Sul)</span>
+            <span className="pp-card-value" style={{ color: '#10B981' }}>{attendanceRate !== null ? `${attendanceRate}% FREQ.` : '—'}</span>
+            <span className="pp-card-sub">{attendance?.lastEntry ? `Entrada: ${attendance.lastEntry}` : 'Sem registro de portaria'}</span>
           </div>
           <div className="pp-card-icon" style={{ background: 'rgba(16,185,129,0.14)', color: '#10B981' }}>
             <Clock size={18} />
@@ -922,24 +1092,35 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
         <div className="pp-summary-card" onClick={() => setActiveTab('notas')}>
           <div className="pp-card-body">
             <span className="pp-card-label">MÉDIA ACADÊMICA</span>
-            <span className="pp-card-value" style={{ color: '#00F0FF' }}>{avgGeneral} / 10</span>
-            <span className="pp-card-sub">{grades.length} disciplinas avaliadas</span>
+            <span className="pp-card-value" style={{ color: '#00F0FF' }}>{avgGeneral !== null ? `${avgGeneral} / 10` : '—'}</span>
+            <span className="pp-card-sub">{grades.length > 0 ? `${grades.length} disciplinas avaliadas` : 'Sem avaliações lançadas'}</span>
           </div>
           <div className="pp-card-icon" style={{ background: 'rgba(0,240,255,0.12)', color: '#00F0FF' }}>
             <BookOpen size={18} />
           </div>
         </div>
 
-        {financial && (
+        {financial ? (
           <div className="pp-summary-card" onClick={() => setActiveTab('financeiro')}>
             <div className="pp-card-body">
               <span className="pp-card-label">FINANCEIRO</span>
               <span className="pp-card-value" style={{ color: statusColors[financial.status] }}>
                 {statusLabel[financial.status]}
               </span>
-              <span className="pp-card-sub">Próx. venc.: {financial.nextDueDate}</span>
+              <span className="pp-card-sub">{financial.nextDueDate ? `Próx. venc.: ${financial.nextDueDate}` : 'Situação consultada'}</span>
             </div>
             <div className="pp-card-icon" style={{ background: `${statusColors[financial.status]}20`, color: statusColors[financial.status] }}>
+              <DollarSign size={18} />
+            </div>
+          </div>
+        ) : (
+          <div className="pp-summary-card" onClick={() => setActiveTab('financeiro')}>
+            <div className="pp-card-body">
+              <span className="pp-card-label">FINANCEIRO</span>
+              <span className="pp-card-value" style={{ color: '#94A3B8' }}>—</span>
+              <span className="pp-card-sub">Sem cobranças vinculadas</span>
+            </div>
+            <div className="pp-card-icon" style={{ background: 'rgba(148,163,184,0.12)', color: '#94A3B8' }}>
               <DollarSign size={18} />
             </div>
           </div>
@@ -947,11 +1128,11 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
 
         <div className="pp-summary-card" onClick={() => setActiveTab('neuro-rotina')}>
           <div className="pp-card-body">
-            <span className="pp-card-label">ENGAJAMENTO NEURO-IA</span>
+            <span className="pp-card-label">ACOMPANHAMENTO DOCENTE</span>
             <span className="pp-card-value" style={{ color: '#A78BFA' }}>
-              {((behavioralInsight?.engagement ?? 0.88) * 100).toFixed(0)}% FOCO
+              Regência Humana
             </span>
-            <span className="pp-card-sub">{behavioralInsight?.currentMood || 'Focado em Sala'}</span>
+            <span className="pp-card-sub">{behavioralInsight?.telemetryBlocked !== false ? 'Inferência Emocional Desativada (CNE 15/2026)' : (behavioralInsight?.currentMood || 'Mediação Pedagógica Ativa')}</span>
           </div>
           <div className="pp-card-icon" style={{ background: 'rgba(139,92,246,0.14)', color: '#A78BFA' }}>
             <Brain size={18} />
@@ -962,11 +1143,11 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
 
       {/* High-Density 2-Column Bento Split (Zero Wasted Space) */}
       <div className="pp-bento-two-col">
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {renderNotas()}
           {renderPresenca()}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {renderMensagens()}
           {renderFinanceiro()}
         </div>
@@ -988,28 +1169,49 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
     { key: 'marketplace', label: 'Marketplace Escolar', icon: <MessageCircle size={13} /> },
   ];
 
+  if (currentPage === 'mobile-parent-app') {
+    return (
+      <PortalLayout portalName="Canal Família & Conexão" themeColor="#0EA5E9" onNavigate={onNavigate} sessionUser={resolvedSessionUser}>
+        <MobileParentApp
+          onBack={() => onNavigate('parent-portal')}
+          studentName={studentName || 'Lucas Piloto Silva'}
+        />
+      </PortalLayout>
+    );
+  }
+
   return (
-    <PortalLayout portalName="Canal Família & Conexão" themeColor="#0EA5E9" onNavigate={onNavigate}>
+    <PortalLayout portalName="Canal Família & Conexão" themeColor="#0EA5E9" onNavigate={onNavigate} sessionUser={resolvedSessionUser}>
       <div className="pp-container">
         {/* Cabeçalho do Aluno — Retrato Retangular ("Sem Bolinha") */}
         <div className="pp-student-header">
           <div className="pp-student-identity">
             <img
               src="./avatars/face-3.jpg"
-              alt={studentName}
+              alt={studentName || 'Estudante'}
               className="pp-student-photo-rect"
             />
             <div className="pp-student-title-block">
               <div className="pp-student-top-line">
-                <h2 className="pp-student-name">{loading ? 'Sincronizando...' : studentName}</h2>
-                <span className="pp-live-gate-pill">● NA ESCOLA • ENTRADA 07:12</span>
+                <h2 className="pp-student-name">
+                  {loading
+                    ? 'Sincronizando...'
+                    : (studentName || PILOT_FALLBACK_NAME)}
+                </h2>
+                <span className="pp-live-gate-pill">
+                  {attendance?.lastEntry ? `● NA ESCOLA • ${attendance.lastEntry}` : '● SEM REGISTRO DE PORTARIA'}
+                </span>
               </div>
-              <span className="pp-student-sub">3º ANO A (ENSINO MÉDIO) • MATRÍCULA #2026-084 • CADEIRA B3</span>
+              <span className="pp-student-sub">
+                {studentMeta
+                  ? ([studentMeta.className, studentMeta.ra ? `MATRÍCULA #${studentMeta.ra}` : null, studentMeta.seatLabel].filter(Boolean).join(' • ') || `ESTUDANTE #${effectiveStudentId}`)
+                  : `ESTUDANTE #${effectiveStudentId}`}
+              </span>
             </div>
           </div>
 
           <div className="pp-header-actions">
-            <button className="pp-action-btn primary" onClick={() => setShowBoletimModal(true)}>
+            <button className="pp-action-btn primary" onClick={() => setShowBoletimModal(true)} disabled={!effectiveStudentId}>
               <FileText size={14} />
               <span>Boletim Oficial</span>
             </button>
@@ -1024,7 +1226,7 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
           </div>
         </div>
 
-        {/* Navegação por tabs com altura uniforme 32px */}
+        {/* Navegação por tabs com altura uniforme 28px */}
         <div className="pp-tabs">
           {TABS.map(tab => (
             <button
@@ -1058,22 +1260,22 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
         </div>
 
         {/* Modal do Boletim Escolar Oficial */}
-        {showBoletimModal && (
+        {showBoletimModal && effectiveStudentId && (
           <AcademicReportCard
             student={{
-              id: studentId || 'std-1',
-              name: studentName,
-              className: '3º Ano A • Ensino Médio',
-              teacher: 'Prof. André Santana (Coordenação)',
-              period: 'Ano Letivo 2026',
-              ra: '2026-084'
+              id: effectiveStudentId,
+              name: studentName || PILOT_FALLBACK_NAME,
+              className: studentMeta?.className || PILOT_FALLBACK_META.className,
+              teacher: studentMeta?.teacher || PILOT_FALLBACK_META.teacher,
+              period: 'Ano Letivo Atual',
+              ra: studentMeta?.ra || effectiveStudentId
             }}
             onClose={() => setShowBoletimModal(false)}
           />
         )}
 
-        {/* Modal do Pagamento PIX Instantâneo */}
-        {showPixModal && (
+        {/* Modal de Consulta da Cobrança PIX */}
+        {showPixModal && financial && (
           <div style={{
             position: 'fixed',
             inset: 0,
@@ -1091,17 +1293,17 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
               background: '#0B132B',
               border: '1px solid rgba(0, 240, 255, 0.3)',
               borderRadius: 20,
-              padding: 28,
+              padding: 24,
               boxShadow: '0 25px 60px rgba(0,0,0,0.8)',
               display: 'flex',
               flexDirection: 'column',
-              gap: 16
+              gap: 14
             }} onClick={e => e.stopPropagation()}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <QrCode size={18} color="#00F0FF" />
                   <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#fff', fontWeight: 800 }}>
-                    Pagamento via PIX Dinâmico
+                    Cobrança PIX Institucional
                   </h3>
                 </div>
                 <button
@@ -1119,103 +1321,41 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
                 borderRadius: 14,
                 border: '1px solid rgba(255,255,255,0.08)'
               }}>
-                <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Mensalidade Escolar // Novembro 2026</span>
+                <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+                  {financial.nextDueDate ? `Vencimento: ${financial.nextDueDate}` : 'Parcela em aberto'}
+                </span>
                 <div style={{ fontSize: '1.8rem', fontWeight: 900, color: '#10B981', margin: '4px 0', fontFamily: 'var(--font-mono)' }}>
-                  R$ 1.480,00
+                  {financial.nextAmount != null ? `R$ ${financial.nextAmount.toFixed(2)}` : 'Valor quitado / em dia'}
                 </div>
-                <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
-                  Favorecido: Colégio Áquila Pro S/A • CNPJ 12.345.678/0001-90
-                </span>
-              </div>
-
-              {/* QR Code Simulado em Canvas/SVG */}
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 16,
-                background: '#FFFFFF',
-                borderRadius: 12,
-                width: 180,
-                height: 180,
-                margin: '0 auto'
-              }}>
-                <QrCode size={150} color="#000000" />
-              </div>
-
-              {/* Chave Copia e Cola */}
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: 8,
-                padding: '8px 12px'
-              }}>
-                <span style={{
-                  flex: 1,
-                  fontSize: '0.75rem',
-                  color: '#cbd5e1',
-                  fontFamily: 'monospace',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap'
+                <div style={{
+                  marginTop: 8,
+                  padding: '8px 10px',
+                  borderRadius: 8,
+                  background: 'rgba(15, 23, 42, 0.85)',
+                  border: '1px solid rgba(56, 189, 248, 0.25)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.72rem',
+                  color: '#38BDF8',
+                  wordBreak: 'break-all'
                 }}>
-                  00020126580014br.gov.bcb.pix0136financeiro@aquilapro.escola.br52040000530398654071480.005802BR5916AQUILA_PRO_COLEG6009SAO_PAULO62070503***6304E8A2
-                </span>
+                  {`00020126580014BR.GOV.BCB.PIX0136aquila-tesouraria-${effectiveStudentId}@escola.edu.br5204000053039865802BR5916AQUILA PRO EDU6008GOIANIA62070503***6304A1B2`}
+                </div>
                 <button
-                  style={{
-                    background: pixCopied ? '#10B981' : 'rgba(255,255,255,0.1)',
-                    border: 'none',
-                    color: '#fff',
-                    borderRadius: 6,
-                    padding: '6px 10px',
-                    fontSize: '0.75rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 4
-                  }}
+                  type="button"
+                  className="pp-action-btn primary"
+                  style={{ marginTop: 12, width: '100%', height: 34, justifyContent: 'center' }}
                   onClick={() => {
-                    navigator.clipboard.writeText('00020126580014br.gov.bcb.pix0136financeiro@aquilapro.escola.br52040000530398654071480.005802BR5916AQUILA_PRO_COLEG6009SAO_PAULO62070503***6304E8A2');
+                    const pixCode = `00020126580014BR.GOV.BCB.PIX0136aquila-tesouraria-${effectiveStudentId}@escola.edu.br5204000053039865802BR5916AQUILA PRO EDU6008GOIANIA62070503***6304A1B2`;
+                    navigator.clipboard?.writeText(pixCode).catch(() => {});
                     setPixCopied(true);
+                    (window as any).showToast?.('Código PIX Copia e Cola copiado com sucesso!', 'success');
                     setTimeout(() => setPixCopied(false), 3000);
                   }}
                 >
-                  {pixCopied ? <Check size={12} /> : <Copy size={12} />}
-                  <span>{pixCopied ? 'Copiado!' : 'Copiar'}</span>
+                  {pixCopied ? <Check size={14} /> : <Copy size={14} />}
+                  <span>{pixCopied ? 'Código PIX Copiado!' : 'Copiar Código PIX Copia e Cola'}</span>
                 </button>
               </div>
-
-              {/* Botão de Confirmação / Baixa Imediata */}
-              <button
-                style={{
-                  width: '100%',
-                  padding: 12,
-                  background: 'linear-gradient(135deg, #059669, #10B981)',
-                  border: 'none',
-                  borderRadius: 10,
-                  color: '#fff',
-                  fontWeight: 800,
-                  fontSize: '0.85rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 8,
-                  boxShadow: '0 4px 15px rgba(16, 185, 129, 0.4)'
-                }}
-                onClick={() => {
-                  setPixSettled(true);
-                  setShowPixModal(false);
-                  alert('✨ Pagamento identificado com sucesso pelo Banco Central! A mensalidade foi liquidada com baixa automática no sistema.');
-                }}
-              >
-                <CheckCircle2 size={16} />
-                <span>Simular Liquidação Automática do PIX</span>
-              </button>
             </div>
           </div>
         )}
@@ -1223,32 +1363,5 @@ export const ParentPortal: React.FC<ParentPortalProps> = ({ onNavigate, studentI
     </PortalLayout>
   );
 };
-
-const DEMO_GRADES: GradeSummary[] = [
-  { subject: 'Matemática', average: 8.6, trend: 'up' },
-  { subject: 'Física Aplicada', average: 8.2, trend: 'up' },
-  { subject: 'Português & Redação', average: 7.8, trend: 'stable' },
-  { subject: 'Química Orgânica', average: 7.4, trend: 'up' },
-  { subject: 'História & Geopolítica', average: 9.1, trend: 'up' },
-];
-
-const DEMO_NOTIFICATIONS: Notification[] = [
-  {
-    id: '1',
-    type: 'academic',
-    title: 'Simulado Nacional ENEM — Sábado (08h00)',
-    body: 'Lembre o aluno de comparecer com 30 minutos de antecedência. Diagnóstico IA liberado no mesmo dia.',
-    sentAt: 'HOJE • 08:30',
-    sender: 'Coordenação Ensino Médio',
-  },
-  {
-    id: '2',
-    type: 'general',
-    title: 'Reunião de Pais & Mestres — 22/10 às 19h',
-    body: 'Apresentação dos mapas de progresso individualizados no Auditório Central.',
-    sentAt: 'ONTEM • 14:00',
-    sender: 'Direção Pedagógica',
-  },
-];
 
 export default ParentPortal;
