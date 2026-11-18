@@ -46,9 +46,10 @@ module.exports = defineConfig(async () => {
     emptyOutDir: false,
     cssCodeSplit: false,
     modulePreload: false,
+    minify: false,
     rollupOptions: {
       output: {
-        // Deixar o Vite gerenciar chunks com ordem topológica segura para evitar ReferenceError em Electron
+        inlineDynamicImports: true
       }
     }
   },

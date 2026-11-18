@@ -1,4 +1,4 @@
-# Áquila Pro — Agents Manifest (Constitution v2.1)
+# Áquila Pro — Agents Manifest (Constitution v2.3)
 
 Este documento define as diretrizes técnicas, éticas e operacionais para todos os agentes autônomos que operam no Ecossistema Áquila Pro.
 
@@ -79,5 +79,35 @@ zeroBypassAuditService.record({
 });
 ```
 
+### D. Disciplina de Código Ponytail & Verificação Factual
+- **Minimalismo & Reuso:** Compreender o fluxo existente antes de modificar. Reutilizar componentes e utilitários da plataforma em vez de inventar novas abstrações ou orquestradores concorrentes.
+- **Diferenciação Estrita de Status:** É estritamente proibido rotular testes ou workers como bem-sucedidos por padrão. Separar rigorosamente:
+  - `COMPLETED_SUCCESS`: Executado e aprovado com exit code 0 e asserções verificadas em artefato.
+  - `FAILED_NONZERO`: Executado e reprovado (código de saída não-zero ou asserção violada).
+  - `SKIPPED_PRECONDITION`: Teste não executado por pré-requisito ambiental legítimo não atendido (ex: processo concorrente bloqueando lock).
+  - `BLOCKED_DEPENDENCY`: Execução impedida por dependência externa temporariamente indisponível.
+- **Transparência de Evidências:** Informar explicitamente o que foi testado e também o que NÃO foi verificado. Veto absoluto a conclusões generalistas sem medição empírica ("zero vazamentos", "grade perfeita", "WCAG AAA total").
+- **Governança de Novas Ferramentas (Pipeline de Inspecção):** Novas skills e pacotes devem ser submetidos à análise estática prévia (padrão SkillSpector / sem envio de código sensível para nuvens desnecessárias) antes de concessão de permissões no ambiente de desenvolvimento.
+
 ---
-*Assinado: Córtex Central & Diretoria de Governança Soberana v2.1.0*
+## ⚖️ 4. Diretrizes Nacionais CNE/MEC para IA na Educação (Parecer CNE/CP nº 15/2026)
+
+Em estrita observância ao **Parecer CNE/CP nº 15/2026** (aprovado em 1º/09/2026, homologado por **Despacho do Ministro de Estado da Educação em 10/11/2026**, publicado no **DOU de 11/11/2026, Edição 212, Seção 1, Página 141**) e detalhamento integral em `docs/DIRETRIZES_CNE_MEC_IA_2026.md`:
+
+1. **Centralidade Humana & Regência Docente:** A IA opera estritamente como apoio instrumental e gerencial. É vedado substituir a autoridade, a responsabilidade ou a mediação pedagógica do professor.
+2. **Classificação em 4 Níveis de Risco:** Todo módulo do Áquila Pro deve ser classificado e governado como **Baixo Risco**, **Risco Moderado**, **Alto Risco** (exige auditoria, transparência, supervisão docente e canal formal de contestação) ou **Risco Excessivo / Incompatível (Proibido)**.
+3. **Vedações Imediatas (Risco Excessivo — Vigência Imediata):**
+   - **Proibido reconhecimento ou inferência automatizada de emoções/humor/atenção** de estudantes (`MicroExpressionAnalyzer`, `AffectiveAnalyticsService`, `EmotionBridgeService` neutralizados/bloqueados por norma).
+   - **Proibida vigilância biométrica contínua** e exploração de vulnerabilidades (Crachá QR e Chamada Nominal são padrão primário; biometria bloqueada de fábrica via ANPD NT 4/2026).
+   - **Proibido *social scoring*** ou ranqueamento comportamental punitivo.
+   - **Proibidas decisões exclusivamente automatizadas** de aprovação, retenção, certificação ou sanção disciplinar, bem como atribuição autônoma de notas finais em redações e provas dissertativas (exige validação docente `RASCUNHO_IA` -> HITL).
+   - **Proibidas sanções acadêmicas ou disciplinares fundamentadas unicamente em detectores de conteúdo gerado por IA.**
+   - **Proibida exploração comercial, publicidade direcionada ou treinamento de modelos terceiros** com dados educacionais ou produções autorais de alunos e professores.
+4. **Restrições Etárias & Etapas de Ensino:**
+   - **Educação Infantil:** proibido uso direto pelos estudantes (IA restrita ao professor para planejamento/acessibilidade com mediação humana).
+   - **Anos Iniciais (1º ao 5º ano EF):** proibido acesso autônomo/não supervisionado de crianças a chatbots e IA generativa (Tutor IA autônomo bloqueado; somente atividades planejadas e conduzidas pelo professor).
+   - **Anos Finais (6º ao 9º ano EF), Ensino Médio e Superior:** uso estruturado sob mediação pedagógica e letramento digital crítico.
+5. **Governança, Contratos e Prazo de 12 Meses:** Direito à contestação em toda análise preditiva ou pré-correção, capacitação docente contínua e revisão obrigatória de políticas escolares, PPP/PPC/PDI e contratos de fornecedores dentro do prazo legal de **12 meses**.
+
+---
+*Assinado: Córtex Central & Diretoria de Governança Soberana v2.3.0 (CNE/MEC Nov/2026 Aligned)*

@@ -35,6 +35,10 @@ Apenas as versões mais recentes da branch principal (`main`) e tags oficiais de
    - O Áquila Pro opera em modo estritamente *Offline-First* por padrão no perfil do piloto H-01.
    - Conectores opcionais de nuvem (`@supabase/supabase-js`, `googleapis`) permanecem desativados e bloqueados por padrão (`AQUILA_ENABLE_CLOUD_CONNECTORS=false`), garantindo que nenhum dado escolar deixe o servidor local sem ativação explícita e registro no RIPD/DPIA institucional.
 
+6. **Conformidade CNE/CP nº 15/2026 (Homologado em 10/11/2026, DOU 11/11/2026):**
+   - **Proibição de Inferência Emocional e Vigilância Afetiva:** Serviços de leitura automatizada de microexpressões/emoções (`MicroExpressionAnalyzer`, `AffectiveAnalyticsService`, `EmotionBridgeService`) permanecem bloqueados por diretriz imediata (`Risco Excessivo`).
+   - **Centralidade Docente & Contestação:** Avaliações assistidas por IA (`OmrCorrectionService`, `SovereignEssayService`) exigem revisão humana docente antes da homologação oficial, sendo vedada sanção baseada unicamente em detectores de texto de IA ou treinamento de modelos de terceiros com dados escolares (`docs/DIRETRIZES_CNE_MEC_IA_2026.md`).
+
 ---
 
 ## 🚨 Relato de Vulnerabilidades

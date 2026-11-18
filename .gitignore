@@ -107,3 +107,7 @@ acervo/quarantine/
 acervo/approved/audio/
 acervo/approved/originals/
 acervo/approved/video/
+
+# External cloned reference blueprints
+external/GenerativeAIExamples/
+external/raea/
