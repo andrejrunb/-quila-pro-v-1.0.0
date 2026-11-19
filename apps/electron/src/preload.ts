@@ -1606,7 +1606,19 @@ const aquilaAPI = {
 
       'workstation:configure', 'workstation:get-config', 'workstation:project-wallpaper', 'workstation:schedule-power', 'workstation:execute-shutdown', 'workstation:cancel-shutdown',
 
-      'rtc-fiscal:get-status', 'rtc-fiscal:configure-endpoints', 'rtc-fiscal:get-sample-xml', 'rtc-fiscal:generate-danfse', 'rtc-fiscal:list-documents', 'rtc-fiscal:simulate-tax', 'rtc-fiscal:list-simulations'
+      'rtc-fiscal:get-status', 'rtc-fiscal:configure-endpoints', 'rtc-fiscal:get-sample-xml', 'rtc-fiscal:generate-danfse', 'rtc-fiscal:list-documents', 'rtc-fiscal:simulate-tax', 'rtc-fiscal:list-simulations',
+
+      'mvp01:get-context', 'mvp01:switch-context', 'mvp01:seed-demo', 'mvp01:get-portal-overview', 'mvp01:run-consistency-verification',
+      'mvp01:save-enrollment-draft', 'mvp01:validate-enrollment-draft', 'mvp01:confirm-enrollment-draft', 'mvp01:transfer-student-class',
+      'mvp01:save-class-assignment', 'mvp01:save-guardian-link', 'mvp01:revoke-guardian-link',
+      'mvp01:record-attendance-sheet', 'mvp01:submit-absence-justification', 'mvp01:review-absence-justification',
+      'mvp01:save-grading-policy-version', 'mvp01:record-grade-entry', 'mvp01:close-academic-period', 'mvp01:reopen-academic-period',
+      'mvp01:create-incident', 'mvp01:publish-incident-to-family', 'mvp01:resolve-incident', 'mvp01:ack-incident',
+      'mvp01:publish-communication', 'mvp01:record-communication-receipt',
+      'mvp01:issue-document', 'mvp01:verify-document-token', 'mvp01:revoke-document',
+      'mvp01:record-practice-session', 'mvp01:save-task', 'mvp01:complete-task',
+      'mvp01:save-timetable-slot', 'mvp01:upsert-calendar-holiday', 'mvp01:update-academic-year-hours',
+      'mvp01:create-user-invitation', 'mvp01:list-user-invitations', 'mvp01:revoke-user-invitation'
 
     ];
 
@@ -1827,6 +1839,84 @@ const aquilaAPI = {
     preview: (payload: any) => ipcRenderer.invoke('batch-import:preview', payload),
 
     confirm: (payload: any) => ipcRenderer.invoke('batch-import:confirm', payload),
+
+  },
+
+  mvp01: {
+
+    getContext: (payload?: any) => ipcRenderer.invoke('mvp01:get-context', payload),
+
+    switchContext: (payload: any) => ipcRenderer.invoke('mvp01:switch-context', payload),
+
+    seedDemo: () => ipcRenderer.invoke('mvp01:seed-demo'),
+
+    getPortalOverview: (payload: any) => ipcRenderer.invoke('mvp01:get-portal-overview', payload),
+
+    runConsistencyVerification: () => ipcRenderer.invoke('mvp01:run-consistency-verification'),
+
+    saveEnrollmentDraft: (payload: any) => ipcRenderer.invoke('mvp01:save-enrollment-draft', payload),
+
+    validateEnrollmentDraft: (payload: any) => ipcRenderer.invoke('mvp01:validate-enrollment-draft', payload),
+
+    confirmEnrollmentDraft: (payload: any) => ipcRenderer.invoke('mvp01:confirm-enrollment-draft', payload),
+
+    transferStudentClass: (payload: any) => ipcRenderer.invoke('mvp01:transfer-student-class', payload),
+
+    saveClassAssignment: (payload: any) => ipcRenderer.invoke('mvp01:save-class-assignment', payload),
+
+    saveGuardianLink: (payload: any) => ipcRenderer.invoke('mvp01:save-guardian-link', payload),
+
+    revokeGuardianLink: (payload: any) => ipcRenderer.invoke('mvp01:revoke-guardian-link', payload),
+
+    recordAttendanceSheet: (payload: any) => ipcRenderer.invoke('mvp01:record-attendance-sheet', payload),
+
+    submitAbsenceJustification: (payload: any) => ipcRenderer.invoke('mvp01:submit-absence-justification', payload),
+
+    reviewAbsenceJustification: (payload: any) => ipcRenderer.invoke('mvp01:review-absence-justification', payload),
+
+    saveGradingPolicyVersion: (payload: any) => ipcRenderer.invoke('mvp01:save-grading-policy-version', payload),
+
+    recordGradeEntry: (payload: any) => ipcRenderer.invoke('mvp01:record-grade-entry', payload),
+
+    closeAcademicPeriod: (payload: any) => ipcRenderer.invoke('mvp01:close-academic-period', payload),
+
+    reopenAcademicPeriod: (payload: any) => ipcRenderer.invoke('mvp01:reopen-academic-period', payload),
+
+    createIncident: (payload: any) => ipcRenderer.invoke('mvp01:create-incident', payload),
+
+    publishIncidentToFamily: (payload: any) => ipcRenderer.invoke('mvp01:publish-incident-to-family', payload),
+
+    resolveIncident: (payload: any) => ipcRenderer.invoke('mvp01:resolve-incident', payload),
+
+    ackIncident: (payload: any) => ipcRenderer.invoke('mvp01:ack-incident', payload),
+
+    publishCommunication: (payload: any) => ipcRenderer.invoke('mvp01:publish-communication', payload),
+
+    recordCommunicationReceipt: (payload: any) => ipcRenderer.invoke('mvp01:record-communication-receipt', payload),
+
+    issueDocument: (payload: any) => ipcRenderer.invoke('mvp01:issue-document', payload),
+
+    verifyDocumentToken: (payload: any) => ipcRenderer.invoke('mvp01:verify-document-token', payload),
+
+    revokeDocument: (payload: any) => ipcRenderer.invoke('mvp01:revoke-document', payload),
+
+    recordPracticeSession: (payload: any) => ipcRenderer.invoke('mvp01:record-practice-session', payload),
+
+    saveTask: (payload: any) => ipcRenderer.invoke('mvp01:save-task', payload),
+
+    completeTask: (payload: any) => ipcRenderer.invoke('mvp01:complete-task', payload),
+
+    saveTimetableSlot: (payload: any) => ipcRenderer.invoke('mvp01:save-timetable-slot', payload),
+
+    upsertCalendarHoliday: (payload: any) => ipcRenderer.invoke('mvp01:upsert-calendar-holiday', payload),
+
+    updateAcademicYearHours: (payload: any) => ipcRenderer.invoke('mvp01:update-academic-year-hours', payload),
+
+    createUserInvitation: (payload: any) => ipcRenderer.invoke('mvp01:create-user-invitation', payload),
+
+    listUserInvitations: (payload?: any) => ipcRenderer.invoke('mvp01:list-user-invitations', payload),
+
+    revokeUserInvitation: (payload: any) => ipcRenderer.invoke('mvp01:revoke-user-invitation', payload),
 
   },
 

@@ -1,53 +1,37 @@
 import React from 'react';
-
 import { PortalLayout } from '../layouts/PortalLayout';
-
+import { isMvp01Active } from '../../config/mvpProfile';
+import { StudentMvp01Workspace } from '../components/StudentMvp01Workspace';
 import StudentRPGPortal from '../components/StudentRPGPortal';
-
 import { StudentAILab } from '../pages/StudentAILab';
-
 import { StudentMasteryChamber } from '../pages/StudentMasteryChamber';
-
 import { SovereignPvPArena } from '../components/SovereignPvPArena';
-
 import { BNCCSkillTree } from '../components/BNCCSkillTree';
-
 import { EssayLab1000 } from '../components/EssayLab1000';
-
 import { PhetKumonMasteryLab } from '../components/PhetKumonMasteryLab';
-
 import { MultimodalPedagogicalStudio } from '../components/MultimodalPedagogicalStudio';
-
 import { NativePhETSimulationLab } from '../components/NativePhETSimulationLab';
-
 import { StudentCosmeticsChamber } from '../components/StudentCosmeticsChamber';
-
 import { YouTubePedagogicalFinder } from '../components/YouTubePedagogicalFinder';
-
 import { StudentPlaylistsViewer } from '../components/StudentPlaylistsViewer';
 import { H5PPerseusAppletLab } from '../components/H5PPerseusAppletLab';
 import GeminiNotebookPanel from '../components/GeminiNotebookPanel';
 
-
-
 interface StudentPortalProps {
-
   currentPage: string;
-
   onNavigate: (page: string) => void;
-
   studentId?: string;
-
 }
 
-
-
 export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNavigate, studentId }) => {
+  const mvp01 = isMvp01Active();
 
   const renderStudentPage = () => {
+    if (mvp01) {
+      return <StudentMvp01Workspace studentId={studentId} onNavigate={onNavigate} />;
+    }
 
     switch (currentPage) {
-
       case 'mastery-chamber':
         return <StudentMasteryChamber studentId={studentId} onBack={() => onNavigate('student-portal')} />;
       case 'knowledge-canvas':
@@ -83,8 +67,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNav
       case 'pedagogical-playlists':
       case 'game-maker-play':
         return <StudentPlaylistsViewer studentId={studentId} onBack={() => onNavigate('student-portal')} onNavigate={onNavigate} />;
-
-            case 'gemini-notebook':
+      case 'gemini-notebook':
       case 'notebook-lm':
       case 'caderno-inteligente':
         return (
@@ -99,15 +82,17 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNav
                 borderRadius: '8px',
                 cursor: 'pointer',
                 marginBottom: '16px',
-                fontWeight: 600
+                fontWeight: 600,
               }}
             >
               ← Voltar ao Portal do Aluno
             </button>
-            <GeminiNotebookPanel userId={studentId} suggestedTopics={['Cinemática', 'Dinâmica', 'Eletrodinâmica', 'Termologia', 'Óptica']} />
+            <GeminiNotebookPanel
+              userId={studentId || ''}
+              suggestedTopics={['Cinemática', 'Dinâmica', 'Eletrodinâmica', 'Termologia', 'Óptica']}
+            />
           </div>
         );
-
       case 'h5p-perseus-lab':
       case 'interactive-applets':
       case 'perseus-lab':
@@ -117,26 +102,18 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({ currentPage, onNav
       case 'dashboard':
       default:
         return <StudentRPGPortal studentId={studentId} onNavigate={onNavigate} />;
-
     }
-
   };
 
-
-
   return (
-
-    <PortalLayout portalName="Portal do Aluno (Jornada Épica)" themeColor="#8B5CF6" onNavigate={onNavigate}>
-
+    <PortalLayout
+      portalName={mvp01 ? 'Portal do Aluno • MVP 0.1' : 'Portal do Aluno (Jornada Épica)'}
+      themeColor="#8B5CF6"
+      onNavigate={onNavigate}
+    >
       {renderStudentPage()}
-
     </PortalLayout>
-
   );
-
 };
 
-
-
 export default StudentPortal;
-

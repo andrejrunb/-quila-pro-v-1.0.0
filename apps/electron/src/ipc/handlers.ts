@@ -24,6 +24,7 @@ import { colabGpuBridge } from '../main/services/ColabGpuBridge';
 import { GeminiNotebookService } from '../main/services/GeminiNotebookService';
 import { CosmeticGrantService } from '../main/services/CosmeticGrantService';
 import { registerStudentHandlers } from './studentHandlers';
+import { clearMvp01SelectedContext, registerMvp01Handlers } from './mvp01Handlers';
 
 async function getBiometricQuarantineGate(context: SovereignContext) {
   if (context.lgpdService && typeof context.lgpdService.getBiometricQuarantineStatus === 'function') {
@@ -560,6 +561,7 @@ export function registerIPCHandlers(context: SovereignContext) {
 
   registerAuthCluster(context, protectedHandle);
   registerStudentHandlers(context, protectedHandle);
+  registerMvp01Handlers(context, protectedHandle);
   registerSystemCluster(context, protectedHandle);
 
   registerPedagogicalCluster(context, protectedHandle);
@@ -870,7 +872,21 @@ function registerAuthCluster(context: any, protectedHandle: any) {
 
     const { authService } = context;
 
-    return await authService?.logout();
+    let userId: string | undefined;
+
+    try {
+
+      const currentUser = await authService?.getCurrentUser?.();
+
+      userId = currentUser?.id || currentUser?.userId;
+
+    } catch {}
+
+    const result = await authService?.logout();
+
+    clearMvp01SelectedContext(userId);
+
+    return result;
 
   });
 
@@ -878,7 +894,21 @@ function registerAuthCluster(context: any, protectedHandle: any) {
 
     const { authService } = context;
 
-    return await authService?.logout();
+    let userId: string | undefined;
+
+    try {
+
+      const currentUser = await authService?.getCurrentUser?.();
+
+      userId = currentUser?.id || currentUser?.userId;
+
+    } catch {}
+
+    const result = await authService?.logout();
+
+    clearMvp01SelectedContext(userId);
+
+    return result;
 
   });
 
@@ -900,7 +930,23 @@ function registerAuthCluster(context: any, protectedHandle: any) {
 
   protectedHandle('get-users', async () => {
 
-    const { db } = context;
+    const { db, authService } = context;
+
+    const currentUser = await authService?.getCurrentUser?.();
+
+    const normalizedRole = typeof currentUser?.role === 'string' ? currentUser.role.trim().toLowerCase() : '';
+
+    if (
+
+      !currentUser ||
+
+      !['admin', 'director', 'diretoria', 'secretary', 'secretaria', 'hr', 'rh'].includes(normalizedRole)
+
+    ) {
+
+      return { success: false, status: 403, code: 'UNAUTHORIZED', error: 'Acesso negado.' };
+
+    }
 
     return await db?.getUsers?.();
 

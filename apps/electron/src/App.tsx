@@ -47,6 +47,7 @@ import TeacherDashboard from './ui/pages/TeacherDashboard';
 import { IndoorMappingDashboard } from './ui/pages/IndoorMappingDashboard';
 import { ClimateReportPanel } from './ui/components/ClimateReportPanel';
 import Sidebar from './ui/components/Sidebar';
+import { isMvp01Active } from './config/mvpProfile';
 import TopBar from './ui/components/TopBar';
 import LGPDConsentModal from './ui/components/LGPDConsentModal';
 import { HelpModal } from './ui/components/HelpModal';
@@ -223,7 +224,7 @@ export const App: React.FC = () => {
   const [showHelp, setShowHelp] = useState(false);
   const [showNPS, setShowNPS] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [currentHub, setCurrentHub] = useState<HubMode>('security');
+  const [currentHub, setCurrentHub] = useState<HubMode>(isMvp01Active() ? 'admin' : 'security');
   const [isLGPDPending, setIsLGPDPending] = useState(false);
 
   // Step 164 — Atalhos de teclado globais
@@ -361,10 +362,10 @@ export const App: React.FC = () => {
     const terminalProfile = localStorage.getItem('aquila_terminal_profile');
     const role = user.role?.toLowerCase();
     if (terminalProfile === 'classroom') setCurrentPage('classroom-dashboard');
-    else if (role === 'secretary' || role === 'hr' || role === 'rh') setCurrentPage('secretaria-portal');
-    else if (role === 'docente' || role === 'teacher') setCurrentPage('seating-intelligence');
-    else if (role === 'coordinator') setCurrentPage('coordination');
-    else if (role === 'parent' || role === 'responsavel') setCurrentPage('parent-portal');
+    else if (role === 'secretary' || role === 'secretaria' || role === 'hr' || role === 'rh') setCurrentPage('secretaria-portal');
+    else if (role === 'docente' || role === 'teacher' || role === 'professor') setCurrentPage(isMvp01Active() ? 'teacher-dashboard' : 'seating-intelligence');
+    else if (role === 'coordinator' || role === 'coordenacao') setCurrentPage('coordination');
+    else if (role === 'parent' || role === 'responsavel' || role === 'pais') setCurrentPage('parent-portal');
     else if (role === 'student' || role === 'aluno') setCurrentPage('student-portal');
     else if (terminalProfile === 'coordination') setCurrentPage('coordination');
     else if (terminalProfile === 'secretariat') setCurrentPage('secretaria-portal');
@@ -389,10 +390,10 @@ export const App: React.FC = () => {
     if (isLoggedIn && currentUser) {
       if (currentPage === 'dashboard') {
         const role = currentUser.role?.toLowerCase();
-        if (role === 'secretary' || role === 'hr' || role === 'rh') setCurrentPage('secretaria-portal');
-        else if (role === 'docente' || role === 'teacher') setCurrentPage('seating-intelligence');
-        else if (role === 'coordinator') setCurrentPage('coordination');
-        else if (role === 'parent' || role === 'responsavel') setCurrentPage('parent-portal');
+        if (role === 'secretary' || role === 'secretaria' || role === 'hr' || role === 'rh') setCurrentPage('secretaria-portal');
+        else if (role === 'docente' || role === 'teacher' || role === 'professor') setCurrentPage(isMvp01Active() ? 'teacher-dashboard' : 'seating-intelligence');
+        else if (role === 'coordinator' || role === 'coordenacao') setCurrentPage('coordination');
+        else if (role === 'parent' || role === 'responsavel' || role === 'pais') setCurrentPage('parent-portal');
         else if (role === 'student' || role === 'aluno') setCurrentPage('student-portal');
       }
     }
@@ -452,10 +453,10 @@ export const App: React.FC = () => {
     return (
       <React.Suspense fallback={<div className="dashboard-loading"><div className="spinner"></div></div>}>
         {(() => {
-          // Platform Guard: Permite todos os 5 portais soberanos no Desktop (Admin, Direção, Coord, Prof, Pais, Alunos)
+          // Platform Guard: Permite todos os 6 portais soberanos no Desktop (Admin, Direção, Coord, Prof, Pais, Alunos)
           const isProgramAuthorized = [
-            'admin', 'director', 'secretary', 'hr', 'rh', 'coordinator', 'totem',
-            'docente', 'teacher', 'parent', 'responsavel', 'student', 'aluno'
+            'admin', 'director', 'diretoria', 'secretary', 'secretaria', 'hr', 'rh', 'coordinator', 'coordenacao', 'totem',
+            'docente', 'teacher', 'professor', 'parent', 'responsavel', 'pais', 'student', 'aluno'
           ].includes(currentUser?.role?.toLowerCase() || '');
           
           if (isLoggedIn && !isProgramAuthorized && currentUser?.role && currentPage !== 'help' && currentPage !== 'support') {
@@ -509,11 +510,11 @@ export const App: React.FC = () => {
 
           const userRole = (currentUser?.role || '').toLowerCase();
           const isStudentUser = userRole === 'student' || userRole === 'aluno';
-          const isTeacherUser = userRole === 'teacher' || userRole === 'docente';
+          const isTeacherUser = userRole === 'teacher' || userRole === 'docente' || userRole === 'professor';
           const isCoordUser = userRole === 'coordinator' || userRole === 'coordenacao';
           const isSecUser = userRole === 'secretary' || userRole === 'secretaria' || userRole === 'hr' || userRole === 'rh';
-          const isParentUser = userRole === 'parent' || userRole === 'responsavel';
-          const isAdminUser = userRole === 'admin' || userRole === 'director' || !userRole;
+          const isParentUser = userRole === 'parent' || userRole === 'responsavel' || userRole === 'pais';
+          const isAdminUser = userRole === 'admin' || userRole === 'director' || userRole === 'diretoria' || !userRole;
 
           // 1. Resolução por Perfil Logado (evita que professor caia em tela de aluno em rotas compartilhadas)
           // 1. Resolução por Perfil Logado (confinamento estrito para student, parent, secretaria)

@@ -17,7 +17,8 @@ import {
   Download,
   RefreshCw,
   Sliders,
-  CheckCircle2
+  CheckCircle2,
+  Edit3
 } from 'lucide-react';
 import {
   TimetableEngine,
@@ -29,9 +30,10 @@ import {
   SwapCandidateInfo
 } from '../../services/TimetableEngine';
 import rawVisaoScheduleJson from '../../database/schedule_data.json';
+import { isMvp01Active } from '../../config/mvpProfile';
 import './TimetableBuilder.css';
 
-type UraniaViewMode = 'by_class' | 'by_teacher' | 'master_mosaic' | 'quality_audit';
+type AquilaViewMode = 'by_class' | 'by_teacher' | 'master_mosaic' | 'quality_audit';
 
 const DAYS_CONFIG = [
   { id: 'monday', short: 'Seg', label: 'Segunda-feira', num: 1 },
@@ -166,12 +168,25 @@ interface TimetableBuilderProps {
 export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) => {
   const initialVisaoData = useMemo(() => buildRealVisaoScheduleFromJson(), []);
 
-  const [viewMode, setViewMode] = useState<UraniaViewMode>('by_class');
+  const [viewMode, setViewMode] = useState<AquilaViewMode>('by_class');
   const [teachers, setTeachers] = useState<TeacherSlot[]>(COLEGIO_VISAO_TEACHERS_PRESET);
   const [classes, setClasses] = useState<ClassRequirement[]>(initialVisaoData.classes);
   const [generatedSchedules, setGeneratedSchedules] = useState<Record<string, GridSlot[]>>(
     initialVisaoData.schedules
   );
+
+  // Catálogo MVP 0.1 para publicação direta via saveTimetableSlot
+  const [mvpAcademicYears, setMvpAcademicYears] = useState<any[]>([]);
+  const [mvpClasses, setMvpClasses] = useState<any[]>([]);
+
+  // Núcleo Manual de Edição & Detecção de Conflitos
+  const [manualClassId, setManualClassId] = useState<string>(VISAO_CLASS_CATALOG[0].id);
+  const [manualDay, setManualDay] = useState<string>('monday');
+  const [manualPeriod, setManualPeriod] = useState<number>(1);
+  const [manualSubject, setManualSubject] = useState<string>('Matemática');
+  const [manualTeacherId, setManualTeacherId] = useState<string>(COLEGIO_VISAO_TEACHERS_PRESET[0]?.teacherId || 'DANIELLE');
+  const [manualLock, setManualLock] = useState<boolean>(true);
+  const [showManualEditor, setShowManualEditor] = useState<boolean>(true);
 
   // Filtros de visualização
   const [selectedSegment, setSelectedSegment] = useState<'ALL' | 'EF1' | 'EF2' | 'EM'>('ALL');
@@ -179,7 +194,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
   const [selectedTeacherId, setSelectedTeacherId] = useState<string>('DANIELLE');
   const [selectedMosaicDay, setSelectedMosaicDay] = useState<string>('monday');
 
-  // Estado de Permutação Inteligente 2-opt (Clique Guiado Grade Inteligente Áquila)
+  // Estado de Permutação 2-opt (Clique Guiado Grade Horária Áquila)
   const [swapOrigin, setSwapOrigin] = useState<{
     classId: string;
     day: string;
@@ -187,7 +202,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
     slot: GridSlot;
   } | null>(null);
 
-  // Pesos do Motor Grade Inteligente Áquila+ (pos[0..39] simplificados para controle da Coordenação)
+  // Pesos do Solver Assistido da Grade Horária Áquila
   const [weights, setWeights] = useState({
     weightJanelas: 10,
     weightGeminadas: 8,
@@ -195,7 +210,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
     weightLAP: 9
   });
 
-  // Versão Sandbox ("Horário Experimental" Grade Inteligente Áquila)
+  // Versão Sandbox ("Horário Experimental" Grade Horária Áquila)
   const [experimentalMode, setExperimentalMode] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [aiInsight, setAiInsight] = useState<{
@@ -204,17 +219,69 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
   } | null>({
     type: 'success',
     message:
-      'Motor Soberano Grade Inteligente Áquila+ v2.0 carregado com a grade oficial do Colégio Áquila Modelo (22 turmas • 41 professores • 1º ao 10º horário). Clique em qualquer aula para testar a Permutação Guiada Sem Conflito!'
+      'Grade Horária Áquila carregada: cadastro/edição manual com detecção de conflitos e publicação como núcleo, e otimização assistida que preserva ajustes fixados.'
   });
 
+  const mvp01 = isMvp01Active();
   const aquila = (window as any).aquila;
   const engine = useMemo(() => new TimetableEngine(), []);
+
+  const classCatalog = useMemo<Array<{ id: string; name: string; segment: 'EF1' | 'EF2' | 'EM'; academicYearId?: string }>>(() => {
+    if (mvp01 && mvpClasses.length > 0) {
+      return mvpClasses.map(c => {
+        const stage = String(c.stage || '').toUpperCase();
+        const segment: 'EF1' | 'EF2' | 'EM' =
+          stage === 'MEDIO' || String(c.name || '').toUpperCase().includes('EM')
+            ? 'EM'
+            : /^[1-5]\s/.test(String(c.name || ''))
+            ? 'EF1'
+            : 'EF2';
+        return {
+          id: String(c.id),
+          name: String(c.name || c.id),
+          segment,
+          academicYearId: c.academic_year_id ? String(c.academic_year_id) : undefined,
+        };
+      });
+    }
+    return VISAO_CLASS_CATALOG;
+  }, [mvp01, mvpClasses]);
 
   useEffect(() => {
     const loadFromDatabaseIfPresent = async () => {
       try {
+        let loadedMvpClasses: any[] = [];
+        if (aquila?.mvp01?.getPortalOverview) {
+          const ov = await aquila.mvp01.getPortalOverview({ portal: 'secretariat' }).catch(() => null)
+            || await aquila.mvp01.getPortalOverview({ portal: 'coordination' }).catch(() => null);
+          if (ov?.success && ov.data) {
+            setMvpAcademicYears(ov.data.academicYears || []);
+            loadedMvpClasses = ov.data.classes || [];
+            setMvpClasses(loadedMvpClasses);
+            if (loadedMvpClasses.length > 0) {
+              setManualClassId(prev =>
+                loadedMvpClasses.some(c => c.id === prev) ? prev : loadedMvpClasses[0].id
+              );
+              setClasses(
+                loadedMvpClasses.map(c => ({
+                  classId: c.id,
+                  className: c.name,
+                  segment: String(c.stage || '').toUpperCase() === 'MEDIO' ? 'EM' : 'EF2',
+                  demand: {},
+                }))
+              );
+              setGeneratedSchedules(prev => {
+                const next: Record<string, GridSlot[]> = {};
+                loadedMvpClasses.forEach(c => {
+                  next[c.id] = prev[c.id] || [];
+                });
+                return next;
+              });
+            }
+          }
+        }
         const sRes = await aquila?.invoke('get-schedules');
-        if (Array.isArray(sRes) && sRes.length > 50) {
+        if (Array.isArray(sRes) && sRes.length > 0) {
           const dayOfWeekMap: Record<number, string> = {
             1: 'monday',
             2: 'tuesday',
@@ -223,10 +290,18 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
             5: 'friday'
           };
           const formatted: Record<string, GridSlot[]> = {};
+          if (loadedMvpClasses.length > 0) {
+            loadedMvpClasses.forEach(c => {
+              formatted[c.id] = [];
+            });
+          }
           sRes.forEach((s: any) => {
             const dayStr = dayOfWeekMap[s.dayOfWeek] || 'monday';
             const periodNum = TIME_TO_PERIOD[s.startTime] || 1;
             const classId = s.classId;
+            if (loadedMvpClasses.length > 0 && !loadedMvpClasses.some(c => c.id === classId)) {
+              return;
+            }
             if (!formatted[classId]) formatted[classId] = [];
             formatted[classId].push({
               day: dayStr,
@@ -236,20 +311,101 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
               locked: false
             });
           });
-          setGeneratedSchedules(formatted);
+          if (Object.values(formatted).some(arr => arr.length > 0) || !mvp01) {
+            setGeneratedSchedules(formatted);
+          }
         }
       } catch (_) {
-        // Mantém o seed real embutido do Colégio Áquila Modelo
+        // Mantém o seed real embutido ou catálogo vazio do MVP 0.1
       }
     };
     loadFromDatabaseIfPresent();
   }, []);
 
-  // Auditoria em tempo real "Situação do Horário" (Grade Inteligente Áquila+)
+  // Auditoria em tempo real "Situação do Horário" (Grade Horária Áquila)
   const qualityReport = useMemo(
     () => engine.analyzeScheduleQuality(generatedSchedules, teachers),
     [generatedSchedules, teachers, engine]
   );
+
+  const manualConflict = useMemo(() => {
+    if (!manualTeacherId || manualTeacherId === 'none') return null;
+    for (const [otherClassId, slots] of Object.entries(generatedSchedules)) {
+      if (otherClassId === manualClassId) continue;
+      const clash = slots.find(
+        s => s.day === manualDay && s.period === manualPeriod && s.teacherId === manualTeacherId
+      );
+      if (clash) {
+        return `Conflito detectado: ${manualTeacherId} já está alocado(a) na turma ${otherClassId} neste mesmo dia e horário (${clash.subject}).`;
+      }
+    }
+    return null;
+  }, [generatedSchedules, manualClassId, manualDay, manualPeriod, manualTeacherId]);
+
+  const handleApplyManualSlot = async () => {
+    if (manualConflict) {
+      setAiInsight({ type: 'error', message: manualConflict });
+      return;
+    }
+    const subjectText = manualSubject.trim() || 'Disciplina';
+    setGeneratedSchedules(prev => {
+      const list = [...(prev[manualClassId] || [])];
+      const idx = list.findIndex(s => s.day === manualDay && s.period === manualPeriod);
+      const nextSlot: GridSlot = {
+        day: manualDay,
+        period: manualPeriod,
+        subject: subjectText,
+        teacherId: manualTeacherId,
+        locked: manualLock
+      };
+      if (idx >= 0) {
+        list[idx] = nextSlot;
+      } else {
+        list.push(nextSlot);
+      }
+      return { ...prev, [manualClassId]: list };
+    });
+
+    const dayToNum: Record<string, number> = {
+      monday: 1,
+      tuesday: 2,
+      wednesday: 3,
+      thursday: 4,
+      friday: 5
+    };
+    const pMeta = VISAO_PERIODS.find(p => p.period === manualPeriod);
+    const [startTime = '07:30', endTime = '08:20'] = (pMeta?.time || '07:30 - 08:20').split(' - ');
+    const matchedMvpClass = mvpClasses.find(c => c.id === manualClassId || c.name === manualClassId);
+    const academicYearId = matchedMvpClass?.academic_year_id || mvpAcademicYears[0]?.id;
+
+    if (aquila?.mvp01?.saveTimetableSlot && matchedMvpClass && academicYearId) {
+      const slotRes = await aquila.mvp01
+        .saveTimetableSlot({
+          academicYearId,
+          classId: matchedMvpClass.id,
+          dayOfWeek: dayToNum[manualDay] || 1,
+          slotIndex: manualPeriod,
+          startTime: startTime.trim(),
+          endTime: endTime.trim(),
+          subject: subjectText,
+          teacherUserId: manualTeacherId,
+          published: true
+        })
+        .catch((err: any) => ({ success: false, error: err?.message || 'Erro ao salvar slot.' }));
+      if (slotRes?.success === false) {
+        setAiInsight({
+          type: 'error',
+          message: `Falha ao persistir ajuste manual no servidor: ${slotRes.error || slotRes.message || 'Erro desconhecido'}`
+        });
+        return;
+      }
+    }
+
+    setAiInsight({
+      type: 'success',
+      message: `Ajuste manual aplicado em ${getClassName(manualClassId)} (${manualDay} • ${manualPeriod}º horário) com ${manualTeacherId}${manualLock ? ' e fixado para preservação pelo solver' : ''}.`
+    });
+  };
 
   // Mapa de candidatos de troca quando swapOrigin está ativo
   const swapEvaluationMap = useMemo(() => {
@@ -293,7 +449,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
     if (!candidate || candidate.status === 'BLOCKED') {
       setAiInsight({
         type: 'error',
-        message: `Permutação bloqueada pelo Grade Inteligente Áquila+ Engine: ${candidate?.reason || 'Conflito de horário'}.`
+        message: `Permutação bloqueada pela Grade Horária Áquila: ${candidate?.reason || 'Conflito de horário'}.`
       });
       return;
     }
@@ -326,7 +482,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
 
     setAiInsight({
       type: 'success',
-      message: `Permuta Grade Inteligente Áquila+ concluída em ${getClassName(classId)}: [${swapOrigin.slot.teacherId} ⇄ ${slot.teacherId}] (${candidate.reason}).`
+      message: `Permuta Grade Horária Áquila concluída em ${getClassName(classId)}: [${swapOrigin.slot.teacherId} ⇄ ${slot.teacherId}] (${candidate.reason}).`
     });
     setSwapOrigin(null);
   };
@@ -351,7 +507,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
         const newAudit = engine.analyzeScheduleQuality(result, teachers);
         setAiInsight({
           type: 'success',
-          message: `Otimização Grade Inteligente Áquila+ (3 Fases CSP + 2-opt) concluída! Índice Global de Qualidade: ${newAudit.globalScore}% • ${newAudit.totalGeminadasAchieved} dobradinhas preservadas.`
+          message: `Solver assistido Grade Horária Áquila concluído preservando os ajustes manuais fixados! Índice de Qualidade: ${newAudit.globalScore}% • ${newAudit.totalGeminadasAchieved} dobradinhas.`
         });
       } catch (err: any) {
         setAiInsight({
@@ -366,17 +522,25 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
 
   const handleRestoreOfficialVisao = () => {
     setSwapOrigin(null);
-    setGeneratedSchedules(initialVisaoData.schedules);
+    if (mvp01 && mvpClasses.length > 0) {
+      const resetMap: Record<string, GridSlot[]> = {};
+      mvpClasses.forEach(c => {
+        resetMap[c.id] = [];
+      });
+      setGeneratedSchedules(resetMap);
+    } else {
+      setGeneratedSchedules(initialVisaoData.schedules);
+    }
     setAiInsight({
       type: 'success',
-      message: 'Grade Oficial do Colégio Áquila Modelo (GRADE INSTITUCIONAL MODELO) restaurada integralmente!'
+      message: 'Grade base restaurada para o catálogo de turmas ativo!'
     });
   };
 
   const handleSaveSchedules = async () => {
     setIsGenerating(true);
     try {
-      await aquila?.invoke('clear-schedules');
+      await aquila?.invoke?.('clear-schedules');
       const dayToNumber: Record<string, number> = {
         monday: 1,
         tuesday: 2,
@@ -397,17 +561,21 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
         10: { start: '17:10', end: '18:00' }
       };
 
-      const promises: Promise<any>[] = [];
       let count = 0;
+      const errors: string[] = [];
 
-      Object.entries(generatedSchedules).forEach(([classId, slots]) => {
-        slots.forEach(slot => {
-          if (slot.subject === 'JANELA' || slot.teacherId === 'none') return;
+      for (const [classId, slots] of Object.entries(generatedSchedules)) {
+        const matchedMvpClass = mvpClasses.find(c => c.id === classId || c.name === classId);
+        const academicYearId = matchedMvpClass?.academic_year_id || mvpAcademicYears[0]?.id;
+
+        for (const slot of slots) {
+          if (slot.subject === 'JANELA' || slot.teacherId === 'none') continue;
           const dayOfWeek = dayToNumber[slot.day] || 1;
           const timeInfo = periodToTime[slot.period] || { start: '07:30', end: '08:20' };
-          const scheduleId = `urania-${dayOfWeek}-${timeInfo.start.replace(':', '')}-${classId}`;
-          promises.push(
-            aquila?.invoke('upsert-schedule', {
+          const scheduleId = `aquila-${dayOfWeek}-${timeInfo.start.replace(':', '')}-${classId}`;
+
+          if (aquila?.invoke) {
+            const legacyRes = await aquila.invoke('upsert-schedule', {
               id: scheduleId,
               classId,
               roomId: `room-${classId}`,
@@ -417,28 +585,54 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
               dayOfWeek,
               startTime: timeInfo.start,
               endTime: timeInfo.end
-            })
-          );
-          count++;
-        });
-      });
+            });
+            if (legacyRes?.success === false) {
+              errors.push(`${classId} (${slot.day} ${slot.period}º): ${legacyRes.error || legacyRes.message || 'Falha upsert-schedule'}`);
+            }
+          }
 
-      await Promise.all(promises);
-      setAiInsight({
-        type: 'success',
-        message: `Grade Grade Inteligente Áquila+ persistida no banco SQLite com sucesso (${count} aulas sincronizadas em todos os portais)!`
-      });
+          if (aquila?.mvp01?.saveTimetableSlot && matchedMvpClass && academicYearId) {
+            const mvpRes = await aquila.mvp01.saveTimetableSlot({
+              academicYearId,
+              classId: matchedMvpClass.id,
+              dayOfWeek,
+              slotIndex: slot.period,
+              startTime: timeInfo.start,
+              endTime: timeInfo.end,
+              subject: slot.subject,
+              teacherUserId: slot.teacherId,
+              published: true
+            });
+            if (mvpRes?.success === false) {
+              errors.push(`${matchedMvpClass.name} (${slot.day} ${slot.period}º): ${mvpRes.error || mvpRes.message || 'Falha ao salvar slot MVP 0.1'}`);
+            }
+          }
+          count++;
+        }
+      }
+
+      if (errors.length > 0) {
+        setAiInsight({
+          type: 'error',
+          message: `Erro ao publicar ${errors.length} horário(s): ${errors[0]}`
+        });
+      } else {
+        setAiInsight({
+          type: 'success',
+          message: `Grade Horária Áquila publicada e persistida no banco SQLite com sucesso (${count} aulas sincronizadas em todos os portais)!`
+        });
+      }
     } catch (err: any) {
       setAiInsight({
-        type: 'warn',
-        message: `Grade salva localmente na sessão ativa (${Object.keys(generatedSchedules).length} turmas).`
+        type: 'error',
+        message: `Falha ao publicar grade no banco SQLite: ${err?.message || String(err)}`
       });
     } finally {
       setIsGenerating(false);
     }
   };
 
-  const handleExportUraniaCsv = () => {
+  const handleExportScheduleCsv = () => {
     const lines = ['Turma;Dia;Periodo;Horario;Professor;Disciplina;Fixada'];
     Object.entries(generatedSchedules).forEach(([clsId, slots]) => {
       const clsName = getClassName(clsId);
@@ -453,7 +647,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `grade_horaria_escolar_${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `grade_horaria_aquila_${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -474,21 +668,21 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
   };
 
   const getClassName = (clsId: string) => {
-    const found = VISAO_CLASS_CATALOG.find(c => c.id === clsId);
+    const found = classCatalog.find(c => c.id === clsId);
     return found ? found.name : clsId;
   };
 
   const visibleClassIds = useMemo(() => {
-    return VISAO_CLASS_CATALOG.filter(c => {
+    return classCatalog.filter(c => {
       if (selectedSegment !== 'ALL' && c.segment !== selectedSegment) return false;
       if (selectedClassFilter !== 'ALL' && c.id !== selectedClassFilter) return false;
       return true;
     }).map(c => c.id);
-  }, [selectedSegment, selectedClassFilter]);
+  }, [classCatalog, selectedSegment, selectedClassFilter]);
 
   return (
     <div className="timetable-builder urania-sovereign-shell animate-fade-in">
-      {/* Top Header Grade Inteligente Áquila+ */}
+      {/* Top Header Grade Horária Áquila */}
       <header className="builder-header urania-header">
         <div className="title-section">
           {onBack && (
@@ -496,8 +690,8 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
               onClick={onBack}
               className="btn-setup"
               style={{ marginRight: '16px', background: 'rgba(255, 255, 255, 0.08)' }}
-              title="Voltar ao Painel da Coordenação"
-              aria-label="Voltar para a coordenação"
+              title="Voltar ao Painel"
+              aria-label="Voltar"
             >
               <ArrowLeft size={16} /> Voltar
             </button>
@@ -505,7 +699,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
           <Calendar size={30} className="text-emerald-400" />
           <div>
             <div className="urania-badge-row">
-              <span className="urania-version-pill">MOTOR INTELIGENTE DE HORÁRIOS ÁQUILA v2.0</span>
+              <span className="urania-version-pill">GRADE HORÁRIA ÁQUILA • NÚCLEO MANUAL &amp; PUBLICAÇÃO</span>
               <span className="urania-quality-pill">
                 Qualidade da Grade: <strong>{qualityReport.globalScore}%</strong>
               </span>
@@ -516,28 +710,37 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
                 Dobradinhas: <strong>{qualityReport.totalGeminadasAchieved}</strong>
               </span>
             </div>
-            <h1>Orquestrador de Grade Horária — Colégio Áquila Modelo</h1>
+            <h1>Grade Horária Áquila — Cadastro Manual, Conflitos &amp; Publicação</h1>
             <p>
-              22 Turmas (1º Ano Fund. I à 3ª Série EM) • 41 Professores • Permutação Assistida 2-opt & Contraturno 10 Horários
+              Edição manual com detecção de conflitos em tempo real • Solver assistido opcional que preserva ajustes manuais fixados
             </p>
           </div>
         </div>
 
         <div className="actions urania-top-actions">
           <button
+            className={`btn-setup ${showManualEditor ? 'experimental-active' : ''}`}
+            onClick={() => setShowManualEditor(prev => !prev)}
+            title="Cadastro e Edição Manual de Horário com Detecção de Conflitos"
+          >
+            <Edit3 size={16} />
+            {showManualEditor ? 'Editor Manual (Aberto)' : 'Editor Manual'}
+          </button>
+
+          <button
             className={`btn-setup ${experimentalMode ? 'experimental-active' : ''}`}
             onClick={() => setExperimentalMode(prev => !prev)}
-            title="Alternar Modo Horário Experimental (Sandbox Grade Inteligente Áquila)"
+            title="Alternar Modo Horário Experimental (Sandbox Grade Horária Áquila)"
           >
             <Sparkles size={16} />
-            {experimentalMode ? 'Sandbox Experimental (Ativo)' : 'Modo Horário Experimental'}
+            {experimentalMode ? 'Sandbox Experimental (Ativo)' : 'Modo Experimental'}
           </button>
 
-          <button className="btn-setup" onClick={handleRestoreOfficialVisao} title="Restaurar Grade Oficial 04 de Maio">
-            <RefreshCw size={16} /> Grade Oficial Visão
+          <button className="btn-setup" onClick={handleRestoreOfficialVisao} title="Restaurar Grade Base">
+            <RefreshCw size={16} /> Restaurar Grade Base
           </button>
 
-          <button className="btn-setup" onClick={handleExportUraniaCsv} title="Exportar Grade Horária em CSV (Padrão Interoperável)">
+          <button className="btn-setup" onClick={handleExportScheduleCsv} title="Exportar Grade Horária em CSV">
             <Download size={16} /> Exportar CSV
           </button>
 
@@ -547,20 +750,130 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
             style={{ background: 'rgba(16, 185, 129, 0.15)', borderColor: '#10b981', color: '#10b981' }}
             disabled={isGenerating}
           >
-            <Save size={16} /> Publicar no Banco
+            <Save size={16} /> Publicar Grade
           </button>
 
           <button
             className={`btn-generate ${isGenerating ? 'processing' : ''}`}
             onClick={handleGenerate}
             disabled={isGenerating}
+            title="Incremento assistido: otimiza horários livres preservando todos os ajustes manuais fixados"
           >
-            <Play size={16} /> {isGenerating ? 'Otimizando CSP...' : 'Otimizar Grade (Grade Inteligente Áquila IA)'}
+            <Play size={16} /> {isGenerating ? 'Otimizando...' : 'Solver Assistido (Preserva Fixados)'}
           </button>
         </div>
       </header>
 
-      {/* Barra de Navegação das 4 Visões do Grade Inteligente Áquila+ */}
+      {/* Núcleo: Cadastro/Edição Manual com Detecção de Conflitos & Publicação */}
+      {showManualEditor && (
+        <section className="class-schedule-card" style={{ marginBottom: '12px', padding: '14px' }}>
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <h2 style={{ margin: 0, fontSize: '0.95rem' }}>
+                Cadastro &amp; Edição Manual de Aula (Núcleo Grade Horária Áquila)
+              </h2>
+              <small style={{ color: '#94a3b8' }}>
+                Ajustes manuais com cadeado são preservados automaticamente quando o solver assistido for executado.
+              </small>
+            </div>
+            {manualConflict ? (
+              <span className="text-xs font-bold px-2.5 py-1 rounded bg-red-500/15 border border-red-500/40 text-red-300">
+                {manualConflict}
+              </span>
+            ) : (
+              <span className="text-xs font-bold px-2.5 py-1 rounded bg-emerald-500/15 border border-emerald-500/35 text-emerald-300">
+                Sem conflito docente detectado neste horário
+              </span>
+            )}
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-2 items-end text-xs">
+            <div>
+              <label className="block text-slate-400 mb-1">Turma</label>
+              <select
+                value={manualClassId}
+                onChange={e => setManualClassId(e.target.value)}
+                className="w-full bg-slate-900 border border-white/15 rounded-lg px-2.5 py-2 text-white"
+              >
+                {classCatalog.map(c => (
+                  <option key={c.id} value={c.id}>{c.name} ({c.id})</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-slate-400 mb-1">Dia</label>
+              <select
+                value={manualDay}
+                onChange={e => setManualDay(e.target.value)}
+                className="w-full bg-slate-900 border border-white/15 rounded-lg px-2.5 py-2 text-white"
+              >
+                {DAYS_CONFIG.map(d => (
+                  <option key={d.id} value={d.id}>{d.label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-slate-400 mb-1">Horário / Tempo</label>
+              <select
+                value={manualPeriod}
+                onChange={e => setManualPeriod(Number(e.target.value))}
+                className="w-full bg-slate-900 border border-white/15 rounded-lg px-2.5 py-2 text-white"
+              >
+                {VISAO_PERIODS.map(p => (
+                  <option key={p.period} value={p.period}>{p.label} ({p.time})</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-slate-400 mb-1">Disciplina</label>
+              <input
+                type="text"
+                value={manualSubject}
+                onChange={e => setManualSubject(e.target.value)}
+                className="w-full bg-slate-900 border border-white/15 rounded-lg px-2.5 py-2 text-white"
+              />
+            </div>
+            <div>
+              <label className="block text-slate-400 mb-1">Professor(a)</label>
+              <select
+                value={manualTeacherId}
+                onChange={e => setManualTeacherId(e.target.value)}
+                className="w-full bg-slate-900 border border-white/15 rounded-lg px-2.5 py-2 text-white"
+              >
+                {teachers.map(t => (
+                  <option key={t.teacherId} value={t.teacherId}>{t.teacherId} ({t.subject})</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="flex items-center gap-1.5 text-slate-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={manualLock}
+                  onChange={e => setManualLock(e.target.checked)}
+                />
+                <span>Fixar ajuste</span>
+              </label>
+              <button
+                type="button"
+                onClick={handleApplyManualSlot}
+                disabled={Boolean(manualConflict)}
+                className="btn-setup"
+                style={{
+                  background: manualConflict ? 'rgba(239,68,68,0.15)' : 'rgba(16,185,129,0.2)',
+                  borderColor: manualConflict ? '#ef4444' : '#10b981',
+                  color: '#fff',
+                  justifyContent: 'center'
+                }}
+              >
+                <Save size={13} /> Aplicar &amp; Publicar
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Barra de Navegação das 4 Visões da Grade Horária Áquila */}
       <div className="urania-mode-tabs">
         <button
           className={`urania-tab-btn ${viewMode === 'by_class' ? 'active' : ''}`}
@@ -591,7 +904,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
           <Grid size={16} />
           <div>
             <strong>Quadro Geral Mosaico (22 Turmas)</strong>
-            <small>Espelho Oficial "GRADE INSTITUCIONAL MODELO"</small>
+            <small>Espelho Oficial &quot;GRADE INSTITUCIONAL MODELO&quot;</small>
           </div>
         </button>
 
@@ -601,8 +914,8 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
         >
           <BarChart3 size={16} />
           <div>
-            <strong>Situação do Horário & Pesos (Grade Inteligente Áquila+)</strong>
-            <small>Diagnóstico de Janelas, LAP & Sugestões IA</small>
+            <strong>Situação do Horário & Pesos (Grade Horária Áquila)</strong>
+            <small>Diagnóstico de Janelas, LAP & Sugestões Assistidas</small>
           </div>
         </button>
       </div>
@@ -616,7 +929,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
             {aiInsight.type === 'error' && <Lock size={20} />}
           </div>
           <div className="insight-content">
-            <h4>Motor Grade Inteligente Áquila+ Soberano • Diagnóstico em Tempo Real</h4>
+            <h4>Grade Horária Áquila • Diagnóstico em Tempo Real</h4>
             <p>{aiInsight.message}</p>
           </div>
           {swapOrigin && (
@@ -628,7 +941,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
       )}
 
       {/* =====================================================================
-          VISÃO 1: HORÁRIO POR TURMA + PERMUTAÇÃO INTELIGENTE 2-OPT (URÂNIA+)
+          VISÃO 1: HORÁRIO POR TURMA + PERMUTAÇÃO INTELIGENTE 2-OPT (GRADE HORÁRIA ÁQUILA)
          ===================================================================== */}
       {viewMode === 'by_class' && (
         <>
@@ -661,7 +974,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
                 onChange={e => setSelectedClassFilter(e.target.value)}
               >
                 <option value="ALL">Exibir Turmas do Segmento ({visibleClassIds.length})</option>
-                {VISAO_CLASS_CATALOG.map(c => (
+                {classCatalog.map(c => (
                   <option key={c.id} value={c.id}>
                     {c.name} ({c.id})
                   </option>
@@ -687,7 +1000,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
                     <div>
                       <h2>Turma: {getClassName(clsId)}</h2>
                       <small style={{ color: '#94a3b8' }}>
-                        Código Activesoft: {clsId} • {classSlots.length} tempos semanais
+                        Código da Turma: {clsId} • {classSlots.length} tempos semanais
                       </small>
                     </div>
                     <span className="urania-hint-tag">
@@ -759,7 +1072,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
                                       title={
                                         slot.locked
                                           ? 'Aula Fixada (Clique para desafixar)'
-                                          : 'Fixar aula com cadeado (Grade Inteligente Áquila)'
+                                          : 'Fixar aula com cadeado (Grade Horária Áquila)'
                                       }
                                     >
                                       {slot.locked ? <Lock size={12} /> : <Unlock size={12} />}
@@ -963,7 +1276,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
                 <thead>
                   <tr>
                     <th style={{ minWidth: '95px' }}>Horário</th>
-                    {VISAO_CLASS_CATALOG.map(c => (
+                    {classCatalog.map(c => (
                       <th key={c.id} style={{ minWidth: '88px', textAlign: 'center' }}>
                         {c.name}
                       </th>
@@ -977,7 +1290,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
                         <strong>{pInfo.period}º Hor</strong>
                         <span className="period-time">{pInfo.time.split(' ')[0]}</span>
                       </td>
-                      {VISAO_CLASS_CATALOG.map(c => {
+                      {classCatalog.map(c => {
                         const slot = (generatedSchedules[c.id] || []).find(
                           s => s.day === selectedMosaicDay && s.period === pInfo.period
                         );
@@ -1010,17 +1323,17 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
       )}
 
       {/* =====================================================================
-          VISÃO 4: SITUAÇÃO DO HORÁRIO & PESOS DE OTIMIZAÇÃO (URÂNIA+ AUDIT)
+          VISÃO 4: SITUAÇÃO DO HORÁRIO & PESOS DE OTIMIZAÇÃO (GRADE HORÁRIA ÁQUILA)
          ===================================================================== */}
       {viewMode === 'quality_audit' && (
         <section className="urania-quality-section">
           <div className="urania-quality-grid">
-            {/* Painel de Pesos Grade Inteligente Áquila pos[0..39] */}
+            {/* Painel de Pesos Grade Horária Áquila pos[0..39] */}
             <div className="class-schedule-card urania-weights-card">
               <div className="class-header-flex">
                 <h2>
                   <Sliders size={18} style={{ display: 'inline', marginRight: '8px' }} />
-                  Vetor de Pesos do Otimizador (Grade Inteligente Áquila+ [-10 a +10])
+                  Vetor de Pesos do Solver Assistido (Grade Horária Áquila [-10 a +10])
                 </h2>
               </div>
               <div className="urania-sliders-body">
@@ -1100,7 +1413,7 @@ export const TimetableBuilder: React.FC<TimetableBuilderProps> = ({ onBack }) =>
             {/* Sugestões Automáticas de Flexibilização (verSugestoesController) */}
             <div className="class-schedule-card urania-suggestions-card">
               <div className="class-header-flex">
-                <h2>💡 Sugestões de Melhoria & Flexibilização (Grade Inteligente Áquila IA)</h2>
+                <h2>Sugestões de Melhoria &amp; Flexibilização (Grade Horária Áquila)</h2>
               </div>
               <div className="urania-suggestions-list">
                 {qualityReport.suggestions.map(sug => (

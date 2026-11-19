@@ -42,6 +42,8 @@ import * as path from 'path';
 
 import * as fs from 'fs';
 
+import { AsyncLocalStorage } from 'node:async_hooks';
+
 import { logger } from '../main/logger';
 
 import { securityService } from '../main/services/SecurityService';
@@ -61,6 +63,12 @@ export class Database {
     private writeBehindQueue: Array<{ sql: string, params: any[] }> = [];
 
     private writeBehindInterval: NodeJS.Timeout | null = null;
+
+    private txContext = new AsyncLocalStorage<{ depth: number }>();
+
+    private txTail: Promise<void> = Promise.resolve();
+
+    private savepointSeq = 0;
 
 
 
@@ -2775,6 +2783,12 @@ export class Database {
 
             console.error(`[Database] Erro em all(${sql}):`, err);
 
+            if (this.db.inTransaction || this.txContext.getStore()) {
+
+                throw err;
+
+            }
+
             return [];
 
         }
@@ -2787,7 +2801,9 @@ export class Database {
 
      * Executa operações em uma transação atômica (SQA-1102)
 
-     * Refatorado para suportar callbacks async com controle manual de transação.
+     * Serializa transações raiz concorrentes via fila e usa AsyncLocalStorage + SAVEPOINT
+
+     * para chamadas reentrantes na mesma cadeia assíncrona.
 
      */
 
@@ -2795,59 +2811,115 @@ export class Database {
 
         if (!this.db) throw new Error('[Database] DB não inicializado');
 
-        
+        const store = this.txContext.getStore();
 
-        const hasActiveTransaction = this.db.inTransaction;
+        if (store) {
 
-        const savepointName = `sp_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-
-
-
-        if (hasActiveTransaction) {
+            const savepointName = `sp_${store.depth}_${++this.savepointSeq}`;
 
             this.db.prepare(`SAVEPOINT ${savepointName}`).run();
 
-        } else {
+            try {
 
-            this.db.prepare('BEGIN').run();
-
-        }
-
-
-
-        try {
-
-            const result = await fn();
-
-            
-
-            if (hasActiveTransaction) {
+                const result = await this.txContext.run({ depth: store.depth + 1 }, fn);
 
                 this.db.prepare(`RELEASE SAVEPOINT ${savepointName}`).run();
 
-            } else {
+                return result;
 
-                this.db.prepare('COMMIT').run();
+            } catch (err) {
 
-            }
+                try {
 
-            
+                    this.db.prepare(`ROLLBACK TO SAVEPOINT ${savepointName}`).run();
 
-            return result;
+                    this.db.prepare(`RELEASE SAVEPOINT ${savepointName}`).run();
 
-        } catch (err) {
+                } catch {
 
-            if (hasActiveTransaction) {
+                    // Evita mascarar erro original caso rollback já tenha encerrado o savepoint
 
-                this.db.prepare(`ROLLBACK TO SAVEPOINT ${savepointName}`).run();
+                }
 
-            } else {
-
-                this.db.prepare('ROLLBACK').run();
+                throw err;
 
             }
 
-            throw err;
+        }
+
+        const prev = this.txTail;
+
+        let release!: () => void;
+
+        this.txTail = new Promise<void>((resolve) => {
+
+            release = resolve;
+
+        });
+
+        await prev;
+
+        try {
+
+            const externalTx = Boolean(this.db.inTransaction);
+
+            const savepointName = externalTx ? `sp_ext_${++this.savepointSeq}` : null;
+
+            if (savepointName) {
+
+                this.db.prepare(`SAVEPOINT ${savepointName}`).run();
+
+            } else {
+
+                this.db.prepare('BEGIN IMMEDIATE').run();
+
+            }
+
+            try {
+
+                const result = await this.txContext.run({ depth: 1 }, fn);
+
+                if (savepointName) {
+
+                    this.db.prepare(`RELEASE SAVEPOINT ${savepointName}`).run();
+
+                } else {
+
+                    this.db.prepare('COMMIT').run();
+
+                }
+
+                return result;
+
+            } catch (err) {
+
+                try {
+
+                    if (savepointName) {
+
+                        this.db.prepare(`ROLLBACK TO SAVEPOINT ${savepointName}`).run();
+
+                        this.db.prepare(`RELEASE SAVEPOINT ${savepointName}`).run();
+
+                    } else if (this.db.inTransaction) {
+
+                        this.db.prepare('ROLLBACK').run();
+
+                    }
+
+                } catch {
+
+                    // Evita mascarar erro original
+
+                }
+
+                throw err;
+
+            }
+
+        } finally {
+
+            release();
 
         }
 

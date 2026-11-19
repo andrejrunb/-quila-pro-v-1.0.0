@@ -6,6 +6,7 @@ import {
   Cctv, Leaf, Infinity as InfinityIcon, Clock, Share2, Cpu, Eye, FileCheck, LayoutGrid, Key, Shield, Wind, Briefcase, Heart, History, Library, Zap, User, Crown, Tv
 } from 'lucide-react';
 import { LogoffProtocol } from './LogoffProtocol';
+import { isMvp01Active, MVP_0_1_SIDEBAR_ROUTES } from '../../config/mvpProfile';
 import './Sidebar.css';
 import logo from '../../assets/logo.png';
 
@@ -124,19 +125,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   const userRole = user?.role?.toLowerCase() || '';
   const normalizedRole = userRole === 'docente' ? 'teacher' : userRole;
+  const mvp01 = isMvp01Active();
 
-  const canAccessSecurityHub = ['admin', 'director'].includes(normalizedRole) || ['admin', 'director'].includes(userRole);
-  const canAccessGestaoHub = ['admin', 'director', 'secretary', 'hr', 'rh', 'coordinator'].includes(normalizedRole) || ['admin', 'director', 'secretary', 'hr', 'rh', 'coordinator'].includes(userRole);
-  const canAccessEnsinoHub = ['admin', 'director', 'coordinator', 'teacher', 'docente'].includes(normalizedRole) || ['admin', 'director', 'coordinator', 'teacher', 'docente'].includes(userRole);
+  const canAccessSecurityHub = !mvp01 && (['admin', 'director'].includes(normalizedRole) || ['admin', 'director'].includes(userRole));
+  const canAccessGestaoHub = ['admin', 'director', 'diretoria', 'secretary', 'secretaria', 'hr', 'rh', 'coordinator', 'coordenacao'].includes(normalizedRole) || ['admin', 'director', 'diretoria', 'secretary', 'secretaria', 'hr', 'rh', 'coordinator', 'coordenacao'].includes(userRole);
+  const canAccessEnsinoHub = ['admin', 'director', 'diretoria', 'coordinator', 'coordenacao', 'teacher', 'docente'].includes(normalizedRole) || ['admin', 'director', 'diretoria', 'coordinator', 'coordenacao', 'teacher', 'docente'].includes(userRole);
 
   const hasSecurityItems = canAccessSecurityHub && allMenuItems.some(item => 
     item.hub === 'security' && (!item.roles || item.roles.includes(normalizedRole) || item.roles.includes(userRole))
   );
   const hasAdminItems = canAccessGestaoHub && allMenuItems.some(item => 
-    item.hub === 'admin' && (!item.roles || item.roles.includes(normalizedRole) || item.roles.includes(userRole))
+    item.hub === 'admin' && (!mvp01 || MVP_0_1_SIDEBAR_ROUTES.has(item.id)) && (!item.roles || item.roles.includes(normalizedRole) || item.roles.includes(userRole))
   );
   const hasPedagogicalItems = canAccessEnsinoHub && allMenuItems.some(item => 
-    item.hub === 'pedagogical' && (!item.roles || item.roles.includes(normalizedRole) || item.roles.includes(userRole))
+    item.hub === 'pedagogical' && (!mvp01 || MVP_0_1_SIDEBAR_ROUTES.has(item.id)) && (!item.roles || item.roles.includes(normalizedRole) || item.roles.includes(userRole))
   );
 
   useEffect(() => {
@@ -153,6 +155,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const menuItems = allMenuItems.filter(item => {
     const isAllowedRole = !item.roles || item.roles.includes(normalizedRole) || item.roles.includes(userRole);
     const isSameHub = (item as any).hub === currentHub;
+    const isAllowedInProfile = !mvp01 || MVP_0_1_SIDEBAR_ROUTES.has(item.id);
     
     // Filtro de Módulo do Ecossistema
     let isModuleActive = true;
@@ -162,7 +165,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       if (item.id === 'attendance') isModuleActive = ecosystem.activeModules?.attendance ?? true;
     }
 
-    return isAllowedRole && isSameHub && isModuleActive;
+    return isAllowedRole && isSameHub && isAllowedInProfile && isModuleActive;
+  }).map(item => {
+    if (mvp01 && item.id === 'executive-cockpit-portal') {
+      return { ...item, label: 'Direção (Visualização)' };
+    }
+    return item;
   });
 
   return (

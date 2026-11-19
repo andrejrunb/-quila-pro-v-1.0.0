@@ -3,9 +3,13 @@ import { createHmac, timingSafeEqual } from 'crypto';
 export const VALID_SESSION_ROLES = new Set([
   'admin',
   'director',
+  'diretoria',
   'secretary',
+  'secretaria',
   'coordinator',
+  'coordenacao',
   'docente',
+  'professor',
   'security',
   'rh',
   'hr',
