@@ -832,6 +832,63 @@ async function main() {
     assert.equal(hijackRes.code, 'ADMIN_ALREADY_EXISTS');
   });
 
+  // =========================================================================
+  // 8. Hidratação Automática de Dados Legados -> MVP 0.1 (Teacher/Turmas/Alunos)
+  // =========================================================================
+  await runCase('8. Hidratacao automatica de dados reais legados (classes/students/teacher_classes -> mvp01_*)', async () => {
+    const legDb = createSqliteAdapter();
+    await legDb.run(`CREATE TABLE users (id TEXT PRIMARY KEY, username TEXT, password_hash TEXT, name TEXT, role TEXT, email TEXT)`);
+    await legDb.run(`CREATE TABLE classes (id TEXT PRIMARY KEY, schoolId TEXT, name TEXT, grade TEXT, type TEXT)`);
+    await legDb.run(`CREATE TABLE students (id TEXT PRIMARY KEY, name TEXT, classId TEXT, registrationNumber TEXT)`);
+    await legDb.run(`CREATE TABLE teacher_classes (id TEXT PRIMARY KEY, teacherId TEXT, classId TEXT, subjectId TEXT)`);
+    await legDb.run(`CREATE TABLE schedules (id TEXT PRIMARY KEY, classId TEXT, roomId TEXT, teacherId TEXT, subject TEXT, teacher TEXT, dayOfWeek INTEGER, startTime TEXT, endTime TEXT)`);
+    await legDb.run(`CREATE TABLE settings (id TEXT PRIMARY KEY, value TEXT)`);
+
+    await legDb.run(`INSERT INTO settings (id, value) VALUES ('schoolName', '"Colégio Visão Piloto"')`);
+    await legDb.run(`INSERT INTO users (id, username, password_hash, name, role, email) VALUES ('teacher-andre', 'andre', 'h', 'ANDRE', 'docente', NULL)`);
+    await legDb.run(`INSERT INTO users (id, username, password_hash, name, role, email) VALUES ('coord-1', 'coord', 'h', 'COORD', 'coordinator', NULL)`);
+    await legDb.run(`INSERT INTO classes (id, schoolId, name, grade, type) VALUES ('F-EF27A', 'school-visao', '7 ANO A', '7º Ano', 'REGULAR')`);
+    await legDb.run(`INSERT INTO classes (id, schoolId, name, grade, type) VALUES ('F-EM1A', 'school-visao', '1 SERIE A', '1ª Série', 'REGULAR')`);
+    await legDb.run(`INSERT INTO students (id, name, classId, registrationNumber) VALUES ('std-101', 'ALICE LUCAS AMADO', 'F-EF27A', '2026001')`);
+    await legDb.run(`INSERT INTO students (id, name, classId, registrationNumber) VALUES ('std-102', 'ANDRE LUIZ FERREIRA', 'F-EM1A', '2026002')`);
+    await legDb.run(`INSERT INTO teacher_classes (id, teacherId, classId, subjectId) VALUES ('tc-1', 'teacher-andre', 'F-EF27A', 'Disciplina XI')`);
+    await legDb.run(`INSERT INTO teacher_classes (id, teacherId, classId, subjectId) VALUES ('tc-2', 'teacher-andre', 'F-EM1A', 'Disciplina XI')`);
+    // Simula duplicata em schedules + slot para confirmar deduplicação em mvp01_teaching_assignments
+    await legDb.run(`INSERT INTO schedules (id, classId, roomId, teacherId, subject, teacher, dayOfWeek, startTime, endTime) VALUES ('sch-1', 'F-EF27A', 'room-7a', 'teacher-andre', 'Disciplina XI', 'ANDRE', 1, '07:30', '08:20')`);
+
+    // Simula mvp01_memberships pré-existente para teacher-andre (caso exato do banco real)
+    await legDb.run(`CREATE TABLE mvp01_memberships (id TEXT PRIMARY KEY, user_id TEXT NOT NULL, person_name TEXT, email TEXT, school_id TEXT NOT NULL, role TEXT NOT NULL, status TEXT DEFAULT 'ACTIVE', valid_until TEXT)`);
+    await legDb.run(`INSERT INTO mvp01_memberships (id, user_id, person_name, email, school_id, role, status) VALUES ('mem-auto-andre', 'teacher-andre', 'ANDRE', NULL, ?, 'docente', 'ACTIVE')`, [MVP01_DEMO_SCHOOL_ID]);
+
+    await ensureMvp01Schema(legDb);
+
+    const andreCtx = await resolveMvp01Context(legDb, {
+      id: 'teacher-andre',
+      username: 'andre',
+      name: 'ANDRE',
+      role: 'docente',
+    });
+    assert.equal(andreCtx.assignedClasses.length, 2, 'ANDRE deve herdar exatamente 2 turmas atribuídas sem duplicatas');
+    assert.equal(andreCtx.activeRole, 'docente');
+
+    const legDomain = new Mvp01DomainService(legDb);
+    const teacherOv: any = await legDomain.getPortalOverview(andreCtx, 'teacher');
+    assert.equal(teacherOv.classes.length, 2);
+    assert.equal(teacherOv.students.length, 2);
+
+    const inc: any = await legDomain.createIncident(andreCtx, {
+      studentId: 'std-101',
+      classId: 'F-EF27A',
+      category: 'PRAISE',
+      title: 'Destaque em participação',
+      publishedToFamily: false,
+    });
+    assert.ok(inc.id, 'Professor deve conseguir salvar ocorrência/elogio logo após hidratação');
+
+    const memCount = await legDb.get<any>(`SELECT COUNT(*) as n FROM mvp01_memberships WHERE user_id = 'teacher-andre'`);
+    assert.equal(memCount.n, 1, 'Não deve duplicar membership pré-existente');
+  });
+
   console.log(`\nSUMMARY: passed=${passed} failed=${failed}`);
   process.exit(failed > 0 ? 1 : 0);
 }

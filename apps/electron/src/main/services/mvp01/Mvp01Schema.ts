@@ -551,6 +551,11 @@ export async function ensureMvp01Schema(db: Mvp01DbLike): Promise<void> {
     for (const stmt of MVP01_DDL_STATEMENTS) {
       await mvp01Run(db, stmt);
     }
+    try {
+      await syncLegacySchoolDataToMvp01(db);
+    } catch (syncErr) {
+      console.warn('[Mvp01Schema] Aviso ao sincronizar dados legados para MVP 0.1:', syncErr);
+    }
   })().catch((err) => {
     ensuredDbCache.delete(db);
     throw err;
@@ -879,4 +884,430 @@ export async function seedMvp01DemoData(db: Mvp01DbLike): Promise<boolean> {
   });
 
   return true;
+}
+
+function mapLegacyRoleToMvp01Canonical(role?: string | null): string | null {
+  const raw = String(role || '').trim().toLowerCase();
+  const map: Record<string, string> = {
+    admin: 'admin',
+    director: 'director',
+    diretoria: 'director',
+    secretary: 'secretary',
+    secretaria: 'secretary',
+    hr: 'secretary',
+    rh: 'secretary',
+    coordinator: 'coordinator',
+    coordenacao: 'coordinator',
+    teacher: 'teacher',
+    docente: 'teacher',
+    professor: 'teacher',
+    parent: 'parent',
+    responsavel: 'parent',
+    pais: 'parent',
+    student: 'student',
+    aluno: 'student',
+  };
+  return map[raw] ?? null;
+}
+
+function inferLegacyStage(id?: string | null, name?: string | null, grade?: string | null): 'FUNDAMENTAL' | 'MEDIO' {
+  const combined = `${id || ''} ${name || ''} ${grade || ''}`;
+  return /\bEM\b|F-EM|M-EM|S[EÉ]RIE|M[EÉ]DIO/i.test(combined) ? 'MEDIO' : 'FUNDAMENTAL';
+}
+
+function sanitizeKeySlug(raw: string): string {
+  return String(raw || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'item';
+}
+
+function resolveTimetableSlotIndex(startTime?: string | null, fallbackIndex = 1): number {
+  const map: Record<string, number> = {
+    '07:00': 1,
+    '07:30': 1,
+    '07:50': 2,
+    '08:20': 2,
+    '08:40': 3,
+    '09:10': 3,
+    '09:30': 4,
+    '10:00': 4,
+    '10:20': 5,
+    '11:10': 6,
+    '12:00': 7,
+    '13:30': 8,
+    '14:20': 9,
+    '15:10': 10,
+  };
+  const key = String(startTime || '').trim();
+  return map[key] || fallbackIndex;
+}
+
+async function getLegacyTableSet(db: Mvp01DbLike): Promise<Set<string>> {
+  const rows = await mvp01All<{ name: string }>(
+    db,
+    `SELECT name FROM sqlite_master WHERE type = 'table'`
+  );
+  return new Set(rows.map((r) => String(r.name)));
+}
+
+async function getLegacyColumnSet(db: Mvp01DbLike, tableName: string): Promise<Set<string>> {
+  const rows = await mvp01All<{ name: string }>(db, `PRAGMA table_info("${tableName}")`);
+  return new Set(rows.map((r) => String(r.name)));
+}
+
+/**
+ * Projeta de forma idempotente turmas, estudantes, vínculos docentes, usuários e horários
+ * já presentes nas tabelas legadas (classes, students, users, teacher_classes, schedules)
+ * para as tabelas compartilhadas mvp01_* quando o MVP 0.1 ainda não foi populado.
+ */
+export async function syncLegacySchoolDataToMvp01(db: Mvp01DbLike): Promise<boolean> {
+  const tables = await getLegacyTableSet(db);
+  if (!tables.has('classes') || !tables.has('mvp01_classes')) {
+    return false;
+  }
+
+  const demoSchoolRow = await mvp01Get<{ total: number }>(
+    db,
+    'SELECT COUNT(*) as total FROM mvp01_schools WHERE is_demo = 1'
+  );
+  if ((demoSchoolRow?.total ?? 0) > 0) {
+    return false;
+  }
+
+  const legacyClassCountRow = await mvp01Get<{ total: number }>(
+    db,
+    'SELECT COUNT(*) as total FROM classes'
+  );
+  if ((legacyClassCountRow?.total ?? 0) === 0) {
+    return false;
+  }
+
+  const mvpClassCountRow = await mvp01Get<{ total: number }>(
+    db,
+    'SELECT COUNT(*) as total FROM mvp01_classes'
+  );
+  const mvpTeachingCountRow = await mvp01Get<{ total: number }>(
+    db,
+    'SELECT COUNT(*) as total FROM mvp01_teaching_assignments'
+  );
+  const alreadyHasClasses = (mvpClassCountRow?.total ?? 0) > 0;
+  const alreadyHasTeaching = (mvpTeachingCountRow?.total ?? 0) > 0;
+  if (alreadyHasClasses && alreadyHasTeaching) {
+    return false;
+  }
+
+  let schoolName = 'Colégio Visão';
+  let schoolCnpj: string | null = null;
+  if (tables.has('settings')) {
+    try {
+      const nameRow = await mvp01Get<{ value: string }>(
+        db,
+        `SELECT value FROM settings WHERE id = 'schoolName' LIMIT 1`
+      );
+      if (nameRow?.value) {
+        try {
+          const parsed = JSON.parse(nameRow.value);
+          if (typeof parsed === 'string' && parsed.trim()) schoolName = parsed.trim();
+        } catch {
+          if (String(nameRow.value).trim()) schoolName = String(nameRow.value).trim();
+        }
+      }
+      const cnpjRow = await mvp01Get<{ value: string }>(
+        db,
+        `SELECT value FROM settings WHERE id = 'cnpj' LIMIT 1`
+      );
+      if (cnpjRow?.value) {
+        try {
+          const parsed = JSON.parse(cnpjRow.value);
+          if (typeof parsed === 'string' && parsed.trim()) schoolCnpj = parsed.trim();
+        } catch {
+          if (String(cnpjRow.value).trim()) schoolCnpj = String(cnpjRow.value).trim();
+        }
+      }
+    } catch {
+      // Ignora settings incompatíveis
+    }
+  }
+
+  let syncedAny = false;
+
+  await withMvp01Transaction(db, async () => {
+    const classCols = await getLegacyColumnSet(db, 'classes');
+    const legacyClasses = await mvp01All<any>(
+      db,
+      `SELECT id, name${classCols.has('grade') ? ', grade' : ''} FROM classes`
+    );
+    const classStageMap = new Map<string, 'FUNDAMENTAL' | 'MEDIO'>();
+
+    if (!alreadyHasClasses) {
+      await mvp01Run(
+        db,
+        `INSERT OR IGNORE INTO mvp01_schools (id, name, cnpj, is_demo, created_at)
+         VALUES (?, ?, ?, 0, ?)`,
+        [MVP01_DEMO_SCHOOL_ID, schoolName, schoolCnpj, new Date().toISOString()]
+      );
+
+      const currentYear = new Date().getFullYear();
+      await mvp01Run(
+        db,
+        `INSERT OR IGNORE INTO mvp01_academic_years
+         (id, school_id, year, stage, min_days, min_hours, planned_days, planned_hours, completed_hours, legal_basis, status)
+         VALUES (?, ?, ?, 'FUNDAMENTAL', 200, 800, 200, 800, 0, 'LDB Art. 24, I (200 dias letivos / 800 horas)', 'OPEN')`,
+        ['ay-2026-fund', MVP01_DEMO_SCHOOL_ID, currentYear]
+      );
+      await mvp01Run(
+        db,
+        `INSERT OR IGNORE INTO mvp01_academic_years
+         (id, school_id, year, stage, min_days, min_hours, planned_days, planned_hours, completed_hours, legal_basis, status)
+         VALUES (?, ?, ?, 'MEDIO', 200, 1000, 200, 1000, 0, 'LDB Art. 24, I c/c Lei 13.415/2017 (200 dias letivos / 1000 horas)', 'OPEN')`,
+        ['ay-2026-med', MVP01_DEMO_SCHOOL_ID, currentYear]
+      );
+
+      const defaultPeriods = [
+        ['period-2026-1', 'ay-2026-fund', '1º Bimestre', `${currentYear}-02-02`, `${currentYear}-04-17`],
+        ['period-2026-2', 'ay-2026-fund', '2º Bimestre', `${currentYear}-04-20`, `${currentYear}-07-03`],
+        ['period-2026-3', 'ay-2026-fund', '3º Bimestre', `${currentYear}-08-03`, `${currentYear}-10-09`],
+        ['period-2026-4', 'ay-2026-fund', '4º Bimestre', `${currentYear}-10-13`, `${currentYear}-12-18`],
+        ['period-2026-m1', 'ay-2026-med', '1º Bimestre', `${currentYear}-02-02`, `${currentYear}-04-17`],
+        ['period-2026-m2', 'ay-2026-med', '2º Bimestre', `${currentYear}-04-20`, `${currentYear}-07-03`],
+        ['period-2026-m3', 'ay-2026-med', '3º Bimestre', `${currentYear}-08-03`, `${currentYear}-10-09`],
+        ['period-2026-m4', 'ay-2026-med', '4º Bimestre', `${currentYear}-10-13`, `${currentYear}-12-18`],
+      ];
+      for (const [pId, ayId, pName, startDate, endDate] of defaultPeriods) {
+        await mvp01Run(
+          db,
+          `INSERT OR IGNORE INTO mvp01_academic_periods
+           (id, school_id, academic_year_id, name, start_date, end_date, status)
+           VALUES (?, ?, ?, ?, ?, ?, 'OPEN')`,
+          [pId, MVP01_DEMO_SCHOOL_ID, ayId, pName, startDate, endDate]
+        );
+      }
+
+      for (const cls of legacyClasses) {
+        const cId = String(cls.id || '').trim();
+        if (!cId) continue;
+        const stage = inferLegacyStage(cId, cls.name, cls.grade);
+        classStageMap.set(cId, stage);
+        const academicYearId = stage === 'MEDIO' ? 'ay-2026-med' : 'ay-2026-fund';
+        await mvp01Run(
+          db,
+          `INSERT OR IGNORE INTO mvp01_classes
+           (id, school_id, academic_year_id, stage, name, shift, room, capacity, status)
+           VALUES (?, ?, ?, ?, ?, 'Matutino', ?, 60, 'ACTIVE')`,
+          [cId, MVP01_DEMO_SCHOOL_ID, academicYearId, stage, String(cls.name || cId), `Sala ${String(cls.name || cId)}`]
+        );
+      }
+      syncedAny = true;
+    } else {
+      for (const cls of legacyClasses) {
+        const cId = String(cls.id || '').trim();
+        if (cId) classStageMap.set(cId, inferLegacyStage(cId, cls.name, cls.grade));
+      }
+    }
+
+    if (!alreadyHasClasses && tables.has('students')) {
+      const studentCols = await getLegacyColumnSet(db, 'students');
+      const hasReg = studentCols.has('registrationNumber');
+      const legacyStudents = await mvp01All<any>(
+        db,
+        `SELECT id, name, classId${hasReg ? ', registrationNumber' : ''} FROM students`
+      );
+      const startedAt = `${new Date().getFullYear()}-02-01`;
+      for (const st of legacyStudents) {
+        const sId = String(st.id || '').trim();
+        const sName = String(st.name || '').trim();
+        if (!sId || !sName) continue;
+        const cId = String(st.classId || '').trim();
+        const stage = classStageMap.get(cId) || inferLegacyStage(cId, null, null);
+        const academicYearId = stage === 'MEDIO' ? 'ay-2026-med' : 'ay-2026-fund';
+        const regCode = hasReg && st.registrationNumber ? String(st.registrationNumber).trim() : null;
+
+        await mvp01Run(
+          db,
+          `INSERT OR IGNORE INTO mvp01_students
+           (id, school_id, user_id, full_name, registration_code, is_demo)
+           VALUES (?, ?, NULL, ?, ?, 0)`,
+          [sId, MVP01_DEMO_SCHOOL_ID, sName, regCode]
+        );
+
+        const enrollmentId = `enr-leg-${sId}`;
+        await mvp01Run(
+          db,
+          `INSERT OR IGNORE INTO mvp01_enrollments
+           (id, school_id, student_id, academic_year_id, status)
+           VALUES (?, ?, ?, ?, 'ATIVA')`,
+          [enrollmentId, MVP01_DEMO_SCHOOL_ID, sId, academicYearId]
+        );
+
+        if (cId && classStageMap.has(cId)) {
+          await mvp01Run(
+            db,
+            `INSERT OR IGNORE INTO mvp01_class_memberships
+             (id, school_id, enrollment_id, class_id, reason, started_at, ended_at)
+             VALUES (?, ?, ?, ?, 'Importação inicial do cadastro escolar', ?, NULL)`,
+            [`cm-leg-${sId}`, MVP01_DEMO_SCHOOL_ID, enrollmentId, cId, startedAt]
+          );
+        }
+      }
+    }
+
+    const userNameById = new Map<string, string>();
+    if (tables.has('users')) {
+      const userCols = await getLegacyColumnSet(db, 'users');
+      const hasEmail = userCols.has('email');
+      const hasIsActive = userCols.has('isActive');
+      const hasStatus = userCols.has('status');
+      const legacyUsers = await mvp01All<any>(
+        db,
+        `SELECT id, username, name, role${hasEmail ? ', email' : ''}${hasIsActive ? ', isActive' : ''}${hasStatus ? ', status' : ''} FROM users`
+      );
+      const existingMems = await mvp01All<{ user_id: string; school_id: string }>(
+        db,
+        'SELECT user_id, school_id FROM mvp01_memberships'
+      );
+      const existingMemSet = new Set(existingMems.map((m) => `${m.user_id}::${m.school_id}`));
+
+      for (const u of legacyUsers) {
+        const uId = String(u.id || '').trim();
+        if (!uId) continue;
+        const uName = String(u.name || u.username || uId).trim();
+        userNameById.set(uId, uName);
+
+        if ((hasIsActive && (u.isActive === 0 || u.isActive === false)) || (hasStatus && u.status === 'inactive')) {
+          continue;
+        }
+
+        const canonicalRole = mapLegacyRoleToMvp01Canonical(u.role);
+        if (!canonicalRole) continue;
+
+        if (!existingMemSet.has(`${uId}::${MVP01_DEMO_SCHOOL_ID}`)) {
+          await mvp01Run(
+            db,
+            `INSERT OR IGNORE INTO mvp01_memberships
+             (id, user_id, person_name, email, school_id, role, status, valid_until)
+             VALUES (?, ?, ?, ?, ?, ?, 'ACTIVE', NULL)`,
+            [`mem-leg-${uId}`, uId, uName, hasEmail ? u.email ?? null : null, MVP01_DEMO_SCHOOL_ID, canonicalRole]
+          );
+          existingMemSet.add(`${uId}::${MVP01_DEMO_SCHOOL_ID}`);
+        }
+
+        if (canonicalRole === 'coordinator') {
+          await mvp01Run(
+            db,
+            `INSERT OR IGNORE INTO mvp01_coordination_assignments
+             (id, school_id, coordinator_user_id, class_id, stage, active)
+             VALUES (?, ?, ?, NULL, 'FUNDAMENTAL', 1)`,
+            [`ca-leg-${uId}-fund`, MVP01_DEMO_SCHOOL_ID, uId]
+          );
+          await mvp01Run(
+            db,
+            `INSERT OR IGNORE INTO mvp01_coordination_assignments
+             (id, school_id, coordinator_user_id, class_id, stage, active)
+             VALUES (?, ?, ?, NULL, 'MEDIO', 1)`,
+            [`ca-leg-${uId}-med`, MVP01_DEMO_SCHOOL_ID, uId]
+          );
+        }
+      }
+    }
+
+    if (!alreadyHasTeaching) {
+      const seenAssignments = new Set<string>();
+      const currentYear = new Date().getFullYear();
+      const validFrom = `${currentYear}-01-01`;
+      const validUntil = `${currentYear}-12-31`;
+
+      const upsertAssignment = async (teacherIdRaw: any, classIdRaw: any, subjectRaw: any, teacherNameFallback?: string) => {
+        const teacherId = String(teacherIdRaw || '').trim();
+        const classId = String(classIdRaw || '').trim();
+        const subject = String(subjectRaw || '').trim() || 'Disciplina';
+        if (!teacherId || !classId || teacherId === 'none') return;
+        const dedupKey = `${teacherId}::${classId}::${subject.toLowerCase()}`;
+        if (seenAssignments.has(dedupKey)) return;
+        seenAssignments.add(dedupKey);
+
+        const stage = classStageMap.get(classId) || inferLegacyStage(classId, null, null);
+        const academicYearId = stage === 'MEDIO' ? 'ay-2026-med' : 'ay-2026-fund';
+        const teacherName = userNameById.get(teacherId) || teacherNameFallback || teacherId;
+        const taId = `ta-leg-${sanitizeKeySlug(teacherId)}-${sanitizeKeySlug(classId)}-${sanitizeKeySlug(subject)}`;
+
+        await mvp01Run(
+          db,
+          `INSERT OR IGNORE INTO mvp01_teaching_assignments
+           (id, school_id, teacher_user_id, teacher_name, class_id, subject, academic_year_id, valid_from, valid_until, active)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)`,
+          [taId, MVP01_DEMO_SCHOOL_ID, teacherId, teacherName, classId, subject, academicYearId, validFrom, validUntil]
+        );
+        syncedAny = true;
+      };
+
+      if (tables.has('teacher_classes')) {
+        const tcRows = await mvp01All<any>(
+          db,
+          'SELECT teacherId, classId, subjectId FROM teacher_classes'
+        );
+        for (const tc of tcRows) {
+          await upsertAssignment(tc.teacherId, tc.classId, tc.subjectId);
+        }
+      }
+
+      if (tables.has('schedules')) {
+        const schRows = await mvp01All<any>(
+          db,
+          'SELECT classId, teacherId, subject, teacher, dayOfWeek, startTime, endTime FROM schedules'
+        );
+        const existingSlotCountRow = await mvp01Get<{ total: number }>(
+          db,
+          'SELECT COUNT(*) as total FROM mvp01_timetable_slots'
+        );
+        const shouldImportSlots = (existingSlotCountRow?.total ?? 0) === 0;
+        const seenSlots = new Set<string>();
+        const dayCounters = new Map<string, number>();
+
+        for (const sch of schRows) {
+          await upsertAssignment(sch.teacherId, sch.classId, sch.subject, sch.teacher);
+
+          if (shouldImportSlots) {
+            const classId = String(sch.classId || '').trim();
+            const dayOfWeek = Number(sch.dayOfWeek || 1);
+            if (!classId || !dayOfWeek) continue;
+            const dayKey = `${classId}::${dayOfWeek}`;
+            const nextFallback = (dayCounters.get(dayKey) || 0) + 1;
+            dayCounters.set(dayKey, nextFallback);
+            const slotIndex = resolveTimetableSlotIndex(sch.startTime, nextFallback);
+            const slotKey = `${classId}::${dayOfWeek}::${slotIndex}`;
+            if (seenSlots.has(slotKey)) continue;
+            seenSlots.add(slotKey);
+
+            const stage = classStageMap.get(classId) || inferLegacyStage(classId, null, null);
+            const academicYearId = stage === 'MEDIO' ? 'ay-2026-med' : 'ay-2026-fund';
+            const slotId = `slot-leg-${sanitizeKeySlug(classId)}-d${dayOfWeek}-s${slotIndex}`;
+
+            await mvp01Run(
+              db,
+              `INSERT OR IGNORE INTO mvp01_timetable_slots
+               (id, school_id, academic_year_id, class_id, day_of_week, slot_index, start_time, end_time, subject, teacher_user_id, version, published)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1)`,
+              [
+                slotId,
+                MVP01_DEMO_SCHOOL_ID,
+                academicYearId,
+                classId,
+                dayOfWeek,
+                slotIndex,
+                sch.startTime ? String(sch.startTime) : null,
+                sch.endTime ? String(sch.endTime) : null,
+                String(sch.subject || 'Disciplina'),
+                sch.teacherId ? String(sch.teacherId) : null,
+              ]
+            );
+          }
+        }
+      }
+    }
+  });
+
+  return syncedAny;
 }

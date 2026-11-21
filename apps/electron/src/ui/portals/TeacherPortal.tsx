@@ -618,7 +618,14 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
 
   const handleCreateTeacherIncident = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!incStudentId || !incTitle.trim()) return;
+    if (!incStudentId) {
+      setActionMsg({ type: 'err', text: 'Selecione um estudante antes de salvar o registro.' });
+      return;
+    }
+    if (!incTitle.trim()) {
+      setActionMsg({ type: 'err', text: 'Informe o título da ocorrência ou elogio.' });
+      return;
+    }
     if (incMode === 'FOR_REVIEW' && incSuggestedSummary.trim().length < 3) {
       setActionMsg({
         type: 'err',
@@ -1085,28 +1092,28 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
             </div>
           )}
 
-          <div className="flex flex-col gap-2 mb-3">
+          <div className="flex flex-col gap-1 mb-3">
             {classStudents.length === 0 ? (
               <p className="text-xs text-slate-400">Nenhum estudante ativo vinculado a esta turma.</p>
             ) : (
-              classStudents.map(st => {
+              classStudents.map((st, idx) => {
                 const stStatus = attendanceMap[st.id] || 'PRESENT';
                 return (
                   <div
                     key={st.id}
-                    className="p-2.5 rounded-xl bg-black/35 border border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs"
+                    className="tp-att-row"
                   >
-                    <div>
-                      <span className="font-bold text-white">{st.full_name}</span>{' '}
-                      <span className="text-slate-400">({st.registration_code || st.id})</span>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="font-mono text-[11px] text-slate-400 w-7">#{idx + 1}</span>
+                      <span className="font-bold text-sm text-white truncate">{st.full_name}</span>
                     </div>
-                    <div className="flex gap-1.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       {(
                         [
-                          { id: 'PRESENT', label: 'Presente' },
-                          { id: 'ABSENT', label: 'Falta' },
-                          { id: 'LATE', label: 'Atraso' },
-                          { id: 'JUSTIFIED', label: 'Justificada' },
+                          { id: 'PRESENT', label: 'Presente', kind: 'present' },
+                          { id: 'ABSENT', label: 'Falta', kind: 'absent' },
+                          { id: 'LATE', label: 'Atraso', kind: 'late' },
+                          { id: 'JUSTIFIED', label: 'Justif.', kind: 'justified' },
                         ] as const
                       ).map(opt => (
                         <button
@@ -1115,7 +1122,8 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
                           onClick={() =>
                             setAttendanceMap(prev => ({ ...prev, [st.id]: opt.id }))
                           }
-                          className={`tp-mini-btn ${stStatus === opt.id ? 'accent' : ''}`}
+                          aria-pressed={stStatus === opt.id}
+                          className={`tp-att-btn ${opt.kind} ${stStatus === opt.id ? 'active' : ''}`}
                         >
                           {opt.label}
                         </button>
@@ -1196,17 +1204,17 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
             </div>
           )}
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             {classStudents.map(st => {
               const g = getStudentGradeState(st.id);
               return (
                 <div
                   key={st.id}
-                  className="p-3 rounded-xl bg-black/35 border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs"
+                  className="py-1.5 px-3 rounded-lg bg-black/35 border border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs"
                 >
                   <div className="min-w-[160px]">
                     <div className="font-bold text-white">{st.full_name}</div>
-                    <div className="text-slate-400">
+                    <div className="text-[11px] text-slate-400">
                       Estado:{' '}
                       {g.entryState === 'PENDING'
                         ? 'Pendente (—)'
@@ -1422,7 +1430,7 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
 
       {mvp01 && mvpSubTab === 'ocorrencias' && (
         <div className="tp-main-grid">
-          <form onSubmit={handleCreateTeacherIncident} className="tp-panel flex flex-col gap-3">
+          <form onSubmit={handleCreateTeacherIncident} className="tp-panel flex flex-col gap-3 p-4">
             <div className="tp-panel-header">
               <h2 className="tp-panel-title">
                 <ShieldAlert size={14} color="#F59E0B" />
@@ -1430,22 +1438,33 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
               <select
+                aria-label="Estudante"
                 value={incStudentId}
                 onChange={e => setIncStudentId(e.target.value)}
-                className="bg-slate-900 border border-white/15 rounded-lg px-2.5 py-2 text-white"
+                className="bg-slate-900 border border-white/15 rounded-lg px-3 py-2.5 text-white"
               >
-                {(mvpOverview?.students || []).map(s => (
-                  <option key={s.id} value={s.id}>
-                    {s.full_name} ({s.class_id})
-                  </option>
-                ))}
+                {(mvpOverview?.students || []).length === 0 ? (
+                  <option value="">Nenhum estudante vinculado</option>
+                ) : (
+                  [...(mvpOverview?.students || [])]
+                    .sort((a, b) => String(a.full_name || '').localeCompare(String(b.full_name || ''), 'pt-BR'))
+                    .map(s => {
+                      const clsName = (mvpOverview?.classes || []).find(c => c.id === s.class_id)?.name || s.class_id;
+                      return (
+                        <option key={s.id} value={s.id}>
+                          {s.full_name} — {clsName}
+                        </option>
+                      );
+                    })
+                )}
               </select>
               <select
+                aria-label="Categoria"
                 value={incCategory}
                 onChange={e => setIncCategory(e.target.value as any)}
-                className="bg-slate-900 border border-white/15 rounded-lg px-2.5 py-2 text-white"
+                className="bg-slate-900 border border-white/15 rounded-lg px-3 py-2.5 text-white"
               >
                 <option value="PEDAGOGICAL">Pedagógica</option>
                 <option value="PRAISE">Elogio / Destaque Positivo</option>
@@ -1460,11 +1479,17 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
               value={incTitle}
               onChange={e => setIncTitle(e.target.value)}
               placeholder="Título objetivo da ocorrência ou elogio *"
-              className="bg-slate-900 border border-white/15 rounded-lg px-3 py-2 text-xs text-white"
+              className="bg-slate-900 border border-white/15 rounded-lg px-3 py-2.5 text-xs text-white"
             />
 
-            <div className="flex flex-wrap gap-3 text-xs">
-              <label className="flex items-center gap-1.5 cursor-pointer">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs">
+              <label
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition ${
+                  incMode === 'INTERNAL_ONLY'
+                    ? 'bg-sky-500/15 border-sky-400/50 text-white'
+                    : 'bg-black/30 border-white/10 text-slate-300'
+                }`}
+              >
                 <input
                   type="radio"
                   name="incMode"
@@ -1473,7 +1498,13 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
                 />
                 <span>Registro Interno da Equipe (não enviado à família)</span>
               </label>
-              <label className="flex items-center gap-1.5 cursor-pointer">
+              <label
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition ${
+                  incMode === 'FOR_REVIEW'
+                    ? 'bg-amber-500/15 border-amber-400/50 text-white'
+                    : 'bg-black/30 border-white/10 text-slate-300'
+                }`}
+              >
                 <input
                   type="radio"
                   name="incMode"
@@ -1485,11 +1516,11 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
             </div>
 
             <textarea
-              rows={2}
+              rows={3}
               value={incInternalNotes}
               onChange={e => setIncInternalNotes(e.target.value)}
               placeholder="Nota interna da equipe (contexto pedagógico reservado)"
-              className="bg-slate-900 border border-white/15 rounded-lg px-3 py-2 text-xs text-white"
+              className="bg-slate-900 border border-white/15 rounded-lg px-3 py-2.5 text-xs text-white"
             />
 
             {incMode === 'FOR_REVIEW' && (
@@ -1498,35 +1529,47 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
                 value={incSuggestedSummary}
                 onChange={e => setIncSuggestedSummary(e.target.value)}
                 placeholder="Sugestão de resumo para a família (passará por revisão e publicação da Coordenação)"
-                className="bg-sky-950/40 border border-sky-500/35 rounded-lg px-3 py-2 text-xs text-white"
+                className="bg-sky-950/40 border border-sky-500/35 rounded-lg px-3 py-2.5 text-xs text-white"
               />
             )}
 
-            <button type="submit" className="tp-action-btn primary" style={{ alignSelf: 'flex-start' }}>
-              <Send size={13} /> Salvar Registro
+            <button
+              type="submit"
+              className="tp-action-btn primary"
+              style={{ alignSelf: 'flex-start', height: 36, padding: '0 16px' }}
+            >
+              <Send size={14} /> Salvar Registro
             </button>
           </form>
 
-          <section className="tp-panel flex flex-col gap-2">
+          <section className="tp-panel flex flex-col gap-2 p-4">
             <div className="tp-panel-header">
               <h2 className="tp-panel-title">
                 <FileText size={14} color="#60A5FA" />
                 <span>Ocorrências &amp; Elogios Recentes ({(mvpOverview?.incidents || []).length})</span>
               </h2>
             </div>
-            {(mvpOverview?.incidents || []).map(inc => (
-              <div key={inc.id} className="p-3 rounded-xl bg-black/35 border border-white/10 text-xs flex flex-col gap-1">
-                <div className="flex justify-between">
-                  <strong className="text-white">{inc.title}</strong>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/10 text-slate-200">
-                    {inc.published_to_family === 1 ? 'Publicado à Família' : 'Interno / Em Revisão'}
-                  </span>
-                </div>
-                <span className="text-slate-400">
-                  Estudante: {inc.student_id} • Categoria: {inc.category} • Status: {inc.status}
-                </span>
-              </div>
-            ))}
+            {(mvpOverview?.incidents || []).length === 0 ? (
+              <p className="text-xs text-slate-400 py-4">Nenhum registro lançado até o momento.</p>
+            ) : (
+              (mvpOverview?.incidents || []).map(inc => {
+                const stName =
+                  (mvpOverview?.students || []).find(s => s.id === inc.student_id)?.full_name || inc.student_id;
+                return (
+                  <div key={inc.id} className="p-2.5 rounded-xl bg-black/35 border border-white/10 text-xs flex flex-col gap-1">
+                    <div className="flex justify-between gap-2">
+                      <strong className="text-white">{inc.title}</strong>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-white/10 text-slate-200 whitespace-nowrap">
+                        {inc.published_to_family === 1 ? 'Publicado à Família' : 'Interno / Em Revisão'}
+                      </span>
+                    </div>
+                    <span className="text-slate-400">
+                      Estudante: {stName} • Categoria: {inc.category} • Status: {inc.status}
+                    </span>
+                  </div>
+                );
+              })
+            )}
           </section>
         </div>
       )}
@@ -1613,7 +1656,7 @@ const PremiumDashboard: React.FC<{ onNavigate: (page: string) => void; user?: an
                         <div>
                           <div className="tp-compact-text">{st.full_name}</div>
                           <div className="tp-compact-sub">
-                            {st.registration_code || st.id} • Turma {st.class_id}
+                            Turma {(mvpOverview.classes || []).find(c => c.id === st.class_id)?.name || st.class_id}
                           </div>
                         </div>
                       </div>

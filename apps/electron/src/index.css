@@ -1,7 +1,16 @@
+@import "tailwindcss";
 @import './ui/styles/aquila-accessible-ui.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@theme {
+  --color-primary: #3b82f6;
+  --color-secondary: #6366f1;
+  --color-accent: #06b6d4;
+  --color-danger: #ef4444;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-bg-dark: #0f172a;
+  --color-bg-deep: #020617;
+}
 
 :root {
   /* Select & Option High-Contrast Dark System Override */
@@ -117,36 +126,38 @@ select option:checked {
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  background: var(--bg-gradient);
-  background-attachment: fixed;
-  color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.25;
-  overflow: hidden; /* Main window doesn't scroll, pages do */
-  -webkit-font-smoothing: antialiased;
-}
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.25;
+    overflow: hidden; /* Main window doesn't scroll, pages do */
+    -webkit-font-smoothing: antialiased;
+  }
 
-#root {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
+  #root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
 
-/* Typrography */
-h1, h2, h3 {
-  letter-spacing: -0.02em;
+  /* Typography */
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+  }
 }
 
 .text-gradient {

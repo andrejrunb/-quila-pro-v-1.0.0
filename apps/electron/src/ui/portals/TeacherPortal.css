@@ -409,7 +409,7 @@
 .tp-compact-list {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
 }
 
 .tp-compact-item {
@@ -417,7 +417,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 5px 8px;
+  padding: 4px 8px;
   background: #141B2D;
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 6px;
@@ -496,4 +496,72 @@
   border-color: rgba(59, 130, 246, 0.5);
   color: #60A5FA;
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.25);
+}
+
+/* ── Chamada Digital Rápida: Linhas Compactas e Botões Maiores ── */
+.tp-att-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tp-att-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(15, 23, 42, 0.85);
+  color: #cbd5e1;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.tp-att-btn.present {
+  min-width: 108px;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.tp-att-btn.present.active {
+  background: #059669;
+  border-color: #34d399;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+}
+
+.tp-att-btn.absent {
+  min-width: 96px;
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+.tp-att-btn.absent.active {
+  background: #e11d48;
+  border-color: #fb7185;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.35);
+}
+
+.tp-att-btn.late,
+.tp-att-btn.justified {
+  min-width: 76px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tp-att-btn.late.active,
+.tp-att-btn.justified.active {
+  background: #d97706;
+  border-color: #fbbf24;
+  color: #ffffff;
 }

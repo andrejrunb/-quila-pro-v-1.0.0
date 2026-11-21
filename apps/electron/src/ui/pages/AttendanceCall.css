@@ -553,3 +553,110 @@
     display: none !important;
   }
 }
+
+/* ── Tabela Compacta e Botões Maiores de Presente / Falta ── */
+.att-compact-table th {
+  padding: 6px 12px;
+}
+
+.att-compact-table td {
+  padding: 4px 12px;
+  vertical-align: middle;
+  line-height: 1.15;
+}
+
+.att-student-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.att-status-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.att-status-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(15, 23, 42, 0.85);
+  color: #cbd5e1;
+  transition: all 0.15s ease;
+  padding: 0 12px;
+}
+
+.att-status-btn.present {
+  min-width: 108px;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.att-status-btn.present:hover {
+  background: rgba(16, 185, 129, 0.18);
+  color: #ecfdf5;
+}
+
+.att-status-btn.present.active {
+  background: #059669;
+  border-color: #34d399;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+}
+
+.att-status-btn.absent {
+  min-width: 96px;
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+.att-status-btn.absent:hover {
+  background: rgba(244, 63, 94, 0.18);
+  color: #fff1f2;
+}
+
+.att-status-btn.absent.active {
+  background: #e11d48;
+  border-color: #fb7185;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.35);
+}
+
+.att-status-btn.justified {
+  min-width: 78px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.att-status-btn.justified:hover {
+  background: rgba(217, 119, 6, 0.2);
+  color: #fffbeb;
+}
+
+.att-status-btn.justified.active {
+  background: #d97706;
+  border-color: #fbbf24;
+  color: #ffffff;
+}
+
+.att-status-btn.unverified {
+  width: 34px;
+  min-width: 34px;
+  padding: 0;
+  color: #94a3b8;
+}
+
+.att-status-btn.unverified.active {
+  background: #334155;
+  border-color: #64748b;
+  color: #f8fafc;
+}

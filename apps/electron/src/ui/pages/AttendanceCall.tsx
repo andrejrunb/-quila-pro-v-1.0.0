@@ -116,25 +116,29 @@ const DEFAULT_CLASSES = [
   { id: 'M-EM3A',  name: '3º Ano Terceirão Olímpico' },
 ];
 
-const STATUS_META: Record<AttendanceStatus, { label: string; short: string; badgeClass: string }> = {
+const STATUS_META: Record<AttendanceStatus, { label: string; short: string; btnLabel: string; badgeClass: string }> = {
   unverified: {
     label: 'Não conferido',
     short: '—',
+    btnLabel: '—',
     badgeClass: 'bg-slate-800/80 text-slate-300 border-slate-600/50'
   },
   present: {
     label: 'Presente',
     short: 'P',
+    btnLabel: 'Presente',
     badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
   },
   absent: {
     label: 'Ausente',
     short: 'F',
+    btnLabel: 'Falta',
     badgeClass: 'bg-rose-500/20 text-rose-300 border-rose-500/40'
   },
   justified: {
     label: 'Justificado',
     short: 'J',
+    btnLabel: 'Justif.',
     badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/40'
   }
 };
@@ -293,13 +297,6 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
       ...prev,
       [studentId]: status
     }));
-  };
-
-  const cycleStatus = (studentId: string) => {
-    const order: AttendanceStatus[] = ['unverified', 'present', 'absent', 'justified'];
-    const current = records[studentId] || 'unverified';
-    const nextIdx = (order.indexOf(current) + 1) % order.length;
-    setStudentStatus(studentId, order[nextIdx]);
   };
 
   const handleBatchAction = (action: 'all_present' | 'all_absent' | 'mark_unverified_present' | 'invert') => {
@@ -715,21 +712,20 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+              <table className="w-full text-left border-collapse att-compact-table">
                 <thead>
                   <tr className="border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400 bg-slate-900/50">
-                    <th className="py-1.5 px-3 w-12">Nº</th>
-                    <th className="py-1.5 px-3">Estudante / Matrícula</th>
-                    <th className="py-1.5 px-3 w-44">Faltas Acumuladas</th>
-                    <th className="py-1.5 px-3 text-right">Estado na Aula</th>
+                    <th className="w-12">Nº</th>
+                    <th>Estudante</th>
+                    <th className="w-40">Faltas Acumuladas</th>
+                    <th className="text-right">Chamada</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-xs">
+                <tbody className="divide-y divide-slate-800/50 text-xs">
                   {students.map((student, idx) => {
                     const status: AttendanceStatus = records[student.id] || 'unverified';
                     const absences = student.cumulativeAbsences || 0;
                     const isLdbAlert = absences >= 15;
-                    const meta = STATUS_META[status];
 
                     return (
                       <tr
@@ -737,18 +733,13 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
                         className="hover:bg-slate-800/30 transition-colors"
                         data-testid={`attendance-row-${student.id}`}
                       >
-                        <td className="py-1.5 px-3 font-mono text-slate-400 font-bold">
+                        <td className="font-mono text-slate-400 font-bold">
                           #{idx + 1}
                         </td>
-                        <td className="py-1.5 px-3">
-                          <div className="font-bold text-slate-100">{student.name}</div>
-                          {student.registrationNumber && (
-                            <div className="text-[11px] font-mono text-slate-400">
-                              Matrícula: {student.registrationNumber}
-                            </div>
-                          )}
+                        <td>
+                          <div className="att-student-name">{student.name}</div>
                         </td>
-                        <td className="py-1.5 px-3">
+                        <td>
                           <div className="flex items-center gap-2">
                             <span className="font-mono text-slate-300">{absences} faltas</span>
                             {isLdbAlert && (
@@ -764,38 +755,20 @@ export const AttendanceCall: React.FC<AttendanceCallProps> = ({ onBack, user }) 
                             )}
                           </div>
                         </td>
-                        <td className="py-1.5 px-3 text-right">
-                          <div className="inline-flex items-center gap-1.5 flex-wrap justify-end">
-                            <span
-                              onClick={() => cycleStatus(student.id)}
-                              className={`px-2.5 py-1 rounded-md text-[11px] font-bold border cursor-pointer ${meta.badgeClass}`}
-                              title="Clique para alternar estado"
-                            >
-                              {meta.label}
-                            </span>
-                            <div className="inline-flex rounded-lg bg-slate-900 border border-slate-700 p-0.5">
-                              {(['present', 'absent', 'justified', 'unverified'] as AttendanceStatus[]).map(opt => (
-                                <button
-                                  key={opt}
-                                  type="button"
-                                  onClick={() => setStudentStatus(student.id, opt)}
-                                  className={`px-2 py-0.5 rounded text-[11px] font-bold transition ${
-                                    status === opt
-                                      ? opt === 'present'
-                                        ? 'bg-emerald-600 text-white'
-                                        : opt === 'absent'
-                                        ? 'bg-rose-600 text-white'
-                                        : opt === 'justified'
-                                        ? 'bg-amber-600 text-white'
-                                        : 'bg-slate-700 text-white'
-                                      : 'text-slate-400 hover:text-slate-200'
-                                  }`}
-                                  title={STATUS_META[opt].label}
-                                >
-                                  {STATUS_META[opt].short}
-                                </button>
-                              ))}
-                            </div>
+                        <td className="text-right">
+                          <div className="att-status-group" role="group" aria-label={`Chamada de ${student.name}`}>
+                            {(['present', 'absent', 'justified', 'unverified'] as AttendanceStatus[]).map(opt => (
+                              <button
+                                key={opt}
+                                type="button"
+                                onClick={() => setStudentStatus(student.id, opt)}
+                                className={`att-status-btn ${opt} ${status === opt ? 'active' : ''}`}
+                                title={STATUS_META[opt].label}
+                                aria-pressed={status === opt}
+                              >
+                                {STATUS_META[opt].btnLabel}
+                              </button>
+                            ))}
                           </div>
                         </td>
                       </tr>
