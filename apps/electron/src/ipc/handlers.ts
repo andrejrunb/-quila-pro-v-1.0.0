@@ -1,4 +1,4 @@
-import { ipcMain, shell, dialog, clipboard, Notification } from 'electron';
+import { ipcMain, shell, dialog, clipboard, Notification, BrowserWindow, app } from 'electron';
 
 import * as os from 'os';
 
@@ -10684,14 +10684,16 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
     };
   });
 
-  protectedHandle('ai:generate-report-comment', async (_event, payload: { studentId?: string; globalAvg?: number; frequencyRate?: number }) => {
-    const { studentId = '', globalAvg = 7.5, frequencyRate = 90 } = payload || {};
-    let studentName = studentId || 'o(a) estudante';
-    try {
-      const stu = studentId ? await context.db?.getStudent?.(studentId) : null;
-      if (stu?.name) studentName = stu.name;
-    } catch {
-      // mantém fallback
+  protectedHandle('ai:generate-report-comment', async (_event, payload: { studentId?: string; studentName?: string; globalAvg?: number; frequencyRate?: number }) => {
+    const { studentId = '', studentName: providedName, globalAvg = 7.5, frequencyRate = 90 } = payload || {};
+    let studentName = (providedName && providedName.trim()) ? providedName.trim() : (studentId || 'o(a) estudante');
+    if (!providedName || !providedName.trim()) {
+      try {
+        const stu = studentId ? await context.db?.getStudent?.(studentId) : null;
+        if (stu?.name) studentName = stu.name;
+      } catch {
+        // mantém fallback
+      }
     }
 
     const prompt = `Elabore um parecer pedagógico breve (1 parágrafo de 3 a 4 frases, em português formal e empático) para o boletim escolar de ${studentName}.
@@ -10849,20 +10851,67 @@ Destaque pontos positivos e orientações construtivas para o próximo bimestre.
     return { success: true, id: docId, name: safeName, filePath, size: Number(data.size ?? bytes.length) };
   });
 
-  protectedHandle('export:boletim-pdf', async (_event, payload: string | { studentId?: string; name?: string; grades?: any[] }) => {
-    const studentId = typeof payload === 'string' ? payload : (payload?.studentId || 'aluno');
-    const providedName = typeof payload === 'object' ? payload?.name : undefined;
-    const providedGrades = typeof payload === 'object' && Array.isArray(payload?.grades) ? payload.grades : null;
+  const escapePrintHtml = (value: unknown): string =>
+    String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
 
-    let student: any = { id: studentId, name: providedName || `Aluno ${studentId}` };
+  type ReportCardPayload =
+    | string
+    | {
+        studentId?: string;
+        name?: string;
+        className?: string;
+        ra?: string;
+        period?: string;
+        grades?: any[];
+        frequency?: {
+          rate?: number;
+          absences?: number;
+          totalDays?: number;
+          presentDays?: number;
+          justifiedAbsences?: number;
+        };
+        parecer?: string;
+        skipDialog?: boolean;
+      };
+
+  const resolveReportCardPayload = async (payload: ReportCardPayload) => {
+    const isObj = typeof payload === 'object' && payload !== null;
+    const studentId = typeof payload === 'string' ? payload : (payload?.studentId || 'aluno');
+    const providedName = isObj ? payload.name?.trim() : undefined;
+    const providedClassName = isObj ? payload.className?.trim() : undefined;
+    const providedRa = isObj ? payload.ra?.trim() : undefined;
+    const providedPeriod = isObj ? payload.period?.trim() : undefined;
+    const providedGrades = isObj && Array.isArray(payload.grades) ? payload.grades : null;
+    const providedFrequency = isObj ? payload.frequency : undefined;
+    const providedParecer = isObj ? payload.parecer?.trim() : undefined;
+    const skipDialog = isObj && Boolean(payload.skipDialog);
+
+    let student: any = {
+      id: studentId,
+      name: providedName || `Aluno ${studentId}`,
+      className: providedClassName,
+      ra: providedRa,
+    };
     try {
       const dbStu = await context.db?.getStudent?.(studentId);
-      if (dbStu) student = dbStu;
+      if (dbStu) {
+        student = {
+          ...dbStu,
+          name: providedName || dbStu.name || student.name,
+          className: providedClassName || dbStu.className || dbStu.turma,
+          ra: providedRa || dbStu.ra,
+        };
+      }
     } catch {
       // usa fallback
     }
 
-    let rawGrades: any[] = providedGrades || [];
+    let rawGrades: any[] = providedGrades && providedGrades.length > 0 ? [...providedGrades] : [];
     if (rawGrades.length === 0 && context.db?.all) {
       try {
         const gb = await context.db.all(
@@ -10870,7 +10919,7 @@ Destaque pontos positivos e orientações construtivas para o próximo bimestre.
           [studentId]
         );
         if (Array.isArray(gb) && gb.length > 0) {
-          rawGrades = gb.map((r: any) => ({ subject: r.subject, type: 'Média', value: Number(r.value ?? 0), weight: 1.0 }));
+          rawGrades = gb.map((r: any) => ({ subject: r.subject, type: 'Média', value: Number(r.value ?? 0), avg: Number(r.value ?? 0), weight: 1.0 }));
         }
       } catch {
         // tenta tabela legada
@@ -10879,7 +10928,7 @@ Destaque pontos positivos e orientações construtivas para o próximo bimestre.
         try {
           const sg = await context.db.all('SELECT type, value, weight FROM student_grades WHERE studentId = ?', [studentId]);
           if (Array.isArray(sg) && sg.length > 0) {
-            rawGrades = sg.map((r: any) => ({ subject: r.type || 'Geral', type: r.type || 'Avaliação', value: Number(r.value ?? 0), weight: Number(r.weight ?? 1.0) }));
+            rawGrades = sg.map((r: any) => ({ subject: r.type || 'Geral', type: r.type || 'Avaliação', value: Number(r.value ?? 0), avg: Number(r.value ?? 0), weight: Number(r.weight ?? 1.0) }));
           }
         } catch {
           // sem notas em DB
@@ -10889,21 +10938,253 @@ Destaque pontos positivos e orientações construtivas para o próximo bimestre.
 
     const formattedGrades = (rawGrades.length > 0
       ? rawGrades
-      : [{ subject: 'Média Geral', type: 'Consolidado', value: 8.0, weight: 1.0 }]
-    ).map((g: any) => ({
-      subject: String(g.subject || 'Geral'),
-      type: String(g.type || 'Média'),
-      value: Number(g.value ?? g.avg ?? 0),
-      weight: Number(g.weight ?? 1.0),
-    }));
+      : [{ subject: 'Média Geral', type: 'Consolidado', value: 8.0, avg: 8.0, weight: 1.0 }]
+    ).map((g: any) => {
+      const hasAvg = g.avg !== undefined && g.avg !== null;
+      const numericAvg = hasAvg ? Number(g.avg) : undefined;
+      const numericVal = g.value !== undefined && g.value !== null ? Number(g.value) : (numericAvg ?? 0);
+      return {
+        subject: String(g.subject || 'Geral'),
+        type: String(g.type || 'Média'),
+        value: Number.isFinite(numericVal) ? numericVal : 0,
+        weight: Number(g.weight ?? 1.0),
+        b1: g.b1 ?? null,
+        b2: g.b2 ?? null,
+        b3: g.b3 ?? null,
+        b4: g.b4 ?? null,
+        avg: numericAvg !== undefined && Number.isFinite(numericAvg) ? numericAvg : (Number.isFinite(numericVal) ? numericVal : 0),
+      };
+    });
+
+    return {
+      student,
+      formattedGrades,
+      className: student.className,
+      ra: student.ra,
+      period: providedPeriod,
+      frequency: providedFrequency,
+      parecer: providedParecer,
+      skipDialog,
+    };
+  };
+
+  protectedHandle('export:boletim-pdf', async (_event, payload: ReportCardPayload) => {
+    const resolved = await resolveReportCardPayload(payload);
+    const { student, formattedGrades, className, ra, period, frequency, parecer, skipDialog } = resolved;
+
+    let destPath: string | undefined;
+    if (!skipDialog && typeof dialog?.showSaveDialog === 'function') {
+      const safeName = String(student.name || student.id || 'Aluno')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9_-]+/g, '_')
+        .replace(/^_+|_+$/g, '') || 'Aluno';
+      let docsDir = context.REPORTS_PATH || os.tmpdir();
+      try {
+        docsDir = app?.getPath?.('documents') || docsDir;
+      } catch {
+        // usa fallback
+      }
+      const saveOptions: Electron.SaveDialogOptions = {
+        title: 'Salvar Boletim Escolar em PDF',
+        defaultPath: path.join(docsDir, `Boletim_${safeName}.pdf`),
+        filters: [{ name: 'Documento PDF', extensions: ['pdf'] }],
+      };
+      const focusedWin = BrowserWindow?.getFocusedWindow?.();
+      const saveResult = focusedWin
+        ? await dialog.showSaveDialog(focusedWin, saveOptions)
+        : await dialog.showSaveDialog(saveOptions);
+
+      if (saveResult.canceled || !saveResult.filePath) {
+        return { success: false, canceled: true };
+      }
+      destPath = saveResult.filePath;
+    }
 
     const { DocumentService } = await import('../main/services/DocumentService');
     const docService = context.documentService?.generateReportCardPDF
       ? context.documentService
       : new DocumentService(context.REPORTS_PATH || path.join(os.tmpdir(), 'aquila-reports'));
 
-    const filePath = await docService.generateReportCardPDF(student, formattedGrades);
-    return { success: true, filePath };
+    const filePath = await docService.generateReportCardPDF(student, formattedGrades, {
+      className,
+      ra,
+      period,
+      frequency,
+      parecer,
+      outputPath: destPath,
+    });
+
+    if (!skipDialog && filePath && typeof shell?.openPath === 'function') {
+      try {
+        await shell.openPath(filePath);
+      } catch {
+        // arquivo já foi salvo em filePath mesmo que visualizador padrão falhe
+      }
+    }
+
+    return { success: true, filePath, canceled: false };
+  });
+
+  protectedHandle('print:boletim', async (_event, payload: ReportCardPayload) => {
+    const { student, formattedGrades, className, ra, period, frequency, parecer } = await resolveReportCardPayload(payload);
+
+    const isBimester = formattedGrades.some(
+      (g) => g.b1 !== null || g.b2 !== null || g.b3 !== null || g.b4 !== null
+    );
+    const fmt = (n: number | null) => (n === null || n === undefined || !Number.isFinite(Number(n)) ? '—' : Number(n).toFixed(1));
+    const globalAvg = formattedGrades.length > 0
+      ? formattedGrades.reduce((acc, g) => acc + Number(g.avg ?? g.value ?? 0), 0) / formattedGrades.length
+      : 0;
+
+    const tableHeaderHtml = isBimester
+      ? '<tr><th>Disciplina</th><th class="num">1º Bim</th><th class="num">2º Bim</th><th class="num">3º Bim</th><th class="num">4º Bim</th><th class="num">Média</th></tr>'
+      : '<tr><th>Disciplina</th><th>Avaliação</th><th class="num">Nota</th><th class="num">Peso</th></tr>';
+
+    const tableRowsHtml = formattedGrades
+      .map((g) =>
+        isBimester
+          ? `<tr><td>${escapePrintHtml(g.subject)}</td><td class="num">${fmt(g.b1)}</td><td class="num">${fmt(g.b2)}</td><td class="num">${fmt(g.b3)}</td><td class="num">${fmt(g.b4)}</td><td class="num bold">${Number(g.avg ?? 0).toFixed(1)}</td></tr>`
+          : `<tr><td>${escapePrintHtml(g.subject)}</td><td>${escapePrintHtml(g.type)}</td><td class="num">${Number(g.value ?? 0).toFixed(1)}</td><td class="num">${Number(g.weight ?? 1).toFixed(1)}</td></tr>`
+      )
+      .join('');
+
+    const freqHtml = frequency
+      ? `<div class="section">
+          <div class="section-title">Frequência Escolar</div>
+          <div class="meta-grid">
+            <div><strong>Taxa de Presença:</strong> ${escapePrintHtml(frequency.rate ?? 0)}%</div>
+            <div><strong>Faltas Totais:</strong> ${escapePrintHtml(frequency.absences ?? 0)}</div>
+            <div><strong>Dias Letivos:</strong> ${escapePrintHtml(frequency.totalDays ?? 0)}</div>
+          </div>
+        </div>`
+      : '';
+
+    const parecerHtml = parecer
+      ? `<div class="section parecer-box">
+          <div class="section-title">Parecer Pedagógico</div>
+          <p>${escapePrintHtml(parecer)}</p>
+        </div>`
+      : '';
+
+    const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Boletim - ${escapePrintHtml(student.name)}</title>
+<style>
+  @page { size: A4; margin: 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #0f172a; background: #ffffff; margin: 0; padding: 0; font-size: 12px; line-height: 1.45; }
+  .header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #047857; padding-bottom: 10px; margin-bottom: 14px; }
+  .title { font-size: 18px; font-weight: 800; color: #047857; margin: 0; }
+  .subtitle { font-size: 11px; color: #475569; margin-top: 2px; }
+  .student-card { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 12px; margin-bottom: 14px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 16px; }
+  .student-card div { font-size: 12px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+  th { background: #e2e8f0; color: #1e293b; text-align: left; padding: 7px 8px; font-size: 11px; text-transform: uppercase; border-bottom: 1px solid #cbd5e1; }
+  td { padding: 7px 8px; border-bottom: 1px solid #e2e8f0; }
+  .num { text-align: right; }
+  .bold { font-weight: 700; color: #047857; }
+  .avg-banner { background: #047857; color: #ffffff; padding: 8px 12px; border-radius: 6px; display: flex; justify-content: space-between; font-weight: 700; font-size: 13px; margin-bottom: 14px; }
+  .section { border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; background: #ffffff; }
+  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #475569; margin-bottom: 6px; letter-spacing: 0.4px; }
+  .meta-grid { display: flex; gap: 24px; }
+  .parecer-box p { margin: 0; font-style: italic; color: #1e293b; }
+  .footer { margin-top: 18px; font-size: 10px; color: #64748b; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 8px; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1 class="title">BOLETIM ESCOLAR PEDAGÓGICO</h1>
+      <div class="subtitle">Áquila Pro — Gestão Educacional Soberana</div>
+    </div>
+    <div class="subtitle">${escapePrintHtml(period || '1º Semestre 2026')}</div>
+  </div>
+  <div class="student-card">
+    <div><strong>Aluno(a):</strong> ${escapePrintHtml(student.name)}</div>
+    <div><strong>Matrícula / ID:</strong> ${escapePrintHtml(student.id)}</div>
+    ${className ? `<div><strong>Turma:</strong> ${escapePrintHtml(className)}</div>` : ''}
+    ${ra ? `<div><strong>RA:</strong> ${escapePrintHtml(ra)}</div>` : ''}
+  </div>
+  <table>
+    <thead>${tableHeaderHtml}</thead>
+    <tbody>${tableRowsHtml}</tbody>
+  </table>
+  <div class="avg-banner">
+    <span>MÉDIA GLOBAL ACUMULADA</span>
+    <span>${globalAvg.toFixed(2)}</span>
+  </div>
+  ${freqHtml}
+  ${parecerHtml}
+  <div class="footer">Documento emitido pelo Áquila Pro em ${new Date().toLocaleDateString('pt-BR')}</div>
+</body>
+</html>`;
+
+    return await new Promise<{ success: boolean; canceled?: boolean; error?: string }>((resolve) => {
+      let settled = false;
+      const printWin = new BrowserWindow({
+        show: false,
+        width: 820,
+        height: 1080,
+        webPreferences: {
+          sandbox: true,
+          contextIsolation: true,
+          nodeIntegration: false,
+          javascript: false,
+        },
+      });
+
+      const finish = (result: { success: boolean; canceled?: boolean; error?: string }) => {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timer);
+          if (!printWin.isDestroyed()) {
+            printWin.close();
+          }
+          resolve(result);
+        }
+      };
+
+      const timer = setTimeout(() => {
+        finish({ success: false, error: 'Tempo esgotado ao preparar janela de impressão.' });
+      }, 25000);
+
+      printWin.once('closed', () => {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timer);
+          resolve({ success: false, canceled: true });
+        }
+      });
+
+      printWin.webContents.once('did-fail-load', (_e, _errCode, errDesc) => {
+        finish({ success: false, error: errDesc || 'Falha ao carregar conteúdo para impressão.' });
+      });
+
+      printWin.webContents.once('did-finish-load', () => {
+        try {
+          printWin.webContents.print(
+            { silent: false, printBackground: true },
+            (success, failureReason) => {
+              const isCanceled = typeof failureReason === 'string' && failureReason.toLowerCase().includes('cancel');
+              finish(
+                success
+                  ? { success: true }
+                  : { success: false, canceled: isCanceled, error: isCanceled ? undefined : (failureReason || 'Falha na impressão.') }
+              );
+            }
+          );
+        } catch (err: any) {
+          finish({ success: false, error: err?.message || 'Erro ao iniciar diálogo de impressão.' });
+        }
+      });
+
+      printWin.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`).catch((err: any) => {
+        finish({ success: false, error: err?.message || 'Falha ao renderizar boletim para impressão.' });
+      });
+    });
   });
 
   protectedHandle('get-whiteboard-analysis', async (_event, payload?: string | { classId?: string }) => {

@@ -8,7 +8,11 @@
  */
 
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
+import { DocumentService } from '../apps/electron/src/main/services/DocumentService';
 import {
   ensureMvp01Schema,
   seedMvp01DemoData,
@@ -887,6 +891,60 @@ async function main() {
 
     const memCount = await legDb.get<any>(`SELECT COUNT(*) as n FROM mvp01_memberships WHERE user_id = 'teacher-andre'`);
     assert.equal(memCount.n, 1, 'Não deve duplicar membership pré-existente');
+  });
+
+  await runCase('9. Boletim PDF WinAnsi, Impressão IPC, CSS Cascade & Parecer com studentName', async () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'aquila-boletim-test-'));
+    try {
+      const docService = new DocumentService(tmpDir);
+      const outPath = path.join(tmpDir, 'nested', 'Boletim_Alice_Teste.pdf');
+      const pdfPath = await docService.generateReportCardPDF(
+        { id: 'STU-45248', name: 'Alice Lucas Lepesqueur — 7º Ano' },
+        [
+          { subject: 'Matemática', b1: 8.5, b2: 9.0, b3: null, b4: null, avg: 8.75 },
+          { subject: 'Português & Redação', b1: 9.0, b2: 8.5, b3: null, b4: null, avg: 8.75 },
+          { subject: 'Educação Física', b1: 10.0, b2: 10.0, b3: null, b4: null, avg: 10.0 },
+        ],
+        {
+          className: '7 ANO A',
+          ra: '2026-0042',
+          period: '1º Semestre 2026',
+          frequency: { rate: 98, absences: 4, totalDays: 80 },
+          parecer: '“Excelente desempenho” • Participação ativa — manter foco nos estudos · 100% comprometida!',
+          outputPath: outPath,
+        }
+      );
+
+      assert.equal(pdfPath, outPath, 'Deve respeitar outputPath selecionado pelo usuário');
+      const pdfStat = fs.statSync(pdfPath);
+      assert.ok(pdfStat.size > 1024, `PDF gerado deve ter tamanho > 1KB (atual: ${pdfStat.size})`);
+      const header = fs.readFileSync(pdfPath).subarray(0, 5).toString('ascii');
+      assert.equal(header, '%PDF-', 'Arquivo exportado deve possuir assinatura %PDF- válida');
+    } finally {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+
+    const appRoot = path.resolve(__dirname, '../apps/electron');
+    const preloadSrc = fs.readFileSync(path.join(appRoot, 'src/preload.ts'), 'utf-8');
+    assert.ok(preloadSrc.includes("'export:boletim-pdf'"), 'preload deve autorizar export:boletim-pdf');
+    assert.ok(preloadSrc.includes("'print:boletim'"), 'preload deve autorizar print:boletim');
+
+    const indexHtmlSrc = fs.readFileSync(path.join(appRoot, 'index.html'), 'utf-8');
+    assert.ok(!/\*\s*\{[^}]*padding\s*:\s*0/i.test(indexHtmlSrc), 'index.html não deve conter reset global * { padding: 0 } fora de @layer');
+
+    const sensoryCssSrc = fs.readFileSync(path.join(appRoot, 'src/ui/pages/SensoryConfigDashboard.css'), 'utf-8');
+    assert.ok(sensoryCssSrc.includes('.sensory-container select'), 'SensoryConfigDashboard.css deve escopar select dentro de .sensory-container');
+    assert.ok(!/^select\s*\{/m.test(sensoryCssSrc), 'SensoryConfigDashboard.css não pode declarar seletor global select {}');
+
+    const handlersSrc = fs.readFileSync(path.join(appRoot, 'src/ipc/handlers.ts'), 'utf-8');
+    const reportCommentBlock = handlersSrc.match(/protectedHandle\('ai:generate-report-comment'[\s\S]*?return \{ success: true, comment: fallbackComment \};/);
+    assert.ok(reportCommentBlock, 'Handler ai:generate-report-comment deve existir em handlers.ts');
+    assert.ok(reportCommentBlock[0].includes('studentName'), 'Handler deve aceitar e priorizar studentName no parecer');
+    assert.ok(!reportCommentBlock[0].includes('STU-45248'), 'Handler não deve emitir identificador fixo STU-45248');
+
+    const reportCardSrc = fs.readFileSync(path.join(appRoot, 'src/ui/components/AcademicReportCard.tsx'), 'utf-8');
+    assert.ok(reportCardSrc.includes('studentName: student.name'), 'AcademicReportCard deve enviar studentName: student.name ao IPC de parecer');
+    assert.ok(reportCardSrc.includes("'print:boletim'"), 'AcademicReportCard deve acionar print:boletim na impressão');
   });
 
   console.log(`\nSUMMARY: passed=${passed} failed=${failed}`);

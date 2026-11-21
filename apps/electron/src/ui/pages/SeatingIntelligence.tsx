@@ -75,7 +75,8 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
   const [isFeedbackExpanded, setIsFeedbackExpanded] = useState(false);
   const [draggedStudent, setDraggedStudent] = useState<Student | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode] = useState<'grid' | 'list'>('grid');
+  const [autoSaveStatus, setAutoSaveStatus] = useState<'saved' | 'saving' | 'error'>('saved');
   const [gridZoom, setGridZoom] = useState<number>(100);
   const [feedbackRefreshTrigger, setFeedbackRefreshTrigger] = useState(0);
   const viewportRef = React.useRef<HTMLDivElement>(null);
@@ -97,6 +98,7 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
     if (isMovingDesk) {
       setIsMovingDesk(false);
       try { (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId); } catch { /* liberação indisponível */ }
+      void persistLayoutSilent(rows, cols, deskPos, students);
     }
   };
   
@@ -501,59 +503,85 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
       setStudents([]);
     }
   };
+  const persistLayoutSilent = async (
+    nextRows: number,
+    nextCols: number,
+    nextDeskPos: { x: number; y: number },
+    nextStudents: Student[]
+  ) => {
+    if (!selectedClassId || isLiveMode) return;
+    setAutoSaveStatus('saving');
+    try {
+      await window.aquila?.invoke('seating:save-layout', selectedClassId, {
+        rows: nextRows,
+        cols: nextCols,
+        deskPos: nextDeskPos,
+        students: nextStudents
+      });
+      setAutoSaveStatus('saved');
+    } catch (err) {
+      console.error('[Seating] Erro no auto-save do layout:', err);
+      setAutoSaveStatus('error');
+    }
+  };
   const saveLayout = async () => {
     try {
+      setAutoSaveStatus('saving');
       await window.aquila.invoke('seating:save-layout', selectedClassId, { 
         rows, 
         cols, 
         deskPos, 
         students 
       });
+      setAutoSaveStatus('saved');
       alert('Layout pedagógico persistido com sucesso!');
     } catch (err) {
       console.error('[Seating] Erro ao salvar layout:', err);
+      setAutoSaveStatus('error');
       alert('Erro ao salvar layout.');
     }
   };
   const handleColsChange = (newCols: number) => {
     const validCols = Math.max(1, Math.min(12, newCols));
-    setStudents(prev => {
-      const { packed, exactRows } = packStudentsToExactChairs(prev, validCols);
-      setCols(validCols);
-      setRows(exactRows);
-      return packed;
-    });
+    const { packed, exactRows } = packStudentsToExactChairs(students, validCols);
+    setCols(validCols);
+    setRows(exactRows);
+    setStudents(packed);
+    void persistLayoutSilent(exactRows, validCols, deskPos, packed);
   };
   const handleRowsChange = (newRows: number) => {
     const minNeededRows = Math.max(1, Math.ceil(Math.max(1, students.length) / cols));
     const validRows = Math.max(minNeededRows, Math.min(15, newRows));
     setRows(validRows);
+    void persistLayoutSilent(validRows, cols, deskPos, students);
   };
   const autoReorganizeGrid = () => {
-    setStudents(prev => {
-      const sorted = [...prev].sort((a, b) => a.name.localeCompare(b.name));
-      const exactRows = Math.max(1, Math.ceil(Math.max(1, sorted.length) / cols));
-      setRows(exactRows);
-      return sorted.map((s, idx) => ({
-        ...s,
-        row: Math.floor(idx / cols),
-        col: idx % cols
-      }));
-    });
+    const sorted = [...students].sort((a, b) => a.name.localeCompare(b.name));
+    const exactRows = Math.max(1, Math.ceil(Math.max(1, sorted.length) / cols));
+    const nextStudents = sorted.map((s, idx) => ({
+      ...s,
+      row: Math.floor(idx / cols),
+      col: idx % cols
+    }));
+    setRows(exactRows);
+    setStudents(nextStudents);
+    void persistLayoutSilent(exactRows, cols, deskPos, nextStudents);
   };
   const saveGridDimensions = async () => {
     if (!selectedClassId) return;
     try {
+      setAutoSaveStatus('saving');
       await window.aquila.invoke('seating:save-layout', selectedClassId, {
         rows,
         cols,
         deskPos,
         students
       });
-      alert(`Grid salvo com sucesso: ${rows} fileiras × ${cols} colunas!`);
+      setAutoSaveStatus('saved');
       setShowConfigPopover(false);
     } catch (err) {
       console.error('[Seating] Erro ao salvar grid:', err);
+      setAutoSaveStatus('error');
       alert('Erro ao salvar grid.');
     }
   };
@@ -582,19 +610,17 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
       return;
     }
     
-    setStudents(prev => {
-      const otherStudents = prev.filter(s => s.id !== draggedStudent.id);
-      const filtered = otherStudents.map(s => {
-        if (s.row === r && s.col === c) {
-          return { ...s, row: undefined, col: undefined };
-        }
-        return s;
-      });
-      
-      return [...filtered, { ...draggedStudent, row: r, col: c }];
+    const otherStudents = students.filter(s => s.id !== draggedStudent.id);
+    const filtered = otherStudents.map(s => {
+      if (s.row === r && s.col === c) {
+        return { ...s, row: undefined, col: undefined };
+      }
+      return s;
     });
-    
+    const nextStudents = [...filtered, { ...draggedStudent, row: r, col: c }];
+    setStudents(nextStudents);
     setDraggedStudent(null);
+    void persistLayoutSilent(rows, cols, deskPos, nextStudents);
   };
   const submitOccurrence = async (type: 'CONVERSA' | 'CELULAR' | 'QUADRO' | 'SONO' | 'INTERRUPCAO' | 'SEM_MATERIAL' | 'FORA_SALA' | 'FORA_MAPA') => {
     try {
@@ -892,10 +918,10 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '12px',
+                    gap: '10px',
                     width: '100%',
                     height: '100%',
-                    padding: '7px 10px',
+                    padding: '4px 8px 4px 4px',
                     background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.92) 100%)',
                     borderRadius: '12px',
                     boxSizing: 'border-box',
@@ -906,10 +932,12 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                 >
                   <div
                     style={{
-                      width: '54px',
-                      height: '54px',
+                      height: '100%',
+                      width: 'auto',
+                      aspectRatio: '1 / 1',
+                      maxWidth: '42%',
                       minWidth: '54px',
-                      borderRadius: '11px',
+                      borderRadius: '9px',
                       overflow: 'hidden',
                       background: '#1e293b',
                       border: '1.5px solid rgba(96, 165, 250, 0.45)',
@@ -923,7 +951,7 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                     <img 
                       src={getStudentPhoto(student)} 
                       alt={student.name} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%', display: 'block' }}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 18%', display: 'block' }}
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
                         const fallback = e.currentTarget.parentElement?.querySelector('.seat-fallback-avatar');
@@ -1146,13 +1174,8 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
       )}
       <header className="si-header">
         <div className="si-title-block">
-          {onNavigate && (
-            <button className="si-nav-btn glass" onClick={() => onNavigate('teacher-dashboard')} title="Painel do Professor">
-              <LayoutDashboard size={18} />
-            </button>
-          )}
           <button className="si-back-btn" onClick={onBack} title="Voltar">
-            <ChevronLeft size={18} />
+            <ChevronLeft size={16} />
           </button>
           <div className="si-class-selector-wrapper">
             <select 
@@ -1175,7 +1198,7 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                   onClick={() => setShowConfigPopover(!showConfigPopover)}
                   title="Configurar Fileiras e Colunas da Sala"
                 >
-                  <Settings size={15} />
+                  <Settings size={14} />
                   <span>{cols} Col × {rows} Fil</span>
                 </button>
                 {showConfigPopover && (
@@ -1244,14 +1267,14 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
                         onClick={autoReorganizeGrid}
                         title="Distribuir todos os alunos em ordem alfabética nas novas colunas"
                       >
-                        <RefreshCw size={12} /> Auto-Distribuir no Grid
+                        <ArrowLeftRight size={12} /> Auto-Distribuir no Grid
                       </button>
                       <button 
                         className="si-config-action-btn save" 
                         onClick={saveGridDimensions}
                         title="Salvar dimensões de colunas e fileiras"
                       >
-                        <Save size={12} /> Salvar Grid
+                        <CheckCircle2 size={12} /> Aplicar Grid
                       </button>
                     </div>
                   </div>
@@ -1261,130 +1284,65 @@ export const SeatingIntelligence: React.FC<SeatingIntelligenceProps> = ({ onBack
           </div>
         </div>
         <div className="si-actions">
-           {/* Cluster 1: Visualização & Zoom das Carteiras */}
-           <div className="si-control-cluster view-zoom-cluster">
-             <div className="si-view-toggle">
-               <button 
-                 className={`si-header-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                 onClick={() => setViewMode('grid')}
-                 title="Visualização em Mapa de Sala"
-               >
-                 <LayoutGrid size={14} />
-                 <span>Mapa</span>
-               </button>
-               <button 
-                 className={`si-header-btn ${viewMode === 'list' ? 'active' : ''}`}
-                 onClick={() => setViewMode('list')}
-                 title="Visualização Tradicional em Lista"
-               >
-                 <List size={14} />
-                 <span>Lista</span>
-               </button>
-             </div>
-             {/* Controles de Zoom Dedicados para o Mapa de Carteiras */}
-             <div className="si-zoom-controls" role="group" aria-label="Controle de Zoom do Mapa">
-               <button 
-                 type="button"
-                 className="si-zoom-btn" 
-                 onClick={() => setGridZoom(prev => Math.max(60, prev - 10))} 
-                 title="Diminuir Zoom das Carteiras (Ctrl -)"
-                 aria-label="Diminuir Zoom"
-               >
-                 <ZoomOut size={13} />
-               </button>
-               <button 
-                 type="button"
-                 className="si-zoom-value" 
-                 onClick={() => setGridZoom(100)} 
-                 title="Redefinir Zoom para 100%"
-                 aria-label="Redefinir Zoom"
-               >
-                 {gridZoom}%
-               </button>
-               <button 
-                 type="button"
-                 className="si-zoom-btn" 
-                 onClick={() => setGridZoom(prev => Math.min(150, prev + 10))} 
-                 title="Aumentar Zoom das Carteiras (Ctrl +)"
-                 aria-label="Aumentar Zoom"
-               >
-                 <ZoomIn size={13} />
-               </button>
-             </div>
-           </div>
-           {/* Cluster 2: Ferramentas Pedagógicas & Sugestão de Mapeamento */}
-           <div className="si-control-cluster tools-cluster">
-             <button
-               className="si-header-btn"
-               onClick={() => {
-                 if (onNavigate) onNavigate('gradebook');
-                 else window.dispatchEvent(new CustomEvent('aquila:navigate', { detail: 'gradebook' }));
-               }}
-               title="Abrir Planilha de Notas do Professor"
-             >
-               <FileText size={14} />
-               <span>Notas</span>
-             </button>
-             {showFeedback && (
-               <button 
-                 className={`si-header-btn feedback ${isFeedbackExpanded ? 'active' : ''}`}
-                 onClick={() => setIsFeedbackExpanded(!isFeedbackExpanded)}
-                 title="Relatórios e Ocorrências do Bimestre"
-               >
-                 <FileText size={14} />
-                 <span>Relatórios</span>
-               </button>
-             )}
-             <button 
-               className="si-header-btn suggest" 
-               onClick={() => openSuggestModal()}
-               title="Sugerir alteração do mapeamento de sala para autorização da Coordenação"
-               style={{ background: 'rgba(16, 185, 129, 0.18)', borderColor: '#10b981', color: '#10b981' }}
-             >
-               <ArrowLeftRight size={13} />
-               <span>Sugerir Alteração</span>
-             </button>
-             {pendingSuggestions.length > 0 && (
-               <button 
-                 className="si-header-btn pending-badge" 
-                 onClick={() => setShowPendingModal(true)}
-                 title="Ver propostas de alteração de mapeamento da turma"
-                 style={{ background: 'rgba(245, 158, 11, 0.18)', borderColor: '#f59e0b', color: '#fbbf24' }}
-               >
-                 <Clock size={13} />
-                 <span>Sugestões ({pendingSuggestions.filter(s => s.status === 'PENDENTE').length})</span>
-               </button>
-             )}
-           </div>
-           {/* Legenda de Status Realocada (Compacta no Topo) */}
-           <div className="si-legend-compact" role="note" aria-label="Legenda dos Assentos" title="Legenda de status das carteiras">
-             <div className="leg-item"><span className="si-leg-dot empty"></span> Vazio</div>
-             <div className="leg-item"><span className="si-leg-dot occupied"></span> Ocupado</div>
-             <div className="leg-item"><span className="si-leg-dot detected"></span> IA</div>
-             <div className="leg-item"><span className="si-leg-dot risk"></span> Atenção</div>
-             <div className="leg-item"><span className="si-leg-dot misplaced"></span> Desvio</div>
-           </div>
-           {/* Cluster 3: Sincronização & Persistência */}
-           <div className="si-control-cluster actions-cluster">
-             <button className="si-header-btn sync" onClick={() => loadStudents()} disabled={isLiveMode} title="Atualizar Alunos da Turma">
-               <RefreshCw size={14} />
-             </button>
-             
-             <button 
-               type="button"
-               className={`si-header-btn projection ${isProjectedSeating ? 'active' : ''}`} 
-               onClick={toggleProjection}
-               title={isProjectedSeating ? "Sair da Projeção de Sala (Esc)" : "Projetar Mapeamento de Sala no Telão da Turma"}
-               style={{ background: isProjectedSeating ? 'rgba(0, 240, 255, 0.25)' : 'rgba(0, 240, 255, 0.12)', borderColor: '#00F0FF', color: '#00F0FF' }}
-             >
-               <Tv size={14} />
-               <span>{isProjectedSeating ? 'Sair da Projeção' : 'Projetar Mapeamento'}</span>
-             </button>
-             <button className="si-header-btn save primary" onClick={saveLayout} disabled={isLiveMode} title="Salvar Layout no Banco de Dados">
-               <Save size={14} />
-               <span>Salvar Mapa</span>
-             </button>
-           </div>
+          <div
+            className={`si-autosave-pill ${autoSaveStatus}`}
+            title="As alterações de lugares e dimensões da sala são salvas automaticamente"
+          >
+            <span className="si-autosave-dot" />
+            <span>{autoSaveStatus === 'saving' ? 'Salvando...' : autoSaveStatus === 'error' ? 'Erro ao salvar' : 'Auto-salvo'}</span>
+          </div>
+
+          <div className="si-zoom-controls" role="group" aria-label="Controle de Zoom do Mapa">
+            <button 
+              type="button"
+              className="si-zoom-btn" 
+              onClick={() => setGridZoom(prev => Math.max(60, prev - 10))} 
+              title="Diminuir Zoom das Carteiras (Ctrl -)"
+              aria-label="Diminuir Zoom"
+            >
+              <ZoomOut size={13} />
+            </button>
+            <button 
+              type="button"
+              className="si-zoom-value" 
+              onClick={() => setGridZoom(100)} 
+              title="Redefinir Zoom para 100%"
+              aria-label="Redefinir Zoom"
+            >
+              {gridZoom}%
+            </button>
+            <button 
+              type="button"
+              className="si-zoom-btn" 
+              onClick={() => setGridZoom(prev => Math.min(150, prev + 10))} 
+              title="Aumentar Zoom das Carteiras (Ctrl +)"
+              aria-label="Aumentar Zoom"
+            >
+              <ZoomIn size={13} />
+            </button>
+          </div>
+
+          <button 
+            className="si-header-btn suggest" 
+            onClick={() => openSuggestModal()}
+            title="Sugerir alteração do mapeamento de sala para autorização da Coordenação"
+            style={{ background: 'rgba(16, 185, 129, 0.16)', borderColor: '#10b981', color: '#34d399' }}
+          >
+            <ArrowLeftRight size={13} />
+            <span>Sugerir Alteração</span>
+          </button>
+
+          {pendingSuggestions.length > 0 && (
+            <button 
+              className="si-header-btn pending-badge" 
+              onClick={() => setShowPendingModal(true)}
+              title="Ver propostas de alteração de mapeamento da turma"
+              style={{ background: 'rgba(245, 158, 11, 0.18)', borderColor: '#f59e0b', color: '#fbbf24' }}
+            >
+              <Clock size={13} />
+              <span>Sugestões ({pendingSuggestions.filter(s => s.status === 'PENDENTE').length})</span>
+            </button>
+          )}
         </div>
       </header>
       <div className={`si-workspace ${!hasUnassigned ? 'no-sidebar' : ''}`}>

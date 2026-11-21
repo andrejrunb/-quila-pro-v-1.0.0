@@ -48,7 +48,6 @@ import { IndoorMappingDashboard } from './ui/pages/IndoorMappingDashboard';
 import { ClimateReportPanel } from './ui/components/ClimateReportPanel';
 import Sidebar from './ui/components/Sidebar';
 import { isMvp01Active } from './config/mvpProfile';
-import TopBar from './ui/components/TopBar';
 import LGPDConsentModal from './ui/components/LGPDConsentModal';
 import { HelpModal } from './ui/components/HelpModal';
 import { NPSModal } from './ui/components/NPSModal';
@@ -812,15 +811,10 @@ export const App: React.FC = () => {
           onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           currentHub={currentHub}
           onHubChange={setCurrentHub}
+          onSearch={() => setIsSearchOpen(true)}
         />
       
       <main className="main-content">
-        <TopBar 
-          user={currentUser} 
-          onNavigate={handleNavigate} 
-          onSearch={() => setIsSearchOpen(true)}
-        />
-        
         <div className="page-content animate-fade-in">
           <ErrorBoundary onNavigateHome={() => setCurrentPage('dashboard')}>
             {renderPage()}

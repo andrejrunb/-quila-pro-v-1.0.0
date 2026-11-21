@@ -799,44 +799,44 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('aquila:navigate', { detail: 'gradebook' }))}
-              className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition shadow"
+              className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition shadow whitespace-nowrap shrink-0"
               title="Abrir Planilha de Lançamento de Notas (B1, B2, B3, B4, Recuperação)"
             >
               <span>📊 Planilha de Notas</span>
             </button>
-            <div className="bg-slate-900 p-0.5 rounded-xl border border-slate-800 flex">
+            <div className="bg-slate-900 p-0.5 rounded-xl border border-slate-800 flex shrink-0">
               <button 
                 onClick={() => setViewMode('detailed')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${viewMode === 'detailed' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-slate-200'}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 ${viewMode === 'detailed' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-slate-200'}`}
               >
                 DETALHADO
               </button>
               <button 
                 onClick={() => setViewMode('bulk')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${viewMode === 'bulk' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-slate-200'}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 whitespace-nowrap shrink-0 ${viewMode === 'bulk' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-slate-200'}`}
               >
                 <LayoutGrid size={13} /> CARDS
               </button>
               <button 
                 onClick={() => setViewMode('list')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${viewMode === 'list' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-slate-200'}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 whitespace-nowrap shrink-0 ${viewMode === 'list' ? 'bg-emerald-500 text-white' : 'text-slate-400 hover:text-slate-200'}`}
               >
                 <List size={13} /> LISTA TRADICIONAL
               </button>
             </div>
             <button 
               onClick={handleSave}
-              className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20"
+              className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20 whitespace-nowrap shrink-0"
             >
               <Save size={15} />
               FINALIZAR DIA
             </button>
             <button 
               onClick={() => setIsHeaderCollapsed(true)}
-              className="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white rounded-xl text-xs font-bold flex items-center gap-1 border border-white/5 transition"
+              className="px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white rounded-xl text-xs font-bold flex items-center gap-1 border border-white/5 transition whitespace-nowrap shrink-0"
               title="Ocultar Topo para Priorizar Alunos"
             >
               <ChevronUp size={15} />
@@ -848,11 +848,11 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
         {/* Filters Otimizados */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 bg-slate-900/40 p-2.5 rounded-xl border border-white/5">
           <div className="flex items-center gap-2.5 px-3 py-2 bg-slate-950/60 rounded-lg border border-slate-800/60">
-            <Users className="text-slate-500" size={16} />
+            <Users className="text-slate-500 shrink-0" size={16} />
             <select 
               value={selectedClass}
               onChange={(e) => setSelectedClass(e.target.value)}
-              className="bg-transparent border-none text-slate-200 outline-none flex-1 text-xs font-bold cursor-pointer"
+              className="bg-transparent border-0 p-0 text-slate-200 outline-none flex-1 min-w-0 text-xs font-bold cursor-pointer"
             >
               <option value="all" className="bg-slate-900">TODAS AS TURMAS</option>
               {classes.map((c: any) => (

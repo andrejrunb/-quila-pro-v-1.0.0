@@ -2,6 +2,76 @@ import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import path from 'path';
 import fs from 'fs';
 
+export interface ReportCardPDFOptions {
+  className?: string;
+  ra?: string;
+  period?: string;
+  frequency?: {
+    rate?: number;
+    absences?: number;
+    totalDays?: number;
+  };
+  parecer?: string;
+  outputPath?: string;
+}
+
+/** Normalizes text for PDF StandardFonts (WinAnsi / Latin-1) so unsupported Unicode symbols never crash pdf-lib. */
+export function sanitizeWinAnsi(text: unknown): string {
+  if (text === null || text === undefined) return '';
+  return String(text)
+    .replace(/\r\n|\r/g, '\n')
+    .replace(/\t/g, ' ')
+    .replace(/\u00A0/g, ' ')
+    .replace(/[\u2014\u2013]/g, '-')
+    .replace(/\u2022/g, '*')
+    .replace(/\u00B7/g, '-')
+    .replace(/[\u201C\u201D]/g, '"')
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/\u2026/g, '...')
+    .replace(/[^\x20-\x7E\xA0-\xFF\n]/g, '')
+    .trim();
+}
+
+function wrapText(text: string, font: any, fontSize: number, maxWidth: number): string[] {
+  const clean = sanitizeWinAnsi(text);
+  if (!clean) return [];
+  const paragraphs = clean.split('\n');
+  const lines: string[] = [];
+
+  for (const para of paragraphs) {
+    const words = para.split(/\s+/).filter(Boolean);
+    if (words.length === 0) {
+      lines.push('');
+      continue;
+    }
+    let currentLine = '';
+    for (const word of words) {
+      const candidate = currentLine ? `${currentLine} ${word}` : word;
+      if (font.widthOfTextAtSize(candidate, fontSize) <= maxWidth) {
+        currentLine = candidate;
+      } else {
+        if (currentLine) lines.push(currentLine);
+        if (font.widthOfTextAtSize(word, fontSize) <= maxWidth) {
+          currentLine = word;
+        } else {
+          let chunk = '';
+          for (const ch of word) {
+            if (font.widthOfTextAtSize(chunk + ch, fontSize) <= maxWidth) {
+              chunk += ch;
+            } else {
+              if (chunk) lines.push(chunk);
+              chunk = ch;
+            }
+          }
+          currentLine = chunk;
+        }
+      }
+    }
+    if (currentLine) lines.push(currentLine);
+  }
+  return lines;
+}
+
 export class DocumentService {
   private reportsPath: string;
 
@@ -208,65 +278,160 @@ o estabelecimento de ensino Áquila School na turma ${student.room || 'Pend'}.`;
     return filePath;
   }
 
-  async generateReportCardPDF(student: any, grades: any[]): Promise<string> {
+  async generateReportCardPDF(
+    student: any,
+    grades: any[],
+    options?: ReportCardPDFOptions
+  ): Promise<string> {
     const pdfDoc = await PDFDocument.create();
-    const page = pdfDoc.addPage([595.28, 841.89]); // A4
-    const { width, height } = page.getSize();
+    let page = pdfDoc.addPage([595.28, 841.89]); // A4
+    let { width, height } = page.getSize();
     const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
     const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
+    const safeGrades = Array.isArray(grades) ? grades : [];
+    const studentName = sanitizeWinAnsi(student?.name || `Aluno ${student?.id || ''}`) || 'Estudante';
+    const studentId = sanitizeWinAnsi(student?.id || 'N/A');
+    const className = sanitizeWinAnsi(options?.className || student?.className || '');
+    const ra = sanitizeWinAnsi(options?.ra || student?.ra || '');
+    const period = sanitizeWinAnsi(options?.period || '');
+
     // Header
-    page.drawText('BOLETIM ESCOLAR BIMESTRAL', { x: 50, y: height - 50, size: 20, font, color: rgb(0.06, 0.72, 0.50) });
-    page.drawText('ÁQUILA PRO - GESTÃO EDUCACIONAL SOBERANA', { x: 50, y: height - 70, size: 8, font: regularFont, color: rgb(0.4, 0.4, 0.4) });
+    page.drawText('BOLETIM ESCOLAR BIMESTRAL', { x: 50, y: height - 50, size: 19, font, color: rgb(0.06, 0.55, 0.38) });
+    page.drawText('AQUILA PRO - GESTAO EDUCACIONAL SOBERANA', { x: 50, y: height - 68, size: 8, font: regularFont, color: rgb(0.4, 0.4, 0.45) });
 
     // Student Info
-    page.drawText(`Aluno: ${student.name}`, { x: 50, y: height - 120, size: 12, font });
-    page.drawText(`Matrícula: ${student.id}`, { x: 50, y: height - 140, size: 10, font: regularFont });
+    let y = height - 102;
+    page.drawText(`Aluno: ${studentName}`, { x: 50, y, size: 12, font, color: rgb(0.1, 0.12, 0.16) });
+    y -= 18;
+    const metaParts = [`Matricula: ${studentId}`];
+    if (ra) metaParts.push(`RA: ${ra}`);
+    if (className) metaParts.push(`Turma: ${className}`);
+    if (period) metaParts.push(`Periodo: ${period}`);
+    page.drawText(metaParts.join('  |  '), { x: 50, y, size: 9.5, font: regularFont, color: rgb(0.25, 0.28, 0.35) });
+
+    const isBimesterFormat = safeGrades.some(
+      (g) => g && (g.avg !== undefined || g.b1 !== undefined || g.b2 !== undefined || g.b3 !== undefined || g.b4 !== undefined)
+    );
+
+    const ensurePageSpace = (minY: number) => {
+      if (y < minY) {
+        page = pdfDoc.addPage([595.28, 841.89]);
+        ({ width, height } = page.getSize());
+        y = height - 55;
+      }
+    };
 
     // Table Header
-    let y = height - 180;
-    page.drawRectangle({ x: 50, y: y - 5, width: width - 100, height: 20, color: rgb(0.9, 0.9, 0.95) });
-    page.drawText('DISCIPLINA', { x: 60, y, size: 10, font });
-    page.drawText('TIPO', { x: 250, y, size: 10, font });
-    page.drawText('NOTA', { x: 380, y, size: 10, font });
-    page.drawText('PESO', { x: 480, y, size: 10, font });
-    y -= 25;
+    y -= 28;
+    page.drawRectangle({ x: 50, y: y - 5, width: width - 100, height: 22, color: rgb(0.92, 0.94, 0.97) });
+    if (isBimesterFormat) {
+      page.drawText('DISCIPLINA', { x: 60, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+      page.drawText('1B', { x: 265, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+      page.drawText('2B', { x: 315, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+      page.drawText('3B', { x: 365, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+      page.drawText('4B', { x: 415, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+      page.drawText('MEDIA', { x: 475, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+    } else {
+      page.drawText('DISCIPLINA', { x: 60, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+      page.drawText('TIPO', { x: 250, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+      page.drawText('NOTA', { x: 380, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+      page.drawText('PESO', { x: 480, y, size: 9.5, font, color: rgb(0.15, 0.18, 0.24) });
+    }
+    y -= 24;
 
     // Grades Loop
     let sumGrades = 0;
     let countGrades = 0;
+    const fmtGrade = (val: unknown) => {
+      if (val === null || val === undefined || val === '') return '-';
+      const n = Number(val);
+      return Number.isFinite(n) ? n.toFixed(1) : '-';
+    };
 
-    for (const g of grades) {
-      if (y < 80) {
-        break;
+    for (const g of safeGrades) {
+      ensurePageSpace(95);
+      const subjectLabel = sanitizeWinAnsi(g?.subject || 'Geral').slice(0, 34);
+      if (isBimesterFormat) {
+        const avgNum = Number(g?.avg ?? g?.value ?? 0);
+        page.drawText(subjectLabel, { x: 60, y, size: 9, font: regularFont, color: rgb(0.12, 0.14, 0.18) });
+        page.drawText(fmtGrade(g?.b1), { x: 265, y, size: 9, font: regularFont, color: rgb(0.2, 0.22, 0.28) });
+        page.drawText(fmtGrade(g?.b2), { x: 315, y, size: 9, font: regularFont, color: rgb(0.2, 0.22, 0.28) });
+        page.drawText(fmtGrade(g?.b3), { x: 365, y, size: 9, font: regularFont, color: rgb(0.2, 0.22, 0.28) });
+        page.drawText(fmtGrade(g?.b4), { x: 415, y, size: 9, font: regularFont, color: rgb(0.2, 0.22, 0.28) });
+        page.drawText(Number.isFinite(avgNum) ? avgNum.toFixed(1) : '-', { x: 475, y, size: 9, font, color: rgb(0.06, 0.45, 0.32) });
+        if (Number.isFinite(avgNum)) {
+          sumGrades += avgNum;
+          countGrades++;
+        }
+      } else {
+        const val = Number(g?.value ?? g?.avg ?? 0);
+        const weight = Number(g?.weight ?? 1);
+        page.drawText(subjectLabel, { x: 60, y, size: 9, font: regularFont, color: rgb(0.12, 0.14, 0.18) });
+        page.drawText(sanitizeWinAnsi(g?.type || 'P1'), { x: 250, y, size: 9, font: regularFont, color: rgb(0.2, 0.22, 0.28) });
+        page.drawText(Number.isFinite(val) ? val.toFixed(1) : '0.0', { x: 380, y, size: 9, font: regularFont, color: rgb(0.12, 0.14, 0.18) });
+        page.drawText(Number.isFinite(weight) ? weight.toFixed(1) : '1.0', { x: 480, y, size: 9, font: regularFont, color: rgb(0.2, 0.22, 0.28) });
+        if (Number.isFinite(val)) {
+          sumGrades += val;
+          countGrades++;
+        }
       }
-      page.drawText(g.subject || 'Geral', { x: 60, y, size: 9, font: regularFont });
-      page.drawText(g.type || 'P1', { x: 250, y, size: 9, font: regularFont });
-      page.drawText(g.value.toFixed(1), { x: 380, y, size: 9, font: regularFont });
-      page.drawText(g.weight.toFixed(1), { x: 480, y, size: 9, font: regularFont });
-      
-      sumGrades += g.value;
-      countGrades++;
-      y -= 18;
 
+      y -= 18;
       page.drawLine({
         start: { x: 50, y: y + 5 },
         end: { x: width - 50, y: y + 5 },
         thickness: 0.5,
-        color: rgb(0.9, 0.9, 0.9)
+        color: rgb(0.88, 0.9, 0.94),
       });
     }
 
     // Average
-    const avg = countGrades > 0 ? (sumGrades / countGrades) : 0;
-    y -= 20;
-    page.drawRectangle({ x: 50, y: y - 5, width: width - 100, height: 25, color: rgb(0.06, 0.72, 0.50) });
-    page.drawText('MÉDIA GLOBAL:', { x: 60, y, size: 11, font, color: rgb(1, 1, 1) });
-    page.drawText(avg.toFixed(2), { x: 480, y, size: 12, font, color: rgb(1, 1, 1) });
+    ensurePageSpace(110);
+    const avg = countGrades > 0 ? sumGrades / countGrades : 0;
+    y -= 12;
+    page.drawRectangle({ x: 50, y: y - 6, width: width - 100, height: 24, color: rgb(0.06, 0.62, 0.43) });
+    page.drawText('MEDIA GLOBAL:', { x: 60, y, size: 11, font, color: rgb(1, 1, 1) });
+    page.drawText(avg.toFixed(2), { x: 475, y, size: 11.5, font, color: rgb(1, 1, 1) });
+
+    // Frequency section (if provided)
+    if (options?.frequency) {
+      ensurePageSpace(95);
+      y -= 34;
+      const rate = options.frequency.rate ?? 0;
+      const absences = options.frequency.absences ?? 0;
+      const totalDays = options.frequency.totalDays ?? 0;
+      page.drawText('FREQUENCIA ESCOLAR', { x: 50, y, size: 10, font, color: rgb(0.15, 0.18, 0.24) });
+      y -= 16;
+      page.drawText(
+        sanitizeWinAnsi(`Taxa de Presenca: ${rate}%   |   Faltas Totais: ${absences}   |   Dias Letivos: ${totalDays}`),
+        { x: 50, y, size: 9.5, font: regularFont, color: rgb(0.22, 0.25, 0.32) }
+      );
+    }
+
+    // Parecer Pedagogico (wrapped multi-line)
+    const parecerLines = options?.parecer ? wrapText(options.parecer, regularFont, 9.5, width - 116) : [];
+    if (parecerLines.length > 0) {
+      ensurePageSpace(95);
+      y -= 30;
+      page.drawText('PARECER PEDAGOGICO', { x: 50, y, size: 10, font, color: rgb(0.15, 0.18, 0.24) });
+      y -= 16;
+      for (const line of parecerLines) {
+        ensurePageSpace(55);
+        if (line) {
+          page.drawText(line, { x: 58, y, size: 9.5, font: regularFont, color: rgb(0.2, 0.22, 0.28) });
+        }
+        y -= 14;
+      }
+    }
 
     // Save
-    const fileName = `boletim_${student.id}_${Date.now()}.pdf`;
-    const filePath = path.join(this.reportsPath, fileName);
+    const safeId = studentId.replace(/[^a-zA-Z0-9_-]+/g, '_') || 'aluno';
+    const fileName = `boletim_${safeId}_${Date.now()}.pdf`;
+    const filePath = options?.outputPath
+      ? path.resolve(options.outputPath)
+      : path.join(this.reportsPath, fileName);
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
     const pdfBytes = await pdfDoc.save();
     fs.writeFileSync(filePath, pdfBytes);
 

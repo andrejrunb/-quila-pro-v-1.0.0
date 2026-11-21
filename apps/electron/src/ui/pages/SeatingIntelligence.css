@@ -2107,16 +2107,69 @@
 }
 
 .si-header {
-    margin-bottom: 0.25rem !important;
-    padding: 0.25rem 0.5rem !important;
-    gap: 0.4rem !important;
+    margin-bottom: 4px !important;
+    padding: 3px 8px !important;
+    min-height: 36px;
+    gap: 6px !important;
     flex-wrap: nowrap !important;
 }
 
+.si-back-btn {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 8px !important;
+}
+
+.si-class-select-premium {
+    height: 30px !important;
+    border-radius: 8px !important;
+    font-size: 0.82rem !important;
+    padding: 0 1.6rem 0 0.7rem !important;
+}
+
 .si-header-btn {
-    height: 28px !important;
-    padding: 0 0.55rem !important;
-    font-size: 0.72rem !important;
+    height: 30px !important;
+    padding: 0 0.65rem !important;
+    font-size: 0.74rem !important;
+}
+
+.si-zoom-controls {
+    height: 30px !important;
+}
+
+.si-autosave-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 26px;
+    padding: 0 9px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.12);
+    color: #6ee7b7;
+    transition: all 0.2s ease;
+}
+
+.si-autosave-pill.saving {
+    border-color: rgba(56, 189, 248, 0.45);
+    background: rgba(56, 189, 248, 0.14);
+    color: #7dd3fc;
+}
+
+.si-autosave-pill.error {
+    border-color: rgba(239, 68, 68, 0.45);
+    background: rgba(239, 68, 68, 0.14);
+    color: #fca5a5;
+}
+
+.si-autosave-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
 }
 
 .si-front-board-container {

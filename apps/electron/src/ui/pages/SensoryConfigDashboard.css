@@ -32,7 +32,7 @@
 .s-info strong { display: block; font-size: 0.9rem; margin-bottom: 0.25rem; }
 .s-info p { font-size: 0.75rem; opacity: 0.4; max-width: 300px; }
 
-select {
+.sensory-container select {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;

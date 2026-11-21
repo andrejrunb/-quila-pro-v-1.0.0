@@ -19,12 +19,13 @@ interface SidebarProps {
   onToggleCollapse?: () => void;
   currentHub: 'security' | 'admin' | 'pedagogical';
   onHubChange: (hub: 'security' | 'admin' | 'pedagogical') => void;
+  onSearch?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ 
   currentPage, onNavigate, user, onLogout, 
   isCollapsed = false, onToggleCollapse,
-  currentHub, onHubChange
+  currentHub, onHubChange, onSearch
 }) => {
   const [branding, setBranding] = useState<{ logo?: string; primaryColor?: string }>({});
   const [showLogoffProtocol, setShowLogoffProtocol] = useState(false);
@@ -101,7 +102,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
     // ═══ ENSINO ═══
     { id: 'seating-intelligence', label: 'Mapa de Sala & Assentos', icon: <LayoutDashboard size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'director'] },
-    { id: 'teacher-dashboard', label: 'Painel do Professor', icon: <BookOpen size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'docente', 'director'] },
+    { id: 'teacher-dashboard', label: 'Painel do Professor', icon: <LayoutGrid size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'docente', 'director'] },
     { id: 'gradebook', label: 'Planilha de Notas', icon: <FileCheck size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'teacher', 'docente', 'director', 'secretary'] },
     { id: 'coordination', label: 'Painel da Coordenação', icon: <BarChart3 size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director'] },
     { id: 'parent-portal', label: 'Espaço da Família (Pais)', icon: <Heart size={20} />, hub: 'pedagogical', roles: ['admin', 'coordinator', 'director', 'parent', 'responsavel'] },
@@ -480,6 +481,119 @@ export const Sidebar: React.FC<SidebarProps> = ({
           font-size: 9px;
           font-weight: 700;
         }
+        .sidebar-search-relocated {
+          padding: 4px 12px 6px;
+          display: flex;
+          justify-content: center;
+        }
+        .sidebar-search-btn {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          padding: 8px 10px;
+          border-radius: 10px;
+          background: rgba(59, 130, 246, 0.12);
+          border: 1px solid rgba(59, 130, 246, 0.45);
+          color: #cbd5e1;
+          font-size: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 180ms ease;
+        }
+        .sidebar-search-btn:hover {
+          background: rgba(59, 130, 246, 0.22);
+          border-color: #60a5fa;
+          color: #ffffff;
+        }
+        .sidebar-search-left {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #93c5fd;
+        }
+        .sidebar-search-shortcut {
+          padding: 2px 6px;
+          border-radius: 4px;
+          background: rgba(15, 23, 42, 0.75);
+          border: 1px solid rgba(148, 163, 184, 0.25);
+          color: #93c5fd;
+          font-family: var(--font-mono, monospace);
+          font-size: 10px;
+          font-weight: 700;
+        }
+        .sidebar-search-collapsed {
+          width: 44px;
+          height: 44px;
+          border-radius: 10px;
+          background: rgba(59, 130, 246, 0.14);
+          border: 1px solid rgba(59, 130, 246, 0.55);
+          color: #93c5fd;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 1px;
+          cursor: pointer;
+          transition: all 180ms ease;
+        }
+        .sidebar-search-collapsed:hover {
+          background: rgba(59, 130, 246, 0.26);
+          border-color: #60a5fa;
+          color: #ffffff;
+        }
+        .sidebar-search-kbd {
+          font-family: var(--font-mono, monospace);
+          font-size: 8.5px;
+          font-weight: 700;
+          line-height: 1;
+        }
+        .sidebar-alerts-btn {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 8px 10px;
+          border-radius: 8px;
+          background: rgba(30, 41, 59, 0.45);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          color: #94a3b8;
+          cursor: pointer;
+          transition: all 180ms ease;
+        }
+        .sidebar-alerts-btn:hover {
+          background: rgba(255, 255, 255, 0.08);
+          color: #ffffff;
+        }
+        .eagle-sidebar.sidebar-collapsed .sidebar-alerts-btn {
+          justify-content: center;
+          padding: 8px 0;
+        }
+        .eagle-sidebar.sidebar-collapsed .sidebar-footer {
+          padding: 10px 10px;
+          gap: 8px;
+        }
+        .eagle-sidebar.sidebar-collapsed .eagle-user-area {
+          justify-content: center;
+          padding: 6px;
+        }
+        .sidebar-alerts-icon-wrap {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .sidebar-alerts-dot {
+          position: absolute;
+          top: -1px;
+          right: -1px;
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #ef4444;
+          border: 1.5px solid #0f172a;
+        }
       `}</style>
       <aside className={`eagle-sidebar ${isCollapsed ? 'sidebar-collapsed' : ''}`}>
         {showLogoffProtocol && (
@@ -507,6 +621,33 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button className="sidebar-collapse-btn" onClick={onToggleCollapse} title={isCollapsed ? "Expandir" : "Recolher"}>
             <ChevronRight size={18} className={isCollapsed ? '' : 'rotate-180'} />
           </button>
+        </div>
+
+        <div className="sidebar-search-relocated">
+          {isCollapsed ? (
+            <button
+              type="button"
+              className="sidebar-search-collapsed"
+              onClick={() => onSearch?.()}
+              title="Buscar no sistema (Ctrl+K)"
+            >
+              <Search size={17} />
+              <span className="sidebar-search-kbd">⌘K</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="sidebar-search-btn"
+              onClick={() => onSearch?.()}
+              title="Buscar no sistema (Ctrl+K)"
+            >
+              <span className="sidebar-search-left">
+                <Search size={15} />
+                <span>Buscar no sistema...</span>
+              </span>
+              <span className="sidebar-search-shortcut">⌘K</span>
+            </button>
+          )}
         </div>
 
         <div className="unit-indicator-container">
@@ -567,6 +708,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         <div className="sidebar-footer">
+          <button
+            type="button"
+            className="sidebar-alerts-btn"
+            onClick={() => onNavigate('alerts')}
+            title="Notificações & Alertas"
+          >
+            <span className="sidebar-alerts-icon-wrap">
+              <Bell size={18} />
+              <span className="sidebar-alerts-dot" />
+            </span>
+            {!isCollapsed && <span className="nav-label">Alertas</span>}
+          </button>
+
           <div className="eagle-user-area">
             <div className="eagle-avatar-wrapper">
               <div className="eagle-avatar">

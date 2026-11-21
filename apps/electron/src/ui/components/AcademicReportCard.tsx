@@ -107,6 +107,9 @@ const AcademicReportCard: React.FC<AcademicReportCardProps> = ({ student, onClos
   const [parecerLoading, setParecerLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [sendOk, setSendOk] = useState(false);
+  const [exportingPdf, setExportingPdf] = useState(false);
+  const [printing, setPrinting] = useState(false);
+  const [actionFeedback, setActionFeedback] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const loadData = useCallback(async () => {
     const aquila = (window as any).aquila;
@@ -144,6 +147,7 @@ const AcademicReportCard: React.FC<AcademicReportCardProps> = ({ student, onClos
       try {
         const res = await aquila.invoke('ai:generate-report-comment', {
           studentId: student.id,
+          studentName: student.name,
           globalAvg: finalGrades.reduce((s, g) => s + g.avg, 0) / finalGrades.length,
           frequencyRate: finalFreq.rate,
         });
@@ -153,7 +157,7 @@ const AcademicReportCard: React.FC<AcademicReportCardProps> = ({ student, onClos
 
     setParecerText(aiParecer);
     setParecerLoading(false);
-  }, [student.id]);
+  }, [student.id, student.name]);
 
   useEffect(() => { loadData(); }, [loadData]);
 
@@ -175,14 +179,73 @@ const AcademicReportCard: React.FC<AcademicReportCardProps> = ({ student, onClos
 
   const handleExportPDF = async () => {
     const aquila = (window as any).aquila;
-    if (aquila) {
-      try {
-        await aquila.invoke('export:boletim-pdf', { studentId: student.id });
-        (window as any).showToast?.('Boletim em PDF exportado com sucesso!', 'success');
-        return;
-      } catch {}
+    if (!aquila) {
+      setActionFeedback({ type: 'error', text: 'Canal de exportação PDF disponível apenas no aplicativo desktop.' });
+      return;
     }
-    window.print();
+    setExportingPdf(true);
+    setActionFeedback(null);
+    try {
+      const res = await aquila.invoke('export:boletim-pdf', {
+        studentId: student.id,
+        name: student.name,
+        className: student.className,
+        ra: student.ra,
+        period: student.period,
+        grades,
+        frequency,
+        parecer: parecerText,
+      });
+      if (res?.canceled) {
+        return;
+      }
+      if (res?.success) {
+        setActionFeedback({
+          type: 'success',
+          text: res.filePath ? `PDF salvo em: ${res.filePath}` : 'Boletim em PDF salvo com sucesso!',
+        });
+      } else {
+        setActionFeedback({ type: 'error', text: res?.error || 'Não foi possível gerar o PDF do boletim.' });
+      }
+    } catch (err: any) {
+      setActionFeedback({ type: 'error', text: err?.message || 'Erro ao exportar PDF do boletim.' });
+    } finally {
+      setExportingPdf(false);
+    }
+  };
+
+  const handlePrint = async () => {
+    const aquila = (window as any).aquila;
+    if (!aquila) {
+      window.print();
+      return;
+    }
+    setPrinting(true);
+    setActionFeedback(null);
+    try {
+      const res = await aquila.invoke('print:boletim', {
+        studentId: student.id,
+        name: student.name,
+        className: student.className,
+        ra: student.ra,
+        period: student.period,
+        grades,
+        frequency,
+        parecer: parecerText,
+      });
+      if (res?.canceled) {
+        return;
+      }
+      if (res?.success) {
+        setActionFeedback({ type: 'success', text: 'Boletim enviado para a fila de impressão.' });
+      } else {
+        setActionFeedback({ type: 'error', text: res?.error || 'Falha ao abrir diálogo de impressão.' });
+      }
+    } catch (err: any) {
+      setActionFeedback({ type: 'error', text: err?.message || 'Erro ao imprimir boletim.' });
+    } finally {
+      setPrinting(false);
+    }
   };
 
   const globalAvg = grades.length > 0
@@ -371,13 +434,45 @@ const AcademicReportCard: React.FC<AcademicReportCardProps> = ({ student, onClos
 
         </div>
 
+        {/* ── Feedback Banner ── */}
+        {actionFeedback && (
+          <div
+            role="status"
+            style={{
+              margin: '0 32px 12px',
+              padding: '10px 14px',
+              borderRadius: '10px',
+              fontSize: '12px',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              wordBreak: 'break-word',
+              background: actionFeedback.type === 'success' ? 'rgba(16, 185, 129, 0.14)' : 'rgba(239, 68, 68, 0.14)',
+              border: `1px solid ${actionFeedback.type === 'success' ? 'rgba(16, 185, 129, 0.35)' : 'rgba(239, 68, 68, 0.35)'}`,
+              color: actionFeedback.type === 'success' ? '#6ee7b7' : '#fca5a5',
+            }}
+          >
+            {actionFeedback.type === 'success' ? <CheckCircle2 size={15} /> : <AlertTriangle size={15} />}
+            <span>{actionFeedback.text}</span>
+          </div>
+        )}
+
         {/* ── Actions ── */}
         <div className="arc-actions">
-          <button className="arc-btn arc-btn-ghost" onClick={() => window.print()}>
-            <Printer size={15} /> Imprimir
+          <button
+            className="arc-btn arc-btn-ghost"
+            onClick={handlePrint}
+            disabled={printing || exportingPdf}
+          >
+            <Printer size={15} /> {printing ? 'Preparando...' : 'Imprimir'}
           </button>
-          <button className="arc-btn arc-btn-ghost" onClick={handleExportPDF}>
-            <Download size={15} /> Baixar PDF
+          <button
+            className="arc-btn arc-btn-ghost"
+            onClick={handleExportPDF}
+            disabled={exportingPdf || printing}
+          >
+            <Download size={15} /> {exportingPdf ? 'Gerando PDF...' : 'Baixar PDF'}
           </button>
           <button
             className="arc-btn arc-btn-primary"
