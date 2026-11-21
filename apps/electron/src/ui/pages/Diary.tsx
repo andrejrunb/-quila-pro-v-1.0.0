@@ -74,7 +74,8 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
       ...prev,
       [studentId]: {
         ...(prev[studentId] || { studentId, mood: null, observation: '' }),
-        present
+        present,
+        attendanceStatus: present ? 'present' : 'absent'
       }
     }));
   };
@@ -248,13 +249,7 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
         const student = students[index - 1];
         const isPresent = isKeywordPresent(statusStr.toLowerCase());
         
-        setEntries(prev => ({
-          ...prev,
-          [student.id]: {
-            ...prev[student.id],
-            present: isPresent
-          }
-        }));
+        setStudentPresence(student.id, isPresent);
 
         setLastCommand(`Sucesso: #${index} (${student.name.split(' ')[0]}) marcado como ${isPresent ? 'PRESENTE' : 'FALTA'}`);
         triggerHighlight(student.id, isPresent);
@@ -279,13 +274,7 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
           const student = students[index - 1];
           const isPresent = isKeywordPresent(statusStr.toLowerCase());
           
-          setEntries(prev => ({
-            ...prev,
-            [student.id]: {
-              ...prev[student.id],
-              present: isPresent
-            }
-          }));
+          setStudentPresence(student.id, isPresent);
 
           setLastCommand(`Sucesso: #${index} (${student.name.split(' ')[0]}) marcado como ${isPresent ? 'PRESENTE' : 'FALTA'}`);
           triggerHighlight(student.id, isPresent);
@@ -313,13 +302,7 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
               
               if (matchedStudents.length === 1) {
                 const student = matchedStudents[0];
-                setEntries(prev => ({
-                  ...prev,
-                  [student.id]: {
-                    ...prev[student.id],
-                    present: isPresent
-                  }
-                }));
+                setStudentPresence(student.id, isPresent);
 
                 const studentIndex = students.findIndex(s => s.id === student.id) + 1;
                 setLastCommand(`Sucesso: #${studentIndex} (${student.name.split(' ')[0]}) marcado como ${isPresent ? 'PRESENTE' : 'FALTA'}`);
@@ -357,13 +340,7 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
               
               if (matchedStudents.length === 1) {
                 const student = matchedStudents[0];
-                setEntries(prev => ({
-                  ...prev,
-                  [student.id]: {
-                    ...prev[student.id],
-                    present: isPresent
-                  }
-                }));
+                setStudentPresence(student.id, isPresent);
 
                 const studentIndex = students.findIndex(s => s.id === student.id) + 1;
                 setLastCommand(`Sucesso: #${studentIndex} (${student.name.split(' ')[0]}) marcado como ${isPresent ? 'PRESENTE' : 'FALTA'}`);
@@ -394,13 +371,7 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
   const selectCandidate = (student: Student) => {
     if (pendingVoiceAction) {
       const isPresent = pendingVoiceAction === 'present';
-      setEntries(prev => ({
-        ...prev,
-        [student.id]: {
-          ...prev[student.id],
-          present: isPresent
-        }
-      }));
+      setStudentPresence(student.id, isPresent);
       const studentIndex = students.findIndex(s => s.id === student.id) + 1;
       setLastCommand(`Sucesso: #${studentIndex} (${student.name.split(' ')[0]}) marcado como ${isPresent ? 'PRESENTE' : 'FALTA'}`);
       triggerHighlight(student.id, isPresent);
@@ -696,8 +667,15 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
   };
 
   const totalStudents = students.length;
-  const totalPresent = students.filter(s => entries[s.id]?.present).length;
-  const totalAbsent = totalStudents - totalPresent;
+  const totalPresent = students.filter(
+    s =>
+      entries[s.id]?.attendanceStatus === 'present' ||
+      entries[s.id]?.attendanceStatus === 'justified' ||
+      (!entries[s.id]?.attendanceStatus && entries[s.id]?.present)
+  ).length;
+  const totalAbsent = students.filter(
+    s => entries[s.id]?.attendanceStatus === 'absent'
+  ).length;
 
   return (
     <div className="flex flex-col h-full bg-slate-950 text-slate-100 px-4 py-2.5 space-y-2 animate-in fade-in duration-300 relative overflow-hidden">
@@ -902,7 +880,10 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
                 {isBulkVoiceActive ? 'PARAR VOZ' : 'CHAMADA POR VOZ'}
               </button>
             )}
-            <button onClick={markAllPresent} className="text-emerald-400 text-xs font-black uppercase hover:underline">
+            <button
+              onClick={markAllPresent}
+              className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase transition"
+            >
               Presença Coletiva
             </button>
             <span className="text-slate-400 text-xs font-mono font-bold tracking-wider">
@@ -970,16 +951,20 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
               <table className="w-full border-collapse text-left">
                 <thead>
                   <tr className="bg-slate-950/90 border-b border-white/5 text-[11px] font-extrabold uppercase text-slate-400 tracking-wider sticky top-0 z-10 backdrop-blur-sm">
-                    <th className="py-2.5 px-3 w-14 text-center">Nº</th>
-                    <th className="py-2.5 px-3">Aluno</th>
-                    <th className="py-2.5 px-4 w-48 text-center">Frequência</th>
-                    <th className="py-2.5 px-3 w-40 text-center">Socioemocional</th>
-                    <th className="py-2.5 px-3">Observações da Aula</th>
+                    <th className="py-1.5 px-3 w-14 text-center">Nº</th>
+                    <th className="py-1.5 px-3">Aluno</th>
+                    <th className="py-1.5 px-3 w-64 text-center">Frequência</th>
+                    <th className="py-1.5 px-3 w-40 text-center">Socioemocional</th>
+                    <th className="py-1.5 px-3">Observações da Aula</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5 text-xs">
                   {students.map((student, idx) => {
-                    const isPresent = entries[student.id]?.present ?? true;
+                    const entry = entries[student.id];
+                    const status = entry?.attendanceStatus;
+                    const isExplicitPresent =
+                      status === 'present' || status === 'justified' || (!status && Boolean(entry?.present));
+                    const isExplicitAbsent = status === 'absent';
                     return (
                       <tr 
                         key={student.id}
@@ -988,21 +973,25 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
                             ? highlighted.type === 'present'
                               ? 'bg-emerald-500/25 ring-1 ring-emerald-400'
                               : 'bg-red-500/25 ring-1 ring-red-400'
-                            : isPresent
-                              ? 'bg-slate-900/20 hover:bg-slate-800/40'
-                              : 'bg-red-950/20 hover:bg-red-950/30'
+                            : isExplicitAbsent
+                              ? 'bg-rose-950/20 hover:bg-rose-950/30'
+                              : 'bg-slate-900/20 hover:bg-slate-800/40'
                         }`}
                       >
                         {/* Número de Chamada */}
-                        <td className="py-2 px-3 text-center font-mono font-bold text-slate-400">
+                        <td className="py-1 px-3 text-center font-mono font-bold text-slate-400">
                           #{idx + 1}
                         </td>
 
-                        {/* Aluno (Avatar + Nome Completo + Matrícula) */}
-                        <td className="py-2 px-3">
+                        {/* Aluno (Avatar + Nome Completo) */}
+                        <td className="py-1 px-3">
                           <div className="flex items-center gap-2.5">
-                            <div className={`w-8 h-8 rounded-lg overflow-hidden border flex items-center justify-center shrink-0 ${
-                              isPresent ? 'border-emerald-500/40 bg-slate-800' : 'border-red-500/40 bg-slate-900 opacity-60'
+                            <div className={`w-7 h-7 rounded-md overflow-hidden border flex items-center justify-center shrink-0 ${
+                              isExplicitPresent
+                                ? 'border-emerald-500/40 bg-slate-800'
+                                : isExplicitAbsent
+                                  ? 'border-rose-500/40 bg-slate-900 opacity-70'
+                                  : 'border-slate-700 bg-slate-800'
                             }`}>
                               {student.photoPath ? (
                                 <img src={`file://${student.photoPath}`} className="w-full h-full object-cover" alt="" />
@@ -1013,46 +1002,45 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
                               )}
                             </div>
                             <div className="min-w-0">
-                              <p className={`font-bold text-sm truncate ${isPresent ? 'text-slate-100' : 'text-slate-400 line-through'}`}>
+                              <p className={`font-bold text-sm leading-tight truncate ${isExplicitAbsent ? 'text-slate-400 line-through' : 'text-slate-100'}`}>
                                 {student.name}
-                              </p>
-                              <p className="text-[10px] text-slate-500 font-mono">
-                                MAT: {student.id.slice(-6).toUpperCase()}
                               </p>
                             </div>
                           </div>
                         </td>
 
-                        {/* Botões Rápidos P / F */}
-                        <td className="py-2 px-4 text-center">
-                          <div className="inline-flex rounded-lg bg-slate-950 p-1 border border-slate-800 gap-1">
+                        {/* Botões Presente / Falta */}
+                        <td className="py-1 px-3 text-center">
+                          <div className="inline-flex items-center gap-2">
                             <button
+                              type="button"
                               onClick={() => setStudentPresence(student.id, true)}
-                              className={`px-3 py-1 rounded-md text-xs font-black transition-all flex items-center gap-1 ${
-                                isPresent 
-                                  ? 'bg-emerald-500 text-white shadow-sm shadow-emerald-500/30 scale-105' 
-                                  : 'text-slate-500 hover:text-slate-300'
+                              className={`min-w-[104px] h-9 px-3.5 rounded-lg text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 border ${
+                                isExplicitPresent
+                                  ? 'bg-emerald-600 text-white border-emerald-400 shadow-sm shadow-emerald-600/30'
+                                  : 'bg-slate-900/90 text-slate-200 border-emerald-500/35 hover:bg-emerald-500/20 hover:text-white'
                               }`}
                               title="Marcar Presente"
                             >
-                              <CheckCircle2 size={12} /> P
+                              <CheckCircle2 size={15} /> Presente
                             </button>
                             <button
+                              type="button"
                               onClick={() => setStudentPresence(student.id, false)}
-                              className={`px-3 py-1 rounded-md text-xs font-black transition-all flex items-center gap-1 ${
-                                !isPresent 
-                                  ? 'bg-red-500 text-white shadow-sm shadow-red-500/30 scale-105' 
-                                  : 'text-slate-500 hover:text-slate-300'
+                              className={`min-w-[92px] h-9 px-3.5 rounded-lg text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 border ${
+                                isExplicitAbsent
+                                  ? 'bg-rose-600 text-white border-rose-400 shadow-sm shadow-rose-600/30'
+                                  : 'bg-slate-900/90 text-slate-200 border-rose-500/35 hover:bg-rose-500/20 hover:text-white'
                               }`}
                               title="Marcar Falta"
                             >
-                              <X size={12} /> F
+                              <X size={15} /> Falta
                             </button>
                           </div>
                         </td>
 
                         {/* Socioemocional / Humor */}
-                        <td className="py-2 px-3 text-center">
+                        <td className="py-1 px-3 text-center">
                           <div className="flex items-center justify-center gap-1">
                             {[
                               { id: 'happy', icon: <Smile size={14}/>, label: 'Feliz' },
@@ -1077,7 +1065,7 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
                         </td>
 
                         {/* Observações da Aula */}
-                        <td className="py-2 px-3">
+                        <td className="py-1 px-3">
                           <input
                             type="text"
                             value={entries[student.id]?.observation || ''}
@@ -1094,11 +1082,11 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
             </div>
           </div>
         ) : viewMode === 'detailed' ? (
-          <div className="space-y-3 pb-6">
+          <div className="space-y-1.5 pb-6">
             {students.map(student => (
-              <div key={student.id} className="bg-slate-900/40 border border-slate-800/50 rounded-xl p-2.5 hover:bg-slate-800/40 transition group flex flex-col md:flex-row items-center gap-3">
+              <div key={student.id} className="bg-slate-900/40 border border-slate-800/50 rounded-xl py-1.5 px-2.5 hover:bg-slate-800/40 transition group flex flex-col md:flex-row items-center gap-3">
                 <div className="flex items-center gap-3 min-w-[220px]">
-                  <div className="w-9 h-9 rounded-xl bg-slate-800 border border-white/5 overflow-hidden flex items-center justify-center shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-slate-800 border border-white/5 overflow-hidden flex items-center justify-center shrink-0">
                     {student.photoPath ? (
                       <img src={`file://${student.photoPath}`} className="w-full h-full object-cover" alt="" />
                     ) : (
@@ -1107,7 +1095,6 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
                   </div>
                   <div className="overflow-hidden">
                     <h3 className="font-bold text-slate-100 text-sm truncate group-hover:text-emerald-400 transition">{student.name}</h3>
-                    <p className="text-slate-500 text-[10px] font-mono">MAT: {student.id.slice(-6).toUpperCase()}</p>
                   </div>
                 </div>
 

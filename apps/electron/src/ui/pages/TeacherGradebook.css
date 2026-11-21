@@ -288,7 +288,7 @@
 }
 
 .tg-table td {
-  padding: 5px 8px;
+  padding: 3px 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   vertical-align: middle;
 }
@@ -319,8 +319,8 @@
 }
 
 .tg-student-rect-photo {
-  width: 30px;
-  height: 36px;
+  width: 26px;
+  height: 28px;
   border-radius: 4px;
   object-fit: cover;
   border: 1px solid rgba(255, 255, 255, 0.15);

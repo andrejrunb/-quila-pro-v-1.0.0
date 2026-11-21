@@ -1055,7 +1055,6 @@ export const TeacherGradebook: React.FC<TeacherGradebookProps> = ({
                         <img src={r.photo} alt={r.studentName} className="tg-student-rect-photo" />
                         <div className="tg-student-meta">
                           <span className="tg-student-name">{r.studentName}</span>
-                          <span className="tg-student-ra">RA: {r.ra}</span>
                         </div>
                       </div>
                     </td>
