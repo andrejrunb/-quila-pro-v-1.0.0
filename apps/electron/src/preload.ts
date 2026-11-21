@@ -1330,7 +1330,7 @@ const aquilaAPI = {
 
       'send-briefing-notification', 'reports:generate-attendance', 'reports:generate-behavior',
 
-      'get-bimestral-report', 'backup-now', 'login', 'logout', 'get-current-user',
+      'get-bimestral-report', 'backup-now', 'login', 'logout', 'get-current-user', 'auth:has-admin',
 
       'get-system-metrics', 'get-stream-stats', 'lgpd:get-term', 'lgpd:run-purge',
 

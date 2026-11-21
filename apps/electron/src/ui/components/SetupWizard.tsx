@@ -87,7 +87,7 @@ export interface SetupData {
 }
 
 interface SetupWizardProps {
-  onComplete: () => void;
+  onComplete: (createdUser?: any) => void;
 }
 
 const STEPS = [
@@ -230,6 +230,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
         setOptData(result.data);
         setOptStatus('done');
         setTimeout(() => setStep(s => s + 1), 2000);
+      } else {
+        setStep(s => s + 1);
       }
     } catch (err) {
       console.error('Optimization error:', err);
@@ -241,6 +243,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
 
   const finalizeSetup = async () => {
     try {
+      setErrors({});
       setIsSaving(true);
       const api = (window as any).aquila;
       const selectedClassObj = availableClasses.find(c => c.id === data.classroomClassId);
@@ -261,6 +264,8 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
       }
       localStorage.setItem('aquila_workstation_config', JSON.stringify(workstationConfig));
 
+      let createdUser: any = null;
+
       if (api?.invoke) {
         await api.invoke('workstation:configure', workstationConfig).catch(() => {});
 
@@ -271,6 +276,7 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
           adminEmail: data.adminEmail,
           terminalUsageType: data.usageType,
           classroomClassId: workstationConfig.classId,
+          setupCompleted: true,
         });
 
         if (data.adminEmail && data.adminPassword) {
@@ -278,8 +284,12 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
             email: data.adminEmail,
             password: data.adminPassword,
             role: 'admin',
+            schoolName: data.schoolName,
+            cnpj: data.cnpj,
           });
-          if (!adminResult?.success) {
+          if (adminResult?.success) {
+            createdUser = adminResult.user || null;
+          } else if (adminResult?.code !== 'ADMIN_ALREADY_EXISTS') {
             throw new Error(adminResult?.error || 'Falha ao criar administrador');
           }
         }
@@ -299,10 +309,10 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
         }
       }
 
-      onComplete();
-    } catch (err) {
+      onComplete(createdUser);
+    } catch (err: any) {
       console.error('Setup error:', err);
-      setErrors({ global: 'Erro ao salvar. Por favor, tente novamente.' });
+      setErrors({ global: err?.message || 'Erro ao salvar. Por favor, tente novamente.' });
     } finally {
       setIsSaving(false);
     }
@@ -505,6 +515,12 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onComplete }) => {
                   <p>Otimização Concluída: {optData?.quantization || 'INT8'} aplicado.</p>
                 </div>
               )}
+            </div>
+          )}
+
+          {errors.global && (
+            <div className="setup-error" role="alert" style={{ marginBottom: 12, textAlign: 'center' }}>
+              {errors.global}
             </div>
           )}
 

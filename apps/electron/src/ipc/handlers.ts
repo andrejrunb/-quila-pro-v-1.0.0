@@ -25,6 +25,7 @@ import { GeminiNotebookService } from '../main/services/GeminiNotebookService';
 import { CosmeticGrantService } from '../main/services/CosmeticGrantService';
 import { registerStudentHandlers } from './studentHandlers';
 import { clearMvp01SelectedContext, registerMvp01Handlers } from './mvp01Handlers';
+import { ensureMvp01Schema, MVP01_DEMO_SCHOOL_ID } from '../main/services/mvp01/Mvp01Schema';
 
 async function getBiometricQuarantineGate(context: SovereignContext) {
   if (context.lgpdService && typeof context.lgpdService.getBiometricQuarantineStatus === 'function') {
@@ -950,6 +951,24 @@ function registerAuthCluster(context: any, protectedHandle: any) {
 
     return await db?.getUsers?.();
 
+  });
+
+  protectedHandle('auth:has-admin', async () => {
+    const { db } = context;
+    try {
+      const adminRow = await db?.get?.(
+        "SELECT 1 AS found FROM users WHERE lower(role) IN ('admin', 'director', 'diretoria') LIMIT 1"
+      );
+      const settings = (await db?.getSettings?.()) || {};
+      const hasAdmin = Boolean(adminRow);
+      const setupCompleted =
+        hasAdmin ||
+        settings?.setupCompleted === true ||
+        settings?.setupCompleted === 'true';
+      return { success: true, hasAdmin, setupCompleted };
+    } catch {
+      return { success: false, hasAdmin: false, setupCompleted: false };
+    }
   });
 
   protectedHandle('get-current-user', async () => {
@@ -9207,6 +9226,97 @@ function registerCompatibilityCluster(context: SovereignContext, protectedHandle
 
     return { success: false, message: 'AuthService not available' };
 
+  });
+
+  protectedHandle('create-admin-user', async (_e: any, payload: any) => {
+    const { db, authService } = context;
+    if (!authService?.createUser) {
+      return { success: false, status: 503, error: 'AuthService indisponível.' };
+    }
+
+    const username = String(payload?.email || payload?.username || '').trim();
+    const password = String(payload?.password || '');
+    const name = String(payload?.name || 'Administrador').trim() || 'Administrador';
+    const schoolName = String(payload?.schoolName || '').trim();
+    const cnpj = String(payload?.cnpj || '').trim() || null;
+
+    if (!username) {
+      return { success: false, status: 400, code: 'INVALID_INPUT', error: 'Usuário ou e-mail do administrador é obrigatório.' };
+    }
+    if (password.length < 8) {
+      return { success: false, status: 400, code: 'INVALID_PASSWORD', error: 'A senha do administrador deve ter pelo menos 8 caracteres.' };
+    }
+
+    try {
+      const existingAdmin = await db?.get?.(
+        "SELECT id, username, role, name FROM users WHERE lower(role) = 'admin' LIMIT 1"
+      );
+      const currentUser = await authService?.getCurrentUser?.();
+      const currentRole = typeof currentUser?.role === 'string' ? currentUser.role.trim().toLowerCase() : '';
+
+      if (existingAdmin && currentRole !== 'admin') {
+        return {
+          success: false,
+          status: 403,
+          code: 'ADMIN_ALREADY_EXISTS',
+          error: 'Já existe um administrador configurado nesta instituição.',
+        };
+      }
+
+      if (db && schoolName) {
+        try {
+          await ensureMvp01Schema(db as any);
+          await db.run(
+            `INSERT OR IGNORE INTO mvp01_schools (id, name, cnpj, is_demo) VALUES (?, ?, ?, 0)`,
+            [MVP01_DEMO_SCHOOL_ID, schoolName, cnpj]
+          );
+        } catch (schemaErr) {
+          logger.warn('[Setup] Falha não bloqueante ao inicializar escola em mvp01_schools:', schemaErr);
+        }
+      }
+
+      const existingUser = await db?.get?.(
+        'SELECT id, username, role, name FROM users WHERE username = ? LIMIT 1',
+        [username]
+      );
+      if (existingUser) {
+        if (String(existingUser.role || '').trim().toLowerCase() === 'admin') {
+          return { success: true, alreadyExists: true, user: existingUser };
+        }
+        return {
+          success: false,
+          status: 409,
+          code: 'USER_ALREADY_EXISTS',
+          error: 'Já existe uma conta não administrativa com este usuário.',
+        };
+      }
+
+      await authService.createUser({
+        username,
+        password,
+        name,
+        role: 'admin',
+      });
+
+      let sessionUser: any = null;
+      if (!currentUser && authService.login) {
+        const session = await authService.login(username, password);
+        sessionUser = session?.user || null;
+      }
+
+      return {
+        success: true,
+        created: true,
+        autoLoggedIn: Boolean(sessionUser),
+        user: sessionUser,
+      };
+    } catch (err: any) {
+      return {
+        success: false,
+        status: 500,
+        error: err?.message || 'Erro ao criar conta de administrador.',
+      };
+    }
   });
 
 

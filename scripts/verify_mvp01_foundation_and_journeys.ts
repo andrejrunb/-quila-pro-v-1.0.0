@@ -698,13 +698,142 @@ async function main() {
     assert.equal(invoked[0]?.ch, 'create-student');
     await exposedApi.invoke('mvp01:get-portal-overview', { portal: 'direction' });
     assert.equal(invoked[1]?.ch, 'mvp01:get-portal-overview');
+    await exposedApi.invoke('auth:has-admin');
+    assert.equal(invoked[2]?.ch, 'auth:has-admin');
+    await exposedApi.invoke('create-admin-user', { email: 'admin', password: 'Password123' });
+    assert.equal(invoked[3]?.ch, 'create-admin-user');
     await assert.rejects(() => exposedApi.invoke('unknown:channel'), /Canal IPC não autorizado/);
   });
 
+  // =========================================================================
+  // 7. Contrato SetupWizard backend (auth:has-admin + create-admin-user)
+  // =========================================================================
+  await runCase('7. Contrato SetupWizard backend (auth:has-admin + create-admin-user bootstrap e bloqueio)', async () => {
+    const setupDb = createSqliteAdapter();
+    await setupDb.run(
+      `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, username TEXT UNIQUE, password_hash TEXT, name TEXT, role TEXT)`
+    );
+    await setupDb.run(
+      `CREATE TABLE IF NOT EXISTS settings (id TEXT PRIMARY KEY, value TEXT)`
+    );
+    (setupDb as any).getSettings = async () => {
+      const rows = await setupDb.all<{ id: string; value: string }>('SELECT id, value FROM settings');
+      const out: Record<string, any> = {};
+      for (const r of rows) {
+        try {
+          out[r.id] = JSON.parse(r.value);
+        } catch {
+          out[r.id] = r.value;
+        }
+      }
+      return out;
+    };
+
+    let currentSessionUser: any = null;
+    const registeredHandlers = new Map<string, (...args: any[]) => Promise<any>>();
+    const Module = (await import('node:module')).createRequire(__filename)('node:module');
+    const origLoad = Module._load;
+    Module._load = function (request: string) {
+      if (request === 'electron') {
+        return {
+          app: {
+            getPath: () => 'C:\\Windows\\Temp',
+            isPackaged: false,
+            getVersion: () => '0.1.0',
+          },
+          ipcMain: {
+            removeHandler: (ch: string) => registeredHandlers.delete(ch),
+            handle: (ch: string, fn: (...args: any[]) => Promise<any>) => {
+              registeredHandlers.set(ch, fn);
+            },
+            on: () => {},
+          },
+          shell: { openPath: async () => '', openExternal: async () => {} },
+          dialog: { showOpenDialog: async () => ({ canceled: true, filePaths: [] }) },
+          clipboard: { writeText: () => {} },
+          Notification: class {},
+          BrowserWindow: class {
+            static getAllWindows() {
+              return [];
+            }
+          },
+        };
+      }
+      return origLoad.apply(this, arguments);
+    };
+    try {
+      const { registerIPCHandlers } = await import('../apps/electron/src/ipc/handlers');
+      registerIPCHandlers({
+        db: setupDb,
+        authService: {
+          getCurrentUser: async () => currentSessionUser,
+          createUser: async (u: any) => {
+            await setupDb.run(
+              `INSERT INTO users (id, username, password_hash, name, role) VALUES (?, ?, ?, ?, ?)`,
+              [`user-${u.username}`, u.username, 'hashed', u.name, u.role]
+            );
+          },
+          login: async (username: string) => {
+            const row = await setupDb.get<any>(`SELECT id, username, name, role FROM users WHERE username = ?`, [username]);
+            if (!row) return null;
+            currentSessionUser = row;
+            return { token: 'mock-tok', user: row, expiresAt: Date.now() + 60000 };
+          },
+        },
+      } as any);
+    } finally {
+      Module._load = origLoad;
+    }
+
+    const hasAdminHandler = registeredHandlers.get('auth:has-admin');
+    const createAdminHandler = registeredHandlers.get('create-admin-user');
+    assert.ok(hasAdminHandler, 'auth:has-admin deve ser registrado em handlers.ts');
+    assert.ok(createAdminHandler, 'create-admin-user deve ser registrado em handlers.ts');
+
+    const initialStatus = await hasAdminHandler!({});
+    assert.equal(initialStatus.success, true);
+    assert.equal(initialStatus.hasAdmin, false);
+    assert.equal(initialStatus.setupCompleted, false);
+
+    const shortPassRes = await createAdminHandler!({}, { email: 'admin@escola.local', password: '123' });
+    assert.equal(shortPassRes.success, false);
+    assert.equal(shortPassRes.code, 'INVALID_PASSWORD');
+
+    const createdRes = await createAdminHandler!(
+      {},
+      {
+        email: 'admin@escola.local',
+        password: 'SenhaForte123',
+        schoolName: 'Escola Piloto Teste',
+        cnpj: '12.345.678/0001-99',
+      }
+    );
+    assert.equal(createdRes.success, true);
+    assert.equal(createdRes.created, true);
+    assert.equal(createdRes.autoLoggedIn, true);
+    assert.equal(createdRes.user?.username, 'admin@escola.local');
+
+    const schoolRow = await setupDb.get<any>(`SELECT name, is_demo FROM mvp01_schools WHERE id = ?`, [MVP01_DEMO_SCHOOL_ID]);
+    assert.equal(schoolRow?.name, 'Escola Piloto Teste');
+    assert.equal(schoolRow?.is_demo, 0);
+
+    const afterStatus = await hasAdminHandler!({});
+    assert.equal(afterStatus.success, true);
+    assert.equal(afterStatus.hasAdmin, true);
+    assert.equal(afterStatus.setupCompleted, true);
+
+    currentSessionUser = { id: 'teacher-1', username: 'prof', role: 'docente' };
+    const hijackRes = await createAdminHandler!(
+      {},
+      { email: 'atacante@escola.local', password: 'SenhaForte123' }
+    );
+    assert.equal(hijackRes.success, false);
+    assert.equal(hijackRes.status, 403);
+    assert.equal(hijackRes.code, 'ADMIN_ALREADY_EXISTS');
+  });
+
   console.log(`\nSUMMARY: passed=${passed} failed=${failed}`);
-  if (failed > 0) {
-    process.exit(1);
-  }
+  process.exit(failed > 0 ? 1 : 0);
 }
 
 main().catch((err) => {

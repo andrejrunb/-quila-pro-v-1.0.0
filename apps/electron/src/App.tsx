@@ -216,6 +216,7 @@ export const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSetup, setShowSetup] = useState(false);
+  const [needsBootstrap, setNeedsBootstrap] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchParams, setSearchParams] = useState<any>(null);
@@ -246,25 +247,37 @@ export const App: React.FC = () => {
       console.log('[BOOT] Orchestrating Áquila Pro Boot sequence...');
       
       try {
-        // 1. Setup Bypass Check (Priority for E2E)
+        // 1. Setup Bypass & Admin Bootstrap Check
         const setupComplete = localStorage.getItem('aquila_setup_complete') === 'true';
         if (setupComplete) {
           console.log('[BOOT] Setup bypass detected via localStorage.');
           setShowSetup(false);
+          setNeedsBootstrap(false);
         } else {
           try {
-            const users = await (window as any).aquila.invoke('get-users');
-            const hasAdmin = Array.isArray(users) && users.some((u: any) => u.role === 'admin' || u.role === 'director');
-            if (hasAdmin) {
-              console.log('[BOOT] Admin user found in database.');
+            const adminStatus = await (window as any).aquila.invoke('auth:has-admin');
+            const hasAdminOrSetup = Boolean(adminStatus?.hasAdmin || adminStatus?.setupCompleted);
+            if (hasAdminOrSetup) {
+              console.log('[BOOT] Admin or completed setup found in database.');
+              localStorage.setItem('aquila_setup_complete', 'true');
               setShowSetup(false);
-            } else {
-              console.warn('[BOOT] No admin found, triggering SetupWizard.');
+              setNeedsBootstrap(false);
+            } else if (adminStatus?.success) {
+              console.warn('[BOOT] No admin found, triggering initial SetupWizard bootstrap.');
               setShowSetup(true);
+              setNeedsBootstrap(true);
+            } else {
+              const wsFallback = await (window as any).aquila?.invoke?.('workstation:get-config').catch(() => null);
+              const configured = Boolean(wsFallback?.success && wsFallback?.config?.configured);
+              setShowSetup(!configured);
+              setNeedsBootstrap(!configured);
             }
           } catch (err) {
-            console.error('[BOOT] Failed to check users in DB:', err);
-            setShowSetup(true);
+            console.error('[BOOT] Failed to verify setup/admin status:', err);
+            const wsFallback = await (window as any).aquila?.invoke?.('workstation:get-config').catch(() => null);
+            const configured = Boolean(wsFallback?.success && wsFallback?.config?.configured);
+            setShowSetup(!configured);
+            setNeedsBootstrap(!configured);
           }
         }
 
@@ -355,6 +368,9 @@ export const App: React.FC = () => {
 
   const handleLogin = async (user: any) => {
     console.log('[E2E-DEBUG] Entering handleLogin for user:', user.username);
+    try { localStorage.setItem('aquila_setup_complete', 'true'); } catch {}
+    setShowSetup(false);
+    setNeedsBootstrap(false);
     try { sessionStorage.setItem('aquila_session_user', JSON.stringify(user)); } catch (err) { console.warn('[App] Falha ao salvar sessão:', err); }
     setCurrentUser(user);
     setIsLoggedIn(true);
@@ -739,25 +755,44 @@ export const App: React.FC = () => {
     return <QuantumBoot />;
   }
 
+  const renderSetupWizard = () => (
+    <SetupWizard onComplete={async (createdUser?: any) => {
+      // [FIX-AUTH-001] Mantém localStorage como cache rápido mas não como fonte de verdade
+      localStorage.setItem('aquila_setup_complete', 'true');
+      let effectiveUser = createdUser;
+      if (!effectiveUser && !isLoggedIn) {
+        try {
+          effectiveUser = await (window as any).aquila?.invoke?.('get-current-user');
+        } catch {}
+      }
+      if (effectiveUser) {
+        try { sessionStorage.setItem('aquila_session_user', JSON.stringify(effectiveUser)); } catch {}
+        setCurrentUser(effectiveUser);
+        setIsLoggedIn(true);
+      }
+      const profile = localStorage.getItem('aquila_terminal_profile');
+      if (profile === 'classroom') setCurrentPage('classroom-dashboard');
+      else if (profile === 'coordination') setCurrentPage('coordination');
+      else if (profile === 'secretariat') setCurrentPage('secretaria-portal');
+      else if (profile === 'teachers_room') setCurrentPage('teacher-dashboard');
+      else if (profile === 'portaria') setCurrentPage('security-monitor');
+      else if (profile === 'direction') setCurrentPage('executive-cockpit-portal');
+      else setCurrentPage('executive-cockpit-portal');
+      setNeedsBootstrap(false);
+      setShowSetup(false);
+    }} />
+  );
+
+  if (showSetup && needsBootstrap) {
+    return renderSetupWizard();
+  }
+
   if (!isLoggedIn) {
     return <LoginPage onLogin={handleLogin} />;
   }
 
   if (showSetup) {
-    return (
-      <SetupWizard onComplete={() => {
-        // [FIX-AUTH-001] Mantém localStorage como cache rápido mas não como fonte de verdade
-        localStorage.setItem('aquila_setup_complete', 'true');
-        const profile = localStorage.getItem('aquila_terminal_profile');
-        if (profile === 'classroom') setCurrentPage('classroom-dashboard');
-        else if (profile === 'coordination') setCurrentPage('coordination');
-        else if (profile === 'secretariat') setCurrentPage('secretaria-portal');
-        else if (profile === 'teachers_room') setCurrentPage('teacher-dashboard');
-        else if (profile === 'portaria') setCurrentPage('security-monitor');
-        else if (profile === 'direction') setCurrentPage('executive-cockpit-portal');
-        setShowSetup(false);
-      }} />
-    );
+    return renderSetupWizard();
   }
 
   return (
