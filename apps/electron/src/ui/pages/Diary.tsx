@@ -38,6 +38,18 @@ export interface DiaryEntry {
   attendanceStatus?: AttendanceStatus;
 }
 
+const MOOD_OPTIONS: Array<{
+  id: NonNullable<DiaryEntry['mood']>;
+  label: string;
+  badgeClass: string;
+  renderIcon: (size: number) => React.ReactNode;
+}> = [
+  { id: 'happy', label: 'Feliz', badgeClass: 'text-emerald-400', renderIcon: (size) => <Smile size={size} /> },
+  { id: 'energetic', label: 'Ativo', badgeClass: 'text-sky-400', renderIcon: (size) => <Zap size={size} /> },
+  { id: 'neutral', label: 'Neutro', badgeClass: 'text-slate-300', renderIcon: (size) => <Meh size={size} /> },
+  { id: 'tired', label: 'Desatento', badgeClass: 'text-amber-400', renderIcon: (size) => <Frown size={size} /> },
+];
+
 export function syncDiaryEntriesWithAttendance(
   students: Array<{ id: string }>,
   savedAttendanceMap?: Record<string, AttendanceStatus> | null,
@@ -68,6 +80,8 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
   const [viewMode, setViewMode] = useState<'detailed' | 'bulk' | 'list'>('list');
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [activeNoteStudentId, setActiveNoteStudentId] = useState<string | null>(null);
+  const [listColumns, setListColumns] = useState<'auto' | 2 | 3>('auto');
 
   const setStudentPresence = (studentId: string, present: boolean) => {
     setEntries(prev => ({
@@ -432,8 +446,20 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
 
   useEffect(() => {
     stopBulkVoice();
+    setActiveNoteStudentId(null);
     loadStudents();
   }, [selectedClass]);
+
+  useEffect(() => {
+    if (!activeNoteStudentId) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveNoteStudentId(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeNoteStudentId]);
 
   useEffect(() => {
     return () => {
@@ -677,8 +703,19 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
     s => entries[s.id]?.attendanceStatus === 'absent'
   ).length;
 
+  const activeNoteIndex = activeNoteStudentId ? students.findIndex(s => s.id === activeNoteStudentId) : -1;
+  const activeNoteStudent = activeNoteIndex >= 0 ? students[activeNoteIndex] : null;
+  const activeNoteEntry = activeNoteStudent ? entries[activeNoteStudent.id] : undefined;
+  const effectiveCols = listColumns === 'auto' ? (students.length > 14 ? 3 : 2) : listColumns;
+  const perCol = Math.max(1, Math.ceil(students.length / effectiveCols));
+  const listColumnChunks = Array.from({ length: effectiveCols }, (_, colIdx) =>
+    students
+      .slice(colIdx * perCol, (colIdx + 1) * perCol)
+      .map((student, offset) => ({ student, num: colIdx * perCol + offset + 1 }))
+  ).filter(chunk => chunk.length > 0);
+
   return (
-    <div className="flex flex-col h-full bg-slate-950 text-slate-100 px-4 py-2.5 space-y-2 animate-in fade-in duration-300 relative overflow-hidden">
+    <div className="flex flex-col h-full bg-slate-950 text-slate-100 px-3 py-1.5 space-y-1.5 animate-in fade-in duration-300 relative overflow-hidden">
       {/* Header Compacto / Recolhível */}
       {isHeaderCollapsed ? (
         <div className="flex items-center justify-between bg-slate-900/80 px-3 py-1.5 rounded-xl border border-white/5 gap-3 shrink-0 shadow-md">
@@ -777,7 +814,7 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
           </div>
         </div>
       ) : (
-        <div className="space-y-2.5">
+        <div className="space-y-1.5">
           <div className="flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
             <button 
@@ -846,8 +883,8 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
         </div>
 
         {/* Filters Otimizados */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-2.5 bg-slate-900/40 p-2.5 rounded-xl border border-white/5">
-          <div className="flex items-center gap-2.5 px-3 py-2 bg-slate-950/60 rounded-lg border border-slate-800/60">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-2 bg-slate-900/40 p-1.5 rounded-xl border border-white/5">
+          <div className="flex items-center gap-2.5 px-3 py-1.5 bg-slate-950/60 rounded-lg border border-slate-800/60">
             <Users className="text-slate-500 shrink-0" size={16} />
             <select 
               value={selectedClass}
@@ -861,12 +898,34 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
             </select>
           </div>
           
-          <div className="flex items-center gap-2.5 px-3 py-2 bg-slate-950/60 rounded-lg border border-slate-800/60">
+          <div className="flex items-center gap-2.5 px-3 py-1.5 bg-slate-950/60 rounded-lg border border-slate-800/60">
             <Clock className="text-slate-500" size={16} />
             <span className="text-slate-200 text-xs font-bold uppercase truncate">{new Date().toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' })}</span>
           </div>
 
-          <div className="col-span-2 flex items-center justify-end gap-3 px-2 flex-wrap">
+          <div className="col-span-2 flex items-center justify-end gap-2 px-1 flex-wrap">
+            {viewMode === 'list' && (
+              <div
+                className="bg-slate-950/80 p-0.5 rounded-lg border border-slate-800 flex items-center shrink-0"
+                title="Alternar quantidade de colunas na chamada"
+              >
+                {([2, 3] as const).map(cols => {
+                  const isActive = effectiveCols === cols;
+                  return (
+                    <button
+                      key={cols}
+                      type="button"
+                      onClick={() => setListColumns(cols)}
+                      className={`px-2 py-0.5 rounded text-[11px] font-bold transition whitespace-nowrap cursor-pointer ${
+                        isActive ? 'bg-slate-700 text-white' : 'text-slate-400 hover:text-slate-200'
+                      }`}
+                    >
+                      {cols} Col
+                    </button>
+                  );
+                })}
+              </div>
+            )}
             {!(window as any).aquila && (
               <button 
                 onClick={isBulkVoiceActive ? stopBulkVoice : startBulkVoice}
@@ -935,7 +994,7 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
       )}
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto pr-2">
+      <div className="flex-1 overflow-y-auto pr-1">
         {loading ? (
           <div className="flex items-center justify-center h-64">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-400"></div>
@@ -945,30 +1004,38 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
              Nenhum registro encontrado para esta turma.
           </div>
         ) : viewMode === 'list' ? (
-          /* MODO LISTA TRADICIONAL (Tabela clássica de diário de classe) */
-          <div className="bg-slate-900/50 border border-slate-800/80 rounded-xl overflow-hidden shadow-xl mb-4">
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse text-left">
-                <thead>
-                  <tr className="bg-slate-950/90 border-b border-white/5 text-[11px] font-extrabold uppercase text-slate-400 tracking-wider sticky top-0 z-10 backdrop-blur-sm">
-                    <th className="py-1.5 px-3 w-14 text-center">Nº</th>
-                    <th className="py-1.5 px-3">Aluno</th>
-                    <th className="py-1.5 px-3 w-64 text-center">Frequência</th>
-                    <th className="py-1.5 px-3 w-40 text-center">Socioemocional</th>
-                    <th className="py-1.5 px-3">Observações da Aula</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5 text-xs">
-                  {students.map((student, idx) => {
+          /* MODO LISTA TRADICIONAL COMPACTA (Multi-coluna P/F + clique no nome abre Socioemocional/Observação) */
+          <div
+            className={`grid gap-2 items-start pb-1 ${
+              effectiveCols === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 md:grid-cols-2'
+            }`}
+          >
+            {listColumnChunks.map((chunk, colIdx) => (
+              <div
+                key={colIdx}
+                className="bg-slate-900/50 border border-slate-800/80 rounded-xl overflow-hidden shadow-lg"
+              >
+                <div className="bg-slate-950/90 border-b border-white/5 px-2 py-1 flex items-center gap-1.5 text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">
+                  <span className="w-5 text-right shrink-0">Nº</span>
+                  <span className="flex-1 min-w-0 truncate">
+                    Aluno <span className="text-[9px] font-semibold normal-case text-slate-500">(clique p/ obs.)</span>
+                  </span>
+                  <span className="w-[56px] text-center shrink-0">P / F</span>
+                </div>
+                <div className="divide-y divide-white/5">
+                  {chunk.map(({ student, num }) => {
                     const entry = entries[student.id];
                     const status = entry?.attendanceStatus;
                     const isExplicitPresent =
                       status === 'present' || status === 'justified' || (!status && Boolean(entry?.present));
                     const isExplicitAbsent = status === 'absent';
+                    const moodInfo = entry?.mood ? MOOD_OPTIONS.find(m => m.id === entry.mood) : null;
+                    const hasObs = Boolean(entry?.observation?.trim());
+
                     return (
-                      <tr 
+                      <div
                         key={student.id}
-                        className={`transition-colors duration-150 ${
+                        className={`px-2 py-[3px] min-h-[30px] flex items-center gap-1.5 transition-colors duration-150 ${
                           highlighted?.id === student.id
                             ? highlighted.type === 'present'
                               ? 'bg-emerald-500/25 ring-1 ring-emerald-400'
@@ -978,108 +1045,88 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
                               : 'bg-slate-900/20 hover:bg-slate-800/40'
                         }`}
                       >
-                        {/* Número de Chamada */}
-                        <td className="py-1 px-3 text-center font-mono font-bold text-slate-400">
-                          #{idx + 1}
-                        </td>
+                        <span className="w-5 text-right font-mono text-[11px] font-bold text-slate-500 shrink-0 tabular-nums">
+                          {String(num).padStart(2, '0')}
+                        </span>
 
-                        {/* Aluno (Avatar + Nome Completo) */}
-                        <td className="py-1 px-3">
-                          <div className="flex items-center gap-2.5">
-                            <div className={`w-7 h-7 rounded-md overflow-hidden border flex items-center justify-center shrink-0 ${
+                        <button
+                          type="button"
+                          onClick={() => setActiveNoteStudentId(student.id)}
+                          title="Clique para registrar socioemocional e observação"
+                          className="flex-1 min-w-0 flex items-center gap-1.5 text-left group rounded-md px-1 py-0.5 -mx-0.5 hover:bg-slate-800/70 transition cursor-pointer"
+                        >
+                          <div className={`w-5 h-5 rounded overflow-hidden border flex items-center justify-center shrink-0 ${
+                            isExplicitPresent
+                              ? 'border-emerald-500/40 bg-slate-800'
+                              : isExplicitAbsent
+                                ? 'border-rose-500/40 bg-slate-900 opacity-70'
+                                : 'border-slate-700 bg-slate-800'
+                          }`}>
+                            {student.photoPath ? (
+                              <img src={`file://${student.photoPath}`} className="w-full h-full object-cover" alt="" />
+                            ) : (
+                              <span className="font-extrabold text-[10px] text-slate-300">
+                                {student.name.charAt(0).toUpperCase()}
+                              </span>
+                            )}
+                          </div>
+                          <span className={`flex-1 min-w-0 font-bold text-[12px] leading-tight truncate group-hover:text-emerald-300 ${
+                            isExplicitAbsent ? 'text-slate-400 line-through' : 'text-slate-100'
+                          }`}>
+                            {student.name}
+                          </span>
+                          <span className="flex items-center gap-1 shrink-0">
+                            {moodInfo && (
+                              <span className={moodInfo.badgeClass} title={`Socioemocional: ${moodInfo.label}`}>
+                                {moodInfo.renderIcon(12)}
+                              </span>
+                            )}
+                            {hasObs ? (
+                              <span className="text-amber-400" title="Possui observação registrada">
+                                <MessageSquare size={11} />
+                              </span>
+                            ) : !moodInfo ? (
+                              <span className="text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <MessageSquare size={11} />
+                              </span>
+                            ) : null}
+                          </span>
+                        </button>
+
+                        <div className="flex items-center gap-1 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => setStudentPresence(student.id, true)}
+                            className={`w-[26px] h-[22px] rounded text-[11px] font-black transition-all flex items-center justify-center border cursor-pointer ${
                               isExplicitPresent
-                                ? 'border-emerald-500/40 bg-slate-800'
-                                : isExplicitAbsent
-                                  ? 'border-rose-500/40 bg-slate-900 opacity-70'
-                                  : 'border-slate-700 bg-slate-800'
-                            }`}>
-                              {student.photoPath ? (
-                                <img src={`file://${student.photoPath}`} className="w-full h-full object-cover" alt="" />
-                              ) : (
-                                <span className="font-extrabold text-xs text-slate-300">
-                                  {student.name.charAt(0).toUpperCase()}
-                                </span>
-                              )}
-                            </div>
-                            <div className="min-w-0">
-                              <p className={`font-bold text-sm leading-tight truncate ${isExplicitAbsent ? 'text-slate-400 line-through' : 'text-slate-100'}`}>
-                                {student.name}
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-
-                        {/* Botões Presente / Falta */}
-                        <td className="py-1 px-3 text-center">
-                          <div className="inline-flex items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() => setStudentPresence(student.id, true)}
-                              className={`min-w-[104px] h-9 px-3.5 rounded-lg text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 border ${
-                                isExplicitPresent
-                                  ? 'bg-emerald-600 text-white border-emerald-400 shadow-sm shadow-emerald-600/30'
-                                  : 'bg-slate-900/90 text-slate-200 border-emerald-500/35 hover:bg-emerald-500/20 hover:text-white'
-                              }`}
-                              title="Marcar Presente"
-                            >
-                              <CheckCircle2 size={15} /> Presente
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setStudentPresence(student.id, false)}
-                              className={`min-w-[92px] h-9 px-3.5 rounded-lg text-[13px] font-bold transition-all flex items-center justify-center gap-1.5 border ${
-                                isExplicitAbsent
-                                  ? 'bg-rose-600 text-white border-rose-400 shadow-sm shadow-rose-600/30'
-                                  : 'bg-slate-900/90 text-slate-200 border-rose-500/35 hover:bg-rose-500/20 hover:text-white'
-                              }`}
-                              title="Marcar Falta"
-                            >
-                              <X size={15} /> Falta
-                            </button>
-                          </div>
-                        </td>
-
-                        {/* Socioemocional / Humor */}
-                        <td className="py-1 px-3 text-center">
-                          <div className="flex items-center justify-center gap-1">
-                            {[
-                              { id: 'happy', icon: <Smile size={14}/>, label: 'Feliz' },
-                              { id: 'energetic', icon: <Zap size={14}/>, label: 'Ativo' },
-                              { id: 'neutral', icon: <Meh size={14}/>, label: 'Neutro' },
-                              { id: 'tired', icon: <Frown size={14}/>, label: 'Desatento' }
-                            ].map(m => (
-                              <button
-                                key={m.id}
-                                onClick={() => updateMood(student.id, m.id as any)}
-                                className={`p-1.5 rounded-lg transition ${
-                                  entries[student.id]?.mood === m.id 
-                                    ? 'bg-emerald-500 text-white shadow-sm' 
-                                    : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/60'
-                                }`}
-                                title={m.label}
-                              >
-                                {m.icon}
-                              </button>
-                            ))}
-                          </div>
-                        </td>
-
-                        {/* Observações da Aula */}
-                        <td className="py-1 px-3">
-                          <input
-                            type="text"
-                            value={entries[student.id]?.observation || ''}
-                            onChange={(e) => updateObservation(student.id, e.target.value)}
-                            placeholder="Anotar observação..."
-                            className="w-full bg-slate-950/60 border border-slate-800/80 rounded-lg px-2.5 py-1 text-xs text-slate-200 placeholder-slate-600 focus:border-emerald-500/50 outline-none transition"
-                          />
-                        </td>
-                      </tr>
+                                ? 'bg-emerald-600 text-white border-emerald-400 shadow-sm shadow-emerald-600/30'
+                                : 'bg-slate-900/90 text-slate-300 border-emerald-500/35 hover:bg-emerald-500/20 hover:text-white'
+                            }`}
+                            title="Marcar Presente (P)"
+                            aria-label="Marcar Presente"
+                          >
+                            P
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setStudentPresence(student.id, false)}
+                            className={`w-[26px] h-[22px] rounded text-[11px] font-black transition-all flex items-center justify-center border cursor-pointer ${
+                              isExplicitAbsent
+                                ? 'bg-rose-600 text-white border-rose-400 shadow-sm shadow-rose-600/30'
+                                : 'bg-slate-900/90 text-slate-300 border-rose-500/35 hover:bg-rose-500/20 hover:text-white'
+                            }`}
+                            title="Marcar Falta (F)"
+                            aria-label="Marcar Falta"
+                          >
+                            F
+                          </button>
+                        </div>
+                      </div>
                     );
                   })}
-                </tbody>
-              </table>
-            </div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : viewMode === 'detailed' ? (
           <div className="space-y-1.5 pb-6">
@@ -1099,19 +1146,14 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
                 </div>
 
                 <div className="flex gap-1 shrink-0">
-                  {[
-                    { id: 'happy', icon: <Smile size={15}/>, label: 'Feliz' },
-                    { id: 'energetic', icon: <Zap size={15}/>, label: 'Ativo' },
-                    { id: 'neutral', icon: <Meh size={15}/>, label: 'Neutro' },
-                    { id: 'tired', icon: <Frown size={15}/>, label: 'Desatento' }
-                  ].map(m => (
+                  {MOOD_OPTIONS.map(m => (
                     <button 
                       key={m.id}
-                      onClick={() => updateMood(student.id, m.id as any)}
+                      onClick={() => updateMood(student.id, entries[student.id]?.mood === m.id ? null : m.id)}
                       className={`p-1.5 rounded-lg transition ${entries[student.id]?.mood === m.id ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/20' : 'bg-slate-800/50 hover:bg-slate-800 text-slate-400 border border-white/5'}`}
                       title={m.label}
                     >
-                      {m.icon}
+                      {m.renderIcon(15)}
                     </button>
                   ))}
                 </div>
@@ -1187,6 +1229,145 @@ export const Diary: React.FC<{ onBack: () => void; user?: any }> = ({ onBack, us
           </div>
         )}
       </div>
+
+      {/* Modal Socioemocional e Observação por Aluno */}
+      {activeNoteStudent && (() => {
+        const stuStatus = activeNoteEntry?.attendanceStatus;
+        const isStuPresent = stuStatus === 'present' || stuStatus === 'justified' || (!stuStatus && Boolean(activeNoteEntry?.present));
+        const isStuAbsent = stuStatus === 'absent';
+        return (
+          <div
+            className="absolute inset-0 bg-slate-950/75 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-150"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setActiveNoteStudentId(null);
+            }}
+          >
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Registro de ${activeNoteStudent.name}`}
+              className="bg-slate-900 border border-emerald-500/30 w-full max-w-md rounded-2xl shadow-2xl p-5 flex flex-col gap-4 animate-in zoom-in-95 duration-150"
+            >
+              <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-9 h-9 rounded-lg overflow-hidden border border-white/10 bg-slate-800 flex items-center justify-center shrink-0">
+                    {activeNoteStudent.photoPath ? (
+                      <img src={`file://${activeNoteStudent.photoPath}`} className="w-full h-full object-cover" alt="" />
+                    ) : (
+                      <span className="font-extrabold text-sm text-slate-200">
+                        {activeNoteStudent.name.charAt(0).toUpperCase()}
+                      </span>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-mono font-bold text-slate-400 uppercase">
+                      Chamada #{String(activeNoteIndex + 1).padStart(2, '0')}
+                    </span>
+                    <h2 className="text-sm font-extrabold text-white truncate">
+                      {activeNoteStudent.name}
+                    </h2>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setStudentPresence(activeNoteStudent.id, true)}
+                    className={`w-7 h-7 rounded-md text-xs font-black border transition cursor-pointer ${
+                      isStuPresent
+                        ? 'bg-emerald-600 text-white border-emerald-400'
+                        : 'bg-slate-950 text-slate-300 border-emerald-500/35 hover:bg-emerald-500/20'
+                    }`}
+                    title="Marcar Presente (P)"
+                  >
+                    P
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setStudentPresence(activeNoteStudent.id, false)}
+                    className={`w-7 h-7 rounded-md text-xs font-black border transition cursor-pointer ${
+                      isStuAbsent
+                        ? 'bg-rose-600 text-white border-rose-400'
+                        : 'bg-slate-950 text-slate-300 border-rose-500/35 hover:bg-rose-500/20'
+                    }`}
+                    title="Marcar Falta (F)"
+                  >
+                    F
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveNoteStudentId(null)}
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition ml-1 cursor-pointer"
+                    aria-label="Fechar"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-2">
+                  Socioemocional
+                </p>
+                <div className="grid grid-cols-4 gap-2">
+                  {MOOD_OPTIONS.map(m => {
+                    const selected = activeNoteEntry?.mood === m.id;
+                    return (
+                      <button
+                        key={m.id}
+                        type="button"
+                        onClick={() => updateMood(activeNoteStudent.id, selected ? null : m.id)}
+                        className={`flex flex-col items-center justify-center gap-1 py-2 px-1.5 rounded-xl border text-[11px] font-bold transition cursor-pointer ${
+                          selected
+                            ? 'bg-emerald-600 text-white border-emerald-400 shadow-md shadow-emerald-600/25'
+                            : 'bg-slate-950/70 text-slate-300 border-slate-800 hover:border-slate-700 hover:bg-slate-800/70'
+                        }`}
+                      >
+                        {m.renderIcon(18)}
+                        <span>{m.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 mb-2">
+                  Observações da Aula
+                </p>
+                <textarea
+                  autoFocus
+                  rows={3}
+                  value={activeNoteEntry?.observation || ''}
+                  onChange={(e) => updateObservation(activeNoteStudent.id, e.target.value)}
+                  placeholder="Anotar observação sobre o aluno nesta aula..."
+                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 placeholder-slate-500 focus:border-emerald-500/60 outline-none resize-none transition"
+                />
+              </div>
+
+              <div className="flex items-center justify-between gap-3 pt-2 border-t border-white/10">
+                <button
+                  type="button"
+                  onClick={() => {
+                    updateMood(activeNoteStudent.id, null);
+                    updateObservation(activeNoteStudent.id, '');
+                  }}
+                  className="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+                >
+                  Limpar
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveNoteStudentId(null)}
+                  className="px-4 py-1.5 rounded-lg text-xs font-extrabold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow cursor-pointer"
+                >
+                  Concluir
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Duplicate Candidates Selection Modal */}
       {nameCandidates.length > 0 && (

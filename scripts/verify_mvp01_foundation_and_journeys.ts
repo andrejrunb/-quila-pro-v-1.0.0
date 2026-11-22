@@ -947,6 +947,19 @@ async function main() {
     assert.ok(reportCardSrc.includes("'print:boletim'"), 'AcademicReportCard deve acionar print:boletim na impressão');
   });
 
+  await runCase('10. Diário de Classe compacto multi-coluna (P/F, sem scroll, modal socioemocional/observações ao clicar no aluno)', async () => {
+    const appRoot = path.resolve(__dirname, '../apps/electron');
+    const diarySrc = fs.readFileSync(path.join(appRoot, 'src/ui/pages/Diary.tsx'), 'utf-8');
+
+    assert.ok(!diarySrc.includes('>Socioemocional</th>'), 'LISTA TRADICIONAL não deve exibir coluna fixa Socioemocional na tabela');
+    assert.ok(!diarySrc.includes('>Observações da Aula</th>'), 'LISTA TRADICIONAL não deve exibir coluna fixa Observações da Aula na tabela');
+    assert.ok(diarySrc.includes('title="Marcar Presente (P)"'), 'Botão compacto de presença (P) deve estar presente na lista');
+    assert.ok(diarySrc.includes('title="Marcar Falta (F)"'), 'Botão compacto de falta (F) deve estar presente na lista');
+    assert.ok(diarySrc.includes('lg:grid-cols-3') && diarySrc.includes('md:grid-cols-2'), 'Layout em 2 ou 3 colunas deve estar configurado na lista');
+    assert.ok(diarySrc.includes('setActiveNoteStudentId(student.id)'), 'Clicar no nome do aluno deve abrir o modal de socioemocional e observações');
+    assert.ok(diarySrc.includes('aria-modal="true"'), 'Modal de socioemocional/observações ao clicar no aluno deve existir no Diary');
+  });
+
   console.log(`\nSUMMARY: passed=${passed} failed=${failed}`);
   process.exit(failed > 0 ? 1 : 0);
 }
