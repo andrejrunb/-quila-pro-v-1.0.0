@@ -76,10 +76,6 @@ select option:checked {
   --gap-lg: 16px;
   --gap-xl: 20px;
   --container-padding: 16px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
   --radius-full: 9999px;
   
   /* Professional Typography Scale - High Density */

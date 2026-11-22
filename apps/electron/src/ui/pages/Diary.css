@@ -1,0 +1,116 @@
+/* Scoped toolbar and segmented controls for Diário de Classe */
+
+.diary-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.diary-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+}
+
+.diary-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.diary-toolbar-btn--blue {
+  background: #2563eb;
+  color: #ffffff;
+  border: 1px solid rgba(96, 165, 250, 0.35);
+}
+
+.diary-toolbar-btn--blue:hover {
+  background: #3b82f6;
+}
+
+.diary-toolbar-btn--emerald {
+  background: #059669;
+  color: #ffffff;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.diary-toolbar-btn--emerald:hover {
+  background: #10b981;
+}
+
+.diary-toolbar-btn--ghost {
+  background: #0f172a;
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.diary-toolbar-btn--ghost:hover {
+  background: #1e293b;
+  color: #ffffff;
+}
+
+.diary-segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 3px;
+  border-radius: 9px;
+  background: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  flex-shrink: 0;
+}
+
+.diary-segmented-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.diary-segmented-btn:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.diary-segmented-btn--active {
+  background: #10b981;
+  color: #ffffff;
+  border-color: rgba(110, 231, 183, 0.35);
+  box-shadow: 0 1px 6px rgba(16, 185, 129, 0.25);
+}
+
+.diary-segmented-btn--active:hover {
+  background: #10b981;
+  color: #ffffff;
+}

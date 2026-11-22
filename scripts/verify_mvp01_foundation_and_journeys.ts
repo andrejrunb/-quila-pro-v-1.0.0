@@ -958,6 +958,11 @@ async function main() {
     assert.ok(diarySrc.includes('lg:grid-cols-3') && diarySrc.includes('md:grid-cols-2'), 'Layout em 2 ou 3 colunas deve estar configurado na lista');
     assert.ok(diarySrc.includes('setActiveNoteStudentId(student.id)'), 'Clicar no nome do aluno deve abrir o modal de socioemocional e observações');
     assert.ok(diarySrc.includes('aria-modal="true"'), 'Modal de socioemocional/observações ao clicar no aluno deve existir no Diary');
+    assert.ok(diarySrc.includes("import './Diary.css'"), 'Diary.tsx deve importar Diary.css para barra e controles escopados');
+    assert.ok(diarySrc.includes('diary-toolbar') && diarySrc.includes('diary-segmented'), 'Diary.tsx deve usar diary-toolbar e diary-segmented no cabeçalho');
+
+    const indexCssSrc = fs.readFileSync(path.join(appRoot, 'src/index.css'), 'utf-8');
+    assert.ok(!indexCssSrc.includes('--radius-lg: 16px') && !indexCssSrc.includes('--radius-xl: 20px'), 'index.css não deve sobrescrever --radius-lg/--radius-xl globais do Tailwind v4');
   });
 
   console.log(`\nSUMMARY: passed=${passed} failed=${failed}`);
